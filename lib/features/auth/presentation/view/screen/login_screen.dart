@@ -1,92 +1,263 @@
 import 'dart:developer';
 
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:animate_do/animate_do.dart';
 import 'package:car/core/custom_widgets/buttons/custom_button.dart';
 import 'package:car/core/custom_widgets/custom_form_field/custom_form_field.dart';
 import 'package:car/core/custom_widgets/custom_toast/custom_toast.dart';
 import 'package:car/core/routes/routes_name.dart';
+import 'package:car/core/theme/app_colors.dart';
+import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/core/utils/common_methods.dart';
 import 'package:car/core/utils/navigator_methods.dart';
 import 'package:car/features/auth/presentation/view/cubit/auth_cubit.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
   final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     final cubit = context.read<AuthCubit>();
 
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(18.0),
+      backgroundColor: AppColor.scaffoldColor(context),
+      body: Container(
+        width: double.infinity,
+        height: double.infinity,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topRight,
+            end: Alignment.bottomLeft,
+            colors: [
+              AppColor.secondAppColor(context),
+              const Color(0xff161B22),
+              AppColor.primaryColor(context).withOpacity(0.1),
+            ],
+          ),
+        ),
         child: BlocConsumer<AuthCubit, AuthState>(
           listener: (context, state) {
             if (state.loginStatus.isSuccess) {
-              CommonMethods.showToast(
-                message:
-                    state.loginStatus.data?.message ??
-                    "Login success=============",
-              );
+              CommonMethods.showToast(message: state.loginStatus.data?.message ?? "Login success");
               NavigatorMethods.pushNamed(context, RoutesName.homeScreen);
             }
             if (state.loginStatus.isFailure) {
-              log(
-                state.loginStatus.error?.toString() ??
-                    "-----------------------------",
-              );
+              log(state.loginStatus.error?.toString() ?? "Login failed");
               final error = state.loginStatus.error ?? "Login failed";
               CommonMethods.showToast(message: error, type: ToastType.error);
             }
           },
           builder: (context, state) {
-            return Form(
-              key: _formKey,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                spacing: 20,
-                children: [
-                  CustomFormField(
-                    controller: cubit.mobileController,
-                    title: 'Mobile',
-                    prefixIcon: const Icon(Icons.phone),
-                    validator: (value) =>
-                        value!.isEmpty ? 'Enter mobile' : null,
+            return SafeArea(
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 24.w),
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(height: 60.h),
+                        FadeInDown(
+                          duration: const Duration(milliseconds: 1500),
+                          child: Center(
+                            child: Container(
+                              padding: EdgeInsets.all(20.w),
+                              decoration: BoxDecoration(
+                                color: Colors.white.withOpacity(0.05),
+                                shape: BoxShape.circle,
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: AppColor.primaryColor(context).withOpacity(0.2),
+                                    blurRadius: 30,
+                                    spreadRadius: 5,
+                                  ),
+                                ],
+                              ),
+                              child: Icon(
+                                Icons.directions_car_filled_rounded,
+                                size: 60.w,
+                                color: AppColor.primaryColor(context),
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 40.h),
+                        FadeInLeft(
+                          duration: const Duration(milliseconds: 1000),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Welcome Back',
+                                style: AppTextStyle.titleLarge(
+                                  context,
+                                  color: Colors.white,
+                                ).copyWith(fontSize: 32.sp),
+                              ),
+                              SizedBox(height: 8.h),
+                              Text(
+                                'Login to continue your premium experience',
+                                style: AppTextStyle.bodyMedium(
+                                  context,
+                                  color: Colors.white.withOpacity(0.6),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(height: 40.h),
+                        FadeInUp(
+                          delay: const Duration(milliseconds: 200),
+                          duration: const Duration(milliseconds: 1000),
+                          child: CustomFormField(
+                            controller: cubit.mobileController,
+                            hintText: 'Mobile Number',
+                            prefixIcon: Icon(
+                              Icons.phone_iphone_rounded,
+                              color: AppColor.primaryColor(context),
+                            ),
+                            fillColor: Colors.white.withOpacity(0.05),
+                            textStyle: const TextStyle(color: Colors.white),
+                            hintStyle: TextStyle(color: Colors.white.withOpacity(0.3)),
+                            radius: 16,
+                            keyboardType: TextInputType.phone,
+                          ),
+                        ),
+                        SizedBox(height: 20.h),
+                        FadeInUp(
+                          delay: const Duration(milliseconds: 400),
+                          duration: const Duration(milliseconds: 1000),
+                          child: CustomFormField(
+                            controller: cubit.passwordController,
+                            hintText: 'Password',
+                            isPassword: true,
+                            prefixIcon: Icon(
+                              Icons.lock_outline_rounded,
+                              color: AppColor.primaryColor(context),
+                            ),
+                            fillColor: Colors.white.withOpacity(0.05),
+                            textStyle: const TextStyle(color: Colors.white),
+                            hintStyle: TextStyle(color: Colors.white.withOpacity(0.3)),
+                            radius: 16,
+                          ),
+                        ),
+                        SizedBox(height: 10.h),
+                        FadeInUp(
+                          delay: const Duration(milliseconds: 500),
+                          duration: const Duration(milliseconds: 1000),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Row(
+                                children: [
+                                  SizedBox(
+                                    height: 24.h,
+                                    width: 24.h,
+                                    child: Theme(
+                                      data: ThemeData(
+                                        unselectedWidgetColor: Colors.white.withOpacity(0.3),
+                                      ),
+                                      child: Checkbox(
+                                        value: cubit.rememberMe,
+                                        activeColor: AppColor.primaryColor(context),
+                                        onChanged: (value) => cubit.changeRememberMe(),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(width: 8.w),
+                                  Text(
+                                    'Remember Me',
+                                    style: AppTextStyle.bodySmall(
+                                      context,
+                                      color: Colors.white.withOpacity(0.7),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              TextButton(
+                                onPressed: () {},
+                                child: Text(
+                                  'Forgot Password?',
+                                  style: AppTextStyle.bodySmall(
+                                    context,
+                                    color: AppColor.primaryColor(context),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(height: 30.h),
+                        FadeInUp(
+                          delay: const Duration(milliseconds: 600),
+                          duration: const Duration(milliseconds: 1000),
+                          child: Column(
+                            children: [
+                              CustomButton(
+                                text: "Login",
+                                cubitState: cubit.state.loginStatus,
+                                onPressed: () {
+                                  if (_formKey.currentState!.validate()) {
+                                    cubit.login(context: context);
+                                  }
+                                },
+                              ),
+                              SizedBox(height: 15.h),
+                              TextButton(
+                                onPressed: () =>
+                                    NavigatorMethods.pushNamed(context, RoutesName.homeScreen),
+                                child: Text(
+                                  'Continue as Guest',
+                                  style:
+                                      AppTextStyle.bodyMedium(
+                                        context,
+                                        color: Colors.white.withOpacity(0.5),
+                                      ).copyWith(
+                                        decoration: TextDecoration.underline,
+                                        decorationColor: Colors.white.withOpacity(0.5),
+                                      ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(height: 40.h),
+                        FadeInUp(
+                          delay: const Duration(milliseconds: 800),
+                          duration: const Duration(milliseconds: 1000),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "Don't have an account? ",
+                                style: AppTextStyle.bodyMedium(
+                                  context,
+                                  color: Colors.white.withOpacity(0.6),
+                                ),
+                              ),
+                              TextButton(
+                                onPressed: () =>
+                                    NavigatorMethods.pushNamed(context, RoutesName.registerScreen),
+                                child: Text(
+                                  'Sign Up',
+                                  style: AppTextStyle.bodyLarge(
+                                    context,
+                                    color: AppColor.primaryColor(context),
+                                  ).copyWith(fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(height: 20.h),
+                      ],
+                    ),
                   ),
-                  CustomFormField(
-                    controller: cubit.passwordController,
-                    title: 'Password',
-                    prefixIcon: const Icon(Icons.lock),
-                    isPassword: true,
-                    validator: (value) =>
-                        value!.isEmpty ? 'Enter password' : null,
-                  ),
-                  CustomFormField(
-                    controller: cubit.accountTypeController,
-                    title: 'Account Type',
-                    prefixIcon: const Icon(Icons.person),
-                    validator: (value) =>
-                        value!.isEmpty ? 'Enter account type' : null,
-                  ),
-                  Row(
-                    children: [
-                      Checkbox(
-                        value: cubit.rememberMe,
-                        onChanged: (value) => cubit.changeRememberMe(),
-                      ),
-                      const Text('Remember Me'),
-                    ],
-                  ),
-                  CustomButton(
-                    text: "login",
-                    cubitState: cubit.state.loginStatus,
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        cubit.login(context: context);
-                      }
-                    },
-                  ),
-                ],
+                ),
               ),
             );
           },

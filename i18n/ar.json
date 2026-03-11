@@ -1,5 +1,27 @@
 {
-  
-    "PleaseCheckYourConnectionAndTryAgain" : "يرجى التحقق من اتصالك ثم المحاولة مرة أخرى."
-  }
-  
+  "PleaseCheckYourConnectionAndTryAgain": "يرجى التحقق من اتصالك ثم المحاولة مرة أخرى.",
+  "car_app": "تطبيق السيارات",
+  "quality_reliability": "الجودة والموثوقية",
+  "find_dream_car": "ابحث عن سيارة أحلامك",
+  "explore_luxury_cars": "استكشف مجموعة واسعة من السيارات الفاخرة في صالة العرض المستقبلية لدينا.",
+  "expert_maintenance": "صيانة الخبراء",
+  "keep_car_top_condition": "حافظ على سيارتك في أفضل حالة مع مراكز الخدمة عالية التقنية لدينا.",
+  "fast_secure_delivery": "توصيل سريع وآمن",
+  "experience_seamless_delivery": "استمتع بتجربة توصيل سلسة لسيارتك مباشرة إلى باب منزلك.",
+  "next": "التالي",
+  "get_started": "ابدأ الآن",
+  "welcome_back": "مرحباً بك مجدداً",
+  "login_continue_premium": "سجل دخولك للاستمتاع بتجربتك المميزة",
+  "mobile_number": "رقم الجوال",
+  "password": "كلمة المرور",
+  "remember_me": "تذكرني",
+  "forgot_password": "نسيت كلمة المرور؟",
+  "login": "تسجيل الدخول",
+  "continue_as_guest": "المتابعة كزائر",
+  "dont_have_account": "ليس لديك حساب؟ ",
+  "sign_up": "إنشاء حساب",
+  "create_account": "إنشاء حساب جديد",
+  "join_premium_community": "انضم إلى مجتمعنا المتميز في عالم السيارات",
+  "full_name": "الاسم الكامل",
+  "already_have_account": "لديك حساب بالفعل؟ "
+}

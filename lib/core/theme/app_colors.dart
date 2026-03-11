@@ -84,6 +84,15 @@ class AppColor {
     );
   }
 
+  static Color blackTextColor(BuildContext context, {bool listen = true}) {
+    return AppTheme.getByTheme(
+      context,
+      light: const Color(0xFF23120B),
+      dark: const Color(0xFF23120B),
+      listen: listen,
+    );
+  }
+
   static Color whiteColor(BuildContext context, {bool listen = true}) {
     return AppTheme.getByTheme(
       context,

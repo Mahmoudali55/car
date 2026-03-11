@@ -1,4 +1,27 @@
 {
- 
-  "PleaseCheckYourConnectionAndTryAgain": "Please check your connection and try again."
+  "PleaseCheckYourConnectionAndTryAgain": "Please check your connection and try again.",
+  "car_app": "CAR APP",
+  "quality_reliability": "Quality & Reliability",
+  "find_dream_car": "Find Your Dream Car",
+  "explore_luxury_cars": "Explore a wide range of premium luxury cars in our futuristic showroom.",
+  "expert_maintenance": "Expert Maintenance",
+  "keep_car_top_condition": "Keep your car in top condition with our high-tech service centers.",
+  "fast_secure_delivery": "Fast & Secure Delivery",
+  "experience_seamless_delivery": "Experience seamless delivery of your vehicle straight to your doorstep.",
+  "next": "Next",
+  "get_started": "Get Started",
+  "welcome_back": "Welcome Back",
+  "login_continue_premium": "Login to continue your premium experience",
+  "mobile_number": "Mobile Number",
+  "password": "Password",
+  "remember_me": "Remember Me",
+  "forgot_password": "Forgot Password?",
+  "login": "Login",
+  "continue_as_guest": "Continue as Guest",
+  "dont_have_account": "Don't have an account? ",
+  "sign_up": "Sign Up",
+  "create_account": "Create Account",
+  "join_premium_community": "Join our premium automotive community",
+  "full_name": "Full Name",
+  "already_have_account": "Already have an account? "
 }
