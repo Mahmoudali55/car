@@ -4,12 +4,14 @@ import 'package:animate_do/animate_do.dart';
 import 'package:car/core/custom_widgets/buttons/custom_button.dart';
 import 'package:car/core/custom_widgets/custom_form_field/custom_form_field.dart';
 import 'package:car/core/custom_widgets/custom_toast/custom_toast.dart';
+import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/routes/routes_name.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/core/utils/common_methods.dart';
 import 'package:car/core/utils/navigator_methods.dart';
 import 'package:car/features/auth/presentation/view/cubit/auth_cubit.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -92,7 +94,7 @@ class LoginScreen extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Welcome Back',
+                                AppLocaleKey.welcomeBack.tr(),
                                 style: AppTextStyle.titleLarge(
                                   context,
                                   color: Colors.white,
@@ -100,7 +102,7 @@ class LoginScreen extends StatelessWidget {
                               ),
                               SizedBox(height: 8.h),
                               Text(
-                                'Login to continue your premium experience',
+                                AppLocaleKey.loginToContinueYourPremiumExperience.tr(),
                                 style: AppTextStyle.bodyMedium(
                                   context,
                                   color: Colors.white.withOpacity(0.6),
@@ -115,7 +117,7 @@ class LoginScreen extends StatelessWidget {
                           duration: const Duration(milliseconds: 1000),
                           child: CustomFormField(
                             controller: cubit.mobileController,
-                            hintText: 'Mobile Number',
+                            hintText: AppLocaleKey.mobileNumber.tr(),
                             prefixIcon: Icon(
                               Icons.phone_iphone_rounded,
                               color: AppColor.primaryColor(context),
@@ -133,7 +135,7 @@ class LoginScreen extends StatelessWidget {
                           duration: const Duration(milliseconds: 1000),
                           child: CustomFormField(
                             controller: cubit.passwordController,
-                            hintText: 'Password',
+                            hintText: AppLocaleKey.password.tr(),
                             isPassword: true,
                             prefixIcon: Icon(
                               Icons.lock_outline_rounded,
@@ -170,7 +172,7 @@ class LoginScreen extends StatelessWidget {
                                   ),
                                   SizedBox(width: 8.w),
                                   Text(
-                                    'Remember Me',
+                                    AppLocaleKey.rememberMe.tr(),
                                     style: AppTextStyle.bodySmall(
                                       context,
                                       color: Colors.white.withOpacity(0.7),
@@ -181,7 +183,7 @@ class LoginScreen extends StatelessWidget {
                               TextButton(
                                 onPressed: () {},
                                 child: Text(
-                                  'Forgot Password?',
+                                  AppLocaleKey.forgotPassword.tr(),
                                   style: AppTextStyle.bodySmall(
                                     context,
                                     color: AppColor.primaryColor(context),
@@ -198,7 +200,7 @@ class LoginScreen extends StatelessWidget {
                           child: Column(
                             children: [
                               CustomButton(
-                                text: "Login",
+                                text: AppLocaleKey.login.tr(),
                                 cubitState: cubit.state.loginStatus,
                                 onPressed: () {
                                   if (_formKey.currentState!.validate()) {
@@ -211,7 +213,7 @@ class LoginScreen extends StatelessWidget {
                                 onPressed: () =>
                                     NavigatorMethods.pushNamed(context, RoutesName.homeScreen),
                                 child: Text(
-                                  'Continue as Guest',
+                                  AppLocaleKey.continueAsGuest.tr(),
                                   style:
                                       AppTextStyle.bodyMedium(
                                         context,
@@ -233,7 +235,7 @@ class LoginScreen extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                "Don't have an account? ",
+                                AppLocaleKey.dontHaveAnAccount.tr(),
                                 style: AppTextStyle.bodyMedium(
                                   context,
                                   color: Colors.white.withOpacity(0.6),
@@ -243,7 +245,7 @@ class LoginScreen extends StatelessWidget {
                                 onPressed: () =>
                                     NavigatorMethods.pushNamed(context, RoutesName.registerScreen),
                                 child: Text(
-                                  'Sign Up',
+                                  AppLocaleKey.signUp.tr(),
                                   style: AppTextStyle.bodyLarge(
                                     context,
                                     color: AppColor.primaryColor(context),

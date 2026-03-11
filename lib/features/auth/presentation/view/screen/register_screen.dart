@@ -1,4 +1,6 @@
 import 'package:animate_do/animate_do.dart';
+import 'package:car/core/localization/app_locale_keys.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:car/core/custom_widgets/buttons/custom_button.dart';
 import 'package:car/core/custom_widgets/custom_form_field/custom_form_field.dart';
 import 'package:car/core/theme/app_colors.dart';
@@ -66,7 +68,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Create Account',
+                            AppLocaleKey.createAccount.tr(),
                             style: AppTextStyle.titleLarge(
                               context,
                               color: Colors.white,
@@ -74,7 +76,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           ),
                           SizedBox(height: 8.h),
                           Text(
-                            'Join our premium automotive community',
+                            AppLocaleKey.joinOurPremiumAutomotiveCommunity.tr(),
                             style: AppTextStyle.bodyMedium(
                               context,
                               color: Colors.white.withOpacity(0.6),
@@ -90,7 +92,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       child: CustomFormField(
                         controller:
                             TextEditingController(), // Placeholder, update with cubit if needed
-                        hintText: 'Full Name',
+                        hintText: AppLocaleKey.fullName.tr(),
                         prefixIcon: Icon(
                           Icons.person_outline_rounded,
                           color: AppColor.primaryColor(context),
@@ -107,7 +109,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       duration: const Duration(milliseconds: 1000),
                       child: CustomFormField(
                         controller: cubit.mobileController,
-                        hintText: 'Mobile Number',
+                        hintText: AppLocaleKey.mobileNumber.tr(),
                         prefixIcon: Icon(
                           Icons.phone_iphone_rounded,
                           color: AppColor.primaryColor(context),
@@ -125,7 +127,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       duration: const Duration(milliseconds: 1000),
                       child: CustomFormField(
                         controller: cubit.passwordController,
-                        hintText: 'Password',
+                        hintText: AppLocaleKey.password.tr(),
                         isPassword: true,
                         prefixIcon: Icon(
                           Icons.lock_outline_rounded,
@@ -142,7 +144,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       delay: const Duration(milliseconds: 800),
                       duration: const Duration(milliseconds: 1000),
                       child: CustomButton(
-                        text: "Sign Up",
+                        text: AppLocaleKey.signUp.tr(),
                         cubitState: cubit.state.loginStatus,
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
@@ -159,7 +161,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            'Already have an account? ',
+                            AppLocaleKey.alreadyHaveAnAccount.tr(),
                             style: AppTextStyle.bodyMedium(
                               context,
                               color: Colors.white.withOpacity(0.6),
@@ -168,7 +170,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           TextButton(
                             onPressed: () => Navigator.pop(context),
                             child: Text(
-                              'Login',
+                              AppLocaleKey.login.tr(),
                               style: AppTextStyle.bodyLarge(
                                 context,
                                 color: AppColor.primaryColor(context),

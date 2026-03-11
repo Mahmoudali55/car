@@ -1,4 +1,6 @@
 import 'package:animate_do/animate_do.dart';
+import 'package:car/core/localization/app_locale_keys.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:car/core/routes/routes_name.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/utils/navigator_methods.dart';
@@ -18,20 +20,20 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   final List<OnboardingModel> _pages = [
     OnboardingModel(
-      title: 'Find Your Dream Car',
-      description: 'Explore a wide range of premium luxury cars in our futuristic showroom.',
+      title: AppLocaleKey.findYourDreamCar.tr(),
+      description: AppLocaleKey.exploreLuxuryCars.tr(),
       image: 'assets/images/onboarding_car_selection.png',
       isImage: true,
     ),
     OnboardingModel(
-      title: 'Expert Maintenance',
-      description: 'Keep your car in top condition with our high-tech service centers.',
+      title: AppLocaleKey.expertMaintenance.tr(),
+      description: AppLocaleKey.keepCarInTopCondition.tr(),
       image: 'assets/images/onboarding_car_service.png',
       isImage: true,
     ),
     OnboardingModel(
-      title: 'Fast & Secure Delivery',
-      description: 'Experience seamless delivery of your vehicle straight to your doorstep.',
+      title: AppLocaleKey.fastAndSecureDelivery.tr(),
+      description: AppLocaleKey.experienceSeamlessDelivery.tr(),
       image: Icons.speed_rounded,
       isImage: false,
     ),
@@ -131,7 +133,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         elevation: 0,
                       ),
                       child: Text(
-                        _currentPage == _pages.length - 1 ? 'Get Started' : 'Next',
+                        _currentPage == _pages.length - 1
+                            ? AppLocaleKey.getStarted.tr()
+                            : AppLocaleKey.next.tr(),
                         style: TextStyle(
                           fontSize: 16.sp,
                           fontWeight: FontWeight.bold,

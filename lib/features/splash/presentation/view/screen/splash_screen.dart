@@ -1,4 +1,6 @@
 import 'package:animate_do/animate_do.dart';
+import 'package:car/core/localization/app_locale_keys.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:car/core/routes/routes_name.dart';
@@ -82,7 +84,7 @@ class _SplashScreenState extends State<SplashScreen> {
                   FadeInUp(
                     duration: const Duration(milliseconds: 1500),
                     child: Text(
-                      'CAR APP',
+                      AppLocaleKey.carApp.tr(),
                       style: TextStyle(
                         fontSize: 28.sp,
                         fontWeight: FontWeight.bold,
@@ -96,7 +98,7 @@ class _SplashScreenState extends State<SplashScreen> {
                     delay: const Duration(milliseconds: 500),
                     duration: const Duration(milliseconds: 1500),
                     child: Text(
-                      'Quality & Reliability',
+                      AppLocaleKey.qualityAndReliability.tr(),
                       style: AppTextStyle.text14RGrey(
                         context,
                       ).copyWith(color: Colors.white.withOpacity(0.8), letterSpacing: 1.0),
