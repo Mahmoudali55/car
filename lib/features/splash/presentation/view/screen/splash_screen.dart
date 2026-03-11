@@ -17,13 +17,13 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    _navigateToLogin();
+    _navigateToOnboarding();
   }
 
-  void _navigateToLogin() {
+  void _navigateToOnboarding() {
     Future.delayed(const Duration(seconds: 3)).then((value) {
       if (mounted) {
-        NavigatorMethods.pushReplacementNamed(context, RoutesName.loginScreen);
+        NavigatorMethods.pushReplacementNamed(context, RoutesName.onboardingScreen);
       }
     });
   }
@@ -36,12 +36,12 @@ class _SplashScreenState extends State<SplashScreen> {
         height: double.infinity,
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
+            begin: Alignment.topRight,
+            end: Alignment.bottomLeft,
             colors: [
-              AppColor.primaryColor(context),
-              AppColor.primaryColor(context).withOpacity(0.8),
               AppColor.secondAppColor(context),
+              const Color(0xff161B22),
+              AppColor.primaryColor(context).withOpacity(0.3),
             ],
           ),
         ),
@@ -60,9 +60,14 @@ class _SplashScreenState extends State<SplashScreen> {
                         shape: BoxShape.circle,
                         boxShadow: [
                           BoxShadow(
+                            color: AppColor.primaryColor(context).withOpacity(0.4),
+                            blurRadius: 40,
+                            spreadRadius: 5,
+                          ),
+                          BoxShadow(
                             color: Colors.black.withOpacity(0.2),
-                            blurRadius: 30,
-                            offset: const Offset(0, 15),
+                            blurRadius: 20,
+                            offset: const Offset(0, 10),
                           ),
                         ],
                       ),

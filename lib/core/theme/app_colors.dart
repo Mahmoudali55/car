@@ -6,8 +6,8 @@ class AppColor {
   static Color primaryColor(BuildContext context, {bool listen = true}) {
     return AppTheme.getByTheme(
       context,
-      light: const Color(0xff0B409C),
-      dark: const Color(0xff0B409C),
+      light: const Color(0xff0066FF),
+      dark: const Color(0xff0066FF),
       listen: listen,
     );
   }
@@ -15,8 +15,8 @@ class AppColor {
   static Color secondAppColor(BuildContext context, {bool listen = true}) {
     return AppTheme.getByTheme(
       context,
-      light: const Color(0xff23120B),
-      dark: const Color(0xff23120B),
+      light: const Color(0xff0A0E14),
+      dark: const Color(0xff0A0E14),
       listen: listen,
     );
   }
@@ -37,7 +37,9 @@ class AppColor {
       dark: const Color(0xFFF9F9F9),
       listen: listen,
     );
-  }  static Color textFormFillColor(BuildContext context, {bool listen = true}) {
+  }
+
+  static Color textFormFillColor(BuildContext context, {bool listen = true}) {
     return AppTheme.getByTheme(
       context,
       light: const Color(0xFFF9F9F9),

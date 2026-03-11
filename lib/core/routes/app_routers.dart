@@ -10,6 +10,8 @@ class AppRouters {
         return MaterialPageRoute(builder: (_) => const SplashScreen());
       case RoutesName.homeScreen:
         return MaterialPageRoute(builder: (_) => HomeScreen());
+      case RoutesName.onboardingScreen:
+        return MaterialPageRoute(builder: (_) => const OnboardingScreen());
       case RoutesName.loginScreen:
         return MaterialPageRoute(
           builder: (_) => BlocProvider(create: (context) => sl<AuthCubit>(), child: LoginScreen()),
