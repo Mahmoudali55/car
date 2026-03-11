@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/widgets.dart';
-import 'package:my_template/core/network/status.state.dart';
-import 'package:my_template/features/auth/data/repository/auth_repo.dart';
+import 'package:car/core/network/status.state.dart';
+import 'package:car/features/auth/data/repository/auth_repo.dart';
 
 import '../../../data/model/user_model.dart';
 

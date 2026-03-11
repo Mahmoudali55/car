@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-import 'package:my_template/core/error/failures.dart';
+import 'package:car/core/error/failures.dart';
 
 Future<Either<Failure, T>> handleDioRequest<T>({
   required Future<T> Function() request,

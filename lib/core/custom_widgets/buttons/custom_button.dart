@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:my_template/core/network/status.state.dart';
+import 'package:car/core/network/status.state.dart';
 
 import '../../theme/app_colors.dart';
 import '../../theme/app_text_style.dart';

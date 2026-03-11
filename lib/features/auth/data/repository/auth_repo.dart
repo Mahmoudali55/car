@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
-import 'package:my_template/core/network/api_consumer.dart';
-import 'package:my_template/core/network/end_points.dart';
-import 'package:my_template/core/network/handle_dio_request.dart';
+import 'package:car/core/network/api_consumer.dart';
+import 'package:car/core/network/end_points.dart';
+import 'package:car/core/network/handle_dio_request.dart';
 
 import '../../../../core/error/failures.dart' hide handleDioRequest;
 import '../model/user_model.dart';

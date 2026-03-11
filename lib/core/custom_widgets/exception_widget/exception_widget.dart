@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:my_template/core/extension/context_extension.dart';
+import 'package:car/core/extension/context_extension.dart';
 
 import '../../images/app_images.dart';
 import '../../theme/app_colors.dart';

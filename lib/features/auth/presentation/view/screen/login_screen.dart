@@ -2,13 +2,13 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:my_template/core/custom_widgets/buttons/custom_button.dart';
-import 'package:my_template/core/custom_widgets/custom_form_field/custom_form_field.dart';
-import 'package:my_template/core/custom_widgets/custom_toast/custom_toast.dart';
-import 'package:my_template/core/routes/routes_name.dart';
-import 'package:my_template/core/utils/common_methods.dart';
-import 'package:my_template/core/utils/navigator_methods.dart';
-import 'package:my_template/features/auth/presentation/view/cubit/auth_cubit.dart';
+import 'package:car/core/custom_widgets/buttons/custom_button.dart';
+import 'package:car/core/custom_widgets/custom_form_field/custom_form_field.dart';
+import 'package:car/core/custom_widgets/custom_toast/custom_toast.dart';
+import 'package:car/core/routes/routes_name.dart';
+import 'package:car/core/utils/common_methods.dart';
+import 'package:car/core/utils/navigator_methods.dart';
+import 'package:car/features/auth/presentation/view/cubit/auth_cubit.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});

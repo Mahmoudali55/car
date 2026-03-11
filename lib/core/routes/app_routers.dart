@@ -7,15 +7,12 @@ class AppRouters {
     if (settings.arguments != null) args = settings.arguments;
     switch (settings.name) {
       case RoutesName.splashScreen:
-        return MaterialPageRoute(builder: (_) => SplashScreen());
+        return MaterialPageRoute(builder: (_) => const SplashScreen());
       case RoutesName.homeScreen:
         return MaterialPageRoute(builder: (_) => HomeScreen());
       case RoutesName.loginScreen:
         return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (context) => sl<AuthCubit>(),
-            child: LoginScreen(),
-          ),
+          builder: (_) => BlocProvider(create: (context) => sl<AuthCubit>(), child: LoginScreen()),
         );
 
       default:
