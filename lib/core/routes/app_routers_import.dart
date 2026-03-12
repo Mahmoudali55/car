@@ -1,6 +1,8 @@
 import 'package:car/core/routes/routes_name.dart';
 import 'package:car/features/auth/presentation/view/screen/login_screen.dart';
+import 'package:car/features/home/presentation/view/screen/all_brands_screen.dart';
 import 'package:car/features/home/presentation/view/screen/home_screen.dart';
+import 'package:car/features/home/presentation/view/screen/main_layout.dart';
 import 'package:car/features/onboarding/presentation/view/screen/onboarding_screen.dart';
 import 'package:car/features/auth/presentation/view/screen/register_screen.dart';
 import 'package:car/features/splash/presentation/view/screen/splash_screen.dart';

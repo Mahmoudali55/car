@@ -28,7 +28,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     ),
     OnboardingModel(
       title: AppLocaleKey.expertMaintenance.tr(),
-      description: AppLocaleKey.keepCarInTopCondition.tr(),
+      description: AppLocaleKey.expertMaintenance.tr(),
       image: 'assets/images/onboarding_car_service.png',
       isImage: true,
     ),

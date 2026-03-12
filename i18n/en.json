@@ -69,5 +69,16 @@
   "convertible": "Convertible",
   "coupe": "Coupe",
   "truck": "Truck",
-  "van": "Van"
+  "van": "Van",
+  "buy": "Buy",
+  "sell": "Sell",
+  "notifications": "Notifications",
+  "welcome_to_car_group": "Welcome",
+  "popular_cars": "Popular Cars",
+  "order_now": "Order Now",
+  "details": "Details",
+  "brands": "Brands",
+  "services": "Services",
+  "cars": "Cars",
+  "allBrands": "All Brands"
 }

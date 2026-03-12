@@ -8,6 +8,10 @@ class AppRouters {
     switch (settings.name) {
       case RoutesName.splashScreen:
         return MaterialPageRoute(builder: (_) => const SplashScreen());
+      case RoutesName.mainLayout:
+        return MaterialPageRoute(builder: (_) => const MainLayout());
+      case RoutesName.allBrandsScreen:
+        return MaterialPageRoute(builder: (_) => const AllBrandsScreen());
       case RoutesName.homeScreen:
         return MaterialPageRoute(builder: (_) => HomeScreen());
       case RoutesName.onboardingScreen:

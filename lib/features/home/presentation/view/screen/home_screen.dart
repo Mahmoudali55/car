@@ -1,7 +1,7 @@
+import 'dart:async';
+
 import 'package:animate_do/animate_do.dart';
 import 'package:car/core/cache/hive/hive_methods.dart';
-import 'package:car/core/custom_widgets/custom_app_bar/custom_app_bar.dart';
-import 'package:car/core/custom_widgets/custom_form_field/custom_form_field.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/routes/routes_name.dart';
 import 'package:car/core/theme/app_colors.dart';
@@ -51,71 +51,22 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(
-        context,
-        centerTitle: true,
-        automaticallyImplyLeading: true,
-        leading: CircleAvatar(
-          backgroundColor: AppColor.primaryColor(context),
-          child: Icon(Icons.person, color: AppColor.whiteColor(context)),
-        ),
-        title: Text(AppLocaleKey.home.tr(), style: AppTextStyle.titleMedium(context)),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: Icon(Icons.menu, color: AppColor.primaryColor(context)),
-          ),
-        ],
-      ),
       backgroundColor: const Color(0xffF8F9FB),
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Center(
-              child: Container(
-                margin: EdgeInsets.symmetric(vertical: 20.h),
-                width: 200.w,
-                height: 30.h,
-                decoration: BoxDecoration(
-                  border: Border.all(color: AppColor.blackTextColor(context)),
-                  borderRadius: BorderRadius.circular(20.r),
-                ),
-                child: Center(
-                  child: Row(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(right: 10.w),
-                        child: Icon(Icons.person, color: AppColor.blackTextColor(context)),
-                      ),
-                      Gap(10.w),
-                      Text(
-                        AppLocaleKey.loginContinue.tr(),
-                        style: AppTextStyle.bodySmall(
-                          context,
-                          color: AppColor.blackTextColor(context),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 10.w),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  CustomFormField(
-                    radius: 12.r,
-                    prefixIcon: Icon(Icons.search, color: AppColor.primaryColor(context)),
-                    hintText: AppLocaleKey.findCar.tr(),
-                  ),
-
                   SizedBox(height: 30.h),
-                  _buildSectionTitle(context, AppLocaleKey.categories.tr(), null),
+                  _buildSectionTitle(context, AppLocaleKey.categories.tr(), () {
+                    // Navigate to Brands tab (index 2) - will be handled by MainLayout
+                    Navigator.pushNamed(context, 'allBrandsScreen');
+                  }),
                   SizedBox(height: 15.h),
                   _buildCategories(context),
                   SizedBox(height: 30.h),
@@ -123,9 +74,9 @@ class HomeScreen extends StatelessWidget {
                   SizedBox(height: 15.h),
                   _buildFeaturedSlider(context),
                   SizedBox(height: 30.h),
-                  _buildSectionTitle(context, AppLocaleKey.searchByBodyType.tr(), null),
+                  _buildSectionTitle(context, AppLocaleKey.popularCars.tr(), () {}),
                   SizedBox(height: 15.h),
-                  _buildBodyTypeSearch(context),
+                  const PopularCarsSlider(),
                   SizedBox(height: 30.h),
                   _buildSectionTitle(context, AppLocaleKey.searchByBudget.tr(), null),
                   SizedBox(height: 15.h),
@@ -140,62 +91,6 @@ class HomeScreen extends StatelessWidget {
             ),
           ],
         ),
-      ),
-    );
-  }
-
-  Widget _buildBodyTypeSearch(BuildContext context) {
-    final bodyTypes = [
-      {'name': AppLocaleKey.suv.tr(), 'icon': Icons.directions_car_rounded},
-      {'name': AppLocaleKey.sedan.tr(), 'icon': Icons.directions_car_rounded},
-      {'name': AppLocaleKey.sports.tr(), 'icon': Icons.speed_rounded},
-      {'name': AppLocaleKey.coupe.tr(), 'icon': Icons.directions_car_rounded},
-      {'name': AppLocaleKey.hatchback.tr(), 'icon': Icons.directions_car_rounded},
-      {'name': AppLocaleKey.convertible.tr(), 'icon': Icons.brightness_high_rounded},
-      {'name': AppLocaleKey.truck.tr(), 'icon': Icons.local_shipping_rounded},
-      {'name': AppLocaleKey.van.tr(), 'icon': Icons.airport_shuttle_rounded},
-    ];
-
-    return SizedBox(
-      height: 90.h,
-      child: ListView.separated(
-        scrollDirection: Axis.horizontal,
-        physics: const BouncingScrollPhysics(),
-        itemCount: bodyTypes.length,
-        separatorBuilder: (context, index) => SizedBox(width: 15.w),
-        itemBuilder: (context, index) {
-          return Column(
-            children: [
-              Container(
-                width: 60.w,
-                height: 60.w,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(15.r),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.05),
-                      blurRadius: 10,
-                      offset: const Offset(0, 4),
-                    ),
-                  ],
-                ),
-                child: Icon(
-                  bodyTypes[index]['icon'] as IconData,
-                  color: AppColor.primaryColor(context),
-                  size: 28.w,
-                ),
-              ),
-              SizedBox(height: 8.h),
-              Text(
-                bodyTypes[index]['name'] as String,
-                style: AppTextStyle.bodySmall(
-                  context,
-                ).copyWith(fontSize: 10.sp, fontWeight: FontWeight.w500),
-              ),
-            ],
-          );
-        },
       ),
     );
   }
@@ -630,6 +525,240 @@ class HomeScreen extends StatelessWidget {
         Text(
           label,
           style: TextStyle(color: Colors.grey, fontSize: 10.sp),
+        ),
+      ],
+    );
+  }
+}
+
+class PopularCarsSlider extends StatefulWidget {
+  const PopularCarsSlider({super.key});
+
+  @override
+  State<PopularCarsSlider> createState() => _PopularCarsSliderState();
+}
+
+class _PopularCarsSliderState extends State<PopularCarsSlider> {
+  late PageController _pageController;
+  int _currentPage = 0;
+  late Timer _timer;
+
+  final List<Map<String, String>> popularCars = [
+    {
+      'name': 'Ferrari SF90',
+      'image': 'assets/images/cars/mercedes-benz.png',
+      'price': 'AED 1,200,000',
+      'year': '2024',
+      'km': '0 km',
+      'engine': '4.0L V8',
+    },
+    {
+      'name': 'Lamborghini Revuelto',
+      'image': 'assets/images/cars/lamborghini.png',
+      'price': 'AED 2,500,000',
+      'year': '2024',
+      'km': '0 km',
+      'engine': '6.5L V12',
+    },
+    {
+      'name': 'Porsche 911 GT3',
+      'image': 'assets/images/cars/porsche.png',
+      'price': 'AED 950,000',
+      'year': '2024',
+      'km': '0 km',
+      'engine': '4.0L F6',
+    },
+  ];
+
+  @override
+  void initState() {
+    super.initState();
+    _pageController = PageController(viewportFraction: 0.85, initialPage: _currentPage);
+    _timer = Timer.periodic(const Duration(seconds: 4), (Timer timer) {
+      if (_currentPage < popularCars.length - 1) {
+        _currentPage++;
+      } else {
+        _currentPage = 0;
+      }
+
+      if (_pageController.hasClients) {
+        _pageController.animateToPage(
+          _currentPage,
+          duration: const Duration(milliseconds: 800),
+          curve: Curves.easeInOutQuart,
+        );
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    _pageController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 340.h,
+      width: double.infinity,
+      child: PageView.builder(
+        controller: _pageController,
+        onPageChanged: (value) => setState(() => _currentPage = value),
+        itemCount: popularCars.length,
+        itemBuilder: (context, index) {
+          final car = popularCars[index];
+          return AnimatedContainer(
+            duration: const Duration(milliseconds: 300),
+            margin: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(25.r),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.05),
+                  blurRadius: 15,
+                  offset: const Offset(0, 10),
+                ),
+              ],
+            ),
+            child: Column(
+              children: [
+                // Image Section (Flex 1)
+                Expanded(
+                  flex: 1,
+                  child: Stack(
+                    children: [
+                      Container(
+                        margin: EdgeInsets.all(12.w),
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          color: AppColor.greyColor(context).withOpacity(0.05),
+                          borderRadius: BorderRadius.circular(20.r),
+                          border: Border.all(color: Colors.grey.withOpacity(0.2)),
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.all(15.w),
+                          child: Image.asset(car['image']!, fit: BoxFit.contain),
+                        ),
+                      ),
+                      Positioned(
+                        top: 20.h,
+                        right: 20.w,
+                        child: Container(
+                          padding: EdgeInsets.all(6.w),
+                          decoration: const BoxDecoration(
+                            color: Colors.white,
+                            shape: BoxShape.circle,
+                          ),
+                          child: Icon(
+                            Icons.favorite_border_rounded,
+                            color: AppColor.primaryColor(context),
+                            size: 18.w,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                // Content Section (Flex 1)
+                Expanded(
+                  flex: 1,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 5.h),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          car['name']!,
+                          style: AppTextStyle.titleMedium(
+                            context,
+                          ).copyWith(fontWeight: FontWeight.bold),
+                        ),
+                        Gap(8.h),
+                        // Details Row
+                        Row(
+                          children: [
+                            _buildMiniDetail(context, Icons.calendar_today_outlined, car['year']!),
+                            Gap(12.w),
+                            _buildMiniDetail(context, Icons.speed_outlined, car['km']!),
+                            Gap(12.w),
+                            _buildMiniDetail(context, Icons.settings_outlined, car['engine']!),
+                          ],
+                        ),
+                        const Spacer(),
+                        // Price
+                        Text(
+                          car['price']!,
+                          style: AppTextStyle.titleMedium(context).copyWith(
+                            color: AppColor.primaryColor(context),
+                            fontWeight: FontWeight.w800,
+                          ),
+                        ),
+                        Gap(10.h),
+                        // Action Buttons
+                        Row(
+                          children: [
+                            Expanded(
+                              child: ElevatedButton(
+                                onPressed: () {},
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: AppColor.primaryColor(context),
+                                  foregroundColor: Colors.white,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(12.r),
+                                  ),
+                                  padding: EdgeInsets.symmetric(vertical: 10.h),
+                                  elevation: 0,
+                                ),
+                                child: Text(
+                                  AppLocaleKey.orderNow.tr(),
+                                  style: TextStyle(fontSize: 11.sp, fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            ),
+                            Gap(10.w),
+                            Expanded(
+                              child: OutlinedButton(
+                                onPressed: () {},
+                                style: OutlinedButton.styleFrom(
+                                  side: BorderSide(color: AppColor.primaryColor(context)),
+                                  foregroundColor: AppColor.primaryColor(context),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(12.r),
+                                  ),
+                                  padding: EdgeInsets.symmetric(vertical: 10.h),
+                                ),
+                                child: Text(
+                                  AppLocaleKey.details.tr(),
+                                  style: TextStyle(fontSize: 11.sp, fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Gap(10.h),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  Widget _buildMiniDetail(BuildContext context, IconData icon, String label) {
+    return Row(
+      children: [
+        Icon(icon, color: Colors.grey, size: 14.w),
+        Gap(4.w),
+        Text(
+          label,
+          style: TextStyle(color: Colors.grey, fontSize: 10.sp, fontWeight: FontWeight.w500),
         ),
       ],
     );

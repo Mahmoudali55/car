@@ -29,7 +29,7 @@ class _SplashScreenState extends State<SplashScreen> {
         if (HiveMethods.isFirstTime()) {
           NavigatorMethods.pushReplacementNamed(context, RoutesName.onboardingScreen);
         } else {
-          NavigatorMethods.pushReplacementNamed(context, RoutesName.homeScreen);
+          NavigatorMethods.pushReplacementNamed(context, RoutesName.mainLayout);
         }
       }
     });

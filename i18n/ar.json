@@ -69,5 +69,16 @@
   "convertible": "كابريوليه",
   "coupe": "كوبيه",
   "truck": "شاحنة",
-  "van": "فان"
+  "van": "فان",
+  "buy": "شراء",
+  "sell": "بيع",
+  "notifications": "الإشعارات",
+  "welcome_to_car_group": "مرحباً بك",
+  "popular_cars": "السيارات الشائعة",
+  "order_now": "اطلب الآن",
+  "details": "التفاصيل",
+  "brands": "العلامات التجارية",
+  "services": "الخدمات",
+  "cars": "السيارات",
+  "allBrands": "جميع العلامات التجارية"
 }

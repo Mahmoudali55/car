@@ -5,4 +5,6 @@ class RoutesName {
   static const String loginScreen = 'loginScreen';
   static const String onboardingScreen = 'onboardingScreen';
   static const String registerScreen = 'registerScreen';
+  static const String mainLayout = 'mainLayout';
+  static const String allBrandsScreen = 'allBrandsScreen';
 }

@@ -71,7 +71,15 @@ class AppLocaleKey {
   static const String coupe = 'coupe';
   static const String truck = 'truck';
   static const String van = 'van';
-  static const String findYourDreamCar = 'findYourDreamCar';
-  static const String keepCarInTopCondition = 'keepCarInTopCondition';
-  static const String fastAndSecureDelivery = 'fastAndSecureDelivery';
+  static const String buy = 'buy';
+  static const String sell = 'sell';
+  static const String notifications = 'notifications';
+  static const String welcomeToCarGroup = 'welcome_to_car_group';
+  static const String popularCars = 'popular_cars';
+  static const String orderNow = 'order_now';
+  static const String details = 'details';
+  static const String brands = 'brands';
+  static const String services = 'services';
+  static const String cars = 'cars';
+  static const String allBrands = 'allBrands';
 }
