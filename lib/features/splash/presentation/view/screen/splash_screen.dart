@@ -1,12 +1,13 @@
 import 'package:animate_do/animate_do.dart';
+import 'package:car/core/cache/hive/hive_methods.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
-import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:car/core/routes/routes_name.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/core/utils/navigator_methods.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -19,13 +20,17 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    _navigateToOnboarding();
+    _navigateToNextScreen();
   }
 
-  void _navigateToOnboarding() {
+  void _navigateToNextScreen() {
     Future.delayed(const Duration(seconds: 3)).then((value) {
       if (mounted) {
-        NavigatorMethods.pushReplacementNamed(context, RoutesName.onboardingScreen);
+        if (HiveMethods.isFirstTime()) {
+          NavigatorMethods.pushReplacementNamed(context, RoutesName.onboardingScreen);
+        } else {
+          NavigatorMethods.pushReplacementNamed(context, RoutesName.homeScreen);
+        }
       }
     });
   }
@@ -98,7 +103,7 @@ class _SplashScreenState extends State<SplashScreen> {
                     delay: const Duration(milliseconds: 500),
                     duration: const Duration(milliseconds: 1500),
                     child: Text(
-                      AppLocaleKey.qualityAndReliability.tr(),
+                      AppLocaleKey.qualityReliability.tr(),
                       style: AppTextStyle.text14RGrey(
                         context,
                       ).copyWith(color: Colors.white.withOpacity(0.8), letterSpacing: 1.0),

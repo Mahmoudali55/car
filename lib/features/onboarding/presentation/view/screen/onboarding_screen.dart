@@ -1,9 +1,10 @@
 import 'package:animate_do/animate_do.dart';
+import 'package:car/core/cache/hive/hive_methods.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:car/core/routes/routes_name.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/utils/navigator_methods.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -20,7 +21,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   final List<OnboardingModel> _pages = [
     OnboardingModel(
-      title: AppLocaleKey.findYourDreamCar.tr(),
+      title: AppLocaleKey.exploreLuxuryCars.tr(),
       description: AppLocaleKey.exploreLuxuryCars.tr(),
       image: 'assets/images/onboarding_car_selection.png',
       isImage: true,
@@ -32,7 +33,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       isImage: true,
     ),
     OnboardingModel(
-      title: AppLocaleKey.fastAndSecureDelivery.tr(),
+      title: AppLocaleKey.fastSecureDelivery.tr(),
       description: AppLocaleKey.experienceSeamlessDelivery.tr(),
       image: Icons.speed_rounded,
       isImage: false,
@@ -117,7 +118,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     child: ElevatedButton(
                       onPressed: () {
                         if (_currentPage == _pages.length - 1) {
-                          NavigatorMethods.pushReplacementNamed(context, RoutesName.loginScreen);
+                          HiveMethods.updateFirstTime();
+                          NavigatorMethods.pushReplacementNamed(context, RoutesName.homeScreen);
                         } else {
                           _pageController.nextPage(
                             duration: const Duration(milliseconds: 500),

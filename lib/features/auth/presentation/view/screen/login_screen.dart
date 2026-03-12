@@ -235,7 +235,7 @@ class LoginScreen extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                AppLocaleKey.dontHaveAnAccount.tr(),
+                                AppLocaleKey.dontHaveAccount.tr(),
                                 style: AppTextStyle.bodyMedium(
                                   context,
                                   color: Colors.white.withOpacity(0.6),

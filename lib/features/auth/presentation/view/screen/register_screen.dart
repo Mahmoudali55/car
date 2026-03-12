@@ -1,11 +1,11 @@
 import 'package:animate_do/animate_do.dart';
-import 'package:car/core/localization/app_locale_keys.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:car/core/custom_widgets/buttons/custom_button.dart';
 import 'package:car/core/custom_widgets/custom_form_field/custom_form_field.dart';
+import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/features/auth/presentation/view/cubit/auth_cubit.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -76,7 +76,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           ),
                           SizedBox(height: 8.h),
                           Text(
-                            AppLocaleKey.joinOurPremiumAutomotiveCommunity.tr(),
+                            AppLocaleKey.joinPremiumCommunity.tr(),
                             style: AppTextStyle.bodyMedium(
                               context,
                               color: Colors.white.withOpacity(0.6),
@@ -161,7 +161,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            AppLocaleKey.alreadyHaveAnAccount.tr(),
+                            AppLocaleKey.alreadyHaveAccount.tr(),
                             style: AppTextStyle.bodyMedium(
                               context,
                               color: Colors.white.withOpacity(0.6),
