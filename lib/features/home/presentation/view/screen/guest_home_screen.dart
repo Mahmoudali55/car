@@ -12,8 +12,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+class HomeGuestScreen extends StatelessWidget {
+  const HomeGuestScreen({super.key});
 
   void _performAction(BuildContext context, VoidCallback action) {
     final token = HiveMethods.getToken();
@@ -51,7 +51,6 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xffF8F9FB),
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: Column(
@@ -142,7 +141,7 @@ class HomeScreen extends StatelessWidget {
             onPressed: onSeeAll,
             child: Text(
               AppLocaleKey.seeAll.tr(),
-              style: AppTextStyle.bodySmall(context, color: AppColor.primaryColor(context)),
+              style: AppTextStyle.bodySmall(context, color: AppColor.whiteColor(context)),
             ),
           ),
       ],
@@ -218,7 +217,7 @@ class HomeScreen extends StatelessWidget {
                   categories[index]['name'] as String,
                   style: AppTextStyle.bodySmall(
                     context,
-                    color: Colors.black87,
+                    color: AppColor.whiteColor(context),
                   ).copyWith(fontWeight: FontWeight.w600, fontSize: 11.sp),
                 ),
               ],

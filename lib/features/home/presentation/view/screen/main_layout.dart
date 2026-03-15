@@ -1,15 +1,14 @@
 import 'package:car/core/custom_widgets/custom_app_bar/custom_app_bar.dart';
-import 'package:car/features/home/presentation/view/screen/all_brands_screen.dart';
-
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
+import 'package:car/features/home/presentation/view/screen/all_brands_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
-import 'home_screen.dart';
+import 'guest_home_screen.dart';
 
 class MainLayout extends StatefulWidget {
   const MainLayout({super.key});
@@ -22,7 +21,7 @@ class _MainLayoutState extends State<MainLayout> {
   int _currentIndex = 0;
 
   final List<Widget> _screens = [
-    const HomeScreen(),
+    const HomeGuestScreen(),
     const CarsScreen(),
     const BrandsScreen(),
     const OffersScreen(),
@@ -65,7 +64,7 @@ class _MainLayoutState extends State<MainLayout> {
         height: 75.h,
         padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: AppColor.whiteColor(context),
           boxShadow: [
             BoxShadow(
               color: Colors.black.withOpacity(0.05),
@@ -78,10 +77,30 @@ class _MainLayoutState extends State<MainLayout> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             _buildNavItem(0, Icons.home_outlined, Icons.home, AppLocaleKey.home.tr()),
-            _buildNavItem(1, Icons.directions_car_outlined, Icons.directions_car, AppLocaleKey.cars.tr()),
-            _buildNavItem(2, Icons.grid_view_rounded, Icons.grid_view_rounded, AppLocaleKey.brands.tr()),
-            _buildNavItem(3, Icons.local_offer_outlined, Icons.local_offer, AppLocaleKey.latestOffers.tr()),
-            _buildNavItem(4, Icons.miscellaneous_services_outlined, Icons.miscellaneous_services, AppLocaleKey.services.tr()),
+            _buildNavItem(
+              1,
+              Icons.directions_car_outlined,
+              Icons.directions_car,
+              AppLocaleKey.cars.tr(),
+            ),
+            _buildNavItem(
+              2,
+              Icons.grid_view_rounded,
+              Icons.grid_view_rounded,
+              AppLocaleKey.brands.tr(),
+            ),
+            _buildNavItem(
+              3,
+              Icons.local_offer_outlined,
+              Icons.local_offer,
+              AppLocaleKey.latestOffers.tr(),
+            ),
+            _buildNavItem(
+              4,
+              Icons.miscellaneous_services_outlined,
+              Icons.miscellaneous_services,
+              AppLocaleKey.services.tr(),
+            ),
           ],
         ),
       ),
@@ -103,7 +122,7 @@ class _MainLayoutState extends State<MainLayout> {
           children: [
             Icon(
               isSelected ? activeIcon : icon,
-              color: isSelected ? AppColor.primaryColor(context) : Colors.grey,
+              color: isSelected ? AppColor.primaryColor(context) : AppColor.greyColor(context),
               size: 24.w,
             ),
             if (isSelected) ...[
@@ -136,7 +155,7 @@ class BrandsScreen extends StatelessWidget {
   const BrandsScreen({super.key});
   @override
   Widget build(BuildContext context) {
-    return const AllBrandsScreen();
+    return const AllBrandsScreen(isFromMainLayout: true);
   }
 }
 

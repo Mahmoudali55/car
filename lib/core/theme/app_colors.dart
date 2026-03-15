@@ -15,8 +15,8 @@ class AppColor {
   static Color secondAppColor(BuildContext context, {bool listen = true}) {
     return AppTheme.getByTheme(
       context,
-      light: const Color(0xff0A0E14),
-      dark: const Color(0xff0A0E14),
+      light: const Color(0xFF1E293B), // Elevated dark slate for cards/nav
+      dark: const Color(0xFF1E293B),
       listen: listen,
     );
   }
@@ -33,8 +33,8 @@ class AppColor {
   static Color scaffoldColor(BuildContext context, {bool listen = true}) {
     return AppTheme.getByTheme(
       context,
-      light: const Color(0xFFF9F9F9),
-      dark: const Color(0xFFF9F9F9),
+      light: const Color(0xFF0F172A), // Elegant, cool-toned light grey (CarSwitch style)
+      dark: const Color(0xFF0F172A),
       listen: listen,
     );
   }
@@ -42,8 +42,8 @@ class AppColor {
   static Color textFormFillColor(BuildContext context, {bool listen = true}) {
     return AppTheme.getByTheme(
       context,
-      light: const Color(0xFFF9F9F9),
-      dark: const Color(0xFFF9F9F9),
+      light: const Color(0xFF1E293B), // Dark textfield fill
+      dark: const Color(0xFF1E293B),
       listen: listen,
     );
   }
@@ -60,8 +60,8 @@ class AppColor {
   static Color darkTextColor(BuildContext context, {bool listen = true}) {
     return AppTheme.getByTheme(
       context,
-      light: const Color(0xFF616161),
-      dark: const Color(0xFF616161),
+      light: const Color(0xFFE2E8F0), // Light slate
+      dark: const Color(0xFFE2E8F0),
       listen: listen,
     );
   }
@@ -78,8 +78,8 @@ class AppColor {
   static Color titleFormFiledColor(BuildContext context, {bool listen = true}) {
     return AppTheme.getByTheme(
       context,
-      light: const Color(0xFF000627),
-      dark: const Color(0xFF000627),
+      light: const Color(0xFFF8FAFC), // Off-white for section titles
+      dark: const Color(0xFFF8FAFC),
       listen: listen,
     );
   }
@@ -87,8 +87,8 @@ class AppColor {
   static Color blackTextColor(BuildContext context, {bool listen = true}) {
     return AppTheme.getByTheme(
       context,
-      light: const Color(0xFF23120B),
-      dark: const Color(0xFF23120B),
+      light: const Color(0xFFFFFFFF), // Invert black to white for readability
+      dark: const Color(0xFFFFFFFF),
       listen: listen,
     );
   }
@@ -105,8 +105,8 @@ class AppColor {
   static Color textFormBorderColor(BuildContext context, {bool listen = true}) {
     return AppTheme.getByTheme(
       context,
-      light: const Color(0xFFD9D9D9),
-      dark: const Color(0xFFD9D9D9),
+      light: const Color(0xFF334155), // Subtle dark border
+      dark: const Color(0xFF334155),
       listen: listen,
     );
   }
@@ -114,8 +114,8 @@ class AppColor {
   static Color textFormColor(BuildContext context, {bool listen = true}) {
     return AppTheme.getByTheme(
       context,
-      light: const Color(0xff000000),
-      dark: const Color(0xff000000),
+      light: const Color(0xFFFFFFFF), // Input text color
+      dark: const Color(0xFFFFFFFF),
       listen: listen,
     );
   }
@@ -123,8 +123,8 @@ class AppColor {
   static Color appBarTextColor(BuildContext context, {bool listen = true}) {
     return AppTheme.getByTheme(
       context,
-      light: const Color(0xFF23120B),
-      dark: const Color(0xFF23120B),
+      light: const Color(0xFFFFFFFF), // Appbar text color
+      dark: const Color(0xFFFFFFFF),
       listen: listen,
     );
   }
@@ -132,8 +132,8 @@ class AppColor {
   static Color appBarColor(BuildContext context, {bool listen = true}) {
     return AppTheme.getByTheme(
       context,
-      light: const Color(0xffFAFAFA),
-      dark: const Color(0xffFAFAFA),
+      light: const Color(0xFF0F172A), // Elevated dark slate for appbar
+      dark: const Color(0xFF0F172A),
       listen: listen,
     );
   }

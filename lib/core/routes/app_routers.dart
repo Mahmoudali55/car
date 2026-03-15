@@ -13,7 +13,7 @@ class AppRouters {
       case RoutesName.allBrandsScreen:
         return MaterialPageRoute(builder: (_) => const AllBrandsScreen());
       case RoutesName.homeScreen:
-        return MaterialPageRoute(builder: (_) => HomeScreen());
+        return MaterialPageRoute(builder: (_) => HomeGuestScreen());
       case RoutesName.onboardingScreen:
         return MaterialPageRoute(builder: (_) => const OnboardingScreen());
       case RoutesName.loginScreen:

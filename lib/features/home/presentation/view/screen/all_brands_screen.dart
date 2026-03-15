@@ -8,7 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AllBrandsScreen extends StatefulWidget {
-  const AllBrandsScreen({super.key});
+  final bool isFromMainLayout;
+  const AllBrandsScreen({super.key, this.isFromMainLayout = false});
 
   @override
   State<AllBrandsScreen> createState() => _AllBrandsScreenState();
@@ -510,31 +511,31 @@ class _AllBrandsScreenState extends State<AllBrandsScreen> {
   List<Map<String, String>> _getFilteredBrands(BuildContext context) {
     if (_searchQuery.isEmpty) return _allBrands;
     final q = _searchQuery.toLowerCase();
-    return _allBrands.where((b) =>
-      b['nameEn']!.toLowerCase().contains(q) ||
-      b['nameAr']!.contains(_searchQuery)
-    ).toList();
+    return _allBrands
+        .where((b) => b['nameEn']!.toLowerCase().contains(q) || b['nameAr']!.contains(_searchQuery))
+        .toList();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(
-        context,
-        centerTitle: false,
-        automaticallyImplyLeading: true,
-        title: Text(AppLocaleKey.allBrands.tr(), style: AppTextStyle.titleMedium(context)),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () => Navigator.pop(context),
-        ),
-      ),
+      appBar: widget.isFromMainLayout
+          ? null
+          : CustomAppBar(
+              context,
+              centerTitle: false,
+              automaticallyImplyLeading: true,
+              title: Text(AppLocaleKey.allBrands.tr(), style: AppTextStyle.titleMedium(context)),
+              leading: IconButton(
+                icon: const Icon(Icons.arrow_back),
+                onPressed: () => Navigator.pop(context),
+              ),
+            ),
       body: SafeArea(
-        child: Material(
-          color: const Color(0xffF8F9FB),
-          child: Column(
-            children: [
-              // Search bar
+        child: Column(
+          children: [
+            // Search bar
+            if (!widget.isFromMainLayout)
               Padding(
                 padding: EdgeInsets.fromLTRB(16.w, 12.h, 16.w, 8.h),
                 child: CustomFormField(
@@ -544,73 +545,72 @@ class _AllBrandsScreenState extends State<AllBrandsScreen> {
                   hintText: 'ابحث عن ماركة...',
                 ),
               ),
-              // Brands grid
-              Expanded(
-                child: GridView.builder(
-                  padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
-                  physics: const BouncingScrollPhysics(),
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3,
-                    childAspectRatio: 0.9,
-                    crossAxisSpacing: 12.w,
-                    mainAxisSpacing: 12.h,
-                  ),
-                  itemCount: _getFilteredBrands(context).length,
-                  itemBuilder: (context, index) {
-                    final brand = _getFilteredBrands(context)[index];
-                    return GestureDetector(
-                      onTap: () {},
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(16.r),
-                          border: Border.all(color: Colors.grey.withOpacity(0.12)),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.04),
-                              blurRadius: 8,
-                              offset: const Offset(0, 4),
-                            ),
-                          ],
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Expanded(
-                              child: Padding(
-                                padding: EdgeInsets.all(14.w),
-                                child: Image.asset(
-                                  brand['image']!,
-                                  fit: BoxFit.contain,
-                                  errorBuilder: (_, __, ___) => Icon(
-                                    Icons.directions_car_rounded,
-                                    color: AppColor.primaryColor(context),
-                                    size: 32.w,
-                                  ),
+            // Brands grid
+            Expanded(
+              child: GridView.builder(
+                padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
+                physics: const BouncingScrollPhysics(),
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3,
+                  childAspectRatio: 0.9,
+                  crossAxisSpacing: 12.w,
+                  mainAxisSpacing: 12.h,
+                ),
+                itemCount: _getFilteredBrands(context).length,
+                itemBuilder: (context, index) {
+                  final brand = _getFilteredBrands(context)[index];
+                  return GestureDetector(
+                    onTap: () {},
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(16.r),
+                        border: Border.all(color: Colors.grey.withOpacity(0.12)),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.04),
+                            blurRadius: 8,
+                            offset: const Offset(0, 4),
+                          ),
+                        ],
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Expanded(
+                            child: Padding(
+                              padding: EdgeInsets.all(14.w),
+                              child: Image.asset(
+                                brand['image']!,
+                                fit: BoxFit.contain,
+                                errorBuilder: (_, __, ___) => Icon(
+                                  Icons.directions_car_rounded,
+                                  color: AppColor.primaryColor(context),
+                                  size: 32.w,
                                 ),
                               ),
                             ),
-                            Padding(
-                              padding: EdgeInsets.only(bottom: 8.h),
-                              child: Text(
-                                _getBrandName(brand, context),
-                                textAlign: TextAlign.center,
-                                style: AppTextStyle.bodySmall(
-                                  context,
-                                ).copyWith(fontWeight: FontWeight.w600, fontSize: 10.sp),
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                              ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(bottom: 8.h),
+                            child: Text(
+                              _getBrandName(brand, context),
+                              textAlign: TextAlign.center,
+                              style: AppTextStyle.bodySmall(
+                                context,
+                              ).copyWith(fontWeight: FontWeight.w600, fontSize: 10.sp),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
-                    );
-                  },
-                ),
+                    ),
+                  );
+                },
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
