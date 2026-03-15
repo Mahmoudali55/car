@@ -130,4 +130,5 @@ class AppLocaleKey {
   static const String europe = 'europe';
   static const String specialOffers = 'special_offers';
   static const String searchForYourDreamCar = 'search_for_your_dream_car';
+  static const String mostPopularAndActiveCars = 'most_popular_and_active_cars';
 }
