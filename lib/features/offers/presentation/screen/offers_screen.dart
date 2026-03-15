@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:car/core/custom_widgets/custom_form_field/custom_form_field.dart';
 import 'package:car/core/routes/routes_name.dart';
 import 'package:car/core/theme/app_colors.dart';
@@ -20,7 +22,6 @@ class _OffersScreenState extends State<OffersScreen> {
   int _selectedFilterIndex = 0;
   final List<String> _filters = ['الكل', 'فاخرة', 'رياضية', 'SUV', 'سيدان'];
 
-  // Dummy offers data
   final List<Map<String, dynamic>> _offers = [
     {
       'title': 'عرض خاص على G-Class G63',
@@ -28,8 +29,8 @@ class _OffersScreenState extends State<OffersScreen> {
       'brand': 'Mercedes-Benz',
       'category': 'فاخرة',
       'discount': '10%',
-      'oldPrice': '850K د.إ',
-      'price': '765K د.إ',
+      'oldPrice': '850,000 د.إ',
+      'price': '765,000 د.إ',
       'expiresIn': 'ينتهي غداً',
       'image': 'assets/images/cars/mercedes-benz.png',
       'year': '2024',
@@ -44,8 +45,8 @@ class _OffersScreenState extends State<OffersScreen> {
       'brand': 'BMW',
       'category': 'رياضية',
       'discount': '15%',
-      'oldPrice': '520K د.إ',
-      'price': '442K د.إ',
+      'oldPrice': '520,000 د.إ',
+      'price': '442,000 د.إ',
       'expiresIn': '3 أيام',
       'image': 'assets/images/cars/bmw.png',
       'year': '2023',
@@ -60,8 +61,8 @@ class _OffersScreenState extends State<OffersScreen> {
       'brand': 'Toyota',
       'category': 'SUV',
       'discount': '5%',
-      'oldPrice': '350K د.إ',
-      'price': '332K د.إ',
+      'oldPrice': '350,000 د.إ',
+      'price': '332,500 د.إ',
       'expiresIn': '5 أيام',
       'image': 'assets/images/cars/toyota.png',
       'year': '2024',
@@ -74,89 +75,109 @@ class _OffersScreenState extends State<OffersScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        // Header with Search
-        _buildHeader(),
+    return Scaffold(
+      backgroundColor: AppColor.scaffoldColor(context),
+      body: CustomScrollView(
+        physics: const BouncingScrollPhysics(),
+        slivers: [
+          // Header
+          SliverToBoxAdapter(child: _buildHeader()),
 
-        Expanded(
-          child: ListView(
-            padding: EdgeInsets.zero,
-            physics: const BouncingScrollPhysics(),
-            children: [
-              // Animated Offers Slider (Featured)
-              const OffersFeaturedSlider(),
-              Gap(24.h),
+          // Featured Slider
+          const SliverToBoxAdapter(child: OffersFeaturedSlider()),
 
-              // Filter Chips
-              _buildFilterChips(),
-              Gap(24.h),
-
-              // Offers List
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.w),
-                child: Text(
-                  'أفضل العروض المتاحة',
-                  style: AppTextStyle.titleMedium(context).copyWith(fontWeight: FontWeight.bold),
-                ),
+          // Filter Section
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: EdgeInsets.symmetric(vertical: 24.h),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _buildFilterChips(),
+                  Gap(24.h),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20.w),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'عروض حصرية لك',
+                          style: AppTextStyle.titleMedium(context).copyWith(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w900,
+                            fontSize: 20.sp,
+                          ),
+                        ),
+                        Text(
+                          '${_offers.length} عروض',
+                          style: AppTextStyle.bodySmall(
+                            context,
+                          ).copyWith(color: AppColor.primaryColor(context)),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
-              Gap(16.h),
-              ListView.separated(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                padding: EdgeInsets.fromLTRB(20.w, 0, 20.w, 100.h),
-                itemCount: _offers.length,
-                separatorBuilder: (context, index) => Gap(16.h),
-                itemBuilder: (context, index) {
-                  return _buildOfferCard(_offers[index]);
-                },
-              ),
-            ],
+            ),
           ),
-        ),
-      ],
+
+          // Offers Grid/List
+          SliverPadding(
+            padding: EdgeInsets.fromLTRB(20.w, 0, 20.w, 100.h),
+            sliver: SliverList(
+              delegate: SliverChildBuilderDelegate(
+                (context, index) => Padding(
+                  padding: EdgeInsets.only(bottom: 20.h),
+                  child: _buildPremiumOfferCard(_offers[index]),
+                ),
+                childCount: _offers.length,
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 
   Widget _buildHeader() {
     return Padding(
-      padding: EdgeInsets.all(20.w),
+      padding: EdgeInsets.fromLTRB(20.w, 20.h, 20.w, 10.h),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'عروض جبارة',
-            style: AppTextStyle.titleLarge(context).copyWith(
-              color: Colors.white,
-              fontWeight: FontWeight.w900,
-              fontSize: 28.sp,
-            ),
-          ),
-          Gap(4.h),
-          Text(
-            'استمتع بأفضل الأسعار والخصومات الحصرية',
-            style: AppTextStyle.bodySmall(context).copyWith(color: Colors.white60),
-          ),
-          Gap(20.h),
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Expanded(
-                child: CustomFormField(
-                  hintText: 'ابحث عن عرض محدد...',
-                  prefixIcon: const Icon(Icons.search_rounded),
-                ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'مركز العروض',
+                    style: AppTextStyle.titleLarge(
+                      context,
+                    ).copyWith(color: Colors.white, fontWeight: FontWeight.w900, fontSize: 30.sp),
+                  ),
+                  Text(
+                    'أفضل الفرص بانتظارك اليوم',
+                    style: AppTextStyle.bodySmall(context).copyWith(color: Colors.white38),
+                  ),
+                ],
               ),
-              Gap(12.w),
               Container(
-                padding: EdgeInsets.all(12.w),
+                padding: EdgeInsets.all(10.w),
                 decoration: BoxDecoration(
-                  color: AppColor.secondAppColor(context),
-                  borderRadius: BorderRadius.circular(16.r),
-                  border: Border.all(color: Colors.white.withOpacity(0.1)),
+                  color: AppColor.primaryColor(context).withValues(alpha: 0.1),
+                  shape: BoxShape.circle,
                 ),
-                child: const Icon(Icons.sort_rounded, color: Colors.white),
+                child: Icon(Icons.auto_awesome, color: AppColor.primaryColor(context), size: 24.sp),
               ),
             ],
+          ),
+          Gap(20.h),
+          CustomFormField(
+            hintText: 'ابحث في العروض الحالية...',
+            prefixIcon: const Icon(Icons.search_rounded, color: Colors.white24),
           ),
         ],
       ),
@@ -170,7 +191,7 @@ class _OffersScreenState extends State<OffersScreen> {
         scrollDirection: Axis.horizontal,
         padding: EdgeInsets.symmetric(horizontal: 20.w),
         itemCount: _filters.length,
-        separatorBuilder: (context, index) => Gap(8.w),
+        separatorBuilder: (context, index) => Gap(12.w),
         itemBuilder: (context, index) {
           bool isSelected = _selectedFilterIndex == index;
           return GestureDetector(
@@ -179,16 +200,24 @@ class _OffersScreenState extends State<OffersScreen> {
               duration: const Duration(milliseconds: 300),
               padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 8.h),
               decoration: BoxDecoration(
-                color: isSelected ? AppColor.primaryColor(context) : Colors.transparent,
-                borderRadius: BorderRadius.circular(12.r),
-                border: Border.all(
-                  color: isSelected ? Colors.transparent : Colors.white.withOpacity(0.1),
-                ),
+                color: isSelected
+                    ? AppColor.primaryColor(context)
+                    : AppColor.secondAppColor(context),
+                borderRadius: BorderRadius.circular(16.r),
+                boxShadow: isSelected
+                    ? [
+                        BoxShadow(
+                          color: AppColor.primaryColor(context).withValues(alpha: 0.3),
+                          blurRadius: 10,
+                          offset: const Offset(0, 4),
+                        ),
+                      ]
+                    : null,
               ),
               child: Text(
                 _filters[index],
                 style: AppTextStyle.bodyMedium(context).copyWith(
-                  color: isSelected ? Colors.white : Colors.white60,
+                  color: isSelected ? Colors.white : Colors.white54,
                   fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
                 ),
               ),
@@ -199,39 +228,70 @@ class _OffersScreenState extends State<OffersScreen> {
     );
   }
 
-  Widget _buildOfferCard(Map<String, dynamic> offer) {
+  Widget _buildPremiumOfferCard(Map<String, dynamic> offer) {
     return GestureDetector(
-      onTap: () {
-        NavigatorMethods.pushNamed(context, RoutesName.carDetailsScreen, arguments: offer);
-      },
+      onTap: () =>
+          NavigatorMethods.pushNamed(context, RoutesName.carDetailsScreen, arguments: offer),
       child: Container(
+        height: 190.h, // Slightly increased for specs
         decoration: BoxDecoration(
           color: AppColor.secondAppColor(context),
-          borderRadius: BorderRadius.circular(24.r),
-          border: Border.all(color: Colors.white.withOpacity(0.05)),
+          borderRadius: BorderRadius.circular(28.r),
+          border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withValues(alpha: 0.15),
+              blurRadius: 12,
+              offset: const Offset(0, 6),
+            ),
+          ],
         ),
         clipBehavior: Clip.antiAlias,
         child: Stack(
           children: [
-            Padding(
-              padding: EdgeInsets.all(16.w),
-              child: Row(
-                children: [
-                  Container(
-                    width: 100.w,
-                    height: 100.h,
-                    padding: EdgeInsets.all(10.w),
+            // Background Brand Name - Subtle
+            Positioned(
+              left: -10,
+              bottom: -10,
+              child: Opacity(
+                opacity: 0.02,
+                child: Text(
+                  offer['brand'] ?? '',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 50.sp,
+                    fontWeight: FontWeight.w900,
+                  ),
+                ),
+              ),
+            ),
+
+            Row(
+              children: [
+                // Car Image with Gradient Background
+                Expanded(
+                  flex: 4,
+                  child: Container(
                     decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.05),
-                      borderRadius: BorderRadius.circular(20.r),
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [Colors.white.withValues(alpha: 0.05), Colors.transparent],
+                      ),
                     ),
+                    padding: EdgeInsets.all(12.w),
                     child: Hero(
-                      tag: 'car_image_${offer['name']}',
+                      tag: 'car_offer_${offer['name']}',
                       child: Image.asset(offer['image'], fit: BoxFit.contain),
                     ),
                   ),
-                  Gap(16.w),
-                  Expanded(
+                ),
+
+                // Details
+                Expanded(
+                  flex: 6,
+                  child: Padding(
+                    padding: EdgeInsets.fromLTRB(0, 20.h, 20.w, 20.h),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -242,11 +302,11 @@ class _OffersScreenState extends State<OffersScreen> {
                               padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
                               decoration: BoxDecoration(
                                 color: AppColor.primaryColor(context).withValues(alpha: 0.1),
-                                borderRadius: BorderRadius.circular(6.r),
+                                borderRadius: BorderRadius.circular(8.r),
                               ),
                               child: Text(
                                 offer['category'],
-                                style: AppTextStyle.bodySmall(context).copyWith(
+                                style: TextStyle(
                                   color: AppColor.primaryColor(context),
                                   fontSize: 10.sp,
                                   fontWeight: FontWeight.bold,
@@ -255,17 +315,15 @@ class _OffersScreenState extends State<OffersScreen> {
                             ),
                             BlocBuilder<FavoritesCubit, FavoritesState>(
                               builder: (context, state) {
-                                final isFav = context.read<FavoritesCubit>().isFavorite(offer['name']!);
-                                return IconButton(
-                                  onPressed: () {
-                                    context.read<FavoritesCubit>().toggleFavorite(offer);
-                                  },
-                                  iconSize: 20.w,
-                                  padding: EdgeInsets.zero,
-                                  constraints: const BoxConstraints(),
-                                  icon: Icon(
-                                    isFav ? Icons.favorite_rounded : Icons.favorite_border_rounded,
-                                    color: isFav ? Colors.redAccent : AppColor.greyColor(context),
+                                final isFav = context.read<FavoritesCubit>().isFavorite(
+                                  offer['name'],
+                                );
+                                return GestureDetector(
+                                  onTap: () => context.read<FavoritesCubit>().toggleFavorite(offer),
+                                  child: Icon(
+                                    isFav ? Icons.favorite_rounded : Icons.favorite_outline_rounded,
+                                    color: isFav ? Colors.redAccent : Colors.white24,
+                                    size: 22.sp,
                                   ),
                                 );
                               },
@@ -274,30 +332,94 @@ class _OffersScreenState extends State<OffersScreen> {
                         ),
                         Gap(8.h),
                         Text(
-                          offer['title'],
-                          style: AppTextStyle.bodyMedium(context).copyWith(
+                          offer['brand'] ?? '',
+                          style: TextStyle(
+                            color: AppColor.primaryColor(context),
+                            fontSize: 11.sp,
+                            fontWeight: FontWeight.w600,
+                            letterSpacing: 0.5,
+                          ),
+                        ),
+                        Text(
+                          offer['name'],
+                          style: AppTextStyle.titleMedium(context).copyWith(
                             color: Colors.white,
-                            fontWeight: FontWeight.bold,
+                            fontWeight: FontWeight.w900,
+                            fontSize: 17.sp,
                           ),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),
-                        Gap(8.h),
+                        Gap(4.h),
                         Row(
                           children: [
+                            Icon(Icons.timer_outlined, color: Colors.orangeAccent, size: 12.sp),
+                            Gap(4.w),
                             Text(
-                              offer['price'],
-                              style: AppTextStyle.titleMedium(context).copyWith(
-                                color: AppColor.primaryColor(context),
+                              offer['expiresIn'],
+                              style: TextStyle(
+                                color: Colors.orangeAccent,
+                                fontSize: 10.sp,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                            Gap(8.w),
-                            Text(
-                              offer['oldPrice'],
-                              style: AppTextStyle.bodySmall(context).copyWith(
-                                color: Colors.white38,
-                                decoration: TextDecoration.lineThrough,
+                          ],
+                        ),
+                        const Spacer(),
+                        // Specs Row
+                        Row(
+                          children: [
+                            _buildMiniSpec(Icons.calendar_today_rounded, offer['year'] ?? '2024'),
+                            Gap(12.w),
+                            _buildMiniSpec(
+                              Icons.settings_input_component_rounded,
+                              offer['engine'] ?? 'V8',
+                            ),
+                          ],
+                        ),
+                        Gap(12.h),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  offer['oldPrice'],
+                                  style: TextStyle(
+                                    color: Colors.white38,
+                                    fontSize: 11.sp,
+                                    decoration: TextDecoration.lineThrough,
+                                  ),
+                                ),
+                                Text(
+                                  offer['price'],
+                                  style: AppTextStyle.titleMedium(context).copyWith(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w900,
+                                    fontSize: 19.sp,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const Spacer(),
+                            Container(
+                              padding: EdgeInsets.all(8.w),
+                              decoration: BoxDecoration(
+                                color: AppColor.primaryColor(context),
+                                borderRadius: BorderRadius.circular(12.r),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: AppColor.primaryColor(context).withValues(alpha: 0.3),
+                                    blurRadius: 8,
+                                    offset: const Offset(0, 4),
+                                  ),
+                                ],
+                              ),
+                              child: Icon(
+                                Icons.arrow_forward_rounded,
+                                color: Colors.white,
+                                size: 16.sp,
                               ),
                             ),
                           ],
@@ -305,28 +427,43 @@ class _OffersScreenState extends State<OffersScreen> {
                       ],
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
+
+            // Discount Badge - Hanging Tag Design
             Positioned(
-              top: 0,
               left: 20.w,
+              top: 0,
               child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 12.h),
+                padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 8.h),
                 decoration: BoxDecoration(
                   color: AppColor.primaryColor(context),
                   borderRadius: BorderRadius.vertical(bottom: Radius.circular(12.r)),
+                  boxShadow: [
+                    BoxShadow(
+                      color: AppColor.primaryColor(context).withValues(alpha: 0.3),
+                      blurRadius: 10,
+                      offset: const Offset(0, 4),
+                    ),
+                  ],
                 ),
                 child: Column(
+                  mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      'خصم',
-                      style: AppTextStyle.bodySmall(context).copyWith(color: Colors.white, fontSize: 8.sp),
+                      offer['discount'],
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w900,
+                        fontSize: 14.sp,
+                      ),
                     ),
                     Text(
-                      offer['discount'],
-                      style: AppTextStyle.bodyMedium(context).copyWith(
-                        color: Colors.white,
+                      'OFF',
+                      style: TextStyle(
+                        color: Colors.white.withValues(alpha: 0.8),
+                        fontSize: 8.sp,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -337,6 +474,19 @@ class _OffersScreenState extends State<OffersScreen> {
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildMiniSpec(IconData icon, String value) {
+    return Row(
+      children: [
+        Icon(icon, color: Colors.white24, size: 13.sp),
+        Gap(4.w),
+        Text(
+          value,
+          style: TextStyle(color: Colors.white38, fontSize: 10.sp, fontWeight: FontWeight.w500),
+        ),
+      ],
     );
   }
 }
@@ -351,9 +501,58 @@ class OffersFeaturedSlider extends StatefulWidget {
 class _OffersFeaturedSliderState extends State<OffersFeaturedSlider> {
   final PageController _pageController = PageController();
   int _currentIndex = 0;
+  Timer? _timer;
+
+  final List<Map<String, dynamic>> _featuredOffers = [
+    {
+      'title': 'موسم القوة!',
+      'subtitle': 'وفر حتى 50,000 د.إ على موديلات مرسيدس',
+      'color1': const Color(0xff1E293B),
+      'color2': const Color(0xff0F172A),
+      'icon': Icons.speed_rounded,
+    },
+    {
+      'title': 'عروض تمويل 0%',
+      'subtitle': 'ابدأ رحلتك مع تسلا بأقل قسط شهري',
+      'color1': const Color(0xff7C3AED),
+      'color2': const Color(0xff4C1D95),
+      'icon': Icons.electric_car_rounded,
+    },
+    {
+      'title': 'ضمان ممتد مجاناً',
+      'subtitle': 'احصل على 5 سنوات ضمان عند شراء أي سيارة SUV',
+      'color1': const Color(0xff059669),
+      'color2': const Color(0xff064E3B),
+      'icon': Icons.verified_user_rounded,
+    },
+  ];
+
+  @override
+  void initState() {
+    super.initState();
+    _startTimer();
+  }
+
+  void _startTimer() {
+    _timer = Timer.periodic(const Duration(seconds: 4), (timer) {
+      if (_currentIndex < _featuredOffers.length - 1) {
+        _currentIndex++;
+      } else {
+        _currentIndex = 0;
+      }
+      if (_pageController.hasClients) {
+        _pageController.animateToPage(
+          _currentIndex,
+          duration: const Duration(milliseconds: 800),
+          curve: Curves.easeInOutQuart,
+        );
+      }
+    });
+  }
 
   @override
   void dispose() {
+    _timer?.cancel();
     _pageController.dispose();
     super.dispose();
   }
@@ -363,44 +562,80 @@ class _OffersFeaturedSliderState extends State<OffersFeaturedSlider> {
     return Column(
       children: [
         SizedBox(
-          height: 160.h,
+          height: 180.h,
           child: PageView.builder(
             controller: _pageController,
             onPageChanged: (index) => setState(() => _currentIndex = index),
-            itemCount: 3,
+            itemCount: _featuredOffers.length,
             itemBuilder: (context, index) {
+              final item = _featuredOffers[index];
               return Container(
                 margin: EdgeInsets.symmetric(horizontal: 20.w),
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
-                    colors: [AppColor.primaryColor(context), const Color(0xff0044BB)],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: [item['color1'], item['color2']],
                   ),
-                  borderRadius: BorderRadius.circular(24.r),
+                  borderRadius: BorderRadius.circular(32.r),
+                  boxShadow: [
+                    BoxShadow(
+                      color: item['color2'].withValues(alpha: 0.5),
+                      blurRadius: 20,
+                      offset: const Offset(0, 10),
+                    ),
+                  ],
                 ),
                 child: Stack(
                   children: [
                     Positioned(
-                      right: -30,
+                      right: -20,
                       bottom: -20,
-                      child: Opacity(
-                        opacity: 0.2,
-                        child: Icon(Icons.local_offer, size: 150.sp, color: Colors.white),
+                      child: Icon(
+                        item['icon'],
+                        size: 180.sp,
+                        color: Colors.white.withValues(alpha: 0.05),
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.all(24.w),
+                      padding: EdgeInsets.all(28.w),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
+                          Container(
+                            padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
+                            decoration: BoxDecoration(
+                              color: Colors.white.withValues(alpha: 0.1),
+                              borderRadius: BorderRadius.circular(10.r),
+                            ),
+                            child: Text(
+                              'عرض محدود',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 10.sp,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                          Gap(12.h),
                           Text(
-                            'تخفيضات الربيع!',
-                            style: AppTextStyle.titleLarge(context).copyWith(color: Colors.white),
+                            item['title'],
+                            style: AppTextStyle.titleLarge(context).copyWith(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w900,
+                              fontSize: 24.sp,
+                            ),
                           ),
                           Gap(8.h),
-                          Text(
-                            'وفر حتى 20% على موديلات 2024 المختارة',
-                            style: AppTextStyle.bodyMedium(context).copyWith(color: Colors.white70),
+                          SizedBox(
+                            width: 200.w,
+                            child: Text(
+                              item['subtitle'],
+                              style: AppTextStyle.bodyMedium(
+                                context,
+                              ).copyWith(color: Colors.white70, fontSize: 13.sp),
+                            ),
                           ),
                         ],
                       ),
@@ -411,17 +646,18 @@ class _OffersFeaturedSliderState extends State<OffersFeaturedSlider> {
             },
           ),
         ),
-        Gap(12.h),
+        Gap(16.h),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: List.generate(
-            3,
-            (index) => Container(
+            _featuredOffers.length,
+            (index) => AnimatedContainer(
+              duration: const Duration(milliseconds: 300),
               margin: EdgeInsets.only(right: 6.w),
               height: 6.h,
               width: _currentIndex == index ? 24.w : 6.w,
               decoration: BoxDecoration(
-                color: _currentIndex == index ? AppColor.primaryColor(context) : Colors.white24,
+                color: _currentIndex == index ? AppColor.primaryColor(context) : Colors.white10,
                 borderRadius: BorderRadius.circular(10.r),
               ),
             ),

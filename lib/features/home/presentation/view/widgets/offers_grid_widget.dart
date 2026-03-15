@@ -75,7 +75,7 @@ class OffersGridWidget extends StatelessWidget {
       itemCount: _offers.length,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
-        childAspectRatio: 0.62, // Slightly taller for more elegance
+        childAspectRatio: 0.63,
         crossAxisSpacing: 16.w,
         mainAxisSpacing: 16.h,
       ),
@@ -88,193 +88,211 @@ class OffersGridWidget extends StatelessWidget {
           child: Container(
             decoration: BoxDecoration(
               color: AppColor.secondAppColor(context),
-              borderRadius: BorderRadius.circular(24.r),
+              borderRadius: BorderRadius.circular(28.r),
+              border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.2),
+                  color: Colors.black.withValues(alpha: 0.2),
                   blurRadius: 15,
                   offset: const Offset(0, 8),
                 ),
               ],
-              border: Border.all(color: Colors.white.withOpacity(0.05), width: 1),
             ),
             clipBehavior: Clip.antiAlias,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            child: Stack(
               children: [
-                // Top Image Area
-                Expanded(
-                  flex: 5,
-                  child: Stack(
-                    fit: StackFit.expand,
-                    children: [
-                      Container(
-                        color: Colors.white.withOpacity(0.02),
-                        padding: EdgeInsets.all(16.w),
-                        child: Hero(
-                          tag: 'car_image_${car['name']}',
-                          child: Image.asset(car['image'], fit: BoxFit.contain),
+                // Background Brand Overlay (Subtle)
+                Positioned(
+                  right: -10,
+                  top: 20,
+                  child: Opacity(
+                    opacity: 0.03,
+                    child: RotatedBox(
+                      quarterTurns: 1,
+                      child: Text(
+                        car['brand'] ?? '',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 40.sp,
+                          fontWeight: FontWeight.w900,
                         ),
                       ),
-                      Positioned(
-                        bottom: 0,
-                        left: 0,
-                        right: 0,
-                        height: 40.h,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              begin: Alignment.bottomCenter,
-                              end: Alignment.topCenter,
-                              colors: [
-                                AppColor.secondAppColor(context),
-                                AppColor.secondAppColor(context).withOpacity(0.0),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                      Positioned(
-                        top: 0,
-                        left: 0,
-                        child: Container(
-                          padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
-                          decoration: BoxDecoration(
-                            gradient: const LinearGradient(
-                              colors: [Color(0xFFFF3B30), Color(0xFFFF5050)],
-                            ),
-                            borderRadius: BorderRadius.only(bottomRight: Radius.circular(16.r)),
-                            boxShadow: [
-                              BoxShadow(
-                                color: const Color(0xFFFF3B30).withOpacity(0.4),
-                                blurRadius: 8,
-                                offset: const Offset(2, 2),
-                              ),
-                            ],
-                          ),
-                          child: Text(
-                            "خصم ${car['discount']}",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 10.sp,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ),
-                      Positioned(
-                        top: 8.h,
-                        right: 8.w,
-                        child: BlocBuilder<FavoritesCubit, FavoritesState>(
-                          builder: (context, state) {
-                            final isFav = context.read<FavoritesCubit>().isFavorite(car['name']!);
-                            return GestureDetector(
-                              onTap: () {
-                                context.read<FavoritesCubit>().toggleFavorite(car);
-                              },
-                              child: CircleAvatar(
-                                radius: 14.r,
-                                backgroundColor: AppColor.scaffoldColor(context).withValues(alpha: 0.6),
-                                child: Icon(
-                                  isFav ? Icons.favorite_rounded : Icons.favorite_border_rounded,
-                                  color: isFav ? Colors.redAccent : Colors.white,
-                                  size: 16.w,
-                                ),
-                              ),
-                            );
-                          },
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
                 ),
 
-                // Bottom Details Area
-                Expanded(
-                  flex: 5,
-                  child: Padding(
-                    padding: EdgeInsets.fromLTRB(12.w, 4.h, 12.w, 12.h),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Top Image Area
+                    Expanded(
+                      flex: 5,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors: [Colors.white.withValues(alpha: 0.05), Colors.transparent],
+                          ),
+                        ),
+                        child: Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            Hero(
+                              tag: 'car_image_${car['name']}',
+                              child: Padding(
+                                padding: EdgeInsets.all(16.w),
+                                child: Image.asset(car['image'], fit: BoxFit.contain),
+                              ),
+                            ),
+                            // Favorite Button
+                            Positioned(
+                              top: 12.h,
+                              right: 12.w,
+                              child: BlocBuilder<FavoritesCubit, FavoritesState>(
+                                builder: (context, state) {
+                                  final isFav = context.read<FavoritesCubit>().isFavorite(
+                                    car['name']!,
+                                  );
+                                  return GestureDetector(
+                                    onTap: () => context.read<FavoritesCubit>().toggleFavorite(car),
+                                    child: Container(
+                                      padding: EdgeInsets.all(6.w),
+                                      decoration: BoxDecoration(
+                                        color: Colors.black.withValues(alpha: 0.3),
+                                        shape: BoxShape.circle,
+                                      ),
+                                      child: Icon(
+                                        isFav
+                                            ? Icons.favorite_rounded
+                                            : Icons.favorite_border_rounded,
+                                        color: isFav ? Colors.redAccent : Colors.white,
+                                        size: 14.sp,
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+
+                    // Bottom Details Area
+                    Expanded(
+                      flex: 6,
+                      child: Padding(
+                        padding: EdgeInsets.all(12.w),
+                        child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
                               car['brand'],
-                              style: AppTextStyle.bodySmall(context).copyWith(
+                              style: TextStyle(
                                 color: AppColor.primaryColor(context),
-                                fontWeight: FontWeight.w600,
                                 fontSize: 10.sp,
+                                fontWeight: FontWeight.w900,
                               ),
                             ),
-                            Gap(2.h),
+                            Gap(4.h),
                             Text(
                               car['name'],
                               style: AppTextStyle.titleSmall(context).copyWith(
                                 color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w900,
+                                fontSize: 13.sp,
                               ),
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                             ),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            _buildCarDetail(context, Icons.speed_outlined, car['mileage']),
-                            Gap(8.w),
-                            _buildCarDetail(context, Icons.local_gas_station_outlined, "بنزين"),
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                            const Spacer(),
+                            // Specs
+                            Row(
                               children: [
-                                Text(
-                                  car['oldPrice'],
-                                  style: TextStyle(
-                                    decoration: TextDecoration.lineThrough,
-                                    color: AppColor.greyColor(context),
-                                    fontSize: 10.sp,
+                                Icon(Icons.speed_outlined, color: Colors.white24, size: 12.sp),
+                                Gap(4.w),
+                                Expanded(
+                                  child: Text(
+                                    car['mileage'],
+                                    style: TextStyle(color: Colors.white38, fontSize: 9.sp),
+                                    maxLines: 1,
                                   ),
                                 ),
+                                Gap(4.w),
+                                Icon(Icons.bolt_rounded, color: Colors.white24, size: 12.sp),
+                                Gap(2.w),
                                 Text(
-                                  car['price'],
-                                  style: AppTextStyle.titleSmall(
-                                    context,
-                                    color: AppColor.primaryColor(context),
-                                  ).copyWith(fontWeight: FontWeight.bold),
+                                  (car['engine'] as String).split(' ').last,
+                                  style: TextStyle(color: Colors.white38, fontSize: 9.sp),
                                 ),
                               ],
                             ),
-                            Container(
-                              padding: EdgeInsets.all(8.w),
-                              decoration: BoxDecoration(
-                                color: AppColor.primaryColor(context),
-                                borderRadius: BorderRadius.circular(12.r),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: AppColor.primaryColor(context).withOpacity(0.4),
-                                    blurRadius: 8,
-                                    offset: const Offset(0, 4),
+                            Gap(12.h),
+                            // Price and Action
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      car['oldPrice'],
+                                      style: TextStyle(
+                                        color: Colors.white24,
+                                        fontSize: 9.sp,
+                                        decoration: TextDecoration.lineThrough,
+                                      ),
+                                    ),
+                                    Text(
+                                      car['price'],
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w900,
+                                        fontSize: 14.sp,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Container(
+                                  padding: EdgeInsets.all(6.w),
+                                  decoration: BoxDecoration(
+                                    color: AppColor.primaryColor(context),
+                                    borderRadius: BorderRadius.circular(10.r),
                                   ),
-                                ],
-                              ),
-                              child: Icon(
-                                Icons.arrow_forward_ios_rounded,
-                                color: Colors.white,
-                                size: 14.w,
-                              ),
+                                  child: Icon(
+                                    Icons.arrow_forward_rounded,
+                                    color: Colors.white,
+                                    size: 14.sp,
+                                  ),
+                                ),
+                              ],
                             ),
                           ],
                         ),
-                      ],
+                      ),
+                    ),
+                  ],
+                ),
+
+                // Discount Badge (Pill Style)
+                Positioned(
+                  top: 12.h,
+                  left: 12.w,
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
+                    decoration: BoxDecoration(
+                      color: Colors.redAccent.withValues(alpha: 0.9),
+                      borderRadius: BorderRadius.circular(8.r),
+                    ),
+                    child: Text(
+                      "${car['discount']} OFF",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 9.sp,
+                        fontWeight: FontWeight.w900,
+                      ),
                     ),
                   ),
                 ),
@@ -283,27 +301,6 @@ class OffersGridWidget extends StatelessWidget {
           ),
         );
       },
-    );
-  }
-
-  Widget _buildCarDetail(BuildContext context, IconData icon, String label) {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 4.h),
-      decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.05),
-        borderRadius: BorderRadius.circular(6.r),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(icon, color: AppColor.greyColor(context), size: 12.w),
-          Gap(4.w),
-          Text(
-            label,
-            style: TextStyle(color: AppColor.greyColor(context), fontSize: 10.sp),
-          ),
-        ],
-      ),
     );
   }
 }
