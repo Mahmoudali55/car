@@ -128,4 +128,5 @@ class AppLocaleKey {
   static const String korea = 'korea';
   static const String usa = 'usa';
   static const String europe = 'europe';
+  static const String specialOffers = 'special_offers';
 }
