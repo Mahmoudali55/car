@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:car/core/custom_widgets/custom_form_field/custom_form_field.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
@@ -15,6 +16,59 @@ class OffersScreen extends StatefulWidget {
 class _OffersScreenState extends State<OffersScreen> {
   int _selectedFilterIndex = 0;
   final List<String> _filters = ['الكل', 'فاخرة', 'رياضية', 'SUV', 'سيدان'];
+
+  late PageController _pageController;
+  int _currentBannerIndex = 0;
+  late Timer _timer;
+
+  final List<Map<String, dynamic>> _megaOffers = [
+    {
+      'badge': 'عرض الأسبوع',
+      'title': 'تصفية نهاية العام وخصومات حتى 30% على السيارات الفارهة',
+      'icon': Icons.local_offer,
+      'colors': [const Color(0xFF2563EB), const Color(0xFF3B82F6).withOpacity(0.7)], // App Primary Colors
+    },
+    {
+      'badge': 'حرق أسعار',
+      'title': 'استرجاع نقدي يصل إلى 50,000 د.إ على سيارات الدفع الرباعي',
+      'icon': Icons.payments_rounded,
+      'colors': [const Color(0xFFDC2626), const Color(0xFFEF4444).withOpacity(0.7)], // Red theme
+    },
+    {
+      'badge': 'حصرياً للمشتركين',
+      'title': 'صيانة مجانية لمدة 3 سنوات عند شراء أي سيارة رياضية',
+      'icon': Icons.handyman_rounded,
+      'colors': [const Color(0xFF059669), const Color(0xFF10B981).withOpacity(0.7)], // Green theme
+    },
+  ];
+
+  @override
+  void initState() {
+    super.initState();
+    _pageController = PageController(initialPage: _currentBannerIndex);
+    _timer = Timer.periodic(const Duration(seconds: 4), (Timer timer) {
+      if (_currentBannerIndex < _megaOffers.length - 1) {
+        _currentBannerIndex++;
+      } else {
+        _currentBannerIndex = 0;
+      }
+
+      if (_pageController.hasClients) {
+        _pageController.animateToPage(
+          _currentBannerIndex,
+          duration: const Duration(milliseconds: 800),
+          curve: Curves.easeInOutQuart,
+        );
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    _pageController.dispose();
+    super.dispose();
+  }
 
   // Dummy offers data
   final List<Map<String, dynamic>> _offers = [
@@ -117,73 +171,102 @@ class _OffersScreenState extends State<OffersScreen> {
               ),
               Gap(20.h),
 
-              // Hero Banner (Featured Mega Sale)
+              // Hero Banner (Featured Mega Sale Slider)
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16.w),
-                child: Container(
+                child: SizedBox(
                   width: double.infinity,
                   height: 160.h,
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [
-                        AppColor.primaryColor(context),
-                        AppColor.primaryColor(context).withOpacity(0.7),
-                      ],
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                    ),
-                    borderRadius: BorderRadius.circular(20.r),
-                    boxShadow: [
-                      BoxShadow(
-                        color: AppColor.primaryColor(context).withOpacity(0.4),
-                        blurRadius: 15,
-                        offset: const Offset(0, 8),
-                      ),
-                    ],
-                  ),
-                  child: Stack(
-                    children: [
-                      Positioned(
-                        right: -20,
-                        top: -20,
-                        child: Icon(
-                          Icons.local_offer,
-                          size: 140.sp,
-                          color: Colors.white.withOpacity(0.15),
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.all(20.w),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                              padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(8.r),
-                              ),
-                              child: Text(
-                                'عرض الأسبوع',
-                                style: AppTextStyle.bodySmall(context).copyWith(
-                                  color: AppColor.primaryColor(context),
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                            Gap(12.h),
-                            Text(
-                              'تصفية نهاية العام وخصومات حتى 30% على السيارات الفارهة',
-                              style: AppTextStyle.titleMedium(
-                                context,
-                              ).copyWith(color: Colors.white, fontWeight: FontWeight.bold),
-                              maxLines: 2,
+                  child: PageView.builder(
+                    controller: _pageController,
+                    onPageChanged: (value) => setState(() => _currentBannerIndex = value),
+                    itemCount: _megaOffers.length,
+                    itemBuilder: (context, index) {
+                      final offer = _megaOffers[index];
+                      return Container(
+                        margin: EdgeInsets.symmetric(horizontal: 4.w), // slight margin between pages
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: offer['colors'] as List<Color>,
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                          ),
+                          borderRadius: BorderRadius.circular(20.r),
+                          boxShadow: [
+                            BoxShadow(
+                              color: (offer['colors'] as List<Color>)[0].withOpacity(0.4),
+                              blurRadius: 15,
+                              offset: const Offset(0, 8),
                             ),
                           ],
                         ),
-                      ),
-                    ],
+                        child: Stack(
+                          children: [
+                            Positioned(
+                              right: -20,
+                              top: -20,
+                              child: Icon(
+                                offer['icon'] as IconData,
+                                size: 140.sp,
+                                color: Colors.white.withOpacity(0.15),
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.all(20.w),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Container(
+                                    padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(8.r),
+                                    ),
+                                    child: Text(
+                                      offer['badge'] as String,
+                                      style: AppTextStyle.bodySmall(context).copyWith(
+                                        color: (offer['colors'] as List<Color>)[0],
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                                  Gap(12.h),
+                                  Text(
+                                    offer['title'] as String,
+                                    style: AppTextStyle.titleMedium(
+                                      context,
+                                    ).copyWith(color: Colors.white, fontWeight: FontWeight.bold),
+                                    maxLines: 2,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ),
+              
+              // Page Indicators
+              Gap(12.h),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: List.generate(
+                  _megaOffers.length,
+                  (index) => AnimatedContainer(
+                    duration: const Duration(milliseconds: 300),
+                    margin: EdgeInsets.symmetric(horizontal: 4.w),
+                    height: 6.h,
+                    width: _currentBannerIndex == index ? 24.w : 6.w,
+                    decoration: BoxDecoration(
+                      color: _currentBannerIndex == index
+                          ? AppColor.primaryColor(context)
+                          : AppColor.greyColor(context).withOpacity(0.3),
+                      borderRadius: BorderRadius.circular(10.r),
+                    ),
                   ),
                 ),
               ),

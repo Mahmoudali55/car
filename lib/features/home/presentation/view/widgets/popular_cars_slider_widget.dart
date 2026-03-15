@@ -23,7 +23,7 @@ class _PopularCarsSliderState extends State<PopularCarsSlider> {
   final List<Map<String, String>> popularCars = [
     {
       'name': 'Ferrari SF90',
-      'image': 'assets/images/cars/mercedes-benz.png',
+      'image': 'assets/images/cars/mercedes-benz.png', // Temporary fallback image
       'price': 'AED 1,200,000',
       'year': '2024',
       'km': '0 km',
@@ -78,7 +78,7 @@ class _PopularCarsSliderState extends State<PopularCarsSlider> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 340.h,
+      height: 360.h,
       width: double.infinity,
       child: PageView.builder(
         controller: _pageController,
@@ -86,136 +86,201 @@ class _PopularCarsSliderState extends State<PopularCarsSlider> {
         itemCount: popularCars.length,
         itemBuilder: (context, index) {
           final car = popularCars[index];
+          final isSelected = index == _currentPage;
+          
           return AnimatedContainer(
-            duration: const Duration(milliseconds: 300),
-            margin: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
+            duration: const Duration(milliseconds: 400),
+            curve: Curves.easeOutQuint,
+            margin: EdgeInsets.symmetric(
+              horizontal: 8.w, 
+              vertical: isSelected ? 10.h : 20.h, // Scale effect for non-selected items
+            ),
             decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(25.r),
+              color: AppColor.secondAppColor(context),
+              borderRadius: BorderRadius.circular(28.r),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.05),
-                  blurRadius: 15,
-                  offset: const Offset(0, 10),
+                  color: isSelected 
+                      ? AppColor.primaryColor(context).withOpacity(0.15)
+                      : Colors.black.withOpacity(0.1),
+                  blurRadius: isSelected ? 20 : 10,
+                  offset: isSelected ? const Offset(0, 10) : const Offset(0, 5),
                 ),
               ],
+              border: Border.all(
+                color: isSelected 
+                    ? AppColor.primaryColor(context).withOpacity(0.3)
+                    : Colors.white.withOpacity(0.05),
+                width: 1,
+              ),
             ),
+            clipBehavior: Clip.antiAlias,
             child: Column(
               children: [
                 // Image Section (Flex 1)
                 Expanded(
-                  flex: 1,
+                  flex: 12,
                   child: Stack(
+                    fit: StackFit.expand,
                     children: [
+                      // Subdued background for the image
                       Container(
-                        margin: EdgeInsets.all(12.w),
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          color: AppColor.greyColor(context).withOpacity(0.05),
-                          borderRadius: BorderRadius.circular(20.r),
-                          border: Border.all(color: Colors.grey.withOpacity(0.2)),
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.all(15.w),
+                        color: Colors.white.withOpacity(0.02),
+                        padding: EdgeInsets.all(16.w),
+                        child: AnimatedScale(
+                          duration: const Duration(milliseconds: 400),
+                          scale: isSelected ? 1.05 : 0.95, // Slight zoom effect
                           child: Image.asset(car['image']!, fit: BoxFit.contain),
                         ),
                       ),
+                      
+                      // Bottom gradient to blend into details
                       Positioned(
-                        top: 20.h,
-                        right: 20.w,
+                        bottom: 0,
+                        left: 0,
+                        right: 0,
+                        height: 60.h,
                         child: Container(
-                          padding: EdgeInsets.all(6.w),
-                          decoration: const BoxDecoration(
-                            color: Colors.white,
-                            shape: BoxShape.circle,
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              begin: Alignment.bottomCenter,
+                              end: Alignment.topCenter,
+                              colors: [
+                                AppColor.secondAppColor(context),
+                                AppColor.secondAppColor(context).withOpacity(0.0),
+                              ],
+                            ),
                           ),
+                        ),
+                      ),
+
+                      // Favorite Icon
+                      Positioned(
+                        top: 16.h,
+                        right: 16.w,
+                        child: CircleAvatar(
+                          radius: 16.r,
+                          backgroundColor: AppColor.scaffoldColor(context).withOpacity(0.5),
                           child: Icon(
                             Icons.favorite_border_rounded,
-                            color: AppColor.primaryColor(context),
+                            color: Colors.white,
                             size: 18.w,
+                          ),
+                        ),
+                      ),
+                      
+                      // "Hot Deal" or "Popular" Badge
+                      Positioned(
+                        top: 16.h,
+                        left: 16.w,
+                        child: Container(
+                          padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
+                          decoration: BoxDecoration(
+                            color: AppColor.primaryColor(context).withOpacity(0.2),
+                            borderRadius: BorderRadius.circular(8.r),
+                            border: Border.all(color: AppColor.primaryColor(context).withOpacity(0.5)),
+                          ),
+                          child: Text(
+                            "الأكثر طلباً",
+                            style: AppTextStyle.bodySmall(context).copyWith(
+                              color: AppColor.primaryColor(context),
+                              fontSize: 9.sp,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                       ),
                     ],
                   ),
                 ),
+                
                 // Content Section (Flex 1)
                 Expanded(
-                  flex: 1,
+                  flex: 13,
                   child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 5.h),
+                    padding: EdgeInsets.fromLTRB(16.w, 4.h, 16.w, 16.h),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           car['name']!,
-                          style: AppTextStyle.titleMedium(
-                            context,
-                          ).copyWith(fontWeight: FontWeight.bold),
+                          style: AppTextStyle.titleMedium(context).copyWith(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18.sp,
+                          ),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
                         ),
-                        Gap(8.h),
-                        // Details Row
+                        Gap(12.h),
+                        
+                        // Technical specs styled as chips
                         Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             _buildMiniDetail(context, Icons.calendar_today_outlined, car['year']!),
-                            Gap(12.w),
                             _buildMiniDetail(context, Icons.speed_outlined, car['km']!),
-                            Gap(12.w),
                             _buildMiniDetail(context, Icons.settings_outlined, car['engine']!),
                           ],
                         ),
+                        
                         const Spacer(),
+                        
                         // Price
                         Text(
                           car['price']!,
                           style: AppTextStyle.titleMedium(context).copyWith(
                             color: AppColor.primaryColor(context),
-                            fontWeight: FontWeight.w800,
+                            fontWeight: FontWeight.w900,
+                            fontSize: 18.sp,
                           ),
                         ),
-                        Gap(10.h),
+                        Gap(12.h),
+                        
                         // Action Buttons
                         Row(
                           children: [
                             Expanded(
+                              flex: 3,
                               child: ElevatedButton(
                                 onPressed: () {},
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: AppColor.primaryColor(context),
                                   foregroundColor: Colors.white,
                                   shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(12.r),
+                                    borderRadius: BorderRadius.circular(16.r),
                                   ),
-                                  padding: EdgeInsets.symmetric(vertical: 10.h),
-                                  elevation: 0,
+                                  padding: EdgeInsets.symmetric(vertical: 12.h),
+                                  shadowColor: AppColor.primaryColor(context).withOpacity(0.5),
+                                  elevation: 8,
                                 ),
                                 child: Text(
                                   AppLocaleKey.orderNow.tr(),
-                                  style: TextStyle(fontSize: 11.sp, fontWeight: FontWeight.bold),
+                                  style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold),
                                 ),
                               ),
                             ),
-                            Gap(10.w),
+                            Gap(12.w),
                             Expanded(
+                              flex: 2,
                               child: OutlinedButton(
                                 onPressed: () {},
                                 style: OutlinedButton.styleFrom(
-                                  side: BorderSide(color: AppColor.primaryColor(context)),
-                                  foregroundColor: AppColor.primaryColor(context),
+                                  side: BorderSide(color: Colors.white.withOpacity(0.2), width: 1.5),
+                                  foregroundColor: Colors.white,
                                   shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(12.r),
+                                    borderRadius: BorderRadius.circular(16.r),
                                   ),
-                                  padding: EdgeInsets.symmetric(vertical: 10.h),
+                                  padding: EdgeInsets.symmetric(vertical: 12.h),
                                 ),
                                 child: Text(
                                   AppLocaleKey.details.tr(),
-                                  style: TextStyle(fontSize: 11.sp, fontWeight: FontWeight.bold),
+                                  style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold),
                                 ),
                               ),
                             ),
                           ],
                         ),
-                        Gap(10.h),
                       ],
                     ),
                   ),
@@ -229,15 +294,24 @@ class _PopularCarsSliderState extends State<PopularCarsSlider> {
   }
 
   Widget _buildMiniDetail(BuildContext context, IconData icon, String label) {
-    return Row(
-      children: [
-        Icon(icon, color: Colors.grey, size: 14.w),
-        Gap(4.w),
-        Text(
-          label,
-          style: TextStyle(color: Colors.grey, fontSize: 10.sp, fontWeight: FontWeight.w500),
-        ),
-      ],
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 6.h),
+      decoration: BoxDecoration(
+        color: Colors.white.withOpacity(0.04),
+        borderRadius: BorderRadius.circular(8.r),
+        border: Border.all(color: Colors.white.withOpacity(0.02)),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+           Icon(icon, color: AppColor.greyColor(context), size: 14.w),
+          Gap(6.w),
+          Text(
+            label,
+            style: TextStyle(color: AppColor.greyColor(context), fontSize: 10.sp, fontWeight: FontWeight.w600),
+          ),
+        ],
+      ),
     );
   }
 }

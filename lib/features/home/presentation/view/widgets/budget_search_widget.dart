@@ -13,35 +13,68 @@ class BudgetSearchWidget extends StatefulWidget {
 }
 
 class _BudgetSearchWidgetState extends State<BudgetSearchWidget> {
-  @override
+  int _selectedIndex = 0; // Keep track of selected budget
+
   final budgets = [
     AppLocaleKey.under50k.tr(),
     AppLocaleKey.k50k100k.tr(),
     AppLocaleKey.k100k200k.tr(),
     AppLocaleKey.over200k.tr(),
   ];
+
+  @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: 45.h,
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
+        padding: EdgeInsets.symmetric(horizontal: 16.w),
         physics: const BouncingScrollPhysics(),
         itemCount: budgets.length,
         separatorBuilder: (context, index) => SizedBox(width: 12.w),
         itemBuilder: (context, index) {
-          return Container(
-            padding: EdgeInsets.symmetric(horizontal: 20.w),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(12.r),
-              border: Border.all(color: AppColor.primaryColor(context).withOpacity(0.1)),
-            ),
-            child: Center(
-              child: Text(
-                budgets[index],
-                style: AppTextStyle.bodySmall(
-                  context,
-                ).copyWith(color: AppColor.primaryColor(context), fontWeight: FontWeight.bold),
+          final isSelected = _selectedIndex == index;
+
+          return GestureDetector(
+            onTap: () {
+              setState(() {
+                _selectedIndex = index;
+              });
+            },
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 300),
+              curve: Curves.easeOutCubic,
+              padding: EdgeInsets.symmetric(horizontal: 24.w), // Slightly wider padding for a premium look
+              decoration: BoxDecoration(
+                color: isSelected 
+                    ? AppColor.primaryColor(context) 
+                    : AppColor.secondAppColor(context),
+                borderRadius: BorderRadius.circular(30.r), // Pill shape
+                border: Border.all(
+                  color: isSelected
+                      ? AppColor.primaryColor(context)
+                      : Colors.white.withOpacity(0.08),
+                  width: isSelected ? 1.5 : 1,
+                ),
+                boxShadow: isSelected
+                    ? [
+                        BoxShadow(
+                          color: AppColor.primaryColor(context).withOpacity(0.3),
+                          blurRadius: 15,
+                          offset: const Offset(0, 5),
+                        )
+                      ]
+                    : [],
+              ),
+              child: Center(
+                child: Text(
+                  budgets[index],
+                  style: AppTextStyle.bodySmall(context).copyWith(
+                    color: isSelected ? Colors.white : Colors.white.withOpacity(0.8),
+                    fontWeight: isSelected ? FontWeight.w800 : FontWeight.w600,
+                    fontSize: 12.sp,
+                  ),
+                ),
               ),
             ),
           );

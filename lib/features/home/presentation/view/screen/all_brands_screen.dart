@@ -563,7 +563,7 @@ class _AllBrandsScreenState extends State<AllBrandsScreen> {
                     onTap: () {},
                     child: Container(
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: AppColor.secondAppColor(context),
                         borderRadius: BorderRadius.circular(16.r),
                         border: Border.all(color: Colors.grey.withOpacity(0.12)),
                         boxShadow: [
