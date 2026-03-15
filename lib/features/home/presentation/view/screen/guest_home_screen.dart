@@ -5,7 +5,6 @@ import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/utils/navigator_methods.dart';
 import 'package:car/features/home/presentation/view/widgets/budget_search_widget.dart';
 import 'package:car/features/home/presentation/view/widgets/categories_widget.dart';
-import 'package:car/features/home/presentation/view/widgets/featured_slider_widget.dart';
 import 'package:car/features/home/presentation/view/widgets/offers_grid_widget.dart';
 import 'package:car/features/home/presentation/view/widgets/popular_cars_slider_widget.dart';
 import 'package:car/features/home/presentation/view/widgets/section_title_widget.dart';
@@ -72,11 +71,7 @@ class HomeGuestScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 15.h),
                   CategoriesWidget(),
-                  SizedBox(height: 30.h),
-                  SectionTitleWidget(title: AppLocaleKey.latestOffers.tr(), onSeeAll: () {}),
                   SizedBox(height: 15.h),
-                  FeaturedSliderWidget(),
-                  SizedBox(height: 30.h),
                   SectionTitleWidget(title: AppLocaleKey.popularCars.tr(), onSeeAll: () {}),
                   SizedBox(height: 15.h),
                   const PopularCarsSlider(),
