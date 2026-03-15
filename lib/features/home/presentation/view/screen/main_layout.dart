@@ -9,6 +9,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
 import '../../../../cars/presentation/screen/cars_screen.dart';
+import '../../../../offers/presentation/screen/offers_screen.dart';
 import 'guest_home_screen.dart';
 
 class MainLayout extends StatefulWidget {
@@ -149,14 +150,6 @@ class BrandsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const AllBrandsScreen(isFromMainLayout: true);
-  }
-}
-
-class OffersScreen extends StatelessWidget {
-  const OffersScreen({super.key});
-  @override
-  Widget build(BuildContext context) {
-    return Center(child: Text(AppLocaleKey.latestOffers.tr()));
   }
 }
 
