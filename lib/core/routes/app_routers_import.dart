@@ -8,6 +8,7 @@ import 'package:car/features/onboarding/presentation/view/screen/onboarding_scre
 import 'package:car/features/splash/presentation/view/screen/splash_screen.dart';
 import 'package:car/features/cars/presentation/screen/car_details_screen.dart';
 import 'package:car/features/home/presentation/view/screen/popular_cars_screen.dart';
+import 'package:car/features/cars/presentation/screen/filter_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

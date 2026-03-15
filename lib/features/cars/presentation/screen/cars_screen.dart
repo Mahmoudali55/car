@@ -118,13 +118,16 @@ class _CarsScreenState extends State<CarsScreen> {
                 ),
               ),
               Gap(12.w),
-              Container(
-                padding: EdgeInsets.all(12.w),
-                decoration: BoxDecoration(
-                  color: AppColor.primaryColor(context),
-                  borderRadius: BorderRadius.circular(16.r),
+              GestureDetector(
+                onTap: () => NavigatorMethods.pushNamed(context, RoutesName.filterScreen),
+                child: Container(
+                  padding: EdgeInsets.all(12.w),
+                  decoration: BoxDecoration(
+                    color: AppColor.primaryColor(context),
+                    borderRadius: BorderRadius.circular(16.r),
+                  ),
+                  child: const Icon(Icons.tune_rounded, color: Colors.white),
                 ),
-                child: const Icon(Icons.tune_rounded, color: Colors.white),
               ),
             ],
           ),

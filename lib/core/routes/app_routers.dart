@@ -31,6 +31,8 @@ class AppRouters {
         );
       case RoutesName.popularCarsScreen:
         return MaterialPageRoute(builder: (_) => const PopularCarsScreen());
+      case RoutesName.filterScreen:
+        return MaterialPageRoute(builder: (_) => const FilterScreen());
 
       default:
         return null;
