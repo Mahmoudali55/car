@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
+import '../../../../cars/presentation/screen/cars_screen.dart';
 import 'guest_home_screen.dart';
 
 class MainLayout extends StatefulWidget {
@@ -140,14 +141,6 @@ class _MainLayoutState extends State<MainLayout> {
         ),
       ),
     );
-  }
-}
-
-class CarsScreen extends StatelessWidget {
-  const CarsScreen({super.key});
-  @override
-  Widget build(BuildContext context) {
-    return Center(child: Text(AppLocaleKey.cars.tr()));
   }
 }
 
