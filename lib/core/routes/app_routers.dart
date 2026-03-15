@@ -29,6 +29,8 @@ class AppRouters {
         return MaterialPageRoute(
           builder: (_) => CarDetailsScreen(car: args as Map<String, dynamic>),
         );
+      case RoutesName.popularCarsScreen:
+        return MaterialPageRoute(builder: (_) => const PopularCarsScreen());
 
       default:
         return null;

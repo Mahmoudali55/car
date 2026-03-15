@@ -71,7 +71,12 @@ class HomeGuestScreen extends StatelessWidget {
                 SizedBox(height: 15.h),
                 CategoriesWidget(),
                 SizedBox(height: 15.h),
-                SectionTitleWidget(title: AppLocaleKey.popularCars.tr(), onSeeAll: () {}),
+                SectionTitleWidget(
+                  title: AppLocaleKey.popularCars.tr(),
+                  onSeeAll: () {
+                    NavigatorMethods.pushNamed(context, RoutesName.popularCarsScreen);
+                  },
+                ),
                 SizedBox(height: 15.h),
                 const PopularCarsSlider(),
                 SizedBox(height: 30.h),

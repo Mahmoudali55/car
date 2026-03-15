@@ -8,4 +8,5 @@ class RoutesName {
   static const String mainLayout = 'mainLayout';
   static const String allBrandsScreen = 'allBrandsScreen';
   static const String carDetailsScreen = 'carDetailsScreen';
+  static const String popularCarsScreen = 'popularCarsScreen';
 }
