@@ -80,5 +80,17 @@
   "brands": "العلامات التجارية",
   "services": "الخدمات",
   "cars": "السيارات",
-  "allBrands": "جميع العلامات التجارية"
+  "all_brands": "جميع العلامات التجارية",
+  "our_services": "خدماتنا",
+  "quick_help": "مساعدة سريعة",
+  "emergency_recovery": "ونش انقاذ",
+  "fuel_delivery": "توصيل وقود",
+  "battery_jumpstart": "اشتراك بطارية",
+  "maintenance_repair": "صيانة وإصلاح",
+  "car_washing": "غسيل سيارات",
+  "tinting_protection": "عازل وحماية",
+  "tire_service": "صيانة إطارات",
+  "car_inspection": "فحص سيارة",
+  "book_service": "احجز الخدمة",
+  "premium_packages": "باقات متميزة"
 }

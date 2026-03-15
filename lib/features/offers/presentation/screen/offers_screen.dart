@@ -1,6 +1,8 @@
 import 'package:car/core/custom_widgets/custom_form_field/custom_form_field.dart';
+import 'package:car/core/routes/routes_name.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
+import 'package:car/core/utils/navigator_methods.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -20,30 +22,51 @@ class _OffersScreenState extends State<OffersScreen> {
   final List<Map<String, dynamic>> _offers = [
     {
       'title': 'عرض خاص على G-Class G63',
+      'name': 'G-Class G63',
+      'brand': 'Mercedes-Benz',
       'category': 'فاخرة',
       'discount': '10%',
       'oldPrice': '850K د.إ',
-      'newPrice': '765K د.إ',
+      'price': '765K د.إ',
       'expiresIn': 'ينتهي غداً',
       'image': 'assets/images/cars/mercedes-benz.png',
+      'year': '2024',
+      'mileage': '0 كم',
+      'engine': '4.0L V8',
+      'video_id': 'D7O8J5vVf-M',
+      'isFavorite': true,
     },
     {
       'title': 'خصم حصري BMW M5',
+      'name': 'M5 Competition',
+      'brand': 'BMW',
       'category': 'رياضية',
       'discount': '15%',
       'oldPrice': '520K د.إ',
-      'newPrice': '442K د.إ',
+      'price': '442K د.إ',
       'expiresIn': '3 أيام',
       'image': 'assets/images/cars/bmw.png',
+      'year': '2023',
+      'mileage': '5,000 كم',
+      'engine': '4.4L V8',
+      'video_id': 'D7O8J5vVf-M',
+      'isFavorite': false,
     },
     {
       'title': 'تمويل مرن Land Cruiser',
+      'name': 'Land Cruiser 300',
+      'brand': 'Toyota',
       'category': 'SUV',
       'discount': '5%',
       'oldPrice': '350K د.إ',
-      'newPrice': '332K د.إ',
+      'price': '332K د.إ',
       'expiresIn': '5 أيام',
       'image': 'assets/images/cars/toyota.png',
+      'year': '2024',
+      'mileage': '0 كم',
+      'engine': '3.5L V6',
+      'video_id': 'D7O8J5vVf-M',
+      'isFavorite': false,
     },
   ];
 
@@ -175,112 +198,120 @@ class _OffersScreenState extends State<OffersScreen> {
   }
 
   Widget _buildOfferCard(Map<String, dynamic> offer) {
-    return Container(
-      decoration: BoxDecoration(
-        color: AppColor.secondAppColor(context),
-        borderRadius: BorderRadius.circular(24.r),
-        border: Border.all(color: Colors.white.withOpacity(0.05)),
-      ),
-      clipBehavior: Clip.antiAlias,
-      child: Stack(
-        children: [
-          Padding(
-            padding: EdgeInsets.all(16.w),
-            child: Row(
-              children: [
-                Container(
-                  width: 100.w,
-                  height: 100.h,
-                  padding: EdgeInsets.all(10.w),
-                  decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.05),
-                    borderRadius: BorderRadius.circular(20.r),
+    return GestureDetector(
+      onTap: () {
+        NavigatorMethods.pushNamed(context, RoutesName.carDetailsScreen, arguments: offer);
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          color: AppColor.secondAppColor(context),
+          borderRadius: BorderRadius.circular(24.r),
+          border: Border.all(color: Colors.white.withOpacity(0.05)),
+        ),
+        clipBehavior: Clip.antiAlias,
+        child: Stack(
+          children: [
+            Padding(
+              padding: EdgeInsets.all(16.w),
+              child: Row(
+                children: [
+                  Container(
+                    width: 100.w,
+                    height: 100.h,
+                    padding: EdgeInsets.all(10.w),
+                    decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.05),
+                      borderRadius: BorderRadius.circular(20.r),
+                    ),
+                    child: Hero(
+                      tag: 'car_image_${offer['name']}',
+                      child: Image.asset(offer['image'], fit: BoxFit.contain),
+                    ),
                   ),
-                  child: Image.asset(offer['image'], fit: BoxFit.contain),
-                ),
-                Gap(16.w),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
-                        decoration: BoxDecoration(
-                          color: AppColor.primaryColor(context).withOpacity(0.1),
-                          borderRadius: BorderRadius.circular(6.r),
-                        ),
-                        child: Text(
-                          offer['category'],
-                          style: AppTextStyle.bodySmall(context).copyWith(
-                            color: AppColor.primaryColor(context),
-                            fontSize: 10.sp,
-                            fontWeight: FontWeight.bold,
+                  Gap(16.w),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
+                          decoration: BoxDecoration(
+                            color: AppColor.primaryColor(context).withOpacity(0.1),
+                            borderRadius: BorderRadius.circular(6.r),
                           ),
-                        ),
-                      ),
-                      Gap(8.h),
-                      Text(
-                        offer['title'],
-                        style: AppTextStyle.bodyMedium(context).copyWith(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      Gap(8.h),
-                      Row(
-                        children: [
-                          Text(
-                            offer['newPrice'],
-                            style: AppTextStyle.titleMedium(context).copyWith(
+                          child: Text(
+                            offer['category'],
+                            style: AppTextStyle.bodySmall(context).copyWith(
                               color: AppColor.primaryColor(context),
+                              fontSize: 10.sp,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          Gap(8.w),
-                          Text(
-                            offer['oldPrice'],
-                            style: AppTextStyle.bodySmall(context).copyWith(
-                              color: Colors.white38,
-                              decoration: TextDecoration.lineThrough,
-                            ),
+                        ),
+                        Gap(8.h),
+                        Text(
+                          offer['title'],
+                          style: AppTextStyle.bodyMedium(context).copyWith(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
                           ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Positioned(
-            top: 0,
-            left: 20.w,
-            child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 12.h),
-              decoration: BoxDecoration(
-                color: AppColor.primaryColor(context),
-                borderRadius: BorderRadius.vertical(bottom: Radius.circular(12.r)),
-              ),
-              child: Column(
-                children: [
-                  Text(
-                    'خصم',
-                    style: AppTextStyle.bodySmall(context).copyWith(color: Colors.white, fontSize: 8.sp),
-                  ),
-                  Text(
-                    offer['discount'],
-                    style: AppTextStyle.bodyMedium(context).copyWith(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        Gap(8.h),
+                        Row(
+                          children: [
+                            Text(
+                              offer['price'],
+                              style: AppTextStyle.titleMedium(context).copyWith(
+                                color: AppColor.primaryColor(context),
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Gap(8.w),
+                            Text(
+                              offer['oldPrice'],
+                              style: AppTextStyle.bodySmall(context).copyWith(
+                                color: Colors.white38,
+                                decoration: TextDecoration.lineThrough,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
                   ),
                 ],
               ),
             ),
-          ),
-        ],
+            Positioned(
+              top: 0,
+              left: 20.w,
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 12.h),
+                decoration: BoxDecoration(
+                  color: AppColor.primaryColor(context),
+                  borderRadius: BorderRadius.vertical(bottom: Radius.circular(12.r)),
+                ),
+                child: Column(
+                  children: [
+                    Text(
+                      'خصم',
+                      style: AppTextStyle.bodySmall(context).copyWith(color: Colors.white, fontSize: 8.sp),
+                    ),
+                    Text(
+                      offer['discount'],
+                      style: AppTextStyle.bodyMedium(context).copyWith(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -296,13 +327,6 @@ class OffersFeaturedSlider extends StatefulWidget {
 class _OffersFeaturedSliderState extends State<OffersFeaturedSlider> {
   final PageController _pageController = PageController();
   int _currentIndex = 0;
-  late final javaTimer; // Using a placeholder for brevity in this scratch tool
-
-  @override
-  void initState() {
-    super.initState();
-    // Auto scroll logic would go here
-  }
 
   @override
   void dispose() {

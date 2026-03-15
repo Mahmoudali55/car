@@ -81,5 +81,17 @@ class AppLocaleKey {
   static const String brands = 'brands';
   static const String services = 'services';
   static const String cars = 'cars';
-  static const String allBrands = 'allBrands';
+  static const String allBrands = 'all_brands';
+  static const String ourServices = 'our_services';
+  static const String quickHelp = 'quick_help';
+  static const String emergencyRecovery = 'emergency_recovery';
+  static const String fuelDelivery = 'fuel_delivery';
+  static const String batteryJumpstart = 'battery_jumpstart';
+  static const String maintenanceRepair = 'maintenance_repair';
+  static const String carWashing = 'car_washing';
+  static const String tintingProtection = 'tinting_protection';
+  static const String tireService = 'tire_service';
+  static const String carInspection = 'car_inspection';
+  static const String bookService = 'book_service';
+  static const String premiumPackages = 'premium_packages';
 }

@@ -80,5 +80,17 @@
   "brands": "Brands",
   "services": "Services",
   "cars": "Cars",
-  "allBrands": "All Brands"
+  "all_brands": "All Brands",
+  "our_services": "Our Services",
+  "quick_help": "Quick Help",
+  "emergency_recovery": "Recovery",
+  "fuel_delivery": "Fuel",
+  "battery_jumpstart": "Battery",
+  "maintenance_repair": "Maintenance",
+  "car_washing": "Car Wash",
+  "tinting_protection": "Protection",
+  "tire_service": "Tires",
+  "car_inspection": "Inspection",
+  "book_service": "Book Now",
+  "premium_packages": "Premium Packages"
 }
