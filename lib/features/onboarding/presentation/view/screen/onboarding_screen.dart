@@ -119,7 +119,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       onPressed: () {
                         if (_currentPage == _pages.length - 1) {
                           HiveMethods.updateFirstTime();
-                          NavigatorMethods.pushReplacementNamed(context, RoutesName.homeScreen);
+                          NavigatorMethods.pushReplacementNamed(context, RoutesName.mainLayout);
                         } else {
                           _pageController.nextPage(
                             duration: const Duration(milliseconds: 500),

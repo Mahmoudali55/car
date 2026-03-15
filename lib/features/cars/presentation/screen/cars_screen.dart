@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:car/core/custom_widgets/custom_form_field/custom_form_field.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
@@ -14,317 +13,407 @@ class CarsScreen extends StatefulWidget {
 }
 
 class _CarsScreenState extends State<CarsScreen> {
-  int _selectedFilterIndex = 0;
-  final List<String> _filters = ['الكل', 'فاخرة', 'رياضية', 'SUV', 'سيدان'];
-
-  late PageController _pageController;
-  int _currentBannerIndex = 0;
-  late Timer _timer;
-
-  // Data for the animated hero slider
-  final List<Map<String, dynamic>> _featuredCars = [
-    {
-      'badge': 'وصل حديثاً',
-      'title': 'اكتشف الفخامة المطلقة مع أحدث طرازات مرسيدس',
-      'icon': Icons.diamond_outlined,
-      'colors': [const Color(0xFF1E293B), const Color(0xFF334155).withOpacity(0.8)], // Dark slate theme
-    },
-    {
-      'badge': 'الأكثر طلباً',
-      'title': 'أداء لا يضاهى مع سيارات بورش الرياضية',
-      'icon': Icons.speed_rounded,
-      'colors': [const Color(0xFFB91C1C), const Color(0xFFEF4444).withOpacity(0.7)], // Red theme
-    },
-    {
-      'badge': 'سيارات SUV',
-      'title': 'رحلات عائلية بقمة الراحة والأمان',
-      'icon': Icons.family_restroom_rounded,
-      'colors': [const Color(0xFF0F766E), const Color(0xFF14B8A6).withOpacity(0.7)], // Teal theme
-    },
-  ];
-
-  @override
-  void initState() {
-    super.initState();
-    _pageController = PageController(initialPage: _currentBannerIndex);
-    _timer = Timer.periodic(const Duration(seconds: 4), (Timer timer) {
-      if (_currentBannerIndex < _featuredCars.length - 1) {
-        _currentBannerIndex++;
-      } else {
-        _currentBannerIndex = 0;
-      }
-
-      if (_pageController.hasClients) {
-        _pageController.animateToPage(
-          _currentBannerIndex,
-          duration: const Duration(milliseconds: 800),
-          curve: Curves.easeInOutQuart,
-        );
-      }
-    });
-  }
+  final PageController _pageController = PageController();
+  int _currentSliderIndex = 0;
 
   @override
   void dispose() {
-    _timer.cancel();
     _pageController.dispose();
     super.dispose();
   }
 
-  // Dummy premium data
-  final List<Map<String, dynamic>> _cars = [
+  // Dummy slider data
+  final List<Map<String, String>> _featuredCars = [
     {
+      'image': 'assets/images/cars/mercedes-benz.png',
+      'name': 'G-Class G63',
       'brand': 'Mercedes-Benz',
-      'name': 'G-Class G63 AMG',
-      'price': '850,000 درهم',
-      'year': '2023',
-      'mileage': '12,000 كم',
-      'image':
-          'assets/images/cars/mercedes-benz.png', // Fallback to a brand logo if real image is missing
-      'isFavorite': false,
+      'price': '850,000 د.إ',
     },
     {
-      'brand': 'Porsche',
-      'name': '911 Turbo S',
-      'price': '920,000 درهم',
-      'year': '2024',
-      'mileage': '5,000 كم',
-      'image': 'assets/images/cars/porsche.png',
-      'isFavorite': true,
-    },
-    {
-      'brand': 'BMW',
-      'name': 'M8 Competition',
-      'price': '650,000 درهم',
-      'year': '2022',
-      'mileage': '24,000 كم',
       'image': 'assets/images/cars/bmw.png',
-      'isFavorite': false,
+      'name': 'M5 Competition',
+      'brand': 'BMW',
+      'price': '520,000 د.إ',
     },
     {
-      'brand': 'Audi',
-      'name': 'RS Q8',
-      'price': '580,000 درهم',
+      'image': 'assets/images/cars/tesla.png',
+      'name': 'Model S Plaid',
+      'brand': 'Tesla',
+      'price': '480,000 د.إ',
+    },
+  ];
+
+  // Dummy car list data
+  final List<Map<String, dynamic>> _carsList = [
+    {
+      'image': 'assets/images/cars/mercedes-benz.png',
+      'name': 'G-Class G63',
+      'brand': 'Mercedes-Benz',
+      'price': '850,000 د.إ',
+      'year': '2024',
+      'mileage': '0 كم',
+      'isFavorite': true,
+      'video_id': 'D7O8J5vVf-M',
+    },
+    {
+      'image': 'assets/images/cars/bmw.png',
+      'name': 'M5 Competition',
+      'brand': 'BMW',
+      'price': '520,000 د.إ',
       'year': '2023',
-      'mileage': '18,000 كم',
-      'image': 'assets/images/cars/audi.png',
+      'mileage': '5,000 كم',
       'isFavorite': false,
+      'video_id': 'D7O8J5vVf-M',
+    },
+    {
+      'image': 'assets/images/cars/toyota.png',
+      'name': 'Land Cruiser 300',
+      'brand': 'Toyota',
+      'price': '350,000 د.إ',
+      'year': '2024',
+      'mileage': '0 كم',
+      'isFavorite': false,
+      'video_id': 'D7O8J5vVf-M',
+    },
+    {
+      'image': 'assets/images/cars/tesla.png',
+      'name': 'Model S Plaid',
+      'brand': 'Tesla',
+      'price': '480,000 د.إ',
+      'year': '2024',
+      'mileage': '0 كم',
+      'isFavorite': false,
+      'video_id': 'D7O8J5vVf-M',
+    },
+    {
+      'image': 'assets/images/cars/audi.png',
+      'name': 'RS e-tron GT',
+      'brand': 'Audi',
+      'price': '550,000 د.إ',
+      'year': '2024',
+      'mileage': '0 كم',
+      'isFavorite': true,
+      'video_id': 'D7O8J5vVf-M',
     },
   ];
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColor.scaffoldColor(context),
-      body: SafeArea(
-        child: Column(
-          children: [
-            // Search Bar
-            Padding(
-              padding: EdgeInsets.fromLTRB(16.w, 16.h, 16.w, 12.h),
-              child: CustomFormField(
-                radius: 16.r,
-                onChanged: (val) {},
-                prefixIcon: const Icon(Icons.search),
-                hintText: 'ابحث عن سيارة أحلامك...',
+    return Column(
+      children: [
+        // Search & Filter Header
+        Padding(
+          padding: EdgeInsets.all(20.w),
+          child: Row(
+            children: [
+              Expanded(
+                child: CustomFormField(
+                  hintText: 'ابحث عن سيارة أحلامك...',
+                  prefixIcon: const Icon(Icons.search_rounded),
+                ),
               ),
-            ),
+              Gap(12.w),
+              Container(
+                padding: EdgeInsets.all(12.w),
+                decoration: BoxDecoration(
+                  color: AppColor.primaryColor(context),
+                  borderRadius: BorderRadius.circular(16.r),
+                ),
+                child: const Icon(Icons.tune_rounded, color: Colors.white),
+              ),
+            ],
+          ),
+        ),
 
-            // Filter Chips
-            SizedBox(
-              height: 40.h,
-              child: ListView.separated(
-                padding: EdgeInsets.symmetric(horizontal: 16.w),
-                scrollDirection: Axis.horizontal,
-                physics: const BouncingScrollPhysics(),
-                itemCount: _filters.length,
-                separatorBuilder: (context, index) => Gap(12.w),
-                itemBuilder: (context, index) {
-                  final isSelected = _selectedFilterIndex == index;
-                  return GestureDetector(
-                    onTap: () => setState(() => _selectedFilterIndex = index),
-                    child: AnimatedContainer(
-                      duration: const Duration(milliseconds: 250),
-                      padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 8.h),
-                      decoration: BoxDecoration(
-                        color: isSelected
-                            ? AppColor.primaryColor(context)
-                            : AppColor.secondAppColor(context),
-                        borderRadius: BorderRadius.circular(20.r),
-                        border: isSelected
-                            ? null
-                            : Border.all(color: AppColor.borderColor(context).withOpacity(0.2)),
-                      ),
-                      alignment: Alignment.center,
-                      child: Text(
-                        _filters[index],
-                        style: AppTextStyle.bodyMedium(context).copyWith(
-                          color: isSelected ? Colors.white : AppColor.darkTextColor(context),
-                          fontWeight: isSelected ? FontWeight.bold : FontWeight.w500,
-                        ),
-                      ),
+        Expanded(
+          child: ListView(
+            padding: EdgeInsets.zero,
+            physics: const BouncingScrollPhysics(),
+            children: [
+              // Featured Slider
+              _buildFeaturedSlider(),
+              Gap(24.h),
+
+              // Categories Quick Access
+              _buildCategoriesRow(),
+              Gap(24.h),
+
+              // Cars List
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20.w),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'السيارات المتاحة',
+                      style: AppTextStyle.titleMedium(context).copyWith(fontWeight: FontWeight.bold),
                     ),
-                  );
-                },
-              ),
-            ),
-            Gap(20.h),
-
-            // Featured Cars Slider
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.w),
-              child: SizedBox(
-                width: double.infinity,
-                height: 160.h,
-                child: PageView.builder(
-                  controller: _pageController,
-                  onPageChanged: (value) => setState(() => _currentBannerIndex = value),
-                  itemCount: _featuredCars.length,
-                  itemBuilder: (context, index) {
-                    final feature = _featuredCars[index];
-                    return Container(
-                      margin: EdgeInsets.symmetric(horizontal: 4.w),
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: feature['colors'] as List<Color>,
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                        ),
-                        borderRadius: BorderRadius.circular(20.r),
-                        boxShadow: [
-                          BoxShadow(
-                            color: (feature['colors'] as List<Color>)[0].withOpacity(0.4),
-                            blurRadius: 15,
-                            offset: const Offset(0, 8),
-                          ),
-                        ],
-                      ),
-                      child: Stack(
-                        children: [
-                          Positioned(
-                            right: -20,
-                            top: -20,
-                            child: Icon(
-                              feature['icon'] as IconData,
-                              size: 140.sp,
-                              color: Colors.white.withOpacity(0.15),
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.all(20.w),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Container(
-                                  padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(8.r),
-                                  ),
-                                  child: Text(
-                                    feature['badge'] as String,
-                                    style: AppTextStyle.bodySmall(context).copyWith(
-                                      color: (feature['colors'] as List<Color>)[0],
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ),
-                                Gap(12.h),
-                                Text(
-                                  feature['title'] as String,
-                                  style: AppTextStyle.titleMedium(
-                                    context,
-                                  ).copyWith(color: Colors.white, fontWeight: FontWeight.bold),
-                                  maxLines: 2,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    );
-                  },
+                    Text(
+                      'عرض الكل',
+                      style: AppTextStyle.bodySmall(context).copyWith(color: AppColor.primaryColor(context)),
+                    ),
+                  ],
                 ),
               ),
-            ),
-            
-            // Page Indicators
-            Gap(12.h),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: List.generate(
-                _featuredCars.length,
-                (index) => AnimatedContainer(
-                  duration: const Duration(milliseconds: 300),
-                  margin: EdgeInsets.symmetric(horizontal: 4.w),
-                  height: 6.h,
-                  width: _currentBannerIndex == index ? 24.w : 6.w,
-                  decoration: BoxDecoration(
-                    color: _currentBannerIndex == index
-                        ? AppColor.primaryColor(context)
-                        : AppColor.greyColor(context).withOpacity(0.3),
-                    borderRadius: BorderRadius.circular(10.r),
-                  ),
-                ),
-              ),
-            ),
-            Gap(16.h),
-
-            // Cars Listing List
-            Expanded(
-              child: ListView.separated(
-                padding: EdgeInsets.fromLTRB(16.w, 0, 16.w, 16.h),
-                physics: const BouncingScrollPhysics(),
-                itemCount: _cars.length,
+              Gap(16.h),
+              ListView.separated(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                padding: EdgeInsets.fromLTRB(20.w, 0, 20.w, 100.h),
+                itemCount: _carsList.length,
                 separatorBuilder: (context, index) => Gap(16.h),
                 itemBuilder: (context, index) {
-                  final car = _cars[index];
-                  return _buildPremiumCarCard(car);
+                  return _buildPremiumCarCard(_carsList[index]);
                 },
               ),
-            ),
-          ],
+            ],
+          ),
         ),
-      ),
+      ],
     );
   }
 
-  Widget _buildPremiumCarCard(Map<String, dynamic> car) {
+  Widget _buildFeaturedSlider() {
+    return Column(
+      children: [
+        SizedBox(
+          height: 180.h,
+          child: PageView.builder(
+            controller: _pageController,
+            onPageChanged: (index) => setState(() => _currentSliderIndex = index),
+            itemCount: _featuredCars.length,
+            itemBuilder: (context, index) {
+              return _buildSliderItem(_featuredCars[index]);
+            },
+          ),
+        ),
+        Gap(12.h),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: List.generate(
+            _featuredCars.length,
+            (index) => Container(
+              margin: EdgeInsets.only(right: 6.w),
+              height: 6.h,
+              width: _currentSliderIndex == index ? 24.w : 6.w,
+              decoration: BoxDecoration(
+                color: _currentSliderIndex == index
+                    ? AppColor.primaryColor(context)
+                    : AppColor.greyColor(context).withOpacity(0.3),
+                borderRadius: BorderRadius.circular(12.r),
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildSliderItem(Map<String, String> car) {
     return Container(
-      height: 140.h,
+      margin: EdgeInsets.symmetric(horizontal: 20.w),
       decoration: BoxDecoration(
         color: AppColor.secondAppColor(context),
-        borderRadius: BorderRadius.circular(20.r),
+        borderRadius: BorderRadius.circular(24.r),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.2),
             blurRadius: 15,
-            offset: const Offset(0, 5),
+            offset: const Offset(0, 8),
           ),
         ],
       ),
       clipBehavior: Clip.antiAlias,
       child: Stack(
         children: [
-          Row(
-            children: [
-              // Image Section
-              Container(
-                width: 130.w,
-                color: Colors.white.withOpacity(0.02),
-                child: Padding(
-                  padding: EdgeInsets.all(12.w),
-                  child: Image.asset(car['image'], fit: BoxFit.contain),
-                ),
+          // Background Glow
+          Positioned(
+            right: -20,
+            top: -20,
+            child: Container(
+              width: 150.w,
+              height: 150.h,
+              decoration: BoxDecoration(
+                color: AppColor.primaryColor(context).withOpacity(0.1),
+                shape: BoxShape.circle,
               ),
-
-              // Details Section
-              Expanded(
-                child: Padding(
-                  padding: EdgeInsets.fromLTRB(12.w, 12.h, 12.w, 12.h),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.all(20.w),
+            child: Row(
+              children: [
+                Expanded(
+                  flex: 5,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
+                        decoration: BoxDecoration(
+                          color: AppColor.primaryColor(context),
+                          borderRadius: BorderRadius.circular(8.r),
+                        ),
+                        child: Text(
+                          'عرض خاص',
+                          style: AppTextStyle.bodySmall(context).copyWith(
+                            color: Colors.white,
+                            fontSize: 10.sp,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      Gap(8.h),
+                      Text(
+                        car['name']!,
+                        style: AppTextStyle.titleMedium(context).copyWith(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      Gap(4.h),
+                      Text(
+                        car['price']!,
+                        style: AppTextStyle.bodyMedium(context).copyWith(
+                          color: AppColor.primaryColor(context),
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Expanded(
+                  flex: 6,
+                  child: Hero(
+                    tag: 'featured_car_${car['name']}',
+                    child: Image.asset(car['image']!, fit: BoxFit.contain),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildCategoriesRow() {
+    final categories = ['الكل', 'فاخرة', 'دفع رباعي', 'رياضية', 'سيدان'];
+    return SizedBox(
+      height: 45.h,
+      child: ListView.separated(
+        scrollDirection: Axis.horizontal,
+        padding: EdgeInsets.symmetric(horizontal: 20.w),
+        itemCount: categories.length,
+        separatorBuilder: (context, index) => Gap(12.w),
+        itemBuilder: (context, index) {
+          bool isSelected = index == 0;
+          return Container(
+            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+            decoration: BoxDecoration(
+              color: isSelected ? AppColor.primaryColor(context) : AppColor.secondAppColor(context),
+              borderRadius: BorderRadius.circular(16.r),
+              border: Border.all(
+                color: isSelected ? Colors.transparent : Colors.white.withOpacity(0.05),
+              ),
+            ),
+            child: Text(
+              categories[index],
+              style: AppTextStyle.bodyMedium(context).copyWith(
+                color: isSelected ? Colors.white : Colors.white60,
+                fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  Widget _buildPremiumCarCard(Map<String, dynamic> car) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.pushNamed(context, 'carDetailsScreen', arguments: car);
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          color: AppColor.secondAppColor(context),
+          borderRadius: BorderRadius.circular(24.r),
+          border: Border.all(color: Colors.white.withOpacity(0.05)),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              blurRadius: 10,
+              offset: const Offset(0, 4),
+            ),
+          ],
+        ),
+        clipBehavior: Clip.antiAlias,
+        child: Column(
+          children: [
+            Stack(
+              children: [
+                // Car Image
+                Container(
+                  height: 160.h,
+                  width: double.infinity,
+                  padding: EdgeInsets.all(20.w),
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        Colors.blue.withOpacity(0.05),
+                        Colors.transparent,
+                      ],
+                    ),
+                  ),
+                  child: Hero(
+                    tag: 'car_image_${car['name']}',
+                    child: Image.asset(car['image'], fit: BoxFit.contain),
+                  ),
+                ),
+                // Badges
+                Positioned(
+                  top: 15.h,
+                  left: 15.w,
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
+                    decoration: BoxDecoration(
+                      color: Colors.black.withOpacity(0.5),
+                      borderRadius: BorderRadius.circular(8.r),
+                    ),
+                    child: Text(
+                      car['year'],
+                      style: AppTextStyle.bodySmall(context).copyWith(
+                        color: Colors.white,
+                        fontSize: 10.sp,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+                Positioned(
+                  top: 15.h,
+                  right: 15.w,
+                  child: Icon(
+                    car['isFavorite'] ? Icons.favorite_rounded : Icons.favorite_border_rounded,
+                    color: car['isFavorite'] ? Colors.redAccent : Colors.white,
+                    size: 22.sp,
+                  ),
+                ),
+              ],
+            ),
+            Padding(
+              padding: EdgeInsets.fromLTRB(20.w, 0, 20.w, 20.h),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Column(
@@ -334,71 +423,63 @@ class _CarsScreenState extends State<CarsScreen> {
                             car['brand'],
                             style: AppTextStyle.bodySmall(context).copyWith(
                               color: AppColor.primaryColor(context),
+                              fontSize: 10.sp,
                               fontWeight: FontWeight.w600,
                             ),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
                           ),
                           Gap(4.h),
                           Text(
                             car['name'],
-                            style: AppTextStyle.titleSmall(context).copyWith(fontSize: 16.sp, color: Colors.white),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
+                            style: AppTextStyle.bodyMedium(context).copyWith(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16.sp,
+                            ),
                           ),
                         ],
                       ),
-
-                      // Specs Row (Year, Mileage)
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          _buildSpecIcon(Icons.calendar_today_outlined, car['year']),
-                          _buildSpecIcon(Icons.speed_outlined, car['mileage']),
-                        ],
-                      ),
-
-                      // Price
                       Text(
                         car['price'],
                         style: AppTextStyle.titleMedium(context).copyWith(
                           color: AppColor.primaryColor(context),
-                          fontSize: 16.sp,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                     ],
                   ),
-                ),
-              ),
-            ],
-          ),
-
-          // Favorite Button
-          Positioned(
-            top: 8.h,
-            left: 8.w, // Assuming RTL
-            child: CircleAvatar(
-              radius: 14.r,
-              backgroundColor: AppColor.scaffoldColor(context).withOpacity(0.7),
-              child: Icon(
-                car['isFavorite'] ? Icons.favorite : Icons.favorite_border,
-                color: car['isFavorite'] ? Colors.redAccent : Colors.white,
-                size: 16.sp,
+                  Gap(12.h),
+                  Divider(color: Colors.white.withOpacity(0.05), height: 1),
+                  Gap(12.h),
+                  Row(
+                    children: [
+                      _buildSpecIcon(Icons.speed_rounded, car['mileage']),
+                      Gap(16.w),
+                      _buildSpecIcon(Icons.settings_rounded, 'أوتوماتيك'),
+                      Gap(16.w),
+                      _buildSpecIcon(Icons.local_gas_station_rounded, 'بنزين'),
+                    ],
+                  ),
+                ],
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
 
-  Widget _buildSpecIcon(IconData icon, String label) {
+  Widget _buildSpecIcon(IconData icon, String text) {
     return Row(
       children: [
-        Icon(icon, size: 14.sp, color: AppColor.greyColor(context)),
+        Icon(icon, color: Colors.white38, size: 14.sp),
         Gap(4.w),
-        Text(label, style: AppTextStyle.bodySmall(context).copyWith(fontSize: 10.sp)),
+        Text(
+          text,
+          style: AppTextStyle.bodySmall(context).copyWith(
+            color: Colors.white38,
+            fontSize: 10.sp,
+          ),
+        ),
       ],
     );
   }

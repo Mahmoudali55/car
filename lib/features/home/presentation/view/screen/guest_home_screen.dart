@@ -50,45 +50,43 @@ class HomeGuestScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10.w),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(height: 30.h),
-                  SectionTitleWidget(
-                    title: AppLocaleKey.categories.tr(),
-                    onSeeAll: () {
-                      // Navigate to Brands tab (index 2) - will be handled by MainLayout
-                      Navigator.pushNamed(context, 'allBrandsScreen');
-                    },
-                  ),
-                  SizedBox(height: 15.h),
-                  CategoriesWidget(),
-                  SizedBox(height: 15.h),
-                  SectionTitleWidget(title: AppLocaleKey.popularCars.tr(), onSeeAll: () {}),
-                  SizedBox(height: 15.h),
-                  const PopularCarsSlider(),
-                  SizedBox(height: 30.h),
-                  SectionTitleWidget(title: AppLocaleKey.searchByBudget.tr(), onSeeAll: null),
-                  SizedBox(height: 15.h),
-                  BudgetSearchWidget(),
-                  SizedBox(height: 30.h),
-                  SectionTitleWidget(title: AppLocaleKey.trendingNow.tr(), onSeeAll: () {}),
-                  SizedBox(height: 15.h),
-                  OffersGridWidget(),
-                  SizedBox(height: 30.h),
-                ],
-              ),
+    return SingleChildScrollView(
+      physics: const BouncingScrollPhysics(),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 10.w),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: 30.h),
+                SectionTitleWidget(
+                  title: AppLocaleKey.categories.tr(),
+                  onSeeAll: () {
+                    // Navigate to Brands tab (index 2) - will be handled by MainLayout
+                    Navigator.pushNamed(context, 'allBrandsScreen');
+                  },
+                ),
+                SizedBox(height: 15.h),
+                CategoriesWidget(),
+                SizedBox(height: 15.h),
+                SectionTitleWidget(title: AppLocaleKey.popularCars.tr(), onSeeAll: () {}),
+                SizedBox(height: 15.h),
+                const PopularCarsSlider(),
+                SizedBox(height: 30.h),
+                SectionTitleWidget(title: AppLocaleKey.searchByBudget.tr(), onSeeAll: null),
+                SizedBox(height: 15.h),
+                BudgetSearchWidget(),
+                SizedBox(height: 30.h),
+                SectionTitleWidget(title: AppLocaleKey.trendingNow.tr(), onSeeAll: () {}),
+                SizedBox(height: 15.h),
+                OffersGridWidget(),
+                SizedBox(height: 30.h),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

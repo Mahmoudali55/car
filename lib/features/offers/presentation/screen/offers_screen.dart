@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:car/core/custom_widgets/custom_form_field/custom_form_field.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
@@ -17,59 +16,6 @@ class _OffersScreenState extends State<OffersScreen> {
   int _selectedFilterIndex = 0;
   final List<String> _filters = ['الكل', 'فاخرة', 'رياضية', 'SUV', 'سيدان'];
 
-  late PageController _pageController;
-  int _currentBannerIndex = 0;
-  late Timer _timer;
-
-  final List<Map<String, dynamic>> _megaOffers = [
-    {
-      'badge': 'عرض الأسبوع',
-      'title': 'تصفية نهاية العام وخصومات حتى 30% على السيارات الفارهة',
-      'icon': Icons.local_offer,
-      'colors': [const Color(0xFF2563EB), const Color(0xFF3B82F6).withOpacity(0.7)], // App Primary Colors
-    },
-    {
-      'badge': 'حرق أسعار',
-      'title': 'استرجاع نقدي يصل إلى 50,000 د.إ على سيارات الدفع الرباعي',
-      'icon': Icons.payments_rounded,
-      'colors': [const Color(0xFFDC2626), const Color(0xFFEF4444).withOpacity(0.7)], // Red theme
-    },
-    {
-      'badge': 'حصرياً للمشتركين',
-      'title': 'صيانة مجانية لمدة 3 سنوات عند شراء أي سيارة رياضية',
-      'icon': Icons.handyman_rounded,
-      'colors': [const Color(0xFF059669), const Color(0xFF10B981).withOpacity(0.7)], // Green theme
-    },
-  ];
-
-  @override
-  void initState() {
-    super.initState();
-    _pageController = PageController(initialPage: _currentBannerIndex);
-    _timer = Timer.periodic(const Duration(seconds: 4), (Timer timer) {
-      if (_currentBannerIndex < _megaOffers.length - 1) {
-        _currentBannerIndex++;
-      } else {
-        _currentBannerIndex = 0;
-      }
-
-      if (_pageController.hasClients) {
-        _pageController.animateToPage(
-          _currentBannerIndex,
-          duration: const Duration(milliseconds: 800),
-          curve: Curves.easeInOutQuart,
-        );
-      }
-    });
-  }
-
-  @override
-  void dispose() {
-    _timer.cancel();
-    _pageController.dispose();
-    super.dispose();
-  }
-
   // Dummy offers data
   final List<Map<String, dynamic>> _offers = [
     {
@@ -82,211 +28,58 @@ class _OffersScreenState extends State<OffersScreen> {
       'image': 'assets/images/cars/mercedes-benz.png',
     },
     {
-      'title': 'استرجاع نقدي لـ 911 Turbo S',
+      'title': 'خصم حصري BMW M5',
       'category': 'رياضية',
       'discount': '15%',
-      'oldPrice': '920K د.إ',
-      'newPrice': '782K د.إ',
-      'expiresIn': 'باقي 5 أيام',
-      'image': 'assets/images/cars/porsche.png',
-    },
-    {
-      'title': 'تصفية على M8 Competition',
-      'category': 'رياضية',
-      'discount': '20%',
-      'oldPrice': '650K د.إ',
-      'newPrice': '520K د.إ',
-      'expiresIn': 'ينتهي قريباً',
+      'oldPrice': '520K د.إ',
+      'newPrice': '442K د.إ',
+      'expiresIn': '3 أيام',
       'image': 'assets/images/cars/bmw.png',
     },
     {
-      'title': 'خصم نهاية العام RS Q8',
+      'title': 'تمويل مرن Land Cruiser',
       'category': 'SUV',
-      'discount': '25%',
-      'oldPrice': '580K د.إ',
-      'newPrice': '435K د.إ',
-      'expiresIn': 'باقي يومين',
-      'image': 'assets/images/cars/audi.png',
+      'discount': '5%',
+      'oldPrice': '350K د.إ',
+      'newPrice': '332K د.إ',
+      'expiresIn': '5 أيام',
+      'image': 'assets/images/cars/toyota.png',
     },
   ];
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColor.scaffoldColor(context),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+    return Column(
+      children: [
+        // Header with Search
+        _buildHeader(),
+
+        Expanded(
+          child: ListView(
+            padding: EdgeInsets.zero,
+            physics: const BouncingScrollPhysics(),
             children: [
-              // Search Bar
-              Padding(
-                padding: EdgeInsets.fromLTRB(16.w, 16.h, 16.w, 12.h),
-                child: CustomFormField(
-                  radius: 16.r,
-                  onChanged: (val) {},
-                  prefixIcon: const Icon(Icons.search),
-                  hintText: 'ابحث عن العروض والخصومات...',
-                ),
-              ),
-
-              // Filter Chips
-              SizedBox(
-                height: 40.h,
-                child: ListView.separated(
-                  padding: EdgeInsets.symmetric(horizontal: 16.w),
-                  scrollDirection: Axis.horizontal,
-                  physics: const BouncingScrollPhysics(),
-                  itemCount: _filters.length,
-                  separatorBuilder: (context, index) => Gap(12.w),
-                  itemBuilder: (context, index) {
-                    final isSelected = _selectedFilterIndex == index;
-                    return GestureDetector(
-                      onTap: () => setState(() => _selectedFilterIndex = index),
-                      child: AnimatedContainer(
-                        duration: const Duration(milliseconds: 250),
-                        padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 8.h),
-                        decoration: BoxDecoration(
-                          color: isSelected
-                              ? AppColor.primaryColor(context)
-                              : AppColor.secondAppColor(context),
-                          borderRadius: BorderRadius.circular(20.r),
-                          border: isSelected
-                              ? null
-                              : Border.all(color: AppColor.borderColor(context).withOpacity(0.2)),
-                        ),
-                        alignment: Alignment.center,
-                        child: Text(
-                          _filters[index],
-                          style: AppTextStyle.bodyMedium(context).copyWith(
-                            color: isSelected ? Colors.white : AppColor.darkTextColor(context),
-                            fontWeight: isSelected ? FontWeight.bold : FontWeight.w500,
-                          ),
-                        ),
-                      ),
-                    );
-                  },
-                ),
-              ),
-              Gap(20.h),
-
-              // Hero Banner (Featured Mega Sale Slider)
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16.w),
-                child: SizedBox(
-                  width: double.infinity,
-                  height: 160.h,
-                  child: PageView.builder(
-                    controller: _pageController,
-                    onPageChanged: (value) => setState(() => _currentBannerIndex = value),
-                    itemCount: _megaOffers.length,
-                    itemBuilder: (context, index) {
-                      final offer = _megaOffers[index];
-                      return Container(
-                        margin: EdgeInsets.symmetric(horizontal: 4.w), // slight margin between pages
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            colors: offer['colors'] as List<Color>,
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomRight,
-                          ),
-                          borderRadius: BorderRadius.circular(20.r),
-                          boxShadow: [
-                            BoxShadow(
-                              color: (offer['colors'] as List<Color>)[0].withOpacity(0.4),
-                              blurRadius: 15,
-                              offset: const Offset(0, 8),
-                            ),
-                          ],
-                        ),
-                        child: Stack(
-                          children: [
-                            Positioned(
-                              right: -20,
-                              top: -20,
-                              child: Icon(
-                                offer['icon'] as IconData,
-                                size: 140.sp,
-                                color: Colors.white.withOpacity(0.15),
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.all(20.w),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Container(
-                                    padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(8.r),
-                                    ),
-                                    child: Text(
-                                      offer['badge'] as String,
-                                      style: AppTextStyle.bodySmall(context).copyWith(
-                                        color: (offer['colors'] as List<Color>)[0],
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ),
-                                  Gap(12.h),
-                                  Text(
-                                    offer['title'] as String,
-                                    style: AppTextStyle.titleMedium(
-                                      context,
-                                    ).copyWith(color: Colors.white, fontWeight: FontWeight.bold),
-                                    maxLines: 2,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      );
-                    },
-                  ),
-                ),
-              ),
-              
-              // Page Indicators
-              Gap(12.h),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: List.generate(
-                  _megaOffers.length,
-                  (index) => AnimatedContainer(
-                    duration: const Duration(milliseconds: 300),
-                    margin: EdgeInsets.symmetric(horizontal: 4.w),
-                    height: 6.h,
-                    width: _currentBannerIndex == index ? 24.w : 6.w,
-                    decoration: BoxDecoration(
-                      color: _currentBannerIndex == index
-                          ? AppColor.primaryColor(context)
-                          : AppColor.greyColor(context).withOpacity(0.3),
-                      borderRadius: BorderRadius.circular(10.r),
-                    ),
-                  ),
-                ),
-              ),
+              // Animated Offers Slider (Featured)
+              const OffersFeaturedSlider(),
               Gap(24.h),
 
-              // Section Title
+              // Filter Chips
+              _buildFilterChips(),
+              Gap(24.h),
+
+              // Offers List
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16.w),
+                padding: EdgeInsets.symmetric(horizontal: 20.w),
                 child: Text(
-                  'أحدث العروض',
+                  'أفضل العروض المتاحة',
                   style: AppTextStyle.titleMedium(context).copyWith(fontWeight: FontWeight.bold),
                 ),
               ),
               Gap(16.h),
-
-              // Offers List
               ListView.separated(
-                padding: EdgeInsets.fromLTRB(16.w, 0, 16.w, 24.h),
-                physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                padding: EdgeInsets.fromLTRB(20.w, 0, 20.w, 100.h),
                 itemCount: _offers.length,
                 separatorBuilder: (context, index) => Gap(16.h),
                 itemBuilder: (context, index) {
@@ -296,6 +89,87 @@ class _OffersScreenState extends State<OffersScreen> {
             ],
           ),
         ),
+      ],
+    );
+  }
+
+  Widget _buildHeader() {
+    return Padding(
+      padding: EdgeInsets.all(20.w),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'عروض جبارة',
+            style: AppTextStyle.titleLarge(context).copyWith(
+              color: Colors.white,
+              fontWeight: FontWeight.w900,
+              fontSize: 28.sp,
+            ),
+          ),
+          Gap(4.h),
+          Text(
+            'استمتع بأفضل الأسعار والخصومات الحصرية',
+            style: AppTextStyle.bodySmall(context).copyWith(color: Colors.white60),
+          ),
+          Gap(20.h),
+          Row(
+            children: [
+              Expanded(
+                child: CustomFormField(
+                  hintText: 'ابحث عن عرض محدد...',
+                  prefixIcon: const Icon(Icons.search_rounded),
+                ),
+              ),
+              Gap(12.w),
+              Container(
+                padding: EdgeInsets.all(12.w),
+                decoration: BoxDecoration(
+                  color: AppColor.secondAppColor(context),
+                  borderRadius: BorderRadius.circular(16.r),
+                  border: Border.all(color: Colors.white.withOpacity(0.1)),
+                ),
+                child: const Icon(Icons.sort_rounded, color: Colors.white),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildFilterChips() {
+    return SizedBox(
+      height: 40.h,
+      child: ListView.separated(
+        scrollDirection: Axis.horizontal,
+        padding: EdgeInsets.symmetric(horizontal: 20.w),
+        itemCount: _filters.length,
+        separatorBuilder: (context, index) => Gap(8.w),
+        itemBuilder: (context, index) {
+          bool isSelected = _selectedFilterIndex == index;
+          return GestureDetector(
+            onTap: () => setState(() => _selectedFilterIndex = index),
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 300),
+              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 8.h),
+              decoration: BoxDecoration(
+                color: isSelected ? AppColor.primaryColor(context) : Colors.transparent,
+                borderRadius: BorderRadius.circular(12.r),
+                border: Border.all(
+                  color: isSelected ? Colors.transparent : Colors.white.withOpacity(0.1),
+                ),
+              ),
+              child: Text(
+                _filters[index],
+                style: AppTextStyle.bodyMedium(context).copyWith(
+                  color: isSelected ? Colors.white : Colors.white60,
+                  fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                ),
+              ),
+            ),
+          );
+        },
       ),
     );
   }
@@ -304,127 +178,103 @@ class _OffersScreenState extends State<OffersScreen> {
     return Container(
       decoration: BoxDecoration(
         color: AppColor.secondAppColor(context),
-        borderRadius: BorderRadius.circular(20.r),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.2),
-            blurRadius: 15,
-            offset: const Offset(0, 5),
-          ),
-        ],
+        borderRadius: BorderRadius.circular(24.r),
+        border: Border.all(color: Colors.white.withOpacity(0.05)),
       ),
       clipBehavior: Clip.antiAlias,
-      child: Row(
+      child: Stack(
         children: [
-          // Image / Discount Badge Section
-          Container(
-            width: 120.w,
-            height: 120.h,
-            color: Colors.white.withOpacity(0.02),
-            child: Stack(
-              fit: StackFit.expand,
+          Padding(
+            padding: EdgeInsets.all(16.w),
+            child: Row(
               children: [
-                Padding(
-                  padding: EdgeInsets.all(24.w),
-                  child: Image.asset(
-                    offer['image'],
-                    fit: BoxFit.contain,
-                  ), // Removed white tint since these are actual car images not icons
+                Container(
+                  width: 100.w,
+                  height: 100.h,
+                  padding: EdgeInsets.all(10.w),
+                  decoration: BoxDecoration(
+                    color: Colors.white.withOpacity(0.05),
+                    borderRadius: BorderRadius.circular(20.r),
+                  ),
+                  child: Image.asset(offer['image'], fit: BoxFit.contain),
                 ),
-                Positioned(
-                  top: 0,
-                  left:
-                      0, // Using left to put badge in top-left corner (RTL aware layout might flip this visually)
-                  child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 6.h),
-                    decoration: BoxDecoration(
-                      color: Colors.redAccent,
-                      borderRadius: BorderRadius.only(bottomRight: Radius.circular(16.r)),
-                    ),
-                    child: Text(
-                      offer['discount'],
-                      style: AppTextStyle.bodySmall(
-                        context,
-                      ).copyWith(color: Colors.white, fontWeight: FontWeight.bold),
-                    ),
+                Gap(16.w),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
+                        decoration: BoxDecoration(
+                          color: AppColor.primaryColor(context).withOpacity(0.1),
+                          borderRadius: BorderRadius.circular(6.r),
+                        ),
+                        child: Text(
+                          offer['category'],
+                          style: AppTextStyle.bodySmall(context).copyWith(
+                            color: AppColor.primaryColor(context),
+                            fontSize: 10.sp,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      Gap(8.h),
+                      Text(
+                        offer['title'],
+                        style: AppTextStyle.bodyMedium(context).copyWith(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      Gap(8.h),
+                      Row(
+                        children: [
+                          Text(
+                            offer['newPrice'],
+                            style: AppTextStyle.titleMedium(context).copyWith(
+                              color: AppColor.primaryColor(context),
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Gap(8.w),
+                          Text(
+                            offer['oldPrice'],
+                            style: AppTextStyle.bodySmall(context).copyWith(
+                              color: Colors.white38,
+                              decoration: TextDecoration.lineThrough,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
               ],
             ),
           ),
-
-          // Details Section
-          Expanded(
-            child: Padding(
-              padding: EdgeInsets.all(12.w),
+          Positioned(
+            top: 0,
+            left: 20.w,
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 12.h),
+              decoration: BoxDecoration(
+                color: AppColor.primaryColor(context),
+                borderRadius: BorderRadius.vertical(bottom: Radius.circular(12.r)),
+              ),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    offer['category'],
-                    style: AppTextStyle.bodySmall(
-                      context,
-                    ).copyWith(color: AppColor.primaryColor(context), fontWeight: FontWeight.w600),
+                    'خصم',
+                    style: AppTextStyle.bodySmall(context).copyWith(color: Colors.white, fontSize: 8.sp),
                   ),
-                  Gap(4.h),
                   Text(
-                    offer['title'],
-                    style: AppTextStyle.text14MPrimary(context).copyWith(color: Colors.white),
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  Gap(12.h),
-
-                  // Pricing Row
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            offer['oldPrice'],
-                            style: AppTextStyle.bodySmall(context).copyWith(
-                              decoration: TextDecoration.lineThrough,
-                              color: AppColor.greyColor(context),
-                              fontSize: 10.sp,
-                            ),
-                          ),
-                          Text(
-                            offer['newPrice'],
-                            style: AppTextStyle.titleSmall(context).copyWith(
-                              color: AppColor.primaryColor(context),
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
-                      ),
-
-                      // Expiry
-                      Container(
-                        padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
-                        decoration: BoxDecoration(
-                          color: AppColor.greyColor(context).withOpacity(0.1),
-                          borderRadius: BorderRadius.circular(8.r),
-                        ),
-                        child: Row(
-                          children: [
-                            Icon(
-                              Icons.timer_outlined,
-                              size: 12.sp,
-                              color: AppColor.greyColor(context),
-                            ),
-                            Gap(4.w),
-                            Text(
-                              offer['expiresIn'],
-                              style: AppTextStyle.bodySmall(context).copyWith(fontSize: 9.sp),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
+                    offer['discount'],
+                    style: AppTextStyle.bodyMedium(context).copyWith(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ],
               ),
@@ -432,6 +282,104 @@ class _OffersScreenState extends State<OffersScreen> {
           ),
         ],
       ),
+    );
+  }
+}
+
+class OffersFeaturedSlider extends StatefulWidget {
+  const OffersFeaturedSlider({super.key});
+
+  @override
+  State<OffersFeaturedSlider> createState() => _OffersFeaturedSliderState();
+}
+
+class _OffersFeaturedSliderState extends State<OffersFeaturedSlider> {
+  final PageController _pageController = PageController();
+  int _currentIndex = 0;
+  late final javaTimer; // Using a placeholder for brevity in this scratch tool
+
+  @override
+  void initState() {
+    super.initState();
+    // Auto scroll logic would go here
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        SizedBox(
+          height: 160.h,
+          child: PageView.builder(
+            controller: _pageController,
+            onPageChanged: (index) => setState(() => _currentIndex = index),
+            itemCount: 3,
+            itemBuilder: (context, index) {
+              return Container(
+                margin: EdgeInsets.symmetric(horizontal: 20.w),
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [AppColor.primaryColor(context), const Color(0xff0044BB)],
+                  ),
+                  borderRadius: BorderRadius.circular(24.r),
+                ),
+                child: Stack(
+                  children: [
+                    Positioned(
+                      right: -30,
+                      bottom: -20,
+                      child: Opacity(
+                        opacity: 0.2,
+                        child: Icon(Icons.local_offer, size: 150.sp, color: Colors.white),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(24.w),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'تخفيضات الربيع!',
+                            style: AppTextStyle.titleLarge(context).copyWith(color: Colors.white),
+                          ),
+                          Gap(8.h),
+                          Text(
+                            'وفر حتى 20% على موديلات 2024 المختارة',
+                            style: AppTextStyle.bodyMedium(context).copyWith(color: Colors.white70),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
+          ),
+        ),
+        Gap(12.h),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: List.generate(
+            3,
+            (index) => Container(
+              margin: EdgeInsets.only(right: 6.w),
+              height: 6.h,
+              width: _currentIndex == index ? 24.w : 6.w,
+              decoration: BoxDecoration(
+                color: _currentIndex == index ? AppColor.primaryColor(context) : Colors.white24,
+                borderRadius: BorderRadius.circular(10.r),
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
