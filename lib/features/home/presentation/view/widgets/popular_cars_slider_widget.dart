@@ -5,8 +5,10 @@ import 'package:car/core/routes/routes_name.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/core/utils/navigator_methods.dart';
+import 'package:car/features/favorites/presentation/view/cubit/favorites_cubit.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
@@ -178,14 +180,24 @@ class _PopularCarsSliderState extends State<PopularCarsSlider> {
                         Positioned(
                           top: 16.h,
                           right: 16.w,
-                          child: CircleAvatar(
-                            radius: 16.r,
-                            backgroundColor: AppColor.scaffoldColor(context).withOpacity(0.5),
-                            child: Icon(
-                              car['isFavorite'] ? Icons.favorite_rounded : Icons.favorite_border_rounded,
-                              color: car['isFavorite'] ? Colors.redAccent : Colors.white,
-                              size: 18.w,
-                            ),
+                          child: BlocBuilder<FavoritesCubit, FavoritesState>(
+                            builder: (context, state) {
+                              final isFav = context.read<FavoritesCubit>().isFavorite(car['name']!);
+                              return GestureDetector(
+                                onTap: () {
+                                  context.read<FavoritesCubit>().toggleFavorite(car);
+                                },
+                                child: CircleAvatar(
+                                  radius: 16.r,
+                                  backgroundColor: AppColor.scaffoldColor(context).withValues(alpha: 0.5),
+                                  child: Icon(
+                                    isFav ? Icons.favorite_rounded : Icons.favorite_border_rounded,
+                                    color: isFav ? Colors.redAccent : Colors.white,
+                                    size: 18.w,
+                                  ),
+                                ),
+                              );
+                            },
                           ),
                         ),
 

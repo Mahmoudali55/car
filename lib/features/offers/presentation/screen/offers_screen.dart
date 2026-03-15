@@ -3,7 +3,9 @@ import 'package:car/core/routes/routes_name.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/core/utils/navigator_methods.dart';
+import 'package:car/features/favorites/presentation/view/cubit/favorites_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
@@ -233,20 +235,42 @@ class _OffersScreenState extends State<OffersScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Container(
-                          padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
-                          decoration: BoxDecoration(
-                            color: AppColor.primaryColor(context).withOpacity(0.1),
-                            borderRadius: BorderRadius.circular(6.r),
-                          ),
-                          child: Text(
-                            offer['category'],
-                            style: AppTextStyle.bodySmall(context).copyWith(
-                              color: AppColor.primaryColor(context),
-                              fontSize: 10.sp,
-                              fontWeight: FontWeight.bold,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Container(
+                              padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
+                              decoration: BoxDecoration(
+                                color: AppColor.primaryColor(context).withValues(alpha: 0.1),
+                                borderRadius: BorderRadius.circular(6.r),
+                              ),
+                              child: Text(
+                                offer['category'],
+                                style: AppTextStyle.bodySmall(context).copyWith(
+                                  color: AppColor.primaryColor(context),
+                                  fontSize: 10.sp,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
                             ),
-                          ),
+                            BlocBuilder<FavoritesCubit, FavoritesState>(
+                              builder: (context, state) {
+                                final isFav = context.read<FavoritesCubit>().isFavorite(offer['name']!);
+                                return IconButton(
+                                  onPressed: () {
+                                    context.read<FavoritesCubit>().toggleFavorite(offer);
+                                  },
+                                  iconSize: 20.w,
+                                  padding: EdgeInsets.zero,
+                                  constraints: const BoxConstraints(),
+                                  icon: Icon(
+                                    isFav ? Icons.favorite_rounded : Icons.favorite_border_rounded,
+                                    color: isFav ? Colors.redAccent : AppColor.greyColor(context),
+                                  ),
+                                );
+                              },
+                            ),
+                          ],
                         ),
                         Gap(8.h),
                         Text(

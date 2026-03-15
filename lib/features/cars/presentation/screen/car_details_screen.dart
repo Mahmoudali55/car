@@ -1,7 +1,9 @@
 import 'dart:ui';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
+import 'package:car/features/favorites/presentation/view/cubit/favorites_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
@@ -91,16 +93,23 @@ class _CarDetailsScreenState extends State<CarDetailsScreen> {
                       ),
                     ),
                     actions: [
-                      IconButton(
-                        icon: Icon(
-                          widget.car['isFavorite'] == true ? Icons.favorite : Icons.favorite_border,
-                          color: widget.car['isFavorite'] == true ? Colors.redAccent : Colors.white,
-                        ),
-                        onPressed: () {},
-                        style: IconButton.styleFrom(
-                          backgroundColor: Colors.black.withOpacity(0.3),
-                          padding: EdgeInsets.all(12.w),
-                        ),
+                      BlocBuilder<FavoritesCubit, FavoritesState>(
+                        builder: (context, state) {
+                          final isFav = context.read<FavoritesCubit>().isFavorite(widget.car['name']!);
+                          return IconButton(
+                            icon: Icon(
+                              isFav ? Icons.favorite_rounded : Icons.favorite_outline_rounded,
+                              color: isFav ? Colors.redAccent : Colors.white,
+                            ),
+                            onPressed: () {
+                              context.read<FavoritesCubit>().toggleFavorite(widget.car);
+                            },
+                            style: IconButton.styleFrom(
+                              backgroundColor: Colors.black.withValues(alpha: 0.3),
+                              padding: EdgeInsets.all(12.w),
+                            ),
+                          );
+                        },
                       ),
                       Gap(8.w),
                     ],

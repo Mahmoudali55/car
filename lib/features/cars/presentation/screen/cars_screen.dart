@@ -1,7 +1,11 @@
 import 'package:car/core/custom_widgets/custom_form_field/custom_form_field.dart';
+import 'package:car/core/routes/routes_name.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
+import 'package:car/core/utils/navigator_methods.dart';
+import 'package:car/features/favorites/presentation/view/cubit/favorites_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
@@ -147,11 +151,15 @@ class _CarsScreenState extends State<CarsScreen> {
                   children: [
                     Text(
                       'السيارات المتاحة',
-                      style: AppTextStyle.titleMedium(context).copyWith(fontWeight: FontWeight.bold),
+                      style: AppTextStyle.titleMedium(
+                        context,
+                      ).copyWith(fontWeight: FontWeight.bold),
                     ),
                     Text(
                       'عرض الكل',
-                      style: AppTextStyle.bodySmall(context).copyWith(color: AppColor.primaryColor(context)),
+                      style: AppTextStyle.bodySmall(
+                        context,
+                      ).copyWith(color: AppColor.primaryColor(context)),
                     ),
                   ],
                 ),
@@ -268,10 +276,9 @@ class _CarsScreenState extends State<CarsScreen> {
                       Gap(8.h),
                       Text(
                         car['name']!,
-                        style: AppTextStyle.titleMedium(context).copyWith(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
+                        style: AppTextStyle.titleMedium(
+                          context,
+                        ).copyWith(color: Colors.white, fontWeight: FontWeight.bold),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -337,7 +344,7 @@ class _CarsScreenState extends State<CarsScreen> {
   Widget _buildPremiumCarCard(Map<String, dynamic> car) {
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, 'carDetailsScreen', arguments: car);
+        NavigatorMethods.pushNamed(context, RoutesName.carDetailsScreen, arguments: car);
       },
       child: Container(
         decoration: BoxDecoration(
@@ -366,10 +373,7 @@ class _CarsScreenState extends State<CarsScreen> {
                     gradient: LinearGradient(
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
-                      colors: [
-                        Colors.blue.withOpacity(0.05),
-                        Colors.transparent,
-                      ],
+                      colors: [Colors.blue.withOpacity(0.05), Colors.transparent],
                     ),
                   ),
                   child: Hero(
@@ -389,21 +393,28 @@ class _CarsScreenState extends State<CarsScreen> {
                     ),
                     child: Text(
                       car['year'],
-                      style: AppTextStyle.bodySmall(context).copyWith(
-                        color: Colors.white,
-                        fontSize: 10.sp,
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: AppTextStyle.bodySmall(
+                        context,
+                      ).copyWith(color: Colors.white, fontSize: 10.sp, fontWeight: FontWeight.bold),
                     ),
                   ),
                 ),
                 Positioned(
                   top: 15.h,
                   right: 15.w,
-                  child: Icon(
-                    car['isFavorite'] ? Icons.favorite_rounded : Icons.favorite_border_rounded,
-                    color: car['isFavorite'] ? Colors.redAccent : Colors.white,
-                    size: 22.sp,
+                  child: BlocBuilder<FavoritesCubit, FavoritesState>(
+                    builder: (context, state) {
+                      final isFav = context.read<FavoritesCubit>().isFavorite(car['name']!);
+                      return IconButton(
+                        onPressed: () {
+                          context.read<FavoritesCubit>().toggleFavorite(car);
+                        },
+                        icon: Icon(
+                          isFav ? Icons.favorite_rounded : Icons.favorite_border_rounded,
+                          color: isFav ? Colors.redAccent : Colors.white,
+                        ),
+                      );
+                    },
                   ),
                 ),
               ],
@@ -475,10 +486,7 @@ class _CarsScreenState extends State<CarsScreen> {
         Gap(4.w),
         Text(
           text,
-          style: AppTextStyle.bodySmall(context).copyWith(
-            color: Colors.white38,
-            fontSize: 10.sp,
-          ),
+          style: AppTextStyle.bodySmall(context).copyWith(color: Colors.white38, fontSize: 10.sp),
         ),
       ],
     );

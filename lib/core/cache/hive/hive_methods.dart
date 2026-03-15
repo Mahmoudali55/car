@@ -41,4 +41,12 @@ class HiveMethods {
   static void updateThem(ThemeEnum theme) {
     _box.put('theme', theme);
   }
+
+  static List<dynamic> getFavorites() {
+    return _box.get('favorites', defaultValue: []);
+  }
+
+  static void updateFavorites(List<dynamic> favorites) {
+    _box.put('favorites', favorites);
+  }
 }

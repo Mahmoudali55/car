@@ -3,6 +3,7 @@ import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 import 'package:car/features/auth/data/repository/auth_repo.dart';
 import 'package:car/features/auth/presentation/view/cubit/auth_cubit.dart';
+import 'package:car/features/favorites/presentation/view/cubit/favorites_cubit.dart';
 
 import '../network/api_consumer.dart';
 import '../network/app_interceptors.dart';

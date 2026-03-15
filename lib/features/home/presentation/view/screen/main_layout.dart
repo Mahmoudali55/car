@@ -2,6 +2,7 @@ import 'package:car/core/custom_widgets/custom_app_bar/custom_app_bar.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
+import 'package:car/features/favorites/presentation/view/screen/favorites_screen.dart';
 import 'package:car/features/home/presentation/view/screen/all_brands_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +27,7 @@ class _MainLayoutState extends State<MainLayout> {
   final List<Widget> _screens = [
     const HomeGuestScreen(),
     const CarsScreen(),
-    const BrandsScreen(),
+    const FavoritesScreen(),
     const OffersScreen(),
     const ServicesScreen(),
   ];
@@ -88,9 +89,9 @@ class _MainLayoutState extends State<MainLayout> {
             ),
             _buildNavItem(
               2,
-              Icons.grid_view_rounded,
-              Icons.grid_view_rounded,
-              AppLocaleKey.brands.tr(),
+              Icons.favorite_outline_rounded,
+              Icons.favorite_rounded,
+              AppLocaleKey.favorites.tr(),
             ),
             _buildNavItem(
               3,
