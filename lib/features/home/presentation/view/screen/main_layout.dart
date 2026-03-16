@@ -1,8 +1,11 @@
 import 'package:car/core/custom_widgets/custom_app_bar/custom_app_bar.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
+import 'package:car/core/routes/routes_name.dart';
 import 'package:car/core/theme/app_colors.dart';
+import 'package:car/features/cart/presentation/view/cubit/cart_cubit.dart';
 import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/features/favorites/presentation/view/screen/favorites_screen.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:car/features/home/presentation/view/screen/all_brands_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -53,12 +56,41 @@ class _MainLayoutState extends State<MainLayout> {
             ),
           ),
           Gap(10.w),
-          CircleAvatar(
-            backgroundColor: AppColor.greyColor(context).withValues(alpha: 0.1),
-            child: IconButton(
-              onPressed: () {},
-              icon: Icon(Icons.notifications, color: AppColor.blackTextColor(context)),
-            ),
+          BlocBuilder<CartCubit, CartState>(
+            builder: (context, state) {
+              return Stack(
+                alignment: Alignment.center,
+                children: [
+                  CircleAvatar(
+                    backgroundColor: AppColor.greyColor(context).withValues(alpha: 0.1),
+                    child: IconButton(
+                      onPressed: () => Navigator.pushNamed(context, RoutesName.cartScreen),
+                      icon: Icon(Icons.shopping_cart_outlined, color: AppColor.blackTextColor(context)),
+                    ),
+                  ),
+                  if (state.items.isNotEmpty)
+                    Positioned(
+                      top: 0,
+                      right: 0,
+                      child: Container(
+                        padding: EdgeInsets.all(4.w),
+                        decoration: const BoxDecoration(
+                          color: Colors.red,
+                          shape: BoxShape.circle,
+                        ),
+                        child: Text(
+                          state.items.length.toString(),
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 10.sp,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ),
+                ],
+              );
+            },
           ),
           Gap(5.w),
         ],

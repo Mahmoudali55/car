@@ -1,6 +1,7 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:car/core/services/services_locator.dart';
 import 'package:car/features/favorites/presentation/view/cubit/favorites_cubit.dart';
+import 'package:car/features/cart/presentation/view/cubit/cart_cubit.dart';
 import 'package:country_picker/country_picker.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -29,6 +30,7 @@ class _CarAppState extends State<CarApp> {
         return MultiBlocProvider(
           providers: [
             BlocProvider(create: (context) => sl<FavoritesCubit>()),
+            BlocProvider(create: (context) => CartCubit()),
           ],
           child: MaterialApp(
             localizationsDelegates: [...context.localizationDelegates, CountryLocalizations.delegate],

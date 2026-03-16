@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/features/favorites/presentation/view/cubit/favorites_cubit.dart';
+import 'package:car/features/cart/presentation/view/cubit/cart_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -407,18 +408,29 @@ class _CarDetailsScreenState extends State<CarDetailsScreen> {
                           ),
                           Gap(16.w),
                           Expanded(
-                            child: ElevatedButton(
-                              onPressed: () {},
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: AppColor.primaryColor(context),
-                                padding: EdgeInsets.symmetric(vertical: 18.h),
-                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.r)),
-                                elevation: 0,
-                              ),
-                              child: Text(
-                                'تواصل مع البائع الآن',
-                                style: AppTextStyle.titleMedium(context).copyWith(color: Colors.white, fontWeight: FontWeight.bold),
-                              ),
+                            child: BlocBuilder<CartCubit, CartState>(
+                              builder: (context, state) {
+                                final isInCart = context.read<CartCubit>().isInCart(widget.car['name']);
+                                return ElevatedButton(
+                                  onPressed: () {
+                                    if (isInCart) {
+                                      context.read<CartCubit>().removeFromCart(widget.car);
+                                    } else {
+                                      context.read<CartCubit>().addToCart(widget.car);
+                                    }
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: isInCart ? Colors.redAccent.withOpacity(0.8) : AppColor.primaryColor(context),
+                                    padding: EdgeInsets.symmetric(vertical: 18.h),
+                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.r)),
+                                    elevation: 0,
+                                  ),
+                                  child: Text(
+                                    isInCart ? 'إزالة من السلة' : 'أضف إلى السلة',
+                                    style: AppTextStyle.titleMedium(context).copyWith(color: Colors.white, fontWeight: FontWeight.bold),
+                                  ),
+                                );
+                              },
                             ),
                           ),
                         ],

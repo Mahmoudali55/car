@@ -130,5 +130,15 @@
   "europe": "أوروبا",
   "special_offers":"عروض حصرية لك",
   "search_for_your_dream_car":"ابحث عن سيارة أحلامك...",
-  "most_popular_and_active_cars":"اكتشف السيارات الأكثر طلباً وفعالية في السوق"
+  "most_popular_and_active_cars":"اكتشف السيارات الأكثر طلباً وفعالية في السوق",
+  "cart": "السلة",
+  "add_to_cart": "إضافة للسلة",
+  "my_cart": "سلتي",
+  "checkout": "إتمام الشراء",
+  "payment_method": "طريقة الدفع",
+  "order_summary": "ملخص الطلب",
+  "pay_now": "ادفع الآن",
+  "order_success": "تم اكتمال الطلب بنجاح!",
+  "empty_cart": "سلة المشتريات فارغة",
+  "continue_shopping": "متابعة التسوق"
 }

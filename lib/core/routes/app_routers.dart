@@ -33,6 +33,21 @@ class AppRouters {
         return MaterialPageRoute(builder: (_) => const PopularCarsScreen());
       case RoutesName.filterScreen:
         return MaterialPageRoute(builder: (_) => const FilterScreen());
+      case RoutesName.cartScreen:
+        return MaterialPageRoute(
+          builder: (ctx) => BlocProvider.value(
+            value: ctx.read<CartCubit>(),
+            child: const CartScreen(),
+          ),
+        );
+      case RoutesName.paymentScreen:
+        return MaterialPageRoute(
+          builder: (_) => PaymentScreen(totalPrice: args as double),
+        );
+      case RoutesName.paymentSuccessScreen:
+        return MaterialPageRoute(
+          builder: (_) => const PaymentSuccessScreen(),
+        );
 
       default:
         return null;

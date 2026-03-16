@@ -130,5 +130,15 @@
   "europe": "Europe",
   "special_offers": "Special Offers",
   "search_for_your_dream_car": "Search for your dream car",
-  "most_popular_and_active_cars": "Most Popular and Active Cars"
+  "most_popular_and_active_cars": "Most Popular and Active Cars",
+  "cart": "Cart",
+  "add_to_cart": "Add to Cart",
+  "my_cart": "My Cart",
+  "checkout": "Checkout",
+  "payment_method": "Payment Method",
+  "order_summary": "Order Summary",
+  "pay_now": "Pay Now",
+  "order_success": "Order Completed Successfully!",
+  "empty_cart": "Your cart is empty",
+  "continue_shopping": "Continue Shopping"
 }

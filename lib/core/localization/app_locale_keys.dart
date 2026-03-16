@@ -131,4 +131,14 @@ class AppLocaleKey {
   static const String specialOffers = 'special_offers';
   static const String searchForYourDreamCar = 'search_for_your_dream_car';
   static const String mostPopularAndActiveCars = 'most_popular_and_active_cars';
+  static const String cart = 'cart';
+  static const String addToCart = 'add_to_cart';
+  static const String myCart = 'my_cart';
+  static const String checkout = 'checkout';
+  static const String paymentMethod = 'payment_method';
+  static const String orderSummary = 'order_summary';
+  static const String payNow = 'pay_now';
+  static const String orderSuccess = 'order_success';
+  static const String emptyCart = 'empty_cart';
+  static const String continueShopping = 'continue_shopping';
 }
