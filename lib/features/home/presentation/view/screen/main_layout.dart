@@ -3,6 +3,8 @@ import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/routes/routes_name.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/features/cart/presentation/view/cubit/cart_cubit.dart';
+import 'package:car/features/notifications/presentation/view/cubit/notifications_cubit.dart';
+import 'package:car/features/notifications/presentation/view/cubit/notifications_state.dart';
 import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/features/favorites/presentation/view/screen/favorites_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -54,6 +56,44 @@ class _MainLayoutState extends State<MainLayout> {
               onPressed: () {},
               icon: Icon(Icons.search, color: AppColor.blackTextColor(context)),
             ),
+          ),
+          Gap(10.w),
+          BlocBuilder<NotificationsCubit, NotificationsState>(
+            builder: (context, state) {
+              final int unreadCount = state is NotificationsLoaded ? state.unreadCount : 0;
+              return Stack(
+                alignment: Alignment.center,
+                children: [
+                  CircleAvatar(
+                    backgroundColor: AppColor.greyColor(context).withValues(alpha: 0.1),
+                    child: IconButton(
+                      onPressed: () => Navigator.pushNamed(context, RoutesName.notificationsScreen),
+                      icon: Icon(Icons.notifications_none_rounded, color: AppColor.blackTextColor(context)),
+                    ),
+                  ),
+                  if (unreadCount > 0)
+                    Positioned(
+                      top: 0,
+                      right: 0,
+                      child: Container(
+                        padding: EdgeInsets.all(4.w),
+                        decoration: const BoxDecoration(
+                          color: Colors.red,
+                          shape: BoxShape.circle,
+                        ),
+                        child: Text(
+                          unreadCount.toString(),
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 10.sp,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ),
+                ],
+              );
+            },
           ),
           Gap(10.w),
           BlocBuilder<CartCubit, CartState>(

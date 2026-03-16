@@ -13,4 +13,5 @@ class RoutesName {
   static const String cartScreen = 'cartScreen';
   static const String paymentScreen = 'paymentScreen';
   static const String paymentSuccessScreen = 'paymentSuccessScreen';
+  static const String notificationsScreen = 'notificationsScreen';
 }

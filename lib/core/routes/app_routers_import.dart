@@ -13,6 +13,8 @@ import 'package:car/features/cart/presentation/view/screen/cart_screen.dart';
 import 'package:car/features/cart/presentation/view/screen/payment_screen.dart';
 import 'package:car/features/cart/presentation/view/screen/payment_success_screen.dart';
 import 'package:car/features/cart/presentation/view/cubit/cart_cubit.dart';
+import 'package:car/features/notifications/presentation/view/screen/notifications_screen.dart';
+import 'package:car/features/notifications/presentation/view/cubit/notifications_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

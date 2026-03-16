@@ -48,6 +48,11 @@ class AppRouters {
         return MaterialPageRoute(
           builder: (_) => const PaymentSuccessScreen(),
         );
+      case RoutesName.notificationsScreen:
+        return MaterialPageRoute(
+          builder: (_) => const NotificationsScreen(),
+        );
+
 
       default:
         return null;
