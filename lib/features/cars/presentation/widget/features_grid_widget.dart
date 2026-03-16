@@ -1,0 +1,59 @@
+import 'package:car/core/theme/app_colors.dart';
+import 'package:car/core/theme/app_text_style.dart';
+import 'package:car/features/cars/presentation/widget/section_title_widget.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gap/gap.dart';
+
+class FeaturesGridWidget extends StatelessWidget {
+  const FeaturesGridWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final List<Map<String, dynamic>> features = [
+      {'icon': Icons.bluetooth_rounded, 'label': 'بلوتوث'},
+      {'icon': Icons.camera_alt_rounded, 'label': 'كاميرا 360'},
+      {'icon': Icons.airline_seat_recline_extra_rounded, 'label': 'جلد'},
+      {'icon': Icons.navigation_rounded, 'label': 'خرائط Gps'},
+      {'icon': Icons.brightness_high_rounded, 'label': 'فتحة سقف'},
+      {'icon': Icons.speed_rounded, 'label': 'مثبت سرعة'},
+    ];
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const SectionTitleWidget(title: 'المميزات الإضافية'),
+        Gap(16.h),
+        Wrap(
+          spacing: 12.w,
+          runSpacing: 12.h,
+          children: features.map((f) => _buildFeatureItem(context, f['icon'], f['label'])).toList(),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildFeatureItem(BuildContext context, IconData icon, String label) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+      decoration: BoxDecoration(
+        color: AppColor.secondAppColor(context),
+        borderRadius: BorderRadius.circular(12.r),
+        border: Border.all(color: Colors.white.withValues(alpha: 0.05)),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(icon, color: AppColor.primaryColor(context), size: 18.sp),
+          Gap(10.w),
+          Text(
+            label,
+            style: AppTextStyle.bodySmall(
+              context,
+            ).copyWith(color: Colors.white, fontWeight: FontWeight.bold),
+          ),
+        ],
+      ),
+    );
+  }
+}

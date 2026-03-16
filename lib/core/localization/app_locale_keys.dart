@@ -144,4 +144,6 @@ class AppLocaleKey {
   static const String availableCars = 'available_cars';
   static const String showAll = 'show_all';
   static const String specialOffersCars = 'special_offers_cars';
+  static const String generalView = 'general_view';
+  static const String specialView = 'special_view';
 }
