@@ -1,7 +1,7 @@
+import 'package:car/core/routes/routes_name.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/core/utils/navigator_methods.dart';
-import 'package:car/core/routes/routes_name.dart';
 import 'package:car/features/favorites/presentation/view/cubit/favorites_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -56,18 +56,23 @@ class PremiumCarCardWidget extends StatelessWidget {
                 // Badges
                 Positioned(
                   top: 15.h,
-                  left: 15.w,
+                  left: -20.w,
                   child: Container(
+                    height: 30.h,
+                    width: 80.w,
+                    alignment: Alignment.center,
                     padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
                     decoration: BoxDecoration(
-                      color: Colors.black.withValues(alpha: 0.2),
+                      color: AppColor.blackTextColor(context).withValues(alpha: 0.2),
                       shape: BoxShape.circle,
                     ),
                     child: Text(
                       car['year'],
-                      style: AppTextStyle.bodySmall(
-                        context,
-                      ).copyWith(color: Colors.white, fontSize: 10.sp, fontWeight: FontWeight.bold),
+                      style: AppTextStyle.bodySmall(context).copyWith(
+                        color: AppColor.whiteColor(context),
+                        fontSize: 10.sp,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ),
@@ -79,7 +84,7 @@ class PremiumCarCardWidget extends StatelessWidget {
                       final isFav = context.read<FavoritesCubit>().isFavorite(car['name']!);
                       return Container(
                         decoration: BoxDecoration(
-                          color: Colors.black.withValues(alpha: 0.2),
+                          color: AppColor.blackTextColor(context).withValues(alpha: 0.2),
                           shape: BoxShape.circle,
                         ),
                         child: IconButton(
@@ -88,7 +93,7 @@ class PremiumCarCardWidget extends StatelessWidget {
                           },
                           icon: Icon(
                             isFav ? Icons.favorite_rounded : Icons.favorite_border_rounded,
-                            color: isFav ? Colors.redAccent : Colors.white,
+                            color: isFav ? AppColor.primaryColor(context) : Colors.white,
                             size: 20.sp,
                           ),
                         ),
@@ -161,11 +166,11 @@ class PremiumCarCardWidget extends StatelessWidget {
   Widget _buildSpecIcon(BuildContext context, IconData icon, String text) {
     return Row(
       children: [
-        Icon(icon, color: Colors.white.withValues(alpha: 0.2), size: 14.sp),
+        Icon(icon, color: Colors.white, size: 14.sp),
         Gap(4.w),
         Text(
           text,
-          style: AppTextStyle.bodySmall(context).copyWith(color: Colors.white.withValues(alpha: 0.2), fontSize: 10.sp),
+          style: AppTextStyle.bodyMedium(context).copyWith(color: Colors.white, fontSize: 10.sp),
         ),
       ],
     );

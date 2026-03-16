@@ -51,7 +51,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             colors: [
               AppColor.secondAppColor(context),
               const Color(0xff161B22),
-              AppColor.primaryColor(context).withOpacity(0.2),
+              AppColor.primaryColor(context).withValues(alpha: 0.2),
             ],
           ),
         ),
@@ -88,12 +88,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         decoration: BoxDecoration(
                           color: _currentPage == index
                               ? AppColor.primaryColor(context)
-                              : Colors.white.withOpacity(0.2),
+                              : Colors.white.withValues(alpha: 0.2),
                           borderRadius: BorderRadius.circular(4),
                           boxShadow: _currentPage == index
                               ? [
                                   BoxShadow(
-                                    color: AppColor.primaryColor(context).withOpacity(0.4),
+                                    color: AppColor.primaryColor(context).withValues(alpha: 0.4),
                                     blurRadius: 10,
                                     spreadRadius: 1,
                                   ),
@@ -109,7 +109,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       borderRadius: BorderRadius.circular(16),
                       boxShadow: [
                         BoxShadow(
-                          color: AppColor.primaryColor(context).withOpacity(0.3),
+                          color: AppColor.primaryColor(context).withValues(alpha: 0.3),
                           blurRadius: 15,
                           offset: const Offset(0, 8),
                         ),
@@ -177,62 +177,65 @@ class OnboardingPageItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        FadeInDown(
-          duration: const Duration(milliseconds: 1000),
-          child: Container(
-            height: 300.h,
-            width: 300.h,
-            margin: EdgeInsets.all(20.w),
-            decoration: BoxDecoration(color: Colors.white.withOpacity(0.1), shape: BoxShape.circle),
-            child: Center(
-              child: model.isImage
-                  ? ClipRRect(
-                      borderRadius: BorderRadius.circular(150),
-                      child: Image.asset(
-                        model.image,
-                        fit: BoxFit.cover,
-                        height: 260.h,
-                        width: 260.h,
-                      ),
-                    )
-                  : Icon(model.image as IconData, size: 150.h, color: Colors.white),
+    return SingleChildScrollView(
+      physics: const BouncingScrollPhysics(),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          FadeInDown(
+            duration: const Duration(milliseconds: 1000),
+            child: Container(
+              height: 300.h,
+              width: 300.h,
+              margin: EdgeInsets.all(20.w),
+              decoration: BoxDecoration(color: Colors.white.withValues(alpha: 0.1), shape: BoxShape.circle),
+              child: Center(
+                child: model.isImage
+                    ? ClipRRect(
+                        borderRadius: BorderRadius.circular(150),
+                        child: Image.asset(
+                          model.image,
+                          fit: BoxFit.cover,
+                          height: 260.h,
+                          width: 260.h,
+                        ),
+                      )
+                    : Icon(model.image as IconData, size: 150.h, color: Colors.white),
+              ),
             ),
           ),
-        ),
-        SizedBox(height: 40.h),
-        FadeInUp(
-          duration: const Duration(milliseconds: 1000),
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 30.w),
-            child: Column(
-              children: [
-                Text(
-                  model.title,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 26.sp,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
+          SizedBox(height: 40.h),
+          FadeInUp(
+            duration: const Duration(milliseconds: 1000),
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 30.w),
+              child: Column(
+                children: [
+                  Text(
+                    model.title,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 26.sp,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
                   ),
-                ),
-                SizedBox(height: 20.h),
-                Text(
-                  model.description,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 16.sp,
-                    color: Colors.white.withOpacity(0.8),
-                    height: 1.5,
+                  SizedBox(height: 20.h),
+                  Text(
+                    model.description,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 16.sp,
+                      color: Colors.white.withValues(alpha: 0.8),
+                      height: 1.5,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
