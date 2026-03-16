@@ -69,11 +69,11 @@ class LoginScreen extends StatelessWidget {
                             child: Container(
                               padding: EdgeInsets.all(20.w),
                               decoration: BoxDecoration(
-                                color: Colors.white.withOpacity(0.05),
+                                color: AppColor.whiteColor(context).withValues(alpha: 0.05),
                                 shape: BoxShape.circle,
                                 boxShadow: [
                                   BoxShadow(
-                                    color: AppColor.primaryColor(context).withOpacity(0.2),
+                                    color: AppColor.primaryColor(context).withValues(alpha: 0.2),
                                     blurRadius: 30,
                                     spreadRadius: 5,
                                   ),
@@ -105,7 +105,7 @@ class LoginScreen extends StatelessWidget {
                                 AppLocaleKey.loginToContinueYourPremiumExperience.tr(),
                                 style: AppTextStyle.bodyMedium(
                                   context,
-                                  color: Colors.white.withOpacity(0.6),
+                                  color: AppColor.whiteColor(context).withValues(alpha: (0.6)),
                                 ),
                               ),
                             ],
@@ -122,9 +122,11 @@ class LoginScreen extends StatelessWidget {
                               Icons.phone_iphone_rounded,
                               color: AppColor.primaryColor(context),
                             ),
-                            fillColor: Colors.white.withOpacity(0.05),
-                            textStyle: const TextStyle(color: Colors.white),
-                            hintStyle: TextStyle(color: Colors.white.withOpacity(0.3)),
+                            fillColor: AppColor.whiteColor(context).withValues(alpha: (0.05)),
+                            textStyle: TextStyle(color: AppColor.whiteColor(context)),
+                            hintStyle: TextStyle(
+                              color: AppColor.whiteColor(context).withValues(alpha: (0.3)),
+                            ),
                             radius: 16,
                             keyboardType: TextInputType.phone,
                           ),
@@ -141,9 +143,11 @@ class LoginScreen extends StatelessWidget {
                               Icons.lock_outline_rounded,
                               color: AppColor.primaryColor(context),
                             ),
-                            fillColor: Colors.white.withOpacity(0.05),
-                            textStyle: const TextStyle(color: Colors.white),
-                            hintStyle: TextStyle(color: Colors.white.withOpacity(0.3)),
+                            fillColor: AppColor.whiteColor(context).withValues(alpha: (0.05)),
+                            textStyle: TextStyle(color: AppColor.whiteColor(context)),
+                            hintStyle: TextStyle(
+                              color: AppColor.whiteColor(context).withValues(alpha: (0.3)),
+                            ),
                             radius: 16,
                           ),
                         ),
@@ -161,7 +165,9 @@ class LoginScreen extends StatelessWidget {
                                     width: 24.h,
                                     child: Theme(
                                       data: ThemeData(
-                                        unselectedWidgetColor: Colors.white.withOpacity(0.3),
+                                        unselectedWidgetColor: AppColor.whiteColor(
+                                          context,
+                                        ).withValues(alpha: (0.3)),
                                       ),
                                       child: Checkbox(
                                         value: cubit.rememberMe,
@@ -175,7 +181,7 @@ class LoginScreen extends StatelessWidget {
                                     AppLocaleKey.rememberMe.tr(),
                                     style: AppTextStyle.bodySmall(
                                       context,
-                                      color: Colors.white.withOpacity(0.7),
+                                      color: AppColor.whiteColor(context).withValues(alpha: (0.7)),
                                     ),
                                   ),
                                 ],
@@ -217,10 +223,14 @@ class LoginScreen extends StatelessWidget {
                                   style:
                                       AppTextStyle.bodyMedium(
                                         context,
-                                        color: Colors.white.withOpacity(0.5),
+                                        color: AppColor.whiteColor(
+                                          context,
+                                        ).withValues(alpha: (0.5)),
                                       ).copyWith(
                                         decoration: TextDecoration.underline,
-                                        decorationColor: Colors.white.withOpacity(0.5),
+                                        decorationColor: AppColor.whiteColor(
+                                          context,
+                                        ).withValues(alpha: (0.5)),
                                       ),
                                 ),
                               ),
@@ -238,7 +248,7 @@ class LoginScreen extends StatelessWidget {
                                 AppLocaleKey.dontHaveAccount.tr(),
                                 style: AppTextStyle.bodyMedium(
                                   context,
-                                  color: Colors.white.withOpacity(0.6),
+                                  color: AppColor.whiteColor(context).withValues(alpha: (0.6)),
                                 ),
                               ),
                               TextButton(

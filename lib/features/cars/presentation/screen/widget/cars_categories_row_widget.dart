@@ -33,10 +33,14 @@ class CarsCategoriesRowWidget extends StatelessWidget {
               duration: const Duration(milliseconds: 300),
               padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
               decoration: BoxDecoration(
-                color: isSelected ? AppColor.primaryColor(context) : AppColor.secondAppColor(context),
+                color: isSelected
+                    ? AppColor.primaryColor(context)
+                    : AppColor.secondAppColor(context),
                 borderRadius: BorderRadius.circular(16.r),
                 border: Border.all(
-                  color: isSelected ? Colors.transparent : Colors.white.withValues(alpha: 0.05),
+                  color: isSelected
+                      ? Colors.transparent
+                      : AppColor.whiteColor(context).withValues(alpha: 0.05),
                 ),
                 boxShadow: isSelected
                     ? [
@@ -44,14 +48,14 @@ class CarsCategoriesRowWidget extends StatelessWidget {
                           color: AppColor.primaryColor(context).withValues(alpha: 0.3),
                           blurRadius: 10,
                           offset: const Offset(0, 4),
-                        )
+                        ),
                       ]
                     : null,
               ),
               child: Text(
                 categories[index],
                 style: AppTextStyle.bodyMedium(context).copyWith(
-                  color: isSelected ? Colors.white : Colors.white60,
+                  color: isSelected ? AppColor.whiteColor(context) : Colors.white60,
                   fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
                 ),
               ),

@@ -141,4 +141,7 @@ class AppLocaleKey {
   static const String orderSuccess = 'order_success';
   static const String emptyCart = 'empty_cart';
   static const String continueShopping = 'continue_shopping';
+  static const String availableCars = 'available_cars';
+  static const String showAll = 'show_all';
+  static const String specialOffersCars = 'special_offers_cars';
 }

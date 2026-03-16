@@ -9,6 +9,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gap/gap.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -49,19 +50,22 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(height: 40.h),
+                    Gap(40.h),
                     FadeInDown(
                       duration: const Duration(milliseconds: 1000),
                       child: IconButton(
                         onPressed: () => Navigator.pop(context),
-                        icon: const Icon(Icons.arrow_back_ios_new_rounded, color: Colors.white),
+                        icon: Icon(
+                          Icons.arrow_back_ios_new_rounded,
+                          color: AppColor.whiteColor(context),
+                        ),
                         style: IconButton.styleFrom(
-                          backgroundColor: Colors.white.withOpacity(0.1),
+                          backgroundColor: AppColor.whiteColor(context).withValues(alpha: (0.1)),
                           padding: EdgeInsets.all(12.w),
                         ),
                       ),
                     ),
-                    SizedBox(height: 30.h),
+                    Gap(30.h),
                     FadeInLeft(
                       duration: const Duration(milliseconds: 1000),
                       child: Column(
@@ -71,21 +75,21 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             AppLocaleKey.createAccount.tr(),
                             style: AppTextStyle.titleLarge(
                               context,
-                              color: Colors.white,
+                              color: AppColor.whiteColor(context),
                             ).copyWith(fontSize: 32.sp),
                           ),
-                          SizedBox(height: 8.h),
+                          Gap(8.h),
                           Text(
                             AppLocaleKey.joinPremiumCommunity.tr(),
                             style: AppTextStyle.bodyMedium(
                               context,
-                              color: Colors.white.withOpacity(0.6),
+                              color: AppColor.whiteColor(context).withValues(alpha: 0.5),
                             ),
                           ),
                         ],
                       ),
                     ),
-                    SizedBox(height: 40.h),
+                    Gap(40.h),
                     FadeInUp(
                       delay: const Duration(milliseconds: 200),
                       duration: const Duration(milliseconds: 1000),
@@ -97,13 +101,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           Icons.person_outline_rounded,
                           color: AppColor.primaryColor(context),
                         ),
-                        fillColor: Colors.white.withOpacity(0.05),
-                        textStyle: const TextStyle(color: Colors.white),
-                        hintStyle: TextStyle(color: Colors.white.withOpacity(0.3)),
+                        fillColor: AppColor.whiteColor(context).withValues(alpha: 0.05),
+                        textStyle: TextStyle(color: AppColor.whiteColor(context)),
+                        hintStyle: TextStyle(
+                          color: AppColor.whiteColor(context).withValues(alpha: 0.3),
+                        ),
                         radius: 16,
                       ),
                     ),
-                    SizedBox(height: 20.h),
+                    Gap(20.h),
                     FadeInUp(
                       delay: const Duration(milliseconds: 400),
                       duration: const Duration(milliseconds: 1000),
@@ -114,14 +120,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           Icons.phone_iphone_rounded,
                           color: AppColor.primaryColor(context),
                         ),
-                        fillColor: Colors.white.withOpacity(0.05),
-                        textStyle: const TextStyle(color: Colors.white),
-                        hintStyle: TextStyle(color: Colors.white.withOpacity(0.3)),
+                        fillColor: AppColor.whiteColor(context).withValues(alpha: 0.05),
+                        textStyle: TextStyle(color: AppColor.whiteColor(context)),
+                        hintStyle: TextStyle(
+                          color: AppColor.whiteColor(context).withValues(alpha: 0.3),
+                        ),
                         radius: 16,
                         keyboardType: TextInputType.phone,
                       ),
                     ),
-                    SizedBox(height: 20.h),
+                    Gap(20.h),
                     FadeInUp(
                       delay: const Duration(milliseconds: 600),
                       duration: const Duration(milliseconds: 1000),
@@ -133,13 +141,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           Icons.lock_outline_rounded,
                           color: AppColor.primaryColor(context),
                         ),
-                        fillColor: Colors.white.withOpacity(0.05),
-                        textStyle: const TextStyle(color: Colors.white),
-                        hintStyle: TextStyle(color: Colors.white.withOpacity(0.3)),
+                        fillColor: AppColor.whiteColor(context).withValues(alpha: 0.05),
+                        textStyle: TextStyle(color: AppColor.whiteColor(context)),
+                        hintStyle: TextStyle(
+                          color: AppColor.whiteColor(context).withValues(alpha: 0.3),
+                        ),
                         radius: 16,
                       ),
                     ),
-                    SizedBox(height: 40.h),
+                    Gap(40.h),
                     FadeInUp(
                       delay: const Duration(milliseconds: 800),
                       duration: const Duration(milliseconds: 1000),
@@ -153,7 +163,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         },
                       ),
                     ),
-                    SizedBox(height: 30.h),
+                    Gap(30.h),
                     FadeInUp(
                       delay: const Duration(milliseconds: 1000),
                       duration: const Duration(milliseconds: 1000),
@@ -164,7 +174,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             AppLocaleKey.alreadyHaveAccount.tr(),
                             style: AppTextStyle.bodyMedium(
                               context,
-                              color: Colors.white.withOpacity(0.6),
+                              color: AppColor.whiteColor(context).withValues(alpha: 0.6),
                             ),
                           ),
                           TextButton(
@@ -180,7 +190,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ],
                       ),
                     ),
-                    SizedBox(height: 20.h),
+                    Gap(20.h),
                   ],
                 ),
               ),

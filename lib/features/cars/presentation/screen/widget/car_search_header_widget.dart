@@ -32,7 +32,7 @@ class CarSearchHeaderWidget extends StatelessWidget {
                 color: AppColor.primaryColor(context),
                 borderRadius: BorderRadius.circular(16.r),
               ),
-              child: const Icon(Icons.tune_rounded, color: Colors.white),
+              child: Icon(Icons.tune_rounded, color: AppColor.whiteColor(context)),
             ),
           ),
         ],

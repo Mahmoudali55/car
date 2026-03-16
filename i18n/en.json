@@ -140,5 +140,8 @@
   "pay_now": "Pay Now",
   "order_success": "Order Completed Successfully!",
   "empty_cart": "Your cart is empty",
-  "continue_shopping": "Continue Shopping"
+  "continue_shopping": "Continue Shopping",
+  "available_cars":"Available Cars",
+  "show_all":"Show All",
+  "special_offers_cars":"Special Offers Cars"
 }

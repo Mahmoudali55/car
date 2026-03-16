@@ -1,5 +1,7 @@
+import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -41,7 +43,7 @@ class _FeaturedCarsSliderWidgetState extends State<FeaturedCarsSliderWidget> {
                   borderRadius: BorderRadius.circular(24.r),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withValues(alpha: 0.2),
+                      color: AppColor.blackTextColor(context).withValues(alpha: 0.2),
                       blurRadius: 15,
                       offset: const Offset(0, 8),
                     ),
@@ -79,9 +81,9 @@ class _FeaturedCarsSliderWidgetState extends State<FeaturedCarsSliderWidget> {
                                     borderRadius: BorderRadius.circular(8.r),
                                   ),
                                   child: Text(
-                                    'عرض خاص',
+                                    AppLocaleKey.specialOffersCars.tr(),
                                     style: AppTextStyle.bodySmall(context).copyWith(
-                                      color: Colors.white,
+                                      color: AppColor.whiteColor(context),
                                       fontSize: 10.sp,
                                       fontWeight: FontWeight.bold,
                                     ),
@@ -90,9 +92,10 @@ class _FeaturedCarsSliderWidgetState extends State<FeaturedCarsSliderWidget> {
                                 Gap(8.h),
                                 Text(
                                   car['name']!,
-                                  style: AppTextStyle.titleMedium(
-                                    context,
-                                  ).copyWith(color: Colors.white, fontWeight: FontWeight.bold),
+                                  style: AppTextStyle.titleMedium(context).copyWith(
+                                    color: AppColor.whiteColor(context),
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                 ),

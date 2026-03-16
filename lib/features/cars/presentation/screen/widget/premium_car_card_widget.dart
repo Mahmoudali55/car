@@ -22,10 +22,10 @@ class PremiumCarCardWidget extends StatelessWidget {
         decoration: BoxDecoration(
           color: AppColor.secondAppColor(context),
           borderRadius: BorderRadius.circular(24.r),
-          border: Border.all(color: Colors.white.withValues(alpha: 0.05)),
+          border: Border.all(color: AppColor.whiteColor(context).withValues(alpha: 0.05)),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withValues(alpha: 0.1),
+              color: AppColor.blackTextColor(context).withValues(alpha: 0.1),
               blurRadius: 10,
               offset: const Offset(0, 4),
             ),
@@ -45,7 +45,10 @@ class PremiumCarCardWidget extends StatelessWidget {
                     gradient: LinearGradient(
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
-                      colors: [Colors.blue.withValues(alpha: 0.05), Colors.transparent],
+                      colors: [
+                        AppColor.primaryColor(context).withValues(alpha: 0.05),
+                        Colors.transparent,
+                      ],
                     ),
                   ),
                   child: Hero(
@@ -93,7 +96,9 @@ class PremiumCarCardWidget extends StatelessWidget {
                           },
                           icon: Icon(
                             isFav ? Icons.favorite_rounded : Icons.favorite_border_rounded,
-                            color: isFav ? AppColor.primaryColor(context) : Colors.white,
+                            color: isFav
+                                ? AppColor.primaryColor(context)
+                                : AppColor.whiteColor(context),
                             size: 20.sp,
                           ),
                         ),
@@ -126,7 +131,7 @@ class PremiumCarCardWidget extends StatelessWidget {
                           Text(
                             car['name'],
                             style: AppTextStyle.bodyMedium(context).copyWith(
-                              color: Colors.white,
+                              color: AppColor.whiteColor(context),
                               fontWeight: FontWeight.bold,
                               fontSize: 16.sp,
                             ),
@@ -143,7 +148,7 @@ class PremiumCarCardWidget extends StatelessWidget {
                     ],
                   ),
                   Gap(12.h),
-                  Divider(color: Colors.white.withOpacity(0.05), height: 1),
+                  Divider(color: AppColor.whiteColor(context).withValues(alpha: (0.05)), height: 1),
                   Gap(12.h),
                   Row(
                     children: [
@@ -166,11 +171,13 @@ class PremiumCarCardWidget extends StatelessWidget {
   Widget _buildSpecIcon(BuildContext context, IconData icon, String text) {
     return Row(
       children: [
-        Icon(icon, color: Colors.white, size: 14.sp),
+        Icon(icon, color: AppColor.whiteColor(context), size: 14.sp),
         Gap(4.w),
         Text(
           text,
-          style: AppTextStyle.bodyMedium(context).copyWith(color: Colors.white, fontSize: 10.sp),
+          style: AppTextStyle.bodyMedium(
+            context,
+          ).copyWith(color: AppColor.whiteColor(context), fontSize: 10.sp),
         ),
       ],
     );

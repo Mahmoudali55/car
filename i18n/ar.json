@@ -140,5 +140,8 @@
   "pay_now": "ادفع الآن",
   "order_success": "تم اكتمال الطلب بنجاح!",
   "empty_cart": "سلة المشتريات فارغة",
-  "continue_shopping": "متابعة التسوق"
+  "continue_shopping": "متابعة التسوق",
+  "available_cars":"السيارات المتاحة",
+  "show_all":"عرض الكل",
+  "special_offers_cars":"عرض خاص"
 }
