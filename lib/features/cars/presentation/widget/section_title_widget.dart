@@ -1,3 +1,4 @@
+import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
 import 'package:flutter/material.dart';
 
@@ -12,7 +13,7 @@ class SectionTitleWidget extends StatelessWidget {
       title,
       style: AppTextStyle.titleMedium(
         context,
-      ).copyWith(color: Colors.white, fontWeight: FontWeight.w800),
+      ).copyWith(color: AppColor.whiteColor(context), fontWeight: FontWeight.w800),
     );
   }
 }

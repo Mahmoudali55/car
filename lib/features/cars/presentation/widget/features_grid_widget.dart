@@ -1,6 +1,8 @@
+import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/features/cars/presentation/widget/section_title_widget.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -22,7 +24,7 @@ class FeaturesGridWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const SectionTitleWidget(title: 'المميزات الإضافية'),
+        SectionTitleWidget(title: AppLocaleKey.additionalFeatures.tr()),
         Gap(16.h),
         Wrap(
           spacing: 12.w,
@@ -39,7 +41,7 @@ class FeaturesGridWidget extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColor.secondAppColor(context),
         borderRadius: BorderRadius.circular(12.r),
-        border: Border.all(color: Colors.white.withValues(alpha: 0.05)),
+        border: Border.all(color: AppColor.whiteColor(context).withValues(alpha: 0.05)),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -50,7 +52,7 @@ class FeaturesGridWidget extends StatelessWidget {
             label,
             style: AppTextStyle.bodySmall(
               context,
-            ).copyWith(color: Colors.white, fontWeight: FontWeight.bold),
+            ).copyWith(color: AppColor.whiteColor(context), fontWeight: FontWeight.bold),
           ),
         ],
       ),

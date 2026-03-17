@@ -1,5 +1,7 @@
+import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -31,9 +33,11 @@ class CarHeaderWidget extends StatelessWidget {
                 Gap(4.h),
                 Text(
                   car['name'] ?? '',
-                  style: AppTextStyle.titleLarge(
-                    context,
-                  ).copyWith(fontSize: 28.sp, color: Colors.white, fontWeight: FontWeight.w900),
+                  style: AppTextStyle.titleLarge(context).copyWith(
+                    fontSize: 28.sp,
+                    color: AppColor.whiteColor(context),
+                    fontWeight: FontWeight.w900,
+                  ),
                 ),
               ],
             ),
@@ -55,10 +59,10 @@ class CarHeaderWidget extends StatelessWidget {
             Padding(
               padding: EdgeInsets.only(bottom: 6.h),
               child: Text(
-                'شامل الضريبة',
+                AppLocaleKey.taxIncluded.tr(),
                 style: AppTextStyle.bodySmall(
                   context,
-                ).copyWith(color: Colors.white.withValues(alpha: 0.4)),
+                ).copyWith(color: AppColor.whiteColor(context).withValues(alpha: 0.4)),
               ),
             ),
           ],

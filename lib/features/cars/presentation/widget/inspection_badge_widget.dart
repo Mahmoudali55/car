@@ -24,7 +24,7 @@ class InspectionBadgeWidget extends StatelessWidget {
               color: AppColor.primaryColor(context),
               shape: BoxShape.circle,
             ),
-            child: const Icon(Icons.verified_user_rounded, color: Colors.white, size: 20),
+            child: Icon(Icons.verified_user_rounded, color: AppColor.whiteColor(context), size: 20),
           ),
           Gap(12.w),
           Expanded(
@@ -41,7 +41,7 @@ class InspectionBadgeWidget extends StatelessWidget {
                   'اجتازت هذه السيارة جميع فحوصات الجودة لدينا (200+ نقطة فحص)',
                   style: AppTextStyle.bodySmall(
                     context,
-                  ).copyWith(color: Colors.white.withValues(alpha: 0.6)),
+                  ).copyWith(color: AppColor.whiteColor(context).withValues(alpha: 0.6)),
                 ),
               ],
             ),

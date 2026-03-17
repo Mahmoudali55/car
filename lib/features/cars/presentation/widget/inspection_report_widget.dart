@@ -1,6 +1,8 @@
+import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/features/cars/presentation/widget/section_title_widget.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -16,7 +18,7 @@ class InspectionReportWidget extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const SectionTitleWidget(title: 'تقرير الفحص'),
+            SectionTitleWidget(title: AppLocaleKey.inspectionReport.tr()),
             Text(
               'ممتاز 4.8/5',
               style: AppTextStyle.bodyMedium(
@@ -35,11 +37,11 @@ class InspectionReportWidget extends StatelessWidget {
           child: Column(
             children: [
               _buildReportRow(context, 'حالة المحرك والناقل', true),
-              _buildReportDivider(),
+              _buildReportDivider(context),
               _buildReportRow(context, 'حالة الهيكل والطلاء', true),
-              _buildReportDivider(),
+              _buildReportDivider(context),
               _buildReportRow(context, 'الحالة الداخلية والنظافة', true),
-              _buildReportDivider(),
+              _buildReportDivider(context),
               _buildReportRow(context, 'الإطارات والمكابح', true),
               Gap(20.h),
               SizedBox(
@@ -52,8 +54,8 @@ class InspectionReportWidget extends StatelessWidget {
                     padding: EdgeInsets.symmetric(vertical: 14.h),
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.r)),
                   ),
-                  child: const Text(
-                    'تحميل التقرير الكامل (PDF)',
+                  child: Text(
+                    AppLocaleKey.fullReport.tr(),
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),
@@ -74,22 +76,25 @@ class InspectionReportWidget extends StatelessWidget {
           size: 20.sp,
         ),
         Gap(12.w),
-        Text(title, style: AppTextStyle.bodyMedium(context).copyWith(color: Colors.white)),
+        Text(
+          title,
+          style: AppTextStyle.bodyMedium(context).copyWith(color: AppColor.whiteColor(context)),
+        ),
         const Spacer(),
         Text(
-          isHealthy ? 'سليم' : 'يحتاج انتباه',
+          isHealthy ? AppLocaleKey.salem.tr() : AppLocaleKey.attention.tr(),
           style: AppTextStyle.bodySmall(
             context,
-          ).copyWith(color: Colors.white.withValues(alpha: 0.5)),
+          ).copyWith(color: AppColor.whiteColor(context).withValues(alpha: 0.5)),
         ),
       ],
     );
   }
 
-  Widget _buildReportDivider() {
+  Widget _buildReportDivider(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 12.h),
-      child: Divider(color: Colors.white.withValues(alpha: 0.05), height: 1),
+      child: Divider(color: AppColor.whiteColor(context).withValues(alpha: 0.05), height: 1),
     );
   }
 }

@@ -1,5 +1,7 @@
+import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/features/cars/presentation/widget/section_title_widget.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -29,7 +31,7 @@ class _VideoReviewWidgetState extends State<VideoReviewWidget> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const SectionTitleWidget(title: 'مراجعة بالفيديو'),
+        SectionTitleWidget(title: AppLocaleKey.watchVideo.tr()),
         Gap(16.h),
         Container(
           height: 220.h,
@@ -56,7 +58,7 @@ class _VideoReviewWidgetState extends State<VideoReviewWidget> {
                       errorBuilder: (_, __, ___) =>
                           Image.asset(widget.car['image'], fit: BoxFit.cover),
                     ),
-                    Container(color: Colors.black.withValues(alpha: 0.4)),
+                    Container(color: AppColor.blackTextColor(context).withValues(alpha: 0.4)),
                     Center(
                       child: GestureDetector(
                         onTap: () {
@@ -66,7 +68,11 @@ class _VideoReviewWidgetState extends State<VideoReviewWidget> {
                         child: CircleAvatar(
                           radius: 35.r,
                           backgroundColor: AppColor.primaryColor(context).withValues(alpha: 0.9),
-                          child: Icon(Icons.play_arrow_rounded, color: Colors.white, size: 40.sp),
+                          child: Icon(
+                            Icons.play_arrow_rounded,
+                            color: AppColor.whiteColor(context),
+                            size: 40.sp,
+                          ),
                         ),
                       ),
                     ),
@@ -76,12 +82,12 @@ class _VideoReviewWidgetState extends State<VideoReviewWidget> {
                       child: Container(
                         padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 6.h),
                         decoration: BoxDecoration(
-                          color: Colors.black.withValues(alpha: 0.7),
+                          color: AppColor.blackTextColor(context).withValues(alpha: 0.7),
                           borderRadius: BorderRadius.circular(8.r),
                         ),
-                        child: const Text(
+                        child: Text(
                           '4:25',
-                          style: TextStyle(color: Colors.white, fontSize: 10),
+                          style: TextStyle(color: AppColor.whiteColor(context), fontSize: 10),
                         ),
                       ),
                     ),

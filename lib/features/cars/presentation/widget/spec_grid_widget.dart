@@ -1,6 +1,8 @@
+import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/features/cars/presentation/widget/section_title_widget.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -15,7 +17,7 @@ class SpecGridWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const SectionTitleWidget(title: 'المواصفات الأساسية'),
+        SectionTitleWidget(title: AppLocaleKey.basicFeatures.tr()),
         Gap(16.h),
         GridView.count(
           crossAxisCount: 2,
@@ -53,14 +55,14 @@ class SpecGridWidget extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColor.secondAppColor(context),
         borderRadius: BorderRadius.circular(16.r),
-        border: Border.all(color: Colors.white.withValues(alpha: 0.05)),
+        border: Border.all(color: AppColor.whiteColor(context).withValues(alpha: 0.05)),
       ),
       child: Row(
         children: [
           Container(
             padding: EdgeInsets.all(8.w),
             decoration: BoxDecoration(
-              color: Colors.white.withValues(alpha: 0.05),
+              color: AppColor.whiteColor(context).withValues(alpha: 0.05),
               borderRadius: BorderRadius.circular(10.r),
             ),
             child: Icon(icon, color: AppColor.primaryColor(context), size: 18.sp),
@@ -73,15 +75,18 @@ class SpecGridWidget extends StatelessWidget {
               children: [
                 Text(
                   title,
-                  style: AppTextStyle.bodySmall(
-                    context,
-                  ).copyWith(color: Colors.white.withValues(alpha: 0.4), fontSize: 10.sp),
+                  style: AppTextStyle.bodySmall(context).copyWith(
+                    color: AppColor.whiteColor(context).withValues(alpha: 0.4),
+                    fontSize: 10.sp,
+                  ),
                 ),
                 Text(
                   value,
-                  style: AppTextStyle.bodyMedium(
-                    context,
-                  ).copyWith(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12.sp),
+                  style: AppTextStyle.bodyMedium(context).copyWith(
+                    color: AppColor.whiteColor(context),
+                    fontWeight: FontWeight.bold,
+                    fontSize: 12.sp,
+                  ),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),

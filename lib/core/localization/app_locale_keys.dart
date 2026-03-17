@@ -146,4 +146,13 @@ class AppLocaleKey {
   static const String specialOffersCars = 'special_offers_cars';
   static const String generalView = 'general_view';
   static const String specialView = 'special_view';
+  static const String taxIncluded = 'tax_included';
+  static const String additionalFeatures = 'additional_features';
+  static const String inspectionReport = 'inspection_report';
+  static const String salem = 'salem';
+  static const String attention = 'attention';
+  static const String fullReport = 'full_report';
+  static const String basicFeatures = 'basic_features';
+  static const String removeFromCart = 'remove_from_cart';
+  static const String watchVideo = 'watch_video';
 }

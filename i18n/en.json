@@ -145,5 +145,14 @@
   "show_all":"Show All",
   "special_offers_cars":"Special Offers Cars",
   "general_view": "Overview",
-  "special_view": "This car is in excellent condition and has been maintained by the dealer. It has been carefully inspected to ensure a safe and enjoyable driving experience. Ideal for children or families seeking luxury and safety."
+  "special_view": "This car is in excellent condition and has been maintained by the dealer. It has been carefully inspected to ensure a safe and enjoyable driving experience. Ideal for children or families seeking luxury and safety.",
+  "tax_included": "Tax Included",
+  "additional_features": "Additional Features",
+  "inspection_report": "Inspection Report",
+   "salem":"Salem",
+  "attention":"Attention",
+  "full_report":"Download Full Report (PDF)",
+  "basic_features":"Basic Features",
+  "remove_from_cart": "Remove from Cart",
+  "watch_video": "Watch Video"
 }
