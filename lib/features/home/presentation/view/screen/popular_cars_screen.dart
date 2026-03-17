@@ -12,7 +12,7 @@ class PopularCarsScreen extends StatelessWidget {
   final List<Map<String, dynamic>> popularCars = const [
     {
       'name': 'Ferrari SF90',
-      'image': 'assets/images/cars/mercedes-benz.png', // Temporary fallback
+      'image': 'assets/images/cars/mercedes-benz.png',
       'brand': 'Ferrari',
       'price': '1,200,000 د.إ',
       'year': '2024',
@@ -78,15 +78,21 @@ class PopularCarsScreen extends StatelessWidget {
             elevation: 0,
             leading: IconButton(
               onPressed: () => Navigator.pop(context),
-              icon: Icon(Icons.arrow_back_ios_new_rounded, color: Colors.white, size: 20.sp),
+              icon: Icon(
+                Icons.arrow_back_ios_new_rounded,
+                color: AppColor.whiteColor(context),
+                size: 20.sp,
+              ),
             ),
             flexibleSpace: FlexibleSpaceBar(
               centerTitle: true,
               title: Text(
                 AppLocaleKey.popularCars.tr(),
-                style: AppTextStyle.titleMedium(
-                  context,
-                ).copyWith(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18.sp),
+                style: AppTextStyle.titleMedium(context).copyWith(
+                  color: AppColor.whiteColor(context),
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18.sp,
+                ),
               ),
               background: Container(
                 decoration: BoxDecoration(
@@ -109,9 +115,10 @@ class PopularCarsScreen extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
               child: Text(
                 AppLocaleKey.mostPopularAndActiveCars.tr(),
-                style: AppTextStyle.bodySmall(
-                  context,
-                ).copyWith(color: Colors.white.withValues(alpha: 0.5), fontWeight: FontWeight.w500),
+                style: AppTextStyle.bodySmall(context).copyWith(
+                  color: AppColor.whiteColor(context).withValues(alpha: 0.5),
+                  fontWeight: FontWeight.w500,
+                ),
                 textAlign: TextAlign.center,
               ),
             ),

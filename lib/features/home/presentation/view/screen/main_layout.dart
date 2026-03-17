@@ -2,15 +2,15 @@ import 'package:car/core/custom_widgets/custom_app_bar/custom_app_bar.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/routes/routes_name.dart';
 import 'package:car/core/theme/app_colors.dart';
+import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/features/cart/presentation/view/cubit/cart_cubit.dart';
+import 'package:car/features/favorites/presentation/view/screen/favorites_screen.dart';
+import 'package:car/features/home/presentation/view/screen/all_brands_screen.dart';
 import 'package:car/features/notifications/presentation/view/cubit/notifications_cubit.dart';
 import 'package:car/features/notifications/presentation/view/cubit/notifications_state.dart';
-import 'package:car/core/theme/app_text_style.dart';
-import 'package:car/features/favorites/presentation/view/screen/favorites_screen.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:car/features/home/presentation/view/screen/all_brands_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
@@ -68,7 +68,10 @@ class _MainLayoutState extends State<MainLayout> {
                     backgroundColor: AppColor.greyColor(context).withValues(alpha: 0.1),
                     child: IconButton(
                       onPressed: () => Navigator.pushNamed(context, RoutesName.notificationsScreen),
-                      icon: Icon(Icons.notifications_none_rounded, color: AppColor.blackTextColor(context)),
+                      icon: Icon(
+                        Icons.notifications_none_rounded,
+                        color: AppColor.blackTextColor(context),
+                      ),
                     ),
                   ),
                   if (unreadCount > 0)
@@ -77,14 +80,11 @@ class _MainLayoutState extends State<MainLayout> {
                       right: 0,
                       child: Container(
                         padding: EdgeInsets.all(4.w),
-                        decoration: const BoxDecoration(
-                          color: Colors.red,
-                          shape: BoxShape.circle,
-                        ),
+                        decoration: const BoxDecoration(color: Colors.red, shape: BoxShape.circle),
                         child: Text(
                           unreadCount.toString(),
                           style: TextStyle(
-                            color: Colors.white,
+                            color: AppColor.whiteColor(context),
                             fontSize: 10.sp,
                             fontWeight: FontWeight.bold,
                           ),
@@ -105,7 +105,10 @@ class _MainLayoutState extends State<MainLayout> {
                     backgroundColor: AppColor.greyColor(context).withValues(alpha: 0.1),
                     child: IconButton(
                       onPressed: () => Navigator.pushNamed(context, RoutesName.cartScreen),
-                      icon: Icon(Icons.shopping_cart_outlined, color: AppColor.blackTextColor(context)),
+                      icon: Icon(
+                        Icons.shopping_cart_outlined,
+                        color: AppColor.blackTextColor(context),
+                      ),
                     ),
                   ),
                   if (state.items.isNotEmpty)
@@ -114,14 +117,11 @@ class _MainLayoutState extends State<MainLayout> {
                       right: 0,
                       child: Container(
                         padding: EdgeInsets.all(4.w),
-                        decoration: const BoxDecoration(
-                          color: Colors.red,
-                          shape: BoxShape.circle,
-                        ),
+                        decoration: const BoxDecoration(color: Colors.red, shape: BoxShape.circle),
                         child: Text(
                           state.items.length.toString(),
                           style: TextStyle(
-                            color: Colors.white,
+                            color: AppColor.whiteColor(context),
                             fontSize: 10.sp,
                             fontWeight: FontWeight.bold,
                           ),
@@ -143,7 +143,7 @@ class _MainLayoutState extends State<MainLayout> {
           color: AppColor.whiteColor(context),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.05),
+              color: AppColor.blackTextColor(context).withOpacity(0.05),
               blurRadius: 20,
               offset: const Offset(0, -5),
             ),

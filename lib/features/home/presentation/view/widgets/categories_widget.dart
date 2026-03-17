@@ -34,21 +34,21 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
     {'name': AppLocaleKey.mazda.tr(), 'image': 'assets/images/cars/mazda.png'},
   ];
 
-  int _selectedIndex = 0; // Allow user to visually select a category
+  int _selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 55.h,
+      height: 65.h,
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
-        padding: EdgeInsets.symmetric(horizontal: 16.w),
+        padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 5.h),
         physics: const BouncingScrollPhysics(),
         itemCount: categories.length,
         separatorBuilder: (context, index) => Gap(12.w),
         itemBuilder: (context, index) {
           final isSelected = _selectedIndex == index;
-          
+
           return FadeInRight(
             delay: Duration(milliseconds: index * 50),
             child: GestureDetector(
@@ -57,55 +57,90 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
                   _selectedIndex = index;
                 });
               },
-              child: AnimatedContainer(
-                duration: const Duration(milliseconds: 300),
-                curve: Curves.easeOutCubic,
-                padding: EdgeInsets.symmetric(horizontal: 18.w, vertical: 8.h),
-                decoration: BoxDecoration(
-                  color: isSelected 
-                      ? AppColor.primaryColor(context) 
-                      : AppColor.secondAppColor(context),
-                  borderRadius: BorderRadius.circular(30.r), // Ultra rounded / Pill shape
-                  border: Border.all(
-                    color: isSelected
-                        ? AppColor.primaryColor(context)
-                        : Colors.white.withOpacity(0.08),
-                    width: isSelected ? 1.5 : 1,
-                  ),
-                  boxShadow: isSelected
-                      ? [
-                          BoxShadow(
-                            color: AppColor.primaryColor(context).withOpacity(0.3),
-                            blurRadius: 15,
-                            offset: const Offset(0, 5),
+              child: AnimatedScale(
+                scale: isSelected ? 1.05 : 1.0,
+                duration: const Duration(milliseconds: 200),
+                child: AnimatedContainer(
+                  duration: const Duration(milliseconds: 300),
+                  curve: Curves.easeOutCubic,
+                  padding: EdgeInsets.fromLTRB(8.w, 8.h, 16.w, 8.h),
+                  decoration: BoxDecoration(
+                    gradient: isSelected
+                        ? LinearGradient(
+                            colors: [
+                              AppColor.primaryColor(context),
+                              const Color(0xff0047BB), // Deep blue for depth
+                            ],
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
                           )
-                        ]
-                      : [],
-                ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Image.asset(
-                      categories[index]['image']!,
-                      width: 28.w,
-                      height: 28.w,
-                      fit: BoxFit.contain,
-                      color: isSelected ? Colors.white : null, // Assuming logos can gracefully switch to white if they have transparency. If not, using null keeps original logo color.
-                      errorBuilder: (context, error, stackTrace) =>
-                          Icon(Icons.directions_car_rounded, 
-                               color: isSelected ? Colors.white : AppColor.primaryColor(context), 
-                               size: 24.w),
+                        : null,
+                    color: isSelected
+                        ? null
+                        : AppColor.secondAppColor(context).withValues(alpha: 0.8),
+                    borderRadius: BorderRadius.circular(30.r),
+                    border: Border.all(
+                      color: isSelected
+                          ? AppColor.whiteColor(context).withValues(alpha: 0.2)
+                          : AppColor.whiteColor(context).withValues(alpha: 0.05),
+                      width: 1,
                     ),
-                    Gap(10.w),
-                    Text(
-                      categories[index]['name'] as String,
-                      style: AppTextStyle.bodySmall(context).copyWith(
-                        color: isSelected ? Colors.white : Colors.white.withOpacity(0.8),
-                        fontWeight: isSelected ? FontWeight.w800 : FontWeight.w600,
-                        fontSize: 12.sp,
+                    boxShadow: isSelected
+                        ? [
+                            BoxShadow(
+                              color: AppColor.primaryColor(context).withValues(alpha: 0.3),
+                              blurRadius: 15,
+                              offset: const Offset(0, 8),
+                            ),
+                          ]
+                        : [
+                            BoxShadow(
+                              color: Colors.black.withValues(alpha: 0.1),
+                              blurRadius: 5,
+                              offset: const Offset(0, 2),
+                            ),
+                          ],
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Container(
+                        padding: EdgeInsets.all(5.w),
+                        decoration: BoxDecoration(
+                          color: AppColor.whiteColor(
+                            context,
+                          ).withValues(alpha: isSelected ? 0.2 : 1.0),
+                          shape: BoxShape.circle,
+                        ),
+                        child: Image.asset(
+                          categories[index]['image']!,
+                          width: 22.w,
+                          height: 22.w,
+                          fit: BoxFit.contain,
+                          color: isSelected ? AppColor.whiteColor(context) : null,
+                          errorBuilder: (context, error, stackTrace) => Icon(
+                            Icons.directions_car_rounded,
+                            color: isSelected
+                                ? AppColor.whiteColor(context)
+                                : AppColor.primaryColor(context),
+                            size: 18.w,
+                          ),
+                        ),
                       ),
-                    ),
-                  ],
+                      Gap(10.w),
+                      Text(
+                        categories[index]['name'] as String,
+                        style: AppTextStyle.bodySmall(context).copyWith(
+                          color: isSelected
+                              ? AppColor.whiteColor(context)
+                              : AppColor.whiteColor(context).withValues(alpha: 0.7),
+                          fontWeight: isSelected ? FontWeight.w900 : FontWeight.w600,
+                          fontSize: 13.sp,
+                          letterSpacing: 0.5,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
