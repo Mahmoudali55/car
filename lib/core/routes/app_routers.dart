@@ -52,6 +52,8 @@ class AppRouters {
         return MaterialPageRoute(
           builder: (_) => const NotificationsScreen(),
         );
+      case RoutesName.usedCarsScreen:
+        return MaterialPageRoute(builder: (_) => const UsedCarsScreen());
 
 
       default:

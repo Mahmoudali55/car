@@ -8,6 +8,7 @@ import 'package:car/features/home/presentation/view/widgets/categories_widget.da
 import 'package:car/features/home/presentation/view/widgets/offers_grid_widget.dart';
 import 'package:car/features/home/presentation/view/widgets/popular_cars_slider_widget.dart';
 import 'package:car/features/home/presentation/view/widgets/section_title_widget.dart';
+import 'package:car/features/home/presentation/view/widgets/used_cars_slider_widget.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -79,6 +80,15 @@ class HomeGuestScreen extends StatelessWidget {
                 ),
                 SizedBox(height: 15.h),
                 const PopularCarsSlider(),
+                SizedBox(height: 30.h),
+                SectionTitleWidget(
+                  title: AppLocaleKey.usedCars.tr(),
+                  onSeeAll: () {
+                    NavigatorMethods.pushNamed(context, RoutesName.usedCarsScreen);
+                  },
+                ),
+                SizedBox(height: 15.h),
+                const UsedCarsSliderWidget(),
                 SizedBox(height: 30.h),
                 SectionTitleWidget(title: AppLocaleKey.searchByBudget.tr(), onSeeAll: null),
                 SizedBox(height: 15.h),

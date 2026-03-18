@@ -156,4 +156,5 @@ class AppLocaleKey {
   static const String removeFromCart = 'remove_from_cart';
   static const String watchVideo = 'watch_video';
   static const String searchForBrand = 'search_for_brand';
+  static const String usedCars = 'used_cars';
 }
