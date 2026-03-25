@@ -1,5 +1,7 @@
+import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -32,13 +34,13 @@ class InspectionBadgeWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'سيارة موثوقة ومفحوصة',
+                  AppLocaleKey.reliableCarSubtitle.tr(),
                   style: AppTextStyle.bodyMedium(
                     context,
                   ).copyWith(color: Colors.white, fontWeight: FontWeight.bold),
                 ),
                 Text(
-                  'اجتازت هذه السيارة جميع فحوصات الجودة لدينا (200+ نقطة فحص)',
+                  AppLocaleKey.reliableCarDescription.tr(),
                   style: AppTextStyle.bodySmall(
                     context,
                   ).copyWith(color: AppColor.whiteColor(context).withValues(alpha: 0.6)),

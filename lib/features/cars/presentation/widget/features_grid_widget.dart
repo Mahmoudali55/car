@@ -13,12 +13,12 @@ class FeaturesGridWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<Map<String, dynamic>> features = [
-      {'icon': Icons.bluetooth_rounded, 'label': 'بلوتوث'},
-      {'icon': Icons.camera_alt_rounded, 'label': 'كاميرا 360'},
-      {'icon': Icons.airline_seat_recline_extra_rounded, 'label': 'جلد'},
-      {'icon': Icons.navigation_rounded, 'label': 'خرائط Gps'},
-      {'icon': Icons.brightness_high_rounded, 'label': 'فتحة سقف'},
-      {'icon': Icons.speed_rounded, 'label': 'مثبت سرعة'},
+      {'icon': Icons.bluetooth_rounded, 'label': AppLocaleKey.bluetooth.tr()},
+      {'icon': Icons.camera_alt_rounded, 'label': AppLocaleKey.camera360.tr()},
+      {'icon': Icons.airline_seat_recline_extra_rounded, 'label': AppLocaleKey.leather.tr()},
+      {'icon': Icons.navigation_rounded, 'label': AppLocaleKey.gpsMaps.tr()},
+      {'icon': Icons.brightness_high_rounded, 'label': AppLocaleKey.sunroof.tr()},
+      {'icon': Icons.speed_rounded, 'label': AppLocaleKey.cruiseControl.tr()},
     ];
 
     return Column(

@@ -58,6 +58,28 @@ class AppRouters {
         return MaterialPageRoute(
           builder: (_) => BlocProvider(create: (context) => sl<AuthCubit>(), child: const SettingsScreen()),
         );
+      case RoutesName.tradeInScreen:
+        return MaterialPageRoute(builder: (_) => const TradeInScreen());
+      case RoutesName.importOnDemandScreen:
+        return MaterialPageRoute(builder: (_) => const ImportOnDemandScreen());
+      case RoutesName.financingScreen:
+        return MaterialPageRoute(builder: (_) => const FinancingScreen());
+      case RoutesName.carDetailingScreen:
+        return MaterialPageRoute(builder: (_) => const CarDetailingScreen());
+      case RoutesName.shippingScreen:
+        return MaterialPageRoute(builder: (_) => const ShippingScreen());
+      case RoutesName.bespokeSelectionScreen:
+        return MaterialPageRoute(builder: (_) => const BespokeSelectionScreen());
+      case RoutesName.carValuationScreen:
+        return MaterialPageRoute(builder: (_) => const CarValuationScreen());
+      case RoutesName.sellCarScreen:
+        return MaterialPageRoute(builder: (_) => const SellCarScreen());
+      case RoutesName.bookingAppointmentScreen:
+        return MaterialPageRoute(builder: (_) => const BookingAppointmentScreen());
+      case RoutesName.serviceHistoryScreen:
+        return MaterialPageRoute(builder: (_) => const ServiceHistoryScreen());
+      case RoutesName.supportScreen:
+        return MaterialPageRoute(builder: (_) => const SupportScreen());
 
       default:
         return null;

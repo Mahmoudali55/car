@@ -1,8 +1,10 @@
+import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/routes/routes_name.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/core/utils/navigator_methods.dart';
 import 'package:car/features/favorites/presentation/view/cubit/favorites_cubit.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -154,9 +156,9 @@ class PremiumCarCardWidget extends StatelessWidget {
                     children: [
                       _buildSpecIcon(context, Icons.speed_rounded, car['mileage']),
                       Gap(16.w),
-                      _buildSpecIcon(context, Icons.settings_rounded, 'أوتوماتيك'),
+                      _buildSpecIcon(context, Icons.settings_rounded, AppLocaleKey.normal.tr()),
                       Gap(16.w),
-                      _buildSpecIcon(context, Icons.local_gas_station_rounded, 'بنزين'),
+                      _buildSpecIcon(context, Icons.local_gas_station_rounded, AppLocaleKey.petrol.tr()),
                     ],
                   ),
                 ],

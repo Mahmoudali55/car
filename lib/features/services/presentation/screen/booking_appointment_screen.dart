@@ -1,0 +1,377 @@
+import 'package:animate_do/animate_do.dart';
+import 'package:car/core/localization/app_locale_keys.dart';
+import 'package:car/core/theme/app_colors.dart';
+import 'package:car/core/theme/app_text_style.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gap/gap.dart';
+
+class BookingAppointmentScreen extends StatefulWidget {
+  const BookingAppointmentScreen({super.key});
+
+  @override
+  State<BookingAppointmentScreen> createState() => _BookingAppointmentScreenState();
+}
+
+class _BookingAppointmentScreenState extends State<BookingAppointmentScreen> {
+  String? selectedService;
+  DateTime selectedDate = DateTime.now().add(const Duration(days: 1));
+  String selectedTime = "10:00 AM";
+
+  final List<String> services = [
+    AppLocaleKey.periodicMaintenance.tr(),
+    AppLocaleKey.oilChange.tr(),
+    AppLocaleKey.comprehensiveInspection.tr(),
+    AppLocaleKey.polishingAndCleaning.tr(),
+    AppLocaleKey.paintInspection.tr(),
+    AppLocaleKey.repairFaults.tr(),
+  ];
+
+  final List<String> timeSlots = [
+    "09:00 AM",
+    "10:00 AM",
+    "11:00 AM",
+    "01:00 PM",
+    "02:00 PM",
+    "04:00 PM",
+    "05:00 PM",
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: AppColor.scaffoldColor(context),
+      body: CustomScrollView(
+        physics: const BouncingScrollPhysics(),
+        slivers: [
+          SliverAppBar(
+            expandedHeight: 150.h,
+            pinned: true,
+            backgroundColor: AppColor.scaffoldColor(context),
+            leading: IconButton(
+              onPressed: () => Navigator.pop(context),
+              icon: const Icon(Icons.close_rounded, color: Colors.white),
+            ),
+            flexibleSpace: FlexibleSpaceBar(
+              centerTitle: true,
+              title: Text(
+                AppLocaleKey.bookNewAppointment.tr(),
+                style: AppTextStyle.titleMedium(
+                  context,
+                ).copyWith(color: Colors.white, fontWeight: FontWeight.bold),
+              ),
+              background: Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [AppColor.primaryColor(context), const Color(0xFF1E1E2C)],
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                  ),
+                ),
+              ),
+            ),
+          ),
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  FadeInDown(child: _buildSectionTitle(AppLocaleKey.selectService.tr())),
+                  Gap(16.h),
+                  FadeInDown(
+                    delay: const Duration(milliseconds: 100),
+                    child: SizedBox(
+                      height: 110.h,
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: services.length,
+                        itemBuilder: (context, index) {
+                          bool isSelected = selectedService == services[index];
+                          return GestureDetector(
+                            onTap: () => setState(() => selectedService = services[index]),
+                            child: AnimatedContainer(
+                              duration: const Duration(milliseconds: 300),
+                              width: 100.w,
+                              margin: EdgeInsets.only(left: 12.w),
+                              decoration: BoxDecoration(
+                                color: isSelected
+                                    ? AppColor.primaryColor(context)
+                                    : const Color(0xFF1F2937),
+                                borderRadius: BorderRadius.circular(16.r),
+                                border: Border.all(
+                                  color: isSelected ? Colors.white24 : Colors.transparent,
+                                ),
+                              ),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    _getServiceIcon(services[index]),
+                                    color: isSelected ? Colors.white : Colors.white38,
+                                    size: 28.sp,
+                                  ),
+                                  Gap(8.h),
+                                  Text(
+                                    services[index],
+                                    style: TextStyle(
+                                      color: isSelected ? Colors.white : Colors.white38,
+                                      fontSize: 10.sp,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                  ),
+                  Gap(32.h),
+                  FadeInDown(
+                    delay: const Duration(milliseconds: 200),
+                    child: _buildSectionTitle(AppLocaleKey.appointmentDate.tr()),
+                  ),
+                  Gap(16.h),
+                  FadeInDown(
+                    delay: const Duration(milliseconds: 300),
+                    child: GestureDetector(
+                      onTap: () async {
+                        final date = await showDatePicker(
+                          context: context,
+                          initialDate: selectedDate,
+                          firstDate: DateTime.now(),
+                          lastDate: DateTime.now().add(const Duration(days: 60)),
+                          builder: (context, child) {
+                            return Theme(
+                              data: Theme.of(context).copyWith(
+                                colorScheme: ColorScheme.dark(
+                                  primary: AppColor.primaryColor(context),
+                                  onPrimary: Colors.white,
+                                  surface: const Color(0xFF1F2937),
+                                  onSurface: Colors.white,
+                                ),
+                              ),
+                              child: child!,
+                            );
+                          },
+                        );
+                        if (date != null) setState(() => selectedDate = date);
+                      },
+                      child: Container(
+                        padding: EdgeInsets.all(16.w),
+                        decoration: BoxDecoration(
+                          color: const Color(0xFF1F2937),
+                          borderRadius: BorderRadius.circular(12.r),
+                          border: Border.all(color: Colors.white.withOpacity(0.05)),
+                        ),
+                        child: Row(
+                          children: [
+                            const Icon(Icons.calendar_today_rounded, color: Colors.white70),
+                            Gap(12.w),
+                            Text(
+                              DateFormat('EEEE, d MMMM yyyy', 'ar').format(selectedDate),
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            const Spacer(),
+                            const Icon(Icons.edit_calendar_rounded, color: Colors.white24),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  Gap(32.h),
+                  FadeInDown(
+                    delay: const Duration(milliseconds: 400),
+                    child: _buildSectionTitle(AppLocaleKey.availableTime.tr()),
+                  ),
+                  Gap(16.h),
+                  FadeInDown(
+                    delay: const Duration(milliseconds: 500),
+                    child: Wrap(
+                      spacing: 12.w,
+                      runSpacing: 12.h,
+                      children: timeSlots.map((time) {
+                        bool isSelected = selectedTime == time;
+                        return GestureDetector(
+                          onTap: () => setState(() => selectedTime = time),
+                          child: AnimatedContainer(
+                            duration: const Duration(milliseconds: 300),
+                            padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
+                            decoration: BoxDecoration(
+                              color: isSelected
+                                  ? AppColor.primaryColor(context)
+                                  : const Color(0xFF1F2937),
+                              borderRadius: BorderRadius.circular(10.r),
+                              border: Border.all(
+                                color: isSelected ? Colors.white24 : Colors.transparent,
+                              ),
+                            ),
+                            child: Text(
+                              time,
+                              style: TextStyle(
+                                color: isSelected ? Colors.white : Colors.white60,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 13.sp,
+                              ),
+                            ),
+                          ),
+                        );
+                      }).toList(),
+                    ),
+                  ),
+                  Gap(32.h),
+                  FadeInDown(
+                    delay: const Duration(milliseconds: 600),
+                    child: _buildSectionTitle(AppLocaleKey.additionalDetails.tr()),
+                  ),
+                  Gap(16.h),
+                  FadeInDown(
+                    delay: const Duration(milliseconds: 700),
+                    child: _buildTextField(AppLocaleKey.plateOrCarTypeHint.tr()),
+                  ),
+                  Gap(12.h),
+                  FadeInDown(
+                    delay: const Duration(milliseconds: 800),
+                    child: _buildTextField(AppLocaleKey.specialNotesHint.tr(), maxLines: 3),
+                  ),
+                  Gap(40.h),
+                  FadeInUp(
+                    delay: const Duration(milliseconds: 900),
+                    child: _buildConfirmButton(context),
+                  ),
+                  Gap(50.h),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSectionTitle(String title) {
+    return Text(
+      title,
+      style: TextStyle(color: Colors.white, fontSize: 18.sp, fontWeight: FontWeight.bold),
+    );
+  }
+
+  Widget _buildTextField(String hint, {int maxLines = 1}) {
+    return Container(
+      decoration: BoxDecoration(
+        color: const Color(0xFF1F2937),
+        borderRadius: BorderRadius.circular(12.r),
+        border: Border.all(color: Colors.white.withOpacity(0.05)),
+      ),
+      child: TextField(
+        maxLines: maxLines,
+        style: const TextStyle(color: Colors.white),
+        decoration: InputDecoration(
+          hintText: hint,
+          hintStyle: TextStyle(color: Colors.white38, fontSize: 14.sp),
+          contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
+          border: InputBorder.none,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildConfirmButton(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      height: 55.h,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16.r),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.white.withOpacity(0.1),
+            blurRadius: 10,
+            offset: const Offset(0, 5),
+          ),
+        ],
+      ),
+      child: ElevatedButton(
+        onPressed: () {
+          // TODO: Implement actual booking logic
+          _showSuccessBottomSheet(context);
+        },
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.transparent,
+          foregroundColor: Colors.black,
+          shadowColor: Colors.transparent,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.r)),
+        ),
+        child: Text(
+          AppLocaleKey.confirmBooking.tr(),
+          style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
+        ),
+      ),
+    );
+  }
+
+  void _showSuccessBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: const Color(0xFF1F2937),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(25.r),
+          topRight: Radius.circular(25.r),
+        ),
+      ),
+      builder: (context) => Padding(
+        padding: EdgeInsets.all(30.w),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(Icons.check_circle_rounded, color: Colors.greenAccent, size: 70.sp),
+            Gap(20.h),
+            Text(
+              AppLocaleKey.bookingReceivedSuccess.tr(),
+              style: TextStyle(color: Colors.white, fontSize: 20.sp, fontWeight: FontWeight.bold),
+            ),
+            Gap(10.h),
+            Text(
+              AppLocaleKey.teamWillContactSoon.tr(),
+              style: const TextStyle(color: Colors.white70),
+              textAlign: TextAlign.center,
+            ),
+            Gap(30.h),
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.pop(context); // close sheet
+                  Navigator.pop(context); // return to services
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColor.primaryColor(context),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.r)),
+                ),
+                child: Text(AppLocaleKey.ok.tr(), style: const TextStyle(color: Colors.white)),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  IconData _getServiceIcon(String service) {
+    if (service == AppLocaleKey.periodicMaintenance.tr()) return Icons.build_rounded;
+    if (service == AppLocaleKey.oilChange.tr()) return Icons.oil_barrel_rounded;
+    if (service == AppLocaleKey.comprehensiveInspection.tr()) return Icons.fact_check_rounded;
+    if (service == AppLocaleKey.polishingAndCleaning.tr()) return Icons.auto_awesome_rounded;
+    if (service == AppLocaleKey.paintInspection.tr()) return Icons.format_paint_rounded;
+    if (service == AppLocaleKey.repairFaults.tr()) return Icons.car_repair_rounded;
+    return Icons.miscellaneous_services_rounded;
+  }
+}

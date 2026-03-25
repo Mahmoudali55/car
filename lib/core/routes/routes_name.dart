@@ -16,4 +16,17 @@ class RoutesName {
   static const String notificationsScreen = 'notificationsScreen';
   static const String usedCarsScreen = 'usedCarsScreen';
   static const String settingsScreen = 'settingsScreen';
+
+  // Service Screens
+  static const String tradeInScreen = 'tradeInScreen';
+  static const String importOnDemandScreen = 'importOnDemandScreen';
+  static const String financingScreen = 'financingScreen';
+  static const String carDetailingScreen = 'carDetailingScreen';
+  static const String shippingScreen = 'shippingScreen';
+  static const String bespokeSelectionScreen = 'bespokeSelectionScreen';
+  static const String carValuationScreen = 'carValuationScreen';
+  static const String sellCarScreen = 'sellCarScreen';
+  static const String bookingAppointmentScreen = 'bookingAppointmentScreen';
+  static const String serviceHistoryScreen = 'serviceHistoryScreen';
+  static const String supportScreen = 'supportScreen';
 }

@@ -40,120 +40,132 @@ class _MainLayoutState extends State<MainLayout> {
       ServicesScreen(key: ValueKey('services_${context.locale.languageCode}')),
     ];
     return Scaffold(
-      appBar: CustomAppBar(
-        context,
-        centerTitle: false,
-        automaticallyImplyLeading: false,
-        leading: IconButton(
-          onPressed: () => Navigator.pushNamed(context, RoutesName.settingsScreen),
-          icon: Icon(Icons.person, color: AppColor.primaryColor(context)),
-        ),
-        title: Text(AppLocaleKey.welcomeToCarGroup.tr(), style: AppTextStyle.titleMedium(context)),
-        actions: [
-          CircleAvatar(
-            backgroundColor: AppColor.greyColor(context).withValues(alpha: 0.1),
-            child: IconButton(
-              onPressed: () {},
-              icon: Icon(Icons.search, color: AppColor.blackTextColor(context)),
-            ),
-          ),
-          Gap(10.w),
-          BlocBuilder<NotificationsCubit, NotificationsState>(
-            builder: (context, state) {
-              final int unreadCount = state is NotificationsLoaded ? state.unreadCount : 0;
-              return Stack(
-                alignment: Alignment.center,
-                children: [
-                  CircleAvatar(
-                    backgroundColor: AppColor.greyColor(context).withValues(alpha: 0.1),
-                    child: IconButton(
-                      onPressed: () => Navigator.pushNamed(context, RoutesName.notificationsScreen),
-                      icon: Icon(
-                        Icons.notifications_none_rounded,
-                        color: AppColor.blackTextColor(context),
-                      ),
-                    ),
-                  ),
-                  if (unreadCount > 0)
-                    Positioned(
-                      top: 0,
-                      right: 0,
-                      child: Container(
-                        padding: EdgeInsets.all(4.w),
-                        decoration: const BoxDecoration(color: Colors.red, shape: BoxShape.circle),
-                        child: Text(
-                          unreadCount.toString(),
-                          style: TextStyle(
-                            color: AppColor.whiteColor(context),
-                            fontSize: 10.sp,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ),
-                ],
-              );
-            },
-          ),
-          Gap(10.w),
-          BlocBuilder<CartCubit, CartState>(
-            builder: (context, state) {
-              return Stack(
-                alignment: Alignment.center,
-                children: [
-                  CircleAvatar(
-                    backgroundColor: AppColor.greyColor(context).withValues(alpha: 0.1),
-                    child: IconButton(
-                      onPressed: () => Navigator.pushNamed(context, RoutesName.cartScreen),
-                      icon: Icon(
-                        Icons.shopping_cart_outlined,
-                        color: AppColor.blackTextColor(context),
-                      ),
-                    ),
-                  ),
-                  if (state.items.isNotEmpty)
-                    Positioned(
-                      top: 0,
-                      right: 0,
-                      child: Container(
-                        padding: EdgeInsets.all(4.w),
-                        decoration: const BoxDecoration(color: Colors.red, shape: BoxShape.circle),
-                        child: Text(
-                          state.items.length.toString(),
-                          style: TextStyle(
-                            color: AppColor.whiteColor(context),
-                            fontSize: 10.sp,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ),
-                ],
-              );
-            },
-          ),
-          Gap(10.w),
-          CircleAvatar(
-            backgroundColor: AppColor.greyColor(context).withValues(alpha: 0.1),
-            child: IconButton(
-              onPressed: () async {
-                final newLocale = context.locale.languageCode == 'ar'
-                    ? const Locale('en')
-                    : const Locale('ar');
-                await context.setLocale(newLocale);
-                HiveMethods.updateLang(newLocale);
-                if (mounted) setState(() {});
-              },
-              icon: Icon(
-                Icons.translate_rounded,
-                color: AppColor.blackTextColor(context),
-                size: 20.sp,
+      appBar: _currentIndex == 4
+          ? null
+          : CustomAppBar(
+              context,
+              centerTitle: false,
+              automaticallyImplyLeading: false,
+              leading: IconButton(
+                onPressed: () => Navigator.pushNamed(context, RoutesName.settingsScreen),
+                icon: Icon(Icons.person, color: AppColor.primaryColor(context)),
               ),
+              title: Text(
+                AppLocaleKey.welcomeToCarGroup.tr(),
+                style: AppTextStyle.titleMedium(context),
+              ),
+              actions: [
+                CircleAvatar(
+                  backgroundColor: AppColor.greyColor(context).withValues(alpha: 0.1),
+                  child: IconButton(
+                    onPressed: () {},
+                    icon: Icon(Icons.search, color: AppColor.blackTextColor(context)),
+                  ),
+                ),
+                Gap(10.w),
+                BlocBuilder<NotificationsCubit, NotificationsState>(
+                  builder: (context, state) {
+                    final int unreadCount = state is NotificationsLoaded ? state.unreadCount : 0;
+                    return Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        CircleAvatar(
+                          backgroundColor: AppColor.greyColor(context).withValues(alpha: 0.1),
+                          child: IconButton(
+                            onPressed: () =>
+                                Navigator.pushNamed(context, RoutesName.notificationsScreen),
+                            icon: Icon(
+                              Icons.notifications_none_rounded,
+                              color: AppColor.blackTextColor(context),
+                            ),
+                          ),
+                        ),
+                        if (unreadCount > 0)
+                          Positioned(
+                            top: 0,
+                            right: 0,
+                            child: Container(
+                              padding: EdgeInsets.all(4.w),
+                              decoration: const BoxDecoration(
+                                color: Colors.red,
+                                shape: BoxShape.circle,
+                              ),
+                              child: Text(
+                                unreadCount.toString(),
+                                style: TextStyle(
+                                  color: AppColor.whiteColor(context),
+                                  fontSize: 10.sp,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ),
+                      ],
+                    );
+                  },
+                ),
+                Gap(10.w),
+                BlocBuilder<CartCubit, CartState>(
+                  builder: (context, state) {
+                    return Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        CircleAvatar(
+                          backgroundColor: AppColor.greyColor(context).withValues(alpha: 0.1),
+                          child: IconButton(
+                            onPressed: () => Navigator.pushNamed(context, RoutesName.cartScreen),
+                            icon: Icon(
+                              Icons.shopping_cart_outlined,
+                              color: AppColor.blackTextColor(context),
+                            ),
+                          ),
+                        ),
+                        if (state.items.isNotEmpty)
+                          Positioned(
+                            top: 0,
+                            right: 0,
+                            child: Container(
+                              padding: EdgeInsets.all(4.w),
+                              decoration: const BoxDecoration(
+                                color: Colors.red,
+                                shape: BoxShape.circle,
+                              ),
+                              child: Text(
+                                state.items.length.toString(),
+                                style: TextStyle(
+                                  color: AppColor.whiteColor(context),
+                                  fontSize: 10.sp,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ),
+                      ],
+                    );
+                  },
+                ),
+                Gap(10.w),
+                CircleAvatar(
+                  backgroundColor: AppColor.greyColor(context).withValues(alpha: 0.1),
+                  child: IconButton(
+                    onPressed: () async {
+                      final newLocale = context.locale.languageCode == 'ar'
+                          ? const Locale('en')
+                          : const Locale('ar');
+                      await context.setLocale(newLocale);
+                      HiveMethods.updateLang(newLocale);
+                      if (mounted) setState(() {});
+                    },
+                    icon: Icon(
+                      Icons.translate_rounded,
+                      color: AppColor.blackTextColor(context),
+                      size: 20.sp,
+                    ),
+                  ),
+                ),
+                Gap(5.w),
+              ],
             ),
-          ),
-          Gap(5.w),
-        ],
-      ),
       body: screens[_currentIndex.clamp(0, screens.length - 1)],
       bottomNavigationBar: Container(
         height: 75.h,

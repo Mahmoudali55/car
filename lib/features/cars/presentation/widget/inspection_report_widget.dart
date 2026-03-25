@@ -20,7 +20,7 @@ class InspectionReportWidget extends StatelessWidget {
           children: [
             SectionTitleWidget(title: AppLocaleKey.inspectionReport.tr()),
             Text(
-              'ممتاز 4.8/5',
+              AppLocaleKey.excellentRating.tr(),
               style: AppTextStyle.bodyMedium(
                 context,
               ).copyWith(color: Colors.greenAccent, fontWeight: FontWeight.bold),
@@ -36,13 +36,13 @@ class InspectionReportWidget extends StatelessWidget {
           ),
           child: Column(
             children: [
-              _buildReportRow(context, 'حالة المحرك والناقل', true),
+              _buildReportRow(context, AppLocaleKey.engineTransmissionCondition.tr(), true),
               _buildReportDivider(context),
-              _buildReportRow(context, 'حالة الهيكل والطلاء', true),
+              _buildReportRow(context, AppLocaleKey.chassisPaintCondition.tr(), true),
               _buildReportDivider(context),
-              _buildReportRow(context, 'الحالة الداخلية والنظافة', true),
+              _buildReportRow(context, AppLocaleKey.interiorCleanliness.tr(), true),
               _buildReportDivider(context),
-              _buildReportRow(context, 'الإطارات والمكابح', true),
+              _buildReportRow(context, AppLocaleKey.tiresBrakes.tr(), true),
               Gap(20.h),
               SizedBox(
                 width: double.infinity,

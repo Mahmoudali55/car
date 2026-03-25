@@ -16,6 +16,17 @@ import 'package:car/features/cart/presentation/view/screen/payment_success_scree
 import 'package:car/features/cart/presentation/view/cubit/cart_cubit.dart';
 import 'package:car/features/notifications/presentation/view/screen/notifications_screen.dart';
 import 'package:car/features/settings/presentation/screen/settings_screen.dart';
+import 'package:car/features/services/presentation/screen/trade_in_screen.dart';
+import 'package:car/features/services/presentation/screen/import_on_demand_screen.dart';
+import 'package:car/features/services/presentation/screen/financing_screen.dart';
+import 'package:car/features/services/presentation/screen/car_detailing_screen.dart';
+import 'package:car/features/services/presentation/screen/shipping_screen.dart';
+import 'package:car/features/services/presentation/screen/bespoke_selection_screen.dart';
+import 'package:car/features/services/presentation/screen/car_valuation_screen.dart';
+import 'package:car/features/services/presentation/screen/sell_car_screen.dart';
+import 'package:car/features/services/presentation/screen/booking_appointment_screen.dart';
+import 'package:car/features/services/presentation/screen/service_history_screen.dart';
+import 'package:car/features/services/presentation/screen/support_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
