@@ -598,9 +598,9 @@ class _AllBrandsScreenState extends State<AllBrandsScreen> {
                             child: Text(
                               _getBrandName(brand, context),
                               textAlign: TextAlign.center,
-                              style: AppTextStyle.bodySmall(
+                              style: AppTextStyle.bodyLarge(
                                 context,
-                              ).copyWith(fontWeight: FontWeight.w600, fontSize: 10.sp),
+                              ).copyWith(fontWeight: FontWeight.w600),
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                             ),
