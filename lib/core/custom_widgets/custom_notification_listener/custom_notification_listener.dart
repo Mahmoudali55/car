@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../../enum/cubit_state.dart';
 
-
 class CustomNotificationListener extends StatelessWidget {
   final Widget child;
   final VoidCallback onLoadMore;

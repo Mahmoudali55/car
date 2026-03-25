@@ -23,15 +23,19 @@ class SupportScreen extends StatelessWidget {
             backgroundColor: AppColor.scaffoldColor(context),
             leading: IconButton(
               onPressed: () => Navigator.pop(context),
-              icon: Icon(Icons.arrow_back_ios_new_rounded, color: AppColor.whiteColor(context)),
+              icon: Icon(
+                Icons.arrow_back_ios_new_rounded,
+                color: AppColor.whiteColor(context),
+              ),
             ),
             flexibleSpace: FlexibleSpaceBar(
               centerTitle: true,
               title: Text(
                 AppLocaleKey.supportCenter.tr(),
-                style: AppTextStyle.titleMedium(
-                  context,
-                ).copyWith(color: AppColor.whiteColor(context), fontWeight: FontWeight.bold),
+                style: AppTextStyle.titleMedium(context).copyWith(
+                  color: AppColor.whiteColor(context),
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               background: Container(
                 decoration: const BoxDecoration(
@@ -136,7 +140,9 @@ class SupportScreen extends StatelessWidget {
         decoration: BoxDecoration(
           color: const Color(0xFF1F2937),
           borderRadius: BorderRadius.circular(16.r),
-          border: Border.all(color: AppColor.whiteColor(context).withValues(alpha: (0.05))),
+          border: Border.all(
+            color: AppColor.whiteColor(context).withValues(alpha: (0.05)),
+          ),
         ),
         child: ListTile(
           contentPadding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 8.h),
@@ -150,10 +156,20 @@ class SupportScreen extends StatelessWidget {
           ),
           title: Text(
             title,
-            style: TextStyle(color: AppColor.whiteColor(context), fontWeight: FontWeight.bold),
+            style: TextStyle(
+              color: AppColor.whiteColor(context),
+              fontWeight: FontWeight.bold,
+            ),
           ),
-          subtitle: Text(subtitle, style: TextStyle(color: Colors.white38, fontSize: 11)),
-          trailing: const Icon(Icons.arrow_forward_ios_rounded, color: Colors.white24, size: 16),
+          subtitle: Text(
+            subtitle,
+            style: const TextStyle(color: Colors.white38, fontSize: 11),
+          ),
+          trailing: const Icon(
+            Icons.arrow_forward_ios_rounded,
+            color: Colors.white24,
+            size: 16,
+          ),
           onTap: () {},
         ),
       ),
@@ -173,7 +189,10 @@ class SupportScreen extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(question, style: const TextStyle(color: Colors.white70, fontSize: 13)),
+            Text(
+              question,
+              style: const TextStyle(color: Colors.white70, fontSize: 13),
+            ),
             const Icon(Icons.add_rounded, color: Colors.white24),
           ],
         ),

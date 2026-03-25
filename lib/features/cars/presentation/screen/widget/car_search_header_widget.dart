@@ -25,14 +25,18 @@ class CarSearchHeaderWidget extends StatelessWidget {
           ),
           Gap(12.w),
           GestureDetector(
-            onTap: () => NavigatorMethods.pushNamed(context, RoutesName.filterScreen),
+            onTap: () =>
+                NavigatorMethods.pushNamed(context, RoutesName.filterScreen),
             child: Container(
               padding: EdgeInsets.all(12.w),
               decoration: BoxDecoration(
                 color: AppColor.primaryColor(context),
                 borderRadius: BorderRadius.circular(16.r),
               ),
-              child: Icon(Icons.tune_rounded, color: AppColor.whiteColor(context)),
+              child: Icon(
+                Icons.tune_rounded,
+                color: AppColor.whiteColor(context),
+              ),
             ),
           ),
         ],

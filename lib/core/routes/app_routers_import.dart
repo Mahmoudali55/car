@@ -27,6 +27,17 @@ import 'package:car/features/services/presentation/screen/sell_car_screen.dart';
 import 'package:car/features/services/presentation/screen/booking_appointment_screen.dart';
 import 'package:car/features/services/presentation/screen/service_history_screen.dart';
 import 'package:car/features/services/presentation/screen/support_screen.dart';
+import 'package:car/features/admin/presentation/screen/manage_cars_screen.dart';
+import 'package:car/features/admin/presentation/screen/manage_bookings_screen.dart';
+import 'package:car/features/admin/presentation/screen/manage_users_screen.dart';
+import 'package:car/features/admin/presentation/screen/revenue_report_screen.dart';
+import 'package:car/features/admin/presentation/screen/add_car_screen.dart';
+import 'package:car/features/admin/presentation/screen/manage_services_screen.dart';
+import 'package:car/features/admin/presentation/screen/inspection_reports_screen.dart';
+import 'package:car/features/admin/presentation/screen/admin_settings_screen.dart';
+import 'package:car/features/admin/presentation/screen/all_activities_screen.dart';
+import 'package:car/features/admin/presentation/screen/admin_main_layout.dart';
+import 'package:car/features/admin/presentation/screen/admin_notifications_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

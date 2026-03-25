@@ -29,4 +29,17 @@ class RoutesName {
   static const String bookingAppointmentScreen = 'bookingAppointmentScreen';
   static const String serviceHistoryScreen = 'serviceHistoryScreen';
   static const String supportScreen = 'supportScreen';
+
+  // Admin Screens
+  static const String adminDashboard = 'adminDashboard';
+  static const String manageCars = 'manageCars';
+  static const String manageBookings = 'manageBookings';
+  static const String manageUsers = 'manageUsers';
+  static const String revenueReport = 'revenueReport';
+  static const String addCar = 'addCar';
+  static const String manageServices = 'manageServices';
+  static const String inspectionReports = 'inspectionReports';
+  static const String adminSettings = 'adminSettings';
+  static const String allActivities = 'allActivities';
+  static const String adminNotifications = 'adminNotifications';
 }

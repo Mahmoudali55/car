@@ -24,15 +24,19 @@ class BespokeSelectionScreen extends StatelessWidget {
             backgroundColor: AppColor.scaffoldColor(context),
             leading: IconButton(
               onPressed: () => Navigator.pop(context),
-              icon: Icon(Icons.arrow_back_ios_new_rounded, color: AppColor.whiteColor(context)),
+              icon: Icon(
+                Icons.arrow_back_ios_new_rounded,
+                color: AppColor.whiteColor(context),
+              ),
             ),
             flexibleSpace: FlexibleSpaceBar(
               centerTitle: true,
               title: Text(
                 AppLocaleKey.bespokeSearch.tr(),
-                style: AppTextStyle.titleMedium(
-                  context,
-                ).copyWith(color: AppColor.whiteColor(context), fontWeight: FontWeight.bold),
+                style: AppTextStyle.titleMedium(context).copyWith(
+                  color: AppColor.whiteColor(context),
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               background: Stack(
                 fit: StackFit.expand,
@@ -69,27 +73,42 @@ class BespokeSelectionScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   FadeInUp(
-                    child: _buildSectionHeader(AppLocaleKey.whatAreYouLookingFor.tr(), context),
+                    child: _buildSectionHeader(
+                      AppLocaleKey.whatAreYouLookingFor.tr(),
+                      context,
+                    ),
                   ),
                   Gap(16.h),
                   FadeInUp(
                     delay: const Duration(milliseconds: 100),
-                    child: _buildTextField(AppLocaleKey.carDescriptionHint.tr(), context),
+                    child: _buildTextField(
+                      AppLocaleKey.carDescriptionHint.tr(),
+                      context,
+                    ),
                   ),
                   Gap(12.h),
                   FadeInUp(
                     delay: const Duration(milliseconds: 200),
-                    child: _buildTextField(AppLocaleKey.budgetRange.tr(), context),
+                    child: _buildTextField(
+                      AppLocaleKey.budgetRange.tr(),
+                      context,
+                    ),
                   ),
                   Gap(12.h),
                   FadeInUp(
                     delay: const Duration(milliseconds: 300),
-                    child: _buildTextField(AppLocaleKey.yourPriorities.tr(), context),
+                    child: _buildTextField(
+                      AppLocaleKey.yourPriorities.tr(),
+                      context,
+                    ),
                   ),
                   Gap(40.h),
                   FadeInUp(
                     delay: const Duration(milliseconds: 400),
-                    child: _buildSubmitButton(context, AppLocaleKey.startBespokeSearch.tr()),
+                    child: _buildSubmitButton(
+                      context,
+                      AppLocaleKey.startBespokeSearch.tr(),
+                    ),
                   ),
                   Gap(50.h),
                 ],
@@ -117,7 +136,9 @@ class BespokeSelectionScreen extends StatelessWidget {
       decoration: BoxDecoration(
         color: const Color(0xFF1F2937),
         borderRadius: BorderRadius.circular(12.r),
-        border: Border.all(color: AppColor.whiteColor(context).withOpacity(0.05)),
+        border: Border.all(
+          color: AppColor.whiteColor(context).withOpacity(0.05),
+        ),
       ),
       child: CustomFormField(hintText: hint),
     );
@@ -128,7 +149,9 @@ class BespokeSelectionScreen extends StatelessWidget {
       width: double.infinity,
       height: 55.h,
       decoration: BoxDecoration(
-        gradient: const LinearGradient(colors: [Color(0xFF075985), Color(0xFF0EA5E9)]),
+        gradient: const LinearGradient(
+          colors: [Color(0xFF075985), Color(0xFF0EA5E9)],
+        ),
         borderRadius: BorderRadius.circular(16.r),
         boxShadow: [
           BoxShadow(
@@ -143,7 +166,9 @@ class BespokeSelectionScreen extends StatelessWidget {
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.transparent,
           shadowColor: Colors.transparent,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.r)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16.r),
+          ),
         ),
         child: Text(
           text,

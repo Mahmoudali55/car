@@ -1,5 +1,6 @@
 class AppLocaleKey {
-  static const String pleaseCheckYourConnectionAndTryAgain = 'PleaseCheckYourConnectionAndTryAgain';
+  static const String pleaseCheckYourConnectionAndTryAgain =
+      'PleaseCheckYourConnectionAndTryAgain';
   static const String carApp = 'car_app';
   static const String qualityReliability = 'quality_reliability';
   static const String findDreamCar = 'find_dream_car';
@@ -7,7 +8,8 @@ class AppLocaleKey {
   static const String expertMaintenance = 'expert_maintenance';
   static const String keepCarTopCondition = 'keep_car_top_condition';
   static const String fastSecureDelivery = 'fast_secure_delivery';
-  static const String experienceSeamlessDelivery = 'experience_seamless_delivery';
+  static const String experienceSeamlessDelivery =
+      'experience_seamless_delivery';
   static const String next = 'next';
   static const String getStarted = 'get_started';
   static const String welcomeBack = 'welcome_back';
@@ -57,7 +59,8 @@ class AppLocaleKey {
   static const String porsche = 'porsche';
   static const String bugatti = 'bugatti';
   static const String jaguar = 'jaguar';
-  static const String loginToContinueYourPremiumExperience = 'login_continue_premium';
+  static const String loginToContinueYourPremiumExperience =
+      'login_continue_premium';
   static const String loginContinue = 'login_continue';
   static const String findCar = 'find_car';
   static const String searchByBodyType = 'search_by_body_type';
@@ -223,7 +226,8 @@ class AppLocaleKey {
   static const String submitFinancingRequest = 'submit_financing_request';
   static const String carePolishingServices = 'care_polishing_services';
   static const String requestedServiceType = 'requested_service_type';
-  static const String comprehensiveExteriorPolishing = 'comprehensive_exterior_polishing';
+  static const String comprehensiveExteriorPolishing =
+      'comprehensive_exterior_polishing';
   static const String interiorCleaningPolishing = 'interior_cleaning_polishing';
   static const String nanoCeramicProtection = 'nano_ceramic_protection';
   static const String carSizeHint = 'car_size_hint';
@@ -245,7 +249,8 @@ class AppLocaleKey {
   static const String startBespokeSearch = 'start_bespoke_search';
   static const String carValuationInfo = 'car_valuation_info';
   static const String generalConditionHint = 'general_condition_hint';
-  static const String accidentMaintenanceHistory = 'accident_maintenance_history';
+  static const String accidentMaintenanceHistory =
+      'accident_maintenance_history';
   static const String requestValuationNow = 'request_valuation_now';
   static const String sellYourCarTitle = 'sell_your_car_title';
   static const String listCarForSale = 'list_car_for_sale';
@@ -280,7 +285,8 @@ class AppLocaleKey {
   static const String whatsappFastAccess = 'whatsapp_fast_access';
   static const String callUs = 'call_us';
   static const String customerService247 = 'customer_service_24_7';
-  static const String officialInquiriesComplaints = 'official_inquiries_complaints';
+  static const String officialInquiriesComplaints =
+      'official_inquiries_complaints';
   static const String faqs = 'faqs';
   static const String faqOrderStatus = 'faq_order_status';
   static const String faqPaymentMethods = 'faq_payment_methods';
@@ -300,7 +306,8 @@ class AppLocaleKey {
   static const String capacity = 'capacity';
   static const String fivePassengers = 'five_passengers';
   static const String excellentRating = 'excellent_rating';
-  static const String engineTransmissionCondition = 'engine_transmission_condition';
+  static const String engineTransmissionCondition =
+      'engine_transmission_condition';
   static const String chassisPaintCondition = 'chassis_paint_condition';
   static const String interiorCleanliness = 'interior_cleanliness';
   static const String tiresBrakes = 'tires_brakes';

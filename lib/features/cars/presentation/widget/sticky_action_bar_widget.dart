@@ -31,7 +31,9 @@ class StickyActionBarWidget extends StatelessWidget {
             decoration: BoxDecoration(
               color: AppColor.scaffoldColor(context).withValues(alpha: 0.8),
               border: Border(
-                top: BorderSide(color: AppColor.whiteColor(context).withValues(alpha: 0.08)),
+                top: BorderSide(
+                  color: AppColor.whiteColor(context).withValues(alpha: 0.08),
+                ),
               ),
             ),
             child: Row(
@@ -40,7 +42,9 @@ class StickyActionBarWidget extends StatelessWidget {
                   flex: 2,
                   child: BlocBuilder<CartCubit, CartState>(
                     builder: (context, state) {
-                      final isInCart = context.read<CartCubit>().isInCart(car['name'] ?? '');
+                      final isInCart = context.read<CartCubit>().isInCart(
+                        car['name'] ?? '',
+                      );
                       return ElevatedButton(
                         onPressed: () {
                           if (HiveMethods.getToken() == null) {
@@ -58,12 +62,18 @@ class StickyActionBarWidget extends StatelessWidget {
                               ? Colors.redAccent.withValues(alpha: 0.8)
                               : AppColor.primaryColor(context),
                           padding: EdgeInsets.symmetric(vertical: 18.h),
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.r)),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16.r),
+                          ),
                           elevation: 10,
-                          shadowColor: AppColor.primaryColor(context).withValues(alpha: 0.3),
+                          shadowColor: AppColor.primaryColor(
+                            context,
+                          ).withValues(alpha: 0.3),
                         ),
                         child: Text(
-                          isInCart ? AppLocaleKey.removeFromCart.tr() : AppLocaleKey.addToCart.tr(),
+                          isInCart
+                              ? AppLocaleKey.removeFromCart.tr()
+                              : AppLocaleKey.addToCart.tr(),
                           style: AppTextStyle.buttonStyle(
                             context,
                           ).copyWith(fontWeight: FontWeight.w900),
@@ -88,7 +98,11 @@ class StickyActionBarWidget extends StatelessWidget {
                     ],
                   ),
                   child: IconButton(
-                    icon: Icon(Icons.phone_rounded, color: AppColor.whiteColor(context), size: 28),
+                    icon: Icon(
+                      Icons.phone_rounded,
+                      color: AppColor.whiteColor(context),
+                      size: 28,
+                    ),
                     onPressed: () {
                       if (HiveMethods.getToken() == null) {
                         CommonMethods.showLoginRequiredDialog(context);

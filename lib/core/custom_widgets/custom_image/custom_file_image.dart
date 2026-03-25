@@ -45,15 +45,10 @@ class CustomFileImage extends StatelessWidget {
                 fit: fit,
                 width: width,
                 height: height,
-                errorBuilder: (context, url, error) => SizedBox(
-                  width: width,
-                  height: height,
-                ),
+                errorBuilder: (context, url, error) =>
+                    SizedBox(width: width, height: height),
               )
-            : SizedBox(
-                width: width,
-                height: height,
-              ),
+            : SizedBox(width: width, height: height),
       ),
     );
   }

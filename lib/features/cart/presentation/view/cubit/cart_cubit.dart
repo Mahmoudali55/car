@@ -7,10 +7,10 @@ class CartCubit extends Cubit<CartState> {
 
   void addToCart(Map<String, dynamic> car) {
     final updatedItems = List<Map<String, dynamic>>.from(state.items);
-    
+
     // Check if item already exists based on name
     bool exists = updatedItems.any((item) => item['name'] == car['name']);
-    
+
     if (!exists) {
       updatedItems.add(car);
       _updateCart(updatedItems);
@@ -31,7 +31,10 @@ class CartCubit extends Cubit<CartState> {
     double total = 0.0;
     for (var item in items) {
       // Extract price from string like "850,000 د.إ"
-      String priceStr = item['price'].toString().replaceAll(RegExp(r'[^0-9]'), '');
+      String priceStr = item['price'].toString().replaceAll(
+        RegExp(r'[^0-9]'),
+        '',
+      );
       total += double.tryParse(priceStr) ?? 0.0;
     }
     emit(state.copyWith(items: items, totalPrice: total));

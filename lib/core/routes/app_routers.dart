@@ -18,12 +18,17 @@ class AppRouters {
         return MaterialPageRoute(builder: (_) => const OnboardingScreen());
       case RoutesName.loginScreen:
         return MaterialPageRoute(
-          builder: (_) => BlocProvider(create: (context) => sl<AuthCubit>(), child: LoginScreen()),
+          builder: (_) => BlocProvider(
+            create: (context) => sl<AuthCubit>(),
+            child: LoginScreen(),
+          ),
         );
       case RoutesName.registerScreen:
         return MaterialPageRoute(
-          builder: (_) =>
-              BlocProvider(create: (context) => sl<AuthCubit>(), child: const RegisterScreen()),
+          builder: (_) => BlocProvider(
+            create: (context) => sl<AuthCubit>(),
+            child: const RegisterScreen(),
+          ),
         );
       case RoutesName.carDetailsScreen:
         return MaterialPageRoute(
@@ -45,18 +50,17 @@ class AppRouters {
           builder: (_) => PaymentScreen(totalPrice: args as double),
         );
       case RoutesName.paymentSuccessScreen:
-        return MaterialPageRoute(
-          builder: (_) => const PaymentSuccessScreen(),
-        );
+        return MaterialPageRoute(builder: (_) => const PaymentSuccessScreen());
       case RoutesName.notificationsScreen:
-        return MaterialPageRoute(
-          builder: (_) => const NotificationsScreen(),
-        );
+        return MaterialPageRoute(builder: (_) => const NotificationsScreen());
       case RoutesName.usedCarsScreen:
         return MaterialPageRoute(builder: (_) => const UsedCarsScreen());
       case RoutesName.settingsScreen:
         return MaterialPageRoute(
-          builder: (_) => BlocProvider(create: (context) => sl<AuthCubit>(), child: const SettingsScreen()),
+          builder: (_) => BlocProvider(
+            create: (context) => sl<AuthCubit>(),
+            child: const SettingsScreen(),
+          ),
         );
       case RoutesName.tradeInScreen:
         return MaterialPageRoute(builder: (_) => const TradeInScreen());
@@ -69,17 +73,49 @@ class AppRouters {
       case RoutesName.shippingScreen:
         return MaterialPageRoute(builder: (_) => const ShippingScreen());
       case RoutesName.bespokeSelectionScreen:
-        return MaterialPageRoute(builder: (_) => const BespokeSelectionScreen());
+        return MaterialPageRoute(
+          builder: (_) => const BespokeSelectionScreen(),
+        );
       case RoutesName.carValuationScreen:
         return MaterialPageRoute(builder: (_) => const CarValuationScreen());
       case RoutesName.sellCarScreen:
         return MaterialPageRoute(builder: (_) => const SellCarScreen());
       case RoutesName.bookingAppointmentScreen:
-        return MaterialPageRoute(builder: (_) => const BookingAppointmentScreen());
+        return MaterialPageRoute(
+          builder: (_) => const BookingAppointmentScreen(),
+        );
       case RoutesName.serviceHistoryScreen:
         return MaterialPageRoute(builder: (_) => const ServiceHistoryScreen());
       case RoutesName.supportScreen:
         return MaterialPageRoute(builder: (_) => const SupportScreen());
+      case RoutesName.adminDashboard:
+        return MaterialPageRoute(builder: (_) => const AdminMainLayout());
+
+      // Admin Management Routes
+      case RoutesName.manageCars:
+        return MaterialPageRoute(builder: (_) => const ManageCarsScreen());
+      case RoutesName.manageBookings:
+        return MaterialPageRoute(builder: (_) => const ManageBookingsScreen());
+      case RoutesName.manageUsers:
+        return MaterialPageRoute(builder: (_) => const ManageUsersScreen());
+      case RoutesName.revenueReport:
+        return MaterialPageRoute(builder: (_) => const RevenueReportScreen());
+      case RoutesName.addCar:
+        return MaterialPageRoute(builder: (_) => const AddCarScreen());
+      case RoutesName.manageServices:
+        return MaterialPageRoute(builder: (_) => const ManageServicesScreen());
+      case RoutesName.inspectionReports:
+        return MaterialPageRoute(
+          builder: (_) => const InspectionReportsScreen(),
+        );
+      case RoutesName.adminSettings:
+        return MaterialPageRoute(builder: (_) => const AdminSettingsScreen());
+      case RoutesName.allActivities:
+        return MaterialPageRoute(builder: (_) => const AllActivitiesScreen());
+      case RoutesName.adminNotifications:
+        return MaterialPageRoute(
+          builder: (_) => const AdminNotificationsScreen(),
+        );
 
       default:
         return null;

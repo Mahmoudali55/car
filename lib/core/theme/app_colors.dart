@@ -33,7 +33,9 @@ class AppColor {
   static Color scaffoldColor(BuildContext context, {bool listen = true}) {
     return AppTheme.getByTheme(
       context,
-      light: const Color(0xFF0F172A), // Elegant, cool-toned light grey (CarSwitch style)
+      light: const Color(
+        0xFF0F172A,
+      ), // Elegant, cool-toned light grey (CarSwitch style)
       dark: const Color(0xFF0F172A),
       listen: listen,
     );

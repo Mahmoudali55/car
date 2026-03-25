@@ -13,6 +13,7 @@ class User extends Equatable {
   final String status;
   final int isAvailable;
   final String createdAt;
+  final String role; // 'user' or 'admin'
 
   const User({
     required this.id,
@@ -25,6 +26,7 @@ class User extends Equatable {
     required this.status,
     required this.isAvailable,
     required this.createdAt,
+    this.role = 'user',
   });
 
   factory User.fromJson(Map<String, dynamic> json) => User(
@@ -36,11 +38,11 @@ class User extends Equatable {
     mobileVerifiedAt: json['mobile_verified_at'] as String?,
     photoProfile: json['photo_profile'] as String? ?? '',
     status: json['status'] as String,
-    // trim key to handle any trailing spaces
     isAvailable: json['is_available'] is int
         ? json['is_available'] as int
         : (json['is_available '] as int? ?? 0),
     createdAt: json['created_at'] as String,
+    role: json['role'] as String? ?? 'user',
   );
 
   Map<String, dynamic> toJson() => {
@@ -54,6 +56,7 @@ class User extends Equatable {
     'status': status,
     'is_available': isAvailable,
     'created_at': createdAt,
+    'role': role,
   };
 
   @override
@@ -68,6 +71,7 @@ class User extends Equatable {
     status,
     isAvailable,
     createdAt,
+    role,
   ];
 }
 
@@ -85,7 +89,6 @@ class AuthResponseModel extends Equatable {
   });
 
   factory AuthResponseModel.fromJson(Map<String, dynamic> json) {
-    // The API wraps payload under "data"
     final data = json['data'] as Map<String, dynamic>?;
     if (data == null) {
       throw Exception('Missing "data" field in AuthResponse');

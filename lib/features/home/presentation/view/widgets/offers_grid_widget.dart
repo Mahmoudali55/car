@@ -83,7 +83,11 @@ class OffersGridWidget extends StatelessWidget {
         final car = _offers[index];
         return GestureDetector(
           onTap: () {
-            NavigatorMethods.pushNamed(context, RoutesName.carDetailsScreen, arguments: car);
+            NavigatorMethods.pushNamed(
+              context,
+              RoutesName.carDetailsScreen,
+              arguments: car,
+            );
           },
           child: Container(
             decoration: BoxDecoration(
@@ -132,7 +136,10 @@ class OffersGridWidget extends StatelessWidget {
                           gradient: LinearGradient(
                             begin: Alignment.topCenter,
                             end: Alignment.bottomCenter,
-                            colors: [Colors.white.withValues(alpha: 0.05), Colors.transparent],
+                            colors: [
+                              Colors.white.withValues(alpha: 0.05),
+                              Colors.transparent,
+                            ],
                           ),
                         ),
                         child: Stack(
@@ -142,37 +149,47 @@ class OffersGridWidget extends StatelessWidget {
                               tag: 'car_image_${car['name']}',
                               child: Padding(
                                 padding: EdgeInsets.all(16.w),
-                                child: Image.asset(car['image'], fit: BoxFit.contain),
+                                child: Image.asset(
+                                  car['image'],
+                                  fit: BoxFit.contain,
+                                ),
                               ),
                             ),
                             // Favorite Button
                             Positioned(
                               top: 12.h,
                               right: 12.w,
-                              child: BlocBuilder<FavoritesCubit, FavoritesState>(
-                                builder: (context, state) {
-                                  final isFav = context.read<FavoritesCubit>().isFavorite(
-                                    car['name']!,
-                                  );
-                                  return GestureDetector(
-                                    onTap: () => context.read<FavoritesCubit>().toggleFavorite(car),
-                                    child: Container(
-                                      padding: EdgeInsets.all(6.w),
-                                      decoration: BoxDecoration(
-                                        color: Colors.black.withValues(alpha: 0.3),
-                                        shape: BoxShape.circle,
-                                      ),
-                                      child: Icon(
-                                        isFav
-                                            ? Icons.favorite_rounded
-                                            : Icons.favorite_border_rounded,
-                                        color: isFav ? Colors.redAccent : Colors.white,
-                                        size: 14.sp,
-                                      ),
-                                    ),
-                                  );
-                                },
-                              ),
+                              child:
+                                  BlocBuilder<FavoritesCubit, FavoritesState>(
+                                    builder: (context, state) {
+                                      final isFav = context
+                                          .read<FavoritesCubit>()
+                                          .isFavorite(car['name']!);
+                                      return GestureDetector(
+                                        onTap: () => context
+                                            .read<FavoritesCubit>()
+                                            .toggleFavorite(car),
+                                        child: Container(
+                                          padding: EdgeInsets.all(6.w),
+                                          decoration: BoxDecoration(
+                                            color: Colors.black.withValues(
+                                              alpha: 0.3,
+                                            ),
+                                            shape: BoxShape.circle,
+                                          ),
+                                          child: Icon(
+                                            isFav
+                                                ? Icons.favorite_rounded
+                                                : Icons.favorite_border_rounded,
+                                            color: isFav
+                                                ? Colors.redAccent
+                                                : Colors.white,
+                                            size: 14.sp,
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  ),
                             ),
                           ],
                         ),
@@ -210,21 +227,35 @@ class OffersGridWidget extends StatelessWidget {
                             // Specs
                             Row(
                               children: [
-                                Icon(Icons.speed_outlined, color: Colors.white24, size: 12.sp),
+                                Icon(
+                                  Icons.speed_outlined,
+                                  color: Colors.white24,
+                                  size: 12.sp,
+                                ),
                                 Gap(4.w),
                                 Expanded(
                                   child: Text(
                                     car['mileage'],
-                                    style: TextStyle(color: Colors.white38, fontSize: 9.sp),
+                                    style: TextStyle(
+                                      color: Colors.white38,
+                                      fontSize: 9.sp,
+                                    ),
                                     maxLines: 1,
                                   ),
                                 ),
                                 Gap(4.w),
-                                Icon(Icons.bolt_rounded, color: Colors.white24, size: 12.sp),
+                                Icon(
+                                  Icons.bolt_rounded,
+                                  color: Colors.white24,
+                                  size: 12.sp,
+                                ),
                                 Gap(2.w),
                                 Text(
                                   (car['engine'] as String).split(' ').last,
-                                  style: TextStyle(color: Colors.white38, fontSize: 9.sp),
+                                  style: TextStyle(
+                                    color: Colors.white38,
+                                    fontSize: 9.sp,
+                                  ),
                                 ),
                               ],
                             ),
@@ -281,7 +312,10 @@ class OffersGridWidget extends StatelessWidget {
                   top: 12.h,
                   left: 12.w,
                   child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 8.w,
+                      vertical: 4.h,
+                    ),
                     decoration: BoxDecoration(
                       color: Colors.redAccent.withValues(alpha: 0.9),
                       borderRadius: BorderRadius.circular(8.r),

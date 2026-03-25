@@ -11,10 +11,7 @@ extension ContextExtension on BuildContext {
   String fontFamilyAr() => 'Vazirmatn';
   String fontFamilyEn() => 'Vazirmatn';
 
-  String apiTr({
-    required String ar,
-    required String en,
-  }) {
+  String apiTr({required String ar, required String en}) {
     String text = '';
     switch (locale.languageCode) {
       case 'ar':
@@ -27,10 +24,7 @@ extension ContextExtension on BuildContext {
     return text;
   }
 
-  dynamic getByLang({
-    required dynamic ar,
-    required dynamic en,
-  }) {
+  dynamic getByLang({required dynamic ar, required dynamic en}) {
     switch (locale.languageCode) {
       case 'ar':
         return ar;
@@ -39,10 +33,7 @@ extension ContextExtension on BuildContext {
     }
   }
 
-  void doByLang({
-    required VoidCallback ar,
-    required VoidCallback en,
-  }) {
+  void doByLang({required VoidCallback ar, required VoidCallback en}) {
     switch (locale.languageCode) {
       case 'ar':
         ar.call();

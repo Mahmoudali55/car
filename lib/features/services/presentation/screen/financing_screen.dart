@@ -24,15 +24,19 @@ class FinancingScreen extends StatelessWidget {
             backgroundColor: AppColor.scaffoldColor(context),
             leading: IconButton(
               onPressed: () => Navigator.pop(context),
-              icon: Icon(Icons.arrow_back_ios_new_rounded, color: AppColor.whiteColor(context)),
+              icon: Icon(
+                Icons.arrow_back_ios_new_rounded,
+                color: AppColor.whiteColor(context),
+              ),
             ),
             flexibleSpace: FlexibleSpaceBar(
               centerTitle: true,
               title: Text(
                 AppLocaleKey.financingSolutions.tr(),
-                style: AppTextStyle.titleMedium(
-                  context,
-                ).copyWith(color: AppColor.whiteColor(context), fontWeight: FontWeight.bold),
+                style: AppTextStyle.titleMedium(context).copyWith(
+                  color: AppColor.whiteColor(context),
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               background: Stack(
                 fit: StackFit.expand,
@@ -68,38 +72,66 @@ class FinancingScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  FadeInUp(child: _buildSectionHeader(AppLocaleKey.financingInfo.tr(), context)),
+                  FadeInUp(
+                    child: _buildSectionHeader(
+                      AppLocaleKey.financingInfo.tr(),
+                      context,
+                    ),
+                  ),
                   Gap(16.h),
                   FadeInUp(
                     delay: const Duration(milliseconds: 100),
-                    child: _buildTextField(AppLocaleKey.approxCarValue.tr(), context),
+                    child: _buildTextField(
+                      AppLocaleKey.approxCarValue.tr(),
+                      context,
+                    ),
                   ),
                   Gap(12.h),
                   FadeInUp(
                     delay: const Duration(milliseconds: 200),
-                    child: _buildTextField(AppLocaleKey.availableDownPayment.tr(), context),
+                    child: _buildTextField(
+                      AppLocaleKey.availableDownPayment.tr(),
+                      context,
+                    ),
                   ),
                   Gap(12.h),
                   FadeInUp(
                     delay: const Duration(milliseconds: 300),
-                    child: _buildTextField(AppLocaleKey.financingDurationYears.tr(), context),
+                    child: _buildTextField(
+                      AppLocaleKey.financingDurationYears.tr(),
+                      context,
+                    ),
                   ),
                   Gap(32.h),
-                  FadeInUp(child: _buildSectionHeader(AppLocaleKey.personalInfo.tr(), context)),
+                  FadeInUp(
+                    child: _buildSectionHeader(
+                      AppLocaleKey.personalInfo.tr(),
+                      context,
+                    ),
+                  ),
                   Gap(16.h),
                   FadeInUp(
                     delay: const Duration(milliseconds: 400),
-                    child: _buildTextField(AppLocaleKey.workPlace.tr(), context),
+                    child: _buildTextField(
+                      AppLocaleKey.workPlace.tr(),
+                      context,
+                    ),
                   ),
                   Gap(12.h),
                   FadeInUp(
                     delay: const Duration(milliseconds: 500),
-                    child: _buildTextField(AppLocaleKey.approxMonthlySalary.tr(), context),
+                    child: _buildTextField(
+                      AppLocaleKey.approxMonthlySalary.tr(),
+                      context,
+                    ),
                   ),
                   Gap(40.h),
                   FadeInUp(
                     delay: const Duration(milliseconds: 600),
-                    child: _buildSubmitButton(context, AppLocaleKey.submitFinancingRequest.tr()),
+                    child: _buildSubmitButton(
+                      context,
+                      AppLocaleKey.submitFinancingRequest.tr(),
+                    ),
                   ),
                   Gap(50.h),
                 ],
@@ -127,7 +159,9 @@ class FinancingScreen extends StatelessWidget {
       decoration: BoxDecoration(
         color: const Color(0xFF1F2937),
         borderRadius: BorderRadius.circular(12.r),
-        border: Border.all(color: AppColor.whiteColor(context).withOpacity(0.05)),
+        border: Border.all(
+          color: AppColor.whiteColor(context).withOpacity(0.05),
+        ),
       ),
       child: CustomFormField(hintText: hint),
     );
@@ -138,7 +172,9 @@ class FinancingScreen extends StatelessWidget {
       width: double.infinity,
       height: 55.h,
       decoration: BoxDecoration(
-        gradient: const LinearGradient(colors: [Color(0xFF92400E), Color(0xFFD97706)]),
+        gradient: const LinearGradient(
+          colors: [Color(0xFF92400E), Color(0xFFD97706)],
+        ),
         borderRadius: BorderRadius.circular(16.r),
         boxShadow: [
           BoxShadow(
@@ -153,7 +189,9 @@ class FinancingScreen extends StatelessWidget {
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.transparent,
           shadowColor: Colors.transparent,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.r)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16.r),
+          ),
         ),
         child: Text(
           text,

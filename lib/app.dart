@@ -35,7 +35,10 @@ class _CarAppState extends State<CarApp> {
             BlocProvider(create: (context) => NotificationsCubit()),
           ],
           child: MaterialApp(
-            localizationsDelegates: [...context.localizationDelegates, CountryLocalizations.delegate],
+            localizationsDelegates: [
+              ...context.localizationDelegates,
+              CountryLocalizations.delegate,
+            ],
             supportedLocales: context.supportedLocales,
             locale: context.locale,
             debugShowCheckedModeBanner: false,

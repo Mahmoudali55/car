@@ -26,9 +26,7 @@ class CustomShimmer extends StatelessWidget {
       width: width ?? double.infinity,
       margin: const EdgeInsets.symmetric(horizontal: 2),
       clipBehavior: Clip.antiAliasWithSaveLayer,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(radius),
-      ),
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(radius)),
       child: Shimmer(
         color: shimmerColor,
         duration: duration,

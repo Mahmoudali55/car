@@ -15,7 +15,11 @@ class MagazineCardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => NavigatorMethods.pushNamed(context, RoutesName.carDetailsScreen, arguments: car),
+      onTap: () => NavigatorMethods.pushNamed(
+        context,
+        RoutesName.carDetailsScreen,
+        arguments: car,
+      ),
       child: Container(
         height: 380.h,
         width: double.infinity,
@@ -62,12 +66,19 @@ class MagazineCardWidget extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Container(
-                        padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 12.w,
+                          vertical: 6.h,
+                        ),
                         decoration: BoxDecoration(
-                          color: AppColor.primaryColor(context).withValues(alpha: 0.15),
+                          color: AppColor.primaryColor(
+                            context,
+                          ).withValues(alpha: 0.15),
                           borderRadius: BorderRadius.circular(12.r),
                           border: Border.all(
-                            color: AppColor.primaryColor(context).withValues(alpha: 0.3),
+                            color: AppColor.primaryColor(
+                              context,
+                            ).withValues(alpha: 0.3),
                           ),
                         ),
                         child: Text(
@@ -81,14 +92,22 @@ class MagazineCardWidget extends StatelessWidget {
                       ),
                       BlocBuilder<FavoritesCubit, FavoritesState>(
                         builder: (context, state) {
-                          final isFav = context.read<FavoritesCubit>().isFavorite(car['name']);
+                          final isFav = context
+                              .read<FavoritesCubit>()
+                              .isFavorite(car['name']);
                           return GestureDetector(
-                            onTap: () => context.read<FavoritesCubit>().toggleFavorite(car),
+                            onTap: () => context
+                                .read<FavoritesCubit>()
+                                .toggleFavorite(car),
                             child: CircleAvatar(
                               radius: 18.r,
-                              backgroundColor: Colors.black.withValues(alpha: 0.3),
+                              backgroundColor: Colors.black.withValues(
+                                alpha: 0.3,
+                              ),
                               child: Icon(
-                                isFav ? Icons.favorite_rounded : Icons.favorite_outline_rounded,
+                                isFav
+                                    ? Icons.favorite_rounded
+                                    : Icons.favorite_outline_rounded,
                                 color: isFav ? Colors.redAccent : Colors.white,
                                 size: 20.sp,
                               ),
@@ -118,7 +137,11 @@ class MagazineCardWidget extends StatelessWidget {
                   padding: EdgeInsets.all(20.w),
                   decoration: BoxDecoration(
                     color: Colors.black.withValues(alpha: 0.2),
-                    border: Border(top: BorderSide(color: Colors.white.withValues(alpha: 0.05))),
+                    border: Border(
+                      top: BorderSide(
+                        color: Colors.white.withValues(alpha: 0.05),
+                      ),
+                    ),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -152,9 +175,18 @@ class MagazineCardWidget extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          SpecBadgeWidget(icon: Icons.calendar_today_rounded, text: car['year']),
-                          SpecBadgeWidget(icon: Icons.speed_rounded, text: car['mileage']),
-                          SpecBadgeWidget(icon: Icons.electric_bolt_rounded, text: car['engine']),
+                          SpecBadgeWidget(
+                            icon: Icons.calendar_today_rounded,
+                            text: car['year'],
+                          ),
+                          SpecBadgeWidget(
+                            icon: Icons.speed_rounded,
+                            text: car['mileage'],
+                          ),
+                          SpecBadgeWidget(
+                            icon: Icons.electric_bolt_rounded,
+                            text: car['engine'],
+                          ),
                         ],
                       ),
                     ],

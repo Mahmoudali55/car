@@ -27,7 +27,8 @@ class _PopularCarsSliderState extends State<PopularCarsSlider> {
   final List<Map<String, dynamic>> popularCars = [
     {
       'name': 'Ferrari SF90',
-      'image': 'assets/images/cars/mercedes-benz.png', // Temporary fallback image
+      'image':
+          'assets/images/cars/mercedes-benz.png', // Temporary fallback image
       'brand': 'Ferrari',
       'price': '1,200,000 د.إ',
       'year': '2024',
@@ -63,7 +64,10 @@ class _PopularCarsSliderState extends State<PopularCarsSlider> {
   @override
   void initState() {
     super.initState();
-    _pageController = PageController(viewportFraction: 0.85, initialPage: _currentPage);
+    _pageController = PageController(
+      viewportFraction: 0.85,
+      initialPage: _currentPage,
+    );
     _timer = Timer.periodic(const Duration(seconds: 4), (Timer timer) {
       if (_currentPage < popularCars.length - 1) {
         _currentPage++;
@@ -89,7 +93,11 @@ class _PopularCarsSliderState extends State<PopularCarsSlider> {
   }
 
   void _navigateToDetails(BuildContext context, Map<String, dynamic> car) {
-    NavigatorMethods.pushNamed(context, RoutesName.carDetailsScreen, arguments: car);
+    NavigatorMethods.pushNamed(
+      context,
+      RoutesName.carDetailsScreen,
+      arguments: car,
+    );
   }
 
   @override
@@ -112,7 +120,9 @@ class _PopularCarsSliderState extends State<PopularCarsSlider> {
               curve: Curves.easeOutQuint,
               margin: EdgeInsets.symmetric(
                 horizontal: 8.w,
-                vertical: isSelected ? 10.h : 20.h, // Scale effect for non-selected items
+                vertical: isSelected
+                    ? 10.h
+                    : 20.h, // Scale effect for non-selected items
               ),
               decoration: BoxDecoration(
                 color: AppColor.secondAppColor(context),
@@ -123,7 +133,9 @@ class _PopularCarsSliderState extends State<PopularCarsSlider> {
                         ? AppColor.primaryColor(context).withOpacity(0.15)
                         : Colors.black.withOpacity(0.1),
                     blurRadius: isSelected ? 20 : 10,
-                    offset: isSelected ? const Offset(0, 10) : const Offset(0, 5),
+                    offset: isSelected
+                        ? const Offset(0, 10)
+                        : const Offset(0, 5),
                   ),
                 ],
                 border: Border.all(
@@ -148,10 +160,15 @@ class _PopularCarsSliderState extends State<PopularCarsSlider> {
                           padding: EdgeInsets.all(16.w),
                           child: AnimatedScale(
                             duration: const Duration(milliseconds: 400),
-                            scale: isSelected ? 1.05 : 0.95, // Slight zoom effect
+                            scale: isSelected
+                                ? 1.05
+                                : 0.95, // Slight zoom effect
                             child: Hero(
                               tag: 'car_image_${car['name']}',
-                              child: Image.asset(car['image']!, fit: BoxFit.contain),
+                              child: Image.asset(
+                                car['image']!,
+                                fit: BoxFit.contain,
+                              ),
                             ),
                           ),
                         ),
@@ -169,7 +186,9 @@ class _PopularCarsSliderState extends State<PopularCarsSlider> {
                                 end: Alignment.topCenter,
                                 colors: [
                                   AppColor.secondAppColor(context),
-                                  AppColor.secondAppColor(context).withOpacity(0.0),
+                                  AppColor.secondAppColor(
+                                    context,
+                                  ).withOpacity(0.0),
                                 ],
                               ),
                             ),
@@ -182,17 +201,27 @@ class _PopularCarsSliderState extends State<PopularCarsSlider> {
                           right: 16.w,
                           child: BlocBuilder<FavoritesCubit, FavoritesState>(
                             builder: (context, state) {
-                              final isFav = context.read<FavoritesCubit>().isFavorite(car['name']!);
+                              final isFav = context
+                                  .read<FavoritesCubit>()
+                                  .isFavorite(car['name']!);
                               return GestureDetector(
                                 onTap: () {
-                                  context.read<FavoritesCubit>().toggleFavorite(car);
+                                  context.read<FavoritesCubit>().toggleFavorite(
+                                    car,
+                                  );
                                 },
                                 child: CircleAvatar(
                                   radius: 16.r,
-                                  backgroundColor: AppColor.scaffoldColor(context).withValues(alpha: 0.5),
+                                  backgroundColor: AppColor.scaffoldColor(
+                                    context,
+                                  ).withValues(alpha: 0.5),
                                   child: Icon(
-                                    isFav ? Icons.favorite_rounded : Icons.favorite_border_rounded,
-                                    color: isFav ? Colors.redAccent : Colors.white,
+                                    isFav
+                                        ? Icons.favorite_rounded
+                                        : Icons.favorite_border_rounded,
+                                    color: isFav
+                                        ? Colors.redAccent
+                                        : Colors.white,
                                     size: 18.w,
                                   ),
                                 ),
@@ -206,11 +235,20 @@ class _PopularCarsSliderState extends State<PopularCarsSlider> {
                           top: 16.h,
                           left: 16.w,
                           child: Container(
-                            padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 10.w,
+                              vertical: 4.h,
+                            ),
                             decoration: BoxDecoration(
-                              color: AppColor.primaryColor(context).withOpacity(0.2),
+                              color: AppColor.primaryColor(
+                                context,
+                              ).withOpacity(0.2),
                               borderRadius: BorderRadius.circular(8.r),
-                              border: Border.all(color: AppColor.primaryColor(context).withOpacity(0.5)),
+                              border: Border.all(
+                                color: AppColor.primaryColor(
+                                  context,
+                                ).withOpacity(0.5),
+                              ),
                             ),
                             child: Text(
                               'الأكثر طلباً',
@@ -250,9 +288,21 @@ class _PopularCarsSliderState extends State<PopularCarsSlider> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              _buildMiniDetail(context, Icons.calendar_today_outlined, car['year']!),
-                              _buildMiniDetail(context, Icons.speed_outlined, car['mileage']!),
-                              _buildMiniDetail(context, Icons.settings_outlined, car['engine']!),
+                              _buildMiniDetail(
+                                context,
+                                Icons.calendar_today_outlined,
+                                car['year']!,
+                              ),
+                              _buildMiniDetail(
+                                context,
+                                Icons.speed_outlined,
+                                car['mileage']!,
+                              ),
+                              _buildMiniDetail(
+                                context,
+                                Icons.settings_outlined,
+                                car['engine']!,
+                              ),
                             ],
                           ),
 
@@ -275,20 +325,30 @@ class _PopularCarsSliderState extends State<PopularCarsSlider> {
                               Expanded(
                                 flex: 3,
                                 child: ElevatedButton(
-                                  onPressed: () => _navigateToDetails(context, car),
+                                  onPressed: () =>
+                                      _navigateToDetails(context, car),
                                   style: ElevatedButton.styleFrom(
-                                    backgroundColor: AppColor.primaryColor(context),
+                                    backgroundColor: AppColor.primaryColor(
+                                      context,
+                                    ),
                                     foregroundColor: Colors.white,
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(16.r),
                                     ),
-                                    padding: EdgeInsets.symmetric(vertical: 12.h),
-                                    shadowColor: AppColor.primaryColor(context).withOpacity(0.5),
+                                    padding: EdgeInsets.symmetric(
+                                      vertical: 12.h,
+                                    ),
+                                    shadowColor: AppColor.primaryColor(
+                                      context,
+                                    ).withOpacity(0.5),
                                     elevation: 8,
                                   ),
                                   child: Text(
                                     AppLocaleKey.orderNow.tr(),
-                                    style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold),
+                                    style: TextStyle(
+                                      fontSize: 12.sp,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                 ),
                               ),
@@ -296,18 +356,27 @@ class _PopularCarsSliderState extends State<PopularCarsSlider> {
                               Expanded(
                                 flex: 2,
                                 child: OutlinedButton(
-                                  onPressed: () => _navigateToDetails(context, car),
+                                  onPressed: () =>
+                                      _navigateToDetails(context, car),
                                   style: OutlinedButton.styleFrom(
-                                    side: BorderSide(color: Colors.white.withOpacity(0.2), width: 1.5),
+                                    side: BorderSide(
+                                      color: Colors.white.withOpacity(0.2),
+                                      width: 1.5,
+                                    ),
                                     foregroundColor: Colors.white,
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(16.r),
                                     ),
-                                    padding: EdgeInsets.symmetric(vertical: 12.h),
+                                    padding: EdgeInsets.symmetric(
+                                      vertical: 12.h,
+                                    ),
                                   ),
                                   child: Text(
                                     AppLocaleKey.details.tr(),
-                                    style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold),
+                                    style: TextStyle(
+                                      fontSize: 12.sp,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                 ),
                               ),
@@ -341,7 +410,11 @@ class _PopularCarsSliderState extends State<PopularCarsSlider> {
           Gap(6.w),
           Text(
             label,
-            style: TextStyle(color: AppColor.greyColor(context), fontSize: 10.sp, fontWeight: FontWeight.w600),
+            style: TextStyle(
+              color: AppColor.greyColor(context),
+              fontSize: 10.sp,
+              fontWeight: FontWeight.w600,
+            ),
           ),
         ],
       ),

@@ -43,16 +43,23 @@ class ServicesScreen extends StatelessWidget {
                         ),
                         Gap(4.h),
                         Container(
-                          padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 2.h),
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 8.w,
+                            vertical: 2.h,
+                          ),
                           decoration: BoxDecoration(
-                            color: AppColor.primaryColor(context).withOpacity(0.1),
+                            color: AppColor.primaryColor(
+                              context,
+                            ).withOpacity(0.1),
                             borderRadius: BorderRadius.circular(6.r),
                             border: Border.all(
-                              color: AppColor.primaryColor(context).withOpacity(0.2),
+                              color: AppColor.primaryColor(
+                                context,
+                              ).withOpacity(0.2),
                             ),
                           ),
                           child: Text(
-                            "ELITE HUB",
+                            'ELITE HUB',
                             style: TextStyle(
                               color: AppColor.primaryColor(context),
                               fontSize: 10.sp,
@@ -64,8 +71,15 @@ class ServicesScreen extends StatelessWidget {
                       ],
                     ),
                     IconButton(
-                      onPressed: () => Navigator.pushNamed(context, RoutesName.settingsScreen),
-                      icon: Icon(Icons.settings, color: Colors.white70, size: 26.sp),
+                      onPressed: () => Navigator.pushNamed(
+                        context,
+                        RoutesName.settingsScreen,
+                      ),
+                      icon: Icon(
+                        Icons.settings,
+                        color: Colors.white70,
+                        size: 26.sp,
+                      ),
                     ),
                   ],
                 ),
@@ -143,7 +157,11 @@ class ServicesScreen extends StatelessWidget {
                 final services = _getServicesData();
                 return FadeInUp(
                   delay: Duration(milliseconds: 150 * index),
-                  child: _buildImmersiveServiceCard(context, services[index], index),
+                  child: _buildImmersiveServiceCard(
+                    context,
+                    services[index],
+                    index,
+                  ),
                 );
               }, childCount: _getServicesData().length),
             ),
@@ -163,7 +181,9 @@ class ServicesScreen extends StatelessWidget {
       decoration: BoxDecoration(
         color: const Color(0xFF111827),
         borderRadius: BorderRadius.circular(24.r),
-        border: Border.all(color: AppColor.whiteColor(context).withOpacity(0.05)),
+        border: Border.all(
+          color: AppColor.whiteColor(context).withOpacity(0.05),
+        ),
       ),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(24.r),
@@ -203,9 +223,11 @@ class ServicesScreen extends StatelessWidget {
                     width: 160.w,
                     child: Text(
                       AppLocaleKey.buyNowDesc.tr(),
-                      style: AppTextStyle.bodySmall(
-                        context,
-                      ).copyWith(color: Colors.white60, fontSize: 12.sp, height: 1.4),
+                      style: AppTextStyle.bodySmall(context).copyWith(
+                        color: Colors.white60,
+                        fontSize: 12.sp,
+                        height: 1.4,
+                      ),
                     ),
                   ),
                   Gap(20.h),
@@ -218,13 +240,18 @@ class ServicesScreen extends StatelessWidget {
                       }
                     },
                     child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 22.w, vertical: 12.h),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 22.w,
+                        vertical: 12.h,
+                      ),
                       decoration: BoxDecoration(
                         color: AppColor.primaryColor(context),
                         borderRadius: BorderRadius.circular(12.r),
                         boxShadow: [
                           BoxShadow(
-                            color: AppColor.primaryColor(context).withOpacity(0.4),
+                            color: AppColor.primaryColor(
+                              context,
+                            ).withOpacity(0.4),
                             blurRadius: 15,
                             offset: const Offset(0, 5),
                           ),
@@ -249,7 +276,10 @@ class ServicesScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildQuickActionItem(BuildContext context, Map<String, dynamic> action) {
+  Widget _buildQuickActionItem(
+    BuildContext context,
+    Map<String, dynamic> action,
+  ) {
     return GestureDetector(
       onTap: () {
         if (HiveMethods.getToken() == null) {
@@ -269,7 +299,9 @@ class ServicesScreen extends StatelessWidget {
               decoration: BoxDecoration(
                 color: AppColor.secondAppColor(context),
                 borderRadius: BorderRadius.circular(20.r),
-                border: Border.all(color: AppColor.whiteColor(context).withOpacity(0.05)),
+                border: Border.all(
+                  color: AppColor.whiteColor(context).withOpacity(0.05),
+                ),
               ),
               child: Icon(action['icon'], color: action['color'], size: 24.sp),
             ),
@@ -277,7 +309,11 @@ class ServicesScreen extends StatelessWidget {
             Text(
               action['label'],
               textAlign: TextAlign.center,
-              style: TextStyle(color: Colors.white70, fontSize: 10.sp, fontWeight: FontWeight.w600),
+              style: TextStyle(
+                color: Colors.white70,
+                fontSize: 10.sp,
+                fontWeight: FontWeight.w600,
+              ),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
             ),
@@ -287,14 +323,20 @@ class ServicesScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildImmersiveServiceCard(BuildContext context, Map<String, dynamic> service, int index) {
+  Widget _buildImmersiveServiceCard(
+    BuildContext context,
+    Map<String, dynamic> service,
+    int index,
+  ) {
     return Container(
       margin: EdgeInsets.only(bottom: 16.h),
       height: 110.h,
       decoration: BoxDecoration(
         color: AppColor.secondAppColor(context),
         borderRadius: BorderRadius.circular(22.r),
-        border: Border.all(color: AppColor.whiteColor(context).withOpacity(0.03)),
+        border: Border.all(
+          color: AppColor.whiteColor(context).withOpacity(0.03),
+        ),
       ),
       child: Material(
         color: Colors.transparent,
@@ -318,7 +360,11 @@ class ServicesScreen extends StatelessWidget {
                     color: (service['color'] as Color).withOpacity(0.1),
                     borderRadius: BorderRadius.circular(16.r),
                   ),
-                  child: Icon(service['icon'], color: service['color'], size: 30.sp),
+                  child: Icon(
+                    service['icon'],
+                    color: service['color'],
+                    size: 30.sp,
+                  ),
                 ),
                 Gap(16.w),
                 Expanded(
@@ -337,14 +383,21 @@ class ServicesScreen extends StatelessWidget {
                       Gap(4.h),
                       Text(
                         _getServiceDescription(service['label']),
-                        style: TextStyle(color: Colors.white38, fontSize: 11.sp),
+                        style: TextStyle(
+                          color: Colors.white38,
+                          fontSize: 11.sp,
+                        ),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
                     ],
                   ),
                 ),
-                Icon(Icons.arrow_forward_ios_rounded, color: Colors.white10, size: 16.sp),
+                Icon(
+                  Icons.arrow_forward_ios_rounded,
+                  color: Colors.white10,
+                  size: 16.sp,
+                ),
               ],
             ),
           ),
@@ -419,13 +472,24 @@ class ServicesScreen extends StatelessWidget {
   }
 
   String _getServiceDescription(String label) {
-    if (label == AppLocaleKey.tradeIn.tr()) return AppLocaleKey.tradeInDesc.tr();
-    if (label == AppLocaleKey.importOnDemand.tr()) return AppLocaleKey.importOnDemandDesc.tr();
-    if (label == AppLocaleKey.financingSolutions.tr())
+    if (label == AppLocaleKey.tradeIn.tr()) {
+      return AppLocaleKey.tradeInDesc.tr();
+    }
+    if (label == AppLocaleKey.importOnDemand.tr()) {
+      return AppLocaleKey.importOnDemandDesc.tr();
+    }
+    if (label == AppLocaleKey.financingSolutions.tr()) {
       return AppLocaleKey.financingSolutionsDesc.tr();
-    if (label == AppLocaleKey.showroomShine.tr()) return AppLocaleKey.showroomShineDesc.tr();
-    if (label == AppLocaleKey.vipShipping.tr()) return AppLocaleKey.vipShippingDesc.tr();
-    if (label == AppLocaleKey.bespokeSelection.tr()) return AppLocaleKey.bespokeSelectionDesc.tr();
+    }
+    if (label == AppLocaleKey.showroomShine.tr()) {
+      return AppLocaleKey.showroomShineDesc.tr();
+    }
+    if (label == AppLocaleKey.vipShipping.tr()) {
+      return AppLocaleKey.vipShippingDesc.tr();
+    }
+    if (label == AppLocaleKey.bespokeSelection.tr()) {
+      return AppLocaleKey.bespokeSelectionDesc.tr();
+    }
     return AppLocaleKey.defaultServiceDesc.tr();
   }
 
@@ -442,7 +506,8 @@ class ServicesScreen extends StatelessWidget {
       Navigator.pushNamed(context, RoutesName.shippingScreen);
     } else if (label == AppLocaleKey.bespokeSelection.tr()) {
       Navigator.pushNamed(context, RoutesName.bespokeSelectionScreen);
-    } else if (label == AppLocaleKey.carValuation.tr() || label == AppLocaleKey.valuation.tr()) {
+    } else if (label == AppLocaleKey.carValuation.tr() ||
+        label == AppLocaleKey.valuation.tr()) {
       Navigator.pushNamed(context, RoutesName.carValuationScreen);
     }
   }

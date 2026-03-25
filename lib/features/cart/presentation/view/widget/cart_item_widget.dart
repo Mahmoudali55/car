@@ -39,10 +39,7 @@ class CartItemWidget extends StatelessWidget {
               borderRadius: BorderRadius.circular(14.r),
             ),
             clipBehavior: Clip.antiAlias,
-            child: Image.asset(
-              car['image'] as String,
-              fit: BoxFit.contain,
-            ),
+            child: Image.asset(car['image'] as String, fit: BoxFit.contain),
           ),
           Gap(14.w),
 

@@ -13,13 +13,21 @@ class SectionTitleWidget extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(title, style: AppTextStyle.titleMedium(context).copyWith(fontWeight: FontWeight.bold)),
+        Text(
+          title,
+          style: AppTextStyle.titleMedium(
+            context,
+          ).copyWith(fontWeight: FontWeight.bold),
+        ),
         if (onSeeAll != null)
           TextButton(
             onPressed: onSeeAll,
             child: Text(
               AppLocaleKey.seeAll.tr(),
-              style: AppTextStyle.bodySmall(context, color: AppColor.whiteColor(context)),
+              style: AppTextStyle.bodySmall(
+                context,
+                color: AppColor.whiteColor(context),
+              ),
             ),
           ),
       ],

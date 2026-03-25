@@ -27,13 +27,15 @@ class _PaymentSuccessScreenState extends State<PaymentSuccessScreen>
       vsync: this,
       duration: const Duration(milliseconds: 800),
     );
-    _scaleAnim = Tween<double>(begin: 0.0, end: 1.0).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.elasticOut),
-    );
+    _scaleAnim = Tween<double>(
+      begin: 0.0,
+      end: 1.0,
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.elasticOut));
     _fadeAnim = Tween<double>(begin: 0.0, end: 1.0).animate(
       CurvedAnimation(
-          parent: _controller,
-          curve: const Interval(0.4, 1.0, curve: Curves.easeIn)),
+        parent: _controller,
+        curve: const Interval(0.4, 1.0, curve: Curves.easeIn),
+      ),
     );
     _controller.forward();
   }
@@ -71,7 +73,9 @@ class _PaymentSuccessScreenState extends State<PaymentSuccessScreen>
                       ),
                       boxShadow: [
                         BoxShadow(
-                          color: AppColor.primaryColor(context).withOpacity(0.4),
+                          color: AppColor.primaryColor(
+                            context,
+                          ).withOpacity(0.4),
                           blurRadius: 40,
                           spreadRadius: 5,
                         ),
@@ -114,19 +118,24 @@ class _PaymentSuccessScreenState extends State<PaymentSuccessScreen>
                       // Order Number
                       Container(
                         padding: EdgeInsets.symmetric(
-                            horizontal: 24.w, vertical: 14.h),
+                          horizontal: 24.w,
+                          vertical: 14.h,
+                        ),
                         decoration: BoxDecoration(
                           color: AppColor.secondAppColor(context),
                           borderRadius: BorderRadius.circular(16.r),
                           border: Border.all(
-                              color: Colors.white.withOpacity(0.08)),
+                            color: Colors.white.withOpacity(0.08),
+                          ),
                         ),
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            Icon(Icons.receipt_long_rounded,
-                                color: AppColor.primaryColor(context),
-                                size: 20.sp),
+                            Icon(
+                              Icons.receipt_long_rounded,
+                              color: AppColor.primaryColor(context),
+                              size: 20.sp,
+                            ),
                             Gap(10.w),
                             Text(
                               'رقم الطلب: #CAR-${DateTime.now().millisecond.toString().padLeft(4, '0')}',
@@ -162,13 +171,16 @@ class _PaymentSuccessScreenState extends State<PaymentSuccessScreen>
                         backgroundColor: AppColor.primaryColor(context),
                         padding: EdgeInsets.symmetric(vertical: 18.h),
                         shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(18.r)),
+                          borderRadius: BorderRadius.circular(18.r),
+                        ),
                         elevation: 0,
                       ),
                       child: Text(
                         'العودة للرئيسية',
                         style: AppTextStyle.titleMedium(context).copyWith(
-                            color: Colors.white, fontWeight: FontWeight.bold),
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ),

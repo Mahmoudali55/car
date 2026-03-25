@@ -21,7 +21,11 @@ class SpecBadgeWidget extends StatelessWidget {
           Gap(6.w),
           Text(
             text,
-            style: TextStyle(color: Colors.white, fontSize: 10.sp, fontWeight: FontWeight.w600),
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 10.sp,
+              fontWeight: FontWeight.w600,
+            ),
           ),
         ],
       ),

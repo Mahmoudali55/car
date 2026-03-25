@@ -33,7 +33,9 @@ class HeaderWidget extends StatelessWidget {
                   ),
                   Text(
                     AppLocaleKey.bestDeals.tr(),
-                    style: AppTextStyle.bodySmall(context).copyWith(color: Colors.white38),
+                    style: AppTextStyle.bodySmall(
+                      context,
+                    ).copyWith(color: Colors.white38),
                   ),
                 ],
               ),
@@ -43,7 +45,11 @@ class HeaderWidget extends StatelessWidget {
                   color: AppColor.primaryColor(context).withValues(alpha: 0.1),
                   shape: BoxShape.circle,
                 ),
-                child: Icon(Icons.auto_awesome, color: AppColor.primaryColor(context), size: 24.sp),
+                child: Icon(
+                  Icons.auto_awesome,
+                  color: AppColor.primaryColor(context),
+                  size: 24.sp,
+                ),
               ),
             ],
           ),

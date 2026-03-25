@@ -86,7 +86,10 @@ class _OffersScreenState extends State<OffersScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  FilterChipsWidget(selectedFilterIndex: _selectedFilterIndex, filters: _filters),
+                  FilterChipsWidget(
+                    selectedFilterIndex: _selectedFilterIndex,
+                    filters: _filters,
+                  ),
                   Gap(24.h),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 20.w),

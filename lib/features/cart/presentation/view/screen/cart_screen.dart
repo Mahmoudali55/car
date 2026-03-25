@@ -25,8 +25,10 @@ class CartScreen extends StatelessWidget {
             elevation: 0,
             centerTitle: true,
             leading: IconButton(
-              icon: const Icon(Icons.arrow_back_ios_new_rounded,
-                  color: Colors.white),
+              icon: const Icon(
+                Icons.arrow_back_ios_new_rounded,
+                color: Colors.white,
+              ),
               onPressed: () => Navigator.pop(context),
               style: IconButton.styleFrom(
                 backgroundColor: Colors.white.withOpacity(0.05),
@@ -34,8 +36,9 @@ class CartScreen extends StatelessWidget {
             ),
             title: Text(
               'سلة المشتريات',
-              style: AppTextStyle.titleMedium(context)
-                  .copyWith(color: Colors.white, fontWeight: FontWeight.bold),
+              style: AppTextStyle.titleMedium(
+                context,
+              ).copyWith(color: Colors.white, fontWeight: FontWeight.bold),
             ),
             actions: [
               if (items.isNotEmpty)
@@ -50,14 +53,16 @@ class CartScreen extends StatelessWidget {
                         ),
                         title: Text(
                           'تفريغ السلة',
-                          style: AppTextStyle.titleMedium(context)
-                              .copyWith(color: Colors.white),
+                          style: AppTextStyle.titleMedium(
+                            context,
+                          ).copyWith(color: Colors.white),
                           textAlign: TextAlign.center,
                         ),
                         content: Text(
                           'هل تريد حذف جميع السيارات من السلة؟',
-                          style: AppTextStyle.bodyMedium(context)
-                              .copyWith(color: Colors.white.withOpacity(0.7)),
+                          style: AppTextStyle.bodyMedium(
+                            context,
+                          ).copyWith(color: Colors.white.withOpacity(0.7)),
                           textAlign: TextAlign.center,
                         ),
                         actions: [
@@ -65,8 +70,9 @@ class CartScreen extends StatelessWidget {
                             onPressed: () => Navigator.pop(context),
                             child: Text(
                               'إلغاء',
-                              style: AppTextStyle.bodyMedium(context)
-                                  .copyWith(color: Colors.white),
+                              style: AppTextStyle.bodyMedium(
+                                context,
+                              ).copyWith(color: Colors.white),
                             ),
                           ),
                           TextButton(
@@ -76,8 +82,9 @@ class CartScreen extends StatelessWidget {
                             },
                             child: Text(
                               'تفريغ',
-                              style: AppTextStyle.bodyMedium(context)
-                                  .copyWith(color: Colors.redAccent),
+                              style: AppTextStyle.bodyMedium(
+                                context,
+                              ).copyWith(color: Colors.redAccent),
                             ),
                           ),
                         ],
@@ -86,8 +93,9 @@ class CartScreen extends StatelessWidget {
                   },
                   child: Text(
                     'تفريغ',
-                    style: AppTextStyle.bodySmall(context)
-                        .copyWith(color: Colors.redAccent),
+                    style: AppTextStyle.bodySmall(
+                      context,
+                    ).copyWith(color: Colors.redAccent),
                   ),
                 ),
             ],
@@ -106,38 +114,42 @@ class CartScreen extends StatelessWidget {
                           Container(
                             margin: EdgeInsets.only(bottom: 20.h),
                             padding: EdgeInsets.symmetric(
-                                horizontal: 16.w, vertical: 10.h),
+                              horizontal: 16.w,
+                              vertical: 10.h,
+                            ),
                             decoration: BoxDecoration(
-                              color: AppColor.primaryColor(context)
-                                  .withOpacity(0.1),
+                              color: AppColor.primaryColor(
+                                context,
+                              ).withOpacity(0.1),
                               borderRadius: BorderRadius.circular(12.r),
                               border: Border.all(
-                                color: AppColor.primaryColor(context)
-                                    .withOpacity(0.3),
+                                color: AppColor.primaryColor(
+                                  context,
+                                ).withOpacity(0.3),
                               ),
                             ),
                             child: Row(
                               children: [
-                                Icon(Icons.shopping_cart_rounded,
-                                    color: AppColor.primaryColor(context),
-                                    size: 18.sp),
+                                Icon(
+                                  Icons.shopping_cart_rounded,
+                                  color: AppColor.primaryColor(context),
+                                  size: 18.sp,
+                                ),
                                 Gap(10.w),
                                 Text(
                                   '${items.length} ${items.length == 1 ? 'سيارة' : 'سيارات'} في سلتك',
                                   style: AppTextStyle.bodyMedium(context)
                                       .copyWith(
-                                    color: AppColor.primaryColor(context),
-                                    fontWeight: FontWeight.w600,
-                                  ),
+                                        color: AppColor.primaryColor(context),
+                                        fontWeight: FontWeight.w600,
+                                      ),
                                 ),
                               ],
                             ),
                           ),
 
                           // Car Items
-                          ...items
-                              .map((car) => CartItemWidget(car: car))
-                              ,
+                          ...items.map((car) => CartItemWidget(car: car)),
                           Gap(16.h),
                         ],
                       ),
@@ -150,7 +162,8 @@ class CartScreen extends StatelessWidget {
                         color: AppColor.scaffoldColor(context),
                         border: Border(
                           top: BorderSide(
-                              color: Colors.white.withOpacity(0.06)),
+                            color: Colors.white.withOpacity(0.06),
+                          ),
                         ),
                         boxShadow: [
                           BoxShadow(
@@ -170,20 +183,17 @@ class CartScreen extends StatelessWidget {
                                 'الإجمالي',
                                 style: AppTextStyle.titleMedium(context)
                                     .copyWith(
-                                        color: Colors.white.withOpacity(0.7)),
+                                      color: Colors.white.withOpacity(0.7),
+                                    ),
                               ),
                               Text(
-                                '${totalPrice.toStringAsFixed(0).replaceAllMapped(
-                                      RegExp(
-                                          r'(\d{1,3})(?=(\d{3})+(?!\d))'),
-                                      (m) => '${m[1]},',
-                                    )} د.إ',
+                                '${totalPrice.toStringAsFixed(0).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (m) => '${m[1]},')} د.إ',
                                 style: AppTextStyle.titleLarge(context)
                                     .copyWith(
-                                  color: AppColor.primaryColor(context),
-                                  fontWeight: FontWeight.w900,
-                                  fontSize: 22.sp,
-                                ),
+                                      color: AppColor.primaryColor(context),
+                                      fontWeight: FontWeight.w900,
+                                      fontSize: 22.sp,
+                                    ),
                               ),
                             ],
                           ),
@@ -201,28 +211,29 @@ class CartScreen extends StatelessWidget {
                                 );
                               },
                               style: ElevatedButton.styleFrom(
-                                backgroundColor:
-                                    AppColor.primaryColor(context),
-                                padding:
-                                    EdgeInsets.symmetric(vertical: 18.h),
+                                backgroundColor: AppColor.primaryColor(context),
+                                padding: EdgeInsets.symmetric(vertical: 18.h),
                                 shape: RoundedRectangleBorder(
-                                    borderRadius:
-                                        BorderRadius.circular(18.r)),
+                                  borderRadius: BorderRadius.circular(18.r),
+                                ),
                                 elevation: 0,
                               ),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Icon(Icons.payment_rounded,
-                                      color: Colors.white, size: 22.sp),
+                                  Icon(
+                                    Icons.payment_rounded,
+                                    color: Colors.white,
+                                    size: 22.sp,
+                                  ),
                                   Gap(10.w),
                                   Text(
                                     'ادفع الآن',
                                     style: AppTextStyle.titleMedium(context)
                                         .copyWith(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                        ),
                                   ),
                                 ],
                               ),
@@ -268,9 +279,9 @@ class CartScreen extends StatelessWidget {
           Gap(12.h),
           Text(
             'ابدأ بإضافة سيارات من قائمة السيارات',
-            style: AppTextStyle.bodyMedium(context).copyWith(
-              color: Colors.white.withOpacity(0.5),
-            ),
+            style: AppTextStyle.bodyMedium(
+              context,
+            ).copyWith(color: Colors.white.withOpacity(0.5)),
             textAlign: TextAlign.center,
           ),
           Gap(32.h),
@@ -278,15 +289,16 @@ class CartScreen extends StatelessWidget {
             onPressed: () => Navigator.pop(context),
             style: ElevatedButton.styleFrom(
               backgroundColor: AppColor.primaryColor(context),
-              padding:
-                  EdgeInsets.symmetric(horizontal: 32.w, vertical: 14.h),
+              padding: EdgeInsets.symmetric(horizontal: 32.w, vertical: 14.h),
               shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(14.r)),
+                borderRadius: BorderRadius.circular(14.r),
+              ),
             ),
             child: Text(
               'تصفح السيارات',
-              style: AppTextStyle.bodyMedium(context)
-                  .copyWith(color: Colors.white, fontWeight: FontWeight.bold),
+              style: AppTextStyle.bodyMedium(
+                context,
+              ).copyWith(color: Colors.white, fontWeight: FontWeight.bold),
             ),
           ),
         ],

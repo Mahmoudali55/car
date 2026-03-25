@@ -26,10 +26,7 @@ class SvgPrefixIcon extends StatelessWidget {
           height: height,
           fit: BoxFit.contain,
           colorFilter: color != null
-              ? ColorFilter.mode(
-                  color!,
-                  BlendMode.srcIn,
-                )
+              ? ColorFilter.mode(color!, BlendMode.srcIn)
               : null,
         ),
       ),

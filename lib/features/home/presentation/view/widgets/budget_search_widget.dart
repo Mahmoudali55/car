@@ -44,10 +44,12 @@ class _BudgetSearchWidgetState extends State<BudgetSearchWidget> {
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 300),
               curve: Curves.easeOutCubic,
-              padding: EdgeInsets.symmetric(horizontal: 24.w), // Slightly wider padding for a premium look
+              padding: EdgeInsets.symmetric(
+                horizontal: 24.w,
+              ), // Slightly wider padding for a premium look
               decoration: BoxDecoration(
-                color: isSelected 
-                    ? AppColor.primaryColor(context) 
+                color: isSelected
+                    ? AppColor.primaryColor(context)
                     : AppColor.secondAppColor(context),
                 borderRadius: BorderRadius.circular(30.r), // Pill shape
                 border: Border.all(
@@ -59,10 +61,12 @@ class _BudgetSearchWidgetState extends State<BudgetSearchWidget> {
                 boxShadow: isSelected
                     ? [
                         BoxShadow(
-                          color: AppColor.primaryColor(context).withOpacity(0.3),
+                          color: AppColor.primaryColor(
+                            context,
+                          ).withOpacity(0.3),
                           blurRadius: 15,
                           offset: const Offset(0, 5),
-                        )
+                        ),
                       ]
                     : [],
               ),
@@ -70,7 +74,9 @@ class _BudgetSearchWidgetState extends State<BudgetSearchWidget> {
                 child: Text(
                   budgets[index],
                   style: AppTextStyle.bodySmall(context).copyWith(
-                    color: isSelected ? Colors.white : Colors.white.withOpacity(0.8),
+                    color: isSelected
+                        ? Colors.white
+                        : Colors.white.withOpacity(0.8),
                     fontWeight: isSelected ? FontWeight.w800 : FontWeight.w600,
                     fontSize: 12.sp,
                   ),

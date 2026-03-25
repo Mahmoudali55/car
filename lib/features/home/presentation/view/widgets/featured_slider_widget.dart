@@ -45,7 +45,11 @@ class FeaturedSliderWidget extends StatelessWidget {
                         bottom: -30.h,
                         child: Opacity(
                           opacity: 0.15,
-                          child: Icon(Icons.speed_rounded, size: 200.w, color: Colors.white),
+                          child: Icon(
+                            Icons.speed_rounded,
+                            size: 200.w,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                       Padding(
@@ -54,7 +58,10 @@ class FeaturedSliderWidget extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Container(
-                              padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 12.w,
+                                vertical: 6.h,
+                              ),
                               decoration: BoxDecoration(
                                 color: Colors.white.withOpacity(0.25),
                                 borderRadius: BorderRadius.circular(12.r),
@@ -72,16 +79,26 @@ class FeaturedSliderWidget extends StatelessWidget {
                             SizedBox(height: 15.h),
                             Text(
                               'Porsche 911 GT3 RS',
-                              style: AppTextStyle.titleLarge(context, color: Colors.white),
+                              style: AppTextStyle.titleLarge(
+                                context,
+                                color: Colors.white,
+                              ),
                             ),
                             SizedBox(height: 8.h),
                             Row(
                               children: [
-                                Icon(Icons.timer_outlined, color: Colors.white70, size: 14.w),
+                                Icon(
+                                  Icons.timer_outlined,
+                                  color: Colors.white70,
+                                  size: 14.w,
+                                ),
                                 SizedBox(width: 6.w),
                                 Text(
                                   AppLocaleKey.limitedTime.tr(),
-                                  style: AppTextStyle.bodySmall(context, color: Colors.white70),
+                                  style: AppTextStyle.bodySmall(
+                                    context,
+                                    color: Colors.white70,
+                                  ),
                                 ),
                               ],
                             ),
@@ -94,11 +111,17 @@ class FeaturedSliderWidget extends StatelessWidget {
                                   children: [
                                     Text(
                                       'AED 980,000',
-                                      style: AppTextStyle.titleMedium(context, color: Colors.white),
+                                      style: AppTextStyle.titleMedium(
+                                        context,
+                                        color: Colors.white,
+                                      ),
                                     ),
                                     Text(
                                       'Monthly from AED 12,500',
-                                      style: TextStyle(color: Colors.white60, fontSize: 9.sp),
+                                      style: TextStyle(
+                                        color: Colors.white60,
+                                        fontSize: 9.sp,
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -136,7 +159,9 @@ class FeaturedSliderWidget extends StatelessWidget {
               width: index == 0 ? 20.w : 6.w,
               height: 6.w,
               decoration: BoxDecoration(
-                color: index == 0 ? AppColor.primaryColor(context) : Colors.grey.withOpacity(0.3),
+                color: index == 0
+                    ? AppColor.primaryColor(context)
+                    : Colors.grey.withOpacity(0.3),
                 borderRadius: BorderRadius.circular(10),
               ),
             ),

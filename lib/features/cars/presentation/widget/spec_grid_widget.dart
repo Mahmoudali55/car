@@ -33,29 +33,56 @@ class SpecGridWidget extends StatelessWidget {
               AppLocaleKey.modelYear.tr(),
               car['year'] ?? 'N/A',
             ),
-            _buildSpecItem(context, Icons.speed_rounded, AppLocaleKey.mileage.tr(), car['mileage'] ?? '0 ${AppLocaleKey.km.tr()}'),
+            _buildSpecItem(
+              context,
+              Icons.speed_rounded,
+              AppLocaleKey.mileage.tr(),
+              car['mileage'] ?? '0 ${AppLocaleKey.km.tr()}',
+            ),
             _buildSpecItem(
               context,
               Icons.settings_input_component_rounded,
               AppLocaleKey.transmission.tr(),
               AppLocaleKey.normal.tr(),
             ),
-            _buildSpecItem(context, Icons.ev_station_rounded, AppLocaleKey.fuelTypeLabel.tr(), AppLocaleKey.petrol95.tr()),
-            _buildSpecItem(context, Icons.color_lens_rounded, AppLocaleKey.exteriorColor.tr(), AppLocaleKey.skyBlueMetallic.tr()),
-            _buildSpecItem(context, Icons.airline_seat_recline_extra_rounded, AppLocaleKey.capacity.tr(), AppLocaleKey.fivePassengers.tr()),
+            _buildSpecItem(
+              context,
+              Icons.ev_station_rounded,
+              AppLocaleKey.fuelTypeLabel.tr(),
+              AppLocaleKey.petrol95.tr(),
+            ),
+            _buildSpecItem(
+              context,
+              Icons.color_lens_rounded,
+              AppLocaleKey.exteriorColor.tr(),
+              AppLocaleKey.skyBlueMetallic.tr(),
+            ),
+            _buildSpecItem(
+              context,
+              Icons.airline_seat_recline_extra_rounded,
+              AppLocaleKey.capacity.tr(),
+              AppLocaleKey.fivePassengers.tr(),
+            ),
           ],
         ),
       ],
     );
   }
 
-  Widget _buildSpecItem(BuildContext context, IconData icon, String title, String value) {
+  Widget _buildSpecItem(
+    BuildContext context,
+    IconData icon,
+    String title,
+    String value,
+  ) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 12.w),
       decoration: BoxDecoration(
         color: AppColor.secondAppColor(context),
         borderRadius: BorderRadius.circular(16.r),
-        border: Border.all(color: AppColor.whiteColor(context).withValues(alpha: 0.05)),
+        border: Border.all(
+          color: AppColor.whiteColor(context).withValues(alpha: 0.05),
+        ),
       ),
       child: Row(
         children: [
@@ -65,7 +92,11 @@ class SpecGridWidget extends StatelessWidget {
               color: AppColor.whiteColor(context).withValues(alpha: 0.05),
               borderRadius: BorderRadius.circular(10.r),
             ),
-            child: Icon(icon, color: AppColor.primaryColor(context), size: 18.sp),
+            child: Icon(
+              icon,
+              color: AppColor.primaryColor(context),
+              size: 18.sp,
+            ),
           ),
           Gap(12.w),
           Expanded(

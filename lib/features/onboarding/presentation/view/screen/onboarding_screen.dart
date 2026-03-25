@@ -93,7 +93,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           boxShadow: _currentPage == index
                               ? [
                                   BoxShadow(
-                                    color: AppColor.primaryColor(context).withValues(alpha: 0.4),
+                                    color: AppColor.primaryColor(
+                                      context,
+                                    ).withValues(alpha: 0.4),
                                     blurRadius: 10,
                                     spreadRadius: 1,
                                   ),
@@ -109,7 +111,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       borderRadius: BorderRadius.circular(16),
                       boxShadow: [
                         BoxShadow(
-                          color: AppColor.primaryColor(context).withValues(alpha: 0.3),
+                          color: AppColor.primaryColor(
+                            context,
+                          ).withValues(alpha: 0.3),
                           blurRadius: 15,
                           offset: const Offset(0, 8),
                         ),
@@ -119,7 +123,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       onPressed: () {
                         if (_currentPage == _pages.length - 1) {
                           HiveMethods.updateFirstTime();
-                          NavigatorMethods.pushReplacementNamed(context, RoutesName.loginScreen);
+                          NavigatorMethods.pushReplacementNamed(
+                            context,
+                            RoutesName.loginScreen,
+                          );
                         } else {
                           _pageController.nextPage(
                             duration: const Duration(milliseconds: 500),
@@ -130,8 +137,13 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppColor.primaryColor(context),
                         foregroundColor: Colors.white,
-                        padding: EdgeInsets.symmetric(horizontal: 32.w, vertical: 16.h),
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 32.w,
+                          vertical: 16.h,
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16),
+                        ),
                         elevation: 0,
                       ),
                       child: Text(
@@ -188,7 +200,10 @@ class OnboardingPageItem extends StatelessWidget {
               height: 300.h,
               width: 300.h,
               margin: EdgeInsets.all(20.w),
-              decoration: BoxDecoration(color: Colors.white.withValues(alpha: 0.1), shape: BoxShape.circle),
+              decoration: BoxDecoration(
+                color: Colors.white.withValues(alpha: 0.1),
+                shape: BoxShape.circle,
+              ),
               child: Center(
                 child: model.isImage
                     ? ClipRRect(
@@ -200,7 +215,11 @@ class OnboardingPageItem extends StatelessWidget {
                           width: 260.h,
                         ),
                       )
-                    : Icon(model.image as IconData, size: 150.h, color: Colors.white),
+                    : Icon(
+                        model.image as IconData,
+                        size: 150.h,
+                        color: Colors.white,
+                      ),
               ),
             ),
           ),

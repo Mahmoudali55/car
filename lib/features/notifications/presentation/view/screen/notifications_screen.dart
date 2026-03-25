@@ -20,9 +20,14 @@ class NotificationsScreen extends StatelessWidget {
         elevation: 0,
         centerTitle: true,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios_new_rounded, color: Colors.white),
+          icon: const Icon(
+            Icons.arrow_back_ios_new_rounded,
+            color: Colors.white,
+          ),
           onPressed: () => Navigator.pop(context),
-          style: IconButton.styleFrom(backgroundColor: Colors.white.withOpacity(0.05)),
+          style: IconButton.styleFrom(
+            backgroundColor: Colors.white.withOpacity(0.05),
+          ),
         ),
         title: Text(
           'التنبيهات',
@@ -35,12 +40,14 @@ class NotificationsScreen extends StatelessWidget {
             builder: (context, state) {
               if (state is NotificationsLoaded && state.unreadCount > 0) {
                 return TextButton(
-                  onPressed: () => context.read<NotificationsCubit>().markAllAsRead(),
+                  onPressed: () =>
+                      context.read<NotificationsCubit>().markAllAsRead(),
                   child: Text(
                     'تحديد كقروء',
-                    style: AppTextStyle.bodySmall(
-                      context,
-                    ).copyWith(color: AppColor.primaryColor(context), fontWeight: FontWeight.bold),
+                    style: AppTextStyle.bodySmall(context).copyWith(
+                      color: AppColor.primaryColor(context),
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 );
               }
@@ -63,7 +70,9 @@ class NotificationsScreen extends StatelessWidget {
                 final notification = state.notifications[index];
                 return NotificationItemWidget(
                   notification: notification,
-                  onTap: () => context.read<NotificationsCubit>().markAsRead(notification['id']),
+                  onTap: () => context.read<NotificationsCubit>().markAsRead(
+                    notification['id'],
+                  ),
                 );
               },
             );

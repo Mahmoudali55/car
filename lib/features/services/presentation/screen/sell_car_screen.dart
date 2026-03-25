@@ -24,15 +24,19 @@ class SellCarScreen extends StatelessWidget {
             backgroundColor: AppColor.scaffoldColor(context),
             leading: IconButton(
               onPressed: () => Navigator.pop(context),
-              icon: Icon(Icons.arrow_back_ios_new_rounded, color: AppColor.whiteColor(context)),
+              icon: Icon(
+                Icons.arrow_back_ios_new_rounded,
+                color: AppColor.whiteColor(context),
+              ),
             ),
             flexibleSpace: FlexibleSpaceBar(
               centerTitle: true,
               title: Text(
                 AppLocaleKey.sellYourCarTitle.tr(),
-                style: AppTextStyle.titleMedium(
-                  context,
-                ).copyWith(color: AppColor.whiteColor(context), fontWeight: FontWeight.bold),
+                style: AppTextStyle.titleMedium(context).copyWith(
+                  color: AppColor.whiteColor(context),
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               background: Stack(
                 fit: StackFit.expand,
@@ -68,24 +72,43 @@ class SellCarScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  FadeInUp(child: _buildSectionHeader(AppLocaleKey.listCarForSale.tr(), context)),
+                  FadeInUp(
+                    child: _buildSectionHeader(
+                      AppLocaleKey.listCarForSale.tr(),
+                      context,
+                    ),
+                  ),
                   Gap(16.h),
                   FadeInUp(
                     delay: const Duration(milliseconds: 100),
-                    child: _buildTextField(AppLocaleKey.brandAndModel.tr(), context),
+                    child: _buildTextField(
+                      AppLocaleKey.brandAndModel.tr(),
+                      context,
+                    ),
                   ),
                   Gap(12.h),
                   FadeInUp(
                     delay: const Duration(milliseconds: 200),
-                    child: _buildTextField(AppLocaleKey.askingPrice.tr(), context),
+                    child: _buildTextField(
+                      AppLocaleKey.askingPrice.tr(),
+                      context,
+                    ),
                   ),
                   Gap(12.h),
                   FadeInUp(
                     delay: const Duration(milliseconds: 300),
-                    child: _buildTextField(AppLocaleKey.contactNumber.tr(), context),
+                    child: _buildTextField(
+                      AppLocaleKey.contactNumber.tr(),
+                      context,
+                    ),
                   ),
                   Gap(32.h),
-                  FadeInUp(child: _buildSectionHeader(AppLocaleKey.carImages.tr(), context)),
+                  FadeInUp(
+                    child: _buildSectionHeader(
+                      AppLocaleKey.carImages.tr(),
+                      context,
+                    ),
+                  ),
                   Gap(16.h),
                   FadeInUp(
                     delay: const Duration(milliseconds: 400),
@@ -96,18 +119,24 @@ class SellCarScreen extends StatelessWidget {
                         color: const Color(0xFF1F2937),
                         borderRadius: BorderRadius.circular(16.r),
                         border: Border.all(
-                          color: AppColor.whiteColor(context).withValues(alpha: (0.05)),
+                          color: AppColor.whiteColor(
+                            context,
+                          ).withValues(alpha: (0.05)),
                           style: BorderStyle.solid,
                         ),
                       ),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Icon(Icons.add_a_photo_rounded, color: Colors.white38, size: 40.sp),
+                          Icon(
+                            Icons.add_a_photo_rounded,
+                            color: Colors.white38,
+                            size: 40.sp,
+                          ),
                           Gap(8.h),
                           Text(
                             AppLocaleKey.pressToAddPhotos.tr(),
-                            style: TextStyle(color: Colors.white38),
+                            style: const TextStyle(color: Colors.white38),
                           ),
                         ],
                       ),
@@ -116,7 +145,10 @@ class SellCarScreen extends StatelessWidget {
                   Gap(40.h),
                   FadeInUp(
                     delay: const Duration(milliseconds: 500),
-                    child: _buildSubmitButton(context, AppLocaleKey.confirmListing.tr()),
+                    child: _buildSubmitButton(
+                      context,
+                      AppLocaleKey.confirmListing.tr(),
+                    ),
                   ),
                   Gap(50.h),
                 ],
@@ -144,7 +176,9 @@ class SellCarScreen extends StatelessWidget {
       decoration: BoxDecoration(
         color: const Color(0xFF1F2937),
         borderRadius: BorderRadius.circular(12.r),
-        border: Border.all(color: AppColor.whiteColor(context).withOpacity(0.05)),
+        border: Border.all(
+          color: AppColor.whiteColor(context).withOpacity(0.05),
+        ),
       ),
       child: CustomFormField(hintText: hint),
     );
@@ -164,7 +198,9 @@ class SellCarScreen extends StatelessWidget {
           backgroundColor: Colors.transparent,
           foregroundColor: AppColor.blackTextColor(context),
           shadowColor: Colors.transparent,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.r)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16.r),
+          ),
         ),
         child: Text(
           text,

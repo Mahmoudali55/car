@@ -34,7 +34,11 @@ class _CarDetailsScreenState extends State<CarDetailsScreen> {
   @override
   void initState() {
     super.initState();
-    _carImages = [widget.car['image'], widget.car['image'], widget.car['image']];
+    _carImages = [
+      widget.car['image'],
+      widget.car['image'],
+      widget.car['image'],
+    ];
 
     _controller = YoutubePlayerController(
       initialVideoId: widget.car['video_id'] ?? 'D7O8J5vVf-M',

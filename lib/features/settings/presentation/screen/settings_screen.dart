@@ -29,7 +29,10 @@ class SettingsScreen extends StatelessWidget {
         ),
         leading: IconButton(
           onPressed: () => Navigator.pop(context),
-          icon: const Icon(Icons.arrow_back_ios_new_rounded, color: Colors.white),
+          icon: const Icon(
+            Icons.arrow_back_ios_new_rounded,
+            color: Colors.white,
+          ),
         ),
       ),
       body: ListView(
@@ -47,9 +50,10 @@ class SettingsScreen extends StatelessWidget {
                 context.locale.languageCode == 'ar'
                     ? AppLocaleKey.arabic.tr()
                     : AppLocaleKey.english.tr(),
-                style: AppTextStyle.bodySmall(
-                  context,
-                ).copyWith(color: AppColor.primaryColor(context), fontWeight: FontWeight.bold),
+                style: AppTextStyle.bodySmall(context).copyWith(
+                  color: AppColor.primaryColor(context),
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               onTap: () => _showLanguageDialog(context),
             ),
@@ -70,7 +74,10 @@ class SettingsScreen extends StatelessWidget {
             ),
           ),
           Gap(32.h),
-          FadeInUp(delay: const Duration(milliseconds: 200), child: _buildLogoutButton(context)),
+          FadeInUp(
+            delay: const Duration(milliseconds: 200),
+            child: _buildLogoutButton(context),
+          ),
         ],
       ),
     );
@@ -79,9 +86,11 @@ class SettingsScreen extends StatelessWidget {
   Widget _buildSectionHeader(BuildContext context, String title) {
     return Text(
       title,
-      style: AppTextStyle.bodySmall(
-        context,
-      ).copyWith(color: Colors.white38, fontWeight: FontWeight.bold, letterSpacing: 1.2),
+      style: AppTextStyle.bodySmall(context).copyWith(
+        color: Colors.white38,
+        fontWeight: FontWeight.bold,
+        letterSpacing: 1.2,
+      ),
     );
   }
 
@@ -116,7 +125,12 @@ class SettingsScreen extends StatelessWidget {
           ).copyWith(color: Colors.white, fontWeight: FontWeight.w500),
         ),
         trailing:
-            trailing ?? Icon(Icons.arrow_forward_ios_rounded, color: Colors.white24, size: 14.sp),
+            trailing ??
+            Icon(
+              Icons.arrow_forward_ios_rounded,
+              color: Colors.white24,
+              size: 14.sp,
+            ),
       ),
     );
   }
@@ -136,7 +150,9 @@ class SettingsScreen extends StatelessWidget {
             children: [
               Text(
                 AppLocaleKey.language.tr(),
-                style: AppTextStyle.titleMedium(context).copyWith(color: Colors.white),
+                style: AppTextStyle.titleMedium(
+                  context,
+                ).copyWith(color: Colors.white),
               ),
               Gap(20.h),
               _buildLanguageOption(
@@ -181,11 +197,16 @@ class SettingsScreen extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
         decoration: BoxDecoration(
           color: isSelected
-              ? AppColor.primaryColor(context, listen: false).withValues(alpha: 0.1)
+              ? AppColor.primaryColor(
+                  context,
+                  listen: false,
+                ).withValues(alpha: 0.1)
               : Colors.white.withValues(alpha: 0.03),
           borderRadius: BorderRadius.circular(12.r),
           border: Border.all(
-            color: isSelected ? AppColor.primaryColor(context, listen: false) : Colors.white.withValues(alpha: 0.05),
+            color: isSelected
+                ? AppColor.primaryColor(context, listen: false)
+                : Colors.white.withValues(alpha: 0.05),
           ),
         ),
         child: Row(
@@ -199,7 +220,11 @@ class SettingsScreen extends StatelessWidget {
               ),
             ),
             if (isSelected)
-              Icon(Icons.check_circle_rounded, color: AppColor.primaryColor(context), size: 20.sp),
+              Icon(
+                Icons.check_circle_rounded,
+                color: AppColor.primaryColor(context),
+                size: 20.sp,
+              ),
           ],
         ),
       ),
@@ -222,7 +247,11 @@ class SettingsScreen extends StatelessWidget {
         ),
         onPressed: () {
           context.read<AuthCubit>().logout();
-          Navigator.pushNamedAndRemoveUntil(context, RoutesName.loginScreen, (route) => false);
+          Navigator.pushNamedAndRemoveUntil(
+            context,
+            RoutesName.loginScreen,
+            (route) => false,
+          );
         },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,

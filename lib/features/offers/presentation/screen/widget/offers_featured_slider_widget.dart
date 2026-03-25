@@ -109,7 +109,9 @@ class _OffersFeaturedSliderState extends State<OffersFeaturedSlider> {
                       child: Icon(
                         item['icon'],
                         size: 180.sp,
-                        color: AppColor.whiteColor(context).withValues(alpha: 0.05),
+                        color: AppColor.whiteColor(
+                          context,
+                        ).withValues(alpha: 0.05),
                       ),
                     ),
                     Padding(
@@ -119,9 +121,14 @@ class _OffersFeaturedSliderState extends State<OffersFeaturedSlider> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Container(
-                            padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 12.w,
+                              vertical: 6.h,
+                            ),
                             decoration: BoxDecoration(
-                              color: AppColor.whiteColor(context).withValues(alpha: 0.1),
+                              color: AppColor.whiteColor(
+                                context,
+                              ).withValues(alpha: 0.1),
                               borderRadius: BorderRadius.circular(10.r),
                             ),
                             child: Text(
@@ -147,9 +154,10 @@ class _OffersFeaturedSliderState extends State<OffersFeaturedSlider> {
                             width: 200.w,
                             child: Text(
                               item['subtitle'],
-                              style: AppTextStyle.bodyMedium(
-                                context,
-                              ).copyWith(color: Colors.white70, fontSize: 13.sp),
+                              style: AppTextStyle.bodyMedium(context).copyWith(
+                                color: Colors.white70,
+                                fontSize: 13.sp,
+                              ),
                             ),
                           ),
                         ],
@@ -172,7 +180,9 @@ class _OffersFeaturedSliderState extends State<OffersFeaturedSlider> {
               height: 6.h,
               width: _currentIndex == index ? 24.w : 6.w,
               decoration: BoxDecoration(
-                color: _currentIndex == index ? AppColor.primaryColor(context) : Colors.white10,
+                color: _currentIndex == index
+                    ? AppColor.primaryColor(context)
+                    : Colors.white10,
                 borderRadius: BorderRadius.circular(10.r),
               ),
             ),

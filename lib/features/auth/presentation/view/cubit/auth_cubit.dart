@@ -45,6 +45,7 @@ class AuthCubit extends Cubit<AuthState> {
       (success) {
         HiveMethods.updateIsGuest(false);
         HiveMethods.updateToken(success.token);
+        HiveMethods.updateRole(success.user.role);
         emit(state.copyWith(loginStatus: StatusState.success(success)));
       },
     );
@@ -53,6 +54,7 @@ class AuthCubit extends Cubit<AuthState> {
   Future<void> logout() async {
     await authRepo.logout();
     HiveMethods.updateIsGuest(false);
-    // emit(state.copyWith(loginStatus: StatusState.initial()));
+    HiveMethods.deleteToken();
+    HiveMethods.updateRole('user');
   }
 }

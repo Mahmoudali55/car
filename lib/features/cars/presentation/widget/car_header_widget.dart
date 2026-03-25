@@ -60,9 +60,9 @@ class CarHeaderWidget extends StatelessWidget {
               padding: EdgeInsets.only(bottom: 6.h),
               child: Text(
                 AppLocaleKey.taxIncluded.tr(),
-                style: AppTextStyle.bodySmall(
-                  context,
-                ).copyWith(color: AppColor.whiteColor(context).withValues(alpha: 0.4)),
+                style: AppTextStyle.bodySmall(context).copyWith(
+                  color: AppColor.whiteColor(context).withValues(alpha: 0.4),
+                ),
               ),
             ),
           ],

@@ -21,9 +21,10 @@ class InspectionReportWidget extends StatelessWidget {
             SectionTitleWidget(title: AppLocaleKey.inspectionReport.tr()),
             Text(
               AppLocaleKey.excellentRating.tr(),
-              style: AppTextStyle.bodyMedium(
-                context,
-              ).copyWith(color: Colors.greenAccent, fontWeight: FontWeight.bold),
+              style: AppTextStyle.bodyMedium(context).copyWith(
+                color: Colors.greenAccent,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ],
         ),
@@ -36,11 +37,23 @@ class InspectionReportWidget extends StatelessWidget {
           ),
           child: Column(
             children: [
-              _buildReportRow(context, AppLocaleKey.engineTransmissionCondition.tr(), true),
+              _buildReportRow(
+                context,
+                AppLocaleKey.engineTransmissionCondition.tr(),
+                true,
+              ),
               _buildReportDivider(context),
-              _buildReportRow(context, AppLocaleKey.chassisPaintCondition.tr(), true),
+              _buildReportRow(
+                context,
+                AppLocaleKey.chassisPaintCondition.tr(),
+                true,
+              ),
               _buildReportDivider(context),
-              _buildReportRow(context, AppLocaleKey.interiorCleanliness.tr(), true),
+              _buildReportRow(
+                context,
+                AppLocaleKey.interiorCleanliness.tr(),
+                true,
+              ),
               _buildReportDivider(context),
               _buildReportRow(context, AppLocaleKey.tiresBrakes.tr(), true),
               Gap(20.h),
@@ -52,7 +65,9 @@ class InspectionReportWidget extends StatelessWidget {
                     foregroundColor: AppColor.primaryColor(context),
                     side: BorderSide(color: AppColor.primaryColor(context)),
                     padding: EdgeInsets.symmetric(vertical: 14.h),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.r)),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12.r),
+                    ),
                   ),
                   child: Text(
                     AppLocaleKey.fullReport.tr(),
@@ -78,14 +93,16 @@ class InspectionReportWidget extends StatelessWidget {
         Gap(12.w),
         Text(
           title,
-          style: AppTextStyle.bodyMedium(context).copyWith(color: AppColor.whiteColor(context)),
+          style: AppTextStyle.bodyMedium(
+            context,
+          ).copyWith(color: AppColor.whiteColor(context)),
         ),
         const Spacer(),
         Text(
           isHealthy ? AppLocaleKey.salem.tr() : AppLocaleKey.attention.tr(),
-          style: AppTextStyle.bodySmall(
-            context,
-          ).copyWith(color: AppColor.whiteColor(context).withValues(alpha: 0.5)),
+          style: AppTextStyle.bodySmall(context).copyWith(
+            color: AppColor.whiteColor(context).withValues(alpha: 0.5),
+          ),
         ),
       ],
     );
@@ -94,7 +111,10 @@ class InspectionReportWidget extends StatelessWidget {
   Widget _buildReportDivider(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 12.h),
-      child: Divider(color: AppColor.whiteColor(context).withValues(alpha: 0.05), height: 1),
+      child: Divider(
+        color: AppColor.whiteColor(context).withValues(alpha: 0.05),
+        height: 1,
+      ),
     );
   }
 }

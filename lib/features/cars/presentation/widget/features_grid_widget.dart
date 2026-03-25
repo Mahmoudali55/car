@@ -15,9 +15,15 @@ class FeaturesGridWidget extends StatelessWidget {
     final List<Map<String, dynamic>> features = [
       {'icon': Icons.bluetooth_rounded, 'label': AppLocaleKey.bluetooth.tr()},
       {'icon': Icons.camera_alt_rounded, 'label': AppLocaleKey.camera360.tr()},
-      {'icon': Icons.airline_seat_recline_extra_rounded, 'label': AppLocaleKey.leather.tr()},
+      {
+        'icon': Icons.airline_seat_recline_extra_rounded,
+        'label': AppLocaleKey.leather.tr(),
+      },
       {'icon': Icons.navigation_rounded, 'label': AppLocaleKey.gpsMaps.tr()},
-      {'icon': Icons.brightness_high_rounded, 'label': AppLocaleKey.sunroof.tr()},
+      {
+        'icon': Icons.brightness_high_rounded,
+        'label': AppLocaleKey.sunroof.tr(),
+      },
       {'icon': Icons.speed_rounded, 'label': AppLocaleKey.cruiseControl.tr()},
     ];
 
@@ -29,7 +35,9 @@ class FeaturesGridWidget extends StatelessWidget {
         Wrap(
           spacing: 12.w,
           runSpacing: 12.h,
-          children: features.map((f) => _buildFeatureItem(context, f['icon'], f['label'])).toList(),
+          children: features
+              .map((f) => _buildFeatureItem(context, f['icon'], f['label']))
+              .toList(),
         ),
       ],
     );
@@ -41,7 +49,9 @@ class FeaturesGridWidget extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColor.secondAppColor(context),
         borderRadius: BorderRadius.circular(12.r),
-        border: Border.all(color: AppColor.whiteColor(context).withValues(alpha: 0.05)),
+        border: Border.all(
+          color: AppColor.whiteColor(context).withValues(alpha: 0.05),
+        ),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -50,9 +60,10 @@ class FeaturesGridWidget extends StatelessWidget {
           Gap(10.w),
           Text(
             label,
-            style: AppTextStyle.bodySmall(
-              context,
-            ).copyWith(color: AppColor.whiteColor(context), fontWeight: FontWeight.bold),
+            style: AppTextStyle.bodySmall(context).copyWith(
+              color: AppColor.whiteColor(context),
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ],
       ),

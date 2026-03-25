@@ -27,11 +27,27 @@ class _SplashScreenState extends State<SplashScreen> {
     Future.delayed(const Duration(seconds: 3)).then((value) {
       if (mounted) {
         if (HiveMethods.isFirstTime()) {
-          NavigatorMethods.pushReplacementNamed(context, RoutesName.onboardingScreen);
+          NavigatorMethods.pushReplacementNamed(
+            context,
+            RoutesName.onboardingScreen,
+          );
         } else if (HiveMethods.getToken() != null || HiveMethods.isGuest()) {
-          NavigatorMethods.pushReplacementNamed(context, RoutesName.mainLayout);
+          if (HiveMethods.getRole() == 'admin') {
+            NavigatorMethods.pushReplacementNamed(
+              context,
+              RoutesName.adminDashboard,
+            );
+          } else {
+            NavigatorMethods.pushReplacementNamed(
+              context,
+              RoutesName.mainLayout,
+            );
+          }
         } else {
-          NavigatorMethods.pushReplacementNamed(context, RoutesName.loginScreen);
+          NavigatorMethods.pushReplacementNamed(
+            context,
+            RoutesName.loginScreen,
+          );
         }
       }
     });
@@ -69,7 +85,9 @@ class _SplashScreenState extends State<SplashScreen> {
                         shape: BoxShape.circle,
                         boxShadow: [
                           BoxShadow(
-                            color: AppColor.primaryColor(context).withOpacity(0.4),
+                            color: AppColor.primaryColor(
+                              context,
+                            ).withOpacity(0.4),
                             blurRadius: 40,
                             spreadRadius: 5,
                           ),
@@ -106,9 +124,10 @@ class _SplashScreenState extends State<SplashScreen> {
                     duration: const Duration(milliseconds: 1500),
                     child: Text(
                       AppLocaleKey.qualityReliability.tr(),
-                      style: AppTextStyle.text14RGrey(
-                        context,
-                      ).copyWith(color: Colors.white.withOpacity(0.8), letterSpacing: 1.0),
+                      style: AppTextStyle.text14RGrey(context).copyWith(
+                        color: Colors.white.withOpacity(0.8),
+                        letterSpacing: 1.0,
+                      ),
                     ),
                   ),
                 ],
@@ -125,7 +144,10 @@ class _SplashScreenState extends State<SplashScreen> {
                   child: SizedBox(
                     width: 40.w,
                     height: 40.w,
-                    child: const CircularProgressIndicator(color: Colors.white, strokeWidth: 3),
+                    child: const CircularProgressIndicator(
+                      color: Colors.white,
+                      strokeWidth: 3,
+                    ),
                   ),
                 ),
               ),

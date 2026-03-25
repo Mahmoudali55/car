@@ -24,15 +24,19 @@ class TradeInScreen extends StatelessWidget {
             backgroundColor: AppColor.scaffoldColor(context),
             leading: IconButton(
               onPressed: () => Navigator.pop(context),
-              icon: Icon(Icons.arrow_back_ios_new_rounded, color: AppColor.whiteColor(context)),
+              icon: Icon(
+                Icons.arrow_back_ios_new_rounded,
+                color: AppColor.whiteColor(context),
+              ),
             ),
             flexibleSpace: FlexibleSpaceBar(
               centerTitle: true,
               title: Text(
                 AppLocaleKey.replaceYourCar.tr(),
-                style: AppTextStyle.titleMedium(
-                  context,
-                ).copyWith(color: AppColor.whiteColor(context), fontWeight: FontWeight.bold),
+                style: AppTextStyle.titleMedium(context).copyWith(
+                  color: AppColor.whiteColor(context),
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               background: Stack(
                 fit: StackFit.expand,
@@ -40,7 +44,10 @@ class TradeInScreen extends StatelessWidget {
                   Container(
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
-                        colors: [AppColor.primaryColor(context), const Color(0xFF1E40AF)],
+                        colors: [
+                          AppColor.primaryColor(context),
+                          const Color(0xFF1E40AF),
+                        ],
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
                       ),
@@ -68,31 +75,51 @@ class TradeInScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  FadeInUp(child: _buildSectionHeader(AppLocaleKey.currentCarInfo.tr(), context)),
+                  FadeInUp(
+                    child: _buildSectionHeader(
+                      AppLocaleKey.currentCarInfo.tr(),
+                      context,
+                    ),
+                  ),
                   Gap(16.h),
                   FadeInUp(
                     delay: const Duration(milliseconds: 100),
-                    child: _buildTextField(AppLocaleKey.carTypeModel.tr(), context),
+                    child: _buildTextField(
+                      AppLocaleKey.carTypeModel.tr(),
+                      context,
+                    ),
                   ),
                   Gap(12.h),
                   FadeInUp(
                     delay: const Duration(milliseconds: 200),
-                    child: _buildTextField(AppLocaleKey.manufacturingYear.tr(), context),
+                    child: _buildTextField(
+                      AppLocaleKey.manufacturingYear.tr(),
+                      context,
+                    ),
                   ),
                   Gap(12.h),
                   FadeInUp(
                     delay: const Duration(milliseconds: 300),
-                    child: _buildTextField(AppLocaleKey.mileageKm.tr(), context),
+                    child: _buildTextField(
+                      AppLocaleKey.mileageKm.tr(),
+                      context,
+                    ),
                   ),
                   Gap(32.h),
                   FadeInUp(
                     delay: const Duration(milliseconds: 400),
-                    child: _buildSectionHeader(AppLocaleKey.requestedCarInfo.tr(), context),
+                    child: _buildSectionHeader(
+                      AppLocaleKey.requestedCarInfo.tr(),
+                      context,
+                    ),
                   ),
                   Gap(16.h),
                   FadeInUp(
                     delay: const Duration(milliseconds: 500),
-                    child: _buildTextField(AppLocaleKey.desiredCar.tr(), context),
+                    child: _buildTextField(
+                      AppLocaleKey.desiredCar.tr(),
+                      context,
+                    ),
                   ),
                   Gap(40.h),
                   FadeInUp(
@@ -102,12 +129,17 @@ class TradeInScreen extends StatelessWidget {
                       height: 55.h,
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
-                          colors: [AppColor.primaryColor(context), const Color(0xFF1E40AF)],
+                          colors: [
+                            AppColor.primaryColor(context),
+                            const Color(0xFF1E40AF),
+                          ],
                         ),
                         borderRadius: BorderRadius.circular(16.r),
                         boxShadow: [
                           BoxShadow(
-                            color: AppColor.primaryColor(context).withOpacity(0.3),
+                            color: AppColor.primaryColor(
+                              context,
+                            ).withOpacity(0.3),
                             blurRadius: 10,
                             offset: const Offset(0, 5),
                           ),
@@ -118,7 +150,9 @@ class TradeInScreen extends StatelessWidget {
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.transparent,
                           shadowColor: Colors.transparent,
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.r)),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16.r),
+                          ),
                         ),
                         child: Text(
                           AppLocaleKey.sendRequest.tr(),
@@ -157,7 +191,9 @@ class TradeInScreen extends StatelessWidget {
       decoration: BoxDecoration(
         color: const Color(0xFF1F2937),
         borderRadius: BorderRadius.circular(12.r),
-        border: Border.all(color: AppColor.whiteColor(context).withValues(alpha: (0.05))),
+        border: Border.all(
+          color: AppColor.whiteColor(context).withValues(alpha: (0.05)),
+        ),
       ),
       child: CustomFormField(hintText: hint),
     );

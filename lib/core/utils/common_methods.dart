@@ -48,20 +48,30 @@ class CommonMethods {
       context: context,
       builder: (context) => AlertDialog(
         backgroundColor: AppColor.secondAppColor(context, listen: false),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.r)),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20.r),
+        ),
         title: Row(
           children: [
-            Icon(Icons.lock_person_rounded, color: AppColor.primaryColor(context), size: 28.sp),
+            Icon(
+              Icons.lock_person_rounded,
+              color: AppColor.primaryColor(context),
+              size: 28.sp,
+            ),
             SizedBox(width: 10.w),
             Text(
               AppLocaleKey.loginRequired.tr(),
-              style: AppTextStyle.titleMedium(context).copyWith(color: Colors.white),
+              style: AppTextStyle.titleMedium(
+                context,
+              ).copyWith(color: Colors.white),
             ),
           ],
         ),
         content: Text(
           AppLocaleKey.loginToContinueYourPremiumExperience.tr(),
-          style: AppTextStyle.bodyMedium(context).copyWith(color: Colors.white70),
+          style: AppTextStyle.bodyMedium(
+            context,
+          ).copyWith(color: Colors.white70),
         ),
         actions: [
           TextButton(
@@ -79,7 +89,9 @@ class CommonMethods {
             style: ElevatedButton.styleFrom(
               backgroundColor: AppColor.primaryColor(context),
               foregroundColor: Colors.white,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.r)),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12.r),
+              ),
               padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
             ),
             child: Text(

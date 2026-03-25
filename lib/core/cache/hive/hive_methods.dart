@@ -57,4 +57,12 @@ class HiveMethods {
   static void updateIsGuest(bool isGuest) {
     _box.put('isGuest', isGuest);
   }
+
+  static String getRole() {
+    return _box.get('role', defaultValue: 'user');
+  }
+
+  static void updateRole(String role) {
+    _box.put('role', role);
+  }
 }

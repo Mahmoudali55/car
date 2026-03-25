@@ -21,7 +21,7 @@ class NotificationItemWidget extends StatelessWidget {
 
     IconData icon;
     Color iconColor;
-    
+
     switch (type) {
       case 'offer':
         icon = Icons.local_offer_rounded;
@@ -46,13 +46,13 @@ class NotificationItemWidget extends StatelessWidget {
         margin: EdgeInsets.only(bottom: 12.h),
         padding: EdgeInsets.all(16.w),
         decoration: BoxDecoration(
-          color: isRead 
+          color: isRead
               ? AppColor.secondAppColor(context).withOpacity(0.5)
               : AppColor.secondAppColor(context),
           borderRadius: BorderRadius.circular(16.r),
           border: Border.all(
-            color: isRead 
-                ? Colors.transparent 
+            color: isRead
+                ? Colors.transparent
                 : AppColor.primaryColor(context).withOpacity(0.3),
             width: 1,
           ),
@@ -92,7 +92,9 @@ class NotificationItemWidget extends StatelessWidget {
                           notification['title'] as String,
                           style: AppTextStyle.bodyMedium(context).copyWith(
                             color: Colors.white,
-                            fontWeight: isRead ? FontWeight.w500 : FontWeight.bold,
+                            fontWeight: isRead
+                                ? FontWeight.w500
+                                : FontWeight.bold,
                           ),
                         ),
                       ),

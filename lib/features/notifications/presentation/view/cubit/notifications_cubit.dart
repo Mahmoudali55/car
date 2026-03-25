@@ -75,9 +75,6 @@ class NotificationsCubit extends Cubit<NotificationsState> {
 
   void _emitLoaded(List<Map<String, dynamic>> list) {
     final unreadCount = list.where((n) => n['isRead'] == false).length;
-    emit(NotificationsLoaded(
-      notifications: list,
-      unreadCount: unreadCount,
-    ));
+    emit(NotificationsLoaded(notifications: list, unreadCount: unreadCount));
   }
 }

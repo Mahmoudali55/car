@@ -26,9 +26,13 @@ class FavoritesCubit extends Cubit<FavoritesState> {
   void toggleFavorite(Map<String, dynamic> car) {
     final currentState = state;
     if (currentState is FavoritesLoaded) {
-      final List<Map<String, dynamic>> currentFavorites = List.from(currentState.favorites);
+      final List<Map<String, dynamic>> currentFavorites = List.from(
+        currentState.favorites,
+      );
 
-      final index = currentFavorites.indexWhere((element) => element['name'] == car['name']);
+      final index = currentFavorites.indexWhere(
+        (element) => element['name'] == car['name'],
+      );
 
       if (index != -1) {
         currentFavorites.removeAt(index);
@@ -44,7 +48,9 @@ class FavoritesCubit extends Cubit<FavoritesState> {
   bool isFavorite(String carName) {
     final currentState = state;
     if (currentState is FavoritesLoaded) {
-      return currentState.favorites.any((element) => element['name'] == carName);
+      return currentState.favorites.any(
+        (element) => element['name'] == carName,
+      );
     }
     return false;
   }

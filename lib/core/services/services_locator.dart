@@ -9,5 +9,4 @@ import '../network/api_consumer.dart';
 import '../network/app_interceptors.dart';
 import '../network/dio_consumer.dart';
 
-
 part 'services_locator_imports.dart';

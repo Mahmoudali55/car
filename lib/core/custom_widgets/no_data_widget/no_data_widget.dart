@@ -7,11 +7,7 @@ import '../../theme/app_theme.dart';
 class NoDataWidget extends StatelessWidget {
   final Axis axis;
   final String? message;
-  const NoDataWidget({
-    super.key,
-    this.axis = Axis.vertical,
-    this.message,
-  });
+  const NoDataWidget({super.key, this.axis = Axis.vertical, this.message});
   @override
   Widget build(BuildContext context) {
     switch (axis) {
@@ -94,10 +90,7 @@ class NoDataWidget extends StatelessWidget {
               const SizedBox(height: 10),
               Text(
                 message ??
-                    context.apiTr(
-                      ar: 'لا توجد بيانات',
-                      en: 'There is no data',
-                    ),
+                    context.apiTr(ar: 'لا توجد بيانات', en: 'There is no data'),
                 style: TextStyle(
                   color: AppTheme.getByTheme(
                     context,

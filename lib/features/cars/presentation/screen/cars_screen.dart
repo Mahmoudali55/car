@@ -24,7 +24,7 @@ class _CarsScreenState extends State<CarsScreen> {
     AppLocaleKey.luxury.tr(),
     AppLocaleKey.suv.tr(),
     AppLocaleKey.sports.tr(),
-    AppLocaleKey.sedan.tr()
+    AppLocaleKey.sedan.tr(),
   ];
 
   @override
@@ -124,8 +124,12 @@ class _CarsScreenState extends State<CarsScreen> {
               FeaturedCarsSliderWidget(
                 featuredCars: _featuredCars.map((car) {
                   final localizedCar = Map<String, String>.from(car);
-                  if (localizedCar['price'] != null && localizedCar['price']!.contains('د.إ')) {
-                    localizedCar['price'] = localizedCar['price']!.replaceAll('د.إ', AppLocaleKey.aed.tr());
+                  if (localizedCar['price'] != null &&
+                      localizedCar['price']!.contains('د.إ')) {
+                    localizedCar['price'] = localizedCar['price']!.replaceAll(
+                      'د.إ',
+                      AppLocaleKey.aed.tr(),
+                    );
                   }
                   return localizedCar;
                 }).toList(),
@@ -177,11 +181,19 @@ class _CarsScreenState extends State<CarsScreen> {
                 itemBuilder: (context, index) {
                   final car = Map<String, dynamic>.from(_carsList[index]);
                   // Localize unit suffixes if they exist in dummy data
-                  if (car['price'] != null && car['price'].toString().contains('د.إ')) {
-                    car['price'] = car['price'].toString().replaceAll('د.إ', AppLocaleKey.aed.tr());
+                  if (car['price'] != null &&
+                      car['price'].toString().contains('د.إ')) {
+                    car['price'] = car['price'].toString().replaceAll(
+                      'د.إ',
+                      AppLocaleKey.aed.tr(),
+                    );
                   }
-                  if (car['mileage'] != null && car['mileage'].toString().contains('كم')) {
-                    car['mileage'] = car['mileage'].toString().replaceAll('كم', AppLocaleKey.km.tr());
+                  if (car['mileage'] != null &&
+                      car['mileage'].toString().contains('كم')) {
+                    car['mileage'] = car['mileage'].toString().replaceAll(
+                      'كم',
+                      AppLocaleKey.km.tr(),
+                    );
                   }
                   return PremiumCarCardWidget(car: car);
                 },

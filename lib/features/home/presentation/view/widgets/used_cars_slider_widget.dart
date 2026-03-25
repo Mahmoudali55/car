@@ -45,7 +45,11 @@ class UsedCarsSliderWidget extends StatelessWidget {
   ];
 
   void _navigateToDetails(BuildContext context, Map<String, dynamic> car) {
-    NavigatorMethods.pushNamed(context, RoutesName.carDetailsScreen, arguments: car);
+    NavigatorMethods.pushNamed(
+      context,
+      RoutesName.carDetailsScreen,
+      arguments: car,
+    );
   }
 
   @override
@@ -83,7 +87,10 @@ class UsedCarsSliderWidget extends StatelessWidget {
                           color: Colors.white.withValues(alpha: 0.02),
                           child: Hero(
                             tag: 'used_car_${car['name']}',
-                            child: Image.asset(car['image']!, fit: BoxFit.contain),
+                            child: Image.asset(
+                              car['image']!,
+                              fit: BoxFit.contain,
+                            ),
                           ),
                         ),
                         Positioned(
@@ -91,15 +98,25 @@ class UsedCarsSliderWidget extends StatelessWidget {
                           right: 8.w,
                           child: BlocBuilder<FavoritesCubit, FavoritesState>(
                             builder: (context, state) {
-                              final isFav = context.read<FavoritesCubit>().isFavorite(car['name']!);
+                              final isFav = context
+                                  .read<FavoritesCubit>()
+                                  .isFavorite(car['name']!);
                               return GestureDetector(
-                                onTap: () => context.read<FavoritesCubit>().toggleFavorite(car),
+                                onTap: () => context
+                                    .read<FavoritesCubit>()
+                                    .toggleFavorite(car),
                                 child: CircleAvatar(
                                   radius: 14.r,
-                                  backgroundColor: Colors.black.withValues(alpha: 0.3),
+                                  backgroundColor: Colors.black.withValues(
+                                    alpha: 0.3,
+                                  ),
                                   child: Icon(
-                                    isFav ? Icons.favorite_rounded : Icons.favorite_border_rounded,
-                                    color: isFav ? Colors.redAccent : Colors.white,
+                                    isFav
+                                        ? Icons.favorite_rounded
+                                        : Icons.favorite_border_rounded,
+                                    color: isFav
+                                        ? Colors.redAccent
+                                        : Colors.white,
                                     size: 16.w,
                                   ),
                                 ),

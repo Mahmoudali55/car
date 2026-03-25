@@ -46,7 +46,9 @@ class _SliverAppBarWidgetState extends State<SliverAppBarWidget> {
       leading: Padding(
         padding: EdgeInsets.all(8.w),
         child: CircleAvatar(
-          backgroundColor: AppColor.blackTextColor(context).withValues(alpha: 0.4),
+          backgroundColor: AppColor.blackTextColor(
+            context,
+          ).withValues(alpha: 0.4),
           child: IconButton(
             icon: Icon(
               Icons.arrow_back_ios_new_rounded,
@@ -61,9 +63,15 @@ class _SliverAppBarWidgetState extends State<SliverAppBarWidget> {
         Padding(
           padding: EdgeInsets.all(8.w),
           child: CircleAvatar(
-            backgroundColor: AppColor.blackTextColor(context).withValues(alpha: 0.4),
+            backgroundColor: AppColor.blackTextColor(
+              context,
+            ).withValues(alpha: 0.4),
             child: IconButton(
-              icon: Icon(Icons.share_outlined, color: AppColor.whiteColor(context), size: 20),
+              icon: Icon(
+                Icons.share_outlined,
+                color: AppColor.whiteColor(context),
+                size: 20,
+              ),
               onPressed: () {
                 if (HiveMethods.getToken() == null) {
                   CommonMethods.showLoginRequiredDialog(context);
@@ -76,15 +84,23 @@ class _SliverAppBarWidgetState extends State<SliverAppBarWidget> {
         ),
         BlocBuilder<FavoritesCubit, FavoritesState>(
           builder: (context, state) {
-            final isFav = context.read<FavoritesCubit>().isFavorite(widget.car['name'] ?? '');
+            final isFav = context.read<FavoritesCubit>().isFavorite(
+              widget.car['name'] ?? '',
+            );
             return Padding(
               padding: EdgeInsets.all(8.w),
               child: CircleAvatar(
-                backgroundColor: AppColor.blackTextColor(context).withValues(alpha: 0.4),
+                backgroundColor: AppColor.blackTextColor(
+                  context,
+                ).withValues(alpha: 0.4),
                 child: IconButton(
                   icon: Icon(
-                    isFav ? Icons.favorite_rounded : Icons.favorite_outline_rounded,
-                    color: isFav ? Colors.redAccent : AppColor.whiteColor(context),
+                    isFav
+                        ? Icons.favorite_rounded
+                        : Icons.favorite_outline_rounded,
+                    color: isFav
+                        ? Colors.redAccent
+                        : AppColor.whiteColor(context),
                     size: 20,
                   ),
                   onPressed: () {
@@ -107,7 +123,8 @@ class _SliverAppBarWidgetState extends State<SliverAppBarWidget> {
           children: [
             PageView.builder(
               controller: widget.imagePageController,
-              onPageChanged: (index) => setState(() => _currentImageIndex = index),
+              onPageChanged: (index) =>
+                  setState(() => _currentImageIndex = index),
               itemCount: widget.carImages.length,
               itemBuilder: (context, index) {
                 return Hero(
@@ -121,12 +138,19 @@ class _SliverAppBarWidgetState extends State<SliverAppBarWidget> {
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
                         colors: [
-                          AppColor.primaryColor(context).withValues(alpha: 0.15),
+                          AppColor.primaryColor(
+                            context,
+                          ).withValues(alpha: 0.15),
                           AppColor.scaffoldColor(context),
                         ],
                       ),
                     ),
-                    child: Center(child: Image.asset(widget.carImages[index], fit: BoxFit.contain)),
+                    child: Center(
+                      child: Image.asset(
+                        widget.carImages[index],
+                        fit: BoxFit.contain,
+                      ),
+                    ),
                   ),
                 );
               },
@@ -138,14 +162,17 @@ class _SliverAppBarWidgetState extends State<SliverAppBarWidget> {
               child: Container(
                 padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
                 decoration: BoxDecoration(
-                  color: AppColor.blackTextColor(context).withValues(alpha: 0.6),
+                  color: AppColor.blackTextColor(
+                    context,
+                  ).withValues(alpha: 0.6),
                   borderRadius: BorderRadius.circular(20.r),
                 ),
                 child: Text(
                   '${_currentImageIndex + 1} / ${widget.carImages.length}',
-                  style: AppTextStyle.bodySmall(
-                    context,
-                  ).copyWith(color: AppColor.whiteColor(context), fontWeight: FontWeight.bold),
+                  style: AppTextStyle.bodySmall(context).copyWith(
+                    color: AppColor.whiteColor(context),
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ),

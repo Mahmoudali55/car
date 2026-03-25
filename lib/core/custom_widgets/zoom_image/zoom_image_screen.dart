@@ -10,18 +10,12 @@ class ZoomImageArgs {
   final String? imageUrl;
   final File? imageFile;
 
-  const ZoomImageArgs({
-    this.imageUrl,
-    this.imageFile,
-  });
+  const ZoomImageArgs({this.imageUrl, this.imageFile});
 }
 
 class ZoomImageScreen extends StatefulWidget {
   final ZoomImageArgs args;
-  const ZoomImageScreen({
-    super.key,
-    required this.args,
-  });
+  const ZoomImageScreen({super.key, required this.args});
 
   static const String routeName = 'ZoomImageScreen';
 
@@ -41,9 +35,7 @@ class _ZoomImageScreenState extends State<ZoomImageScreen> {
       body: PhotoView(
         imageProvider: _imageProvider(),
         loadingBuilder: (context, event) {
-          return const Center(
-            child: CustomLoading(),
-          );
+          return const Center(child: CustomLoading());
         },
         // errorBuilder: (context, error, stackTrace) {
         //   return const Center(

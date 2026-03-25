@@ -18,7 +18,10 @@ void main() async {
       fallbackLocale: const Locale('ar'),
       startLocale: Locale(lang),
       saveLocale: true,
-      child: BlocProvider(create: (context) => AppThemeCubit()..initial(), child: const CarApp()),
+      child: BlocProvider(
+        create: (context) => AppThemeCubit()..initial(),
+        child: const CarApp(),
+      ),
     ),
   );
 }

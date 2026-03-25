@@ -45,7 +45,9 @@ class CarsCategoriesRowWidget extends StatelessWidget {
                 boxShadow: isSelected
                     ? [
                         BoxShadow(
-                          color: AppColor.primaryColor(context).withValues(alpha: 0.3),
+                          color: AppColor.primaryColor(
+                            context,
+                          ).withValues(alpha: 0.3),
                           blurRadius: 10,
                           offset: const Offset(0, 4),
                         ),
@@ -55,7 +57,9 @@ class CarsCategoriesRowWidget extends StatelessWidget {
               child: Text(
                 categories[index],
                 style: AppTextStyle.bodyMedium(context).copyWith(
-                  color: isSelected ? AppColor.whiteColor(context) : Colors.white60,
+                  color: isSelected
+                      ? AppColor.whiteColor(context)
+                      : Colors.white60,
                   fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
                 ),
               ),

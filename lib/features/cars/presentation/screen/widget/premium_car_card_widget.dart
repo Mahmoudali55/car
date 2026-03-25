@@ -18,13 +18,19 @@ class PremiumCarCardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        NavigatorMethods.pushNamed(context, RoutesName.carDetailsScreen, arguments: car);
+        NavigatorMethods.pushNamed(
+          context,
+          RoutesName.carDetailsScreen,
+          arguments: car,
+        );
       },
       child: Container(
         decoration: BoxDecoration(
           color: AppColor.secondAppColor(context),
           borderRadius: BorderRadius.circular(24.r),
-          border: Border.all(color: AppColor.whiteColor(context).withValues(alpha: 0.05)),
+          border: Border.all(
+            color: AppColor.whiteColor(context).withValues(alpha: 0.05),
+          ),
           boxShadow: [
             BoxShadow(
               color: AppColor.blackTextColor(context).withValues(alpha: 0.1),
@@ -66,9 +72,14 @@ class PremiumCarCardWidget extends StatelessWidget {
                     height: 30.h,
                     width: 80.w,
                     alignment: Alignment.center,
-                    padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 8.w,
+                      vertical: 4.h,
+                    ),
                     decoration: BoxDecoration(
-                      color: AppColor.blackTextColor(context).withValues(alpha: 0.2),
+                      color: AppColor.blackTextColor(
+                        context,
+                      ).withValues(alpha: 0.2),
                       shape: BoxShape.circle,
                     ),
                     child: Text(
@@ -86,10 +97,14 @@ class PremiumCarCardWidget extends StatelessWidget {
                   right: 15.w,
                   child: BlocBuilder<FavoritesCubit, FavoritesState>(
                     builder: (context, state) {
-                      final isFav = context.read<FavoritesCubit>().isFavorite(car['name']!);
+                      final isFav = context.read<FavoritesCubit>().isFavorite(
+                        car['name']!,
+                      );
                       return Container(
                         decoration: BoxDecoration(
-                          color: AppColor.blackTextColor(context).withValues(alpha: 0.2),
+                          color: AppColor.blackTextColor(
+                            context,
+                          ).withValues(alpha: 0.2),
                           shape: BoxShape.circle,
                         ),
                         child: IconButton(
@@ -97,7 +112,9 @@ class PremiumCarCardWidget extends StatelessWidget {
                             context.read<FavoritesCubit>().toggleFavorite(car);
                           },
                           icon: Icon(
-                            isFav ? Icons.favorite_rounded : Icons.favorite_border_rounded,
+                            isFav
+                                ? Icons.favorite_rounded
+                                : Icons.favorite_border_rounded,
                             color: isFav
                                 ? AppColor.primaryColor(context)
                                 : AppColor.whiteColor(context),
@@ -150,15 +167,32 @@ class PremiumCarCardWidget extends StatelessWidget {
                     ],
                   ),
                   Gap(12.h),
-                  Divider(color: AppColor.whiteColor(context).withValues(alpha: (0.05)), height: 1),
+                  Divider(
+                    color: AppColor.whiteColor(
+                      context,
+                    ).withValues(alpha: (0.05)),
+                    height: 1,
+                  ),
                   Gap(12.h),
                   Row(
                     children: [
-                      _buildSpecIcon(context, Icons.speed_rounded, car['mileage']),
+                      _buildSpecIcon(
+                        context,
+                        Icons.speed_rounded,
+                        car['mileage'],
+                      ),
                       Gap(16.w),
-                      _buildSpecIcon(context, Icons.settings_rounded, AppLocaleKey.normal.tr()),
+                      _buildSpecIcon(
+                        context,
+                        Icons.settings_rounded,
+                        AppLocaleKey.normal.tr(),
+                      ),
                       Gap(16.w),
-                      _buildSpecIcon(context, Icons.local_gas_station_rounded, AppLocaleKey.petrol.tr()),
+                      _buildSpecIcon(
+                        context,
+                        Icons.local_gas_station_rounded,
+                        AppLocaleKey.petrol.tr(),
+                      ),
                     ],
                   ),
                 ],

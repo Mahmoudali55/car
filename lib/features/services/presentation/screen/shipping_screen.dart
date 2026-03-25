@@ -24,15 +24,19 @@ class ShippingScreen extends StatelessWidget {
             backgroundColor: AppColor.scaffoldColor(context),
             leading: IconButton(
               onPressed: () => Navigator.pop(context),
-              icon: Icon(Icons.arrow_back_ios_new_rounded, color: AppColor.whiteColor(context)),
+              icon: Icon(
+                Icons.arrow_back_ios_new_rounded,
+                color: AppColor.whiteColor(context),
+              ),
             ),
             flexibleSpace: FlexibleSpaceBar(
               centerTitle: true,
               title: Text(
                 AppLocaleKey.vipCarShipping.tr(),
-                style: AppTextStyle.titleMedium(
-                  context,
-                ).copyWith(color: AppColor.whiteColor(context), fontWeight: FontWeight.bold),
+                style: AppTextStyle.titleMedium(context).copyWith(
+                  color: AppColor.whiteColor(context),
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               background: Stack(
                 fit: StackFit.expand,
@@ -68,38 +72,66 @@ class ShippingScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  FadeInUp(child: _buildSectionHeader(AppLocaleKey.shippingDetails.tr(), context)),
+                  FadeInUp(
+                    child: _buildSectionHeader(
+                      AppLocaleKey.shippingDetails.tr(),
+                      context,
+                    ),
+                  ),
                   Gap(16.h),
                   FadeInUp(
                     delay: const Duration(milliseconds: 100),
-                    child: _buildTextField(AppLocaleKey.departurePoint.tr(), context),
+                    child: _buildTextField(
+                      AppLocaleKey.departurePoint.tr(),
+                      context,
+                    ),
                   ),
                   Gap(12.h),
                   FadeInUp(
                     delay: const Duration(milliseconds: 200),
-                    child: _buildTextField(AppLocaleKey.arrivalDestination.tr(), context),
+                    child: _buildTextField(
+                      AppLocaleKey.arrivalDestination.tr(),
+                      context,
+                    ),
                   ),
                   Gap(12.h),
                   FadeInUp(
                     delay: const Duration(milliseconds: 300),
-                    child: _buildTextField(AppLocaleKey.preferredShippingDate.tr(), context),
+                    child: _buildTextField(
+                      AppLocaleKey.preferredShippingDate.tr(),
+                      context,
+                    ),
                   ),
                   Gap(32.h),
-                  FadeInUp(child: _buildSectionHeader(AppLocaleKey.truckType.tr(), context)),
+                  FadeInUp(
+                    child: _buildSectionHeader(
+                      AppLocaleKey.truckType.tr(),
+                      context,
+                    ),
+                  ),
                   Gap(16.h),
                   FadeInUp(
                     delay: const Duration(milliseconds: 400),
-                    child: _buildSelectionCard(AppLocaleKey.openFlatbed.tr(), context),
+                    child: _buildSelectionCard(
+                      AppLocaleKey.openFlatbed.tr(),
+                      context,
+                    ),
                   ),
                   Gap(12.h),
                   FadeInUp(
                     delay: const Duration(milliseconds: 500),
-                    child: _buildSelectionCard(AppLocaleKey.closedCarrierVip.tr(), context),
+                    child: _buildSelectionCard(
+                      AppLocaleKey.closedCarrierVip.tr(),
+                      context,
+                    ),
                   ),
                   Gap(40.h),
                   FadeInUp(
                     delay: const Duration(milliseconds: 600),
-                    child: _buildSubmitButton(context, AppLocaleKey.bookShipment.tr()),
+                    child: _buildSubmitButton(
+                      context,
+                      AppLocaleKey.bookShipment.tr(),
+                    ),
                   ),
                   Gap(50.h),
                 ],
@@ -127,7 +159,9 @@ class ShippingScreen extends StatelessWidget {
       decoration: BoxDecoration(
         color: const Color(0xFF1F2937),
         borderRadius: BorderRadius.circular(12.r),
-        border: Border.all(color: AppColor.whiteColor(context).withValues(alpha: (0.05))),
+        border: Border.all(
+          color: AppColor.whiteColor(context).withValues(alpha: (0.05)),
+        ),
       ),
       child: CustomFormField(hintText: hint),
     );
@@ -139,16 +173,21 @@ class ShippingScreen extends StatelessWidget {
       decoration: BoxDecoration(
         color: const Color(0xFF1F2937),
         borderRadius: BorderRadius.circular(12.r),
-        border: Border.all(color: AppColor.whiteColor(context).withValues(alpha: (0.05))),
+        border: Border.all(
+          color: AppColor.whiteColor(context).withValues(alpha: (0.05)),
+        ),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
             title,
-            style: TextStyle(color: AppColor.whiteColor(context), fontWeight: FontWeight.bold),
+            style: TextStyle(
+              color: AppColor.whiteColor(context),
+              fontWeight: FontWeight.bold,
+            ),
           ),
-          Icon(Icons.circle_outlined, color: Colors.white24),
+          const Icon(Icons.circle_outlined, color: Colors.white24),
         ],
       ),
     );
@@ -159,7 +198,9 @@ class ShippingScreen extends StatelessWidget {
       width: double.infinity,
       height: 55.h,
       decoration: BoxDecoration(
-        gradient: const LinearGradient(colors: [Color(0xFF4C1D95), Color(0xFF7C3AED)]),
+        gradient: const LinearGradient(
+          colors: [Color(0xFF4C1D95), Color(0xFF7C3AED)],
+        ),
         borderRadius: BorderRadius.circular(16.r),
         boxShadow: [
           BoxShadow(
@@ -174,7 +215,9 @@ class ShippingScreen extends StatelessWidget {
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.transparent,
           shadowColor: Colors.transparent,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.r)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16.r),
+          ),
         ),
         child: Text(
           text,

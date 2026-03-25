@@ -14,40 +14,40 @@ class ServiceHistoryScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final List<Map<String, dynamic>> history = [
       {
-        "service": AppLocaleKey.periodicMaintenance.tr(),
-        "date": "20 March 2024",
-        "status": AppLocaleKey.completedStatus.tr(),
-        "car": AppLocaleKey.mercedesSClass.tr(),
-        "cost": "1,200 ${AppLocaleKey.currencyRiyal.tr()}",
-        "icon": Icons.build_rounded,
-        "color": Colors.greenAccent,
+        'service': AppLocaleKey.periodicMaintenance.tr(),
+        'date': '20 March 2024',
+        'status': AppLocaleKey.completedStatus.tr(),
+        'car': AppLocaleKey.mercedesSClass.tr(),
+        'cost': '1,200 ${AppLocaleKey.currencyRiyal.tr()}',
+        'icon': Icons.build_rounded,
+        'color': Colors.greenAccent,
       },
       {
-        "service": AppLocaleKey.oilAndFilterChange.tr(),
-        "date": "10 February 2024",
-        "status": AppLocaleKey.completedStatus.tr(),
-        "car": AppLocaleKey.mercedesSClass.tr(),
-        "cost": "450 ${AppLocaleKey.currencyRiyal.tr()}",
-        "icon": Icons.oil_barrel_rounded,
-        "color": Colors.blueAccent,
+        'service': AppLocaleKey.oilAndFilterChange.tr(),
+        'date': '10 February 2024',
+        'status': AppLocaleKey.completedStatus.tr(),
+        'car': AppLocaleKey.mercedesSClass.tr(),
+        'cost': '450 ${AppLocaleKey.currencyRiyal.tr()}',
+        'icon': Icons.oil_barrel_rounded,
+        'color': Colors.blueAccent,
       },
       {
-        "service": AppLocaleKey.nanoCeramicPolishing.tr(),
-        "date": "05 January 2024",
-        "status": AppLocaleKey.completedStatus.tr(),
-        "car": AppLocaleKey.mercedesSClass.tr(),
-        "cost": "2,500 ${AppLocaleKey.currencyRiyal.tr()}",
-        "icon": Icons.auto_awesome_rounded,
-        "color": Colors.purpleAccent,
+        'service': AppLocaleKey.nanoCeramicPolishing.tr(),
+        'date': '05 January 2024',
+        'status': AppLocaleKey.completedStatus.tr(),
+        'car': AppLocaleKey.mercedesSClass.tr(),
+        'cost': '2,500 ${AppLocaleKey.currencyRiyal.tr()}',
+        'icon': Icons.auto_awesome_rounded,
+        'color': Colors.purpleAccent,
       },
       {
-        "service": AppLocaleKey.comprehensiveInspection.tr(),
-        "date": "15 December 2023",
-        "status": AppLocaleKey.cancelledStatus.tr(),
-        "car": AppLocaleKey.bmwX5.tr(),
-        "cost": "0 ${AppLocaleKey.currencyRiyal.tr()}",
-        "icon": Icons.fact_check_rounded,
-        "color": Colors.redAccent,
+        'service': AppLocaleKey.comprehensiveInspection.tr(),
+        'date': '15 December 2023',
+        'status': AppLocaleKey.cancelledStatus.tr(),
+        'car': AppLocaleKey.bmwX5.tr(),
+        'cost': '0 ${AppLocaleKey.currencyRiyal.tr()}',
+        'icon': Icons.fact_check_rounded,
+        'color': Colors.redAccent,
       },
     ];
 
@@ -59,13 +59,17 @@ class ServiceHistoryScreen extends StatelessWidget {
         centerTitle: true,
         leading: IconButton(
           onPressed: () => Navigator.pop(context),
-          icon: Icon(Icons.arrow_back_ios_new_rounded, color: AppColor.whiteColor(context)),
+          icon: Icon(
+            Icons.arrow_back_ios_new_rounded,
+            color: AppColor.whiteColor(context),
+          ),
         ),
         title: Text(
           AppLocaleKey.myServiceHistory.tr(),
-          style: AppTextStyle.titleMedium(
-            context,
-          ).copyWith(color: AppColor.whiteColor(context), fontWeight: FontWeight.bold),
+          style: AppTextStyle.titleMedium(context).copyWith(
+            color: AppColor.whiteColor(context),
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
       body: ListView.builder(
@@ -81,7 +85,9 @@ class ServiceHistoryScreen extends StatelessWidget {
               decoration: BoxDecoration(
                 color: const Color(0xFF1F2937),
                 borderRadius: BorderRadius.circular(16.r),
-                border: Border.all(color: AppColor.whiteColor(context).withOpacity(0.05)),
+                border: Border.all(
+                  color: AppColor.whiteColor(context).withOpacity(0.05),
+                ),
               ),
               child: Row(
                 children: [
@@ -91,7 +97,11 @@ class ServiceHistoryScreen extends StatelessWidget {
                       color: item['color'].withOpacity(0.1),
                       borderRadius: BorderRadius.circular(12.r),
                     ),
-                    child: Icon(item['icon'], color: item['color'], size: 24.sp),
+                    child: Icon(
+                      item['icon'],
+                      color: item['color'],
+                      size: 24.sp,
+                    ),
                   ),
                   Gap(16.w),
                   Expanded(
@@ -122,13 +132,21 @@ class ServiceHistoryScreen extends StatelessWidget {
                         Gap(4.h),
                         Text(
                           "${item['car']} • ${item['date']}",
-                          style: TextStyle(color: Colors.white38, fontSize: 11.sp),
+                          style: TextStyle(
+                            color: Colors.white38,
+                            fontSize: 11.sp,
+                          ),
                         ),
                         Gap(8.h),
                         Container(
-                          padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 8.w,
+                            vertical: 4.h,
+                          ),
                           decoration: BoxDecoration(
-                            color: item['status'] == AppLocaleKey.cancelledStatus.tr()
+                            color:
+                                item['status'] ==
+                                    AppLocaleKey.cancelledStatus.tr()
                                 ? Colors.red.withValues(alpha: (0.1))
                                 : Colors.green.withValues(alpha: (0.1)),
                             borderRadius: BorderRadius.circular(6.r),
@@ -136,7 +154,9 @@ class ServiceHistoryScreen extends StatelessWidget {
                           child: Text(
                             item['status'],
                             style: TextStyle(
-                              color: item['status'] == AppLocaleKey.cancelledStatus.tr()
+                              color:
+                                  item['status'] ==
+                                      AppLocaleKey.cancelledStatus.tr()
                                   ? Colors.redAccent
                                   : Colors.greenAccent,
                               fontSize: 10.sp,
