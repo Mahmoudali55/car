@@ -113,9 +113,7 @@ class TradeInScreen extends StatelessWidget {
                         ],
                       ),
                       child: ElevatedButton(
-                        onPressed: () {
-                          // TODO: Implement Submit
-                        },
+                        onPressed: () {},
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.transparent,
                           shadowColor: Colors.transparent,
@@ -124,7 +122,7 @@ class TradeInScreen extends StatelessWidget {
                         child: Text(
                           AppLocaleKey.sendRequest.tr(),
                           style: TextStyle(
-                            color: Colors.white,
+                            color: AppColor.whiteColor(context),
                             fontSize: 16.sp,
                             fontWeight: FontWeight.bold,
                           ),
