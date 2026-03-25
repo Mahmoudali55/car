@@ -1,4 +1,5 @@
 import 'package:animate_do/animate_do.dart';
+import 'package:car/core/custom_widgets/custom_form_field/custom_form_field.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
@@ -23,7 +24,7 @@ class CarDetailingScreen extends StatelessWidget {
             backgroundColor: AppColor.scaffoldColor(context),
             leading: IconButton(
               onPressed: () => Navigator.pop(context),
-              icon: const Icon(Icons.arrow_back_ios_new_rounded, color: Colors.white),
+              icon: Icon(Icons.arrow_back_ios_new_rounded, color: AppColor.whiteColor(context)),
             ),
             flexibleSpace: FlexibleSpaceBar(
               centerTitle: true,
@@ -31,7 +32,7 @@ class CarDetailingScreen extends StatelessWidget {
                 AppLocaleKey.carePolishingServices.tr(),
                 style: AppTextStyle.titleMedium(
                   context,
-                ).copyWith(color: Colors.white, fontWeight: FontWeight.bold),
+                ).copyWith(color: AppColor.whiteColor(context), fontWeight: FontWeight.bold),
               ),
               background: Stack(
                 fit: StackFit.expand,
@@ -50,7 +51,11 @@ class CarDetailingScreen extends StatelessWidget {
                     bottom: -10.h,
                     child: Opacity(
                       opacity: 0.2,
-                      child: Icon(Icons.auto_awesome_rounded, size: 150.sp, color: Colors.white),
+                      child: Icon(
+                        Icons.auto_awesome_rounded,
+                        size: 150.sp,
+                        color: AppColor.whiteColor(context),
+                      ),
                     ),
                   ),
                 ],
@@ -63,28 +68,36 @@ class CarDetailingScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  FadeInUp(child: _buildSectionHeader(AppLocaleKey.requestedServiceType.tr())),
+                  FadeInUp(
+                    child: _buildSectionHeader(AppLocaleKey.requestedServiceType.tr(), context),
+                  ),
                   Gap(16.h),
                   FadeInUp(
                     delay: const Duration(milliseconds: 100),
-                    child: _buildSelectionCard(AppLocaleKey.comprehensiveExteriorPolishing.tr()),
+                    child: _buildSelectionCard(
+                      AppLocaleKey.comprehensiveExteriorPolishing.tr(),
+                      context,
+                    ),
                   ),
                   Gap(12.h),
                   FadeInUp(
                     delay: const Duration(milliseconds: 200),
-                    child: _buildSelectionCard(AppLocaleKey.interiorCleaningPolishing.tr()),
+                    child: _buildSelectionCard(
+                      AppLocaleKey.interiorCleaningPolishing.tr(),
+                      context,
+                    ),
                   ),
                   Gap(12.h),
                   FadeInUp(
                     delay: const Duration(milliseconds: 300),
-                    child: _buildSelectionCard(AppLocaleKey.nanoCeramicProtection.tr()),
+                    child: _buildSelectionCard(AppLocaleKey.nanoCeramicProtection.tr(), context),
                   ),
                   Gap(32.h),
-                  FadeInUp(child: _buildSectionHeader(AppLocaleKey.carDetails.tr())),
+                  FadeInUp(child: _buildSectionHeader(AppLocaleKey.carDetails.tr(), context)),
                   Gap(16.h),
                   FadeInUp(
                     delay: const Duration(milliseconds: 400),
-                    child: _buildTextField(AppLocaleKey.carSizeHint.tr()),
+                    child: _buildTextField(AppLocaleKey.carSizeHint.tr(), context),
                   ),
                   Gap(40.h),
                   FadeInUp(
@@ -101,48 +114,44 @@ class CarDetailingScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildSectionHeader(String title) {
+  Widget _buildSectionHeader(String title, BuildContext context) {
     return Text(
       title,
-      style: TextStyle(color: Colors.white, fontSize: 18.sp, fontWeight: FontWeight.bold),
+      style: TextStyle(
+        color: AppColor.whiteColor(context),
+        fontSize: 18.sp,
+        fontWeight: FontWeight.bold,
+      ),
     );
   }
 
-  Widget _buildTextField(String hint) {
+  Widget _buildTextField(String hint, BuildContext context) {
     return Container(
       decoration: BoxDecoration(
         color: const Color(0xFF1F2937),
         borderRadius: BorderRadius.circular(12.r),
-        border: Border.all(color: Colors.white.withOpacity(0.05)),
+        border: Border.all(color: AppColor.whiteColor(context).withOpacity(0.05)),
       ),
-      child: TextField(
-        style: const TextStyle(color: Colors.white),
-        decoration: InputDecoration(
-          hintText: hint,
-          hintStyle: TextStyle(color: Colors.white38, fontSize: 14.sp),
-          contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
-          border: InputBorder.none,
-        ),
-      ),
+      child: CustomFormField(hintText: hint),
     );
   }
 
-  Widget _buildSelectionCard(String title) {
+  Widget _buildSelectionCard(String title, BuildContext context) {
     return Container(
       padding: EdgeInsets.all(16.w),
       decoration: BoxDecoration(
         color: const Color(0xFF1F2937),
         borderRadius: BorderRadius.circular(12.r),
-        border: Border.all(color: Colors.white.withOpacity(0.05)),
+        border: Border.all(color: AppColor.whiteColor(context).withOpacity(0.05)),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
             title,
-            style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            style: TextStyle(color: AppColor.whiteColor(context), fontWeight: FontWeight.bold),
           ),
-          const Icon(Icons.circle_outlined, color: Colors.white24),
+          Icon(Icons.circle_outlined, color: Colors.white24),
         ],
       ),
     );
@@ -157,7 +166,7 @@ class CarDetailingScreen extends StatelessWidget {
         borderRadius: BorderRadius.circular(16.r),
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFF831843).withOpacity(0.3),
+            color: const Color(0xFF831843).withValues(alpha: (0.3)),
             blurRadius: 10,
             offset: const Offset(0, 5),
           ),
@@ -172,7 +181,11 @@ class CarDetailingScreen extends StatelessWidget {
         ),
         child: Text(
           text,
-          style: TextStyle(color: Colors.white, fontSize: 16.sp, fontWeight: FontWeight.bold),
+          style: TextStyle(
+            color: AppColor.whiteColor(context),
+            fontSize: 16.sp,
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
     );

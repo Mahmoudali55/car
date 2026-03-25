@@ -59,13 +59,13 @@ class ServiceHistoryScreen extends StatelessWidget {
         centerTitle: true,
         leading: IconButton(
           onPressed: () => Navigator.pop(context),
-          icon: const Icon(Icons.arrow_back_ios_new_rounded, color: Colors.white),
+          icon: Icon(Icons.arrow_back_ios_new_rounded, color: AppColor.whiteColor(context)),
         ),
         title: Text(
           AppLocaleKey.myServiceHistory.tr(),
           style: AppTextStyle.titleMedium(
             context,
-          ).copyWith(color: Colors.white, fontWeight: FontWeight.bold),
+          ).copyWith(color: AppColor.whiteColor(context), fontWeight: FontWeight.bold),
         ),
       ),
       body: ListView.builder(
@@ -81,7 +81,7 @@ class ServiceHistoryScreen extends StatelessWidget {
               decoration: BoxDecoration(
                 color: const Color(0xFF1F2937),
                 borderRadius: BorderRadius.circular(16.r),
-                border: Border.all(color: Colors.white.withOpacity(0.05)),
+                border: Border.all(color: AppColor.whiteColor(context).withOpacity(0.05)),
               ),
               child: Row(
                 children: [
@@ -104,7 +104,7 @@ class ServiceHistoryScreen extends StatelessWidget {
                             Text(
                               item['service'],
                               style: TextStyle(
-                                color: Colors.white,
+                                color: AppColor.whiteColor(context),
                                 fontSize: 14.sp,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -129,8 +129,8 @@ class ServiceHistoryScreen extends StatelessWidget {
                           padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
                           decoration: BoxDecoration(
                             color: item['status'] == AppLocaleKey.cancelledStatus.tr()
-                                ? Colors.red.withOpacity(0.1)
-                                : Colors.green.withOpacity(0.1),
+                                ? Colors.red.withValues(alpha: (0.1))
+                                : Colors.green.withValues(alpha: (0.1)),
                             borderRadius: BorderRadius.circular(6.r),
                           ),
                           child: Text(

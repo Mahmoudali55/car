@@ -355,10 +355,26 @@ class ServicesScreen extends StatelessWidget {
 
   List<Map<String, dynamic>> _getQuickActions() {
     return [
-      {'icon': Icons.swap_vert_rounded, 'label': AppLocaleKey.swap.tr(), 'color': Colors.blueAccent},
-      {'icon': Icons.calendar_month_rounded, 'label': AppLocaleKey.bookAppointments.tr(), 'color': Colors.orangeAccent},
-      {'icon': Icons.history_rounded, 'label': AppLocaleKey.myHistory.tr(), 'color': Colors.greenAccent},
-      {'icon': Icons.support_agent_rounded, 'label': AppLocaleKey.support.tr(), 'color': Colors.purpleAccent},
+      {
+        'icon': Icons.swap_vert_rounded,
+        'label': AppLocaleKey.swap.tr(),
+        'color': Colors.blueAccent,
+      },
+      {
+        'icon': Icons.calendar_month_rounded,
+        'label': AppLocaleKey.bookAppointments.tr(),
+        'color': Colors.orangeAccent,
+      },
+      {
+        'icon': Icons.history_rounded,
+        'label': AppLocaleKey.myHistory.tr(),
+        'color': Colors.greenAccent,
+      },
+      {
+        'icon': Icons.support_agent_rounded,
+        'label': AppLocaleKey.support.tr(),
+        'color': Colors.purpleAccent,
+      },
     ];
   }
 
@@ -405,7 +421,8 @@ class ServicesScreen extends StatelessWidget {
   String _getServiceDescription(String label) {
     if (label == AppLocaleKey.tradeIn.tr()) return AppLocaleKey.tradeInDesc.tr();
     if (label == AppLocaleKey.importOnDemand.tr()) return AppLocaleKey.importOnDemandDesc.tr();
-    if (label == AppLocaleKey.financingSolutions.tr()) return AppLocaleKey.financingSolutionsDesc.tr();
+    if (label == AppLocaleKey.financingSolutions.tr())
+      return AppLocaleKey.financingSolutionsDesc.tr();
     if (label == AppLocaleKey.showroomShine.tr()) return AppLocaleKey.showroomShineDesc.tr();
     if (label == AppLocaleKey.vipShipping.tr()) return AppLocaleKey.vipShippingDesc.tr();
     if (label == AppLocaleKey.bespokeSelection.tr()) return AppLocaleKey.bespokeSelectionDesc.tr();
@@ -425,8 +442,7 @@ class ServicesScreen extends StatelessWidget {
       Navigator.pushNamed(context, RoutesName.shippingScreen);
     } else if (label == AppLocaleKey.bespokeSelection.tr()) {
       Navigator.pushNamed(context, RoutesName.bespokeSelectionScreen);
-    } else if (label == AppLocaleKey.carValuation.tr() ||
-        label == AppLocaleKey.valuation.tr()) {
+    } else if (label == AppLocaleKey.carValuation.tr() || label == AppLocaleKey.valuation.tr()) {
       Navigator.pushNamed(context, RoutesName.carValuationScreen);
     }
   }

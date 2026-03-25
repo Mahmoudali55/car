@@ -23,7 +23,7 @@ class SupportScreen extends StatelessWidget {
             backgroundColor: AppColor.scaffoldColor(context),
             leading: IconButton(
               onPressed: () => Navigator.pop(context),
-              icon: const Icon(Icons.arrow_back_ios_new_rounded, color: Colors.white),
+              icon: Icon(Icons.arrow_back_ios_new_rounded, color: AppColor.whiteColor(context)),
             ),
             flexibleSpace: FlexibleSpaceBar(
               centerTitle: true,
@@ -31,7 +31,7 @@ class SupportScreen extends StatelessWidget {
                 AppLocaleKey.supportCenter.tr(),
                 style: AppTextStyle.titleMedium(
                   context,
-                ).copyWith(color: Colors.white, fontWeight: FontWeight.bold),
+                ).copyWith(color: AppColor.whiteColor(context), fontWeight: FontWeight.bold),
               ),
               background: Container(
                 decoration: const BoxDecoration(
@@ -44,7 +44,11 @@ class SupportScreen extends StatelessWidget {
                 child: Center(
                   child: Opacity(
                     opacity: 0.1,
-                    child: Icon(Icons.support_agent_rounded, size: 120.sp, color: Colors.white),
+                    child: Icon(
+                      Icons.support_agent_rounded,
+                      size: 120.sp,
+                      color: AppColor.whiteColor(context),
+                    ),
                   ),
                 ),
               ),
@@ -60,7 +64,7 @@ class SupportScreen extends StatelessWidget {
                     child: Text(
                       AppLocaleKey.howCanWeHelp.tr(),
                       style: TextStyle(
-                        color: Colors.white,
+                        color: AppColor.whiteColor(context),
                         fontSize: 18.sp,
                         fontWeight: FontWeight.bold,
                       ),
@@ -97,7 +101,7 @@ class SupportScreen extends StatelessWidget {
                     child: Text(
                       AppLocaleKey.faqs.tr(),
                       style: TextStyle(
-                        color: Colors.white,
+                        color: AppColor.whiteColor(context),
                         fontSize: 16.sp,
                         fontWeight: FontWeight.bold,
                       ),
@@ -132,23 +136,23 @@ class SupportScreen extends StatelessWidget {
         decoration: BoxDecoration(
           color: const Color(0xFF1F2937),
           borderRadius: BorderRadius.circular(16.r),
-          border: Border.all(color: Colors.white.withOpacity(0.05)),
+          border: Border.all(color: AppColor.whiteColor(context).withValues(alpha: (0.05))),
         ),
         child: ListTile(
           contentPadding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 8.h),
           leading: Container(
             padding: EdgeInsets.all(10.w),
             decoration: BoxDecoration(
-              color: color.withOpacity(0.1),
+              color: color.withValues(alpha: (0.1)),
               borderRadius: BorderRadius.circular(12.r),
             ),
             child: Icon(icon, color: color, size: 24.sp),
           ),
           title: Text(
             title,
-            style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            style: TextStyle(color: AppColor.whiteColor(context), fontWeight: FontWeight.bold),
           ),
-          subtitle: Text(subtitle, style: const TextStyle(color: Colors.white38, fontSize: 11)),
+          subtitle: Text(subtitle, style: TextStyle(color: Colors.white38, fontSize: 11)),
           trailing: const Icon(Icons.arrow_forward_ios_rounded, color: Colors.white24, size: 16),
           onTap: () {},
         ),
@@ -163,7 +167,7 @@ class SupportScreen extends StatelessWidget {
         margin: EdgeInsets.only(bottom: 8.h),
         padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 14.h),
         decoration: BoxDecoration(
-          color: const Color(0xFF1F2937).withOpacity(0.5),
+          color: const Color(0xFF1F2937).withValues(alpha: (0.5)),
           borderRadius: BorderRadius.circular(12.r),
         ),
         child: Row(

@@ -1,4 +1,5 @@
 import 'package:animate_do/animate_do.dart';
+import 'package:car/core/custom_widgets/custom_form_field/custom_form_field.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
@@ -23,7 +24,7 @@ class TradeInScreen extends StatelessWidget {
             backgroundColor: AppColor.scaffoldColor(context),
             leading: IconButton(
               onPressed: () => Navigator.pop(context),
-              icon: const Icon(Icons.arrow_back_ios_new_rounded, color: Colors.white),
+              icon: Icon(Icons.arrow_back_ios_new_rounded, color: AppColor.whiteColor(context)),
             ),
             flexibleSpace: FlexibleSpaceBar(
               centerTitle: true,
@@ -31,7 +32,7 @@ class TradeInScreen extends StatelessWidget {
                 AppLocaleKey.replaceYourCar.tr(),
                 style: AppTextStyle.titleMedium(
                   context,
-                ).copyWith(color: Colors.white, fontWeight: FontWeight.bold),
+                ).copyWith(color: AppColor.whiteColor(context), fontWeight: FontWeight.bold),
               ),
               background: Stack(
                 fit: StackFit.expand,
@@ -53,7 +54,7 @@ class TradeInScreen extends StatelessWidget {
                       child: Icon(
                         Icons.swap_horizontal_circle_rounded,
                         size: 150.sp,
-                        color: Colors.white,
+                        color: AppColor.whiteColor(context),
                       ),
                     ),
                   ),
@@ -67,31 +68,31 @@ class TradeInScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  FadeInUp(child: _buildSectionHeader(AppLocaleKey.currentCarInfo.tr())),
+                  FadeInUp(child: _buildSectionHeader(AppLocaleKey.currentCarInfo.tr(), context)),
                   Gap(16.h),
                   FadeInUp(
                     delay: const Duration(milliseconds: 100),
-                    child: _buildTextField(AppLocaleKey.carTypeModel.tr()),
+                    child: _buildTextField(AppLocaleKey.carTypeModel.tr(), context),
                   ),
                   Gap(12.h),
                   FadeInUp(
                     delay: const Duration(milliseconds: 200),
-                    child: _buildTextField(AppLocaleKey.manufacturingYear.tr()),
+                    child: _buildTextField(AppLocaleKey.manufacturingYear.tr(), context),
                   ),
                   Gap(12.h),
                   FadeInUp(
                     delay: const Duration(milliseconds: 300),
-                    child: _buildTextField(AppLocaleKey.mileageKm.tr()),
+                    child: _buildTextField(AppLocaleKey.mileageKm.tr(), context),
                   ),
                   Gap(32.h),
                   FadeInUp(
                     delay: const Duration(milliseconds: 400),
-                    child: _buildSectionHeader(AppLocaleKey.requestedCarInfo.tr()),
+                    child: _buildSectionHeader(AppLocaleKey.requestedCarInfo.tr(), context),
                   ),
                   Gap(16.h),
                   FadeInUp(
                     delay: const Duration(milliseconds: 500),
-                    child: _buildTextField(AppLocaleKey.desiredCar.tr()),
+                    child: _buildTextField(AppLocaleKey.desiredCar.tr(), context),
                   ),
                   Gap(40.h),
                   FadeInUp(
@@ -140,29 +141,25 @@ class TradeInScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildSectionHeader(String title) {
+  Widget _buildSectionHeader(String title, BuildContext context) {
     return Text(
       title,
-      style: TextStyle(color: Colors.white, fontSize: 18.sp, fontWeight: FontWeight.bold),
+      style: TextStyle(
+        color: AppColor.whiteColor(context),
+        fontSize: 18.sp,
+        fontWeight: FontWeight.bold,
+      ),
     );
   }
 
-  Widget _buildTextField(String hint) {
+  Widget _buildTextField(String hint, BuildContext context) {
     return Container(
       decoration: BoxDecoration(
         color: const Color(0xFF1F2937),
         borderRadius: BorderRadius.circular(12.r),
-        border: Border.all(color: Colors.white.withOpacity(0.05)),
+        border: Border.all(color: AppColor.whiteColor(context).withValues(alpha: (0.05))),
       ),
-      child: TextField(
-        style: const TextStyle(color: Colors.white),
-        decoration: InputDecoration(
-          hintText: hint,
-          hintStyle: TextStyle(color: Colors.white38, fontSize: 14.sp),
-          contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
-          border: InputBorder.none,
-        ),
-      ),
+      child: CustomFormField(hintText: hint),
     );
   }
 }
