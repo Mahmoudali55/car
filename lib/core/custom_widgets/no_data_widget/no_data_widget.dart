@@ -46,8 +46,8 @@ class NoDataWidget extends StatelessWidget {
                     child: Text(
                       message ??
                           context.apiTr(
-                            ar: "لا توجد بيانات",
-                            en: "There is no data",
+                            ar: 'لا توجد بيانات',
+                            en: 'There is no data',
                           ),
                       style: TextStyle(
                         color: AppTheme.getByTheme(
@@ -95,8 +95,8 @@ class NoDataWidget extends StatelessWidget {
               Text(
                 message ??
                     context.apiTr(
-                      ar: "لا توجد بيانات",
-                      en: "There is no data",
+                      ar: 'لا توجد بيانات',
+                      en: 'There is no data',
                     ),
                 style: TextStyle(
                   color: AppTheme.getByTheme(

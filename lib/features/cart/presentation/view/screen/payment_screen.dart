@@ -1,10 +1,8 @@
 import 'package:car/core/routes/routes_name.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
-import 'package:car/features/cart/presentation/view/cubit/cart_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
@@ -282,10 +280,10 @@ class _PaymentScreenState extends State<PaymentScreen> {
                       ? SizedBox(
                           height: 22.h,
                           width: 22.h,
-                          child: CircularProgressIndicator(
+                          child: const CircularProgressIndicator(
                             strokeWidth: 2.5,
                             valueColor:
-                                const AlwaysStoppedAnimation(Colors.white),
+                                AlwaysStoppedAnimation(Colors.white),
                           ),
                         )
                       : Row(

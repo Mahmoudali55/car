@@ -1,6 +1,10 @@
+import 'package:animate_do/animate_do.dart';
+import 'package:car/core/cache/hive/hive_methods.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
+import 'package:car/core/routes/routes_name.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
+import 'package:car/core/utils/common_methods.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -13,91 +17,108 @@ class ServicesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        // Header Section
-        Padding(
-          padding: EdgeInsets.fromLTRB(20.w, 20.h, 20.w, 10.h),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    AppLocaleKey.ourServices.tr(),
-                    style: AppTextStyle.titleLarge(
-                      context,
-                    ).copyWith(color: Colors.white, fontWeight: FontWeight.w900, fontSize: 28.sp),
+        // Premium Header Section
+        FadeInDown(
+          duration: const Duration(milliseconds: 600),
+          child: Padding(
+            padding: EdgeInsets.fromLTRB(20.w, 20.h, 20.w, 10.h),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        AppLocaleKey.ourServices.tr(),
+                        style: AppTextStyle.titleLarge(context).copyWith(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w900,
+                          fontSize: 26.sp,
+                          letterSpacing: -0.5,
+                        ),
+                      ),
+                      Gap(4.h),
+                      Text(
+                        AppLocaleKey.showroomSubtitle.tr(),
+                        style: AppTextStyle.bodySmall(
+                          context,
+                        ).copyWith(color: Colors.white70, fontSize: 12.sp),
+                      ),
+                    ],
                   ),
-                  Gap(4.h),
-                  Text(
-                    'نعتني بسيارتك بأعلى المعايير العالمية',
-                    style: AppTextStyle.bodySmall(context).copyWith(color: Colors.white60),
-                  ),
-                ],
-              ),
-              Container(
-                padding: EdgeInsets.all(10.w),
-                decoration: BoxDecoration(
-                  color: AppColor.primaryColor(context).withOpacity(0.1),
-                  shape: BoxShape.circle,
                 ),
-                child: Icon(
-                  Icons.history_rounded,
-                  color: AppColor.primaryColor(context),
-                  size: 24.sp,
+                Row(
+                  children: [
+                    IconButton(
+                      onPressed: () => Navigator.pushNamed(context, RoutesName.settingsScreen),
+                      icon: Icon(Icons.settings_outlined, color: Colors.white70, size: 24.sp),
+                    ),
+                    Gap(8.w),
+                    Container(
+                      padding: EdgeInsets.all(12.w),
+                      decoration: BoxDecoration(
+                        color: AppColor.primaryColor(context).withValues(alpha: 0.12),
+                        borderRadius: BorderRadius.circular(16.r),
+                        border: Border.all(color: AppColor.primaryColor(context).withValues(alpha: 0.2)),
+                      ),
+                      child: Icon(
+                        Icons.stars_rounded,
+                        color: AppColor.primaryColor(context),
+                        size: 26.sp,
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
 
         Expanded(
           child: ListView(
-            padding: EdgeInsets.zero,
+            padding: EdgeInsets.only(top: 10.h, bottom: 120.h),
             physics: const BouncingScrollPhysics(),
             children: [
-              // Quick Help Section (SOS Style)
-              _buildQuickHelpSection(context),
+              // Hero Action Section: Sell or Trade
+              FadeInUp(
+                duration: const Duration(milliseconds: 800),
+                child: _buildHeroActionSection(context),
+              ),
               Gap(24.h),
 
-              // Main Services Grid
+              // Showroom Services Grid title
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20.w),
-                child: Text(
-                  AppLocaleKey.services.tr(),
-                  style: AppTextStyle.titleMedium(
-                    context,
-                  ).copyWith(color: Colors.white, fontWeight: FontWeight.bold),
+                child: FadeInLeft(
+                  child: Text(
+                    AppLocaleKey.services.tr(),
+                    style: AppTextStyle.titleMedium(
+                      context,
+                    ).copyWith(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18.sp),
+                  ),
                 ),
               ),
               Gap(16.h),
+
+              // Custom Animated Grid
               _buildServicesGrid(context),
               Gap(32.h),
 
-              // Premium Maintenance Packages
+              // Specialist Solutions Section
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20.w),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      AppLocaleKey.premiumPackages.tr(),
-                      style: AppTextStyle.titleMedium(
-                        context,
-                      ).copyWith(color: Colors.white, fontWeight: FontWeight.bold),
-                    ),
-                    Text(
-                      AppLocaleKey.seeAll.tr(),
-                      style: AppTextStyle.bodySmall(
-                        context,
-                      ).copyWith(color: AppColor.primaryColor(context)),
-                    ),
-                  ],
+                child: FadeInLeft(
+                  child: Text(
+                    AppLocaleKey.expertAppraisal.tr(),
+                    style: AppTextStyle.titleMedium(
+                      context,
+                    ).copyWith(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18.sp),
+                  ),
                 ),
               ),
               Gap(16.h),
-              _buildMaintenancePackages(context),
-              Gap(120.h), // Spacing for bottom nav
+              FadeInUp(child: _buildValuationCard(context)),
             ],
           ),
         ),
@@ -105,77 +126,90 @@ class ServicesScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildQuickHelpSection(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.w),
-          child: Text(
-            AppLocaleKey.quickHelp.tr(),
-            style: AppTextStyle.titleMedium(
-              context,
-            ).copyWith(color: Colors.white, fontWeight: FontWeight.bold),
-          ),
-        ),
-        Gap(16.h),
-        SizedBox(
-          height: 100.h,
-          child: ListView(
-            scrollDirection: Axis.horizontal,
-            padding: EdgeInsets.symmetric(horizontal: 20.w),
-            physics: const BouncingScrollPhysics(),
-            children: [
-              _buildQuickHelpItem(
-                context,
-                Icons.support_agent_rounded,
-                AppLocaleKey.emergencyRecovery.tr(),
-                Colors.redAccent,
-              ),
-              Gap(12.w),
-              _buildQuickHelpItem(
-                context,
-                Icons.local_gas_station_rounded,
-                AppLocaleKey.fuelDelivery.tr(),
-                Colors.orangeAccent,
-              ),
-              Gap(12.w),
-              _buildQuickHelpItem(
-                context,
-                Icons.battery_charging_full_rounded,
-                AppLocaleKey.batteryJumpstart.tr(),
-                Colors.blueAccent,
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildQuickHelpItem(BuildContext context, IconData icon, String label, Color color) {
+  Widget _buildHeroActionSection(BuildContext context) {
     return Container(
-      width: 140.w,
-      padding: EdgeInsets.all(16.w),
+      margin: EdgeInsets.symmetric(horizontal: 20.w),
+      padding: EdgeInsets.all(24.w),
       decoration: BoxDecoration(
-        color: AppColor.secondAppColor(context),
-        borderRadius: BorderRadius.circular(20.r),
-        border: Border.all(color: color.withOpacity(0.2)),
+        gradient: LinearGradient(
+          colors: [AppColor.primaryColor(context), AppColor.primaryColor(context).withBlue(150)],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+        borderRadius: BorderRadius.circular(30.r),
         boxShadow: [
-          BoxShadow(color: color.withOpacity(0.05), blurRadius: 10, offset: const Offset(0, 4)),
+          BoxShadow(
+            color: AppColor.primaryColor(context).withOpacity(0.4),
+            blurRadius: 20,
+            offset: const Offset(0, 10),
+          ),
         ],
       ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+      child: Stack(
         children: [
-          Icon(icon, color: color, size: 28.sp),
-          Gap(8.h),
-          Text(
-            label,
-            style: AppTextStyle.bodySmall(
-              context,
-            ).copyWith(color: Colors.white, fontWeight: FontWeight.bold),
-            textAlign: TextAlign.center,
+          Positioned(
+            right: -20,
+            bottom: -20,
+            child: Icon(
+              Icons.directions_car_filled_rounded,
+              size: 140.sp,
+              color: Colors.white.withValues(alpha: 0.7),
+            ),
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
+                decoration: BoxDecoration(
+                  color: Colors.white.withValues(alpha: 0.2),
+                  borderRadius: BorderRadius.circular(20.r),
+                ),
+                child: Text(
+                  AppLocaleKey.specialOffer.tr(),
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 10.sp,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              Gap(12.h),
+              Text(
+                AppLocaleKey.sellYourCar.tr(),
+                style: AppTextStyle.titleLarge(
+                  context,
+                ).copyWith(color: Colors.white, fontWeight: FontWeight.w900, fontSize: 22.sp),
+              ),
+              Gap(8.h),
+              Text(
+                'نحن نشتري سيارتك بأفضل قيمة سوقية فوراً',
+                style: AppTextStyle.bodySmall(
+                  context,
+                ).copyWith(color: Colors.white.withOpacity(0.9)),
+              ),
+              Gap(20.h),
+              ElevatedButton(
+                onPressed: () {
+                  if (HiveMethods.getToken() == null) {
+                    CommonMethods.showLoginRequiredDialog(context);
+                  } else {
+                    // TODO: Implement Booking
+                  }
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.white,
+                  foregroundColor: AppColor.primaryColor(context),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14.r)),
+                  padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 12.h),
+                  elevation: 0,
+                ),
+                child: Text(
+                  AppLocaleKey.bookService.tr(),
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13.sp),
+                ),
+              ),
+            ],
           ),
         ],
       ),
@@ -184,156 +218,155 @@ class ServicesScreen extends StatelessWidget {
 
   Widget _buildServicesGrid(BuildContext context) {
     final services = [
-      {'icon': Icons.build_circle_rounded, 'label': AppLocaleKey.maintenanceRepair.tr()},
-      {'icon': Icons.wash_rounded, 'label': AppLocaleKey.carWashing.tr()},
-      {'icon': Icons.security_rounded, 'label': AppLocaleKey.tintingProtection.tr()},
-      {'icon': Icons.tire_repair_rounded, 'label': AppLocaleKey.tireService.tr()},
-      {'icon': Icons.find_in_page_rounded, 'label': AppLocaleKey.carInspection.tr()},
-      {'icon': Icons.car_rental_rounded, 'label': 'خدمات التأجير'},
+      {
+        'icon': Icons.swap_horizontal_circle_rounded,
+        'label': AppLocaleKey.tradeIn.tr(),
+        'color': const Color(0xFF6366F1),
+      },
+      {
+        'icon': Icons.public_rounded,
+        'label': AppLocaleKey.importOnDemand.tr(),
+        'color': const Color(0xFF10B981),
+      },
+      {
+        'icon': Icons.account_balance_wallet_rounded,
+        'label': AppLocaleKey.financingSolutions.tr(),
+        'color': const Color(0xFFF59E0B),
+      },
+      {
+        'icon': Icons.auto_awesome_rounded,
+        'label': AppLocaleKey.showroomShine.tr(),
+        'color': const Color(0xFFEC4899),
+      },
+      {
+        'icon': Icons.local_shipping_rounded,
+        'label': AppLocaleKey.vipShipping.tr(),
+        'color': const Color(0xFF8B5CF6),
+      },
+      {
+        'icon': Icons.person_search_rounded,
+        'label': AppLocaleKey.bespokeSelection.tr(),
+        'color': const Color(0xFF0EA5E9),
+      },
     ];
 
-    return GridView.builder(
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
+    return Padding(
       padding: EdgeInsets.symmetric(horizontal: 20.w),
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        mainAxisSpacing: 16.h,
-        crossAxisSpacing: 16.w,
-        childAspectRatio: 1.1,
+      child: GridView.builder(
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          mainAxisSpacing: 16.h,
+          crossAxisSpacing: 16.w,
+          childAspectRatio: 1.05,
+        ),
+        itemCount: services.length,
+        itemBuilder: (context, index) {
+          return FadeInUp(
+            delay: Duration(milliseconds: 100 * index),
+            child: _buildServiceCard(
+              context,
+              services[index]['icon'] as IconData,
+              services[index]['label'] as String,
+              services[index]['color'] as Color,
+            ),
+          );
+        },
       ),
-      itemCount: services.length,
-      itemBuilder: (context, index) {
-        return _buildServiceCard(
-          context,
-          services[index]['icon'] as IconData,
-          services[index]['label'] as String,
-        );
-      },
     );
   }
 
-  Widget _buildServiceCard(BuildContext context, IconData icon, String label) {
+  Widget _buildServiceCard(BuildContext context, IconData icon, String label, Color accentColor) {
     return Container(
       decoration: BoxDecoration(
         color: AppColor.secondAppColor(context),
-        borderRadius: BorderRadius.circular(24.r),
-        border: Border.all(color: Colors.white.withOpacity(0.03)),
+        borderRadius: BorderRadius.circular(28.r),
+        border: Border.all(color: Colors.white.withValues(alpha: 0.04)),
       ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-            padding: EdgeInsets.all(12.w),
-            decoration: BoxDecoration(
-              color: AppColor.primaryColor(context).withOpacity(0.1),
-              shape: BoxShape.circle,
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: () {
+            if (HiveMethods.getToken() == null) {
+              CommonMethods.showLoginRequiredDialog(context);
+            } else {
+              // TODO: Implement Service Details
+            }
+          },
+          borderRadius: BorderRadius.circular(28.r),
+          child: Padding(
+            padding: EdgeInsets.all(16.w),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  padding: EdgeInsets.all(14.w),
+                  decoration: BoxDecoration(
+                    color: accentColor.withOpacity(0.1),
+                    shape: BoxShape.circle,
+                  ),
+                  child: Icon(icon, color: accentColor, size: 28.sp),
+                ),
+                Gap(14.h),
+                Text(
+                  label,
+                  style: AppTextStyle.bodySmall(
+                    context,
+                  ).copyWith(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 13.sp),
+                  textAlign: TextAlign.center,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ],
             ),
-            child: Icon(icon, color: AppColor.primaryColor(context), size: 30.sp),
           ),
-          Gap(12.h),
-          Text(
-            label,
-            style: AppTextStyle.bodyMedium(
-              context,
-            ).copyWith(color: Colors.white, fontWeight: FontWeight.bold),
-            textAlign: TextAlign.center,
-          ),
-        ],
+        ),
       ),
     );
   }
 
-  Widget _buildMaintenancePackages(BuildContext context) {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      padding: EdgeInsets.symmetric(horizontal: 20.w),
-      physics: const BouncingScrollPhysics(),
+  Widget _buildValuationCard(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 20.w),
+      padding: EdgeInsets.all(20.w),
+      decoration: BoxDecoration(
+        color: AppColor.secondAppColor(context),
+        borderRadius: BorderRadius.circular(24.r),
+        border: Border.all(color: Colors.white.withOpacity(0.05)),
+      ),
       child: Row(
         children: [
-          _buildPackageCard(context, 'الباقة الفضية', '6 أشهر / 10,000 كم', '850 د.إ', [
-            Icons.check_circle_outline,
-            Icons.check_circle_outline,
-          ]),
+          Container(
+            padding: EdgeInsets.all(16.w),
+            decoration: BoxDecoration(
+              color: Colors.amber.withOpacity(0.1),
+              borderRadius: BorderRadius.circular(18.r),
+            ),
+            child: Icon(Icons.analytics_rounded, color: Colors.amber, size: 30.sp),
+          ),
           Gap(16.w),
-          _buildPackageCard(context, 'الباقة الذهبية', '12 شهر / 25,000 كم', '1,450 د.إ', [
-            Icons.check_circle,
-            Icons.check_circle,
-            Icons.check_circle,
-          ], isPremium: true),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildPackageCard(
-    BuildContext context,
-    String title,
-    String duration,
-    String price,
-    List<IconData> checkIcons, {
-    bool isPremium = false,
-  }) {
-    return Container(
-      width: 250.w,
-      padding: EdgeInsets.all(24.w),
-      decoration: BoxDecoration(
-        color: isPremium ? AppColor.primaryColor(context) : AppColor.secondAppColor(context),
-        borderRadius: BorderRadius.circular(28.r),
-        boxShadow: isPremium
-            ? [
-                BoxShadow(
-                  color: AppColor.primaryColor(context).withOpacity(0.3),
-                  blurRadius: 20,
-                  offset: const Offset(0, 8),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  AppLocaleKey.carValuation.tr(),
+                  style: AppTextStyle.bodyMedium(
+                    context,
+                  ).copyWith(color: Colors.white, fontWeight: FontWeight.bold),
                 ),
-              ]
-            : null,
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                title,
-                style: AppTextStyle.titleMedium(
-                  context,
-                ).copyWith(color: Colors.white, fontWeight: FontWeight.bold),
-              ),
-              if (isPremium) Icon(Icons.star_rounded, color: Colors.amberAccent, size: 20.sp),
-            ],
-          ),
-          Gap(8.h),
-          Text(
-            duration,
-            style: AppTextStyle.bodySmall(
-              context,
-            ).copyWith(color: isPremium ? Colors.white70 : Colors.white38),
-          ),
-          Gap(20.h),
-          Text(
-            price,
-            style: AppTextStyle.titleLarge(
-              context,
-            ).copyWith(color: Colors.white, fontWeight: FontWeight.w900),
-          ),
-          Gap(20.h),
-          ElevatedButton(
-            onPressed: () {},
-            style: ElevatedButton.styleFrom(
-              backgroundColor: isPremium ? Colors.white : AppColor.primaryColor(context),
-              foregroundColor: isPremium ? AppColor.primaryColor(context) : Colors.white,
-              minimumSize: Size(double.infinity, 45.h),
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.r)),
-              elevation: 0,
-            ),
-            child: Text(
-              AppLocaleKey.bookService.tr(),
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13.sp),
+                Gap(4.h),
+                Text(
+                  AppLocaleKey.findSpecificCar.tr(),
+                  style: AppTextStyle.bodySmall(
+                    context,
+                  ).copyWith(color: Colors.white54, fontSize: 11.sp),
+                ),
+              ],
             ),
           ),
+          Icon(Icons.arrow_forward_ios_rounded, color: Colors.white24, size: 16.sp),
         ],
       ),
     );

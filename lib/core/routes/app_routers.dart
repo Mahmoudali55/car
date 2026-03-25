@@ -13,7 +13,7 @@ class AppRouters {
       case RoutesName.allBrandsScreen:
         return MaterialPageRoute(builder: (_) => const AllBrandsScreen());
       case RoutesName.homeScreen:
-        return MaterialPageRoute(builder: (_) => HomeGuestScreen());
+        return MaterialPageRoute(builder: (_) => const HomeGuestScreen());
       case RoutesName.onboardingScreen:
         return MaterialPageRoute(builder: (_) => const OnboardingScreen());
       case RoutesName.loginScreen:
@@ -54,7 +54,10 @@ class AppRouters {
         );
       case RoutesName.usedCarsScreen:
         return MaterialPageRoute(builder: (_) => const UsedCarsScreen());
-
+      case RoutesName.settingsScreen:
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(create: (context) => sl<AuthCubit>(), child: const SettingsScreen()),
+        );
 
       default:
         return null;

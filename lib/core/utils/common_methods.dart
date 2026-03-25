@@ -1,8 +1,13 @@
 import 'package:bot_toast/bot_toast.dart';
-import 'package:flutter/material.dart';
-import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 import 'package:car/core/custom_widgets/custom_toast/custom_toast.dart';
-
+import 'package:car/core/localization/app_locale_keys.dart';
+import 'package:car/core/routes/routes_name.dart';
+import 'package:car/core/theme/app_colors.dart';
+import 'package:car/core/theme/app_text_style.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 
 import '../services/services_locator.dart';
 
@@ -38,4 +43,52 @@ class CommonMethods {
     );
   }
 
+  static void showLoginRequiredDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        backgroundColor: AppColor.secondAppColor(context, listen: false),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.r)),
+        title: Row(
+          children: [
+            Icon(Icons.lock_person_rounded, color: AppColor.primaryColor(context), size: 28.sp),
+            SizedBox(width: 10.w),
+            Text(
+              AppLocaleKey.loginRequired.tr(),
+              style: AppTextStyle.titleMedium(context).copyWith(color: Colors.white),
+            ),
+          ],
+        ),
+        content: Text(
+          AppLocaleKey.loginToContinueYourPremiumExperience.tr(),
+          style: AppTextStyle.bodyMedium(context).copyWith(color: Colors.white70),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: Text(
+              AppLocaleKey.cancel.tr(),
+              style: TextStyle(color: Colors.white38, fontSize: 14.sp),
+            ),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.pop(context);
+              Navigator.pushNamed(context, RoutesName.loginScreen);
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: AppColor.primaryColor(context),
+              foregroundColor: Colors.white,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.r)),
+              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+            ),
+            child: Text(
+              AppLocaleKey.login.tr(),
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.sp),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }

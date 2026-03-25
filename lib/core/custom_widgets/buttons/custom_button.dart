@@ -83,7 +83,7 @@ class CustomButton extends StatelessWidget {
                           child:
                               child ??
                               Text(
-                                text ?? "",
+                                text ?? '',
                                 textAlign: TextAlign.center,
                                 style:
                                     style ?? AppTextStyle.buttonStyle(context),

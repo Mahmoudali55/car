@@ -137,7 +137,7 @@ class CartScreen extends StatelessWidget {
                           // Car Items
                           ...items
                               .map((car) => CartItemWidget(car: car))
-                              .toList(),
+                              ,
                           Gap(16.h),
                         ],
                       ),
@@ -173,12 +173,11 @@ class CartScreen extends StatelessWidget {
                                         color: Colors.white.withOpacity(0.7)),
                               ),
                               Text(
-                                totalPrice.toStringAsFixed(0).replaceAllMapped(
+                                '${totalPrice.toStringAsFixed(0).replaceAllMapped(
                                       RegExp(
                                           r'(\d{1,3})(?=(\d{3})+(?!\d))'),
                                       (m) => '${m[1]},',
-                                    ) +
-                                    ' د.إ',
+                                    )} د.إ',
                                 style: AppTextStyle.titleLarge(context)
                                     .copyWith(
                                   color: AppColor.primaryColor(context),

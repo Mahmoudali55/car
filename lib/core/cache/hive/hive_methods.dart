@@ -49,4 +49,12 @@ class HiveMethods {
   static void updateFavorites(List<dynamic> favorites) {
     _box.put('favorites', favorites);
   }
+
+  static bool isGuest() {
+    return _box.get('isGuest', defaultValue: false);
+  }
+
+  static void updateIsGuest(bool isGuest) {
+    _box.put('isGuest', isGuest);
+  }
 }

@@ -56,7 +56,7 @@ class InspectionReportWidget extends StatelessWidget {
                   ),
                   child: Text(
                     AppLocaleKey.fullReport.tr(),
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),
               ),

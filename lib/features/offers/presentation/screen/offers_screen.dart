@@ -18,7 +18,7 @@ class OffersScreen extends StatefulWidget {
 }
 
 class _OffersScreenState extends State<OffersScreen> {
-  int _selectedFilterIndex = 0;
+  final int _selectedFilterIndex = 0;
   final List<String> _filters = ['الكل', 'فاخرة', 'رياضية', 'SUV', 'سيدان'];
 
   final List<Map<String, dynamic>> _offers = [
@@ -71,7 +71,6 @@ class _OffersScreenState extends State<OffersScreen> {
       'isFavorite': false,
     },
   ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -79,13 +78,8 @@ class _OffersScreenState extends State<OffersScreen> {
       body: CustomScrollView(
         physics: const BouncingScrollPhysics(),
         slivers: [
-          // Header
-          SliverToBoxAdapter(child: HeaderWidget()),
-
-          // Featured Slider
+          const SliverToBoxAdapter(child: HeaderWidget()),
           const SliverToBoxAdapter(child: OffersFeaturedSlider()),
-
-          // Filter Section
           SliverToBoxAdapter(
             child: Padding(
               padding: EdgeInsets.symmetric(vertical: 24.h),
@@ -102,13 +96,13 @@ class _OffersScreenState extends State<OffersScreen> {
                         Text(
                           AppLocaleKey.specialOffers.tr(),
                           style: AppTextStyle.titleMedium(context).copyWith(
-                            color: Colors.white,
+                            color: AppColor.whiteColor(context),
                             fontWeight: FontWeight.w900,
                             fontSize: 20.sp,
                           ),
                         ),
                         Text(
-                          '${_offers.length} عروض',
+                          '${_offers.length} ${AppLocaleKey.offers.tr()}',
                           style: AppTextStyle.bodySmall(
                             context,
                           ).copyWith(color: AppColor.primaryColor(context)),

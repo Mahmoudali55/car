@@ -1,3 +1,4 @@
+import 'package:car/core/cache/hive/hive_methods.dart';
 import 'package:car/core/custom_widgets/custom_app_bar/custom_app_bar.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/routes/routes_name.dart';
@@ -29,23 +30,22 @@ class MainLayout extends StatefulWidget {
 class _MainLayoutState extends State<MainLayout> {
   int _currentIndex = 0;
 
-  final List<Widget> _screens = [
-    const HomeGuestScreen(),
-    const CarsScreen(),
-    const FavoritesScreen(),
-    const OffersScreen(),
-    const ServicesScreen(),
-  ];
-
   @override
   Widget build(BuildContext context) {
+    final List<Widget> screens = [
+      HomeGuestScreen(key: ValueKey('home_${context.locale.languageCode}')),
+      CarsScreen(key: ValueKey('cars_${context.locale.languageCode}')),
+      FavoritesScreen(key: ValueKey('favorites_${context.locale.languageCode}')),
+      OffersScreen(key: ValueKey('offers_${context.locale.languageCode}')),
+      ServicesScreen(key: ValueKey('services_${context.locale.languageCode}')),
+    ];
     return Scaffold(
       appBar: CustomAppBar(
         context,
         centerTitle: false,
         automaticallyImplyLeading: false,
         leading: IconButton(
-          onPressed: () {},
+          onPressed: () => Navigator.pushNamed(context, RoutesName.settingsScreen),
           icon: Icon(Icons.person, color: AppColor.primaryColor(context)),
         ),
         title: Text(AppLocaleKey.welcomeToCarGroup.tr(), style: AppTextStyle.titleMedium(context)),
@@ -132,10 +132,29 @@ class _MainLayoutState extends State<MainLayout> {
               );
             },
           ),
+          Gap(10.w),
+          CircleAvatar(
+            backgroundColor: AppColor.greyColor(context).withValues(alpha: 0.1),
+            child: IconButton(
+              onPressed: () async {
+                final newLocale = context.locale.languageCode == 'ar'
+                    ? const Locale('en')
+                    : const Locale('ar');
+                await context.setLocale(newLocale);
+                HiveMethods.updateLang(newLocale);
+                if (mounted) setState(() {});
+              },
+              icon: Icon(
+                Icons.translate_rounded,
+                color: AppColor.blackTextColor(context),
+                size: 20.sp,
+              ),
+            ),
+          ),
           Gap(5.w),
         ],
       ),
-      body: _screens[_currentIndex.clamp(0, _screens.length - 1)],
+      body: screens[_currentIndex.clamp(0, screens.length - 1)],
       bottomNavigationBar: Container(
         height: 75.h,
         padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
@@ -143,7 +162,7 @@ class _MainLayoutState extends State<MainLayout> {
           color: AppColor.whiteColor(context),
           boxShadow: [
             BoxShadow(
-              color: AppColor.blackTextColor(context).withOpacity(0.05),
+              color: AppColor.blackTextColor(context).withValues(alpha: 0.05),
               blurRadius: 20,
               offset: const Offset(0, -5),
             ),

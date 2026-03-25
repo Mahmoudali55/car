@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/widgets.dart';
+import 'package:car/core/cache/hive/hive_methods.dart';
 import 'package:car/core/network/status.state.dart';
 import 'package:car/features/auth/data/repository/auth_repo.dart';
 
@@ -29,7 +30,7 @@ class AuthCubit extends Cubit<AuthState> {
   }
 
   Future<void> login({BuildContext? context}) async {
-    emit(state.copyWith(loginStatus: StatusState.loading()));
+    emit(state.copyWith(loginStatus: const StatusState.loading()));
 
     final result = await authRepo.login(
       mobile: mobileController.text,
@@ -42,8 +43,16 @@ class AuthCubit extends Cubit<AuthState> {
         state.copyWith(loginStatus: StatusState.failure(error.errMessage)),
       ),
       (success) {
+        HiveMethods.updateIsGuest(false);
+        HiveMethods.updateToken(success.token);
         emit(state.copyWith(loginStatus: StatusState.success(success)));
       },
     );
+  }
+
+  Future<void> logout() async {
+    await authRepo.logout();
+    HiveMethods.updateIsGuest(false);
+    // emit(state.copyWith(loginStatus: StatusState.initial()));
   }
 }

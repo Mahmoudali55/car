@@ -217,11 +217,11 @@ class _FilterScreenState extends State<FilterScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              isPrice ? "${values.start.toInt().toString()} د.إ" : values.start.toInt().toString(),
+              isPrice ? '${values.start.toInt().toString()} د.إ' : values.start.toInt().toString(),
               style: AppTextStyle.bodySmall(context).copyWith(color: AppColor.primaryColor(context), fontWeight: FontWeight.bold),
             ),
             Text(
-              isPrice ? "${values.end.toInt().toString()} د.إ" : values.end.toInt().toString(),
+              isPrice ? '${values.end.toInt().toString()} د.إ' : values.end.toInt().toString(),
               style: AppTextStyle.bodySmall(context).copyWith(color: AppColor.primaryColor(context), fontWeight: FontWeight.bold),
             ),
           ],

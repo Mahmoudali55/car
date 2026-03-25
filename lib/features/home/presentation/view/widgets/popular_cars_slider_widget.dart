@@ -213,7 +213,7 @@ class _PopularCarsSliderState extends State<PopularCarsSlider> {
                               border: Border.all(color: AppColor.primaryColor(context).withOpacity(0.5)),
                             ),
                             child: Text(
-                              "الأكثر طلباً",
+                              'الأكثر طلباً',
                               style: AppTextStyle.bodySmall(context).copyWith(
                                 color: AppColor.primaryColor(context),
                                 fontSize: 9.sp,

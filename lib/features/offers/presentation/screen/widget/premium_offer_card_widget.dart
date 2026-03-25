@@ -23,7 +23,7 @@ class PremiumOfferCardWidget extends StatelessWidget {
         decoration: BoxDecoration(
           color: AppColor.secondAppColor(context),
           borderRadius: BorderRadius.circular(28.r),
-          border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
+          border: Border.all(color: AppColor.whiteColor(context).withValues(alpha: 0.08)),
           boxShadow: [
             BoxShadow(
               color: Colors.black.withValues(alpha: 0.15),
@@ -44,7 +44,7 @@ class PremiumOfferCardWidget extends StatelessWidget {
                 child: Text(
                   offer['brand'] ?? '',
                   style: TextStyle(
-                    color: Colors.white,
+                    color: AppColor.whiteColor(context),
                     fontSize: 50.sp,
                     fontWeight: FontWeight.w900,
                   ),
@@ -58,7 +58,7 @@ class PremiumOfferCardWidget extends StatelessWidget {
                 Expanded(
                   flex: 4,
                   child: Container(
-                    decoration: BoxDecoration(),
+                    decoration: const BoxDecoration(),
                     padding: EdgeInsets.all(12.w),
                     child: Hero(
                       tag: 'car_offer_${offer['name']}',
@@ -128,7 +128,7 @@ class PremiumOfferCardWidget extends StatelessWidget {
                         Text(
                           offer['name'],
                           style: AppTextStyle.titleMedium(context).copyWith(
-                            color: Colors.white,
+                            color: AppColor.whiteColor(context),
                             fontWeight: FontWeight.w900,
                             fontSize: 17.sp,
                           ),
@@ -180,7 +180,7 @@ class PremiumOfferCardWidget extends StatelessWidget {
                                 Text(
                                   offer['price'],
                                   style: AppTextStyle.titleMedium(context).copyWith(
-                                    color: Colors.white,
+                                    color: AppColor.whiteColor(context),
                                     fontWeight: FontWeight.w900,
                                     fontSize: 19.sp,
                                   ),
@@ -203,7 +203,7 @@ class PremiumOfferCardWidget extends StatelessWidget {
                               ),
                               child: Icon(
                                 Icons.arrow_forward_rounded,
-                                color: Colors.white,
+                                color: AppColor.whiteColor(context),
                                 size: 16.sp,
                               ),
                             ),
@@ -239,7 +239,7 @@ class PremiumOfferCardWidget extends StatelessWidget {
                     Text(
                       offer['discount'],
                       style: TextStyle(
-                        color: Colors.white,
+                        color: AppColor.whiteColor(context),
                         fontWeight: FontWeight.w900,
                         fontSize: 14.sp,
                       ),
@@ -247,7 +247,7 @@ class PremiumOfferCardWidget extends StatelessWidget {
                     Text(
                       'OFF',
                       style: TextStyle(
-                        color: Colors.white.withValues(alpha: 0.8),
+                        color: AppColor.whiteColor(context).withValues(alpha: 0.8),
                         fontSize: 8.sp,
                         fontWeight: FontWeight.bold,
                       ),

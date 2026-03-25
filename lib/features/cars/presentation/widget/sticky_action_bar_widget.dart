@@ -1,8 +1,10 @@
 import 'dart:ui';
 
+import 'package:car/core/cache/hive/hive_methods.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
+import 'package:car/core/utils/common_methods.dart';
 import 'package:car/features/cart/presentation/view/cubit/cart_cubit.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -41,10 +43,14 @@ class StickyActionBarWidget extends StatelessWidget {
                       final isInCart = context.read<CartCubit>().isInCart(car['name'] ?? '');
                       return ElevatedButton(
                         onPressed: () {
-                          if (isInCart) {
-                            context.read<CartCubit>().removeFromCart(car);
+                          if (HiveMethods.getToken() == null) {
+                            CommonMethods.showLoginRequiredDialog(context);
                           } else {
-                            context.read<CartCubit>().addToCart(car);
+                            if (isInCart) {
+                              context.read<CartCubit>().removeFromCart(car);
+                            } else {
+                              context.read<CartCubit>().addToCart(car);
+                            }
                           }
                         },
                         style: ElevatedButton.styleFrom(
@@ -83,7 +89,13 @@ class StickyActionBarWidget extends StatelessWidget {
                   ),
                   child: IconButton(
                     icon: Icon(Icons.phone_rounded, color: AppColor.whiteColor(context), size: 28),
-                    onPressed: () {},
+                    onPressed: () {
+                      if (HiveMethods.getToken() == null) {
+                        CommonMethods.showLoginRequiredDialog(context);
+                      } else {
+                        // TODO: Implement Phone Call
+                      }
+                    },
                   ),
                 ),
               ],

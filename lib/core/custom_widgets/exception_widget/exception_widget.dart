@@ -50,8 +50,8 @@ class ExceptionWidget extends StatelessWidget {
                   child: Text(
                     message ??
                         context.apiTr(
-                          ar: "حدث خطأ",
-                          en: "An error occurred",
+                          ar: 'حدث خطأ',
+                          en: 'An error occurred',
                         ),
                     style: TextStyle(
                       color: AppTheme.getByTheme(
@@ -117,8 +117,8 @@ class ExceptionWidget extends StatelessWidget {
               Text(
                 message ??
                     context.apiTr(
-                      ar: "حدث خطأ",
-                      en: "An error occurred",
+                      ar: 'حدث خطأ',
+                      en: 'An error occurred',
                     ),
                 style: TextStyle(
                   color: AppTheme.getByTheme(
@@ -134,8 +134,8 @@ class ExceptionWidget extends StatelessWidget {
               const SizedBox(height: 10),
               CustomButton(
                 text: context.apiTr(
-                  ar: "إعادة تحميل",
-                  en: "Reload",
+                  ar: 'إعادة تحميل',
+                  en: 'Reload',
                 ),
                 width: MediaQuery.of(context).size.width * 0.5,
                 prefixIcon: SvgPicture.asset(

@@ -28,8 +28,10 @@ class _SplashScreenState extends State<SplashScreen> {
       if (mounted) {
         if (HiveMethods.isFirstTime()) {
           NavigatorMethods.pushReplacementNamed(context, RoutesName.onboardingScreen);
-        } else {
+        } else if (HiveMethods.getToken() != null || HiveMethods.isGuest()) {
           NavigatorMethods.pushReplacementNamed(context, RoutesName.mainLayout);
+        } else {
+          NavigatorMethods.pushReplacementNamed(context, RoutesName.loginScreen);
         }
       }
     });

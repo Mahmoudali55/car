@@ -1,3 +1,4 @@
+import 'package:car/core/cache/hive/hive_methods.dart';
 import 'package:dartz/dartz.dart';
 import 'package:car/core/network/api_consumer.dart';
 import 'package:car/core/network/end_points.dart';
@@ -13,11 +14,18 @@ abstract interface class AuthRepo {
     required bool rememberMe,
     required String accountType,
   });
+  Future<void> logout();
 }
 
 class AuthRepoImpl implements AuthRepo {
   final ApiConsumer apiConsumer;
   AuthRepoImpl(this.apiConsumer);
+
+  @override
+  Future<void> logout() async {
+    HiveMethods.deleteToken();
+    // Clear other session data if necessary
+  }
 
   @override
   Future<Either<Failure, AuthResponseModel>> login({

@@ -71,7 +71,7 @@ class FeaturedSliderWidget extends StatelessWidget {
                             ),
                             SizedBox(height: 15.h),
                             Text(
-                              "Porsche 911 GT3 RS",
+                              'Porsche 911 GT3 RS',
                               style: AppTextStyle.titleLarge(context, color: Colors.white),
                             ),
                             SizedBox(height: 8.h),
@@ -93,11 +93,11 @@ class FeaturedSliderWidget extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      "AED 980,000",
+                                      'AED 980,000',
                                       style: AppTextStyle.titleMedium(context, color: Colors.white),
                                     ),
                                     Text(
-                                      "Monthly from AED 12,500",
+                                      'Monthly from AED 12,500',
                                       style: TextStyle(color: Colors.white60, fontSize: 9.sp),
                                     ),
                                   ],

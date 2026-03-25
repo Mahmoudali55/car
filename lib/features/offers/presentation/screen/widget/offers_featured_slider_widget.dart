@@ -109,7 +109,7 @@ class _OffersFeaturedSliderState extends State<OffersFeaturedSlider> {
                       child: Icon(
                         item['icon'],
                         size: 180.sp,
-                        color: Colors.white.withValues(alpha: 0.05),
+                        color: AppColor.whiteColor(context).withValues(alpha: 0.05),
                       ),
                     ),
                     Padding(
@@ -121,13 +121,13 @@ class _OffersFeaturedSliderState extends State<OffersFeaturedSlider> {
                           Container(
                             padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
                             decoration: BoxDecoration(
-                              color: Colors.white.withValues(alpha: 0.1),
+                              color: AppColor.whiteColor(context).withValues(alpha: 0.1),
                               borderRadius: BorderRadius.circular(10.r),
                             ),
                             child: Text(
                               'عرض محدود',
                               style: TextStyle(
-                                color: Colors.white,
+                                color: AppColor.whiteColor(context),
                                 fontSize: 10.sp,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -137,7 +137,7 @@ class _OffersFeaturedSliderState extends State<OffersFeaturedSlider> {
                           Text(
                             item['title'],
                             style: AppTextStyle.titleLarge(context).copyWith(
-                              color: Colors.white,
+                              color: AppColor.whiteColor(context),
                               fontWeight: FontWeight.w900,
                               fontSize: 24.sp,
                             ),

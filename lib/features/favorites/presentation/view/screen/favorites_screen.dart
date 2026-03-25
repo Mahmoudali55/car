@@ -15,7 +15,7 @@ class FavoritesScreen extends StatelessWidget {
       builder: (context, state) {
         if (state is FavoritesLoaded) {
           if (state.favorites.isEmpty) {
-            return EmptyStateWidget();
+            return const EmptyStateWidget();
           }
           return _buildFavoritesList(context, state.favorites);
         }

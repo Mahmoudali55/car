@@ -1,5 +1,7 @@
+import 'package:car/core/cache/hive/hive_methods.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
+import 'package:car/core/utils/common_methods.dart';
 import 'package:car/features/favorites/presentation/view/cubit/favorites_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -62,7 +64,13 @@ class _SliverAppBarWidgetState extends State<SliverAppBarWidget> {
             backgroundColor: AppColor.blackTextColor(context).withValues(alpha: 0.4),
             child: IconButton(
               icon: Icon(Icons.share_outlined, color: AppColor.whiteColor(context), size: 20),
-              onPressed: () {},
+              onPressed: () {
+                if (HiveMethods.getToken() == null) {
+                  CommonMethods.showLoginRequiredDialog(context);
+                } else {
+                  // TODO: Implement Share
+                }
+              },
             ),
           ),
         ),
@@ -79,7 +87,13 @@ class _SliverAppBarWidgetState extends State<SliverAppBarWidget> {
                     color: isFav ? Colors.redAccent : AppColor.whiteColor(context),
                     size: 20,
                   ),
-                  onPressed: () => context.read<FavoritesCubit>().toggleFavorite(widget.car),
+                  onPressed: () {
+                    if (HiveMethods.getToken() == null) {
+                      CommonMethods.showLoginRequiredDialog(context);
+                    } else {
+                      context.read<FavoritesCubit>().toggleFavorite(widget.car);
+                    }
+                  },
                 ),
               ),
             );
