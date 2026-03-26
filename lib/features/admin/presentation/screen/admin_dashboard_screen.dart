@@ -1,8 +1,10 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:car/core/cache/hive/hive_methods.dart';
+import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/routes/routes_name.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -73,16 +75,14 @@ class AdminDashboardScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'لوحة القيادة المركزية 🖥️',
-              style: AppTextStyle.titleMedium(context).copyWith(
-                color: Colors.white,
-                fontWeight: FontWeight.w900,
-                fontSize: 22.sp,
-              ),
+              AppLocaleKey.centralDashboard.tr(),
+              style: AppTextStyle.titleMedium(
+                context,
+              ).copyWith(color: Colors.white, fontWeight: FontWeight.w900, fontSize: 22.sp),
             ),
             Gap(4.h),
             Text(
-              'ملخص الأداء والعمليات الحالية',
+              AppLocaleKey.performanceSummary.tr(),
               style: TextStyle(
                 color: Colors.white.withOpacity(0.4),
                 fontSize: 12.sp,
@@ -96,8 +96,7 @@ class AdminDashboardScreen extends StatelessWidget {
             _buildHeaderAction(
               Icons.notifications_none_rounded,
               AppColor.primaryColor(context),
-              onTap: () =>
-                  Navigator.pushNamed(context, RoutesName.adminNotifications),
+              onTap: () => Navigator.pushNamed(context, RoutesName.adminNotifications),
             ),
             Gap(12.w),
             _buildHeaderAction(
@@ -146,10 +145,7 @@ class AdminDashboardScreen extends StatelessWidget {
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: [
-            Colors.white.withOpacity(0.05),
-            Colors.white.withOpacity(0.01),
-          ],
+          colors: [Colors.white.withOpacity(0.05), Colors.white.withOpacity(0.01)],
         ),
       ),
       child: Column(
@@ -159,12 +155,8 @@ class AdminDashboardScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'مؤشر الأداء الأسبوعي',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.bold,
-                ),
+                AppLocaleKey.weeklyPerformanceIndex.tr(),
+                style: TextStyle(color: Colors.white, fontSize: 16.sp, fontWeight: FontWeight.bold),
               ),
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
@@ -222,10 +214,7 @@ class AdminDashboardScreen extends StatelessWidget {
                 .map(
                   (e) => Text(
                     e,
-                    style: TextStyle(
-                      color: Colors.white.withOpacity(0.3),
-                      fontSize: 10.sp,
-                    ),
+                    style: TextStyle(color: Colors.white.withOpacity(0.3), fontSize: 10.sp),
                   ),
                 )
                 .toList(),
@@ -243,12 +232,8 @@ class AdminDashboardScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              'طلبات تحتاج موافقة عاجلة ⚠️',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 18.sp,
-                fontWeight: FontWeight.w800,
-              ),
+              AppLocaleKey.urgentApprovalRequests.tr(),
+              style: TextStyle(color: Colors.white, fontSize: 18.sp, fontWeight: FontWeight.w800),
             ),
             Text(
               '3 طلبات',
@@ -312,11 +297,8 @@ class AdminDashboardScreen extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      'حجز مرسيدس G63',
-                      style: TextStyle(
-                        color: Colors.white.withOpacity(0.4),
-                        fontSize: 10.sp,
-                      ),
+                      'حجز مرسيدس G63', // This looks like dummy data, but I'll keep it English for now or add a generic key if needed.
+                      style: TextStyle(color: Colors.white.withOpacity(0.4), fontSize: 10.sp),
                     ),
                   ],
                 ),
@@ -328,7 +310,7 @@ class AdminDashboardScreen extends StatelessWidget {
             children: [
               Expanded(
                 child: _buildActionButton(
-                  'رفض',
+                  AppLocaleKey.reject.tr(),
                   Colors.redAccent.withOpacity(0.1),
                   Colors.redAccent,
                 ),
@@ -336,7 +318,7 @@ class AdminDashboardScreen extends StatelessWidget {
               Gap(8.w),
               Expanded(
                 child: _buildActionButton(
-                  'موافقة',
+                  AppLocaleKey.approve.tr(),
                   AppColor.primaryColor(context).withOpacity(0.1),
                   AppColor.primaryColor(context),
                 ),
@@ -352,17 +334,10 @@ class AdminDashboardScreen extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(vertical: 8.h),
       alignment: Alignment.center,
-      decoration: BoxDecoration(
-        color: bg,
-        borderRadius: BorderRadius.circular(14.r),
-      ),
+      decoration: BoxDecoration(color: bg, borderRadius: BorderRadius.circular(14.r)),
       child: Text(
         label,
-        style: TextStyle(
-          color: text,
-          fontSize: 12.sp,
-          fontWeight: FontWeight.bold,
-        ),
+        style: TextStyle(color: text, fontSize: 12.sp, fontWeight: FontWeight.bold),
       ),
     );
   }
@@ -372,12 +347,8 @@ class AdminDashboardScreen extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'سجل النشاطات الأخير',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 18.sp,
-            fontWeight: FontWeight.w800,
-          ),
+          AppLocaleKey.recentActivityLog.tr(),
+          style: TextStyle(color: Colors.white, fontSize: 18.sp, fontWeight: FontWeight.w800),
         ),
         Gap(16.h),
         ListView.separated(
@@ -392,24 +363,14 @@ class AdminDashboardScreen extends StatelessWidget {
   }
 
   Widget _buildActivityItem(int index) {
-    final titles = [
-      'إضافة سيارة جديدة',
-      'تعديل سعر رحلة',
-      'مستخدم جديد انضم',
-      'فشل في الدفع',
-    ];
+    final titles = ['إضافة سيارة جديدة', 'تعديل سعر رحلة', 'مستخدم جديد انضم', 'فشل في الدفع'];
     final icons = [
       Icons.add_circle_outline,
       Icons.edit_note_rounded,
       Icons.person_add_alt_1_rounded,
       Icons.error_outline_rounded,
     ];
-    final colors = [
-      Colors.blueAccent,
-      Colors.orangeAccent,
-      Colors.greenAccent,
-      Colors.redAccent,
-    ];
+    final colors = [Colors.blueAccent, Colors.orangeAccent, Colors.greenAccent, Colors.redAccent];
 
     return Container(
       padding: EdgeInsets.all(12.w),
@@ -443,10 +404,7 @@ class AdminDashboardScreen extends StatelessWidget {
                 ),
                 Text(
                   'منذ 24 دقيقة',
-                  style: TextStyle(
-                    color: Colors.white.withOpacity(0.3),
-                    fontSize: 10.sp,
-                  ),
+                  style: TextStyle(color: Colors.white.withOpacity(0.3), fontSize: 10.sp),
                 ),
               ],
             ),

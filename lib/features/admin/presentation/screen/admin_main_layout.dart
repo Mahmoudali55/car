@@ -1,13 +1,16 @@
+import 'dart:ui';
+
+import 'package:car/core/localization/app_locale_keys.dart';
+import 'package:car/core/theme/app_colors.dart';
+import 'package:car/features/admin/presentation/screen/admin_dashboard_screen.dart';
+import 'package:car/features/admin/presentation/screen/admin_settings_screen.dart';
+import 'package:car/features/admin/presentation/screen/manage_bookings_screen.dart';
+import 'package:car/features/admin/presentation/screen/manage_cars_screen.dart';
+import 'package:car/features/admin/presentation/screen/revenue_report_screen.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
-import 'package:car/core/theme/app_colors.dart';
-import 'package:car/features/admin/presentation/screen/admin_dashboard_screen.dart';
-import 'package:car/features/admin/presentation/screen/manage_cars_screen.dart';
-import 'package:car/features/admin/presentation/screen/manage_bookings_screen.dart';
-import 'package:car/features/admin/presentation/screen/revenue_report_screen.dart';
-import 'package:car/features/admin/presentation/screen/admin_settings_screen.dart';
-import 'dart:ui';
 
 class AdminMainLayout extends StatefulWidget {
   const AdminMainLayout({super.key});
@@ -51,11 +54,11 @@ class _AdminMainLayoutState extends State<AdminMainLayout> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                _buildNavItem(0, Icons.dashboard_rounded, 'الرئيسية'),
-                _buildNavItem(1, Icons.directions_car_rounded, 'السيارات'),
-                _buildNavItem(2, Icons.calendar_month_rounded, 'الحجوزات'),
-                _buildNavItem(3, Icons.payments_rounded, 'الإيرادات'),
-                _buildNavItem(4, Icons.settings_rounded, 'الإعدادات'),
+                _buildNavItem(0, Icons.dashboard_rounded, AppLocaleKey.home.tr()),
+                _buildNavItem(1, Icons.directions_car_rounded, AppLocaleKey.cars.tr()),
+                _buildNavItem(2, Icons.calendar_month_rounded, AppLocaleKey.bookingsAndTrips.tr()),
+                _buildNavItem(3, Icons.payments_rounded, AppLocaleKey.financialReports.tr()),
+                _buildNavItem(4, Icons.settings_rounded, AppLocaleKey.settings.tr()),
               ],
             ),
           ),
@@ -66,36 +69,37 @@ class _AdminMainLayoutState extends State<AdminMainLayout> {
 
   Widget _buildNavItem(int index, IconData icon, String label) {
     bool isSelected = _currentIndex == index;
-    Color color = isSelected
-        ? AppColor.primaryColor(context)
-        : Colors.white.withOpacity(0.4);
+    Color color = isSelected ? AppColor.primaryColor(context) : Colors.white.withOpacity(0.4);
 
-    return InkWell(
-      onTap: () => setState(() => _currentIndex = index),
-      borderRadius: BorderRadius.circular(20.r),
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 300),
-        padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
-        decoration: BoxDecoration(
-          color: isSelected
-              ? AppColor.primaryColor(context).withOpacity(0.1)
-              : Colors.transparent,
-          borderRadius: BorderRadius.circular(20.r),
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(icon, color: color, size: 24.sp),
-            Gap(4.h),
-            Text(
-              label,
-              style: TextStyle(
-                color: color,
-                fontSize: 10.sp,
-                fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+    return Expanded(
+      child: InkWell(
+        onTap: () => setState(() => _currentIndex = index),
+        borderRadius: BorderRadius.circular(20.r),
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 300),
+          padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 8.h),
+          decoration: BoxDecoration(
+            color: isSelected ? AppColor.primaryColor(context).withOpacity(0.1) : Colors.transparent,
+            borderRadius: BorderRadius.circular(20.r),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(icon, color: color, size: 24.sp),
+              Gap(4.h),
+              FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Text(
+                  label,
+                  style: TextStyle(
+                    color: color,
+                    fontSize: 10.sp,
+                    fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                  ),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

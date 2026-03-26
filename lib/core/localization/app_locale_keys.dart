@@ -1,6 +1,5 @@
 class AppLocaleKey {
-  static const String pleaseCheckYourConnectionAndTryAgain =
-      'PleaseCheckYourConnectionAndTryAgain';
+  static const String pleaseCheckYourConnectionAndTryAgain = 'PleaseCheckYourConnectionAndTryAgain';
   static const String carApp = 'car_app';
   static const String qualityReliability = 'quality_reliability';
   static const String findDreamCar = 'find_dream_car';
@@ -8,8 +7,7 @@ class AppLocaleKey {
   static const String expertMaintenance = 'expert_maintenance';
   static const String keepCarTopCondition = 'keep_car_top_condition';
   static const String fastSecureDelivery = 'fast_secure_delivery';
-  static const String experienceSeamlessDelivery =
-      'experience_seamless_delivery';
+  static const String experienceSeamlessDelivery = 'experience_seamless_delivery';
   static const String next = 'next';
   static const String getStarted = 'get_started';
   static const String welcomeBack = 'welcome_back';
@@ -59,8 +57,7 @@ class AppLocaleKey {
   static const String porsche = 'porsche';
   static const String bugatti = 'bugatti';
   static const String jaguar = 'jaguar';
-  static const String loginToContinueYourPremiumExperience =
-      'login_continue_premium';
+  static const String loginToContinueYourPremiumExperience = 'login_continue_premium';
   static const String loginContinue = 'login_continue';
   static const String findCar = 'find_car';
   static const String searchByBodyType = 'search_by_body_type';
@@ -226,8 +223,7 @@ class AppLocaleKey {
   static const String submitFinancingRequest = 'submit_financing_request';
   static const String carePolishingServices = 'care_polishing_services';
   static const String requestedServiceType = 'requested_service_type';
-  static const String comprehensiveExteriorPolishing =
-      'comprehensive_exterior_polishing';
+  static const String comprehensiveExteriorPolishing = 'comprehensive_exterior_polishing';
   static const String interiorCleaningPolishing = 'interior_cleaning_polishing';
   static const String nanoCeramicProtection = 'nano_ceramic_protection';
   static const String carSizeHint = 'car_size_hint';
@@ -249,8 +245,7 @@ class AppLocaleKey {
   static const String startBespokeSearch = 'start_bespoke_search';
   static const String carValuationInfo = 'car_valuation_info';
   static const String generalConditionHint = 'general_condition_hint';
-  static const String accidentMaintenanceHistory =
-      'accident_maintenance_history';
+  static const String accidentMaintenanceHistory = 'accident_maintenance_history';
   static const String requestValuationNow = 'request_valuation_now';
   static const String sellYourCarTitle = 'sell_your_car_title';
   static const String listCarForSale = 'list_car_for_sale';
@@ -285,8 +280,7 @@ class AppLocaleKey {
   static const String whatsappFastAccess = 'whatsapp_fast_access';
   static const String callUs = 'call_us';
   static const String customerService247 = 'customer_service_24_7';
-  static const String officialInquiriesComplaints =
-      'official_inquiries_complaints';
+  static const String officialInquiriesComplaints = 'official_inquiries_complaints';
   static const String faqs = 'faqs';
   static const String faqOrderStatus = 'faq_order_status';
   static const String faqPaymentMethods = 'faq_payment_methods';
@@ -306,8 +300,7 @@ class AppLocaleKey {
   static const String capacity = 'capacity';
   static const String fivePassengers = 'five_passengers';
   static const String excellentRating = 'excellent_rating';
-  static const String engineTransmissionCondition =
-      'engine_transmission_condition';
+  static const String engineTransmissionCondition = 'engine_transmission_condition';
   static const String chassisPaintCondition = 'chassis_paint_condition';
   static const String interiorCleanliness = 'interior_cleanliness';
   static const String tiresBrakes = 'tires_brakes';
@@ -339,4 +332,92 @@ class AppLocaleKey {
   static const String mercedesAddedBody = 'mercedes_added_body';
   static const String yesterday = 'yesterday';
   static const String mileage = 'mileage';
+
+  // Admin Keys
+  static const String centralDashboard = 'central_dashboard';
+  static const String performanceSummary = 'performance_summary';
+  static const String weeklyPerformanceIndex = 'weekly_performance_index';
+  static const String urgentApprovalRequests = 'urgent_approval_requests';
+  static const String recentActivityLog = 'recent_activity_log';
+  static const String fleetManagement = 'fleet_management';
+  static const String adminDashboard = 'admin_dashboard';
+  static const String bookingsAndTrips = 'bookings_and_trips';
+  static const String pendingStatus = 'pending_status';
+  static const String activeNow = 'active_now';
+  static const String completed = 'completed';
+  static const String financialReports = 'financial_reports';
+  static const String totalNetProfit = 'total_net_profit';
+  static const String payments = 'payments';
+  static const String expenses = 'expenses';
+  static const String recentTransactions = 'recent_transactions';
+  static const String adminSettings = 'admin_settings';
+  static const String systemSettings = 'system_settings';
+  static const String securityAndPrivacy = 'security_and_privacy';
+  static const String managePasswordsPermissions = 'manage_passwords_permissions';
+  static const String appLanguageDesc = 'app_language_desc';
+  static const String systemNotificationsDesc = 'system_notifications_desc';
+  static const String contentManagement = 'content_management';
+  static const String manageCategoriesDesc = 'manage_categories_desc';
+  static const String discountCoupons = 'discount_coupons';
+  static const String manageOffersDiscounts = 'manage_offers_discounts';
+  static const String termsAndConditions = 'terms_and_conditions';
+  static const String updateUsagePolicies = 'update_usage_policies';
+  static const String technicalSupport = 'technical_support';
+  static const String helpCenterDesc = 'help_center_desc';
+  static const String contactDeveloper = 'contact_developer';
+  static const String raiseSupportTicket = 'raise_support_ticket';
+  static const String manageUsers = 'manage_users';
+  static const String searchUserHint = 'search_user_hint';
+  static const String active = 'active';
+  static const String banned = 'banned';
+  static const String systemAlerts = 'system_alerts';
+  static const String fullActivityLog = 'full_activity_log';
+  static const String inspectionReports = 'inspection_reports';
+  static const String manageServices = 'manage_services';
+  static const String reportNumber = 'report_number';
+  static const String inspectionCompleted = 'inspection_completed';
+  static const String viewFullReport = 'view_full_report';
+  static const String reject = 'reject';
+  static const String approve = 'approve';
+
+  // Add Car Keys
+  static const String addLuxuryCar = 'add_luxury_car';
+  static const String basicInfo = 'basic_info';
+  static const String carNameModel = 'car_name_model';
+
+  static const String carDescriptionDetail = 'car_description_detail';
+  static const String technicalSpecs = 'technical_specs';
+  static const String engine = 'engine';
+  static const String confirmAddCar = 'confirm_add_car';
+  static const String clickToAddCarImages = 'click_to_add_car_images';
+  static const String transparentBgHint = 'transparent_bg_hint';
+
+  // Admin Dummy Data Keys
+  static const String newUrgentBooking = 'new_urgent_booking';
+  static const String newBookingBody = 'new_booking_body';
+  static const String lowStockAlert = 'low_stock_alert';
+  static const String lowStockBody = 'low_stock_body';
+  static const String paymentFailedTitle = 'payment_failed_title';
+  static const String paymentFailedBody = 'payment_failed_body';
+  static const String newCarAddedActivity = 'new_car_added_activity';
+  static const String addedByAdmin = 'added_by_admin';
+  static const String newInspectionRequest = 'new_inspection_request';
+  static const String fromUser = 'from_user';
+  static const String newUserJoined = 'new_user_joined';
+  static const String userEmailLabel = 'user_email_label';
+  static const String successfulPaymentTitle = 'successful_payment_title';
+  static const String amountLabel = 'amount_label';
+  static const String editTripPrice = 'edit_trip_price';
+  static const String threeRequests = 'three_requests';
+  static const String bookingPaymentGClass = 'booking_payment_gclass';
+  static const String maintenanceExpensesLambo = 'maintenance_expenses_lambo';
+  static const String twoHoursAgo = 'two_hours_ago';
+  static const String bentleyContinental = 'bentley_continental';
+  static const String customerName = 'customer_name';
+  static const String paymentSuccessful = 'payment_successful';
+  static const String datePlaceholder = 'date_placeholder';
+  static const String userNamePlaceholder = 'user_name_placeholder';
+  static const String result = 'result';
+  static const String excellent = 'excellent';
+  static const String twentyFourMinutesAgo = 'twenty_four_minutes_ago';
 }

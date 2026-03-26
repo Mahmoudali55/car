@@ -1,10 +1,13 @@
+import 'dart:ui';
+
 import 'package:animate_do/animate_do.dart';
+import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
-import 'dart:ui';
 
 class ManageUsersScreen extends StatelessWidget {
   const ManageUsersScreen({super.key});
@@ -18,18 +21,13 @@ class ManageUsersScreen extends StatelessWidget {
         elevation: 0,
         leading: IconButton(
           onPressed: () => Navigator.pop(context),
-          icon: const Icon(
-            Icons.arrow_back_ios_new_rounded,
-            color: Colors.white,
-          ),
+          icon: const Icon(Icons.arrow_back_ios_new_rounded, color: Colors.white),
         ),
         title: Text(
-          'إدارة المستخدمين',
-          style: AppTextStyle.titleMedium(context).copyWith(
-            color: Colors.white,
-            fontWeight: FontWeight.w900,
-            fontSize: 20.sp,
-          ),
+          AppLocaleKey.manageUsers.tr(),
+          style: AppTextStyle.titleMedium(
+            context,
+          ).copyWith(color: Colors.white, fontWeight: FontWeight.w900, fontSize: 20.sp),
         ),
       ),
       body: Stack(
@@ -94,16 +92,9 @@ class ManageUsersScreen extends StatelessWidget {
           child: TextField(
             style: const TextStyle(color: Colors.white),
             decoration: InputDecoration(
-              icon: Icon(
-                Icons.search_rounded,
-                color: Colors.white.withOpacity(0.5),
-                size: 22.sp,
-              ),
-              hintText: 'ابحث عن مستخدم بالاسم أو البريد...',
-              hintStyle: TextStyle(
-                color: Colors.white.withOpacity(0.3),
-                fontSize: 13.sp,
-              ),
+              icon: Icon(Icons.search_rounded, color: Colors.white.withOpacity(0.5), size: 22.sp),
+              hintText: AppLocaleKey.searchUserHint.tr(),
+              hintStyle: TextStyle(color: Colors.white.withOpacity(0.3), fontSize: 13.sp),
               border: InputBorder.none,
               suffixIcon: Icon(
                 Icons.tune_rounded,
@@ -150,10 +141,7 @@ class ManageUsersScreen extends StatelessWidget {
                     Gap(4.h),
                     Text(
                       'khaled@example.com',
-                      style: TextStyle(
-                        color: Colors.white.withOpacity(0.4),
-                        fontSize: 11.sp,
-                      ),
+                      style: TextStyle(color: Colors.white.withOpacity(0.4), fontSize: 11.sp),
                     ),
                   ],
                 ),
@@ -176,19 +164,12 @@ class ManageUsersScreen extends StatelessWidget {
             color: Colors.white.withOpacity(0.1),
             shape: BoxShape.circle,
             gradient: LinearGradient(
-              colors: [
-                Colors.white.withOpacity(0.2),
-                Colors.white.withOpacity(0.01),
-              ],
+              colors: [Colors.white.withOpacity(0.2), Colors.white.withOpacity(0.01)],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
           ),
-          child: Icon(
-            Icons.person_rounded,
-            color: Colors.white.withOpacity(0.5),
-            size: 24.sp,
-          ),
+          child: Icon(Icons.person_rounded, color: Colors.white.withOpacity(0.5), size: 24.sp),
         ),
         Positioned(
           bottom: 2,
@@ -217,7 +198,7 @@ class ManageUsersScreen extends StatelessWidget {
           activeTrackColor: Colors.greenAccent.withOpacity(0.2),
         ),
         Text(
-          isActive ? 'نشط' : 'محظور',
+          isActive ? AppLocaleKey.active.tr() : AppLocaleKey.banned.tr(),
           style: TextStyle(
             color: isActive ? Colors.greenAccent : Colors.redAccent,
             fontSize: 9.sp,

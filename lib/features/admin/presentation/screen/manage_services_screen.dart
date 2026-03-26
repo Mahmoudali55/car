@@ -1,5 +1,7 @@
+import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -16,13 +18,10 @@ class ManageServicesScreen extends StatelessWidget {
         elevation: 0,
         leading: IconButton(
           onPressed: () => Navigator.pop(context),
-          icon: const Icon(
-            Icons.arrow_back_ios_new_rounded,
-            color: Colors.white,
-          ),
+          icon: const Icon(Icons.arrow_back_ios_new_rounded, color: Colors.white),
         ),
         title: Text(
-          'إدارة الخدمات',
+          AppLocaleKey.manageServices.tr(),
           style: AppTextStyle.titleMedium(
             context,
           ).copyWith(color: Colors.white, fontWeight: FontWeight.bold),
@@ -48,6 +47,7 @@ class ManageServicesScreen extends StatelessWidget {
       'تقييم السيارة',
       'بيع سيارتك',
     ];
+    // These should ideally be in ar.json if they are static content
 
     return Container(
       padding: EdgeInsets.all(16.w),
@@ -76,19 +76,11 @@ class ManageServicesScreen extends StatelessWidget {
               Gap(16.w),
               Text(
                 services[index],
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 13.sp,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: TextStyle(color: Colors.white, fontSize: 13.sp, fontWeight: FontWeight.bold),
               ),
             ],
           ),
-          Switch(
-            value: true,
-            onChanged: (v) {},
-            activeThumbColor: AppColor.primaryColor(context),
-          ),
+          Switch(value: true, onChanged: (v) {}, activeThumbColor: AppColor.primaryColor(context)),
         ],
       ),
     );

@@ -1,6 +1,8 @@
 import 'package:animate_do/animate_do.dart';
+import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
-import 'package:car/core/theme/app_text_style.dart';
+import 'package:car/core/theme/app_text_style.dart' show AppTextStyle;
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -18,19 +20,14 @@ class RevenueReportScreen extends StatelessWidget {
         leading: Navigator.canPop(context)
             ? IconButton(
                 onPressed: () => Navigator.pop(context),
-                icon: const Icon(
-                  Icons.arrow_back_ios_new_rounded,
-                  color: Colors.white,
-                ),
+                icon: const Icon(Icons.arrow_back_ios_new_rounded, color: Colors.white),
               )
             : null,
         title: Text(
-          'التقارير المالية 💰',
-          style: AppTextStyle.titleMedium(context).copyWith(
-            color: Colors.white,
-            fontWeight: FontWeight.w900,
-            fontSize: 20.sp,
-          ),
+          AppLocaleKey.financialReports.tr(),
+          style: AppTextStyle.titleMedium(
+            context,
+          ).copyWith(color: Colors.white, fontWeight: FontWeight.w900, fontSize: 20.sp),
         ),
       ),
       body: SingleChildScrollView(
@@ -41,7 +38,7 @@ class RevenueReportScreen extends StatelessWidget {
           children: [
             FadeInDown(child: _buildMainBalanceCard(context)),
             Gap(32.h),
-            _buildSectionTitle('المعاملات المالية الأخيرة'),
+            _buildSectionTitle(AppLocaleKey.recentTransactions.tr()),
             Gap(16.h),
             _buildTransactionsList(context),
           ],
@@ -73,7 +70,7 @@ class RevenueReportScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'إجمالي الأرباح الصافية',
+            AppLocaleKey.totalNetProfit.tr(),
             style: TextStyle(
               color: Colors.white.withOpacity(0.7),
               fontSize: 13.sp,
@@ -82,7 +79,7 @@ class RevenueReportScreen extends StatelessWidget {
           ),
           Gap(8.h),
           Text(
-            '154,300.50 د.إ',
+            '154,300.50 ${AppLocaleKey.aed.tr()}',
             style: TextStyle(
               color: Colors.white,
               fontSize: 28.sp,
@@ -95,18 +92,14 @@ class RevenueReportScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               _buildBalanceDetail(
-                'المدفوعات',
-                '189,000 د.إ',
+                AppLocaleKey.payments.tr(),
+                '189,000 ${AppLocaleKey.aed.tr()}',
                 Icons.arrow_upward_rounded,
               ),
-              Container(
-                width: 1,
-                height: 40,
-                color: Colors.white.withOpacity(0.1),
-              ),
+              Container(width: 1, height: 40, color: Colors.white.withOpacity(0.1)),
               _buildBalanceDetail(
-                'المصروفات',
-                '34,700 د.إ',
+                AppLocaleKey.expenses.tr(),
+                '34,700 ${AppLocaleKey.aed.tr()}',
                 Icons.arrow_downward_rounded,
               ),
             ],
@@ -126,20 +119,14 @@ class RevenueReportScreen extends StatelessWidget {
             Gap(4.w),
             Text(
               label,
-              style: TextStyle(
-                color: Colors.white.withOpacity(0.6),
-                fontSize: 11.sp,
-              ),
+              style: TextStyle(color: Colors.white.withOpacity(0.6), fontSize: 11.sp),
             ),
           ],
         ),
         Gap(4.h),
         Text(
           value,
-          style: const TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-          ),
+          style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
       ],
     );
@@ -149,11 +136,7 @@ class RevenueReportScreen extends StatelessWidget {
     return FadeInRight(
       child: Text(
         title,
-        style: TextStyle(
-          color: Colors.white,
-          fontSize: 18.sp,
-          fontWeight: FontWeight.w800,
-        ),
+        style: TextStyle(color: Colors.white, fontSize: 18.sp, fontWeight: FontWeight.w800),
       ),
     );
   }
@@ -185,8 +168,7 @@ class RevenueReportScreen extends StatelessWidget {
           Container(
             padding: EdgeInsets.all(12.w),
             decoration: BoxDecoration(
-              color: (isPositive ? Colors.greenAccent : Colors.redAccent)
-                  .withOpacity(0.1),
+              color: (isPositive ? Colors.greenAccent : Colors.redAccent).withOpacity(0.1),
               shape: BoxShape.circle,
             ),
             child: Icon(
@@ -201,26 +183,18 @@ class RevenueReportScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  isPositive
-                      ? 'دفعة حجز: سيارة G-Class'
-                      : 'مصاريف صيانة: لمبرغيني',
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  isPositive ? AppLocaleKey.bookingPaymentGClass.tr() : AppLocaleKey.maintenanceExpensesLambo.tr(),
+                  style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
                 ),
                 Text(
-                  'منذ ساعتين',
-                  style: TextStyle(
-                    color: Colors.white.withOpacity(0.3),
-                    fontSize: 10.sp,
-                  ),
+                  AppLocaleKey.twoHoursAgo.tr(),
+                  style: TextStyle(color: Colors.white.withOpacity(0.3), fontSize: 10.sp),
                 ),
               ],
             ),
           ),
           Text(
-            '${isPositive ? '+' : '-'}${isPositive ? '1,200' : '450'} د.إ',
+            '${isPositive ? '+' : '-'}${isPositive ? '1,200' : '450'} ${AppLocaleKey.aed.tr()}',
             style: TextStyle(
               color: isPositive ? Colors.greenAccent : Colors.redAccent,
               fontWeight: FontWeight.w900,

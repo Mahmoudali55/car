@@ -1,6 +1,8 @@
 import 'package:animate_do/animate_do.dart';
+import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -17,18 +19,13 @@ class AdminNotificationsScreen extends StatelessWidget {
         elevation: 0,
         leading: IconButton(
           onPressed: () => Navigator.pop(context),
-          icon: const Icon(
-            Icons.arrow_back_ios_new_rounded,
-            color: Colors.white,
-          ),
+          icon: const Icon(Icons.arrow_back_ios_new_rounded, color: Colors.white),
         ),
         title: Text(
-          'تنبيهات النظام',
-          style: AppTextStyle.titleMedium(context).copyWith(
-            color: Colors.white,
-            fontWeight: FontWeight.w900,
-            fontSize: 20.sp,
-          ),
+          AppLocaleKey.notifications.tr(),
+          style: AppTextStyle.titleMedium(
+            context,
+          ).copyWith(color: Colors.white, fontWeight: FontWeight.w900, fontSize: 20.sp),
         ),
       ),
       body: ListView.separated(
@@ -46,21 +43,21 @@ class AdminNotificationsScreen extends StatelessWidget {
   Widget _buildNotificationItem(BuildContext context, int index) {
     final notifications = [
       {
-        'title': 'طلب حجز جديد عاجل',
-        'desc': 'قام العميل أحمد محمد بطلب حجز مرسيدس G-Class لليوم.',
-        'time': 'منذ دقيقتين',
+        'title': AppLocaleKey.newUrgentBooking.tr(),
+        'desc': AppLocaleKey.newBookingBody.tr(),
+        'time': AppLocaleKey.twoMinutesAgo.tr(),
         'type': 'booking',
       },
       {
-        'title': 'تنبيه مخزون منخفض',
-        'desc': 'مرسيدس S-Class أصبحت غير متوفرة في المستودع.',
-        'time': 'منذ ساعة',
+        'title': AppLocaleKey.lowStockAlert.tr(),
+        'desc': AppLocaleKey.lowStockBody.tr(),
+        'time': AppLocaleKey.oneHourAgo.tr(),
         'type': 'inventory',
       },
       {
-        'title': 'فشل عملية دفع',
-        'desc': 'فشل العميل خالد في إتمام عملية دفع لمبلغ 15,000 د.إ.',
-        'time': 'منذ 3 ساعات',
+        'title': AppLocaleKey.paymentFailedTitle.tr(),
+        'desc': AppLocaleKey.paymentFailedBody.tr(),
+        'time': AppLocaleKey.threeHoursAgo.tr(),
         'type': 'payment',
       },
     ];
@@ -94,10 +91,7 @@ class AdminNotificationsScreen extends StatelessWidget {
                 Gap(4.h),
                 Text(
                   notif['desc'] as String,
-                  style: TextStyle(
-                    color: Colors.white.withOpacity(0.4),
-                    fontSize: 11.sp,
-                  ),
+                  style: TextStyle(color: Colors.white.withOpacity(0.4), fontSize: 11.sp),
                 ),
                 Gap(8.h),
                 Text(
@@ -137,10 +131,7 @@ class AdminNotificationsScreen extends StatelessWidget {
 
     return Container(
       padding: EdgeInsets.all(10.w),
-      decoration: BoxDecoration(
-        color: color.withOpacity(0.1),
-        shape: BoxShape.circle,
-      ),
+      decoration: BoxDecoration(color: color.withOpacity(0.1), shape: BoxShape.circle),
       child: Icon(icon, color: color, size: 20.sp),
     );
   }

@@ -1,6 +1,8 @@
 import 'package:animate_do/animate_do.dart';
+import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -18,19 +20,14 @@ class ManageBookingsScreen extends StatelessWidget {
         leading: Navigator.canPop(context)
             ? IconButton(
                 onPressed: () => Navigator.pop(context),
-                icon: const Icon(
-                  Icons.arrow_back_ios_new_rounded,
-                  color: Colors.white,
-                ),
+                icon: const Icon(Icons.arrow_back_ios_new_rounded, color: Colors.white),
               )
             : null,
         title: Text(
-          'إدارة العمليات والرحلات 🗓️',
-          style: AppTextStyle.titleMedium(context).copyWith(
-            color: Colors.white,
-            fontWeight: FontWeight.w900,
-            fontSize: 20.sp,
-          ),
+          AppLocaleKey.bookingsAndTrips.tr(),
+          style: AppTextStyle.titleMedium(
+            context,
+          ).copyWith(color: Colors.white, fontWeight: FontWeight.w900, fontSize: 20.sp),
         ),
       ),
       body: DefaultTabController(
@@ -42,10 +39,10 @@ class ManageBookingsScreen extends StatelessWidget {
               labelColor: Colors.white,
               unselectedLabelColor: Colors.white.withOpacity(0.4),
               dividerColor: Colors.transparent,
-              tabs: const [
-                Tab(text: 'قيد الانتظار'),
-                Tab(text: 'نشطة حالياً'),
-                Tab(text: 'تمت'),
+              tabs: [
+                Tab(text: AppLocaleKey.pendingStatus.tr()),
+                Tab(text: AppLocaleKey.activeNow.tr()),
+                Tab(text: AppLocaleKey.completed.tr()),
               ],
             ),
             Expanded(
@@ -107,7 +104,7 @@ class ManageBookingsScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'بنتلي كونتيننتال GT',
+                      AppLocaleKey.bentleyContinental.tr(),
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 14.sp,
@@ -116,11 +113,8 @@ class ManageBookingsScreen extends StatelessWidget {
                     ),
                     Gap(4.h),
                     Text(
-                      'العميل: محمد الجاسر',
-                      style: TextStyle(
-                        color: Colors.white.withOpacity(0.4),
-                        fontSize: 11.sp,
-                      ),
+                      '${AppLocaleKey.luxury.tr()}: ${AppLocaleKey.customerName.tr()}',
+                      style: TextStyle(color: Colors.white.withOpacity(0.4), fontSize: 11.sp),
                     ),
                   ],
                 ),
@@ -137,11 +131,8 @@ class ManageBookingsScreen extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    'دفع ناجح',
-                    style: TextStyle(
-                      color: Colors.greenAccent.withOpacity(0.5),
-                      fontSize: 9.sp,
-                    ),
+                    AppLocaleKey.paymentSuccessful.tr(),
+                    style: TextStyle(color: Colors.greenAccent.withOpacity(0.5), fontSize: 9.sp),
                   ),
                 ],
               ),
@@ -151,7 +142,7 @@ class ManageBookingsScreen extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              _buildInfoTag(Icons.access_time_filled_rounded, '12-25 مارس'),
+              _buildInfoTag(Icons.access_time_filled_rounded, AppLocaleKey.datePlaceholder.tr()),
               if (type == 'pending') ...[
                 Row(
                   children: [
@@ -176,10 +167,7 @@ class ManageBookingsScreen extends StatelessWidget {
         Gap(6.w),
         Text(
           label,
-          style: TextStyle(
-            color: Colors.white.withOpacity(0.5),
-            fontSize: 11.sp,
-          ),
+          style: TextStyle(color: Colors.white.withOpacity(0.5), fontSize: 11.sp),
         ),
       ],
     );
@@ -201,13 +189,11 @@ class ManageBookingsScreen extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
       decoration: BoxDecoration(
-        color: (isDone ? Colors.blueAccent : Colors.orangeAccent).withOpacity(
-          0.1,
-        ),
+        color: (isDone ? Colors.blueAccent : Colors.orangeAccent).withOpacity(0.1),
         borderRadius: BorderRadius.circular(12.r),
       ),
       child: Text(
-        isDone ? 'منتهية' : 'نشطة',
+        isDone ? AppLocaleKey.completed.tr() : AppLocaleKey.activeNow.tr(),
         style: TextStyle(
           color: isDone ? Colors.blueAccent : Colors.orangeAccent,
           fontSize: 10.sp,

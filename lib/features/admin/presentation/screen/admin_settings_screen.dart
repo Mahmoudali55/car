@@ -1,5 +1,7 @@
 import 'package:animate_do/animate_do.dart';
+import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_text_style.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -17,19 +19,14 @@ class AdminSettingsScreen extends StatelessWidget {
         leading: Navigator.canPop(context)
             ? IconButton(
                 onPressed: () => Navigator.pop(context),
-                icon: const Icon(
-                  Icons.arrow_back_ios_new_rounded,
-                  color: Colors.white,
-                ),
+                icon: const Icon(Icons.arrow_back_ios_new_rounded, color: Colors.white),
               )
             : null,
         title: Text(
-          'إعدادات الإدارة',
-          style: AppTextStyle.titleMedium(context).copyWith(
-            color: Colors.white,
-            fontWeight: FontWeight.w900,
-            fontSize: 20.sp,
-          ),
+          AppLocaleKey.adminSettings.tr(),
+          style: AppTextStyle.titleMedium(
+            context,
+          ).copyWith(color: Colors.white, fontWeight: FontWeight.w900, fontSize: 20.sp),
         ),
       ),
       body: Stack(
@@ -60,52 +57,52 @@ class AdminSettingsScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildSection(context, 'إعدادات النظام', [
+                _buildSection(context, AppLocaleKey.systemSettings.tr(), [
                   _buildSettingItem(
                     Icons.security_rounded,
-                    'الأمان والخصوصية',
-                    'إدارة كلمات المرور والصلاحيات',
+                    AppLocaleKey.securityAndPrivacy.tr(),
+                    AppLocaleKey.managePasswordsPermissions.tr(),
                   ),
                   _buildSettingItem(
                     Icons.language_rounded,
-                    'لغة التطبيق',
-                    'العربية - الإنجليزية',
+                    AppLocaleKey.language.tr(),
+                    AppLocaleKey.appLanguageDesc.tr(),
                   ),
                   _buildSettingItem(
                     Icons.notifications_active_rounded,
-                    'إشعارات النظام',
-                    'تخصيص تنبيهات الأدمن',
+                    AppLocaleKey.systemAlerts.tr(),
+                    AppLocaleKey.systemNotificationsDesc.tr(),
                   ),
                 ]),
                 Gap(32.h),
-                _buildSection(context, 'إدارة المحتوى', [
+                _buildSection(context, AppLocaleKey.contentManagement.tr(), [
                   _buildSettingItem(
                     Icons.category_rounded,
-                    'إدارة الفئات',
-                    'تعديل أنواع السيارات والعلامات',
+                    AppLocaleKey.categories.tr(),
+                    AppLocaleKey.manageCategoriesDesc.tr(),
                   ),
                   _buildSettingItem(
                     Icons.discount_rounded,
-                    'كوبونات الخصم',
-                    'إدارة العروض والخصومات',
+                    AppLocaleKey.discountCoupons.tr(),
+                    AppLocaleKey.manageOffersDiscounts.tr(),
                   ),
                   _buildSettingItem(
                     Icons.policy_rounded,
-                    'الشروط والأحكام',
-                    'تحديث سياسات الاستخدام',
+                    AppLocaleKey.termsAndConditions.tr(),
+                    AppLocaleKey.updateUsagePolicies.tr(),
                   ),
                 ]),
                 Gap(32.h),
-                _buildSection(context, 'الدعم الفني', [
+                _buildSection(context, AppLocaleKey.technicalSupport.tr(), [
                   _buildSettingItem(
                     Icons.help_outline_rounded,
-                    'مركز المساعدة',
-                    'دليل استخدام لوحة التحكم',
+                    AppLocaleKey.supportCenter.tr(),
+                    AppLocaleKey.helpCenterDesc.tr(),
                   ),
                   _buildSettingItem(
                     Icons.contact_support_outlined,
-                    'تواصل مع المبرمج',
-                    'رفع تذكرة دعم فني',
+                    AppLocaleKey.contactDeveloper.tr(),
+                    AppLocaleKey.raiseSupportTicket.tr(),
                   ),
                 ]),
                 Gap(40.h),
@@ -158,23 +155,13 @@ class AdminSettingsScreen extends StatelessWidget {
           ),
           title: Text(
             title,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 14.sp,
-              fontWeight: FontWeight.bold,
-            ),
+            style: TextStyle(color: Colors.white, fontSize: 14.sp, fontWeight: FontWeight.bold),
           ),
           subtitle: Text(
             subtitle,
-            style: TextStyle(
-              color: Colors.white.withOpacity(0.4),
-              fontSize: 11.sp,
-            ),
+            style: TextStyle(color: Colors.white.withOpacity(0.4), fontSize: 11.sp),
           ),
-          trailing: Icon(
-            Icons.chevron_left_rounded,
-            color: Colors.white.withOpacity(0.2),
-          ),
+          trailing: Icon(Icons.chevron_left_rounded, color: Colors.white.withOpacity(0.2)),
         ),
       ),
     );
@@ -193,17 +180,11 @@ class AdminSettingsScreen extends StatelessWidget {
         child: ListTile(
           onTap: () {},
           leading: const Icon(Icons.logout_rounded, color: Colors.redAccent),
-          title: const Text(
-            'تسجيل الخروج',
-            style: TextStyle(
-              color: Colors.redAccent,
-              fontWeight: FontWeight.bold,
-            ),
+          title: Text(
+            AppLocaleKey.logout.tr(),
+            style: TextStyle(color: Colors.redAccent, fontWeight: FontWeight.bold),
           ),
-          trailing: const Icon(
-            Icons.chevron_left_rounded,
-            color: Colors.redAccent,
-          ),
+          trailing: const Icon(Icons.chevron_left_rounded, color: Colors.redAccent),
         ),
       ),
     );

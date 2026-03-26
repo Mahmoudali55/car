@@ -1,8 +1,10 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/routes/routes_name.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -15,24 +17,32 @@ class ManageCarsScreen extends StatefulWidget {
 }
 
 class _ManageCarsScreenState extends State<ManageCarsScreen> {
-  String selectedFilter = 'الكل';
+  String selectedFilterKey = AppLocaleKey.all;
 
   final List<Map<String, String>> dummyCars = [
-    {'name': 'Mercedes Benz G63', 'status': 'مؤجرة', 'price': '1200'},
-    {'name': 'Bentley Continental', 'status': 'متاحة', 'price': '2500'},
-    {'name': 'Ferrari F8 Tributo', 'status': 'في الصيانة', 'price': '3500'},
-    {'name': 'Range Rover Vogue', 'status': 'مؤجرة', 'price': '900'},
-    {'name': 'Lamborghini Urus', 'status': 'متاحة', 'price': '4000'},
-    {'name': 'Porsche 911 Turbo', 'status': 'متاحة', 'price': '2200'},
-    {'name': 'Audi RS7 Sportback', 'status': 'في الصيانة', 'price': '1500'},
-    {'name': 'Mercedes S-Class', 'status': 'متاحة', 'price': '1800'},
+    {
+      'name': 'Mercedes Benz G63',
+      'status': AppLocaleKey.completed,
+      'price': '1200',
+    }, // Mapping statuses to keys
+    {'name': 'Bentley Continental', 'status': AppLocaleKey.available, 'price': '2500'},
+    {
+      'name': 'Ferrari F8 Tributo',
+      'status': 'maintenance',
+      'price': '3500',
+    }, // Need to add maintenance key if missing or use existing
+    {'name': 'Range Rover Vogue', 'status': AppLocaleKey.completed, 'price': '900'},
+    {'name': 'Lamborghini Urus', 'status': AppLocaleKey.available, 'price': '4000'},
+    {'name': 'Porsche 911 Turbo', 'status': AppLocaleKey.available, 'price': '2200'},
+    {'name': 'Audi RS7 Sportback', 'status': 'maintenance', 'price': '1500'},
+    {'name': 'Mercedes S-Class', 'status': AppLocaleKey.available, 'price': '1800'},
   ];
 
   @override
   Widget build(BuildContext context) {
-    final filteredCars = selectedFilter == 'الكل'
+    final filteredCars = selectedFilterKey == AppLocaleKey.all
         ? dummyCars
-        : dummyCars.where((car) => car['status'] == selectedFilter).toList();
+        : dummyCars.where((car) => car['status'] == selectedFilterKey).toList();
 
     return Scaffold(
       backgroundColor: const Color(0xFF0F172A),
@@ -46,7 +56,7 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
               )
             : null,
         title: Text(
-          'إدارة الأسطول 🚙',
+          AppLocaleKey.fleetManagement.tr(),
           style: AppTextStyle.titleMedium(context).copyWith(
             color: AppColor.whiteColor(context),
             fontWeight: FontWeight.w900,
@@ -75,7 +85,7 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
               physics: const BouncingScrollPhysics(),
               separatorBuilder: (context, index) => Gap(20.h),
               itemBuilder: (context, index) => FadeInUp(
-                key: ValueKey('${selectedFilter}_$index'), // Reset animation on filter change
+                key: ValueKey('${selectedFilterKey}_$index'), // Reset animation on filter change
                 delay: Duration(milliseconds: index * 40),
                 child: _buildCarInventoryCard(filteredCars[index]),
               ),
@@ -87,7 +97,12 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
   }
 
   Widget _buildStatusFilters() {
-    final filters = ['الكل', 'متاحة', 'في الصيانة', 'مؤجرة'];
+    final filters = [
+      AppLocaleKey.all,
+      AppLocaleKey.available,
+      'maintenance',
+      AppLocaleKey.completed,
+    ];
     return Container(
       height: 50.h,
       margin: EdgeInsets.only(top: 10.h),
@@ -101,10 +116,17 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
     );
   }
 
-  Widget _buildFilterChip(String label) {
-    final isSelected = selectedFilter == label;
+  Widget _buildFilterChip(String labelKey) {
+    final isSelected = selectedFilterKey == labelKey;
+    String label = labelKey == 'maintenance' ? 'في الصيانة' : labelKey.tr();
+    if (labelKey == AppLocaleKey.completed) label = 'مؤجرة';
+    if (labelKey == 'maintenance' && context.locale.languageCode == 'en') {
+      label = 'In Maintenance';
+    }
+    if (labelKey == AppLocaleKey.completed && context.locale.languageCode == 'en') label = 'Rented';
+
     return GestureDetector(
-      onTap: () => setState(() => selectedFilter = label),
+      onTap: () => setState(() => selectedFilterKey = labelKey),
       child: Container(
         margin: EdgeInsets.only(left: 12.w),
         padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 8.h),
@@ -133,10 +155,17 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
   }
 
   Widget _buildCarInventoryCard(Map<String, String> car) {
-    final status = car['status']!;
-    final statusColor = status == 'متاحة'
+    final statusKey = car['status']!;
+    final statusColor = statusKey == AppLocaleKey.available
         ? Colors.greenAccent
-        : (status == 'مؤجرة' ? Colors.orangeAccent : Colors.redAccent);
+        : (statusKey == AppLocaleKey.completed ? Colors.orangeAccent : Colors.redAccent);
+
+    String statusLabel = statusKey == 'maintenance' ? 'في الصيانة' : statusKey.tr();
+    if (statusKey == AppLocaleKey.completed) statusLabel = 'مؤجرة';
+    if (statusKey == 'maintenance' && context.locale.languageCode == 'en')
+      statusLabel = 'In Maintenance';
+    if (statusKey == AppLocaleKey.completed && context.locale.languageCode == 'en')
+      statusLabel = 'Rented';
 
     return Container(
       decoration: BoxDecoration(
@@ -198,10 +227,10 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
                       borderRadius: BorderRadius.circular(12.r),
                     ),
                     child: Text(
-                      status,
-                      style: TextStyle(
+                      statusLabel,
+                      style: const TextStyle(
                         color: Colors.black,
-                        fontSize: 10.sp,
+                        fontSize: 10,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -227,7 +256,7 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
                       ),
                       Gap(4.h),
                       Text(
-                        'السعر اليومي: ${car['price']} د.إ',
+                        '${AppLocaleKey.price.tr()}: ${car['price']} ${AppLocaleKey.aed.tr()}',
                         style: TextStyle(
                           color: AppColor.whiteColor(context).withOpacity(0.4),
                           fontSize: 12.sp,

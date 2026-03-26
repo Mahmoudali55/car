@@ -3,7 +3,9 @@ import 'dart:ui';
 import 'package:animate_do/animate_do.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:car/core/custom_widgets/buttons/custom_button.dart';
+import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_text_style.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -23,7 +25,7 @@ class AddCarScreen extends StatelessWidget {
           icon: const Icon(Icons.arrow_back_ios_new_rounded, color: Colors.white),
         ),
         title: Text(
-          'إضافة سيارة فاخرة',
+          AppLocaleKey.addLuxuryCar.tr(),
           style: AppTextStyle.titleMedium(
             context,
           ).copyWith(color: Colors.white, fontWeight: FontWeight.w900, fontSize: 20.sp),
@@ -41,35 +43,41 @@ class AddCarScreen extends StatelessWidget {
               delay: const Duration(milliseconds: 200),
               child: Column(
                 children: [
-                  _buildSectionTitle('المعلومات الأساسية'),
+                  _buildSectionTitle(AppLocaleKey.basicInfo.tr()),
                   Gap(16.h),
-                  _buildGlassField('اسم السيارة والموديل'),
+                  _buildGlassField(AppLocaleKey.carNameModel.tr()),
                   Gap(16.h),
                   Row(
                     children: [
                       Expanded(
-                        child: _buildGlassField('السعر (د.إ)', keyboardType: TextInputType.number),
+                        child: _buildGlassField(
+                          '${AppLocaleKey.price.tr()} (${AppLocaleKey.aed.tr()})',
+                          keyboardType: TextInputType.number,
+                        ),
                       ),
                       Gap(16.w),
                       Expanded(
-                        child: _buildGlassField('سنة الصنع', keyboardType: TextInputType.number),
+                        child: _buildGlassField(
+                          AppLocaleKey.manufacturingYear.tr(),
+                          keyboardType: TextInputType.number,
+                        ),
                       ),
                     ],
                   ),
                   Gap(16.h),
-                  _buildGlassField('وصف السيارة بالتفصيل', maxLines: 4),
+                  _buildGlassField(AppLocaleKey.carDescriptionDetail.tr(), maxLines: 4),
                   Gap(32.h),
-                  _buildSectionTitle('المواصفات الفنية'),
+                  _buildSectionTitle(AppLocaleKey.technicalSpecs.tr()),
                   Gap(16.h),
                   Row(
                     children: [
-                      Expanded(child: _buildGlassField('المحرك')),
+                      Expanded(child: _buildGlassField(AppLocaleKey.engine.tr())),
                       Gap(16.w),
-                      Expanded(child: _buildGlassField('الحالة')),
+                      Expanded(child: _buildGlassField(AppLocaleKey.status.tr())),
                     ],
                   ),
                   Gap(40.h),
-                  CustomButton(text: 'تأكيد الإضافة ونشر السيارة', onPressed: () {}),
+                  CustomButton(text: AppLocaleKey.confirmAddCar.tr(), onPressed: () {}),
                 ],
               ),
             ),
@@ -167,7 +175,7 @@ class AddCarScreen extends StatelessWidget {
                     ),
                     Gap(12.h),
                     Text(
-                      'اضغط لإضافة صور السيارة بجودة عالية',
+                      AppLocaleKey.clickToAddCarImages.tr(),
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 13.sp,
@@ -175,7 +183,7 @@ class AddCarScreen extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      'يفضل استخدام صور بخلفية شفافة لتجربة أفضل',
+                      AppLocaleKey.transparentBgHint.tr(),
                       style: TextStyle(color: Colors.white.withOpacity(0.4), fontSize: 11.sp),
                     ),
                   ],

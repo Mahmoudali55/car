@@ -1,5 +1,7 @@
+import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -16,13 +18,10 @@ class InspectionReportsScreen extends StatelessWidget {
         elevation: 0,
         leading: IconButton(
           onPressed: () => Navigator.pop(context),
-          icon: const Icon(
-            Icons.arrow_back_ios_new_rounded,
-            color: Colors.white,
-          ),
+          icon: const Icon(Icons.arrow_back_ios_new_rounded, color: Colors.white),
         ),
         title: Text(
-          'تقارير الفحص',
+          AppLocaleKey.inspectionReports.tr(),
           style: AppTextStyle.titleMedium(
             context,
           ).copyWith(color: Colors.white, fontWeight: FontWeight.bold),
@@ -52,12 +51,8 @@ class InspectionReportsScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'تقرير رقم #${1000 + index}',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 13.sp,
-                  fontWeight: FontWeight.bold,
-                ),
+                '${AppLocaleKey.reportNumber.tr()}#${1000 + index}',
+                style: TextStyle(color: Colors.white, fontSize: 13.sp, fontWeight: FontWeight.bold),
               ),
               Text(
                 '2024/03/25',
@@ -67,27 +62,20 @@ class InspectionReportsScreen extends StatelessWidget {
           ),
           Gap(12.h),
           Text(
-            'الحالة: فحص شامل مكتمل',
+            '${AppLocaleKey.status.tr()}: ${AppLocaleKey.inspectionCompleted.tr()}',
             style: TextStyle(color: Colors.white70, fontSize: 12.sp),
           ),
           Gap(12.h),
           Row(
             children: [
-              const Icon(
-                Icons.check_circle_rounded,
-                color: Colors.green,
-                size: 16,
-              ),
+              const Icon(Icons.check_circle_rounded, color: Colors.green, size: 16),
               Gap(8.w),
               Text(
-                'النتيجة: 95/100 (ممتاز)',
+                '${AppLocaleKey.result.tr()}: 95/100 (${AppLocaleKey.excellent.tr()})',
                 style: TextStyle(color: Colors.green, fontSize: 12.sp),
               ),
               const Spacer(),
-              TextButton(
-                onPressed: () {},
-                child: const Text('عرض التقرير الكامل'),
-              ),
+              TextButton(onPressed: () {}, child: Text(AppLocaleKey.viewFullReport.tr())),
             ],
           ),
         ],

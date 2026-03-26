@@ -1,5 +1,7 @@
 import 'package:animate_do/animate_do.dart';
+import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_text_style.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -22,7 +24,7 @@ class AllActivitiesScreen extends StatelessWidget {
           ),
         ),
         title: Text(
-          'سجل النشاطات الكامل',
+          AppLocaleKey.fullActivityLog.tr(),
           style: AppTextStyle.titleMedium(context).copyWith(
             color: Colors.white,
             fontWeight: FontWeight.w900,
@@ -46,30 +48,30 @@ class AllActivitiesScreen extends StatelessWidget {
   Widget _buildActivityCard(BuildContext context, int index) {
     final activities = [
       {
-        'title': 'تم إضافة مرسيدس G-Class',
-        'desc': 'بواسطة أدمن: محمد علي',
-        'time': 'منذ 10 دقائق',
+        'title': AppLocaleKey.newCarAddedActivity.tr(),
+        'desc': AppLocaleKey.addedByAdmin.tr(),
+        'time': '10 min', // Or use a generic time key
         'icon': Icons.add_business_rounded,
         'color': const Color(0xFF3B82F6),
       },
       {
-        'title': 'طلب فحص جديد رقم #1204',
-        'desc': 'من المستخدم: خالد عمر',
-        'time': 'منذ 25 دقيقة',
+        'title': AppLocaleKey.newInspectionRequest.tr(),
+        'desc': AppLocaleKey.fromUser.tr(),
+        'time': '25 min',
         'icon': Icons.car_repair_rounded,
         'color': const Color(0xFFF59E0B),
       },
       {
-        'title': 'مستخدم جديد انضم للنظام',
-        'desc': 'البريد: omar@example.com',
-        'time': 'منذ ساعة',
+        'title': AppLocaleKey.newUserJoined.tr(),
+        'desc': AppLocaleKey.userEmailLabel.tr(),
+        'time': '1 hour',
         'icon': Icons.person_add_rounded,
         'color': const Color(0xFF10B981),
       },
       {
-        'title': 'اكتمال عملية دفع ناجحة',
-        'desc': 'المبلغ: 12,500 د.إ',
-        'time': 'منذ 3 ساعات',
+        'title': AppLocaleKey.successfulPaymentTitle.tr(),
+        'desc': AppLocaleKey.amountLabel.tr(),
+        'time': '3 hours',
         'icon': Icons.check_circle_rounded,
         'color': const Color(0xFF2DD4BF),
       },
