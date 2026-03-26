@@ -443,4 +443,9 @@ class AppLocaleKey {
   static const String management = 'management';
   static const String landlineAndWhatsapp = 'landline_and_whatsapp';
   static const String emails = 'emails';
+  static const String promo1 = 'promo1';
+  static const String promo2 = 'promo2';
+  static const String promo3 = 'promo3';
+  static const String promo4 = 'promo4';
+  static const String availableBanks = 'available_banks';
 }

@@ -7,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import 'package:animate_do/animate_do.dart';
+import 'dart:async';
 
 class AboutScreen extends StatefulWidget {
   const AboutScreen({super.key});
@@ -17,10 +18,23 @@ class AboutScreen extends StatefulWidget {
 
 class _AboutScreenState extends State<AboutScreen> {
   late YoutubePlayerController _controller;
+  late PageController _promoController;
+  late Timer _timer;
+  int _currentPromoIndex = 0;
+
+  final List<String> _promos = [
+    AppLocaleKey.promo1,
+    AppLocaleKey.promo2,
+    AppLocaleKey.promo3,
+    AppLocaleKey.promo4,
+    AppLocaleKey.availableBanks,
+  ];
 
   @override
   void initState() {
     super.initState();
+    _promoController = PageController();
+    _startTimer();
     _controller = YoutubePlayerController(
       initialVideoId: 'FtavftvqqWo', // Official company video ID
       flags: const YoutubePlayerFlags(
@@ -35,6 +49,23 @@ class _AboutScreenState extends State<AboutScreen> {
     );
   }
 
+  void _startTimer() {
+    _timer = Timer.periodic(const Duration(seconds: 6), (timer) {
+      if (_currentPromoIndex < _promos.length - 1) {
+        _currentPromoIndex++;
+      } else {
+        _currentPromoIndex = 0;
+      }
+      if (_promoController.hasClients) {
+        _promoController.animateToPage(
+          _currentPromoIndex,
+          duration: const Duration(milliseconds: 1000),
+          curve: Curves.easeInOutCubic,
+        );
+      }
+    });
+  }
+
   @override
   void deactivate() {
     _controller.pause();
@@ -44,6 +75,8 @@ class _AboutScreenState extends State<AboutScreen> {
   @override
   void dispose() {
     _controller.dispose();
+    _promoController.dispose();
+    _timer.cancel();
     super.dispose();
   }
 
@@ -71,6 +104,11 @@ class _AboutScreenState extends State<AboutScreen> {
                       FadeInUp(
                         duration: const Duration(milliseconds: 600),
                         child: _buildBioSection(context),
+                      ),
+                      Gap(24.h),
+                      FadeInUp(
+                        delay: const Duration(milliseconds: 100),
+                        child: _buildPromoSlider(context),
                       ),
                       Gap(32.h),
                       FadeInUp(
@@ -179,6 +217,75 @@ class _AboutScreenState extends State<AboutScreen> {
           ),
         ),
       ],
+    );
+  }
+
+  Widget _buildPromoSlider(BuildContext context) {
+    return Container(
+      height: 140.h,
+      decoration: BoxDecoration(
+        color: AppColor.secondAppColor(context),
+        borderRadius: BorderRadius.circular(20.r),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            blurRadius: 10,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Stack(
+        children: [
+          PageView.builder(
+            controller: _promoController,
+            itemCount: _promos.length,
+            onPageChanged: (index) {
+              setState(() {
+                _currentPromoIndex = index;
+              });
+            },
+            itemBuilder: (context, index) {
+              return Center(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 24.w),
+                  child: Text(
+                    _promos[index].tr(),
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: AppColor.blackTextColor(context).withOpacity(0.9),
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w600,
+                      height: 1.6,
+                    ),
+                  ),
+                ),
+              );
+            },
+          ),
+          Positioned(
+            bottom: 12.h,
+            left: 0,
+            right: 0,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: List.generate(
+                _promos.length,
+                (index) => Container(
+                  margin: EdgeInsets.symmetric(horizontal: 4.w),
+                  width: _currentPromoIndex == index ? 20.w : 6.w,
+                  height: 6.h,
+                  decoration: BoxDecoration(
+                    color: _currentPromoIndex == index
+                        ? AppColor.primaryColor(context)
+                        : AppColor.primaryColor(context).withOpacity(0.2),
+                    borderRadius: BorderRadius.circular(3.r),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 
