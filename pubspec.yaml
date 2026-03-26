@@ -65,6 +65,7 @@ dependencies:
   flutter_inappwebview: 6.1.5
 
 dev_dependencies:
+  flutter_launcher_icons: ^0.13.1
   flutter_test:
     sdk: flutter
 
@@ -124,3 +125,9 @@ flutter_assets:
   output_path: lib/core/images/
   filename: app_images.dart
   classname: AppImages
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/images/loge.png"
+

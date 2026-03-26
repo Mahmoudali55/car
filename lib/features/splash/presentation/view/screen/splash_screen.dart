@@ -67,9 +67,9 @@ class _SplashScreenState extends State<SplashScreen> {
                   FadeInDown(
                     duration: const Duration(milliseconds: 1500),
                     child: Container(
-                      padding: EdgeInsets.all(25.w),
+                      width: 140.w,
+                      height: 140.w,
                       decoration: BoxDecoration(
-                        color: AppColor.blackTextColor(context),
                         shape: BoxShape.circle,
                         boxShadow: [
                           BoxShadow(
@@ -83,11 +83,10 @@ class _SplashScreenState extends State<SplashScreen> {
                             offset: const Offset(0, 10),
                           ),
                         ],
-                      ),
-                      child: Icon(
-                        Icons.directions_car_filled_rounded,
-                        size: 80.w,
-                        color: AppColor.primaryColor(context),
+                        image: const DecorationImage(
+                          image: AssetImage('assets/images/profile.jpeg'),
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
                   ),
