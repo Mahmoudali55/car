@@ -115,6 +115,47 @@ class _SplashScreenState extends State<SplashScreen> {
                       ),
                     ),
                   ),
+                  SizedBox(height: 20.h),
+                  FadeInUp(
+                    delay: const Duration(milliseconds: 1000),
+                    duration: const Duration(milliseconds: 1500),
+                    child: Column(
+                      children: [
+                        Text(
+                          AppLocaleKey.authorizedDistributor.tr(),
+                          style: TextStyle(
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.bold,
+                            color: AppColor.primaryColor(context),
+                          ),
+                        ),
+                        SizedBox(height: 8.h),
+                        Text(
+                          AppLocaleKey.brandsLine1.tr(),
+                          style: TextStyle(
+                            fontSize: 13.sp,
+                            color: AppColor.blackTextColor(context).withOpacity(0.9),
+                          ),
+                        ),
+                        Text(
+                          AppLocaleKey.brandsLine2.tr(),
+                          style: TextStyle(
+                            fontSize: 13.sp,
+                            color: AppColor.blackTextColor(context).withOpacity(0.9),
+                          ),
+                        ),
+                        SizedBox(height: 12.h),
+                        Text(
+                          AppLocaleKey.financingAvailable.tr(),
+                          style: TextStyle(
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w600,
+                            color: AppColor.blackTextColor(context).withOpacity(0.8),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),

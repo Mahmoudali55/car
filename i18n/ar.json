@@ -421,6 +421,14 @@
   "login_required": "تسجيل الدخول مطلوب",
   "condition": "حالة السيارة",
   "new_car": "جديدة",
-  "used_car": "مستعملة"
+  "used_car": "مستعملة",
+  "car_quotation": "عرض سعر سيارة",
+  "reference_number": "رقم المرجع",
+  "quote_validity": "صلاحية العرض: 3 أيام",
+  "thank_you_quote": "شكراً لاختياركم شركة هاجد بن وزير للسيارات. هذا العرض صالح لمدة 3 أيام.",
+  "authorized_distributor": "موزع معتمد لـ :",
+  "brands_line1": "تويوتا - فورد - نيسان - هيونداي - لينكون",
+  "brands_line2": "شيري - بايك - MG",
+  "financing_available": "يوجد لدينا جميع البنوك وشركات التمويل"
 }
 

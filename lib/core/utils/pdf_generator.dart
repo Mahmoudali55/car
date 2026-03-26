@@ -7,8 +7,7 @@ import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
 
 class QuotePdfGenerator {
-  static Future<void> generateCarQuotation(
-      Map<String, dynamic> car, BuildContext context) async {
+  static Future<void> generateCarQuotation(Map<String, dynamic> car, BuildContext context) async {
     final pdf = pw.Document();
 
     // Load Arabic font
@@ -16,7 +15,7 @@ class QuotePdfGenerator {
     final arabicFontBold = await PdfGoogleFonts.cairoBold();
 
     // Load logo image
-    final ByteData logoData = await rootBundle.load('assets/images/profile.jpeg');
+    final ByteData logoData = await rootBundle.load('assets/images/loge.png');
     final Uint8List logoBytes = logoData.buffer.asUint8List();
     final logoImage = pw.MemoryImage(logoBytes);
 
@@ -32,31 +31,20 @@ class QuotePdfGenerator {
     }
 
     final dateStr = DateFormat('yyyy-MM-dd').format(DateTime.now());
-    final companyName = "شركة هاجد بن وزير";
-    
-    // Translation helpers
-    String textCompany = companyName;
-    String textDate = "${AppLocaleKey.appointmentDate.tr()}: $dateStr";
-    String textHeader = "عرض سعر سيارة";
-    String brandModel = AppLocaleKey.brandAndModel.tr();
-    String manufacturingYear = AppLocaleKey.manufacturingYear.tr();
-    String engine = AppLocaleKey.engine.tr();
-    String price = car['price'] ?? "N/A";
-    String textTotalPrice = "${AppLocaleKey.price.tr()}: $price";
-
-    if (context.locale.languageCode == 'en') {
-      textCompany = "Hajed bin Wazir Co.";
-      textDate = "Date: $dateStr";
-      textHeader = "Car Price Quotation";
-    }
+    final textCompany = AppLocaleKey.carApp.tr();
+    final textDate = "${AppLocaleKey.appointmentDate.tr()}: $dateStr";
+    final textHeader = AppLocaleKey.carQuotation.tr();
+    final brandModel = AppLocaleKey.brandAndModel.tr();
+    final manufacturingYear = AppLocaleKey.manufacturingYear.tr();
+    final engine = AppLocaleKey.engine.tr();
+    final priceStr = car['price'] ?? "N/A";
+    final textTotalPrice = "${AppLocaleKey.price.tr()}: $priceStr";
+    final refNo = "${AppLocaleKey.referenceNumber.tr()}: HBW-${car['name'].hashCode.abs().toString().substring(0, 4)}";
 
     pdf.addPage(
       pw.Page(
         pageFormat: PdfPageFormat.a4,
-        theme: pw.ThemeData.withFont(
-          base: arabicFont,
-          bold: arabicFontBold,
-        ),
+        theme: pw.ThemeData.withFont(base: arabicFont, bold: arabicFontBold),
         textDirection: context.locale.languageCode == 'ar'
             ? pw.TextDirection.rtl
             : pw.TextDirection.ltr,
@@ -75,48 +63,48 @@ class QuotePdfGenerator {
                         textCompany,
                         style: pw.TextStyle(
                           font: arabicFontBold,
-                          fontSize: 24,
+                          fontSize: 26,
                           color: PdfColors.blue900,
                         ),
                       ),
-                      pw.SizedBox(height: 4),
+                      pw.SizedBox(height: 6),
                       pw.Text(
                         textDate,
-                        style: const pw.TextStyle(
-                          fontSize: 14,
-                          color: PdfColors.grey700,
-                        ),
+                        style: const pw.TextStyle(fontSize: 12, color: PdfColors.grey700),
+                      ),
+                      pw.Text(
+                        refNo,
+                        style: const pw.TextStyle(fontSize: 12, color: PdfColors.grey700),
                       ),
                     ],
                   ),
                   pw.Container(
-                    width: 70,
-                    height: 70,
+                    width: 75,
+                    height: 75,
                     decoration: pw.BoxDecoration(
                       shape: pw.BoxShape.circle,
-                      image: pw.DecorationImage(
-                        image: logoImage,
-                        fit: pw.BoxFit.cover,
-                      ),
+                      border: pw.Border.all(color: PdfColors.blue900, width: 2),
+                      image: pw.DecorationImage(image: logoImage, fit: pw.BoxFit.cover),
                     ),
                   ),
                 ],
               ),
               pw.SizedBox(height: 30),
-              
-              pw.Divider(color: PdfColors.grey300),
-              pw.SizedBox(height: 20),
 
-              pw.Center(
-                child: pw.Text(
-                  textHeader,
-                  style: pw.TextStyle(
-                    font: arabicFontBold,
-                    fontSize: 28,
+              pw.Container(
+                padding: const pw.EdgeInsets.symmetric(vertical: 12, horizontal: 20),
+                decoration: const pw.BoxDecoration(
+                  color: PdfColors.blue900,
+                  borderRadius: pw.BorderRadius.all(pw.Radius.circular(8)),
+                ),
+                child: pw.Center(
+                  child: pw.Text(
+                    textHeader.toUpperCase(),
+                    style: pw.TextStyle(font: arabicFontBold, fontSize: 24, color: PdfColors.white),
                   ),
                 ),
               ),
-              pw.SizedBox(height: 30),
+              pw.SizedBox(height: 40),
 
               // CAR INFO & IMAGE
               pw.Row(
@@ -133,7 +121,11 @@ class QuotePdfGenerator {
                         pw.SizedBox(height: 10),
                         _buildRowInfo(engine, car['engine'] ?? '', arabicFontBold),
                         pw.SizedBox(height: 10),
-                        _buildRowInfo(AppLocaleKey.mileageKm.tr(), car['mileage'] ?? '', arabicFontBold),
+                        _buildRowInfo(
+                          AppLocaleKey.mileageKm.tr(),
+                          car['mileage'] ?? '',
+                          arabicFontBold,
+                        ),
                       ],
                     ),
                   ),
@@ -162,8 +154,13 @@ class QuotePdfGenerator {
 
               // PRICE
               pw.Row(
-                mainAxisAlignment: pw.MainAxisAlignment.end,
+                mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: pw.CrossAxisAlignment.end,
                 children: [
+                  pw.Text(
+                    AppLocaleKey.quoteValidity.tr(),
+                    style: const pw.TextStyle(fontSize: 10, color: PdfColors.grey600),
+                  ),
                   pw.Text(
                     textTotalPrice,
                     style: pw.TextStyle(
@@ -182,9 +179,7 @@ class QuotePdfGenerator {
               pw.SizedBox(height: 10),
               pw.Center(
                 child: pw.Text(
-                  context.locale.languageCode == 'ar'
-                      ? "شكراً لاختياركم شركة هاجد بن وزير للسيارات. هذا العرض صالح لمدة 3 أيام."
-                      : "Thank you for choosing Hajed bin Wazir Co. This quote is valid for 3 days.",
+                  AppLocaleKey.thankYouQuote.tr(),
                   style: const pw.TextStyle(fontSize: 12, color: PdfColors.grey600),
                   textAlign: pw.TextAlign.center,
                 ),
@@ -209,12 +204,7 @@ class QuotePdfGenerator {
           "$label: ",
           style: pw.TextStyle(font: boldFont, fontSize: 16, color: PdfColors.grey800),
         ),
-        pw.Expanded(
-          child: pw.Text(
-            value,
-            style: const pw.TextStyle(fontSize: 16),
-          ),
-        ),
+        pw.Expanded(child: pw.Text(value, style: const pw.TextStyle(fontSize: 16))),
       ],
     );
   }

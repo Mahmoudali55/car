@@ -421,6 +421,14 @@
   "login_required": "Login Required",
   "condition": "Condition",
   "new_car": "New",
-  "used_car": "Used"
+  "used_car": "Used",
+  "car_quotation": "Car Price Quotation",
+  "reference_number": "Ref No",
+  "quote_validity": "Validity: 3 Days",
+  "thank_you_quote": "Thank you for choosing Hajed bin Wazir Co. This quote is valid for 3 days.",
+  "authorized_distributor": "Authorized Distributor for:",
+  "brands_line1": "Toyota - Ford - Nissan - Hyundai - Lincoln",
+  "brands_line2": "Chery - BAIC - MG",
+  "financing_available": "Financing available through all banks"
 }
 

@@ -427,4 +427,12 @@ class AppLocaleKey {
   static const String newCar = 'new_car';
   static const String usedCar = 'used_car';
   static const String condition = 'condition';
+  static const String carQuotation = 'car_quotation';
+  static const String referenceNumber = 'reference_number';
+  static const String quoteValidity = 'quote_validity';
+  static const String thankYouQuote = 'thank_you_quote';
+  static const String authorizedDistributor = 'authorized_distributor';
+  static const String brandsLine1 = 'brands_line1';
+  static const String brandsLine2 = 'brands_line2';
+  static const String financingAvailable = 'financing_available';
 }
