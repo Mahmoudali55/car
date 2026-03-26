@@ -424,4 +424,7 @@ class AppLocaleKey {
   static const String result = 'result';
   static const String excellent = 'excellent';
   static const String twentyFourMinutesAgo = 'twenty_four_minutes_ago';
+  static const String newCar = 'new_car';
+  static const String usedCar = 'used_car';
+  static const String condition = 'condition';
 }

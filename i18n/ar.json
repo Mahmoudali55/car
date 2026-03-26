@@ -418,6 +418,9 @@
   "appearance": "المظهر",
   "dark_mode": "الوضع الداكن",
   "light_mode": "الوضع الفاتح",
-  "login_required": "تسجيل الدخول مطلوب"
+  "login_required": "تسجيل الدخول مطلوب",
+  "condition": "حالة السيارة",
+  "new_car": "جديدة",
+  "used_car": "مستعملة"
 }
 

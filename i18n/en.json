@@ -418,6 +418,9 @@
   "appearance": "Appearance",
   "dark_mode": "Dark Mode",
   "light_mode": "Light Mode",
-  "login_required": "Login Required"
+  "login_required": "Login Required",
+  "condition": "Condition",
+  "new_car": "New",
+  "used_car": "Used"
 }
 

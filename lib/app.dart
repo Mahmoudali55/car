@@ -1,8 +1,8 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:car/core/services/services_locator.dart';
 import 'package:car/core/theme/cubit/app_theme_cubit.dart';
-import 'package:car/features/favorites/presentation/view/cubit/favorites_cubit.dart';
 import 'package:car/features/cart/presentation/view/cubit/cart_cubit.dart';
+import 'package:car/features/favorites/presentation/view/cubit/favorites_cubit.dart';
 import 'package:car/features/notifications/presentation/view/cubit/notifications_cubit.dart';
 import 'package:country_picker/country_picker.dart';
 import 'package:easy_localization/easy_localization.dart';

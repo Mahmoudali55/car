@@ -65,6 +65,10 @@ class _FilterScreenState extends State<FilterScreen> {
       AppLocaleKey.usa,
       AppLocaleKey.europe,
     ],
+    AppLocaleKey.condition: [
+      AppLocaleKey.newCar,
+      AppLocaleKey.usedCar,
+    ],
   };
 
   final Map<String, String> _selectedItems = {};
@@ -109,6 +113,11 @@ class _FilterScreenState extends State<FilterScreen> {
             children: [
               _buildSectionTitle(AppLocaleKey.brands.tr()),
               _buildChipsGroup(AppLocaleKey.brands),
+
+              Gap(24.h),
+              _buildSectionTitle(AppLocaleKey.condition.tr()),
+              _buildChipsGroup(AppLocaleKey.condition),
+
 
               Gap(24.h),
               _buildSectionTitle(AppLocaleKey.manufacturingYear.tr()),
