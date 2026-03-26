@@ -167,7 +167,7 @@ class SellCarScreen extends StatelessWidget {
       child: ElevatedButton(
         onPressed: () {},
         style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.transparent,
+          backgroundColor: AppColor.primaryColor(context),
           foregroundColor: AppColor.blackTextColor(context),
           shadowColor: Colors.transparent,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.r)),
