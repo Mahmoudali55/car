@@ -5,6 +5,7 @@ import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/core/utils/common_methods.dart';
+import 'package:car/core/utils/pdf_generator.dart';
 import 'package:car/features/cart/presentation/view/cubit/cart_cubit.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -73,6 +74,24 @@ class StickyActionBarWidget extends StatelessWidget {
                   ),
                 ),
                 Gap(16.w),
+                Container(
+                  height: 56.h,
+                  width: 56.h,
+                  decoration: BoxDecoration(
+                    color: AppColor.blackTextColor(context).withValues(alpha: 0.1),
+                    borderRadius: BorderRadius.circular(16.r),
+                  ),
+                  child: IconButton(
+                    icon: Icon(
+                      Icons.picture_as_pdf_rounded,
+                      color: AppColor.blackTextColor(context),
+                      size: 28,
+                    ),
+                    tooltip: AppLocaleKey.downloadQuotation.tr(),
+                    onPressed: () => QuotePdfGenerator.generateCarQuotation(car, context),
+                  ),
+                ),
+                Gap(12.w),
                 Container(
                   height: 56.h,
                   width: 56.h,

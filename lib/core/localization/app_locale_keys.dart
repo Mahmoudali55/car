@@ -250,6 +250,7 @@ class AppLocaleKey {
   static const String generalConditionHint = 'general_condition_hint';
   static const String accidentMaintenanceHistory = 'accident_maintenance_history';
   static const String requestValuationNow = 'request_valuation_now';
+  static const String downloadQuotation = 'download_quotation';
   static const String sellYourCarTitle = 'sell_your_car_title';
   static const String listCarForSale = 'list_car_for_sale';
   static const String askingPrice = 'asking_price';
