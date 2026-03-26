@@ -438,4 +438,9 @@ class AppLocaleKey {
   static const String aboutCompany = 'about_company';
   static const String companyBio = 'company_bio';
   static const String companyVideoTitle = 'company_video_title';
+  static const String installmentSales = 'installment_sales';
+  static const String cashSales = 'cash_sales';
+  static const String management = 'management';
+  static const String landlineAndWhatsapp = 'landline_and_whatsapp';
+  static const String emails = 'emails';
 }
