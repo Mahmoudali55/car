@@ -432,6 +432,11 @@ class ServicesScreen extends StatelessWidget {
         'label': AppLocaleKey.carValuation.tr(),
         'color': Colors.amber,
       },
+      {
+        'icon': Icons.info_outline_rounded,
+        'label': AppLocaleKey.aboutCompany.tr(),
+        'color': Colors.blueGrey,
+      },
     ];
   }
 
@@ -472,6 +477,8 @@ class ServicesScreen extends StatelessWidget {
       Navigator.pushNamed(context, RoutesName.bespokeSelectionScreen);
     } else if (label == AppLocaleKey.carValuation.tr() || label == AppLocaleKey.valuation.tr()) {
       Navigator.pushNamed(context, RoutesName.carValuationScreen);
+    } else if (label == AppLocaleKey.aboutCompany.tr()) {
+      Navigator.pushNamed(context, RoutesName.aboutScreen);
     }
   }
 

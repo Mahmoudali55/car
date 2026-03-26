@@ -88,6 +88,9 @@ class AppRouters {
         return MaterialPageRoute(builder: (_) => const ServiceHistoryScreen());
       case RoutesName.supportScreen:
         return MaterialPageRoute(builder: (_) => const SupportScreen());
+      case RoutesName.aboutScreen:
+        return MaterialPageRoute(builder: (_) => const AboutScreen());
+
       case RoutesName.adminDashboard:
         return MaterialPageRoute(builder: (_) => const AdminMainLayout());
 

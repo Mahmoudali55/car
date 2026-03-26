@@ -435,4 +435,7 @@ class AppLocaleKey {
   static const String brandsLine1 = 'brands_line1';
   static const String brandsLine2 = 'brands_line2';
   static const String financingAvailable = 'financing_available';
+  static const String aboutCompany = 'about_company';
+  static const String companyBio = 'company_bio';
+  static const String companyVideoTitle = 'company_video_title';
 }

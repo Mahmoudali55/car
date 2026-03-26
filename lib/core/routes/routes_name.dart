@@ -29,6 +29,8 @@ class RoutesName {
   static const String bookingAppointmentScreen = 'bookingAppointmentScreen';
   static const String serviceHistoryScreen = 'serviceHistoryScreen';
   static const String supportScreen = 'supportScreen';
+  static const String aboutScreen = 'aboutScreen';
+
 
   // Admin Screens
   static const String adminDashboard = 'adminDashboard';
