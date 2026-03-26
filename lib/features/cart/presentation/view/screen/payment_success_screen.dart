@@ -98,7 +98,7 @@ class _PaymentSuccessScreenState extends State<PaymentSuccessScreen>
                       Text(
                         'تمّت عملية الدفع!',
                         style: AppTextStyle.titleLarge(context).copyWith(
-                          color: Colors.white,
+                          color: AppColor.blackTextColor(context),
                           fontWeight: FontWeight.w900,
                           fontSize: 28.sp,
                         ),
@@ -108,7 +108,7 @@ class _PaymentSuccessScreenState extends State<PaymentSuccessScreen>
                       Text(
                         'شكراً لك! تم استلام طلبك بنجاح.\nسيتواصل معك فريقنا خلال 24 ساعة.',
                         style: AppTextStyle.bodyMedium(context).copyWith(
-                          color: Colors.white.withOpacity(0.6),
+                          color: AppColor.blackTextColor(context).withOpacity(0.6),
                           height: 1.6,
                         ),
                         textAlign: TextAlign.center,
@@ -125,7 +125,7 @@ class _PaymentSuccessScreenState extends State<PaymentSuccessScreen>
                           color: AppColor.secondAppColor(context),
                           borderRadius: BorderRadius.circular(16.r),
                           border: Border.all(
-                            color: Colors.white.withOpacity(0.08),
+                            color: AppColor.blackTextColor(context).withOpacity(0.08),
                           ),
                         ),
                         child: Row(
@@ -140,7 +140,7 @@ class _PaymentSuccessScreenState extends State<PaymentSuccessScreen>
                             Text(
                               'رقم الطلب: #CAR-${DateTime.now().millisecond.toString().padLeft(4, '0')}',
                               style: AppTextStyle.bodyMedium(context).copyWith(
-                                color: Colors.white,
+                                color: AppColor.blackTextColor(context),
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
@@ -178,7 +178,7 @@ class _PaymentSuccessScreenState extends State<PaymentSuccessScreen>
                       child: Text(
                         'العودة للرئيسية',
                         style: AppTextStyle.titleMedium(context).copyWith(
-                          color: Colors.white,
+                          color: AppColor.blackTextColor(context),
                           fontWeight: FontWeight.bold,
                         ),
                       ),

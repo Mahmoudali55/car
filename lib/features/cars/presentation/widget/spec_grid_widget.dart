@@ -81,7 +81,7 @@ class SpecGridWidget extends StatelessWidget {
         color: AppColor.secondAppColor(context),
         borderRadius: BorderRadius.circular(16.r),
         border: Border.all(
-          color: AppColor.whiteColor(context).withValues(alpha: 0.05),
+          color: AppColor.blackTextColor(context).withValues(alpha: 0.05),
         ),
       ),
       child: Row(
@@ -89,7 +89,7 @@ class SpecGridWidget extends StatelessWidget {
           Container(
             padding: EdgeInsets.all(8.w),
             decoration: BoxDecoration(
-              color: AppColor.whiteColor(context).withValues(alpha: 0.05),
+              color: AppColor.blackTextColor(context).withValues(alpha: 0.05),
               borderRadius: BorderRadius.circular(10.r),
             ),
             child: Icon(
@@ -107,14 +107,14 @@ class SpecGridWidget extends StatelessWidget {
                 Text(
                   title,
                   style: AppTextStyle.bodySmall(context).copyWith(
-                    color: AppColor.whiteColor(context).withValues(alpha: 0.4),
+                    color: AppColor.blackTextColor(context).withValues(alpha: 0.4),
                     fontSize: 10.sp,
                   ),
                 ),
                 Text(
                   value,
                   style: AppTextStyle.bodyMedium(context).copyWith(
-                    color: AppColor.whiteColor(context),
+                    color: AppColor.blackTextColor(context),
                     fontWeight: FontWeight.bold,
                     fontSize: 12.sp,
                   ),

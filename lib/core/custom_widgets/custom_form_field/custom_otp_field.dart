@@ -11,12 +11,7 @@ class CustomOtpField extends StatefulWidget {
   final int length;
   final TextEditingController? controller;
   final void Function(String)? onCompleted;
-  const CustomOtpField({
-    super.key,
-    this.length = 4,
-    this.controller,
-    this.onCompleted,
-  });
+  const CustomOtpField({super.key, this.length = 4, this.controller, this.onCompleted});
 
   @override
   State<CustomOtpField> createState() => _CustomOtpFieldState();
@@ -56,7 +51,7 @@ class _CustomOtpFieldState extends State<CustomOtpField> {
             textStyle: AppTextStyle.text16MSecond(context),
             decoration: BoxDecoration(
               border: Border.all(color: AppColor.primaryColor(context)),
-              color: AppColor.whiteColor(context),
+              color: AppColor.blackTextColor(context),
               borderRadius: BorderRadius.circular(10),
             ),
           ),
@@ -65,7 +60,7 @@ class _CustomOtpFieldState extends State<CustomOtpField> {
             width: 56,
             textStyle: AppTextStyle.text16MSecond(context),
             decoration: BoxDecoration(
-              color: AppColor.whiteColor(context),
+              color: AppColor.blackTextColor(context),
               border: Border.all(color: Colors.red.shade700),
               borderRadius: BorderRadius.circular(10.0),
             ),

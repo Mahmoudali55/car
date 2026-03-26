@@ -413,5 +413,10 @@
   "user_name_placeholder": "خالد محمد عبد الرحمن",
   "result": "النتيجة",
   "excellent": "ممتاز",
-  "twenty_four_minutes_ago": "منذ 24 دقيقة"
+  "twenty_four_minutes_ago": "منذ 24 دقيقة",
+  "appearance": "المظهر",
+  "dark_mode": "الوضع الداكن",
+  "light_mode": "الوضع الفاتح",
+  "login_required": "تسجيل الدخول مطلوب"
 }
+

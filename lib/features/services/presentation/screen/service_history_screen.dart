@@ -59,17 +59,13 @@ class ServiceHistoryScreen extends StatelessWidget {
         centerTitle: true,
         leading: IconButton(
           onPressed: () => Navigator.pop(context),
-          icon: Icon(
-            Icons.arrow_back_ios_new_rounded,
-            color: AppColor.whiteColor(context),
-          ),
+          icon: Icon(Icons.arrow_back_ios_new_rounded, color: AppColor.blackTextColor(context)),
         ),
         title: Text(
           AppLocaleKey.myServiceHistory.tr(),
-          style: AppTextStyle.titleMedium(context).copyWith(
-            color: AppColor.whiteColor(context),
-            fontWeight: FontWeight.bold,
-          ),
+          style: AppTextStyle.titleMedium(
+            context,
+          ).copyWith(color: AppColor.blackTextColor(context), fontWeight: FontWeight.bold),
         ),
       ),
       body: ListView.builder(
@@ -85,9 +81,7 @@ class ServiceHistoryScreen extends StatelessWidget {
               decoration: BoxDecoration(
                 color: const Color(0xFF1F2937),
                 borderRadius: BorderRadius.circular(16.r),
-                border: Border.all(
-                  color: AppColor.whiteColor(context).withOpacity(0.05),
-                ),
+                border: Border.all(color: AppColor.blackTextColor(context).withOpacity(0.05)),
               ),
               child: Row(
                 children: [
@@ -97,11 +91,7 @@ class ServiceHistoryScreen extends StatelessWidget {
                       color: item['color'].withOpacity(0.1),
                       borderRadius: BorderRadius.circular(12.r),
                     ),
-                    child: Icon(
-                      item['icon'],
-                      color: item['color'],
-                      size: 24.sp,
-                    ),
+                    child: Icon(item['icon'], color: item['color'], size: 24.sp),
                   ),
                   Gap(16.w),
                   Expanded(
@@ -114,7 +104,7 @@ class ServiceHistoryScreen extends StatelessWidget {
                             Text(
                               item['service'],
                               style: TextStyle(
-                                color: AppColor.whiteColor(context),
+                                color: AppColor.blackTextColor(context),
                                 fontSize: 14.sp,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -133,20 +123,15 @@ class ServiceHistoryScreen extends StatelessWidget {
                         Text(
                           "${item['car']} • ${item['date']}",
                           style: TextStyle(
-                            color: Colors.white38,
+                            color: AppColor.blackTextColor(context).withValues(alpha: 0.38),
                             fontSize: 11.sp,
                           ),
                         ),
                         Gap(8.h),
                         Container(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 8.w,
-                            vertical: 4.h,
-                          ),
+                          padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
                           decoration: BoxDecoration(
-                            color:
-                                item['status'] ==
-                                    AppLocaleKey.cancelledStatus.tr()
+                            color: item['status'] == AppLocaleKey.cancelledStatus.tr()
                                 ? Colors.red.withValues(alpha: (0.1))
                                 : Colors.green.withValues(alpha: (0.1)),
                             borderRadius: BorderRadius.circular(6.r),
@@ -154,9 +139,7 @@ class ServiceHistoryScreen extends StatelessWidget {
                           child: Text(
                             item['status'],
                             style: TextStyle(
-                              color:
-                                  item['status'] ==
-                                      AppLocaleKey.cancelledStatus.tr()
+                              color: item['status'] == AppLocaleKey.cancelledStatus.tr()
                                   ? Colors.redAccent
                                   : Colors.greenAccent,
                               fontSize: 10.sp,

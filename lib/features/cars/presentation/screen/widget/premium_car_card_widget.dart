@@ -18,19 +18,13 @@ class PremiumCarCardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        NavigatorMethods.pushNamed(
-          context,
-          RoutesName.carDetailsScreen,
-          arguments: car,
-        );
+        NavigatorMethods.pushNamed(context, RoutesName.carDetailsScreen, arguments: car);
       },
       child: Container(
         decoration: BoxDecoration(
           color: AppColor.secondAppColor(context),
           borderRadius: BorderRadius.circular(24.r),
-          border: Border.all(
-            color: AppColor.whiteColor(context).withValues(alpha: 0.05),
-          ),
+          border: Border.all(color: AppColor.blackTextColor(context).withValues(alpha: 0.05)),
           boxShadow: [
             BoxShadow(
               color: AppColor.blackTextColor(context).withValues(alpha: 0.1),
@@ -72,20 +66,15 @@ class PremiumCarCardWidget extends StatelessWidget {
                     height: 30.h,
                     width: 80.w,
                     alignment: Alignment.center,
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 8.w,
-                      vertical: 4.h,
-                    ),
+                    padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
                     decoration: BoxDecoration(
-                      color: AppColor.blackTextColor(
-                        context,
-                      ).withValues(alpha: 0.2),
+                      color: AppColor.blackTextColor(context).withValues(alpha: 0.2),
                       shape: BoxShape.circle,
                     ),
                     child: Text(
                       car['year'],
                       style: AppTextStyle.bodySmall(context).copyWith(
-                        color: AppColor.whiteColor(context),
+                        color: AppColor.blackTextColor(context),
                         fontSize: 10.sp,
                         fontWeight: FontWeight.bold,
                       ),
@@ -97,14 +86,10 @@ class PremiumCarCardWidget extends StatelessWidget {
                   right: 15.w,
                   child: BlocBuilder<FavoritesCubit, FavoritesState>(
                     builder: (context, state) {
-                      final isFav = context.read<FavoritesCubit>().isFavorite(
-                        car['name']!,
-                      );
+                      final isFav = context.read<FavoritesCubit>().isFavorite(car['name']!);
                       return Container(
                         decoration: BoxDecoration(
-                          color: AppColor.blackTextColor(
-                            context,
-                          ).withValues(alpha: 0.2),
+                          color: AppColor.blackTextColor(context).withValues(alpha: 0.2),
                           shape: BoxShape.circle,
                         ),
                         child: IconButton(
@@ -112,12 +97,10 @@ class PremiumCarCardWidget extends StatelessWidget {
                             context.read<FavoritesCubit>().toggleFavorite(car);
                           },
                           icon: Icon(
-                            isFav
-                                ? Icons.favorite_rounded
-                                : Icons.favorite_border_rounded,
+                            isFav ? Icons.favorite_rounded : Icons.favorite_border_rounded,
                             color: isFav
                                 ? AppColor.primaryColor(context)
-                                : AppColor.whiteColor(context),
+                                : AppColor.blackTextColor(context),
                             size: 20.sp,
                           ),
                         ),
@@ -150,7 +133,7 @@ class PremiumCarCardWidget extends StatelessWidget {
                           Text(
                             car['name'],
                             style: AppTextStyle.bodyMedium(context).copyWith(
-                              color: AppColor.whiteColor(context),
+                              color: AppColor.blackTextColor(context),
                               fontWeight: FontWeight.bold,
                               fontSize: 16.sp,
                             ),
@@ -168,25 +151,15 @@ class PremiumCarCardWidget extends StatelessWidget {
                   ),
                   Gap(12.h),
                   Divider(
-                    color: AppColor.whiteColor(
-                      context,
-                    ).withValues(alpha: (0.05)),
+                    color: AppColor.blackTextColor(context).withValues(alpha: (0.05)),
                     height: 1,
                   ),
                   Gap(12.h),
                   Row(
                     children: [
-                      _buildSpecIcon(
-                        context,
-                        Icons.speed_rounded,
-                        car['mileage'],
-                      ),
+                      _buildSpecIcon(context, Icons.speed_rounded, car['mileage']),
                       Gap(16.w),
-                      _buildSpecIcon(
-                        context,
-                        Icons.settings_rounded,
-                        AppLocaleKey.normal.tr(),
-                      ),
+                      _buildSpecIcon(context, Icons.settings_rounded, AppLocaleKey.normal.tr()),
                       Gap(16.w),
                       _buildSpecIcon(
                         context,
@@ -207,13 +180,13 @@ class PremiumCarCardWidget extends StatelessWidget {
   Widget _buildSpecIcon(BuildContext context, IconData icon, String text) {
     return Row(
       children: [
-        Icon(icon, color: AppColor.whiteColor(context), size: 14.sp),
+        Icon(icon, color: AppColor.blackTextColor(context), size: 14.sp),
         Gap(4.w),
         Text(
           text,
           style: AppTextStyle.bodyMedium(
             context,
-          ).copyWith(color: AppColor.whiteColor(context), fontSize: 10.sp),
+          ).copyWith(color: AppColor.blackTextColor(context), fontSize: 10.sp),
         ),
       ],
     );

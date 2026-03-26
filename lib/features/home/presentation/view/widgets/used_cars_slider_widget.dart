@@ -71,7 +71,7 @@ class UsedCarsSliderWidget extends StatelessWidget {
               decoration: BoxDecoration(
                 color: AppColor.secondAppColor(context),
                 borderRadius: BorderRadius.circular(24.r),
-                border: Border.all(color: Colors.white.withValues(alpha: 0.05)),
+                border: Border.all(color: AppColor.blackTextColor(context).withValues(alpha: 0.05)),
               ),
               clipBehavior: Clip.antiAlias,
               child: Column(
@@ -84,7 +84,7 @@ class UsedCarsSliderWidget extends StatelessWidget {
                         Container(
                           width: double.infinity,
                           padding: EdgeInsets.all(12.w),
-                          color: Colors.white.withValues(alpha: 0.02),
+                          color: AppColor.blackTextColor(context).withValues(alpha: 0.02),
                           child: Hero(
                             tag: 'used_car_${car['name']}',
                             child: Image.asset(
@@ -116,7 +116,7 @@ class UsedCarsSliderWidget extends StatelessWidget {
                                         : Icons.favorite_border_rounded,
                                     color: isFav
                                         ? Colors.redAccent
-                                        : Colors.white,
+                                        : AppColor.blackTextColor(context),
                                     size: 16.w,
                                   ),
                                 ),
@@ -137,7 +137,7 @@ class UsedCarsSliderWidget extends StatelessWidget {
                           Text(
                             car['name']!,
                             style: AppTextStyle.bodyMedium(context).copyWith(
-                              color: Colors.white,
+                              color: AppColor.blackTextColor(context),
                               fontWeight: FontWeight.bold,
                               fontSize: 14.sp,
                             ),
@@ -156,7 +156,7 @@ class UsedCarsSliderWidget extends StatelessWidget {
                               Text(
                                 car['mileage']!,
                                 style: AppTextStyle.bodySmall(context).copyWith(
-                                  color: Colors.white.withValues(alpha: 0.6),
+                                  color: AppColor.blackTextColor(context).withValues(alpha: 0.6),
                                   fontSize: 10.sp,
                                 ),
                               ),

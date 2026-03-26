@@ -33,7 +33,7 @@ class FavoriteItemWidget extends StatelessWidget {
               offset: const Offset(0, 5),
             ),
           ],
-          border: Border.all(color: Colors.white.withOpacity(0.04)),
+          border: Border.all(color: AppColor.blackTextColor(context).withOpacity(0.04)),
         ),
         child: Row(
           children: [
@@ -43,7 +43,7 @@ class FavoriteItemWidget extends StatelessWidget {
               height: 80.h,
               padding: EdgeInsets.all(8.w),
               decoration: BoxDecoration(
-                color: Colors.white.withOpacity(0.05),
+                color: AppColor.blackTextColor(context).withOpacity(0.05),
                 borderRadius: BorderRadius.circular(16.r),
               ),
               child: Hero(
@@ -75,7 +75,7 @@ class FavoriteItemWidget extends StatelessWidget {
                     car['name'],
                     style: AppTextStyle.bodyMedium(context).copyWith(
                       fontWeight: FontWeight.bold,
-                      color: Colors.white,
+                      color: AppColor.blackTextColor(context),
                     ),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
@@ -115,7 +115,7 @@ class FavoriteItemWidget extends StatelessWidget {
                 onPressed: () {
                   context.read<FavoritesCubit>().toggleFavorite(car);
                 },
-                icon: const Icon(Icons.favorite, color: Colors.redAccent),
+                icon: Icon(Icons.favorite, color: Colors.redAccent),
               ),
             ),
           ],

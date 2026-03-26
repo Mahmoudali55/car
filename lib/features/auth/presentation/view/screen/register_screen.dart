@@ -57,12 +57,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         onPressed: () => Navigator.pop(context),
                         icon: Icon(
                           Icons.arrow_back_ios_new_rounded,
-                          color: AppColor.whiteColor(context),
+                          color: AppColor.blackTextColor(context),
                         ),
                         style: IconButton.styleFrom(
-                          backgroundColor: AppColor.whiteColor(
-                            context,
-                          ).withValues(alpha: (0.1)),
+                          backgroundColor: AppColor.whiteColor(context).withValues(alpha: (0.1)),
                           padding: EdgeInsets.all(12.w),
                         ),
                       ),
@@ -77,7 +75,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             AppLocaleKey.createAccount.tr(),
                             style: AppTextStyle.titleLarge(
                               context,
-                              color: AppColor.whiteColor(context),
+                              color: AppColor.blackTextColor(context),
                             ).copyWith(fontSize: 32.sp),
                           ),
                           Gap(8.h),
@@ -85,9 +83,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             AppLocaleKey.joinPremiumCommunity.tr(),
                             style: AppTextStyle.bodyMedium(
                               context,
-                              color: AppColor.whiteColor(
-                                context,
-                              ).withValues(alpha: 0.5),
+                              color: AppColor.whiteColor(context).withValues(alpha: 0.5),
                             ),
                           ),
                         ],
@@ -105,16 +101,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           Icons.person_outline_rounded,
                           color: AppColor.primaryColor(context),
                         ),
-                        fillColor: AppColor.whiteColor(
-                          context,
-                        ).withValues(alpha: 0.05),
-                        textStyle: TextStyle(
-                          color: AppColor.whiteColor(context),
-                        ),
+                        fillColor: AppColor.whiteColor(context).withValues(alpha: 0.05),
+                        textStyle: TextStyle(color: AppColor.blackTextColor(context)),
                         hintStyle: TextStyle(
-                          color: AppColor.whiteColor(
-                            context,
-                          ).withValues(alpha: 0.3),
+                          color: AppColor.whiteColor(context).withValues(alpha: 0.3),
                         ),
                         radius: 16,
                       ),
@@ -130,16 +120,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           Icons.phone_iphone_rounded,
                           color: AppColor.primaryColor(context),
                         ),
-                        fillColor: AppColor.whiteColor(
-                          context,
-                        ).withValues(alpha: 0.05),
-                        textStyle: TextStyle(
-                          color: AppColor.whiteColor(context),
-                        ),
+                        fillColor: AppColor.whiteColor(context).withValues(alpha: 0.05),
+                        textStyle: TextStyle(color: AppColor.blackTextColor(context)),
                         hintStyle: TextStyle(
-                          color: AppColor.whiteColor(
-                            context,
-                          ).withValues(alpha: 0.3),
+                          color: AppColor.whiteColor(context).withValues(alpha: 0.3),
                         ),
                         radius: 16,
                         keyboardType: TextInputType.phone,
@@ -157,16 +141,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           Icons.lock_outline_rounded,
                           color: AppColor.primaryColor(context),
                         ),
-                        fillColor: AppColor.whiteColor(
-                          context,
-                        ).withValues(alpha: 0.05),
-                        textStyle: TextStyle(
-                          color: AppColor.whiteColor(context),
-                        ),
+                        fillColor: AppColor.whiteColor(context).withValues(alpha: 0.05),
+                        textStyle: TextStyle(color: AppColor.blackTextColor(context)),
                         hintStyle: TextStyle(
-                          color: AppColor.whiteColor(
-                            context,
-                          ).withValues(alpha: 0.3),
+                          color: AppColor.whiteColor(context).withValues(alpha: 0.3),
                         ),
                         radius: 16,
                       ),
@@ -196,9 +174,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             AppLocaleKey.alreadyHaveAccount.tr(),
                             style: AppTextStyle.bodyMedium(
                               context,
-                              color: AppColor.whiteColor(
-                                context,
-                              ).withValues(alpha: 0.6),
+                              color: AppColor.whiteColor(context).withValues(alpha: 0.6),
                             ),
                           ),
                           TextButton(

@@ -1,5 +1,6 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:car/core/services/services_locator.dart';
+import 'package:car/core/theme/cubit/app_theme_cubit.dart';
 import 'package:car/features/favorites/presentation/view/cubit/favorites_cubit.dart';
 import 'package:car/features/cart/presentation/view/cubit/cart_cubit.dart';
 import 'package:car/features/notifications/presentation/view/cubit/notifications_cubit.dart';
@@ -30,24 +31,29 @@ class _CarAppState extends State<CarApp> {
       builder: (_, child) {
         return MultiBlocProvider(
           providers: [
+            BlocProvider(create: (_) => AppThemeCubit()..initial()),
             BlocProvider(create: (context) => sl<FavoritesCubit>()),
             BlocProvider(create: (context) => CartCubit()),
             BlocProvider(create: (context) => NotificationsCubit()),
           ],
-          child: MaterialApp(
-            localizationsDelegates: [
-              ...context.localizationDelegates,
-              CountryLocalizations.delegate,
-            ],
-            supportedLocales: context.supportedLocales,
-            locale: context.locale,
-            debugShowCheckedModeBanner: false,
-            theme: appThemeData(context),
-            initialRoute: RoutesName.splashScreen,
-            onGenerateRoute: AppRouters.onGenerateRoute,
-            navigatorKey: AppRouters.navigatorKey,
-            builder: BotToastInit(),
-            navigatorObservers: [BotToastNavigatorObserver()],
+          child: BlocBuilder<AppThemeCubit, AppThemeState>(
+            builder: (context, themeState) {
+              return MaterialApp(
+                localizationsDelegates: [
+                  ...context.localizationDelegates,
+                  CountryLocalizations.delegate,
+                ],
+                supportedLocales: context.supportedLocales,
+                locale: context.locale,
+                debugShowCheckedModeBanner: false,
+                theme: appThemeData(context),
+                initialRoute: RoutesName.splashScreen,
+                onGenerateRoute: AppRouters.onGenerateRoute,
+                navigatorKey: AppRouters.navigatorKey,
+                builder: BotToastInit(),
+                navigatorObservers: [BotToastNavigatorObserver()],
+              );
+            },
           ),
         );
       },

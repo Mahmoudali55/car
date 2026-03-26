@@ -35,15 +35,15 @@ class AdminStatsCard extends StatelessWidget {
           child: Container(
             padding: EdgeInsets.all(18.w),
             decoration: BoxDecoration(
-              color: AppColor.whiteColor(context).withValues(alpha: (0.03)),
+              color: AppColor.blackTextColor(context).withValues(alpha: (0.03)),
               borderRadius: BorderRadius.circular(24.r),
-              border: Border.all(color: AppColor.whiteColor(context).withValues(alpha: 0.08)),
+              border: Border.all(color: AppColor.blackTextColor(context).withValues(alpha: 0.08)),
               gradient: LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
                 colors: [
-                  AppColor.whiteColor(context).withValues(alpha: 0.05),
-                  AppColor.whiteColor(context).withValues(alpha: 0.01),
+                  AppColor.blackTextColor(context).withValues(alpha: 0.05),
+                  AppColor.blackTextColor(context).withValues(alpha: 0.01),
                 ],
               ),
             ),
@@ -110,7 +110,7 @@ class AdminStatsCard extends StatelessWidget {
           child: Text(
             value,
             style: TextStyle(
-              color: AppColor.whiteColor(context),
+              color: AppColor.blackTextColor(context),
               fontSize: 22.sp,
               fontWeight: FontWeight.w900,
               letterSpacing: -1,
@@ -122,7 +122,7 @@ class AdminStatsCard extends StatelessWidget {
           child: Text(
             title,
             style: TextStyle(
-              color: AppColor.whiteColor(context).withValues(alpha: 0.5),
+              color: AppColor.blackTextColor(context).withValues(alpha: 0.5),
               fontSize: 11.sp,
               fontWeight: FontWeight.w600,
               letterSpacing: 0.5,

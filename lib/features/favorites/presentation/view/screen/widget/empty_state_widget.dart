@@ -36,7 +36,7 @@ class EmptyStateWidget extends StatelessWidget {
             AppLocaleKey.noFavoritesYet.tr(),
             style: AppTextStyle.titleMedium(
               context,
-            ).copyWith(color: Colors.white, fontWeight: FontWeight.bold),
+            ).copyWith(color: AppColor.blackTextColor(context), fontWeight: FontWeight.bold),
           ),
           Gap(8.h),
           Text(

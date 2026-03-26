@@ -35,7 +35,7 @@ class CarHeaderWidget extends StatelessWidget {
                   car['name'] ?? '',
                   style: AppTextStyle.titleLarge(context).copyWith(
                     fontSize: 28.sp,
-                    color: AppColor.whiteColor(context),
+                    color: AppColor.blackTextColor(context),
                     fontWeight: FontWeight.w900,
                   ),
                 ),
@@ -61,7 +61,7 @@ class CarHeaderWidget extends StatelessWidget {
               child: Text(
                 AppLocaleKey.taxIncluded.tr(),
                 style: AppTextStyle.bodySmall(context).copyWith(
-                  color: AppColor.whiteColor(context).withValues(alpha: 0.4),
+                  color: AppColor.blackTextColor(context).withValues(alpha: 0.4),
                 ),
               ),
             ),

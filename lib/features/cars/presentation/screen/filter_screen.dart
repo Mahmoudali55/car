@@ -79,13 +79,13 @@ class _FilterScreenState extends State<FilterScreen> {
         centerTitle: true,
         leading: IconButton(
           onPressed: () => Navigator.pop(context),
-          icon: Icon(Icons.close_rounded, color: Colors.white, size: 24.sp),
+          icon: Icon(Icons.close_rounded, color: AppColor.blackTextColor(context), size: 24.sp),
         ),
         title: Text(
           AppLocaleKey.filter.tr(),
           style: AppTextStyle.titleMedium(
             context,
-          ).copyWith(color: Colors.white, fontWeight: FontWeight.bold),
+          ).copyWith(color: AppColor.blackTextColor(context), fontWeight: FontWeight.bold),
         ),
         actions: [
           TextButton(
@@ -192,7 +192,7 @@ class _FilterScreenState extends State<FilterScreen> {
                 AppLocaleKey.applyFilter.tr(),
                 style: AppTextStyle.titleMedium(
                   context,
-                ).copyWith(color: Colors.white, fontWeight: FontWeight.bold),
+                ).copyWith(color: AppColor.blackTextColor(context), fontWeight: FontWeight.bold),
               ),
             ),
           ),
@@ -207,7 +207,7 @@ class _FilterScreenState extends State<FilterScreen> {
       child: Text(
         title,
         style: AppTextStyle.bodyMedium(context).copyWith(
-          color: Colors.white,
+          color: AppColor.blackTextColor(context),
           fontWeight: FontWeight.bold,
           fontSize: 16.sp,
         ),
@@ -242,7 +242,7 @@ class _FilterScreenState extends State<FilterScreen> {
               border: Border.all(
                 color: isSelected
                     ? Colors.transparent
-                    : Colors.white.withValues(alpha: 0.1),
+                    : AppColor.blackTextColor(context).withValues(alpha: 0.1),
               ),
               boxShadow: isSelected
                   ? [
@@ -259,7 +259,7 @@ class _FilterScreenState extends State<FilterScreen> {
             child: Text(
               item.tr(),
               style: AppTextStyle.bodySmall(context).copyWith(
-                color: isSelected ? Colors.white : Colors.white70,
+                color: isSelected ? AppColor.blackTextColor(context) : AppColor.blackTextColor(context).withValues(alpha: 0.70),
                 fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
               ),
             ),
@@ -307,7 +307,7 @@ class _FilterScreenState extends State<FilterScreen> {
           max: max,
           divisions: isPrice ? 100 : (max - min).toInt(),
           activeColor: AppColor.primaryColor(context),
-          inactiveColor: Colors.white.withValues(alpha: 0.1),
+          inactiveColor: AppColor.blackTextColor(context).withValues(alpha: 0.1),
           onChanged: onChanged,
         ),
       ],
@@ -320,7 +320,7 @@ class _FilterScreenState extends State<FilterScreen> {
     ValueChanged<bool?> onChanged,
   ) {
     return Theme(
-      data: ThemeData(unselectedWidgetColor: Colors.white24),
+      data: ThemeData(unselectedWidgetColor: AppColor.blackTextColor(context).withValues(alpha: 0.24)),
       child: CheckboxListTile(
         value: value,
         onChanged: onChanged,
@@ -328,10 +328,10 @@ class _FilterScreenState extends State<FilterScreen> {
           title,
           style: AppTextStyle.bodyMedium(
             context,
-          ).copyWith(color: Colors.white70),
+          ).copyWith(color: AppColor.blackTextColor(context).withValues(alpha: 0.70)),
         ),
         activeColor: AppColor.primaryColor(context),
-        checkColor: Colors.white,
+        checkColor: AppColor.blackTextColor(context),
         contentPadding: EdgeInsets.zero,
         controlAffinity: ListTileControlAffinity.trailing,
         shape: RoundedRectangleBorder(

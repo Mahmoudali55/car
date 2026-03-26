@@ -45,20 +45,23 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
         : dummyCars.where((car) => car['status'] == selectedFilterKey).toList();
 
     return Scaffold(
-      backgroundColor: const Color(0xFF0F172A),
+      backgroundColor: AppColor.scaffoldColor(context),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: Navigator.canPop(context)
             ? IconButton(
                 onPressed: () => Navigator.pop(context),
-                icon: Icon(Icons.arrow_back_ios_new_rounded, color: AppColor.whiteColor(context)),
+                icon: Icon(
+                  Icons.arrow_back_ios_new_rounded,
+                  color: AppColor.blackTextColor(context),
+                ),
               )
             : null,
         title: Text(
           AppLocaleKey.fleetManagement.tr(),
           style: AppTextStyle.titleMedium(context).copyWith(
-            color: AppColor.whiteColor(context),
+            color: AppColor.blackTextColor(context),
             fontWeight: FontWeight.w900,
             fontSize: 20.sp,
           ),
@@ -133,19 +136,19 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
         decoration: BoxDecoration(
           color: isSelected
               ? AppColor.primaryColor(context)
-              : AppColor.whiteColor(context).withOpacity(0.05),
+              : AppColor.blackTextColor(context).withOpacity(0.05),
           borderRadius: BorderRadius.circular(16.r),
           border: isSelected
               ? null
-              : Border.all(color: AppColor.whiteColor(context).withOpacity(0.1)),
+              : Border.all(color: AppColor.blackTextColor(context).withOpacity(0.1)),
         ),
         alignment: Alignment.center,
         child: Text(
           label,
           style: TextStyle(
             color: isSelected
-                ? AppColor.whiteColor(context)
-                : AppColor.whiteColor(context).withOpacity(0.5),
+                ? AppColor.blackTextColor(context)
+                : AppColor.blackTextColor(context).withOpacity(0.5),
             fontWeight: isSelected ? FontWeight.bold : FontWeight.w500,
             fontSize: 12.sp,
           ),
@@ -169,9 +172,9 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
 
     return Container(
       decoration: BoxDecoration(
-        color: AppColor.whiteColor(context).withOpacity(0.03),
+        color: AppColor.blackTextColor(context).withOpacity(0.03),
         borderRadius: BorderRadius.circular(28.r),
-        border: Border.all(color: AppColor.whiteColor(context).withOpacity(0.05)),
+        border: Border.all(color: AppColor.blackTextColor(context).withOpacity(0.05)),
       ),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(28.r),
@@ -182,18 +185,20 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
                 Container(
                   height: 140.h,
                   width: double.infinity,
-                  decoration: BoxDecoration(color: AppColor.whiteColor(context).withOpacity(0.05)),
+                  decoration: BoxDecoration(
+                    color: AppColor.blackTextColor(context).withOpacity(0.05),
+                  ),
                   child: CachedNetworkImage(
                     imageUrl:
                         'https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=500',
                     fit: BoxFit.cover,
                     placeholder: (context, url) =>
-                        Container(color: AppColor.whiteColor(context).withOpacity(0.05)),
+                        Container(color: AppColor.blackTextColor(context).withOpacity(0.05)),
                     errorWidget: (context, url, error) => Container(
-                      color: AppColor.whiteColor(context).withOpacity(0.05),
+                      color: AppColor.blackTextColor(context).withOpacity(0.05),
                       child: Icon(
                         Icons.error_outline,
-                        color: AppColor.whiteColor(context).withOpacity(0.2),
+                        color: AppColor.blackTextColor(context).withOpacity(0.2),
                       ),
                     ),
                   ),
@@ -210,7 +215,7 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
                     child: Text(
                       '2024',
                       style: TextStyle(
-                        color: AppColor.whiteColor(context),
+                        color: AppColor.blackTextColor(context),
                         fontSize: 10.sp,
                         fontWeight: FontWeight.bold,
                       ),
@@ -228,7 +233,7 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
                     ),
                     child: Text(
                       statusLabel,
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: Colors.black,
                         fontSize: 10,
                         fontWeight: FontWeight.bold,
@@ -249,7 +254,7 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
                       Text(
                         car['name']!,
                         style: TextStyle(
-                          color: AppColor.whiteColor(context),
+                          color: AppColor.blackTextColor(context),
                           fontSize: 16.sp,
                           fontWeight: FontWeight.bold,
                         ),
@@ -258,7 +263,7 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
                       Text(
                         '${AppLocaleKey.price.tr()}: ${car['price']} ${AppLocaleKey.aed.tr()}',
                         style: TextStyle(
-                          color: AppColor.whiteColor(context).withOpacity(0.4),
+                          color: AppColor.blackTextColor(context).withOpacity(0.4),
                           fontSize: 12.sp,
                         ),
                       ),

@@ -63,7 +63,7 @@ class CommonMethods {
               AppLocaleKey.loginRequired.tr(),
               style: AppTextStyle.titleMedium(
                 context,
-              ).copyWith(color: Colors.white),
+              ).copyWith(color: AppColor.blackTextColor(context)),
             ),
           ],
         ),
@@ -71,14 +71,14 @@ class CommonMethods {
           AppLocaleKey.loginToContinueYourPremiumExperience.tr(),
           style: AppTextStyle.bodyMedium(
             context,
-          ).copyWith(color: Colors.white70),
+          ).copyWith(color: AppColor.blackTextColor(context).withValues(alpha: 0.70)),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
             child: Text(
               AppLocaleKey.cancel.tr(),
-              style: TextStyle(color: Colors.white38, fontSize: 14.sp),
+              style: TextStyle(color: AppColor.blackTextColor(context).withValues(alpha: 0.38), fontSize: 14.sp),
             ),
           ),
           ElevatedButton(
@@ -88,7 +88,7 @@ class CommonMethods {
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: AppColor.primaryColor(context),
-              foregroundColor: Colors.white,
+              foregroundColor: AppColor.blackTextColor(context),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12.r),
               ),

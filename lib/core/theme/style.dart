@@ -20,11 +20,13 @@ ThemeData appThemeData(BuildContext context) {
       buttonColor: AppColor.primaryColor(context),
       alignedDropdown: true,
     ),
-    bottomSheetTheme: const BottomSheetThemeData(backgroundColor: Colors.white),
+    bottomSheetTheme: BottomSheetThemeData(
+      backgroundColor: AppColor.secondAppColor(context),
+    ),
     colorScheme: ColorScheme.fromSwatch().copyWith(
       primary: AppColor.primaryColor(context),
       secondary: AppColor.secondAppColor(context),
-      surface: AppColor.whiteColor(context),
+      surface: AppColor.scaffoldColor(context),
       brightness: AppTheme.getByTheme(
         context,
         light: Brightness.light,

@@ -50,7 +50,7 @@ class FeaturesGridWidget extends StatelessWidget {
         color: AppColor.secondAppColor(context),
         borderRadius: BorderRadius.circular(12.r),
         border: Border.all(
-          color: AppColor.whiteColor(context).withValues(alpha: 0.05),
+          color: AppColor.blackTextColor(context).withValues(alpha: 0.05),
         ),
       ),
       child: Row(
@@ -61,7 +61,7 @@ class FeaturesGridWidget extends StatelessWidget {
           Text(
             label,
             style: AppTextStyle.bodySmall(context).copyWith(
-              color: AppColor.whiteColor(context),
+              color: AppColor.blackTextColor(context),
               fontWeight: FontWeight.bold,
             ),
           ),

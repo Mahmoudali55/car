@@ -91,7 +91,7 @@ class NotificationItemWidget extends StatelessWidget {
                         child: Text(
                           notification['title'] as String,
                           style: AppTextStyle.bodyMedium(context).copyWith(
-                            color: Colors.white,
+                            color: AppColor.blackTextColor(context),
                             fontWeight: isRead
                                 ? FontWeight.w500
                                 : FontWeight.bold,
@@ -113,7 +113,7 @@ class NotificationItemWidget extends StatelessWidget {
                   Text(
                     notification['body'] as String,
                     style: AppTextStyle.bodySmall(context).copyWith(
-                      color: Colors.white.withOpacity(0.6),
+                      color: AppColor.blackTextColor(context).withOpacity(0.6),
                       height: 1.4,
                     ),
                   ),
@@ -121,7 +121,7 @@ class NotificationItemWidget extends StatelessWidget {
                   Text(
                     notification['time'] as String,
                     style: AppTextStyle.bodySmall(context).copyWith(
-                      color: Colors.white.withOpacity(0.3),
+                      color: AppColor.blackTextColor(context).withOpacity(0.3),
                       fontSize: 10.sp,
                     ),
                   ),

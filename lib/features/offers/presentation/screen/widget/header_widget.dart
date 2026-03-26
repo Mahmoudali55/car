@@ -26,7 +26,7 @@ class HeaderWidget extends StatelessWidget {
                   Text(
                     AppLocaleKey.offerCenter.tr(),
                     style: AppTextStyle.titleLarge(context).copyWith(
-                      color: AppColor.whiteColor(context),
+                      color: AppColor.blackTextColor(context),
                       fontWeight: FontWeight.w900,
                       fontSize: 30.sp,
                     ),
@@ -35,7 +35,7 @@ class HeaderWidget extends StatelessWidget {
                     AppLocaleKey.bestDeals.tr(),
                     style: AppTextStyle.bodySmall(
                       context,
-                    ).copyWith(color: Colors.white38),
+                    ).copyWith(color: AppColor.blackTextColor(context).withValues(alpha: 0.38)),
                   ),
                 ],
               ),
@@ -45,18 +45,17 @@ class HeaderWidget extends StatelessWidget {
                   color: AppColor.primaryColor(context).withValues(alpha: 0.1),
                   shape: BoxShape.circle,
                 ),
-                child: Icon(
-                  Icons.auto_awesome,
-                  color: AppColor.primaryColor(context),
-                  size: 24.sp,
-                ),
+                child: Icon(Icons.auto_awesome, color: AppColor.primaryColor(context), size: 24.sp),
               ),
             ],
           ),
           Gap(20.h),
           CustomFormField(
             hintText: AppLocaleKey.searchForOffers.tr(),
-            prefixIcon: const Icon(Icons.search_rounded, color: Colors.white24),
+            prefixIcon: Icon(
+              Icons.search_rounded,
+              color: AppColor.blackTextColor(context).withValues(alpha: 0.24),
+            ),
           ),
         ],
       ),

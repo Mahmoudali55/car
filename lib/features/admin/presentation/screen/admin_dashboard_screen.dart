@@ -15,7 +15,7 @@ class AdminDashboardScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF0F172A),
+      backgroundColor: AppColor.scaffoldColor(context),
       body: Stack(
         children: [
           _buildBackgroundAura(),
@@ -78,13 +78,13 @@ class AdminDashboardScreen extends StatelessWidget {
               AppLocaleKey.centralDashboard.tr(),
               style: AppTextStyle.titleMedium(
                 context,
-              ).copyWith(color: Colors.white, fontWeight: FontWeight.w900, fontSize: 22.sp),
+              ).copyWith(color: AppColor.blackTextColor(context), fontWeight: FontWeight.w900, fontSize: 22.sp),
             ),
             Gap(4.h),
             Text(
               AppLocaleKey.performanceSummary.tr(),
               style: TextStyle(
-                color: Colors.white.withOpacity(0.4),
+                color: AppColor.blackTextColor(context).withOpacity(0.4),
                 fontSize: 12.sp,
                 fontWeight: FontWeight.w500,
               ),
@@ -139,13 +139,13 @@ class AdminDashboardScreen extends StatelessWidget {
       width: double.infinity,
       padding: EdgeInsets.all(20.w),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.03),
+        color: AppColor.blackTextColor(context).withOpacity(0.03),
         borderRadius: BorderRadius.circular(32.r),
-        border: Border.all(color: Colors.white.withOpacity(0.05)),
+        border: Border.all(color: AppColor.blackTextColor(context).withOpacity(0.05)),
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: [Colors.white.withOpacity(0.05), Colors.white.withOpacity(0.01)],
+          colors: [AppColor.blackTextColor(context).withOpacity(0.05), AppColor.blackTextColor(context).withOpacity(0.01)],
         ),
       ),
       child: Column(
@@ -156,7 +156,7 @@ class AdminDashboardScreen extends StatelessWidget {
             children: [
               Text(
                 AppLocaleKey.weeklyPerformanceIndex.tr(),
-                style: TextStyle(color: Colors.white, fontSize: 16.sp, fontWeight: FontWeight.bold),
+                style: TextStyle(color: AppColor.blackTextColor(context), fontSize: 16.sp, fontWeight: FontWeight.bold),
               ),
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
@@ -190,7 +190,7 @@ class AdminDashboardScreen extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: index == 5
                         ? AppColor.primaryColor(context)
-                        : Colors.white.withOpacity(0.1),
+                        : AppColor.blackTextColor(context).withOpacity(0.1),
                     borderRadius: BorderRadius.circular(10.r),
                     gradient: index == 5
                         ? LinearGradient(
@@ -214,7 +214,7 @@ class AdminDashboardScreen extends StatelessWidget {
                 .map(
                   (e) => Text(
                     e,
-                    style: TextStyle(color: Colors.white.withOpacity(0.3), fontSize: 10.sp),
+                    style: TextStyle(color: AppColor.blackTextColor(context).withOpacity(0.3), fontSize: 10.sp),
                   ),
                 )
                 .toList(),
@@ -233,7 +233,7 @@ class AdminDashboardScreen extends StatelessWidget {
           children: [
             Text(
               AppLocaleKey.urgentApprovalRequests.tr(),
-              style: TextStyle(color: Colors.white, fontSize: 18.sp, fontWeight: FontWeight.w800),
+              style: TextStyle(color: AppColor.blackTextColor(context), fontSize: 18.sp, fontWeight: FontWeight.w800),
             ),
             Text(
               '3 طلبات',
@@ -265,9 +265,9 @@ class AdminDashboardScreen extends StatelessWidget {
       width: 240.w,
       padding: EdgeInsets.all(16.w),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.03),
+        color: AppColor.blackTextColor(context).withOpacity(0.03),
         borderRadius: BorderRadius.circular(28.r),
-        border: Border.all(color: Colors.white.withOpacity(0.05)),
+        border: Border.all(color: AppColor.blackTextColor(context).withOpacity(0.05)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -276,10 +276,10 @@ class AdminDashboardScreen extends StatelessWidget {
             children: [
               CircleAvatar(
                 radius: 18.r,
-                backgroundColor: Colors.white.withOpacity(0.1),
+                backgroundColor: AppColor.blackTextColor(context).withOpacity(0.1),
                 child: Icon(
                   Icons.person_rounded,
-                  color: Colors.white.withOpacity(0.5),
+                  color: AppColor.blackTextColor(context).withOpacity(0.5),
                   size: 18.sp,
                 ),
               ),
@@ -291,14 +291,14 @@ class AdminDashboardScreen extends StatelessWidget {
                     Text(
                       'أحمد محمد',
                       style: TextStyle(
-                        color: Colors.white,
+                        color: AppColor.blackTextColor(context),
                         fontSize: 13.sp,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     Text(
                       'حجز مرسيدس G63', // This looks like dummy data, but I'll keep it English for now or add a generic key if needed.
-                      style: TextStyle(color: Colors.white.withOpacity(0.4), fontSize: 10.sp),
+                      style: TextStyle(color: AppColor.blackTextColor(context).withOpacity(0.4), fontSize: 10.sp),
                     ),
                   ],
                 ),
@@ -348,7 +348,7 @@ class AdminDashboardScreen extends StatelessWidget {
       children: [
         Text(
           AppLocaleKey.recentActivityLog.tr(),
-          style: TextStyle(color: Colors.white, fontSize: 18.sp, fontWeight: FontWeight.w800),
+          style: TextStyle(color: AppColor.blackTextColor(context), fontSize: 18.sp, fontWeight: FontWeight.w800),
         ),
         Gap(16.h),
         ListView.separated(
@@ -356,13 +356,13 @@ class AdminDashboardScreen extends StatelessWidget {
           physics: const NeverScrollableScrollPhysics(),
           itemCount: 4,
           separatorBuilder: (context, index) => Gap(12.h),
-          itemBuilder: (context, index) => _buildActivityItem(index),
+          itemBuilder: (context, index) => _buildActivityItem(index, context),
         ),
       ],
     );
   }
 
-  Widget _buildActivityItem(int index) {
+  Widget _buildActivityItem(int index,BuildContext context) {
     final titles = ['إضافة سيارة جديدة', 'تعديل سعر رحلة', 'مستخدم جديد انضم', 'فشل في الدفع'];
     final icons = [
       Icons.add_circle_outline,
@@ -375,9 +375,9 @@ class AdminDashboardScreen extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(12.w),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.02),
+        color: AppColor.blackTextColor(context).withOpacity(0.02),
         borderRadius: BorderRadius.circular(20.r),
-        border: Border.all(color: Colors.white.withOpacity(0.04)),
+        border: Border.all(color: AppColor.blackTextColor(context).withOpacity(0.04)),
       ),
       child: Row(
         children: [
@@ -397,14 +397,14 @@ class AdminDashboardScreen extends StatelessWidget {
                 Text(
                   titles[index],
                   style: TextStyle(
-                    color: Colors.white,
+                    color: AppColor.blackTextColor(context),
                     fontSize: 13.sp,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 Text(
                   'منذ 24 دقيقة',
-                  style: TextStyle(color: Colors.white.withOpacity(0.3), fontSize: 10.sp),
+                  style: TextStyle(color: AppColor.blackTextColor(context).withOpacity(0.3), fontSize: 10.sp),
                 ),
               ],
             ),

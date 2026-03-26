@@ -176,6 +176,9 @@ class AppLocaleKey {
   static const String arabic = 'arabic';
   static const String english = 'english';
   static const String general = 'general';
+  static const String appearance = 'appearance';
+  static const String darkMode = 'dark_mode';
+  static const String lightMode = 'light_mode';
   static const String accountSecurity = 'account_security';
   static const String offerCenter = 'offer_center';
   static const String bestDeals = 'best_deals';

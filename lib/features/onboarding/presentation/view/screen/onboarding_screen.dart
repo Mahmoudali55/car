@@ -88,7 +88,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         decoration: BoxDecoration(
                           color: _currentPage == index
                               ? AppColor.primaryColor(context)
-                              : Colors.white.withValues(alpha: 0.2),
+                              : AppColor.blackTextColor(context).withValues(alpha: 0.2),
                           borderRadius: BorderRadius.circular(4),
                           boxShadow: _currentPage == index
                               ? [
@@ -136,7 +136,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppColor.primaryColor(context),
-                        foregroundColor: Colors.white,
+                        foregroundColor: AppColor.blackTextColor(context),
                         padding: EdgeInsets.symmetric(
                           horizontal: 32.w,
                           vertical: 16.h,
@@ -201,7 +201,7 @@ class OnboardingPageItem extends StatelessWidget {
               width: 300.h,
               margin: EdgeInsets.all(20.w),
               decoration: BoxDecoration(
-                color: Colors.white.withValues(alpha: 0.1),
+                color: AppColor.blackTextColor(context).withValues(alpha: 0.1),
                 shape: BoxShape.circle,
               ),
               child: Center(
@@ -218,7 +218,7 @@ class OnboardingPageItem extends StatelessWidget {
                     : Icon(
                         model.image as IconData,
                         size: 150.h,
-                        color: Colors.white,
+                        color: AppColor.blackTextColor(context),
                       ),
               ),
             ),
@@ -236,7 +236,7 @@ class OnboardingPageItem extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 26.sp,
                       fontWeight: FontWeight.bold,
-                      color: Colors.white,
+                      color: AppColor.blackTextColor(context),
                     ),
                   ),
                   SizedBox(height: 20.h),
@@ -245,7 +245,7 @@ class OnboardingPageItem extends StatelessWidget {
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 16.sp,
-                      color: Colors.white.withValues(alpha: 0.8),
+                      color: AppColor.blackTextColor(context).withValues(alpha: 0.8),
                       height: 1.5,
                     ),
                   ),

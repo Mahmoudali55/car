@@ -95,13 +95,13 @@ class InspectionReportWidget extends StatelessWidget {
           title,
           style: AppTextStyle.bodyMedium(
             context,
-          ).copyWith(color: AppColor.whiteColor(context)),
+          ).copyWith(color: AppColor.blackTextColor(context)),
         ),
         const Spacer(),
         Text(
           isHealthy ? AppLocaleKey.salem.tr() : AppLocaleKey.attention.tr(),
           style: AppTextStyle.bodySmall(context).copyWith(
-            color: AppColor.whiteColor(context).withValues(alpha: 0.5),
+            color: AppColor.blackTextColor(context).withValues(alpha: 0.5),
           ),
         ),
       ],
@@ -112,7 +112,7 @@ class InspectionReportWidget extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 12.h),
       child: Divider(
-        color: AppColor.whiteColor(context).withValues(alpha: 0.05),
+        color: AppColor.blackTextColor(context).withValues(alpha: 0.05),
         height: 1,
       ),
     );

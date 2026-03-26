@@ -15,19 +15,21 @@ class ManageUsersScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF0F172A),
+      backgroundColor: AppColor.scaffoldColor(context),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
           onPressed: () => Navigator.pop(context),
-          icon: const Icon(Icons.arrow_back_ios_new_rounded, color: Colors.white),
+          icon: Icon(Icons.arrow_back_ios_new_rounded, color: AppColor.blackTextColor(context)),
         ),
         title: Text(
           AppLocaleKey.manageUsers.tr(),
-          style: AppTextStyle.titleMedium(
-            context,
-          ).copyWith(color: Colors.white, fontWeight: FontWeight.w900, fontSize: 20.sp),
+          style: AppTextStyle.titleMedium(context).copyWith(
+            color: AppColor.blackTextColor(context),
+            fontWeight: FontWeight.w900,
+            fontSize: 20.sp,
+          ),
         ),
       ),
       body: Stack(
@@ -85,16 +87,23 @@ class ManageUsersScreen extends StatelessWidget {
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 16.w),
           decoration: BoxDecoration(
-            color: Colors.white.withOpacity(0.05),
+            color: AppColor.blackTextColor(context).withOpacity(0.05),
             borderRadius: BorderRadius.circular(20.r),
-            border: Border.all(color: Colors.white.withOpacity(0.1)),
+            border: Border.all(color: AppColor.blackTextColor(context).withOpacity(0.1)),
           ),
           child: TextField(
-            style: const TextStyle(color: Colors.white),
+            style: TextStyle(color: AppColor.blackTextColor(context)),
             decoration: InputDecoration(
-              icon: Icon(Icons.search_rounded, color: Colors.white.withOpacity(0.5), size: 22.sp),
+              icon: Icon(
+                Icons.search_rounded,
+                color: AppColor.blackTextColor(context).withOpacity(0.5),
+                size: 22.sp,
+              ),
               hintText: AppLocaleKey.searchUserHint.tr(),
-              hintStyle: TextStyle(color: Colors.white.withOpacity(0.3), fontSize: 13.sp),
+              hintStyle: TextStyle(
+                color: AppColor.blackTextColor(context).withOpacity(0.3),
+                fontSize: 13.sp,
+              ),
               border: InputBorder.none,
               suffixIcon: Icon(
                 Icons.tune_rounded,
@@ -118,13 +127,13 @@ class ManageUsersScreen extends StatelessWidget {
         child: Container(
           padding: EdgeInsets.all(16.w),
           decoration: BoxDecoration(
-            color: Colors.white.withOpacity(0.03),
+            color: AppColor.blackTextColor(context).withOpacity(0.03),
             borderRadius: BorderRadius.circular(24.r),
-            border: Border.all(color: Colors.white.withOpacity(0.05)),
+            border: Border.all(color: AppColor.blackTextColor(context).withOpacity(0.05)),
           ),
           child: Row(
             children: [
-              _buildUserAvatar(isActive),
+              _buildUserAvatar(isActive, context),
               Gap(16.w),
               Expanded(
                 child: Column(
@@ -133,7 +142,7 @@ class ManageUsersScreen extends StatelessWidget {
                     Text(
                       'خالد محمد عبد الرحمن',
                       style: TextStyle(
-                        color: Colors.white,
+                        color: AppColor.blackTextColor(context),
                         fontSize: 14.sp,
                         fontWeight: FontWeight.w800,
                       ),
@@ -141,7 +150,10 @@ class ManageUsersScreen extends StatelessWidget {
                     Gap(4.h),
                     Text(
                       'khaled@example.com',
-                      style: TextStyle(color: Colors.white.withOpacity(0.4), fontSize: 11.sp),
+                      style: TextStyle(
+                        color: AppColor.blackTextColor(context).withOpacity(0.4),
+                        fontSize: 11.sp,
+                      ),
                     ),
                   ],
                 ),
@@ -154,22 +166,29 @@ class ManageUsersScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildUserAvatar(bool isActive) {
+  Widget _buildUserAvatar(bool isActive, BuildContext context) {
     return Stack(
       children: [
         Container(
           width: 50.w,
           height: 50.w,
           decoration: BoxDecoration(
-            color: Colors.white.withOpacity(0.1),
+            color: AppColor.blackTextColor(context).withOpacity(0.1),
             shape: BoxShape.circle,
             gradient: LinearGradient(
-              colors: [Colors.white.withOpacity(0.2), Colors.white.withOpacity(0.01)],
+              colors: [
+                AppColor.blackTextColor(context).withOpacity(0.2),
+                AppColor.blackTextColor(context).withOpacity(0.01),
+              ],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
           ),
-          child: Icon(Icons.person_rounded, color: Colors.white.withOpacity(0.5), size: 24.sp),
+          child: Icon(
+            Icons.person_rounded,
+            color: AppColor.blackTextColor(context).withOpacity(0.5),
+            size: 24.sp,
+          ),
         ),
         Positioned(
           bottom: 2,
@@ -180,7 +199,7 @@ class ManageUsersScreen extends StatelessWidget {
             decoration: BoxDecoration(
               color: isActive ? Colors.greenAccent : Colors.redAccent,
               shape: BoxShape.circle,
-              border: Border.all(color: const Color(0xFF0F172A), width: 2),
+              border: Border.all(color: AppColor.scaffoldColor(context), width: 2),
             ),
           ),
         ),

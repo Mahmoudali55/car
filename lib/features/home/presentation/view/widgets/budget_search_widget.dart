@@ -55,7 +55,7 @@ class _BudgetSearchWidgetState extends State<BudgetSearchWidget> {
                 border: Border.all(
                   color: isSelected
                       ? AppColor.primaryColor(context)
-                      : Colors.white.withOpacity(0.08),
+                      : AppColor.blackTextColor(context).withOpacity(0.08),
                   width: isSelected ? 1.5 : 1,
                 ),
                 boxShadow: isSelected
@@ -75,8 +75,8 @@ class _BudgetSearchWidgetState extends State<BudgetSearchWidget> {
                   budgets[index],
                   style: AppTextStyle.bodySmall(context).copyWith(
                     color: isSelected
-                        ? Colors.white
-                        : Colors.white.withOpacity(0.8),
+                        ? AppColor.blackTextColor(context)
+                        : AppColor.blackTextColor(context).withOpacity(0.8),
                     fontWeight: isSelected ? FontWeight.w800 : FontWeight.w600,
                     fontSize: 12.sp,
                   ),

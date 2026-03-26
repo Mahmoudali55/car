@@ -27,27 +27,15 @@ class _SplashScreenState extends State<SplashScreen> {
     Future.delayed(const Duration(seconds: 3)).then((value) {
       if (mounted) {
         if (HiveMethods.isFirstTime()) {
-          NavigatorMethods.pushReplacementNamed(
-            context,
-            RoutesName.onboardingScreen,
-          );
+          NavigatorMethods.pushReplacementNamed(context, RoutesName.onboardingScreen);
         } else if (HiveMethods.getToken() != null || HiveMethods.isGuest()) {
           if (HiveMethods.getRole() == 'admin') {
-            NavigatorMethods.pushReplacementNamed(
-              context,
-              RoutesName.adminDashboard,
-            );
+            NavigatorMethods.pushReplacementNamed(context, RoutesName.adminDashboard);
           } else {
-            NavigatorMethods.pushReplacementNamed(
-              context,
-              RoutesName.mainLayout,
-            );
+            NavigatorMethods.pushReplacementNamed(context, RoutesName.mainLayout);
           }
         } else {
-          NavigatorMethods.pushReplacementNamed(
-            context,
-            RoutesName.loginScreen,
-          );
+          NavigatorMethods.pushReplacementNamed(context, RoutesName.loginScreen);
         }
       }
     });
@@ -81,13 +69,11 @@ class _SplashScreenState extends State<SplashScreen> {
                     child: Container(
                       padding: EdgeInsets.all(25.w),
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: AppColor.blackTextColor(context),
                         shape: BoxShape.circle,
                         boxShadow: [
                           BoxShadow(
-                            color: AppColor.primaryColor(
-                              context,
-                            ).withOpacity(0.4),
+                            color: AppColor.primaryColor(context).withOpacity(0.4),
                             blurRadius: 40,
                             spreadRadius: 5,
                           ),
@@ -113,7 +99,7 @@ class _SplashScreenState extends State<SplashScreen> {
                       style: TextStyle(
                         fontSize: 28.sp,
                         fontWeight: FontWeight.bold,
-                        color: Colors.white,
+                        color: AppColor.blackTextColor(context),
                         letterSpacing: 2.0,
                       ),
                     ),
@@ -125,7 +111,7 @@ class _SplashScreenState extends State<SplashScreen> {
                     child: Text(
                       AppLocaleKey.qualityReliability.tr(),
                       style: AppTextStyle.text14RGrey(context).copyWith(
-                        color: Colors.white.withOpacity(0.8),
+                        color: AppColor.blackTextColor(context).withOpacity(0.8),
                         letterSpacing: 1.0,
                       ),
                     ),
@@ -144,8 +130,8 @@ class _SplashScreenState extends State<SplashScreen> {
                   child: SizedBox(
                     width: 40.w,
                     height: 40.w,
-                    child: const CircularProgressIndicator(
-                      color: Colors.white,
+                    child: CircularProgressIndicator(
+                      color: AppColor.blackTextColor(context),
                       strokeWidth: 3,
                     ),
                   ),

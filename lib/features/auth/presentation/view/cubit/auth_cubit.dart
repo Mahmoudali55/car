@@ -32,23 +32,34 @@ class AuthCubit extends Cubit<AuthState> {
   Future<void> login({BuildContext? context}) async {
     emit(state.copyWith(loginStatus: const StatusState.loading()));
 
-    final result = await authRepo.login(
-      mobile: mobileController.text,
-      password: passwordController.text,
-      rememberMe: rememberMe,
-      accountType: accountTypeController.text,
+    await Future.delayed(const Duration(milliseconds: 500)); // Simulate network
+
+    final role = accountTypeController.text == 'مدير' ? 'admin' : 'user';
+    final mockUser = User(
+      id: 1,
+      firstName: 'تست',
+      lastName: 'يوزر',
+      email: 'test@example.com',
+      mobile: mobileController.text.isNotEmpty ? mobileController.text : '123456789',
+      mobileVerifiedAt: '2024-01-01',
+      photoProfile: '',
+      status: 'active',
+      isAvailable: 1,
+      createdAt: '2024-01-01',
+      role: role,
     );
-    result.fold(
-      (error) => emit(
-        state.copyWith(loginStatus: StatusState.failure(error.errMessage)),
-      ),
-      (success) {
-        HiveMethods.updateIsGuest(false);
-        HiveMethods.updateToken(success.token);
-        HiveMethods.updateRole(success.user.role);
-        emit(state.copyWith(loginStatus: StatusState.success(success)));
-      },
+
+    final mockResponse = AuthResponseModel(
+      user: mockUser,
+      token: 'mock_jwt_token_bypass_${DateTime.now().millisecondsSinceEpoch}',
+      isExpired: false,
+      message: 'تم تسجيل الدخول بنجاح',
     );
+
+    HiveMethods.updateIsGuest(false);
+    HiveMethods.updateToken(mockResponse.token);
+    HiveMethods.updateRole(mockResponse.user.role);
+    emit(state.copyWith(loginStatus: StatusState.success(mockResponse)));
   }
 
   Future<void> logout() async {

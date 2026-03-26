@@ -13,21 +13,26 @@ class ManageBookingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF0F172A),
+      backgroundColor: AppColor.scaffoldColor(context),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: Navigator.canPop(context)
             ? IconButton(
                 onPressed: () => Navigator.pop(context),
-                icon: const Icon(Icons.arrow_back_ios_new_rounded, color: Colors.white),
+                icon: Icon(
+                  Icons.arrow_back_ios_new_rounded,
+                  color: AppColor.blackTextColor(context),
+                ),
               )
             : null,
         title: Text(
           AppLocaleKey.bookingsAndTrips.tr(),
-          style: AppTextStyle.titleMedium(
-            context,
-          ).copyWith(color: Colors.white, fontWeight: FontWeight.w900, fontSize: 20.sp),
+          style: AppTextStyle.titleMedium(context).copyWith(
+            color: AppColor.blackTextColor(context),
+            fontWeight: FontWeight.w900,
+            fontSize: 20.sp,
+          ),
         ),
       ),
       body: DefaultTabController(
@@ -36,8 +41,8 @@ class ManageBookingsScreen extends StatelessWidget {
           children: [
             TabBar(
               indicatorColor: AppColor.primaryColor(context),
-              labelColor: Colors.white,
-              unselectedLabelColor: Colors.white.withOpacity(0.4),
+              labelColor: AppColor.blackTextColor(context),
+              unselectedLabelColor: AppColor.blackTextColor(context).withOpacity(0.4),
               dividerColor: Colors.transparent,
               tabs: [
                 Tab(text: AppLocaleKey.pendingStatus.tr()),
@@ -77,9 +82,9 @@ class ManageBookingsScreen extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(16.w),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.03),
+        color: AppColor.blackTextColor(context).withOpacity(0.03),
         borderRadius: BorderRadius.circular(24.r),
-        border: Border.all(color: Colors.white.withOpacity(0.05)),
+        border: Border.all(color: AppColor.blackTextColor(context).withOpacity(0.05)),
       ),
       child: Column(
         children: [
@@ -89,7 +94,7 @@ class ManageBookingsScreen extends StatelessWidget {
                 width: 60.w,
                 height: 60.h,
                 decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.05),
+                  color: AppColor.blackTextColor(context).withOpacity(0.05),
                   borderRadius: BorderRadius.circular(16.r),
                 ),
                 child: Icon(
@@ -106,7 +111,7 @@ class ManageBookingsScreen extends StatelessWidget {
                     Text(
                       AppLocaleKey.bentleyContinental.tr(),
                       style: TextStyle(
-                        color: Colors.white,
+                        color: AppColor.blackTextColor(context),
                         fontSize: 14.sp,
                         fontWeight: FontWeight.bold,
                       ),
@@ -114,7 +119,10 @@ class ManageBookingsScreen extends StatelessWidget {
                     Gap(4.h),
                     Text(
                       '${AppLocaleKey.luxury.tr()}: ${AppLocaleKey.customerName.tr()}',
-                      style: TextStyle(color: Colors.white.withOpacity(0.4), fontSize: 11.sp),
+                      style: TextStyle(
+                        color: AppColor.blackTextColor(context).withOpacity(0.4),
+                        fontSize: 11.sp,
+                      ),
                     ),
                   ],
                 ),
@@ -142,7 +150,11 @@ class ManageBookingsScreen extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              _buildInfoTag(Icons.access_time_filled_rounded, AppLocaleKey.datePlaceholder.tr()),
+              _buildInfoTag(
+                Icons.access_time_filled_rounded,
+                AppLocaleKey.datePlaceholder.tr(),
+                context,
+              ),
               if (type == 'pending') ...[
                 Row(
                   children: [
@@ -160,14 +172,17 @@ class ManageBookingsScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildInfoTag(IconData icon, String label) {
+  Widget _buildInfoTag(IconData icon, String label, BuildContext context) {
     return Row(
       children: [
-        Icon(icon, color: Colors.white.withOpacity(0.3), size: 14.sp),
+        Icon(icon, color: AppColor.blackTextColor(context).withOpacity(0.3), size: 14.sp),
         Gap(6.w),
         Text(
           label,
-          style: TextStyle(color: Colors.white.withOpacity(0.5), fontSize: 11.sp),
+          style: TextStyle(
+            color: AppColor.blackTextColor(context).withOpacity(0.5),
+            fontSize: 11.sp,
+          ),
         ),
       ],
     );

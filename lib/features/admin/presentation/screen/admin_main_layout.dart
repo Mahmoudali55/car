@@ -33,7 +33,7 @@ class _AdminMainLayoutState extends State<AdminMainLayout> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF0F172A),
+      backgroundColor: AppColor.scaffoldColor(context),
       body: _screens[_currentIndex],
       bottomNavigationBar: _buildBottomNav(),
     );
@@ -43,8 +43,8 @@ class _AdminMainLayoutState extends State<AdminMainLayout> {
     return Container(
       height: 90.h,
       decoration: BoxDecoration(
-        color: const Color(0xFF1E293B).withOpacity(0.8),
-        border: Border(top: BorderSide(color: Colors.white.withOpacity(0.05))),
+        color: AppColor.secondAppColor(context).withValues(alpha: 0.8),
+        border: Border(top: BorderSide(color: AppColor.blackTextColor(context).withValues(alpha: 0.05))),
       ),
       child: ClipRRect(
         child: BackdropFilter(
@@ -69,7 +69,7 @@ class _AdminMainLayoutState extends State<AdminMainLayout> {
 
   Widget _buildNavItem(int index, IconData icon, String label) {
     bool isSelected = _currentIndex == index;
-    Color color = isSelected ? AppColor.primaryColor(context) : Colors.white.withOpacity(0.4);
+    Color color = isSelected ? AppColor.primaryColor(context) : AppColor.blackTextColor(context).withOpacity(0.4);
 
     return Expanded(
       child: InkWell(

@@ -20,20 +20,20 @@ class NotificationsScreen extends StatelessWidget {
         elevation: 0,
         centerTitle: true,
         leading: IconButton(
-          icon: const Icon(
+          icon: Icon(
             Icons.arrow_back_ios_new_rounded,
-            color: Colors.white,
+            color: AppColor.blackTextColor(context),
           ),
           onPressed: () => Navigator.pop(context),
           style: IconButton.styleFrom(
-            backgroundColor: Colors.white.withOpacity(0.05),
+            backgroundColor: AppColor.blackTextColor(context).withOpacity(0.05),
           ),
         ),
         title: Text(
           'التنبيهات',
           style: AppTextStyle.titleMedium(
             context,
-          ).copyWith(color: Colors.white, fontWeight: FontWeight.bold),
+          ).copyWith(color: AppColor.blackTextColor(context), fontWeight: FontWeight.bold),
         ),
         actions: [
           BlocBuilder<NotificationsCubit, NotificationsState>(
@@ -77,7 +77,7 @@ class NotificationsScreen extends StatelessWidget {
               },
             );
           }
-          return const Center(child: CircularProgressIndicator());
+          return Center(child: CircularProgressIndicator());
         },
       ),
     );
@@ -96,7 +96,7 @@ class NotificationsScreen extends StatelessWidget {
             ),
             child: Icon(
               Icons.notifications_off_outlined,
-              color: Colors.white.withOpacity(0.2),
+              color: AppColor.blackTextColor(context).withOpacity(0.2),
               size: 60.sp,
             ),
           ),
@@ -105,14 +105,14 @@ class NotificationsScreen extends StatelessWidget {
             'لا توجد تنبيهات حالياً',
             style: AppTextStyle.titleMedium(
               context,
-            ).copyWith(color: Colors.white, fontWeight: FontWeight.bold),
+            ).copyWith(color: AppColor.blackTextColor(context), fontWeight: FontWeight.bold),
           ),
           Gap(12.h),
           Text(
             'سنقوم بتنبيهك عند وجود عروض جديدة\nأو تحديثات على طلباتك.',
             style: AppTextStyle.bodyMedium(
               context,
-            ).copyWith(color: Colors.white.withOpacity(0.4), height: 1.5),
+            ).copyWith(color: AppColor.blackTextColor(context).withOpacity(0.4), height: 1.5),
             textAlign: TextAlign.center,
           ),
         ],

@@ -44,19 +44,11 @@ class LoginScreen extends StatelessWidget {
         child: BlocConsumer<AuthCubit, AuthState>(
           listener: (context, state) {
             if (state.loginStatus.isSuccess) {
-              CommonMethods.showToast(
-                message: state.loginStatus.data?.message ?? 'Login success',
-              );
+              CommonMethods.showToast(message: state.loginStatus.data?.message ?? 'Login success');
               if (HiveMethods.getRole() == 'admin') {
-                NavigatorMethods.pushReplacementNamed(
-                  context,
-                  RoutesName.adminDashboard,
-                );
+                NavigatorMethods.pushReplacementNamed(context, RoutesName.adminDashboard);
               } else {
-                NavigatorMethods.pushReplacementNamed(
-                  context,
-                  RoutesName.mainLayout,
-                );
+                NavigatorMethods.pushReplacementNamed(context, RoutesName.mainLayout);
               }
             }
             if (state.loginStatus.isFailure) {
@@ -82,15 +74,11 @@ class LoginScreen extends StatelessWidget {
                             child: Container(
                               padding: EdgeInsets.all(20.w),
                               decoration: BoxDecoration(
-                                color: AppColor.whiteColor(
-                                  context,
-                                ).withValues(alpha: 0.05),
+                                color: AppColor.whiteColor(context).withValues(alpha: 0.05),
                                 shape: BoxShape.circle,
                                 boxShadow: [
                                   BoxShadow(
-                                    color: AppColor.primaryColor(
-                                      context,
-                                    ).withValues(alpha: 0.2),
+                                    color: AppColor.primaryColor(context).withValues(alpha: 0.2),
                                     blurRadius: 30,
                                     spreadRadius: 5,
                                   ),
@@ -114,19 +102,15 @@ class LoginScreen extends StatelessWidget {
                                 AppLocaleKey.welcomeBack.tr(),
                                 style: AppTextStyle.titleLarge(
                                   context,
-                                  color: AppColor.whiteColor(context),
+                                  color: AppColor.blackTextColor(context),
                                 ).copyWith(fontSize: 32.sp),
                               ),
                               SizedBox(height: 8.h),
                               Text(
-                                AppLocaleKey
-                                    .loginToContinueYourPremiumExperience
-                                    .tr(),
+                                AppLocaleKey.loginToContinueYourPremiumExperience.tr(),
                                 style: AppTextStyle.bodyLarge(
                                   context,
-                                  color: AppColor.whiteColor(
-                                    context,
-                                  ).withValues(alpha: 0.8),
+                                  color: AppColor.whiteColor(context).withValues(alpha: 0.8),
                                 ),
                               ),
                             ],
@@ -143,16 +127,10 @@ class LoginScreen extends StatelessWidget {
                               Icons.phone_iphone_rounded,
                               color: AppColor.primaryColor(context),
                             ),
-                            fillColor: AppColor.whiteColor(
-                              context,
-                            ).withValues(alpha: (0.05)),
-                            textStyle: TextStyle(
-                              color: AppColor.whiteColor(context),
-                            ),
+                            fillColor: AppColor.whiteColor(context).withValues(alpha: (0.05)),
+                            textStyle: TextStyle(color: AppColor.blackTextColor(context)),
                             hintStyle: TextStyle(
-                              color: AppColor.whiteColor(
-                                context,
-                              ).withValues(alpha: 0.3),
+                              color: AppColor.whiteColor(context).withValues(alpha: 0.3),
                             ),
                             radius: 16,
                             keyboardType: TextInputType.phone,
@@ -170,16 +148,10 @@ class LoginScreen extends StatelessWidget {
                               Icons.lock_outline_rounded,
                               color: AppColor.primaryColor(context),
                             ),
-                            fillColor: AppColor.whiteColor(
-                              context,
-                            ).withValues(alpha: (0.05)),
-                            textStyle: TextStyle(
-                              color: AppColor.whiteColor(context),
-                            ),
+                            fillColor: AppColor.whiteColor(context).withValues(alpha: (0.05)),
+                            textStyle: TextStyle(color: AppColor.blackTextColor(context)),
                             hintStyle: TextStyle(
-                              color: AppColor.whiteColor(
-                                context,
-                              ).withValues(alpha: 0.3),
+                              color: AppColor.whiteColor(context).withValues(alpha: 0.3),
                             ),
                             radius: 16,
                           ),
@@ -198,18 +170,14 @@ class LoginScreen extends StatelessWidget {
                                     width: 24.h,
                                     child: Theme(
                                       data: ThemeData(
-                                        unselectedWidgetColor:
-                                            AppColor.whiteColor(
-                                              context,
-                                            ).withValues(alpha: 0.3),
+                                        unselectedWidgetColor: AppColor.whiteColor(
+                                          context,
+                                        ).withValues(alpha: 0.3),
                                       ),
                                       child: Checkbox(
                                         value: cubit.rememberMe,
-                                        activeColor: AppColor.primaryColor(
-                                          context,
-                                        ),
-                                        onChanged: (value) =>
-                                            cubit.changeRememberMe(),
+                                        activeColor: AppColor.primaryColor(context),
+                                        onChanged: (value) => cubit.changeRememberMe(),
                                       ),
                                     ),
                                   ),
@@ -218,7 +186,7 @@ class LoginScreen extends StatelessWidget {
                                     AppLocaleKey.rememberMe.tr(),
                                     style: AppTextStyle.bodySmall(
                                       context,
-                                      color: AppColor.whiteColor(context),
+                                      color: AppColor.blackTextColor(context),
                                     ),
                                   ),
                                 ],
@@ -247,12 +215,9 @@ class LoginScreen extends StatelessWidget {
                                 cubitState: cubit.state.loginStatus,
                                 onPressed: () {
                                   if (cubit.mobileController.text == '999' &&
-                                      cubit.passwordController.text ==
-                                          'admin') {
+                                      cubit.passwordController.text == 'admin') {
                                     HiveMethods.updateIsGuest(false);
-                                    HiveMethods.updateToken(
-                                      'admin_dummy_token',
-                                    );
+                                    HiveMethods.updateToken('admin_dummy_token');
                                     HiveMethods.updateRole('admin');
                                     CommonMethods.showToast(
                                       message: 'تم تسجيل الدخول بصلاحية الأدمن',
@@ -268,8 +233,7 @@ class LoginScreen extends StatelessWidget {
                               ),
                               SizedBox(height: 15.h),
                               Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                 children: [
                                   TextButton(
                                     onPressed: () {
@@ -283,27 +247,21 @@ class LoginScreen extends StatelessWidget {
                                       AppLocaleKey.continueAsGuest.tr(),
                                       style: AppTextStyle.bodyLarge(
                                         context,
-                                        color: AppColor.whiteColor(context),
+                                        color: AppColor.blackTextColor(context),
                                       ),
                                     ),
                                   ),
                                   Container(
                                     width: 1,
                                     height: 20.h,
-                                    color: AppColor.whiteColor(
-                                      context,
-                                    ).withValues(alpha: 0.2),
+                                    color: AppColor.whiteColor(context).withValues(alpha: 0.2),
                                   ),
                                   TextButton(
                                     onPressed: () {
                                       HiveMethods.updateIsGuest(false);
-                                      HiveMethods.updateToken(
-                                        'admin_dummy_token',
-                                      );
+                                      HiveMethods.updateToken('admin_dummy_token');
                                       HiveMethods.updateRole('admin');
-                                      CommonMethods.showToast(
-                                        message: 'تم تسجيل الدخول كمدير',
-                                      );
+                                      CommonMethods.showToast(message: 'تم تسجيل الدخول كمدير');
                                       NavigatorMethods.pushReplacementNamed(
                                         context,
                                         RoutesName.adminDashboard,
@@ -333,14 +291,12 @@ class LoginScreen extends StatelessWidget {
                                 AppLocaleKey.dontHaveAccount.tr(),
                                 style: AppTextStyle.bodyMedium(
                                   context,
-                                  color: AppColor.whiteColor(context),
+                                  color: AppColor.blackTextColor(context),
                                 ),
                               ),
                               TextButton(
-                                onPressed: () => NavigatorMethods.pushNamed(
-                                  context,
-                                  RoutesName.registerScreen,
-                                ),
+                                onPressed: () =>
+                                    NavigatorMethods.pushNamed(context, RoutesName.registerScreen),
                                 child: Text(
                                   AppLocaleKey.signUp.tr(),
                                   style: AppTextStyle.bodyLarge(

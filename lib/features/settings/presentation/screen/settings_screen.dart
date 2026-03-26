@@ -4,6 +4,8 @@ import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/routes/routes_name.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
+import 'package:car/core/theme/cubit/app_theme_cubit.dart';
+import 'package:car/core/theme/theme_enum.dart';
 import 'package:car/features/auth/presentation/view/cubit/auth_cubit.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +19,7 @@ class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColor.secondAppColor(context, listen: false),
+      backgroundColor: AppColor.scaffoldColor(context),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -25,60 +27,68 @@ class SettingsScreen extends StatelessWidget {
           AppLocaleKey.settings.tr(),
           style: AppTextStyle.titleMedium(
             context,
-          ).copyWith(color: Colors.white, fontWeight: FontWeight.bold),
+          ).copyWith(color: AppColor.blackTextColor(context), fontWeight: FontWeight.bold),
         ),
         leading: IconButton(
           onPressed: () => Navigator.pop(context),
-          icon: const Icon(
-            Icons.arrow_back_ios_new_rounded,
-            color: Colors.white,
-          ),
+          icon: Icon(Icons.arrow_back_ios_new_rounded, color: AppColor.blackTextColor(context)),
         ),
       ),
-      body: ListView(
-        padding: EdgeInsets.all(20.w),
-        children: [
-          _buildSectionHeader(context, AppLocaleKey.general.tr()),
-          Gap(12.h),
-          FadeInLeft(
-            duration: const Duration(milliseconds: 400),
-            child: _buildSettingItem(
-              context,
-              icon: Icons.language_rounded,
-              title: AppLocaleKey.language.tr(),
-              trailing: Text(
-                context.locale.languageCode == 'ar'
-                    ? AppLocaleKey.arabic.tr()
-                    : AppLocaleKey.english.tr(),
-                style: AppTextStyle.bodySmall(context).copyWith(
-                  color: AppColor.primaryColor(context),
-                  fontWeight: FontWeight.bold,
+      body: BlocBuilder<AppThemeCubit, AppThemeState>(
+        builder: (context, themeState) {
+          final isDark = context.read<AppThemeCubit>().theme == ThemeEnum.dark;
+          return ListView(
+            padding: EdgeInsets.all(20.w),
+            children: [
+              _buildSectionHeader(context, AppLocaleKey.appearance.tr()),
+              Gap(12.h),
+              FadeInLeft(
+                duration: const Duration(milliseconds: 300),
+                child: _buildThemeToggle(context, isDark),
+              ),
+              Gap(24.h),
+              _buildSectionHeader(context, AppLocaleKey.general.tr()),
+              Gap(12.h),
+              FadeInLeft(
+                duration: const Duration(milliseconds: 400),
+                child: _buildSettingItem(
+                  context,
+                  icon: Icons.language_rounded,
+                  title: AppLocaleKey.language.tr(),
+                  trailing: Text(
+                    context.locale.languageCode == 'ar'
+                        ? AppLocaleKey.arabic.tr()
+                        : AppLocaleKey.english.tr(),
+                    style: AppTextStyle.bodySmall(
+                      context,
+                    ).copyWith(color: AppColor.primaryColor(context), fontWeight: FontWeight.bold),
+                  ),
+                  onTap: () => _showLanguageDialog(context),
                 ),
               ),
-              onTap: () => _showLanguageDialog(context),
-            ),
-          ),
-          Gap(24.h),
-          _buildSectionHeader(context, AppLocaleKey.accountSecurity.tr()),
-          Gap(12.h),
-          FadeInLeft(
-            delay: const Duration(milliseconds: 100),
-            duration: const Duration(milliseconds: 400),
-            child: _buildSettingItem(
-              context,
-              icon: Icons.lock_outline_rounded,
-              title: AppLocaleKey.changePassword.tr(),
-              onTap: () {
-                // TODO: Navigate to Change Password Screen
-              },
-            ),
-          ),
-          Gap(32.h),
-          FadeInUp(
-            delay: const Duration(milliseconds: 200),
-            child: _buildLogoutButton(context),
-          ),
-        ],
+              Gap(24.h),
+              _buildSectionHeader(context, AppLocaleKey.accountSecurity.tr()),
+              Gap(12.h),
+              FadeInLeft(
+                delay: const Duration(milliseconds: 100),
+                duration: const Duration(milliseconds: 400),
+                child: _buildSettingItem(
+                  context,
+                  icon: Icons.lock_outline_rounded,
+                  title: AppLocaleKey.changePassword.tr(),
+                  onTap: () {
+                    // TODO: Navigate to Change Password Screen
+                  },
+                ),
+              ),
+              Gap(32.h),
+              FadeInUp(
+                delay: const Duration(milliseconds: 200),
+                child: _buildLogoutButton(context),
+              ),
+            ],
+          );
+        },
       ),
     );
   }
@@ -87,9 +97,52 @@ class SettingsScreen extends StatelessWidget {
     return Text(
       title,
       style: AppTextStyle.bodySmall(context).copyWith(
-        color: Colors.white38,
+        color: AppColor.blackTextColor(context).withValues(alpha: 0.38),
         fontWeight: FontWeight.bold,
         letterSpacing: 1.2,
+      ),
+    );
+  }
+
+  Widget _buildThemeToggle(BuildContext context, bool isDark) {
+    final baseColor = AppColor.blackTextColor(context);
+    return Container(
+      decoration: BoxDecoration(
+        color: baseColor.withValues(alpha: 0.03),
+        borderRadius: BorderRadius.circular(16.r),
+        border: Border.all(color: baseColor.withValues(alpha: 0.05)),
+      ),
+      child: ListTile(
+        contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 4.h),
+        leading: Container(
+          padding: EdgeInsets.all(8.w),
+          decoration: BoxDecoration(
+            color: AppColor.primaryColor(context).withValues(alpha: 0.1),
+            borderRadius: BorderRadius.circular(10.r),
+          ),
+          child: AnimatedSwitcher(
+            duration: const Duration(milliseconds: 300),
+            child: Icon(
+              isDark ? Icons.dark_mode_rounded : Icons.light_mode_rounded,
+              key: ValueKey(isDark),
+              color: AppColor.primaryColor(context),
+              size: 22.sp,
+            ),
+          ),
+        ),
+        title: Text(
+          isDark ? AppLocaleKey.darkMode.tr() : AppLocaleKey.lightMode.tr(),
+          style: AppTextStyle.bodyMedium(
+            context,
+          ).copyWith(color: baseColor, fontWeight: FontWeight.w500),
+        ),
+        trailing: Switch(
+          value: isDark,
+          activeColor: AppColor.primaryColor(context),
+          onChanged: (val) {
+            context.read<AppThemeCubit>().theme = val ? ThemeEnum.dark : ThemeEnum.light;
+          },
+        ),
       ),
     );
   }
@@ -101,11 +154,12 @@ class SettingsScreen extends StatelessWidget {
     Widget? trailing,
     required VoidCallback onTap,
   }) {
+    final baseColor = AppColor.blackTextColor(context);
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white.withValues(alpha: 0.03),
+        color: baseColor.withValues(alpha: 0.03),
         borderRadius: BorderRadius.circular(16.r),
-        border: Border.all(color: Colors.white.withValues(alpha: 0.05)),
+        border: Border.all(color: baseColor.withValues(alpha: 0.05)),
       ),
       child: ListTile(
         onTap: onTap,
@@ -122,13 +176,13 @@ class SettingsScreen extends StatelessWidget {
           title,
           style: AppTextStyle.bodyMedium(
             context,
-          ).copyWith(color: Colors.white, fontWeight: FontWeight.w500),
+          ).copyWith(color: baseColor, fontWeight: FontWeight.w500),
         ),
         trailing:
             trailing ??
             Icon(
               Icons.arrow_forward_ios_rounded,
-              color: Colors.white24,
+              color: baseColor.withValues(alpha: 0.24),
               size: 14.sp,
             ),
       ),
@@ -138,46 +192,50 @@ class SettingsScreen extends StatelessWidget {
   void _showLanguageDialog(BuildContext context) {
     showModalBottomSheet(
       context: context,
-      backgroundColor: AppColor.secondAppColor(context, listen: false),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20.r)),
-      ),
+      backgroundColor: Colors.transparent,
+      isScrollControlled: true,
       builder: (ctx) {
-        return Padding(
-          padding: EdgeInsets.all(20.w),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                AppLocaleKey.language.tr(),
-                style: AppTextStyle.titleMedium(
+        return Container(
+          decoration: BoxDecoration(
+            color: AppColor.secondAppColor(ctx),
+            borderRadius: BorderRadius.vertical(top: Radius.circular(20.r)),
+          ),
+          child: Padding(
+            padding: EdgeInsets.all(20.w),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  AppLocaleKey.language.tr(),
+                  style: AppTextStyle.titleMedium(
+                    context,
+                  ).copyWith(color: AppColor.blackTextColor(context)),
+                ),
+                Gap(20.h),
+                _buildLanguageOption(
                   context,
-                ).copyWith(color: Colors.white),
-              ),
-              Gap(20.h),
-              _buildLanguageOption(
-                context,
-                title: 'العربية',
-                isSelected: context.locale.languageCode == 'ar',
-                onTap: () async {
-                  await context.setLocale(const Locale('ar'));
-                  HiveMethods.updateLang(const Locale('ar'));
-                  if (ctx.mounted) Navigator.pop(ctx);
-                },
-              ),
-              Gap(12.h),
-              _buildLanguageOption(
-                context,
-                title: 'English',
-                isSelected: context.locale.languageCode == 'en',
-                onTap: () async {
-                  await context.setLocale(const Locale('en'));
-                  HiveMethods.updateLang(const Locale('en'));
-                  if (ctx.mounted) Navigator.pop(ctx);
-                },
-              ),
-              Gap(20.h),
-            ],
+                  title: 'العربية',
+                  isSelected: context.locale.languageCode == 'ar',
+                  onTap: () async {
+                    await context.setLocale(const Locale('ar'));
+                    HiveMethods.updateLang(const Locale('ar'));
+                    if (ctx.mounted) Navigator.pop(ctx);
+                  },
+                ),
+                Gap(12.h),
+                _buildLanguageOption(
+                  context,
+                  title: 'English',
+                  isSelected: context.locale.languageCode == 'en',
+                  onTap: () async {
+                    await context.setLocale(const Locale('en'));
+                    HiveMethods.updateLang(const Locale('en'));
+                    if (ctx.mounted) Navigator.pop(ctx);
+                  },
+                ),
+                Gap(20.h),
+              ],
+            ),
           ),
         );
       },
@@ -190,6 +248,7 @@ class SettingsScreen extends StatelessWidget {
     required bool isSelected,
     required VoidCallback onTap,
   }) {
+    final baseColor = AppColor.blackTextColor(context);
     return InkWell(
       onTap: onTap,
       borderRadius: BorderRadius.circular(12.r),
@@ -197,16 +256,11 @@ class SettingsScreen extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
         decoration: BoxDecoration(
           color: isSelected
-              ? AppColor.primaryColor(
-                  context,
-                  listen: false,
-                ).withValues(alpha: 0.1)
-              : Colors.white.withValues(alpha: 0.03),
+              ? AppColor.primaryColor(context).withValues(alpha: 0.1)
+              : baseColor.withValues(alpha: 0.03),
           borderRadius: BorderRadius.circular(12.r),
           border: Border.all(
-            color: isSelected
-                ? AppColor.primaryColor(context, listen: false)
-                : Colors.white.withValues(alpha: 0.05),
+            color: isSelected ? AppColor.primaryColor(context) : baseColor.withValues(alpha: 0.05),
           ),
         ),
         child: Row(
@@ -215,16 +269,12 @@ class SettingsScreen extends StatelessWidget {
             Text(
               title,
               style: AppTextStyle.bodyMedium(context).copyWith(
-                color: Colors.white,
+                color: baseColor,
                 fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
               ),
             ),
             if (isSelected)
-              Icon(
-                Icons.check_circle_rounded,
-                color: AppColor.primaryColor(context),
-                size: 20.sp,
-              ),
+              Icon(Icons.check_circle_rounded, color: AppColor.primaryColor(context), size: 20.sp),
           ],
         ),
       ),
@@ -247,11 +297,7 @@ class SettingsScreen extends StatelessWidget {
         ),
         onPressed: () {
           context.read<AuthCubit>().logout();
-          Navigator.pushNamedAndRemoveUntil(
-            context,
-            RoutesName.loginScreen,
-            (route) => false,
-          );
+          Navigator.pushNamedAndRemoveUntil(context, RoutesName.loginScreen, (route) => false);
         },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,

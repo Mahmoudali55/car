@@ -19,7 +19,7 @@ class CartItemWidget extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColor.secondAppColor(context),
         borderRadius: BorderRadius.circular(20.r),
-        border: Border.all(color: Colors.white.withOpacity(0.05)),
+        border: Border.all(color: AppColor.blackTextColor(context).withOpacity(0.05)),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.15),
@@ -59,7 +59,7 @@ class CartItemWidget extends StatelessWidget {
                 Text(
                   car['name'] as String? ?? '',
                   style: AppTextStyle.titleMedium(context).copyWith(
-                    color: Colors.white,
+                    color: AppColor.blackTextColor(context),
                     fontWeight: FontWeight.bold,
                     fontSize: 14.sp,
                   ),

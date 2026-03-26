@@ -18,13 +18,13 @@ class ManageServicesScreen extends StatelessWidget {
         elevation: 0,
         leading: IconButton(
           onPressed: () => Navigator.pop(context),
-          icon: const Icon(Icons.arrow_back_ios_new_rounded, color: Colors.white),
+          icon: Icon(Icons.arrow_back_ios_new_rounded, color: AppColor.blackTextColor(context)),
         ),
         title: Text(
           AppLocaleKey.manageServices.tr(),
           style: AppTextStyle.titleMedium(
             context,
-          ).copyWith(color: Colors.white, fontWeight: FontWeight.bold),
+          ).copyWith(color: AppColor.blackTextColor(context), fontWeight: FontWeight.bold),
         ),
       ),
       body: ListView.separated(
@@ -54,7 +54,7 @@ class ManageServicesScreen extends StatelessWidget {
       decoration: BoxDecoration(
         color: const Color(0xFF1F2937),
         borderRadius: BorderRadius.circular(16.r),
-        border: Border.all(color: Colors.white.withOpacity(0.03)),
+        border: Border.all(color: AppColor.blackTextColor(context).withOpacity(0.03)),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -76,7 +76,7 @@ class ManageServicesScreen extends StatelessWidget {
               Gap(16.w),
               Text(
                 services[index],
-                style: TextStyle(color: Colors.white, fontSize: 13.sp, fontWeight: FontWeight.bold),
+                style: TextStyle(color: AppColor.blackTextColor(context), fontSize: 13.sp, fontWeight: FontWeight.bold),
               ),
             ],
           ),

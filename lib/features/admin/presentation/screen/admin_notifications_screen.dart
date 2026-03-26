@@ -13,19 +13,19 @@ class AdminNotificationsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF0F172A),
+      backgroundColor: AppColor.scaffoldColor(context),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
           onPressed: () => Navigator.pop(context),
-          icon: const Icon(Icons.arrow_back_ios_new_rounded, color: Colors.white),
+          icon: Icon(Icons.arrow_back_ios_new_rounded, color: AppColor.blackTextColor(context)),
         ),
         title: Text(
           AppLocaleKey.notifications.tr(),
           style: AppTextStyle.titleMedium(
             context,
-          ).copyWith(color: Colors.white, fontWeight: FontWeight.w900, fontSize: 20.sp),
+          ).copyWith(color: AppColor.blackTextColor(context), fontWeight: FontWeight.w900, fontSize: 20.sp),
         ),
       ),
       body: ListView.separated(
@@ -67,9 +67,9 @@ class AdminNotificationsScreen extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(16.w),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.03),
+        color: AppColor.blackTextColor(context).withOpacity(0.03),
         borderRadius: BorderRadius.circular(24.r),
-        border: Border.all(color: Colors.white.withOpacity(0.05)),
+        border: Border.all(color: AppColor.blackTextColor(context).withOpacity(0.05)),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -83,7 +83,7 @@ class AdminNotificationsScreen extends StatelessWidget {
                 Text(
                   notif['title'] as String,
                   style: TextStyle(
-                    color: Colors.white,
+                    color: AppColor.blackTextColor(context),
                     fontSize: 13.sp,
                     fontWeight: FontWeight.bold,
                   ),
@@ -91,7 +91,7 @@ class AdminNotificationsScreen extends StatelessWidget {
                 Gap(4.h),
                 Text(
                   notif['desc'] as String,
-                  style: TextStyle(color: Colors.white.withOpacity(0.4), fontSize: 11.sp),
+                  style: TextStyle(color: AppColor.blackTextColor(context).withOpacity(0.4), fontSize: 11.sp),
                 ),
                 Gap(8.h),
                 Text(

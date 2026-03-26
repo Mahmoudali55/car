@@ -14,23 +14,16 @@ class PremiumOfferCardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => NavigatorMethods.pushNamed(
-        context,
-        RoutesName.carDetailsScreen,
-        arguments: offer,
-      ),
+      onTap: () =>
+          NavigatorMethods.pushNamed(context, RoutesName.carDetailsScreen, arguments: offer),
       child: Container(
         height: 190.h,
         width: double.infinity,
-        padding: EdgeInsets.symmetric(
-          horizontal: 10.w,
-        ), // Slightly increased for specs
+        padding: EdgeInsets.symmetric(horizontal: 10.w), // Slightly increased for specs
         decoration: BoxDecoration(
           color: AppColor.secondAppColor(context),
           borderRadius: BorderRadius.circular(28.r),
-          border: Border.all(
-            color: AppColor.whiteColor(context).withValues(alpha: 0.08),
-          ),
+          border: Border.all(color: AppColor.blackTextColor(context).withValues(alpha: 0.08)),
           boxShadow: [
             BoxShadow(
               color: Colors.black.withValues(alpha: 0.15),
@@ -51,7 +44,7 @@ class PremiumOfferCardWidget extends StatelessWidget {
                 child: Text(
                   offer['brand'] ?? '',
                   style: TextStyle(
-                    color: AppColor.whiteColor(context),
+                    color: AppColor.blackTextColor(context),
                     fontSize: 50.sp,
                     fontWeight: FontWeight.w900,
                   ),
@@ -65,7 +58,7 @@ class PremiumOfferCardWidget extends StatelessWidget {
                 Expanded(
                   flex: 4,
                   child: Container(
-                    decoration: const BoxDecoration(),
+                    decoration: BoxDecoration(),
                     padding: EdgeInsets.all(12.w),
                     child: Hero(
                       tag: 'car_offer_${offer['name']}',
@@ -86,14 +79,9 @@ class PremiumOfferCardWidget extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Container(
-                              padding: EdgeInsets.symmetric(
-                                horizontal: 20.w,
-                                vertical: 4.h,
-                              ),
+                              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 4.h),
                               decoration: BoxDecoration(
-                                color: AppColor.primaryColor(
-                                  context,
-                                ).withValues(alpha: 0.1),
+                                color: AppColor.primaryColor(context).withValues(alpha: 0.1),
                                 borderRadius: BorderRadius.circular(8.r),
                               ),
                               child: Text(
@@ -107,22 +95,22 @@ class PremiumOfferCardWidget extends StatelessWidget {
                             ),
                             BlocBuilder<FavoritesCubit, FavoritesState>(
                               builder: (context, state) {
-                                final isFav = context
-                                    .read<FavoritesCubit>()
-                                    .isFavorite(offer['name']);
+                                final isFav = context.read<FavoritesCubit>().isFavorite(
+                                  offer['name'],
+                                );
                                 return GestureDetector(
-                                  onTap: () => context
-                                      .read<FavoritesCubit>()
-                                      .toggleFavorite(offer),
+                                  onTap: () => context.read<FavoritesCubit>().toggleFavorite(offer),
                                   child: Padding(
-                                    padding: const EdgeInsets.only(left: 8.0),
+                                    padding: EdgeInsets.only(left: 8.0),
                                     child: Icon(
                                       isFav
                                           ? Icons.favorite_rounded
                                           : Icons.favorite_outline_rounded,
                                       color: isFav
                                           ? Colors.redAccent
-                                          : Colors.white24,
+                                          : AppColor.blackTextColor(
+                                              context,
+                                            ).withValues(alpha: 0.24),
                                       size: 22.sp,
                                     ),
                                   ),
@@ -144,7 +132,7 @@ class PremiumOfferCardWidget extends StatelessWidget {
                         Text(
                           offer['name'],
                           style: AppTextStyle.titleMedium(context).copyWith(
-                            color: AppColor.whiteColor(context),
+                            color: AppColor.blackTextColor(context),
                             fontWeight: FontWeight.w900,
                             fontSize: 17.sp,
                           ),
@@ -154,11 +142,7 @@ class PremiumOfferCardWidget extends StatelessWidget {
                         Gap(4.h),
                         Row(
                           children: [
-                            Icon(
-                              Icons.timer_outlined,
-                              color: Colors.orangeAccent,
-                              size: 12.sp,
-                            ),
+                            Icon(Icons.timer_outlined, color: Colors.orangeAccent, size: 12.sp),
                             Gap(4.w),
                             Text(
                               offer['expiresIn'],
@@ -177,11 +161,13 @@ class PremiumOfferCardWidget extends StatelessWidget {
                             _buildMiniSpec(
                               Icons.calendar_today_rounded,
                               offer['year'] ?? '2024',
+                              context,
                             ),
                             Gap(12.w),
                             _buildMiniSpec(
                               Icons.settings_input_component_rounded,
                               offer['engine'] ?? 'V8',
+                              context,
                             ),
                           ],
                         ),
@@ -195,19 +181,18 @@ class PremiumOfferCardWidget extends StatelessWidget {
                                 Text(
                                   offer['oldPrice'],
                                   style: TextStyle(
-                                    color: Colors.white38,
+                                    color: AppColor.blackTextColor(context).withValues(alpha: 0.38),
                                     fontSize: 11.sp,
                                     decoration: TextDecoration.lineThrough,
                                   ),
                                 ),
                                 Text(
                                   offer['price'],
-                                  style: AppTextStyle.titleMedium(context)
-                                      .copyWith(
-                                        color: AppColor.whiteColor(context),
-                                        fontWeight: FontWeight.w900,
-                                        fontSize: 19.sp,
-                                      ),
+                                  style: AppTextStyle.titleMedium(context).copyWith(
+                                    color: AppColor.blackTextColor(context),
+                                    fontWeight: FontWeight.w900,
+                                    fontSize: 19.sp,
+                                  ),
                                 ),
                               ],
                             ),
@@ -219,9 +204,7 @@ class PremiumOfferCardWidget extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(12.r),
                                 boxShadow: [
                                   BoxShadow(
-                                    color: AppColor.primaryColor(
-                                      context,
-                                    ).withValues(alpha: 0.3),
+                                    color: AppColor.primaryColor(context).withValues(alpha: 0.3),
                                     blurRadius: 8,
                                     offset: const Offset(0, 4),
                                   ),
@@ -229,7 +212,7 @@ class PremiumOfferCardWidget extends StatelessWidget {
                               ),
                               child: Icon(
                                 Icons.arrow_forward_rounded,
-                                color: AppColor.whiteColor(context),
+                                color: AppColor.blackTextColor(context),
                                 size: 16.sp,
                               ),
                             ),
@@ -250,14 +233,10 @@ class PremiumOfferCardWidget extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 8.h),
                 decoration: BoxDecoration(
                   color: AppColor.primaryColor(context),
-                  borderRadius: BorderRadius.vertical(
-                    bottom: Radius.circular(12.r),
-                  ),
+                  borderRadius: BorderRadius.vertical(bottom: Radius.circular(12.r)),
                   boxShadow: [
                     BoxShadow(
-                      color: AppColor.primaryColor(
-                        context,
-                      ).withValues(alpha: 0.3),
+                      color: AppColor.primaryColor(context).withValues(alpha: 0.3),
                       blurRadius: 10,
                       offset: const Offset(0, 4),
                     ),
@@ -269,7 +248,7 @@ class PremiumOfferCardWidget extends StatelessWidget {
                     Text(
                       offer['discount'],
                       style: TextStyle(
-                        color: AppColor.whiteColor(context),
+                        color: AppColor.blackTextColor(context),
                         fontWeight: FontWeight.w900,
                         fontSize: 14.sp,
                       ),
@@ -277,9 +256,7 @@ class PremiumOfferCardWidget extends StatelessWidget {
                     Text(
                       'OFF',
                       style: TextStyle(
-                        color: AppColor.whiteColor(
-                          context,
-                        ).withValues(alpha: 0.8),
+                        color: AppColor.blackTextColor(context).withValues(alpha: 0.8),
                         fontSize: 8.sp,
                         fontWeight: FontWeight.bold,
                       ),
@@ -294,15 +271,15 @@ class PremiumOfferCardWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildMiniSpec(IconData icon, String value) {
+  Widget _buildMiniSpec(IconData icon, String value, BuildContext context) {
     return Row(
       children: [
-        Icon(icon, color: Colors.white24, size: 13.sp),
+        Icon(icon, color: AppColor.blackTextColor(context).withValues(alpha: 0.24), size: 13.sp),
         Gap(4.w),
         Text(
           value,
           style: TextStyle(
-            color: Colors.white38,
+            color: AppColor.blackTextColor(context).withValues(alpha: 0.38),
             fontSize: 10.sp,
             fontWeight: FontWeight.w500,
           ),

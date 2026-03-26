@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:car/core/theme/app_colors.dart';
 import 'package:flutter_svg/svg.dart';
 import '../../extension/context_extension.dart';
 import '../../images/app_images.dart';
@@ -13,7 +14,7 @@ class NoDataWidget extends StatelessWidget {
     switch (axis) {
       case Axis.horizontal:
         return Container(
-          padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+          padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
           decoration: BoxDecoration(
             //     color: AppColor.mainAppColor(context).withOpacity(0),
             borderRadius: BorderRadius.circular(7),
@@ -27,7 +28,7 @@ class NoDataWidget extends StatelessWidget {
                     AppTheme.getByTheme(
                       context,
                       light: Colors.black,
-                      dark: Colors.white,
+                      dark: AppColor.blackTextColor(context),
                     ),
                     BlendMode.srcIn,
                   ),
@@ -35,7 +36,7 @@ class NoDataWidget extends StatelessWidget {
                   height: 40,
                   fit: BoxFit.contain,
                 ),
-                const SizedBox(width: 10),
+                SizedBox(width: 10),
                 Expanded(
                   child: Align(
                     alignment: AlignmentDirectional.centerStart,
@@ -49,7 +50,7 @@ class NoDataWidget extends StatelessWidget {
                         color: AppTheme.getByTheme(
                           context,
                           light: Colors.black,
-                          dark: Colors.white,
+                          dark: AppColor.blackTextColor(context),
                         ),
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
@@ -65,7 +66,7 @@ class NoDataWidget extends StatelessWidget {
       case Axis.vertical:
         return Container(
           width: double.infinity,
-          padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+          padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
           decoration: BoxDecoration(
             //   color: AppColor.mainAppColor(context).withOpacity(0.2),
             borderRadius: BorderRadius.circular(7),
@@ -79,7 +80,7 @@ class NoDataWidget extends StatelessWidget {
                   AppTheme.getByTheme(
                     context,
                     light: Colors.black,
-                    dark: Colors.white,
+                    dark: AppColor.blackTextColor(context),
                   ),
                   BlendMode.srcIn,
                 ),
@@ -87,7 +88,7 @@ class NoDataWidget extends StatelessWidget {
                 height: 100,
                 fit: BoxFit.contain,
               ),
-              const SizedBox(height: 10),
+              SizedBox(height: 10),
               Text(
                 message ??
                     context.apiTr(ar: 'لا توجد بيانات', en: 'There is no data'),
@@ -95,7 +96,7 @@ class NoDataWidget extends StatelessWidget {
                   color: AppTheme.getByTheme(
                     context,
                     light: Colors.black,
-                    dark: Colors.white,
+                    dark: AppColor.blackTextColor(context),
                   ),
                   fontSize: 16,
                   fontWeight: FontWeight.w500,

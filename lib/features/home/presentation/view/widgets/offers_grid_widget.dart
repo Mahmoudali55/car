@@ -93,7 +93,7 @@ class OffersGridWidget extends StatelessWidget {
             decoration: BoxDecoration(
               color: AppColor.secondAppColor(context),
               borderRadius: BorderRadius.circular(28.r),
-              border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
+              border: Border.all(color: AppColor.blackTextColor(context).withValues(alpha: 0.08)),
               boxShadow: [
                 BoxShadow(
                   color: Colors.black.withValues(alpha: 0.2),
@@ -116,7 +116,7 @@ class OffersGridWidget extends StatelessWidget {
                       child: Text(
                         car['brand'] ?? '',
                         style: TextStyle(
-                          color: Colors.white,
+                          color: AppColor.blackTextColor(context),
                           fontSize: 40.sp,
                           fontWeight: FontWeight.w900,
                         ),
@@ -137,7 +137,7 @@ class OffersGridWidget extends StatelessWidget {
                             begin: Alignment.topCenter,
                             end: Alignment.bottomCenter,
                             colors: [
-                              Colors.white.withValues(alpha: 0.05),
+                              AppColor.blackTextColor(context).withValues(alpha: 0.05),
                               Colors.transparent,
                             ],
                           ),
@@ -183,7 +183,7 @@ class OffersGridWidget extends StatelessWidget {
                                                 : Icons.favorite_border_rounded,
                                             color: isFav
                                                 ? Colors.redAccent
-                                                : Colors.white,
+                                                : AppColor.blackTextColor(context),
                                             size: 14.sp,
                                           ),
                                         ),
@@ -216,7 +216,7 @@ class OffersGridWidget extends StatelessWidget {
                             Text(
                               car['name'],
                               style: AppTextStyle.titleSmall(context).copyWith(
-                                color: Colors.white,
+                                color: AppColor.blackTextColor(context),
                                 fontWeight: FontWeight.w900,
                                 fontSize: 13.sp,
                               ),
@@ -229,7 +229,7 @@ class OffersGridWidget extends StatelessWidget {
                               children: [
                                 Icon(
                                   Icons.speed_outlined,
-                                  color: Colors.white24,
+                                  color: AppColor.blackTextColor(context).withValues(alpha: 0.24),
                                   size: 12.sp,
                                 ),
                                 Gap(4.w),
@@ -237,7 +237,7 @@ class OffersGridWidget extends StatelessWidget {
                                   child: Text(
                                     car['mileage'],
                                     style: TextStyle(
-                                      color: Colors.white38,
+                                      color: AppColor.blackTextColor(context).withValues(alpha: 0.38),
                                       fontSize: 9.sp,
                                     ),
                                     maxLines: 1,
@@ -246,14 +246,14 @@ class OffersGridWidget extends StatelessWidget {
                                 Gap(4.w),
                                 Icon(
                                   Icons.bolt_rounded,
-                                  color: Colors.white24,
+                                  color: AppColor.blackTextColor(context).withValues(alpha: 0.24),
                                   size: 12.sp,
                                 ),
                                 Gap(2.w),
                                 Text(
                                   (car['engine'] as String).split(' ').last,
                                   style: TextStyle(
-                                    color: Colors.white38,
+                                    color: AppColor.blackTextColor(context).withValues(alpha: 0.38),
                                     fontSize: 9.sp,
                                   ),
                                 ),
@@ -271,7 +271,7 @@ class OffersGridWidget extends StatelessWidget {
                                     Text(
                                       car['oldPrice'],
                                       style: TextStyle(
-                                        color: Colors.white24,
+                                        color: AppColor.blackTextColor(context).withValues(alpha: 0.24),
                                         fontSize: 9.sp,
                                         decoration: TextDecoration.lineThrough,
                                       ),
@@ -279,7 +279,7 @@ class OffersGridWidget extends StatelessWidget {
                                     Text(
                                       car['price'],
                                       style: TextStyle(
-                                        color: Colors.white,
+                                        color: AppColor.blackTextColor(context),
                                         fontWeight: FontWeight.w900,
                                         fontSize: 14.sp,
                                       ),
@@ -294,7 +294,7 @@ class OffersGridWidget extends StatelessWidget {
                                   ),
                                   child: Icon(
                                     Icons.arrow_forward_rounded,
-                                    color: Colors.white,
+                                    color: AppColor.blackTextColor(context),
                                     size: 14.sp,
                                   ),
                                 ),
@@ -323,7 +323,7 @@ class OffersGridWidget extends StatelessWidget {
                     child: Text(
                       "${car['discount']} OFF",
                       style: TextStyle(
-                        color: Colors.white,
+                        color: AppColor.blackTextColor(context),
                         fontSize: 9.sp,
                         fontWeight: FontWeight.w900,
                       ),

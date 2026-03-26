@@ -11,8 +11,7 @@ class BookingAppointmentScreen extends StatefulWidget {
   const BookingAppointmentScreen({super.key});
 
   @override
-  State<BookingAppointmentScreen> createState() =>
-      _BookingAppointmentScreenState();
+  State<BookingAppointmentScreen> createState() => _BookingAppointmentScreenState();
 }
 
 class _BookingAppointmentScreenState extends State<BookingAppointmentScreen> {
@@ -52,27 +51,20 @@ class _BookingAppointmentScreenState extends State<BookingAppointmentScreen> {
             backgroundColor: AppColor.scaffoldColor(context),
             leading: IconButton(
               onPressed: () => Navigator.pop(context),
-              icon: Icon(
-                Icons.close_rounded,
-                color: AppColor.whiteColor(context),
-              ),
+              icon: Icon(Icons.close_rounded, color: AppColor.blackTextColor(context)),
             ),
             flexibleSpace: FlexibleSpaceBar(
               centerTitle: true,
               title: Text(
                 AppLocaleKey.bookNewAppointment.tr(),
-                style: AppTextStyle.titleMedium(context).copyWith(
-                  color: AppColor.whiteColor(context),
-                  fontWeight: FontWeight.bold,
-                ),
+                style: AppTextStyle.titleMedium(
+                  context,
+                ).copyWith(color: AppColor.blackTextColor(context), fontWeight: FontWeight.bold),
               ),
               background: Container(
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
-                    colors: [
-                      AppColor.primaryColor(context),
-                      const Color(0xFF1E1E2C),
-                    ],
+                    colors: [AppColor.primaryColor(context), const Color(0xFF1E1E2C)],
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                   ),
@@ -86,9 +78,7 @@ class _BookingAppointmentScreenState extends State<BookingAppointmentScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  FadeInDown(
-                    child: _buildSectionTitle(AppLocaleKey.selectService.tr()),
-                  ),
+                  FadeInDown(child: _buildSectionTitle(AppLocaleKey.selectService.tr())),
                   Gap(16.h),
                   FadeInDown(
                     delay: const Duration(milliseconds: 100),
@@ -100,9 +90,7 @@ class _BookingAppointmentScreenState extends State<BookingAppointmentScreen> {
                         itemBuilder: (context, index) {
                           bool isSelected = selectedService == services[index];
                           return GestureDetector(
-                            onTap: () => setState(
-                              () => selectedService = services[index],
-                            ),
+                            onTap: () => setState(() => selectedService = services[index]),
                             child: AnimatedContainer(
                               duration: const Duration(milliseconds: 300),
                               width: 100.w,
@@ -114,7 +102,7 @@ class _BookingAppointmentScreenState extends State<BookingAppointmentScreen> {
                                 borderRadius: BorderRadius.circular(16.r),
                                 border: Border.all(
                                   color: isSelected
-                                      ? Colors.white24
+                                      ? AppColor.blackTextColor(context).withValues(alpha: 0.24)
                                       : Colors.transparent,
                                 ),
                               ),
@@ -124,8 +112,8 @@ class _BookingAppointmentScreenState extends State<BookingAppointmentScreen> {
                                   Icon(
                                     _getServiceIcon(services[index]),
                                     color: isSelected
-                                        ? AppColor.whiteColor(context)
-                                        : Colors.white38,
+                                        ? AppColor.blackTextColor(context)
+                                        : AppColor.blackTextColor(context).withValues(alpha: 0.38),
                                     size: 28.sp,
                                   ),
                                   Gap(8.h),
@@ -133,8 +121,10 @@ class _BookingAppointmentScreenState extends State<BookingAppointmentScreen> {
                                     services[index],
                                     style: TextStyle(
                                       color: isSelected
-                                          ? AppColor.whiteColor(context)
-                                          : Colors.white38,
+                                          ? AppColor.blackTextColor(context)
+                                          : AppColor.blackTextColor(
+                                              context,
+                                            ).withValues(alpha: 0.38),
                                       fontSize: 10.sp,
                                       fontWeight: FontWeight.bold,
                                     ),
@@ -151,9 +141,7 @@ class _BookingAppointmentScreenState extends State<BookingAppointmentScreen> {
                   Gap(32.h),
                   FadeInDown(
                     delay: const Duration(milliseconds: 200),
-                    child: _buildSectionTitle(
-                      AppLocaleKey.appointmentDate.tr(),
-                    ),
+                    child: _buildSectionTitle(AppLocaleKey.appointmentDate.tr()),
                   ),
                   Gap(16.h),
                   FadeInDown(
@@ -164,17 +152,15 @@ class _BookingAppointmentScreenState extends State<BookingAppointmentScreen> {
                           context: context,
                           initialDate: selectedDate,
                           firstDate: DateTime.now(),
-                          lastDate: DateTime.now().add(
-                            const Duration(days: 60),
-                          ),
+                          lastDate: DateTime.now().add(const Duration(days: 60)),
                           builder: (context, child) {
                             return Theme(
                               data: Theme.of(context).copyWith(
                                 colorScheme: ColorScheme.dark(
                                   primary: AppColor.primaryColor(context),
-                                  onPrimary: AppColor.whiteColor(context),
+                                  onPrimary: AppColor.blackTextColor(context),
                                   surface: const Color(0xFF1F2937),
-                                  onSurface: AppColor.whiteColor(context),
+                                  onSurface: AppColor.blackTextColor(context),
                                 ),
                               ),
                               child: child!,
@@ -188,33 +174,26 @@ class _BookingAppointmentScreenState extends State<BookingAppointmentScreen> {
                         decoration: BoxDecoration(
                           color: const Color(0xFF1F2937),
                           borderRadius: BorderRadius.circular(12.r),
-                          border: Border.all(
-                            color: AppColor.whiteColor(
-                              context,
-                            ).withOpacity(0.05),
-                          ),
+                          border: Border.all(color: AppColor.whiteColor(context).withOpacity(0.05)),
                         ),
                         child: Row(
                           children: [
-                            const Icon(
+                            Icon(
                               Icons.calendar_today_rounded,
-                              color: Colors.white70,
+                              color: AppColor.blackTextColor(context).withValues(alpha: 0.70),
                             ),
                             Gap(12.w),
                             Text(
-                              DateFormat(
-                                'EEEE, d MMMM yyyy',
-                                'ar',
-                              ).format(selectedDate),
+                              DateFormat('EEEE, d MMMM yyyy', 'ar').format(selectedDate),
                               style: TextStyle(
-                                color: AppColor.whiteColor(context),
+                                color: AppColor.blackTextColor(context),
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
                             const Spacer(),
-                            const Icon(
+                            Icon(
                               Icons.edit_calendar_rounded,
-                              color: Colors.white24,
+                              color: AppColor.blackTextColor(context).withValues(alpha: 0.24),
                             ),
                           ],
                         ),
@@ -238,10 +217,7 @@ class _BookingAppointmentScreenState extends State<BookingAppointmentScreen> {
                           onTap: () => setState(() => selectedTime = time),
                           child: AnimatedContainer(
                             duration: const Duration(milliseconds: 300),
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 16.w,
-                              vertical: 10.h,
-                            ),
+                            padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
                             decoration: BoxDecoration(
                               color: isSelected
                                   ? AppColor.primaryColor(context)
@@ -249,7 +225,7 @@ class _BookingAppointmentScreenState extends State<BookingAppointmentScreen> {
                               borderRadius: BorderRadius.circular(10.r),
                               border: Border.all(
                                 color: isSelected
-                                    ? Colors.white24
+                                    ? AppColor.blackTextColor(context).withValues(alpha: 0.24)
                                     : Colors.transparent,
                               ),
                             ),
@@ -257,8 +233,8 @@ class _BookingAppointmentScreenState extends State<BookingAppointmentScreen> {
                               time,
                               style: TextStyle(
                                 color: isSelected
-                                    ? AppColor.whiteColor(context)
-                                    : Colors.white60,
+                                    ? AppColor.blackTextColor(context)
+                                    : AppColor.blackTextColor(context).withValues(alpha: 0.60),
                                 fontWeight: FontWeight.bold,
                                 fontSize: 13.sp,
                               ),
@@ -271,24 +247,17 @@ class _BookingAppointmentScreenState extends State<BookingAppointmentScreen> {
                   Gap(32.h),
                   FadeInDown(
                     delay: const Duration(milliseconds: 600),
-                    child: _buildSectionTitle(
-                      AppLocaleKey.additionalDetails.tr(),
-                    ),
+                    child: _buildSectionTitle(AppLocaleKey.additionalDetails.tr()),
                   ),
                   Gap(16.h),
                   FadeInDown(
                     delay: const Duration(milliseconds: 700),
-                    child: _buildTextField(
-                      AppLocaleKey.plateOrCarTypeHint.tr(),
-                    ),
+                    child: _buildTextField(AppLocaleKey.plateOrCarTypeHint.tr()),
                   ),
                   Gap(12.h),
                   FadeInDown(
                     delay: const Duration(milliseconds: 800),
-                    child: _buildTextField(
-                      AppLocaleKey.specialNotesHint.tr(),
-                      maxLines: 3,
-                    ),
+                    child: _buildTextField(AppLocaleKey.specialNotesHint.tr(), maxLines: 3),
                   ),
                   Gap(40.h),
                   FadeInUp(
@@ -309,7 +278,7 @@ class _BookingAppointmentScreenState extends State<BookingAppointmentScreen> {
     return Text(
       title,
       style: TextStyle(
-        color: AppColor.whiteColor(context),
+        color: AppColor.blackTextColor(context),
         fontSize: 18.sp,
         fontWeight: FontWeight.bold,
       ),
@@ -321,20 +290,18 @@ class _BookingAppointmentScreenState extends State<BookingAppointmentScreen> {
       decoration: BoxDecoration(
         color: const Color(0xFF1F2937),
         borderRadius: BorderRadius.circular(12.r),
-        border: Border.all(
-          color: AppColor.whiteColor(context).withOpacity(0.05),
-        ),
+        border: Border.all(color: AppColor.blackTextColor(context).withOpacity(0.05)),
       ),
       child: TextField(
         maxLines: maxLines,
-        style: TextStyle(color: AppColor.whiteColor(context)),
+        style: TextStyle(color: AppColor.blackTextColor(context)),
         decoration: InputDecoration(
           hintText: hint,
-          hintStyle: TextStyle(color: Colors.white38, fontSize: 14.sp),
-          contentPadding: EdgeInsets.symmetric(
-            horizontal: 16.w,
-            vertical: 16.h,
+          hintStyle: TextStyle(
+            color: AppColor.blackTextColor(context).withValues(alpha: 0.38),
+            fontSize: 14.sp,
           ),
+          contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
           border: InputBorder.none,
         ),
       ),
@@ -346,11 +313,11 @@ class _BookingAppointmentScreenState extends State<BookingAppointmentScreen> {
       width: double.infinity,
       height: 55.h,
       decoration: BoxDecoration(
-        color: AppColor.whiteColor(context),
+        color: AppColor.blackTextColor(context),
         borderRadius: BorderRadius.circular(16.r),
         boxShadow: [
           BoxShadow(
-            color: AppColor.whiteColor(context).withOpacity(0.1),
+            color: AppColor.blackTextColor(context).withOpacity(0.1),
             blurRadius: 10,
             offset: const Offset(0, 5),
           ),
@@ -365,9 +332,7 @@ class _BookingAppointmentScreenState extends State<BookingAppointmentScreen> {
           backgroundColor: Colors.transparent,
           foregroundColor: Colors.black,
           shadowColor: Colors.transparent,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16.r),
-          ),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.r)),
         ),
         child: Text(
           AppLocaleKey.confirmBooking.tr(),
@@ -392,16 +357,12 @@ class _BookingAppointmentScreenState extends State<BookingAppointmentScreen> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(
-              Icons.check_circle_rounded,
-              color: Colors.greenAccent,
-              size: 70.sp,
-            ),
+            Icon(Icons.check_circle_rounded, color: Colors.greenAccent, size: 70.sp),
             Gap(20.h),
             Text(
               AppLocaleKey.bookingReceivedSuccess.tr(),
               style: TextStyle(
-                color: AppColor.whiteColor(context),
+                color: AppColor.blackTextColor(context),
                 fontSize: 20.sp,
                 fontWeight: FontWeight.bold,
               ),
@@ -409,7 +370,7 @@ class _BookingAppointmentScreenState extends State<BookingAppointmentScreen> {
             Gap(10.h),
             Text(
               AppLocaleKey.teamWillContactSoon.tr(),
-              style: const TextStyle(color: Colors.white70),
+              style: TextStyle(color: AppColor.blackTextColor(context).withValues(alpha: 0.70)),
               textAlign: TextAlign.center,
             ),
             Gap(30.h),
@@ -422,13 +383,11 @@ class _BookingAppointmentScreenState extends State<BookingAppointmentScreen> {
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppColor.primaryColor(context),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12.r),
-                  ),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.r)),
                 ),
                 child: Text(
                   AppLocaleKey.ok.tr(),
-                  style: TextStyle(color: AppColor.whiteColor(context)),
+                  style: TextStyle(color: AppColor.blackTextColor(context)),
                 ),
               ),
             ),

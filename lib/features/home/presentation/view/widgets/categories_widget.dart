@@ -16,51 +16,21 @@ class CategoriesWidget extends StatefulWidget {
 
 class _CategoriesWidgetState extends State<CategoriesWidget> {
   final categories = [
-    {
-      'name': AppLocaleKey.mercedes.tr(),
-      'image': 'assets/images/cars/mercedes-benz.png',
-    },
+    {'name': AppLocaleKey.mercedes.tr(), 'image': 'assets/images/cars/mercedes-benz.png'},
     {'name': AppLocaleKey.bmw.tr(), 'image': 'assets/images/cars/bmw.png'},
-    {
-      'name': AppLocaleKey.toyota.tr(),
-      'image': 'assets/images/cars/toyota.png',
-    },
+    {'name': AppLocaleKey.toyota.tr(), 'image': 'assets/images/cars/toyota.png'},
     {'name': AppLocaleKey.tesla.tr(), 'image': 'assets/images/cars/tesla.png'},
     {'name': AppLocaleKey.audi.tr(), 'image': 'assets/images/cars/audi.png'},
-    {
-      'name': AppLocaleKey.nissan.tr(),
-      'image': 'assets/images/cars/nissan.png',
-    },
+    {'name': AppLocaleKey.nissan.tr(), 'image': 'assets/images/cars/nissan.png'},
     {'name': AppLocaleKey.ford.tr(), 'image': 'assets/images/cars/ford.png'},
-    {
-      'name': AppLocaleKey.hyundai.tr(),
-      'image': 'assets/images/cars/hyundai.png',
-    },
-    {
-      'name': AppLocaleKey.volkswagen.tr(),
-      'image': 'assets/images/cars/volkswagen.png',
-    },
+    {'name': AppLocaleKey.hyundai.tr(), 'image': 'assets/images/cars/hyundai.png'},
+    {'name': AppLocaleKey.volkswagen.tr(), 'image': 'assets/images/cars/volkswagen.png'},
     {'name': AppLocaleKey.kia.tr(), 'image': 'assets/images/cars/kia.png'},
-    {
-      'name': AppLocaleKey.lamborghini.tr(),
-      'image': 'assets/images/cars/lamborghini.png',
-    },
-    {
-      'name': AppLocaleKey.porsche.tr(),
-      'image': 'assets/images/cars/porsche.png',
-    },
-    {
-      'name': AppLocaleKey.mclaren.tr(),
-      'image': 'assets/images/cars/mclaren.png',
-    },
-    {
-      'name': AppLocaleKey.bugatti.tr(),
-      'image': 'assets/images/cars/bugatti.png',
-    },
-    {
-      'name': AppLocaleKey.jaguar.tr(),
-      'image': 'assets/images/cars/jaguar.png',
-    },
+    {'name': AppLocaleKey.lamborghini.tr(), 'image': 'assets/images/cars/lamborghini.png'},
+    {'name': AppLocaleKey.porsche.tr(), 'image': 'assets/images/cars/porsche.png'},
+    {'name': AppLocaleKey.mclaren.tr(), 'image': 'assets/images/cars/mclaren.png'},
+    {'name': AppLocaleKey.bugatti.tr(), 'image': 'assets/images/cars/bugatti.png'},
+    {'name': AppLocaleKey.jaguar.tr(), 'image': 'assets/images/cars/jaguar.png'},
     {'name': AppLocaleKey.mazda.tr(), 'image': 'assets/images/cars/mazda.png'},
   ];
 
@@ -107,24 +77,18 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
                         : null,
                     color: isSelected
                         ? null
-                        : AppColor.secondAppColor(
-                            context,
-                          ).withValues(alpha: 0.8),
+                        : AppColor.secondAppColor(context).withValues(alpha: 0.8),
                     borderRadius: BorderRadius.circular(30.r),
                     border: Border.all(
                       color: isSelected
-                          ? AppColor.whiteColor(context).withValues(alpha: 0.2)
-                          : AppColor.whiteColor(
-                              context,
-                            ).withValues(alpha: 0.05),
+                          ? AppColor.blackTextColor(context).withValues(alpha: 0.2)
+                          : AppColor.blackTextColor(context).withValues(alpha: 0.05),
                       width: 1,
                     ),
                     boxShadow: isSelected
                         ? [
                             BoxShadow(
-                              color: AppColor.primaryColor(
-                                context,
-                              ).withValues(alpha: 0.3),
+                              color: AppColor.primaryColor(context).withValues(alpha: 0.3),
                               blurRadius: 15,
                               offset: const Offset(0, 8),
                             ),
@@ -143,9 +107,9 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
                       Container(
                         padding: EdgeInsets.all(5.w),
                         decoration: BoxDecoration(
-                          color: AppColor.whiteColor(
-                            context,
-                          ).withValues(alpha: isSelected ? 0.2 : 1.0),
+                          color: isSelected
+                              ? AppColor.whiteColor(context).withValues(alpha: 0.2)
+                              : AppColor.blackTextColor(context).withValues(alpha: 0.05),
                           shape: BoxShape.circle,
                         ),
                         child: Image.asset(
@@ -153,13 +117,11 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
                           width: 22.w,
                           height: 22.w,
                           fit: BoxFit.contain,
-                          color: isSelected
-                              ? AppColor.whiteColor(context)
-                              : null,
+                          color: isSelected ? AppColor.blackTextColor(context) : null,
                           errorBuilder: (context, error, stackTrace) => Icon(
                             Icons.directions_car_rounded,
                             color: isSelected
-                                ? AppColor.whiteColor(context)
+                                ? AppColor.blackTextColor(context)
                                 : AppColor.primaryColor(context),
                             size: 18.w,
                           ),
@@ -170,13 +132,9 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
                         categories[index]['name'] as String,
                         style: AppTextStyle.bodySmall(context).copyWith(
                           color: isSelected
-                              ? AppColor.whiteColor(context)
-                              : AppColor.whiteColor(
-                                  context,
-                                ).withValues(alpha: 0.7),
-                          fontWeight: isSelected
-                              ? FontWeight.w900
-                              : FontWeight.w600,
+                              ? AppColor.blackTextColor(context)
+                              : AppColor.blackTextColor(context).withValues(alpha: 0.7),
+                          fontWeight: isSelected ? FontWeight.w900 : FontWeight.w600,
                           fontSize: 13.sp,
                           letterSpacing: 0.5,
                         ),

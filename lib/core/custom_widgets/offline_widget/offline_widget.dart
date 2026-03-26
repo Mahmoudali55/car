@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:car/core/theme/app_colors.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../extension/context_extension.dart';
 import '../../images/app_images.dart';
@@ -15,7 +16,7 @@ class OfflineWidget extends StatelessWidget {
     switch (axis) {
       case Axis.horizontal:
         return Container(
-          padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+          padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
           decoration: BoxDecoration(
             color: AppColor.primaryColor(context).withOpacity(0.2),
             borderRadius: BorderRadius.circular(7),
@@ -29,7 +30,7 @@ class OfflineWidget extends StatelessWidget {
                     AppTheme.getByTheme(
                       context,
                       light: Colors.black,
-                      dark: Colors.white,
+                      dark: AppColor.blackTextColor(context),
                     ),
                     BlendMode.srcIn,
                   ),
@@ -37,7 +38,7 @@ class OfflineWidget extends StatelessWidget {
                   height: 40,
                   fit: BoxFit.contain,
                 ),
-                const SizedBox(width: 10),
+                SizedBox(width: 10),
                 Expanded(
                   child: Text(
                     context.apiTr(
@@ -48,7 +49,7 @@ class OfflineWidget extends StatelessWidget {
                       color: AppTheme.getByTheme(
                         context,
                         light: Colors.black,
-                        dark: Colors.white,
+                        dark: AppColor.blackTextColor(context),
                       ),
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
@@ -56,7 +57,7 @@ class OfflineWidget extends StatelessWidget {
                     textAlign: TextAlign.justify,
                   ),
                 ),
-                const SizedBox(width: 10),
+                SizedBox(width: 10),
                 IconButton(
                   onPressed: onReload,
                   icon: SvgPicture.asset(
@@ -65,7 +66,7 @@ class OfflineWidget extends StatelessWidget {
                       AppTheme.getByTheme(
                         context,
                         light: Colors.black,
-                        dark: Colors.white,
+                        dark: AppColor.blackTextColor(context),
                       ),
                       BlendMode.srcIn,
                     ),
@@ -81,7 +82,7 @@ class OfflineWidget extends StatelessWidget {
       case Axis.vertical:
         return Container(
           width: double.infinity,
-          padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+          padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
           decoration: BoxDecoration(
             color: AppColor.primaryColor(context).withOpacity(0.2),
             borderRadius: BorderRadius.circular(7),
@@ -95,7 +96,7 @@ class OfflineWidget extends StatelessWidget {
                   AppTheme.getByTheme(
                     context,
                     light: Colors.black,
-                    dark: Colors.white,
+                    dark: AppColor.blackTextColor(context),
                   ),
                   BlendMode.srcIn,
                 ),
@@ -103,7 +104,7 @@ class OfflineWidget extends StatelessWidget {
                 height: 80,
                 fit: BoxFit.contain,
               ),
-              const SizedBox(height: 10),
+              SizedBox(height: 10),
               Text(
                 context.apiTr(
                   ar: 'تأكد من الاتصال بالإنترنت',
@@ -113,14 +114,14 @@ class OfflineWidget extends StatelessWidget {
                   color: AppTheme.getByTheme(
                     context,
                     light: Colors.black,
-                    dark: Colors.white,
+                    dark: AppColor.blackTextColor(context),
                   ),
                   fontSize: 16,
                   fontWeight: FontWeight.w500,
                 ),
                 textAlign: TextAlign.center,
               ),
-              const SizedBox(height: 10),
+              SizedBox(height: 10),
               CustomButton(
                 width: MediaQuery.of(context).size.width * 0.5,
                 text: context.apiTr(ar: 'إعادة تحميل', en: 'Reload'),

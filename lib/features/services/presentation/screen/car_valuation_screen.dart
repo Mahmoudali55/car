@@ -24,19 +24,15 @@ class CarValuationScreen extends StatelessWidget {
             backgroundColor: AppColor.scaffoldColor(context),
             leading: IconButton(
               onPressed: () => Navigator.pop(context),
-              icon: Icon(
-                Icons.arrow_back_ios_new_rounded,
-                color: AppColor.whiteColor(context),
-              ),
+              icon: Icon(Icons.arrow_back_ios_new_rounded, color: AppColor.blackTextColor(context)),
             ),
             flexibleSpace: FlexibleSpaceBar(
               centerTitle: true,
               title: Text(
                 AppLocaleKey.carValuation.tr(),
-                style: AppTextStyle.titleMedium(context).copyWith(
-                  color: AppColor.whiteColor(context),
-                  fontWeight: FontWeight.bold,
-                ),
+                style: AppTextStyle.titleMedium(
+                  context,
+                ).copyWith(color: AppColor.blackTextColor(context), fontWeight: FontWeight.bold),
               ),
               background: Stack(
                 fit: StackFit.expand,
@@ -58,7 +54,7 @@ class CarValuationScreen extends StatelessWidget {
                       child: Icon(
                         Icons.analytics_rounded,
                         size: 150.sp,
-                        color: AppColor.whiteColor(context),
+                        color: AppColor.blackTextColor(context),
                       ),
                     ),
                   ),
@@ -72,58 +68,33 @@ class CarValuationScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  FadeInUp(
-                    child: _buildSectionHeader(
-                      AppLocaleKey.carValuationInfo.tr(),
-                      context,
-                    ),
-                  ),
+                  FadeInUp(child: _buildSectionHeader(AppLocaleKey.carValuationInfo.tr(), context)),
                   Gap(16.h),
                   FadeInUp(
                     delay: const Duration(milliseconds: 100),
-                    child: _buildTextField(
-                      AppLocaleKey.brandAndModel.tr(),
-                      context,
-                    ),
+                    child: _buildTextField(AppLocaleKey.brandAndModel.tr(), context),
                   ),
                   Gap(12.h),
                   FadeInUp(
                     delay: const Duration(milliseconds: 200),
-                    child: _buildTextField(
-                      AppLocaleKey.manufacturingYear.tr(),
-                      context,
-                    ),
+                    child: _buildTextField(AppLocaleKey.manufacturingYear.tr(), context),
                   ),
                   Gap(12.h),
                   FadeInUp(
                     delay: const Duration(milliseconds: 300),
-                    child: _buildTextField(
-                      AppLocaleKey.generalConditionHint.tr(),
-                      context,
-                    ),
+                    child: _buildTextField(AppLocaleKey.generalConditionHint.tr(), context),
                   ),
                   Gap(32.h),
-                  FadeInUp(
-                    child: _buildSectionHeader(
-                      AppLocaleKey.additionalNotes.tr(),
-                      context,
-                    ),
-                  ),
+                  FadeInUp(child: _buildSectionHeader(AppLocaleKey.additionalNotes.tr(), context)),
                   Gap(16.h),
                   FadeInUp(
                     delay: const Duration(milliseconds: 400),
-                    child: _buildTextField(
-                      AppLocaleKey.accidentMaintenanceHistory.tr(),
-                      context,
-                    ),
+                    child: _buildTextField(AppLocaleKey.accidentMaintenanceHistory.tr(), context),
                   ),
                   Gap(40.h),
                   FadeInUp(
                     delay: const Duration(milliseconds: 500),
-                    child: _buildSubmitButton(
-                      context,
-                      AppLocaleKey.requestValuationNow.tr(),
-                    ),
+                    child: _buildSubmitButton(context, AppLocaleKey.requestValuationNow.tr()),
                   ),
                   Gap(50.h),
                 ],
@@ -139,7 +110,7 @@ class CarValuationScreen extends StatelessWidget {
     return Text(
       title,
       style: TextStyle(
-        color: AppColor.whiteColor(context),
+        color: AppColor.blackTextColor(context),
         fontSize: 18.sp,
         fontWeight: FontWeight.bold,
       ),
@@ -151,9 +122,7 @@ class CarValuationScreen extends StatelessWidget {
       decoration: BoxDecoration(
         color: const Color(0xFF1F2937),
         borderRadius: BorderRadius.circular(12.r),
-        border: Border.all(
-          color: AppColor.whiteColor(context).withValues(alpha: (0.05)),
-        ),
+        border: Border.all(color: AppColor.blackTextColor(context).withValues(alpha: (0.05))),
       ),
       child: CustomFormField(hintText: hint),
     );
@@ -164,9 +133,7 @@ class CarValuationScreen extends StatelessWidget {
       width: double.infinity,
       height: 55.h,
       decoration: BoxDecoration(
-        gradient: const LinearGradient(
-          colors: [Color(0xFF78350F), Color(0xFFD97706)],
-        ),
+        gradient: const LinearGradient(colors: [Color(0xFF78350F), Color(0xFFD97706)]),
         borderRadius: BorderRadius.circular(16.r),
         boxShadow: [
           BoxShadow(
@@ -181,14 +148,12 @@ class CarValuationScreen extends StatelessWidget {
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.transparent,
           shadowColor: Colors.transparent,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16.r),
-          ),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.r)),
         ),
         child: Text(
           text,
           style: TextStyle(
-            color: AppColor.whiteColor(context),
+            color: AppColor.blackTextColor(context),
             fontSize: 16.sp,
             fontWeight: FontWeight.bold,
           ),

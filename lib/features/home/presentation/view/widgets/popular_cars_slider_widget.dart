@@ -141,7 +141,7 @@ class _PopularCarsSliderState extends State<PopularCarsSlider> {
                 border: Border.all(
                   color: isSelected
                       ? AppColor.primaryColor(context).withOpacity(0.3)
-                      : Colors.white.withOpacity(0.05),
+                      : AppColor.blackTextColor(context).withOpacity(0.05),
                   width: 1,
                 ),
               ),
@@ -156,7 +156,7 @@ class _PopularCarsSliderState extends State<PopularCarsSlider> {
                       children: [
                         // Subdued background for the image
                         Container(
-                          color: Colors.white.withOpacity(0.02),
+                          color: AppColor.blackTextColor(context).withOpacity(0.02),
                           padding: EdgeInsets.all(16.w),
                           child: AnimatedScale(
                             duration: const Duration(milliseconds: 400),
@@ -221,7 +221,7 @@ class _PopularCarsSliderState extends State<PopularCarsSlider> {
                                         : Icons.favorite_border_rounded,
                                     color: isFav
                                         ? Colors.redAccent
-                                        : Colors.white,
+                                        : AppColor.blackTextColor(context),
                                     size: 18.w,
                                   ),
                                 ),
@@ -275,7 +275,7 @@ class _PopularCarsSliderState extends State<PopularCarsSlider> {
                           Text(
                             car['name']!,
                             style: AppTextStyle.titleMedium(context).copyWith(
-                              color: Colors.white,
+                              color: AppColor.blackTextColor(context),
                               fontWeight: FontWeight.bold,
                               fontSize: 18.sp,
                             ),
@@ -331,7 +331,7 @@ class _PopularCarsSliderState extends State<PopularCarsSlider> {
                                     backgroundColor: AppColor.primaryColor(
                                       context,
                                     ),
-                                    foregroundColor: Colors.white,
+                                    foregroundColor: AppColor.blackTextColor(context),
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(16.r),
                                     ),
@@ -360,10 +360,10 @@ class _PopularCarsSliderState extends State<PopularCarsSlider> {
                                       _navigateToDetails(context, car),
                                   style: OutlinedButton.styleFrom(
                                     side: BorderSide(
-                                      color: Colors.white.withOpacity(0.2),
+                                      color: AppColor.blackTextColor(context).withOpacity(0.2),
                                       width: 1.5,
                                     ),
-                                    foregroundColor: Colors.white,
+                                    foregroundColor: AppColor.blackTextColor(context),
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(16.r),
                                     ),
@@ -399,9 +399,9 @@ class _PopularCarsSliderState extends State<PopularCarsSlider> {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 6.h),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.04),
+        color: AppColor.blackTextColor(context).withOpacity(0.04),
         borderRadius: BorderRadius.circular(8.r),
-        border: Border.all(color: Colors.white.withOpacity(0.02)),
+        border: Border.all(color: AppColor.blackTextColor(context).withOpacity(0.02)),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,

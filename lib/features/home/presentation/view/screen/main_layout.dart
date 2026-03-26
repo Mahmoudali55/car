@@ -35,9 +35,7 @@ class _MainLayoutState extends State<MainLayout> {
     final List<Widget> screens = [
       HomeGuestScreen(key: ValueKey('home_${context.locale.languageCode}')),
       CarsScreen(key: ValueKey('cars_${context.locale.languageCode}')),
-      FavoritesScreen(
-        key: ValueKey('favorites_${context.locale.languageCode}'),
-      ),
+      FavoritesScreen(key: ValueKey('favorites_${context.locale.languageCode}')),
       OffersScreen(key: ValueKey('offers_${context.locale.languageCode}')),
       ServicesScreen(key: ValueKey('services_${context.locale.languageCode}')),
     ];
@@ -49,8 +47,7 @@ class _MainLayoutState extends State<MainLayout> {
               centerTitle: false,
               automaticallyImplyLeading: false,
               leading: IconButton(
-                onPressed: () =>
-                    Navigator.pushNamed(context, RoutesName.settingsScreen),
+                onPressed: () => Navigator.pushNamed(context, RoutesName.settingsScreen),
                 icon: Icon(Icons.person, color: AppColor.primaryColor(context)),
               ),
               title: Text(
@@ -59,35 +56,24 @@ class _MainLayoutState extends State<MainLayout> {
               ),
               actions: [
                 CircleAvatar(
-                  backgroundColor: AppColor.greyColor(
-                    context,
-                  ).withValues(alpha: 0.1),
+                  backgroundColor: AppColor.greyColor(context).withValues(alpha: 0.1),
                   child: IconButton(
                     onPressed: () {},
-                    icon: Icon(
-                      Icons.search,
-                      color: AppColor.blackTextColor(context),
-                    ),
+                    icon: Icon(Icons.search, color: AppColor.blackTextColor(context)),
                   ),
                 ),
                 Gap(10.w),
                 BlocBuilder<NotificationsCubit, NotificationsState>(
                   builder: (context, state) {
-                    final int unreadCount = state is NotificationsLoaded
-                        ? state.unreadCount
-                        : 0;
+                    final int unreadCount = state is NotificationsLoaded ? state.unreadCount : 0;
                     return Stack(
                       alignment: Alignment.center,
                       children: [
                         CircleAvatar(
-                          backgroundColor: AppColor.greyColor(
-                            context,
-                          ).withValues(alpha: 0.1),
+                          backgroundColor: AppColor.greyColor(context).withValues(alpha: 0.1),
                           child: IconButton(
-                            onPressed: () => Navigator.pushNamed(
-                              context,
-                              RoutesName.notificationsScreen,
-                            ),
+                            onPressed: () =>
+                                Navigator.pushNamed(context, RoutesName.notificationsScreen),
                             icon: Icon(
                               Icons.notifications_none_rounded,
                               color: AppColor.blackTextColor(context),
@@ -107,7 +93,7 @@ class _MainLayoutState extends State<MainLayout> {
                               child: Text(
                                 unreadCount.toString(),
                                 style: TextStyle(
-                                  color: AppColor.whiteColor(context),
+                                  color: AppColor.blackTextColor(context),
                                   fontSize: 10.sp,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -125,14 +111,9 @@ class _MainLayoutState extends State<MainLayout> {
                       alignment: Alignment.center,
                       children: [
                         CircleAvatar(
-                          backgroundColor: AppColor.greyColor(
-                            context,
-                          ).withValues(alpha: 0.1),
+                          backgroundColor: AppColor.greyColor(context).withValues(alpha: 0.1),
                           child: IconButton(
-                            onPressed: () => Navigator.pushNamed(
-                              context,
-                              RoutesName.cartScreen,
-                            ),
+                            onPressed: () => Navigator.pushNamed(context, RoutesName.cartScreen),
                             icon: Icon(
                               Icons.shopping_cart_outlined,
                               color: AppColor.blackTextColor(context),
@@ -152,7 +133,7 @@ class _MainLayoutState extends State<MainLayout> {
                               child: Text(
                                 state.items.length.toString(),
                                 style: TextStyle(
-                                  color: AppColor.whiteColor(context),
+                                  color: AppColor.blackTextColor(context),
                                   fontSize: 10.sp,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -165,9 +146,7 @@ class _MainLayoutState extends State<MainLayout> {
                 ),
                 Gap(10.w),
                 CircleAvatar(
-                  backgroundColor: AppColor.greyColor(
-                    context,
-                  ).withValues(alpha: 0.1),
+                  backgroundColor: AppColor.greyColor(context).withValues(alpha: 0.1),
                   child: IconButton(
                     onPressed: () async {
                       final newLocale = context.locale.languageCode == 'ar'
@@ -192,7 +171,7 @@ class _MainLayoutState extends State<MainLayout> {
         height: 75.h,
         padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
         decoration: BoxDecoration(
-          color: AppColor.whiteColor(context),
+          color: AppColor.secondAppColor(context),
           boxShadow: [
             BoxShadow(
               color: AppColor.blackTextColor(context).withValues(alpha: 0.05),
@@ -204,12 +183,7 @@ class _MainLayoutState extends State<MainLayout> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            _buildNavItem(
-              0,
-              Icons.home_outlined,
-              Icons.home,
-              AppLocaleKey.home.tr(),
-            ),
+            _buildNavItem(0, Icons.home_outlined, Icons.home, AppLocaleKey.home.tr()),
             _buildNavItem(
               1,
               Icons.directions_car_outlined,
@@ -240,12 +214,7 @@ class _MainLayoutState extends State<MainLayout> {
     );
   }
 
-  Widget _buildNavItem(
-    int index,
-    IconData icon,
-    IconData activeIcon,
-    String label,
-  ) {
+  Widget _buildNavItem(int index, IconData icon, IconData activeIcon, String label) {
     bool isSelected = _currentIndex == index;
     return GestureDetector(
       onTap: () => setState(() => _currentIndex = index),
@@ -253,18 +222,14 @@ class _MainLayoutState extends State<MainLayout> {
         duration: const Duration(milliseconds: 300),
         padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
         decoration: BoxDecoration(
-          color: isSelected
-              ? AppColor.primaryColor(context).withOpacity(0.1)
-              : Colors.transparent,
+          color: isSelected ? AppColor.primaryColor(context).withOpacity(0.1) : Colors.transparent,
           borderRadius: BorderRadius.circular(20.r),
         ),
         child: Row(
           children: [
             Icon(
               isSelected ? activeIcon : icon,
-              color: isSelected
-                  ? AppColor.primaryColor(context)
-                  : AppColor.greyColor(context),
+              color: isSelected ? AppColor.primaryColor(context) : AppColor.greyColor(context),
               size: 24.w,
             ),
             if (isSelected) ...[

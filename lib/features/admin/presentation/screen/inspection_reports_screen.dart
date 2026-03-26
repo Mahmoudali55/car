@@ -18,13 +18,13 @@ class InspectionReportsScreen extends StatelessWidget {
         elevation: 0,
         leading: IconButton(
           onPressed: () => Navigator.pop(context),
-          icon: const Icon(Icons.arrow_back_ios_new_rounded, color: Colors.white),
+          icon: Icon(Icons.arrow_back_ios_new_rounded, color: AppColor.blackTextColor(context)),
         ),
         title: Text(
           AppLocaleKey.inspectionReports.tr(),
           style: AppTextStyle.titleMedium(
             context,
-          ).copyWith(color: Colors.white, fontWeight: FontWeight.bold),
+          ).copyWith(color: AppColor.blackTextColor(context), fontWeight: FontWeight.bold),
         ),
       ),
       body: ListView.separated(
@@ -42,7 +42,7 @@ class InspectionReportsScreen extends StatelessWidget {
       decoration: BoxDecoration(
         color: const Color(0xFF1F2937),
         borderRadius: BorderRadius.circular(16.r),
-        border: Border.all(color: Colors.white.withOpacity(0.03)),
+        border: Border.all(color: AppColor.blackTextColor(context).withOpacity(0.03)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -52,23 +52,23 @@ class InspectionReportsScreen extends StatelessWidget {
             children: [
               Text(
                 '${AppLocaleKey.reportNumber.tr()}#${1000 + index}',
-                style: TextStyle(color: Colors.white, fontSize: 13.sp, fontWeight: FontWeight.bold),
+                style: TextStyle(color: AppColor.blackTextColor(context), fontSize: 13.sp, fontWeight: FontWeight.bold),
               ),
               Text(
                 '2024/03/25',
-                style: TextStyle(color: Colors.white38, fontSize: 11.sp),
+                style: TextStyle(color: AppColor.blackTextColor(context).withValues(alpha: 0.38), fontSize: 11.sp),
               ),
             ],
           ),
           Gap(12.h),
           Text(
             '${AppLocaleKey.status.tr()}: ${AppLocaleKey.inspectionCompleted.tr()}',
-            style: TextStyle(color: Colors.white70, fontSize: 12.sp),
+            style: TextStyle(color: AppColor.blackTextColor(context).withValues(alpha: 0.70), fontSize: 12.sp),
           ),
           Gap(12.h),
           Row(
             children: [
-              const Icon(Icons.check_circle_rounded, color: Colors.green, size: 16),
+              Icon(Icons.check_circle_rounded, color: Colors.green, size: 16),
               Gap(8.w),
               Text(
                 '${AppLocaleKey.result.tr()}: 95/100 (${AppLocaleKey.excellent.tr()})',

@@ -53,18 +53,12 @@ class _VideoReviewWidgetState extends State<VideoReviewWidget> {
                   fit: StackFit.expand,
                   children: [
                     Image.network(
-                      YoutubePlayer.getThumbnail(
-                        videoId: widget.controller.initialVideoId,
-                      ),
+                      YoutubePlayer.getThumbnail(videoId: widget.controller.initialVideoId),
                       fit: BoxFit.cover,
                       errorBuilder: (_, __, ___) =>
                           Image.asset(widget.car['image'], fit: BoxFit.cover),
                     ),
-                    Container(
-                      color: AppColor.blackTextColor(
-                        context,
-                      ).withValues(alpha: 0.4),
-                    ),
+                    Container(color: AppColor.blackTextColor(context).withValues(alpha: 0.4)),
                     Center(
                       child: GestureDetector(
                         onTap: () {
@@ -73,12 +67,10 @@ class _VideoReviewWidgetState extends State<VideoReviewWidget> {
                         },
                         child: CircleAvatar(
                           radius: 35.r,
-                          backgroundColor: AppColor.primaryColor(
-                            context,
-                          ).withValues(alpha: 0.9),
+                          backgroundColor: AppColor.primaryColor(context).withValues(alpha: 0.9),
                           child: Icon(
                             Icons.play_arrow_rounded,
-                            color: AppColor.whiteColor(context),
+                            color: AppColor.blackTextColor(context),
                             size: 40.sp,
                           ),
                         ),
@@ -88,22 +80,14 @@ class _VideoReviewWidgetState extends State<VideoReviewWidget> {
                       bottom: 16.h,
                       left: 16.w,
                       child: Container(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 10.w,
-                          vertical: 6.h,
-                        ),
+                        padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 6.h),
                         decoration: BoxDecoration(
-                          color: AppColor.blackTextColor(
-                            context,
-                          ).withValues(alpha: 0.7),
+                          color: AppColor.blackTextColor(context).withValues(alpha: 0.7),
                           borderRadius: BorderRadius.circular(8.r),
                         ),
                         child: Text(
                           '4:25',
-                          style: TextStyle(
-                            color: AppColor.whiteColor(context),
-                            fontSize: 10,
-                          ),
+                          style: TextStyle(color: AppColor.blackTextColor(context), fontSize: 10),
                         ),
                       ),
                     ),

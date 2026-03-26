@@ -24,25 +24,21 @@ class CarDetailingScreen extends StatelessWidget {
             backgroundColor: AppColor.scaffoldColor(context),
             leading: IconButton(
               onPressed: () => Navigator.pop(context),
-              icon: Icon(
-                Icons.arrow_back_ios_new_rounded,
-                color: AppColor.whiteColor(context),
-              ),
+              icon: Icon(Icons.arrow_back_ios_new_rounded, color: AppColor.blackTextColor(context)),
             ),
             flexibleSpace: FlexibleSpaceBar(
               centerTitle: true,
               title: Text(
                 AppLocaleKey.carePolishingServices.tr(),
-                style: AppTextStyle.titleMedium(context).copyWith(
-                  color: AppColor.whiteColor(context),
-                  fontWeight: FontWeight.bold,
-                ),
+                style: AppTextStyle.titleMedium(
+                  context,
+                ).copyWith(color: AppColor.blackTextColor(context), fontWeight: FontWeight.bold),
               ),
               background: Stack(
                 fit: StackFit.expand,
                 children: [
                   Container(
-                    decoration: const BoxDecoration(
+                    decoration: BoxDecoration(
                       gradient: LinearGradient(
                         colors: [Color(0xFF831843), Color(0xFFBE185D)],
                         begin: Alignment.topLeft,
@@ -58,7 +54,7 @@ class CarDetailingScreen extends StatelessWidget {
                       child: Icon(
                         Icons.auto_awesome_rounded,
                         size: 150.sp,
-                        color: AppColor.whiteColor(context),
+                        color: AppColor.blackTextColor(context),
                       ),
                     ),
                   ),
@@ -73,10 +69,7 @@ class CarDetailingScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   FadeInUp(
-                    child: _buildSectionHeader(
-                      AppLocaleKey.requestedServiceType.tr(),
-                      context,
-                    ),
+                    child: _buildSectionHeader(AppLocaleKey.requestedServiceType.tr(), context),
                   ),
                   Gap(16.h),
                   FadeInUp(
@@ -97,33 +90,19 @@ class CarDetailingScreen extends StatelessWidget {
                   Gap(12.h),
                   FadeInUp(
                     delay: const Duration(milliseconds: 300),
-                    child: _buildSelectionCard(
-                      AppLocaleKey.nanoCeramicProtection.tr(),
-                      context,
-                    ),
+                    child: _buildSelectionCard(AppLocaleKey.nanoCeramicProtection.tr(), context),
                   ),
                   Gap(32.h),
-                  FadeInUp(
-                    child: _buildSectionHeader(
-                      AppLocaleKey.carDetails.tr(),
-                      context,
-                    ),
-                  ),
+                  FadeInUp(child: _buildSectionHeader(AppLocaleKey.carDetails.tr(), context)),
                   Gap(16.h),
                   FadeInUp(
                     delay: const Duration(milliseconds: 400),
-                    child: _buildTextField(
-                      AppLocaleKey.carSizeHint.tr(),
-                      context,
-                    ),
+                    child: _buildTextField(AppLocaleKey.carSizeHint.tr(), context),
                   ),
                   Gap(40.h),
                   FadeInUp(
                     delay: const Duration(milliseconds: 500),
-                    child: _buildSubmitButton(
-                      context,
-                      AppLocaleKey.bookAppointment.tr(),
-                    ),
+                    child: _buildSubmitButton(context, AppLocaleKey.bookAppointment.tr()),
                   ),
                   Gap(50.h),
                 ],
@@ -139,7 +118,7 @@ class CarDetailingScreen extends StatelessWidget {
     return Text(
       title,
       style: TextStyle(
-        color: AppColor.whiteColor(context),
+        color: AppColor.blackTextColor(context),
         fontSize: 18.sp,
         fontWeight: FontWeight.bold,
       ),
@@ -151,9 +130,7 @@ class CarDetailingScreen extends StatelessWidget {
       decoration: BoxDecoration(
         color: const Color(0xFF1F2937),
         borderRadius: BorderRadius.circular(12.r),
-        border: Border.all(
-          color: AppColor.whiteColor(context).withOpacity(0.05),
-        ),
+        border: Border.all(color: AppColor.blackTextColor(context).withOpacity(0.05)),
       ),
       child: CustomFormField(hintText: hint),
     );
@@ -165,21 +142,19 @@ class CarDetailingScreen extends StatelessWidget {
       decoration: BoxDecoration(
         color: const Color(0xFF1F2937),
         borderRadius: BorderRadius.circular(12.r),
-        border: Border.all(
-          color: AppColor.whiteColor(context).withOpacity(0.05),
-        ),
+        border: Border.all(color: AppColor.blackTextColor(context).withOpacity(0.05)),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
             title,
-            style: TextStyle(
-              color: AppColor.whiteColor(context),
-              fontWeight: FontWeight.bold,
-            ),
+            style: TextStyle(color: AppColor.blackTextColor(context), fontWeight: FontWeight.bold),
           ),
-          const Icon(Icons.circle_outlined, color: Colors.white24),
+          Icon(
+            Icons.circle_outlined,
+            color: AppColor.blackTextColor(context).withValues(alpha: 0.24),
+          ),
         ],
       ),
     );
@@ -190,9 +165,7 @@ class CarDetailingScreen extends StatelessWidget {
       width: double.infinity,
       height: 55.h,
       decoration: BoxDecoration(
-        gradient: const LinearGradient(
-          colors: [Color(0xFF831843), Color(0xFFBE185D)],
-        ),
+        gradient: const LinearGradient(colors: [Color(0xFF831843), Color(0xFFBE185D)]),
         borderRadius: BorderRadius.circular(16.r),
         boxShadow: [
           BoxShadow(
@@ -207,14 +180,12 @@ class CarDetailingScreen extends StatelessWidget {
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.transparent,
           shadowColor: Colors.transparent,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16.r),
-          ),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.r)),
         ),
         child: Text(
           text,
           style: TextStyle(
-            color: AppColor.whiteColor(context),
+            color: AppColor.blackTextColor(context),
             fontSize: 16.sp,
             fontWeight: FontWeight.bold,
           ),

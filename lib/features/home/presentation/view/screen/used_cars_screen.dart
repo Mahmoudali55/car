@@ -62,7 +62,7 @@ class UsedCarsScreen extends StatelessWidget {
               onPressed: () => Navigator.pop(context),
               icon: Icon(
                 Icons.arrow_back_ios_new_rounded,
-                color: AppColor.whiteColor(context),
+                color: AppColor.blackTextColor(context),
                 size: 20.sp,
               ),
             ),
@@ -71,7 +71,7 @@ class UsedCarsScreen extends StatelessWidget {
               title: Text(
                 AppLocaleKey.usedCars.tr(),
                 style: AppTextStyle.titleMedium(context).copyWith(
-                  color: AppColor.whiteColor(context),
+                  color: AppColor.blackTextColor(context),
                   fontWeight: FontWeight.bold,
                   fontSize: 18.sp,
                 ),
@@ -96,7 +96,7 @@ class UsedCarsScreen extends StatelessWidget {
               child: Text(
                 AppLocaleKey.searchForYourDreamCar.tr(),
                 style: AppTextStyle.bodySmall(context).copyWith(
-                  color: AppColor.whiteColor(context).withValues(alpha: 0.5),
+                  color: AppColor.blackTextColor(context).withValues(alpha: 0.5),
                   fontWeight: FontWeight.w500,
                 ),
                 textAlign: TextAlign.center,

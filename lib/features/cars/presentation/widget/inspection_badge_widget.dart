@@ -16,9 +16,7 @@ class InspectionBadgeWidget extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColor.primaryColor(context).withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(16.r),
-        border: Border.all(
-          color: AppColor.primaryColor(context).withValues(alpha: 0.3),
-        ),
+        border: Border.all(color: AppColor.primaryColor(context).withValues(alpha: 0.3)),
       ),
       child: Row(
         children: [
@@ -30,7 +28,7 @@ class InspectionBadgeWidget extends StatelessWidget {
             ),
             child: Icon(
               Icons.verified_user_rounded,
-              color: AppColor.whiteColor(context),
+              color: AppColor.blackTextColor(context),
               size: 20,
             ),
           ),
@@ -43,13 +41,13 @@ class InspectionBadgeWidget extends StatelessWidget {
                   AppLocaleKey.reliableCarSubtitle.tr(),
                   style: AppTextStyle.bodyMedium(
                     context,
-                  ).copyWith(color: Colors.white, fontWeight: FontWeight.bold),
+                  ).copyWith(color: AppColor.blackTextColor(context), fontWeight: FontWeight.bold),
                 ),
                 Text(
                   AppLocaleKey.reliableCarDescription.tr(),
-                  style: AppTextStyle.bodySmall(context).copyWith(
-                    color: AppColor.whiteColor(context).withValues(alpha: 0.6),
-                  ),
+                  style: AppTextStyle.bodySmall(
+                    context,
+                  ).copyWith(color: AppColor.blackTextColor(context).withValues(alpha: 0.6)),
                 ),
               ],
             ),

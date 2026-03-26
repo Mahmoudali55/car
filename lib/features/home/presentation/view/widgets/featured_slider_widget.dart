@@ -48,7 +48,7 @@ class FeaturedSliderWidget extends StatelessWidget {
                           child: Icon(
                             Icons.speed_rounded,
                             size: 200.w,
-                            color: Colors.white,
+                            color: AppColor.blackTextColor(context),
                           ),
                         ),
                       ),
@@ -63,13 +63,13 @@ class FeaturedSliderWidget extends StatelessWidget {
                                 vertical: 6.h,
                               ),
                               decoration: BoxDecoration(
-                                color: Colors.white.withOpacity(0.25),
+                                color: AppColor.blackTextColor(context).withOpacity(0.25),
                                 borderRadius: BorderRadius.circular(12.r),
                               ),
                               child: Text(
                                 AppLocaleKey.specialOffer.tr().toUpperCase(),
                                 style: TextStyle(
-                                  color: Colors.white,
+                                  color: AppColor.blackTextColor(context),
                                   fontSize: 10.sp,
                                   fontWeight: FontWeight.w800,
                                   letterSpacing: 1.2,
@@ -81,7 +81,7 @@ class FeaturedSliderWidget extends StatelessWidget {
                               'Porsche 911 GT3 RS',
                               style: AppTextStyle.titleLarge(
                                 context,
-                                color: Colors.white,
+                                color: AppColor.blackTextColor(context),
                               ),
                             ),
                             SizedBox(height: 8.h),
@@ -89,7 +89,7 @@ class FeaturedSliderWidget extends StatelessWidget {
                               children: [
                                 Icon(
                                   Icons.timer_outlined,
-                                  color: Colors.white70,
+                                  color: AppColor.blackTextColor(context).withValues(alpha: 0.70),
                                   size: 14.w,
                                 ),
                                 SizedBox(width: 6.w),
@@ -97,7 +97,7 @@ class FeaturedSliderWidget extends StatelessWidget {
                                   AppLocaleKey.limitedTime.tr(),
                                   style: AppTextStyle.bodySmall(
                                     context,
-                                    color: Colors.white70,
+                                    color: AppColor.blackTextColor(context).withValues(alpha: 0.70),
                                   ),
                                 ),
                               ],
@@ -113,13 +113,13 @@ class FeaturedSliderWidget extends StatelessWidget {
                                       'AED 980,000',
                                       style: AppTextStyle.titleMedium(
                                         context,
-                                        color: Colors.white,
+                                        color: AppColor.blackTextColor(context),
                                       ),
                                     ),
                                     Text(
                                       'Monthly from AED 12,500',
                                       style: TextStyle(
-                                        color: Colors.white60,
+                                        color: AppColor.blackTextColor(context).withValues(alpha: 0.60),
                                         fontSize: 9.sp,
                                       ),
                                     ),
@@ -127,8 +127,8 @@ class FeaturedSliderWidget extends StatelessWidget {
                                 ),
                                 Container(
                                   padding: EdgeInsets.all(10.w),
-                                  decoration: const BoxDecoration(
-                                    color: Colors.white,
+                                  decoration: BoxDecoration(
+                                    color: AppColor.blackTextColor(context),
                                     shape: BoxShape.circle,
                                   ),
                                   child: Icon(

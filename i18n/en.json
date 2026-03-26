@@ -413,5 +413,10 @@
   "user_name_placeholder": "Khaled Mohamed Abdelrahman",
   "result": "Result",
   "excellent": "Excellent",
-  "twenty_four_minutes_ago": "24 minutes ago"
+  "twenty_four_minutes_ago": "24 minutes ago",
+  "appearance": "Appearance",
+  "dark_mode": "Dark Mode",
+  "light_mode": "Light Mode",
+  "login_required": "Login Required"
 }
+

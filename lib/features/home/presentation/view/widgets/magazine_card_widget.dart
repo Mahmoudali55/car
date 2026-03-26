@@ -46,7 +46,7 @@ class MagazineCardWidget extends StatelessWidget {
                 child: Text(
                   car['brand'].toUpperCase(),
                   style: TextStyle(
-                    color: Colors.white.withValues(alpha: 0.03),
+                    color: AppColor.blackTextColor(context).withValues(alpha: 0.03),
                     fontSize: 80.sp,
                     fontWeight: FontWeight.w900,
                     letterSpacing: 10,
@@ -108,7 +108,7 @@ class MagazineCardWidget extends StatelessWidget {
                                 isFav
                                     ? Icons.favorite_rounded
                                     : Icons.favorite_outline_rounded,
-                                color: isFav ? Colors.redAccent : Colors.white,
+                                color: isFav ? Colors.redAccent : AppColor.blackTextColor(context),
                                 size: 20.sp,
                               ),
                             ),
@@ -139,7 +139,7 @@ class MagazineCardWidget extends StatelessWidget {
                     color: Colors.black.withValues(alpha: 0.2),
                     border: Border(
                       top: BorderSide(
-                        color: Colors.white.withValues(alpha: 0.05),
+                        color: AppColor.blackTextColor(context).withValues(alpha: 0.05),
                       ),
                     ),
                   ),
@@ -153,7 +153,7 @@ class MagazineCardWidget extends StatelessWidget {
                             child: Text(
                               car['name'],
                               style: AppTextStyle.titleMedium(context).copyWith(
-                                color: Colors.white,
+                                color: AppColor.blackTextColor(context),
                                 fontWeight: FontWeight.w900,
                                 fontSize: 22.sp,
                               ),

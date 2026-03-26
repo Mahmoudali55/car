@@ -69,29 +69,22 @@ class _PaymentScreenState extends State<PaymentScreen> {
         elevation: 0,
         centerTitle: true,
         leading: IconButton(
-          icon: const Icon(
-            Icons.arrow_back_ios_new_rounded,
-            color: Colors.white,
-          ),
+          icon: Icon(Icons.arrow_back_ios_new_rounded, color: AppColor.blackTextColor(context)),
           onPressed: () => Navigator.pop(context),
           style: IconButton.styleFrom(
-            backgroundColor: Colors.white.withOpacity(0.05),
+            backgroundColor: AppColor.blackTextColor(context).withOpacity(0.05),
           ),
         ),
         title: Text(
           'الدفع الآمن',
           style: AppTextStyle.titleMedium(
             context,
-          ).copyWith(color: Colors.white, fontWeight: FontWeight.bold),
+          ).copyWith(color: AppColor.blackTextColor(context), fontWeight: FontWeight.bold),
         ),
         actions: [
           Padding(
             padding: EdgeInsets.only(right: 16.w),
-            child: Icon(
-              Icons.lock_rounded,
-              color: AppColor.primaryColor(context),
-              size: 22.sp,
-            ),
+            child: Icon(Icons.lock_rounded, color: AppColor.primaryColor(context), size: 22.sp),
           ),
         ],
       ),
@@ -110,7 +103,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 'طريقة الدفع',
                 style: AppTextStyle.titleMedium(
                   context,
-                ).copyWith(color: Colors.white, fontWeight: FontWeight.w700),
+                ).copyWith(color: AppColor.blackTextColor(context), fontWeight: FontWeight.w700),
               ),
               Gap(12.h),
               Row(
@@ -133,7 +126,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 'بيانات البطاقة',
                 style: AppTextStyle.titleMedium(
                   context,
-                ).copyWith(color: Colors.white, fontWeight: FontWeight.w700),
+                ).copyWith(color: AppColor.blackTextColor(context), fontWeight: FontWeight.w700),
               ),
               Gap(16.h),
 
@@ -151,13 +144,10 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 onChanged: (v) {
                   final formatted = _formatCardNumber(v);
                   if (formatted != v) {
-                    _cardNumberController.value = _cardNumberController.value
-                        .copyWith(
-                          text: formatted,
-                          selection: TextSelection.collapsed(
-                            offset: formatted.length,
-                          ),
-                        );
+                    _cardNumberController.value = _cardNumberController.value.copyWith(
+                      text: formatted,
+                      selection: TextSelection.collapsed(offset: formatted.length),
+                    );
                   }
                   setState(() {});
                 },
@@ -204,13 +194,10 @@ class _PaymentScreenState extends State<PaymentScreen> {
                       onChanged: (v) {
                         final formatted = _formatExpiry(v);
                         if (formatted != v) {
-                          _expiryController.value = _expiryController.value
-                              .copyWith(
-                                text: formatted,
-                                selection: TextSelection.collapsed(
-                                  offset: formatted.length,
-                                ),
-                              );
+                          _expiryController.value = _expiryController.value.copyWith(
+                            text: formatted,
+                            selection: TextSelection.collapsed(offset: formatted.length),
+                          );
                         }
                         setState(() {});
                       },
@@ -252,19 +239,15 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 decoration: BoxDecoration(
                   color: AppColor.secondAppColor(context),
                   borderRadius: BorderRadius.circular(20.r),
-                  border: Border.all(color: Colors.white.withOpacity(0.06)),
+                  border: Border.all(color: AppColor.blackTextColor(context).withOpacity(0.06)),
                 ),
                 child: Column(
                   children: [
-                    _buildSummaryRow(
-                      context,
-                      'مجموع السيارات',
-                      _formatPrice(widget.totalPrice),
-                    ),
+                    _buildSummaryRow(context, 'مجموع السيارات', _formatPrice(widget.totalPrice)),
                     Gap(10.h),
                     _buildSummaryRow(context, 'رسوم الخدمة', '2,500 د.إ'),
                     Gap(10.h),
-                    Divider(color: Colors.white.withOpacity(0.1)),
+                    Divider(color: AppColor.blackTextColor(context).withOpacity(0.1)),
                     Gap(10.h),
                     _buildSummaryRow(
                       context,
@@ -284,22 +267,18 @@ class _PaymentScreenState extends State<PaymentScreen> {
                   onPressed: _isLoading ? null : _processPayment,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColor.primaryColor(context),
-                    disabledBackgroundColor: AppColor.primaryColor(
-                      context,
-                    ).withOpacity(0.5),
+                    disabledBackgroundColor: AppColor.primaryColor(context).withOpacity(0.5),
                     padding: EdgeInsets.symmetric(vertical: 18.h),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(18.r),
-                    ),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.r)),
                     elevation: 0,
                   ),
                   child: _isLoading
                       ? SizedBox(
                           height: 22.h,
                           width: 22.h,
-                          child: const CircularProgressIndicator(
+                          child: CircularProgressIndicator(
                             strokeWidth: 2.5,
-                            valueColor: AlwaysStoppedAnimation(Colors.white),
+                            valueColor: AlwaysStoppedAnimation(AppColor.blackTextColor(context)),
                           ),
                         )
                       : Row(
@@ -307,14 +286,14 @@ class _PaymentScreenState extends State<PaymentScreen> {
                           children: [
                             Icon(
                               Icons.lock_rounded,
-                              color: Colors.white,
+                              color: AppColor.blackTextColor(context),
                               size: 20.sp,
                             ),
                             Gap(10.w),
                             Text(
                               'ادفع الآن',
                               style: AppTextStyle.titleMedium(context).copyWith(
-                                color: Colors.white,
+                                color: AppColor.blackTextColor(context),
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -329,14 +308,14 @@ class _PaymentScreenState extends State<PaymentScreen> {
                   children: [
                     Icon(
                       Icons.shield_outlined,
-                      color: Colors.white.withOpacity(0.4),
+                      color: AppColor.blackTextColor(context).withOpacity(0.4),
                       size: 14.sp,
                     ),
                     Gap(6.w),
                     Text(
                       'مدفوعات آمنة بتشفير SSL',
                       style: AppTextStyle.bodySmall(context).copyWith(
-                        color: Colors.white.withOpacity(0.4),
+                        color: AppColor.blackTextColor(context).withOpacity(0.4),
                         fontSize: 11.sp,
                       ),
                     ),
@@ -367,7 +346,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
             border: Border.all(
               color: isSelected
                   ? AppColor.primaryColor(context)
-                  : Colors.white.withOpacity(0.06),
+                  : AppColor.blackTextColor(context).withOpacity(0.06),
               width: isSelected ? 1.5 : 1,
             ),
           ),
@@ -377,7 +356,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 icon,
                 color: isSelected
                     ? AppColor.primaryColor(context)
-                    : Colors.white.withOpacity(0.5),
+                    : AppColor.blackTextColor(context).withOpacity(0.5),
                 size: 22.sp,
               ),
               Gap(4.h),
@@ -386,7 +365,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 style: AppTextStyle.bodySmall(context).copyWith(
                   color: isSelected
                       ? AppColor.primaryColor(context)
-                      : Colors.white.withOpacity(0.5),
+                      : AppColor.blackTextColor(context).withOpacity(0.5),
                   fontSize: 10.sp,
                   fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
                 ),
@@ -405,9 +384,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
     final cardHolder = _cardHolderController.text.isEmpty
         ? 'الاسم الكامل'
         : _cardHolderController.text;
-    final expiry = _expiryController.text.isEmpty
-        ? 'MM/YY'
-        : _expiryController.text;
+    final expiry = _expiryController.text.isEmpty ? 'MM/YY' : _expiryController.text;
 
     return Container(
       height: 190.h,
@@ -417,10 +394,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: [
-            AppColor.primaryColor(context),
-            AppColor.primaryColor(context).withOpacity(0.6),
-          ],
+          colors: [AppColor.primaryColor(context), AppColor.primaryColor(context).withOpacity(0.6)],
         ),
         borderRadius: BorderRadius.circular(24.r),
         boxShadow: [
@@ -441,7 +415,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
               Text(
                 'VISA',
                 style: TextStyle(
-                  color: Colors.white,
+                  color: AppColor.blackTextColor(context),
                   fontSize: 22.sp,
                   fontWeight: FontWeight.w900,
                   fontStyle: FontStyle.italic,
@@ -450,7 +424,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
               ),
               Icon(
                 Icons.wifi_rounded,
-                color: Colors.white.withOpacity(0.8),
+                color: AppColor.blackTextColor(context).withOpacity(0.8),
                 size: 24.sp,
               ),
             ],
@@ -458,7 +432,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
           Text(
             cardNumber,
             style: TextStyle(
-              color: Colors.white,
+              color: AppColor.blackTextColor(context),
               fontSize: 18.sp,
               fontWeight: FontWeight.w600,
               letterSpacing: 2.5,
@@ -473,14 +447,14 @@ class _PaymentScreenState extends State<PaymentScreen> {
                   Text(
                     'حامل البطاقة',
                     style: TextStyle(
-                      color: Colors.white.withOpacity(0.6),
+                      color: AppColor.blackTextColor(context).withOpacity(0.6),
                       fontSize: 9.sp,
                     ),
                   ),
                   Text(
                     cardHolder,
                     style: TextStyle(
-                      color: Colors.white,
+                      color: AppColor.blackTextColor(context),
                       fontSize: 14.sp,
                       fontWeight: FontWeight.w600,
                     ),
@@ -493,14 +467,14 @@ class _PaymentScreenState extends State<PaymentScreen> {
                   Text(
                     'تاريخ الانتهاء',
                     style: TextStyle(
-                      color: Colors.white.withOpacity(0.6),
+                      color: AppColor.blackTextColor(context).withOpacity(0.6),
                       fontSize: 9.sp,
                     ),
                   ),
                   Text(
                     expiry,
                     style: TextStyle(
-                      color: Colors.white,
+                      color: AppColor.blackTextColor(context),
                       fontSize: 14.sp,
                       fontWeight: FontWeight.w600,
                     ),
@@ -533,7 +507,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
           label,
           style: AppTextStyle.bodySmall(
             context,
-          ).copyWith(color: Colors.white.withOpacity(0.6), fontSize: 12.sp),
+          ).copyWith(color: AppColor.blackTextColor(context).withOpacity(0.6), fontSize: 12.sp),
         ),
         Gap(8.h),
         TextFormField(
@@ -546,18 +520,14 @@ class _PaymentScreenState extends State<PaymentScreen> {
           validator: validator,
           style: AppTextStyle.bodyMedium(
             context,
-          ).copyWith(color: Colors.white, fontWeight: FontWeight.w600),
+          ).copyWith(color: AppColor.blackTextColor(context), fontWeight: FontWeight.w600),
           textDirection: TextDirection.ltr,
           decoration: InputDecoration(
             hintText: hint,
             hintStyle: AppTextStyle.bodyMedium(
               context,
-            ).copyWith(color: Colors.white.withOpacity(0.25)),
-            prefixIcon: Icon(
-              icon,
-              color: AppColor.primaryColor(context),
-              size: 20.sp,
-            ),
+            ).copyWith(color: AppColor.blackTextColor(context).withOpacity(0.25)),
+            prefixIcon: Icon(icon, color: AppColor.primaryColor(context), size: 20.sp),
             filled: true,
             fillColor: AppColor.secondAppColor(context),
             border: OutlineInputBorder(
@@ -566,14 +536,11 @@ class _PaymentScreenState extends State<PaymentScreen> {
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(14.r),
-              borderSide: BorderSide(color: Colors.white.withOpacity(0.06)),
+              borderSide: BorderSide(color: AppColor.blackTextColor(context).withOpacity(0.06)),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(14.r),
-              borderSide: BorderSide(
-                color: AppColor.primaryColor(context),
-                width: 1.5,
-              ),
+              borderSide: BorderSide(color: AppColor.primaryColor(context), width: 1.5),
             ),
             errorBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(14.r),
@@ -583,10 +550,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
               borderRadius: BorderRadius.circular(14.r),
               borderSide: const BorderSide(color: Colors.redAccent, width: 1.5),
             ),
-            contentPadding: EdgeInsets.symmetric(
-              horizontal: 16.w,
-              vertical: 16.h,
-            ),
+            contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
           ),
         ),
       ],
@@ -605,14 +569,16 @@ class _PaymentScreenState extends State<PaymentScreen> {
         Text(
           label,
           style: AppTextStyle.bodyMedium(context).copyWith(
-            color: isTotal ? Colors.white : Colors.white.withOpacity(0.6),
+            color: isTotal
+                ? AppColor.blackTextColor(context)
+                : AppColor.blackTextColor(context).withOpacity(0.6),
             fontWeight: isTotal ? FontWeight.bold : FontWeight.normal,
           ),
         ),
         Text(
           value,
           style: AppTextStyle.bodyMedium(context).copyWith(
-            color: isTotal ? AppColor.primaryColor(context) : Colors.white,
+            color: isTotal ? AppColor.primaryColor(context) : AppColor.blackTextColor(context),
             fontWeight: FontWeight.bold,
             fontSize: isTotal ? 16.sp : 14.sp,
           ),
@@ -624,10 +590,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
   String _formatPrice(double price) {
     final formatted = price
         .toStringAsFixed(0)
-        .replaceAllMapped(
-          RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
-          (m) => '${m[1]},',
-        );
+        .replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (m) => '${m[1]},');
     return '$formatted د.إ';
   }
 }

@@ -23,22 +23,18 @@ class SupportScreen extends StatelessWidget {
             backgroundColor: AppColor.scaffoldColor(context),
             leading: IconButton(
               onPressed: () => Navigator.pop(context),
-              icon: Icon(
-                Icons.arrow_back_ios_new_rounded,
-                color: AppColor.whiteColor(context),
-              ),
+              icon: Icon(Icons.arrow_back_ios_new_rounded, color: AppColor.blackTextColor(context)),
             ),
             flexibleSpace: FlexibleSpaceBar(
               centerTitle: true,
               title: Text(
                 AppLocaleKey.supportCenter.tr(),
-                style: AppTextStyle.titleMedium(context).copyWith(
-                  color: AppColor.whiteColor(context),
-                  fontWeight: FontWeight.bold,
-                ),
+                style: AppTextStyle.titleMedium(
+                  context,
+                ).copyWith(color: AppColor.blackTextColor(context), fontWeight: FontWeight.bold),
               ),
               background: Container(
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
                   gradient: LinearGradient(
                     colors: [Color(0xFF4C1D95), Color(0xFF1E1E2C)],
                     begin: Alignment.topCenter,
@@ -51,7 +47,7 @@ class SupportScreen extends StatelessWidget {
                     child: Icon(
                       Icons.support_agent_rounded,
                       size: 120.sp,
-                      color: AppColor.whiteColor(context),
+                      color: AppColor.blackTextColor(context),
                     ),
                   ),
                 ),
@@ -68,7 +64,7 @@ class SupportScreen extends StatelessWidget {
                     child: Text(
                       AppLocaleKey.howCanWeHelp.tr(),
                       style: TextStyle(
-                        color: AppColor.whiteColor(context),
+                        color: AppColor.blackTextColor(context),
                         fontSize: 18.sp,
                         fontWeight: FontWeight.bold,
                       ),
@@ -105,16 +101,16 @@ class SupportScreen extends StatelessWidget {
                     child: Text(
                       AppLocaleKey.faqs.tr(),
                       style: TextStyle(
-                        color: AppColor.whiteColor(context),
+                        color: AppColor.blackTextColor(context),
                         fontSize: 16.sp,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
                   Gap(12.h),
-                  _buildFAQItem(AppLocaleKey.faqOrderStatus.tr()),
-                  _buildFAQItem(AppLocaleKey.faqPaymentMethods.tr()),
-                  _buildFAQItem(AppLocaleKey.faqCancelAppointment.tr()),
+                  _buildFAQItem(AppLocaleKey.faqOrderStatus.tr(), context),
+                  _buildFAQItem(AppLocaleKey.faqPaymentMethods.tr(), context),
+                  _buildFAQItem(AppLocaleKey.faqCancelAppointment.tr(), context),
                   Gap(50.h),
                 ],
               ),
@@ -140,9 +136,7 @@ class SupportScreen extends StatelessWidget {
         decoration: BoxDecoration(
           color: const Color(0xFF1F2937),
           borderRadius: BorderRadius.circular(16.r),
-          border: Border.all(
-            color: AppColor.whiteColor(context).withValues(alpha: (0.05)),
-          ),
+          border: Border.all(color: AppColor.blackTextColor(context).withValues(alpha: (0.05))),
         ),
         child: ListTile(
           contentPadding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 8.h),
@@ -156,18 +150,18 @@ class SupportScreen extends StatelessWidget {
           ),
           title: Text(
             title,
-            style: TextStyle(
-              color: AppColor.whiteColor(context),
-              fontWeight: FontWeight.bold,
-            ),
+            style: TextStyle(color: AppColor.blackTextColor(context), fontWeight: FontWeight.bold),
           ),
           subtitle: Text(
             subtitle,
-            style: const TextStyle(color: Colors.white38, fontSize: 11),
+            style: TextStyle(
+              color: AppColor.blackTextColor(context).withValues(alpha: 0.38),
+              fontSize: 11,
+            ),
           ),
-          trailing: const Icon(
+          trailing: Icon(
             Icons.arrow_forward_ios_rounded,
-            color: Colors.white24,
+            color: AppColor.blackTextColor(context).withValues(alpha: 0.24),
             size: 16,
           ),
           onTap: () {},
@@ -176,7 +170,7 @@ class SupportScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildFAQItem(String question) {
+  Widget _buildFAQItem(String question, BuildContext context) {
     return FadeInUp(
       delay: const Duration(milliseconds: 500),
       child: Container(
@@ -191,9 +185,15 @@ class SupportScreen extends StatelessWidget {
           children: [
             Text(
               question,
-              style: const TextStyle(color: Colors.white70, fontSize: 13),
+              style: TextStyle(
+                color: AppColor.blackTextColor(context).withValues(alpha: 0.70),
+                fontSize: 13,
+              ),
             ),
-            const Icon(Icons.add_rounded, color: Colors.white24),
+            Icon(
+              Icons.add_rounded,
+              color: AppColor.blackTextColor(context).withValues(alpha: 0.24),
+            ),
           ],
         ),
       ),

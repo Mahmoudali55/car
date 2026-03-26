@@ -13,21 +13,26 @@ class RevenueReportScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF0F172A),
+      backgroundColor: AppColor.scaffoldColor(context),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: Navigator.canPop(context)
             ? IconButton(
                 onPressed: () => Navigator.pop(context),
-                icon: const Icon(Icons.arrow_back_ios_new_rounded, color: Colors.white),
+                icon: Icon(
+                  Icons.arrow_back_ios_new_rounded,
+                  color: AppColor.blackTextColor(context),
+                ),
               )
             : null,
         title: Text(
           AppLocaleKey.financialReports.tr(),
-          style: AppTextStyle.titleMedium(
-            context,
-          ).copyWith(color: Colors.white, fontWeight: FontWeight.w900, fontSize: 20.sp),
+          style: AppTextStyle.titleMedium(context).copyWith(
+            color: AppColor.blackTextColor(context),
+            fontWeight: FontWeight.w900,
+            fontSize: 20.sp,
+          ),
         ),
       ),
       body: SingleChildScrollView(
@@ -38,7 +43,7 @@ class RevenueReportScreen extends StatelessWidget {
           children: [
             FadeInDown(child: _buildMainBalanceCard(context)),
             Gap(32.h),
-            _buildSectionTitle(AppLocaleKey.recentTransactions.tr()),
+            _buildSectionTitle(AppLocaleKey.recentTransactions.tr(), context),
             Gap(16.h),
             _buildTransactionsList(context),
           ],
@@ -72,7 +77,7 @@ class RevenueReportScreen extends StatelessWidget {
           Text(
             AppLocaleKey.totalNetProfit.tr(),
             style: TextStyle(
-              color: Colors.white.withOpacity(0.7),
+              color: AppColor.blackTextColor(context).withOpacity(0.7),
               fontSize: 13.sp,
               fontWeight: FontWeight.w500,
             ),
@@ -81,7 +86,7 @@ class RevenueReportScreen extends StatelessWidget {
           Text(
             '154,300.50 ${AppLocaleKey.aed.tr()}',
             style: TextStyle(
-              color: Colors.white,
+              color: AppColor.blackTextColor(context),
               fontSize: 28.sp,
               fontWeight: FontWeight.w900,
               letterSpacing: 1,
@@ -95,12 +100,18 @@ class RevenueReportScreen extends StatelessWidget {
                 AppLocaleKey.payments.tr(),
                 '189,000 ${AppLocaleKey.aed.tr()}',
                 Icons.arrow_upward_rounded,
+                context,
               ),
-              Container(width: 1, height: 40, color: Colors.white.withOpacity(0.1)),
+              Container(
+                width: 1,
+                height: 40,
+                color: AppColor.blackTextColor(context).withOpacity(0.1),
+              ),
               _buildBalanceDetail(
                 AppLocaleKey.expenses.tr(),
                 '34,700 ${AppLocaleKey.aed.tr()}',
                 Icons.arrow_downward_rounded,
+                context,
               ),
             ],
           ),
@@ -109,34 +120,41 @@ class RevenueReportScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildBalanceDetail(String label, String value, IconData icon) {
+  Widget _buildBalanceDetail(String label, String value, IconData icon, BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
           children: [
-            Icon(icon, color: Colors.white.withOpacity(0.5), size: 14.sp),
+            Icon(icon, color: AppColor.blackTextColor(context).withOpacity(0.5), size: 14.sp),
             Gap(4.w),
             Text(
               label,
-              style: TextStyle(color: Colors.white.withOpacity(0.6), fontSize: 11.sp),
+              style: TextStyle(
+                color: AppColor.blackTextColor(context).withOpacity(0.6),
+                fontSize: 11.sp,
+              ),
             ),
           ],
         ),
         Gap(4.h),
         Text(
           value,
-          style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          style: TextStyle(color: AppColor.blackTextColor(context), fontWeight: FontWeight.bold),
         ),
       ],
     );
   }
 
-  Widget _buildSectionTitle(String title) {
+  Widget _buildSectionTitle(String title, BuildContext context) {
     return FadeInRight(
       child: Text(
         title,
-        style: TextStyle(color: Colors.white, fontSize: 18.sp, fontWeight: FontWeight.w800),
+        style: TextStyle(
+          color: AppColor.blackTextColor(context),
+          fontSize: 18.sp,
+          fontWeight: FontWeight.w800,
+        ),
       ),
     );
   }
@@ -149,19 +167,19 @@ class RevenueReportScreen extends StatelessWidget {
       separatorBuilder: (context, index) => Gap(12.h),
       itemBuilder: (context, index) => FadeInUp(
         delay: Duration(milliseconds: index * 50),
-        child: _buildTransactionItem(index),
+        child: _buildTransactionItem(index, context),
       ),
     );
   }
 
-  Widget _buildTransactionItem(int index) {
+  Widget _buildTransactionItem(int index, BuildContext context) {
     final isPositive = index % 3 != 0;
     return Container(
       padding: EdgeInsets.all(16.w),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.02),
+        color: AppColor.blackTextColor(context).withOpacity(0.02),
         borderRadius: BorderRadius.circular(24.r),
-        border: Border.all(color: Colors.white.withOpacity(0.05)),
+        border: Border.all(color: AppColor.blackTextColor(context).withOpacity(0.05)),
       ),
       child: Row(
         children: [
@@ -183,12 +201,20 @@ class RevenueReportScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  isPositive ? AppLocaleKey.bookingPaymentGClass.tr() : AppLocaleKey.maintenanceExpensesLambo.tr(),
-                  style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                  isPositive
+                      ? AppLocaleKey.bookingPaymentGClass.tr()
+                      : AppLocaleKey.maintenanceExpensesLambo.tr(),
+                  style: TextStyle(
+                    color: AppColor.blackTextColor(context),
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 Text(
                   AppLocaleKey.twoHoursAgo.tr(),
-                  style: TextStyle(color: Colors.white.withOpacity(0.3), fontSize: 10.sp),
+                  style: TextStyle(
+                    color: AppColor.blackTextColor(context).withOpacity(0.3),
+                    fontSize: 10.sp,
+                  ),
                 ),
               ],
             ),

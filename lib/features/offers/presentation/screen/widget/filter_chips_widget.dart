@@ -5,11 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
 class FilterChipsWidget extends StatefulWidget {
-  const FilterChipsWidget({
-    super.key,
-    required this.filters,
-    required this.selectedFilterIndex,
-  });
+  const FilterChipsWidget({super.key, required this.filters, required this.selectedFilterIndex});
 
   final List<String> filters;
   final int selectedFilterIndex;
@@ -56,9 +52,7 @@ class _FilterChipsWidgetState extends State<FilterChipsWidget> {
                 boxShadow: isSelected
                     ? [
                         BoxShadow(
-                          color: AppColor.primaryColor(
-                            context,
-                          ).withValues(alpha: 0.3),
+                          color: AppColor.primaryColor(context).withValues(alpha: 0.3),
                           blurRadius: 10,
                           offset: const Offset(0, 4),
                         ),
@@ -69,8 +63,8 @@ class _FilterChipsWidgetState extends State<FilterChipsWidget> {
                 widget.filters[index],
                 style: AppTextStyle.bodyMedium(context).copyWith(
                   color: isSelected
-                      ? AppColor.whiteColor(context)
-                      : Colors.white54,
+                      ? AppColor.blackTextColor(context)
+                      : AppColor.blackTextColor(context).withValues(alpha: 0.54),
                   fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
                 ),
               ),

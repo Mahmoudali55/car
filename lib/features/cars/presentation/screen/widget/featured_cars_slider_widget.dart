@@ -11,8 +11,7 @@ class FeaturedCarsSliderWidget extends StatefulWidget {
   const FeaturedCarsSliderWidget({super.key, required this.featuredCars});
 
   @override
-  State<FeaturedCarsSliderWidget> createState() =>
-      _FeaturedCarsSliderWidgetState();
+  State<FeaturedCarsSliderWidget> createState() => _FeaturedCarsSliderWidgetState();
 }
 
 class _FeaturedCarsSliderWidgetState extends State<FeaturedCarsSliderWidget> {
@@ -33,8 +32,7 @@ class _FeaturedCarsSliderWidgetState extends State<FeaturedCarsSliderWidget> {
           height: 180.h,
           child: PageView.builder(
             controller: _pageController,
-            onPageChanged: (index) =>
-                setState(() => _currentSliderIndex = index),
+            onPageChanged: (index) => setState(() => _currentSliderIndex = index),
             itemCount: widget.featuredCars.length,
             itemBuilder: (context, index) {
               final car = widget.featuredCars[index];
@@ -45,9 +43,7 @@ class _FeaturedCarsSliderWidgetState extends State<FeaturedCarsSliderWidget> {
                   borderRadius: BorderRadius.circular(24.r),
                   boxShadow: [
                     BoxShadow(
-                      color: AppColor.blackTextColor(
-                        context,
-                      ).withValues(alpha: 0.2),
+                      color: AppColor.blackTextColor(context).withValues(alpha: 0.2),
                       blurRadius: 15,
                       offset: const Offset(0, 8),
                     ),
@@ -63,9 +59,7 @@ class _FeaturedCarsSliderWidgetState extends State<FeaturedCarsSliderWidget> {
                         width: 150.w,
                         height: 150.h,
                         decoration: BoxDecoration(
-                          color: AppColor.primaryColor(
-                            context,
-                          ).withValues(alpha: 0.1),
+                          color: AppColor.primaryColor(context).withValues(alpha: 0.1),
                           shape: BoxShape.circle,
                         ),
                       ),
@@ -81,43 +75,37 @@ class _FeaturedCarsSliderWidgetState extends State<FeaturedCarsSliderWidget> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Container(
-                                  padding: EdgeInsets.symmetric(
-                                    horizontal: 10.w,
-                                    vertical: 4.h,
-                                  ),
+                                  padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
                                   decoration: BoxDecoration(
                                     color: AppColor.primaryColor(context),
                                     borderRadius: BorderRadius.circular(8.r),
                                   ),
                                   child: Text(
                                     AppLocaleKey.specialOffersCars.tr(),
-                                    style: AppTextStyle.bodySmall(context)
-                                        .copyWith(
-                                          color: AppColor.whiteColor(context),
-                                          fontSize: 10.sp,
-                                          fontWeight: FontWeight.bold,
-                                        ),
+                                    style: AppTextStyle.bodySmall(context).copyWith(
+                                      color: AppColor.blackTextColor(context),
+                                      fontSize: 10.sp,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                 ),
                                 Gap(8.h),
                                 Text(
                                   car['name']!,
-                                  style: AppTextStyle.titleMedium(context)
-                                      .copyWith(
-                                        color: AppColor.whiteColor(context),
-                                        fontWeight: FontWeight.bold,
-                                      ),
+                                  style: AppTextStyle.titleMedium(context).copyWith(
+                                    color: AppColor.blackTextColor(context),
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                 ),
                                 Gap(4.h),
                                 Text(
                                   car['price']!,
-                                  style: AppTextStyle.bodyMedium(context)
-                                      .copyWith(
-                                        color: AppColor.primaryColor(context),
-                                        fontWeight: FontWeight.w600,
-                                      ),
+                                  style: AppTextStyle.bodyMedium(context).copyWith(
+                                    color: AppColor.primaryColor(context),
+                                    fontWeight: FontWeight.w600,
+                                  ),
                                 ),
                               ],
                             ),
@@ -126,10 +114,7 @@ class _FeaturedCarsSliderWidgetState extends State<FeaturedCarsSliderWidget> {
                             flex: 6,
                             child: Hero(
                               tag: 'featured_car_${car['name']}',
-                              child: Image.asset(
-                                car['image']!,
-                                fit: BoxFit.contain,
-                              ),
+                              child: Image.asset(car['image']!, fit: BoxFit.contain),
                             ),
                           ),
                         ],
