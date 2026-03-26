@@ -38,7 +38,7 @@ class SellCarScreen extends StatelessWidget {
                 fit: StackFit.expand,
                 children: [
                   Container(
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       gradient: LinearGradient(
                         colors: [Color(0xFF111827), Color(0xFF1F2937)],
                         begin: Alignment.topLeft,

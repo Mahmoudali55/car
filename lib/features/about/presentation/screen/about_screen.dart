@@ -22,7 +22,7 @@ class _AboutScreenState extends State<AboutScreen> {
   void initState() {
     super.initState();
     _controller = YoutubePlayerController(
-      initialVideoId: 'D7O8J5vVf-M', // Placeholder 30s-ish video ID
+      initialVideoId: 'FtavftvqqWo', // Official company video ID
       flags: const YoutubePlayerFlags(
         autoPlay: false,
         mute: false,
@@ -49,47 +49,56 @@ class _AboutScreenState extends State<AboutScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColor.scaffoldColor(context),
-      body: CustomScrollView(
-        physics: const BouncingScrollPhysics(),
-        slivers: [
-          _buildAppBar(context),
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: EdgeInsets.all(20.w),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  FadeInUp(
-                    duration: const Duration(milliseconds: 600),
-                    child: _buildBioSection(context),
-                  ),
-                  Gap(32.h),
-                  FadeInUp(
-                    delay: const Duration(milliseconds: 200),
-                    duration: const Duration(milliseconds: 600),
-                    child: _buildVideoSection(context),
-                  ),
-                  Gap(32.h),
-                  FadeInUp(
-                    delay: const Duration(milliseconds: 400),
-                    duration: const Duration(milliseconds: 600),
-                    child: _buildBrandsSection(context),
-                  ),
-                  Gap(32.h),
-                  FadeInUp(
-                    delay: const Duration(milliseconds: 600),
-                    duration: const Duration(milliseconds: 600),
-                    child: _buildFinancingSection(context),
-                  ),
-                  Gap(50.h),
-                ],
-              ),
-            ),
-          ),
-        ],
+    return YoutubePlayerBuilder(
+      player: YoutubePlayer(
+        controller: _controller,
+        showVideoProgressIndicator: true,
+        progressIndicatorColor: AppColor.primaryColor(context),
       ),
+      builder: (context, player) {
+        return Scaffold(
+          backgroundColor: AppColor.scaffoldColor(context),
+          body: CustomScrollView(
+            physics: const BouncingScrollPhysics(),
+            slivers: [
+              _buildAppBar(context),
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: EdgeInsets.all(20.w),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      FadeInUp(
+                        duration: const Duration(milliseconds: 600),
+                        child: _buildBioSection(context),
+                      ),
+                      Gap(32.h),
+                      FadeInUp(
+                        delay: const Duration(milliseconds: 200),
+                        duration: const Duration(milliseconds: 600),
+                        child: _buildVideoSection(context, player),
+                      ),
+                      Gap(32.h),
+                      FadeInUp(
+                        delay: const Duration(milliseconds: 400),
+                        duration: const Duration(milliseconds: 600),
+                        child: _buildBrandsSection(context),
+                      ),
+                      Gap(32.h),
+                      FadeInUp(
+                        delay: const Duration(milliseconds: 600),
+                        duration: const Duration(milliseconds: 600),
+                        child: _buildFinancingSection(context),
+                      ),
+                      Gap(50.h),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 
@@ -173,7 +182,7 @@ class _AboutScreenState extends State<AboutScreen> {
     );
   }
 
-  Widget _buildVideoSection(BuildContext context) {
+  Widget _buildVideoSection(BuildContext context, Widget player) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -199,11 +208,7 @@ class _AboutScreenState extends State<AboutScreen> {
             ],
           ),
           clipBehavior: Clip.antiAlias,
-          child: YoutubePlayer(
-            controller: _controller,
-            showVideoProgressIndicator: true,
-            progressIndicatorColor: AppColor.primaryColor(context),
-          ),
+          child: player,
         ),
       ],
     );
