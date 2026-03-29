@@ -148,7 +148,7 @@ void main() async {
             "import 'package:flutter/material.dart';\nimport 'package:car/core/theme/app_colors.dart';",
           );
         } else {
-          content = "import 'package:car/core/theme/app_colors.dart';\n" + content;
+          content = "import 'package:car/core/theme/app_colors.dart';\n$content";
         }
       }
 

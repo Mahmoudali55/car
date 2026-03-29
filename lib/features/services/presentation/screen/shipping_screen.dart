@@ -8,8 +8,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
-class ShippingScreen extends StatelessWidget {
+class ShippingScreen extends StatefulWidget {
   const ShippingScreen({super.key});
+
+  @override
+  State<ShippingScreen> createState() => _ShippingScreenState();
+}
+
+class _ShippingScreenState extends State<ShippingScreen> {
+  String? selectedTruck;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +31,7 @@ class ShippingScreen extends StatelessWidget {
             backgroundColor: AppColor.appBarColor(context),
             leading: IconButton(
               onPressed: () => Navigator.pop(context),
-              icon: Icon(Icons.arrow_back_ios_new_rounded, color: AppColor.blackTextColor(context)),
+              icon: Icon(Icons.arrow_back_ios_new_rounded, color: AppColor.whiteColor(context)),
             ),
             flexibleSpace: FlexibleSpaceBar(
               centerTitle: true,
@@ -32,13 +39,13 @@ class ShippingScreen extends StatelessWidget {
                 AppLocaleKey.vipCarShipping.tr(),
                 style: AppTextStyle.titleMedium(
                   context,
-                ).copyWith(color: AppColor.blackTextColor(context), fontWeight: FontWeight.bold),
+                ).copyWith(color: AppColor.whiteColor(context), fontWeight: FontWeight.bold),
               ),
               background: Stack(
                 fit: StackFit.expand,
                 children: [
                   Container(
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       gradient: LinearGradient(
                         colors: [Color(0xFF4C1D95), Color(0xFF7C3AED)],
                         begin: Alignment.topLeft,
@@ -89,13 +96,30 @@ class ShippingScreen extends StatelessWidget {
                   Gap(16.h),
                   FadeInUp(
                     delay: const Duration(milliseconds: 400),
-                    child: _buildSelectionCard(AppLocaleKey.openFlatbed.tr(), context),
+                    child: GestureDetector(
+                      onTap: () => setState(() => selectedTruck = AppLocaleKey.openFlatbed.tr()),
+                      child: _buildSelectionCard(
+                        AppLocaleKey.openFlatbed.tr(),
+                        context,
+                        isSelected: selectedTruck == AppLocaleKey.openFlatbed.tr(),
+                      ),
+                    ),
                   ),
+
                   Gap(12.h),
                   FadeInUp(
                     delay: const Duration(milliseconds: 500),
-                    child: _buildSelectionCard(AppLocaleKey.closedCarrierVip.tr(), context),
+                    child: GestureDetector(
+                      onTap: () =>
+                          setState(() => selectedTruck = AppLocaleKey.closedCarrierVip.tr()),
+                      child: _buildSelectionCard(
+                        AppLocaleKey.closedCarrierVip.tr(),
+                        context,
+                        isSelected: selectedTruck == AppLocaleKey.closedCarrierVip.tr(),
+                      ),
+                    ),
                   ),
+
                   Gap(40.h),
                   FadeInUp(
                     delay: const Duration(milliseconds: 600),
@@ -133,24 +157,37 @@ class ShippingScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildSelectionCard(String title, BuildContext context) {
-    return Container(
+  Widget _buildSelectionCard(String title, BuildContext context, {required bool isSelected}) {
+    return AnimatedContainer(
+      duration: const Duration(milliseconds: 200),
       padding: EdgeInsets.all(16.w),
       decoration: BoxDecoration(
-        color: AppColor.secondAppColor(context),
+        color: isSelected
+            ? AppColor.primaryColor(context).withValues(alpha: 0.1)
+            : AppColor.secondAppColor(context),
         borderRadius: BorderRadius.circular(12.r),
-        border: Border.all(color: AppColor.blackTextColor(context).withValues(alpha: (0.05))),
+        border: Border.all(
+          color: isSelected
+              ? AppColor.primaryColor(context)
+              : AppColor.blackTextColor(context).withValues(alpha: 0.05),
+          width: isSelected ? 2 : 1,
+        ),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
             title,
-            style: TextStyle(color: AppColor.blackTextColor(context), fontWeight: FontWeight.bold),
+            style: TextStyle(
+              color: isSelected ? AppColor.primaryColor(context) : AppColor.blackTextColor(context),
+              fontWeight: FontWeight.bold,
+            ),
           ),
           Icon(
-            Icons.circle_outlined,
-            color: AppColor.blackTextColor(context).withValues(alpha: 0.24),
+            isSelected ? Icons.radio_button_checked : Icons.radio_button_off,
+            color: isSelected
+                ? AppColor.primaryColor(context)
+                : AppColor.blackTextColor(context).withValues(alpha: 0.24),
           ),
         ],
       ),
@@ -181,11 +218,7 @@ class ShippingScreen extends StatelessWidget {
         ),
         child: Text(
           text,
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 16.sp,
-            fontWeight: FontWeight.bold,
-          ),
+          style: TextStyle(color: Colors.white, fontSize: 16.sp, fontWeight: FontWeight.bold),
         ),
       ),
     );

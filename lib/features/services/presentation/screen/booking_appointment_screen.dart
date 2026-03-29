@@ -396,7 +396,7 @@ class _BookingAppointmentScreenState extends State<BookingAppointmentScreen> {
                 ),
                 child: Text(
                   AppLocaleKey.ok.tr(),
-                  style: TextStyle(color: Colors.white),
+                  style: const TextStyle(color: Colors.white),
                 ),
               ),
             ),

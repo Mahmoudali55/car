@@ -135,7 +135,7 @@ class SettingsScreen extends StatelessWidget {
         ),
         trailing: Switch(
           value: isDark,
-          activeColor: AppColor.primaryColor(context),
+          activeThumbColor: AppColor.primaryColor(context),
           onChanged: (val) {
             context.read<AppThemeCubit>().theme = val ? ThemeEnum.dark : ThemeEnum.light;
           },

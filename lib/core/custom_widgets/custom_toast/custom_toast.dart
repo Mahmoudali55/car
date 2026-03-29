@@ -28,8 +28,8 @@ class CustomToast extends StatelessWidget {
     return Container(
       width: double.infinity,
       height: 80,
-      padding: EdgeInsets.all(10),
-      margin: EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
+      margin: const EdgeInsets.all(10),
       decoration: BoxDecoration(
         color: AppColor.cardColor(context),
         borderRadius: BorderRadius.circular(16),
@@ -57,7 +57,7 @@ class CustomToast extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(width: 10),
+          const SizedBox(width: 10),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -73,7 +73,7 @@ class CustomToast extends StatelessWidget {
                     ),
                     maxLines: 1,
                   ),
-                  SizedBox(height: 8),
+                  const SizedBox(height: 8),
                 },
                 Text(
                   message,

@@ -133,7 +133,7 @@ class _MainLayoutState extends State<MainLayout> {
                               child: Text(
                                 state.items.length.toString(),
                                 style: TextStyle(
-                                  color: AppColor.blackTextColor(context),
+                                  color: AppColor.whiteColor(context),
                                   fontSize: 10.sp,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -222,14 +222,14 @@ class _MainLayoutState extends State<MainLayout> {
         duration: const Duration(milliseconds: 300),
         padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
         decoration: BoxDecoration(
-          color: isSelected ? AppColor.primaryColor(context).withOpacity(0.1) : Colors.transparent,
+          color: isSelected ? AppColor.primaryColor(context) : Colors.transparent,
           borderRadius: BorderRadius.circular(20.r),
         ),
         child: Row(
           children: [
             Icon(
               isSelected ? activeIcon : icon,
-              color: isSelected ? AppColor.primaryColor(context) : AppColor.greyColor(context),
+              color: isSelected ? AppColor.whiteColor(context) : AppColor.greyColor(context),
               size: 24.w,
             ),
             if (isSelected) ...[
@@ -237,7 +237,7 @@ class _MainLayoutState extends State<MainLayout> {
               Text(
                 label,
                 style: AppTextStyle.bodySmall(context).copyWith(
-                  color: AppColor.primaryColor(context),
+                  color: AppColor.whiteColor(context),
                   fontWeight: FontWeight.bold,
                   fontSize: 10.sp,
                 ),

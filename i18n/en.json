@@ -448,6 +448,7 @@
   "print": "Print",
    "markAllAsRead": "Mark All As Read",
    "most_requested":"Most Requested",
-   "limited":"Limited"
+   "limited":"Limited",
+    "total":"Total"
 }
 

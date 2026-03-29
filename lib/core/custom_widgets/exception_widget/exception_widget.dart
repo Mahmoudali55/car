@@ -4,7 +4,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:car/core/extension/context_extension.dart';
 
 import '../../images/app_images.dart';
-import '../../theme/app_colors.dart';
 import '../../theme/app_theme.dart';
 import '../buttons/custom_button.dart';
 
@@ -24,7 +23,7 @@ class ExceptionWidget extends StatelessWidget {
     switch (axis) {
       case Axis.horizontal:
         return Container(
-          padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+          padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
           decoration: BoxDecoration(
             color: AppColor.primaryColor(context).withOpacity(0.2),
             borderRadius: BorderRadius.circular(7),
@@ -46,7 +45,7 @@ class ExceptionWidget extends StatelessWidget {
                   height: 40,
                   fit: BoxFit.contain,
                 ),
-                SizedBox(width: 10),
+                const SizedBox(width: 10),
                 Expanded(
                   child: Text(
                     message ??
@@ -63,7 +62,7 @@ class ExceptionWidget extends StatelessWidget {
                     textAlign: TextAlign.justify,
                   ),
                 ),
-                SizedBox(width: 10),
+                const SizedBox(width: 10),
                 IconButton(
                   onPressed: onReload,
                   icon: SvgPicture.asset(
@@ -89,7 +88,7 @@ class ExceptionWidget extends StatelessWidget {
       case Axis.vertical:
         return Container(
           width: double.infinity,
-          padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+          padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
           decoration: BoxDecoration(
             color: AppColor.primaryColor(context).withOpacity(0.2),
             borderRadius: BorderRadius.circular(7),
@@ -111,7 +110,7 @@ class ExceptionWidget extends StatelessWidget {
                 height: 80,
                 fit: BoxFit.contain,
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Text(
                 message ??
                     context.apiTr(ar: 'حدث خطأ', en: 'An error occurred'),
@@ -126,7 +125,7 @@ class ExceptionWidget extends StatelessWidget {
                 ),
                 textAlign: TextAlign.center,
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               CustomButton(
                 text: context.apiTr(ar: 'إعادة تحميل', en: 'Reload'),
                 width: MediaQuery.of(context).size.width * 0.5,

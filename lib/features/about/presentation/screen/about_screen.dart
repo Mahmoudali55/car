@@ -148,14 +148,22 @@ class _AboutScreenState extends State<AboutScreen> {
       backgroundColor: AppColor.appBarColor(context),
       leading: IconButton(
         onPressed: () => Navigator.pop(context),
-        icon: Icon(Icons.arrow_back_ios_new_rounded, color: AppColor.whiteColor(context), size: 22.sp),
+        icon: Icon(
+          Icons.arrow_back_ios_new_rounded,
+          color: AppColor.whiteColor(context),
+          size: 22.sp,
+        ),
       ),
       flexibleSpace: FlexibleSpaceBar(
         centerTitle: true,
         titlePadding: EdgeInsets.only(bottom: 16.h),
         title: Text(
           AppLocaleKey.aboutCompany.tr(),
-          style: TextStyle(color: AppColor.whiteColor(context), fontWeight: FontWeight.bold, fontSize: 18.sp),
+          style: TextStyle(
+            color: AppColor.whiteColor(context),
+            fontWeight: FontWeight.bold,
+            fontSize: 18.sp,
+          ),
         ),
         background: Stack(
           fit: StackFit.expand,
@@ -345,7 +353,7 @@ class _AboutScreenState extends State<AboutScreen> {
       child: Text(
         brand,
         style: TextStyle(
-          color: AppColor.whiteColor(context),
+          color: AppColor.blackTextColor(context),
           fontWeight: FontWeight.w600,
           fontSize: 14.sp,
         ),

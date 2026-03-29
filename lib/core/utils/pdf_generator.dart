@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:open_filex/open_filex.dart';
 import 'package:path_provider/path_provider.dart';
@@ -37,13 +36,13 @@ class QuotePdfGenerator {
 
     final dateStr = DateFormat('yyyy-MM-dd').format(DateTime.now());
     final textCompany = AppLocaleKey.carApp.tr();
-    final textDate = "${AppLocaleKey.appointmentDate.tr()}: $dateStr";
+    final textDate = '${AppLocaleKey.appointmentDate.tr()}: $dateStr';
     final textHeader = AppLocaleKey.carQuotation.tr();
     final brandModel = AppLocaleKey.brandAndModel.tr();
     final manufacturingYear = AppLocaleKey.manufacturingYear.tr();
     final engine = AppLocaleKey.engine.tr();
-    final priceStr = car['price'] ?? "N/A";
-    final textTotalPrice = "${AppLocaleKey.price.tr()}: $priceStr";
+    final priceStr = car['price'] ?? 'N/A';
+    final textTotalPrice = '${AppLocaleKey.price.tr()}: $priceStr';
     final refNo =
         "${AppLocaleKey.referenceNumber.tr()}: HBW-${car['name'].hashCode.abs().toString().substring(0, 4)}";
 
@@ -207,14 +206,14 @@ class QuotePdfGenerator {
 
   static Future<void> viewQuotation(Uint8List bytes, String fileName) async {
     final output = await getTemporaryDirectory();
-    final file = File("${output.path}/$fileName");
+    final file = File('${output.path}/$fileName');
     await file.writeAsBytes(bytes);
     await OpenFilex.open(file.path);
   }
 
   static Future<void> shareQuotation(Uint8List bytes, String fileName) async {
     final output = await getTemporaryDirectory();
-    final file = File("${output.path}/$fileName");
+    final file = File('${output.path}/$fileName');
     await file.writeAsBytes(bytes);
     await Share.shareXFiles([XFile(file.path)], text: fileName);
   }
@@ -231,7 +230,7 @@ class QuotePdfGenerator {
       output = await getApplicationDocumentsDirectory();
     }
 
-    final file = File("${output!.path}/$fileName");
+    final file = File('${output!.path}/$fileName');
     await file.writeAsBytes(bytes);
 
     // Show a message or open the file
@@ -243,7 +242,7 @@ class QuotePdfGenerator {
       crossAxisAlignment: pw.CrossAxisAlignment.start,
       children: [
         pw.Text(
-          "$label: ",
+          '$label: ',
           style: pw.TextStyle(font: boldFont, fontSize: 16, color: PdfColors.grey800),
         ),
         pw.Expanded(child: pw.Text(value, style: const pw.TextStyle(fontSize: 16))),

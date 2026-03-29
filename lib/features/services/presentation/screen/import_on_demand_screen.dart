@@ -24,7 +24,7 @@ class ImportOnDemandScreen extends StatelessWidget {
             backgroundColor: AppColor.appBarColor(context),
             leading: IconButton(
               onPressed: () => Navigator.pop(context),
-              icon: Icon(Icons.arrow_back_ios_new_rounded, color: AppColor.blackTextColor(context)),
+              icon: Icon(Icons.arrow_back_ios_new_rounded, color: AppColor.whiteColor(context)),
             ),
             flexibleSpace: FlexibleSpaceBar(
               centerTitle: true,
@@ -32,7 +32,7 @@ class ImportOnDemandScreen extends StatelessWidget {
                 AppLocaleKey.importOnDemand.tr(),
                 style: AppTextStyle.titleMedium(
                   context,
-                ).copyWith(color: AppColor.blackTextColor(context), fontWeight: FontWeight.bold),
+                ).copyWith(color: AppColor.whiteColor(context), fontWeight: FontWeight.bold),
               ),
               background: Stack(
                 fit: StackFit.expand,
@@ -162,7 +162,7 @@ class ImportOnDemandScreen extends StatelessWidget {
         child: Text(
           text,
           style: TextStyle(
-            color: AppColor.blackTextColor(context),
+            color: AppColor.whiteColor(context),
             fontSize: 16.sp,
             fontWeight: FontWeight.bold,
           ),

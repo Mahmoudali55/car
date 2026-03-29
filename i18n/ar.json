@@ -448,6 +448,8 @@
   "print": "طباعة",
   "markAllAsRead": "تحديد الكل كمقروءة",
   "most_requested":"الأكثر طلباً",
-  "limited":"عرض محدود"
+  "limited":"عرض محدود",
+  "total":"الإجمالي"
+
 }
 

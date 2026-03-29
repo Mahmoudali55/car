@@ -79,7 +79,7 @@ class SupportScreen extends StatelessWidget {
                   FadeInUp(
                     delay: const Duration(milliseconds: 100),
                     child: Text(
-                      "موزع معتمد للكثير من شركات السيارات وبأقل الأسعار!!",
+                      'موزع معتمد للكثير من شركات السيارات وبأقل الأسعار!!',
                       style: TextStyle(
                         color: AppColor.primaryColor(context),
                         fontSize: 14.sp,
@@ -91,34 +91,34 @@ class SupportScreen extends StatelessWidget {
 
                   // GENERAL CONTACT
                   _buildSectionHeader(context, AppLocaleKey.landlineAndWhatsapp.tr(), Icons.phone_android_rounded),
-                  _buildContactItem(context, "0112311114", Icons.headset_mic_rounded),
+                  _buildContactItem(context, '0112311114', Icons.headset_mic_rounded),
                   Gap(20.h),
 
                   _buildSectionHeader(context, AppLocaleKey.emails.tr(), Icons.email_rounded),
-                  _buildContactItem(context, "info@binwazir.com", Icons.alternate_email_rounded),
-                  _buildContactItem(context, "media@binwazir.com", Icons.alternate_email_rounded),
+                  _buildContactItem(context, 'info@binwazir.com', Icons.alternate_email_rounded),
+                  _buildContactItem(context, 'media@binwazir.com', Icons.alternate_email_rounded),
                   Gap(20.h),
 
                   // MANAGEMENT
                   _buildSectionHeader(context, AppLocaleKey.management.tr(), Icons.admin_panel_settings_rounded),
-                  _buildContactItem(context, "0550266666", Icons.phone_iphone_rounded),
+                  _buildContactItem(context, '0550266666', Icons.phone_iphone_rounded),
                   Gap(20.h),
 
                   // INSTALLMENT SALES
                   _buildSectionHeader(context, AppLocaleKey.installmentSales.tr(), Icons.account_balance_wallet_rounded),
-                  _buildContactItem(context, "0548272279", Icons.phone_iphone_rounded),
-                  _buildContactItem(context, "0564169376", Icons.phone_iphone_rounded),
-                  _buildContactItem(context, "0562012761", Icons.phone_iphone_rounded),
+                  _buildContactItem(context, '0548272279', Icons.phone_iphone_rounded),
+                  _buildContactItem(context, '0564169376', Icons.phone_iphone_rounded),
+                  _buildContactItem(context, '0562012761', Icons.phone_iphone_rounded),
                   Gap(20.h),
 
                   // CASH SALES
                   _buildSectionHeader(context, AppLocaleKey.cashSales.tr(), Icons.payments_rounded),
-                  _buildContactItem(context, "0501239318", Icons.phone_iphone_rounded),
-                  _buildContactItem(context, "0557955538", Icons.phone_iphone_rounded),
-                  _buildContactItem(context, "0559726744", Icons.phone_iphone_rounded),
-                  _buildContactItem(context, "0564169370", Icons.phone_iphone_rounded),
-                  _buildContactItem(context, "0504335378", Icons.phone_iphone_rounded),
-                  _buildContactItem(context, "0562012761", Icons.phone_iphone_rounded),
+                  _buildContactItem(context, '0501239318', Icons.phone_iphone_rounded),
+                  _buildContactItem(context, '0557955538', Icons.phone_iphone_rounded),
+                  _buildContactItem(context, '0559726744', Icons.phone_iphone_rounded),
+                  _buildContactItem(context, '0564169370', Icons.phone_iphone_rounded),
+                  _buildContactItem(context, '0504335378', Icons.phone_iphone_rounded),
+                  _buildContactItem(context, '0562012761', Icons.phone_iphone_rounded),
 
                   Gap(30.h),
                   FadeInUp(
@@ -196,7 +196,7 @@ class SupportScreen extends StatelessWidget {
           onTap: () {
             Clipboard.setData(ClipboardData(text: value));
             BotToast.showText(
-              text: context.locale.languageCode == 'ar' ? "تم النسخ" : "Copied",
+              text: context.locale.languageCode == 'ar' ? 'تم النسخ' : 'Copied',
               duration: const Duration(seconds: 2),
             );
           },

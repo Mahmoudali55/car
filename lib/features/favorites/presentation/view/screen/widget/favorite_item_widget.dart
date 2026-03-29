@@ -115,7 +115,7 @@ class FavoriteItemWidget extends StatelessWidget {
                 onPressed: () {
                   context.read<FavoritesCubit>().toggleFavorite(car);
                 },
-                icon: Icon(Icons.favorite, color: Colors.redAccent),
+                icon: const Icon(Icons.favorite, color: Colors.redAccent),
               ),
             ),
           ],

@@ -58,7 +58,7 @@ class PremiumOfferCardWidget extends StatelessWidget {
                 Expanded(
                   flex: 4,
                   child: Container(
-                    decoration: BoxDecoration(),
+                    decoration: const BoxDecoration(),
                     padding: EdgeInsets.all(12.w),
                     child: Hero(
                       tag: 'car_offer_${offer['name']}',
@@ -101,7 +101,7 @@ class PremiumOfferCardWidget extends StatelessWidget {
                                 return GestureDetector(
                                   onTap: () => context.read<FavoritesCubit>().toggleFavorite(offer),
                                   child: Padding(
-                                    padding: EdgeInsets.only(left: 8.0),
+                                    padding: const EdgeInsets.only(left: 8.0),
                                     child: Icon(
                                       isFav
                                           ? Icons.favorite_rounded

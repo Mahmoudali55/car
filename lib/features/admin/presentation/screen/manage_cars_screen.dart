@@ -165,10 +165,12 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
 
     String statusLabel = statusKey == 'maintenance' ? 'في الصيانة' : statusKey.tr();
     if (statusKey == AppLocaleKey.completed) statusLabel = 'مؤجرة';
-    if (statusKey == 'maintenance' && context.locale.languageCode == 'en')
+    if (statusKey == 'maintenance' && context.locale.languageCode == 'en') {
       statusLabel = 'In Maintenance';
-    if (statusKey == AppLocaleKey.completed && context.locale.languageCode == 'en')
+    }
+    if (statusKey == AppLocaleKey.completed && context.locale.languageCode == 'en') {
       statusLabel = 'Rented';
+    }
 
     return Container(
       decoration: BoxDecoration(
@@ -233,7 +235,7 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
                     ),
                     child: Text(
                       statusLabel,
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Colors.black,
                         fontSize: 10,
                         fontWeight: FontWeight.bold,

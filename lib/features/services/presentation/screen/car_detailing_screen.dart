@@ -8,8 +8,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
-class CarDetailingScreen extends StatelessWidget {
+class CarDetailingScreen extends StatefulWidget {
   const CarDetailingScreen({super.key});
+
+  @override
+  State<CarDetailingScreen> createState() => _CarDetailingScreenState();
+}
+
+class _CarDetailingScreenState extends State<CarDetailingScreen> {
+  String? selectedService;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +31,7 @@ class CarDetailingScreen extends StatelessWidget {
             backgroundColor: AppColor.appBarColor(context),
             leading: IconButton(
               onPressed: () => Navigator.pop(context),
-              icon: Icon(Icons.arrow_back_ios_new_rounded, color: AppColor.blackTextColor(context)),
+              icon: Icon(Icons.arrow_back_ios_new_rounded, color: AppColor.whiteColor(context)),
             ),
             flexibleSpace: FlexibleSpaceBar(
               centerTitle: true,
@@ -32,13 +39,13 @@ class CarDetailingScreen extends StatelessWidget {
                 AppLocaleKey.carePolishingServices.tr(),
                 style: AppTextStyle.titleMedium(
                   context,
-                ).copyWith(color: AppColor.blackTextColor(context), fontWeight: FontWeight.bold),
+                ).copyWith(color: AppColor.whiteColor(context), fontWeight: FontWeight.bold),
               ),
               background: Stack(
                 fit: StackFit.expand,
                 children: [
                   Container(
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       gradient: LinearGradient(
                         colors: [Color(0xFF831843), Color(0xFFBE185D)],
                         begin: Alignment.topLeft,
@@ -74,24 +81,48 @@ class CarDetailingScreen extends StatelessWidget {
                   Gap(16.h),
                   FadeInUp(
                     delay: const Duration(milliseconds: 100),
-                    child: _buildSelectionCard(
-                      AppLocaleKey.comprehensiveExteriorPolishing.tr(),
-                      context,
+                    child: GestureDetector(
+                      onTap: () => setState(
+                        () => selectedService = AppLocaleKey.comprehensiveExteriorPolishing.tr(),
+                      ),
+                      child: _buildSelectionCard(
+                        AppLocaleKey.comprehensiveExteriorPolishing.tr(),
+                        context,
+                        isSelected:
+                            selectedService == AppLocaleKey.comprehensiveExteriorPolishing.tr(),
+                      ),
                     ),
                   ),
+
                   Gap(12.h),
                   FadeInUp(
                     delay: const Duration(milliseconds: 200),
-                    child: _buildSelectionCard(
-                      AppLocaleKey.interiorCleaningPolishing.tr(),
-                      context,
+                    child: GestureDetector(
+                      onTap: () => setState(
+                        () => selectedService = AppLocaleKey.interiorCleaningPolishing.tr(),
+                      ),
+                      child: _buildSelectionCard(
+                        AppLocaleKey.interiorCleaningPolishing.tr(),
+                        context,
+                        isSelected: selectedService == AppLocaleKey.interiorCleaningPolishing.tr(),
+                      ),
                     ),
                   ),
+
                   Gap(12.h),
                   FadeInUp(
                     delay: const Duration(milliseconds: 300),
-                    child: _buildSelectionCard(AppLocaleKey.nanoCeramicProtection.tr(), context),
+                    child: GestureDetector(
+                      onTap: () =>
+                          setState(() => selectedService = AppLocaleKey.nanoCeramicProtection.tr()),
+                      child: _buildSelectionCard(
+                        AppLocaleKey.nanoCeramicProtection.tr(),
+                        context,
+                        isSelected: selectedService == AppLocaleKey.nanoCeramicProtection.tr(),
+                      ),
+                    ),
                   ),
+
                   Gap(32.h),
                   FadeInUp(child: _buildSectionHeader(AppLocaleKey.carDetails.tr(), context)),
                   Gap(16.h),
@@ -136,24 +167,37 @@ class CarDetailingScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildSelectionCard(String title, BuildContext context) {
-    return Container(
+  Widget _buildSelectionCard(String title, BuildContext context, {required bool isSelected}) {
+    return AnimatedContainer(
+      duration: const Duration(milliseconds: 200),
       padding: EdgeInsets.all(16.w),
       decoration: BoxDecoration(
-        color: AppColor.secondAppColor(context),
+        color: isSelected
+            ? AppColor.primaryColor(context).withValues(alpha: 0.1)
+            : AppColor.secondAppColor(context),
         borderRadius: BorderRadius.circular(12.r),
-        border: Border.all(color: AppColor.blackTextColor(context).withValues(alpha: 0.05)),
+        border: Border.all(
+          color: isSelected
+              ? AppColor.primaryColor(context)
+              : AppColor.blackTextColor(context).withValues(alpha: 0.05),
+          width: isSelected ? 2 : 1,
+        ),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
             title,
-            style: TextStyle(color: AppColor.blackTextColor(context), fontWeight: FontWeight.bold),
+            style: TextStyle(
+              color: isSelected ? AppColor.primaryColor(context) : AppColor.blackTextColor(context),
+              fontWeight: FontWeight.bold,
+            ),
           ),
           Icon(
-            Icons.circle_outlined,
-            color: AppColor.blackTextColor(context).withValues(alpha: 0.24),
+            isSelected ? Icons.radio_button_checked : Icons.radio_button_off,
+            color: isSelected
+                ? AppColor.primaryColor(context)
+                : AppColor.blackTextColor(context).withValues(alpha: 0.24),
           ),
         ],
       ),
@@ -185,7 +229,7 @@ class CarDetailingScreen extends StatelessWidget {
         child: Text(
           text,
           style: TextStyle(
-            color: AppColor.blackTextColor(context),
+            color: AppColor.whiteColor(context),
             fontSize: 16.sp,
             fontWeight: FontWeight.bold,
           ),

@@ -454,4 +454,5 @@ class AppLocaleKey {
   static const String markAllAsRead = 'markAllAsRead';
   static const String mostRequested = 'most_requested';
   static const String limited = 'limited';
+  static const String total = 'total';
 }

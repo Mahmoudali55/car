@@ -14,7 +14,7 @@ class NoDataWidget extends StatelessWidget {
     switch (axis) {
       case Axis.horizontal:
         return Container(
-          padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+          padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
           decoration: BoxDecoration(
             //     color: AppColor.mainAppColor(context).withOpacity(0),
             borderRadius: BorderRadius.circular(7),
@@ -36,7 +36,7 @@ class NoDataWidget extends StatelessWidget {
                   height: 40,
                   fit: BoxFit.contain,
                 ),
-                SizedBox(width: 10),
+                const SizedBox(width: 10),
                 Expanded(
                   child: Align(
                     alignment: AlignmentDirectional.centerStart,
@@ -66,7 +66,7 @@ class NoDataWidget extends StatelessWidget {
       case Axis.vertical:
         return Container(
           width: double.infinity,
-          padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+          padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
           decoration: BoxDecoration(
             //   color: AppColor.mainAppColor(context).withOpacity(0.2),
             borderRadius: BorderRadius.circular(7),
@@ -88,7 +88,7 @@ class NoDataWidget extends StatelessWidget {
                 height: 100,
                 fit: BoxFit.contain,
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Text(
                 message ??
                     context.apiTr(ar: 'لا توجد بيانات', en: 'There is no data'),

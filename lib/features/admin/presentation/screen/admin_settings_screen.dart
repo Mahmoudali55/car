@@ -175,7 +175,7 @@ class AdminSettingsScreen extends StatelessWidget {
           ),
           trailing: Switch(
             value: isDark,
-            activeColor: AppColor.primaryColor(context),
+            activeThumbColor: AppColor.primaryColor(context),
             onChanged: (val) {
               context.read<AppThemeCubit>().theme = val ? ThemeEnum.dark : ThemeEnum.light;
             },
@@ -329,7 +329,7 @@ class AdminSettingsScreen extends StatelessWidget {
           leading: const Icon(Icons.logout_rounded, color: Colors.redAccent),
           title: Text(
             AppLocaleKey.logout.tr(),
-            style: TextStyle(color: Colors.redAccent, fontWeight: FontWeight.bold),
+            style: const TextStyle(color: Colors.redAccent, fontWeight: FontWeight.bold),
           ),
           trailing: const Icon(Icons.chevron_left_rounded, color: Colors.redAccent),
         ),
