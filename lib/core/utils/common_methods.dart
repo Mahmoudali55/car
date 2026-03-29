@@ -48,16 +48,10 @@ class CommonMethods {
       context: context,
       builder: (context) => AlertDialog(
         backgroundColor: AppColor.secondAppColor(context, listen: false),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20.r),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.r)),
         title: Row(
           children: [
-            Icon(
-              Icons.lock_person_rounded,
-              color: AppColor.primaryColor(context),
-              size: 28.sp,
-            ),
+            Icon(Icons.lock_person_rounded, color: AppColor.primaryColor(context), size: 28.sp),
             SizedBox(width: 10.w),
             Text(
               AppLocaleKey.loginRequired.tr(),
@@ -78,7 +72,10 @@ class CommonMethods {
             onPressed: () => Navigator.pop(context),
             child: Text(
               AppLocaleKey.cancel.tr(),
-              style: TextStyle(color: AppColor.blackTextColor(context).withValues(alpha: 0.38), fontSize: 14.sp),
+              style: TextStyle(
+                color: AppColor.blackTextColor(context).withValues(alpha: 0.5),
+                fontSize: 14.sp,
+              ),
             ),
           ),
           ElevatedButton(
@@ -89,14 +86,14 @@ class CommonMethods {
             style: ElevatedButton.styleFrom(
               backgroundColor: AppColor.primaryColor(context),
               foregroundColor: AppColor.blackTextColor(context),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12.r),
-              ),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.r)),
               padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
             ),
             child: Text(
               AppLocaleKey.login.tr(),
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.sp),
+              style: AppTextStyle.bodyMedium(
+                context,
+              ).copyWith(fontWeight: FontWeight.bold, color: AppColor.whiteColor(context)),
             ),
           ),
         ],

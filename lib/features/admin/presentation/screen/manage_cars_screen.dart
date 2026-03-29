@@ -147,7 +147,7 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
           label,
           style: TextStyle(
             color: isSelected
-                ? AppColor.blackTextColor(context)
+                ? AppColor.whiteColor(context)
                 : AppColor.blackTextColor(context).withOpacity(0.5),
             fontWeight: isSelected ? FontWeight.bold : FontWeight.w500,
             fontSize: 12.sp,

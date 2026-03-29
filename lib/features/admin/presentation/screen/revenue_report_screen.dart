@@ -77,7 +77,7 @@ class RevenueReportScreen extends StatelessWidget {
           Text(
             AppLocaleKey.totalNetProfit.tr(),
             style: TextStyle(
-              color: AppColor.blackTextColor(context).withOpacity(0.7),
+              color: AppColor.whiteColor(context),
               fontSize: 13.sp,
               fontWeight: FontWeight.w500,
             ),
@@ -86,7 +86,7 @@ class RevenueReportScreen extends StatelessWidget {
           Text(
             '154,300.50 ${AppLocaleKey.aed.tr()}',
             style: TextStyle(
-              color: AppColor.blackTextColor(context),
+              color: AppColor.whiteColor(context),
               fontSize: 28.sp,
               fontWeight: FontWeight.w900,
               letterSpacing: 1,
@@ -126,21 +126,18 @@ class RevenueReportScreen extends StatelessWidget {
       children: [
         Row(
           children: [
-            Icon(icon, color: AppColor.blackTextColor(context).withOpacity(0.5), size: 14.sp),
+            Icon(icon, color: AppColor.whiteColor(context), size: 14.sp),
             Gap(4.w),
             Text(
               label,
-              style: TextStyle(
-                color: AppColor.blackTextColor(context).withOpacity(0.6),
-                fontSize: 11.sp,
-              ),
+              style: TextStyle(color: AppColor.whiteColor(context), fontSize: 11.sp),
             ),
           ],
         ),
         Gap(4.h),
         Text(
           value,
-          style: TextStyle(color: AppColor.blackTextColor(context), fontWeight: FontWeight.bold),
+          style: TextStyle(color: AppColor.whiteColor(context), fontWeight: FontWeight.bold),
         ),
       ],
     );
