@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:animate_do/animate_do.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
@@ -6,8 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
-import 'package:animate_do/animate_do.dart';
-import 'dart:async';
 
 class AboutScreen extends StatefulWidget {
   const AboutScreen({super.key});
@@ -142,7 +143,7 @@ class _AboutScreenState extends State<AboutScreen> {
 
   Widget _buildAppBar(BuildContext context) {
     return SliverAppBar(
-      expandedHeight: 200.h,
+      expandedHeight: 380.h,
       pinned: true,
       backgroundColor: AppColor.secondAppColor(context),
       leading: IconButton(
@@ -150,30 +151,22 @@ class _AboutScreenState extends State<AboutScreen> {
         icon: Icon(Icons.arrow_back_ios_new_rounded, color: Colors.white, size: 22.sp),
       ),
       flexibleSpace: FlexibleSpaceBar(
+        centerTitle: true,
+        titlePadding: EdgeInsets.only(bottom: 16.h),
         title: Text(
           AppLocaleKey.aboutCompany.tr(),
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-            fontSize: 18.sp,
-          ),
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18.sp),
         ),
         background: Stack(
           fit: StackFit.expand,
           children: [
-            Image.asset(
-              'assets/images/profile.jpeg',
-              fit: BoxFit.cover,
-            ),
+            Image.asset('assets/images/profile.jpeg', fit: BoxFit.cover, height: 180.h),
             Container(
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
-                  colors: [
-                    Colors.black.withOpacity(0.3),
-                    Colors.black.withOpacity(0.7),
-                  ],
+                  colors: [Colors.black.withOpacity(0.3), Colors.black.withOpacity(0.7)],
                 ),
               ),
             ),
@@ -200,10 +193,9 @@ class _AboutScreenState extends State<AboutScreen> {
             Gap(12.w),
             Text(
               AppLocaleKey.carApp.tr(),
-              style: AppTextStyle.titleLarge(context).copyWith(
-                fontWeight: FontWeight.bold,
-                fontSize: 22.sp,
-              ),
+              style: AppTextStyle.titleLarge(
+                context,
+              ).copyWith(fontWeight: FontWeight.bold, fontSize: 22.sp),
             ),
           ],
         ),
@@ -295,10 +287,9 @@ class _AboutScreenState extends State<AboutScreen> {
       children: [
         Text(
           AppLocaleKey.companyVideoTitle.tr(),
-          style: AppTextStyle.titleMedium(context).copyWith(
-            fontWeight: FontWeight.bold,
-            fontSize: 18.sp,
-          ),
+          style: AppTextStyle.titleMedium(
+            context,
+          ).copyWith(fontWeight: FontWeight.bold, fontSize: 18.sp),
         ),
         Gap(16.h),
         Container(
@@ -322,20 +313,16 @@ class _AboutScreenState extends State<AboutScreen> {
   }
 
   Widget _buildBrandsSection(BuildContext context) {
-    final brands = [
-      'Toyota', 'Ford', 'Nissan', 'Hyundai', 'Lincoln',
-      'Chery', 'BAIC', 'MG'
-    ];
+    final brands = ['Toyota', 'Ford', 'Nissan', 'Hyundai', 'Lincoln', 'Chery', 'BAIC', 'MG'];
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           AppLocaleKey.authorizedDistributor.tr(),
-          style: AppTextStyle.titleMedium(context).copyWith(
-            fontWeight: FontWeight.bold,
-            fontSize: 18.sp,
-          ),
+          style: AppTextStyle.titleMedium(
+            context,
+          ).copyWith(fontWeight: FontWeight.bold, fontSize: 18.sp),
         ),
         Gap(16.h),
         Wrap(

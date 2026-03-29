@@ -50,7 +50,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             end: Alignment.bottomLeft,
             colors: [
               AppColor.secondAppColor(context),
-              const Color(0xff161B22),
+              AppColor.gradientSecondaryColor(context),
               AppColor.primaryColor(context).withValues(alpha: 0.2),
             ],
           ),
@@ -136,7 +136,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppColor.primaryColor(context),
-                        foregroundColor: AppColor.blackTextColor(context),
+                        foregroundColor: AppColor.whiteColor(context),
                         padding: EdgeInsets.symmetric(
                           horizontal: 32.w,
                           vertical: 16.h,
@@ -201,7 +201,7 @@ class OnboardingPageItem extends StatelessWidget {
               width: 300.h,
               margin: EdgeInsets.all(20.w),
               decoration: BoxDecoration(
-                color: AppColor.blackTextColor(context).withValues(alpha: 0.1),
+                color: AppColor.primaryColor(context).withValues(alpha: 0.15),
                 shape: BoxShape.circle,
               ),
               child: Center(
@@ -218,7 +218,7 @@ class OnboardingPageItem extends StatelessWidget {
                     : Icon(
                         model.image as IconData,
                         size: 150.h,
-                        color: AppColor.blackTextColor(context),
+                        color: AppColor.primaryColor(context),
                       ),
               ),
             ),

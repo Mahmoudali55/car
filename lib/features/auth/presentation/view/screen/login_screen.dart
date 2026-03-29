@@ -36,7 +36,7 @@ class LoginScreen extends StatelessWidget {
             end: Alignment.bottomLeft,
             colors: [
               AppColor.secondAppColor(context),
-              const Color(0xff161B22),
+              AppColor.gradientSecondaryColor(context),
               AppColor.primaryColor(context).withValues(alpha: 0.1),
             ],
           ),
@@ -74,7 +74,7 @@ class LoginScreen extends StatelessWidget {
                             child: Container(
                               padding: EdgeInsets.all(20.w),
                               decoration: BoxDecoration(
-                                color: AppColor.whiteColor(context).withValues(alpha: 0.05),
+                                color: AppColor.primaryColor(context).withValues(alpha: 0.1),
                                 shape: BoxShape.circle,
                                 boxShadow: [
                                   BoxShadow(
@@ -87,7 +87,7 @@ class LoginScreen extends StatelessWidget {
                               child: Icon(
                                 Icons.directions_car_filled_rounded,
                                 size: 60.w,
-                                color: AppColor.primaryColor(context),
+                                color: AppColor.whiteColor(context),
                               ),
                             ),
                           ),
@@ -110,7 +110,7 @@ class LoginScreen extends StatelessWidget {
                                 AppLocaleKey.loginToContinueYourPremiumExperience.tr(),
                                 style: AppTextStyle.bodyLarge(
                                   context,
-                                  color: AppColor.whiteColor(context).withValues(alpha: 0.8),
+                                  color: AppColor.blackTextColor(context).withValues(alpha: 0.6),
                                 ),
                               ),
                             ],
@@ -127,10 +127,10 @@ class LoginScreen extends StatelessWidget {
                               Icons.phone_iphone_rounded,
                               color: AppColor.primaryColor(context),
                             ),
-                            fillColor: AppColor.whiteColor(context).withValues(alpha: (0.05)),
+                            fillColor: AppColor.textFormFillColor(context),
                             textStyle: TextStyle(color: AppColor.blackTextColor(context)),
                             hintStyle: TextStyle(
-                              color: AppColor.whiteColor(context).withValues(alpha: 0.3),
+                              color: AppColor.blackTextColor(context).withValues(alpha: 0.3),
                             ),
                             radius: 16,
                             keyboardType: TextInputType.phone,
@@ -148,10 +148,10 @@ class LoginScreen extends StatelessWidget {
                               Icons.lock_outline_rounded,
                               color: AppColor.primaryColor(context),
                             ),
-                            fillColor: AppColor.whiteColor(context).withValues(alpha: (0.05)),
+                            fillColor: AppColor.textFormFillColor(context),
                             textStyle: TextStyle(color: AppColor.blackTextColor(context)),
                             hintStyle: TextStyle(
-                              color: AppColor.whiteColor(context).withValues(alpha: 0.3),
+                              color: AppColor.blackTextColor(context).withValues(alpha: 0.3),
                             ),
                             radius: 16,
                           ),
@@ -254,7 +254,7 @@ class LoginScreen extends StatelessWidget {
                                   Container(
                                     width: 1,
                                     height: 20.h,
-                                    color: AppColor.whiteColor(context).withValues(alpha: 0.2),
+                                    color: AppColor.blackTextColor(context).withValues(alpha: 0.2),
                                   ),
                                   TextButton(
                                     onPressed: () {

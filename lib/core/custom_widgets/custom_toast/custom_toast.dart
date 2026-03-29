@@ -31,7 +31,7 @@ class CustomToast extends StatelessWidget {
       padding: EdgeInsets.all(10),
       margin: EdgeInsets.all(10),
       decoration: BoxDecoration(
-        color: AppColor.blackTextColor(context),
+        color: AppColor.secondAppColor(context),
         borderRadius: BorderRadius.circular(10),
         border: Border.all(color: backgroundColor ?? _backgroundColor()),
       ),
@@ -45,7 +45,7 @@ class CustomToast extends StatelessWidget {
                 icon ?? _icons(),
                 height: 30,
                 width: 30,
-                colorFilter: ColorFilter.mode(AppColor.blackTextColor(context), BlendMode.srcIn),
+                colorFilter: ColorFilter.mode(AppColor.whiteColor(context), BlendMode.srcIn),
               ),
             ),
           ),
@@ -59,7 +59,7 @@ class CustomToast extends StatelessWidget {
                   Text(
                     title!,
                     style: TextStyle(
-                      color: textColor ?? Colors.black,
+                      color: textColor ?? AppColor.blackTextColor(context),
                       fontSize: 14,
                       fontWeight: FontWeight.w700,
                     ),
@@ -70,7 +70,7 @@ class CustomToast extends StatelessWidget {
                 Text(
                   message,
                   style: TextStyle(
-                    color: textColor ?? Colors.black,
+                    color: textColor ?? AppColor.blackTextColor(context),
                     fontSize: 12,
                     fontWeight: FontWeight.w500,
                   ),

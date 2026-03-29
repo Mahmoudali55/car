@@ -1,6 +1,7 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:car/core/services/services_locator.dart';
 import 'package:car/core/theme/cubit/app_theme_cubit.dart';
+import 'package:car/core/theme/theme_enum.dart';
 import 'package:car/features/cart/presentation/view/cubit/cart_cubit.dart';
 import 'package:car/features/favorites/presentation/view/cubit/favorites_cubit.dart';
 import 'package:car/features/notifications/presentation/view/cubit/notifications_cubit.dart';
@@ -47,6 +48,12 @@ class _CarAppState extends State<CarApp> {
                 locale: context.locale,
                 debugShowCheckedModeBanner: false,
                 theme: appThemeData(context),
+                darkTheme: appThemeData(context),
+                themeMode: context.read<AppThemeCubit>().theme == ThemeEnum.system
+                    ? ThemeMode.system
+                    : (context.read<AppThemeCubit>().theme == ThemeEnum.dark
+                          ? ThemeMode.dark
+                          : ThemeMode.light),
                 initialRoute: RoutesName.splashScreen,
                 onGenerateRoute: AppRouters.onGenerateRoute,
                 navigatorKey: AppRouters.navigatorKey,

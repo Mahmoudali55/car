@@ -16,6 +16,10 @@ class AppTheme {
         return light;
       case ThemeEnum.dark:
         return dark;
+      case ThemeEnum.system:
+        return MediaQuery.platformBrightnessOf(context) == Brightness.dark
+            ? dark
+            : light;
     }
   }
 }

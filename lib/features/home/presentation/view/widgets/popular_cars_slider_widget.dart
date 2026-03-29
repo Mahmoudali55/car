@@ -103,7 +103,7 @@ class _PopularCarsSliderState extends State<PopularCarsSlider> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 360.h,
+      height: 380.h,
       width: double.infinity,
       child: PageView.builder(
         controller: _pageController,

@@ -60,8 +60,8 @@ class PremiumCarCardWidget extends StatelessWidget {
                 ),
                 // Badges
                 Positioned(
-                  top: 15.h,
-                  left: -20.w,
+                  top: 10.h,
+                  left: -10.w,
                   child: Container(
                     height: 30.h,
                     width: 80.w,
@@ -82,12 +82,13 @@ class PremiumCarCardWidget extends StatelessWidget {
                   ),
                 ),
                 Positioned(
-                  top: 15.h,
-                  right: 15.w,
+                  top: 10.h,
+                  right: 10.w,
                   child: BlocBuilder<FavoritesCubit, FavoritesState>(
                     builder: (context, state) {
                       final isFav = context.read<FavoritesCubit>().isFavorite(car['name']!);
                       return Container(
+                        height: 30.h,
                         decoration: BoxDecoration(
                           color: AppColor.blackTextColor(context).withValues(alpha: 0.2),
                           shape: BoxShape.circle,
@@ -99,7 +100,7 @@ class PremiumCarCardWidget extends StatelessWidget {
                           icon: Icon(
                             isFav ? Icons.favorite_rounded : Icons.favorite_border_rounded,
                             color: isFav
-                                ? AppColor.primaryColor(context)
+                                ? AppColor.redColor(context)
                                 : AppColor.blackTextColor(context),
                             size: 20.sp,
                           ),

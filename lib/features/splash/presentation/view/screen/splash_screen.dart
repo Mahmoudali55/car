@@ -53,7 +53,7 @@ class _SplashScreenState extends State<SplashScreen> {
             end: Alignment.bottomLeft,
             colors: [
               AppColor.secondAppColor(context),
-              const Color(0xff161B22),
+              AppColor.gradientSecondaryColor(context),
               AppColor.primaryColor(context).withOpacity(0.3),
             ],
           ),
@@ -171,7 +171,7 @@ class _SplashScreenState extends State<SplashScreen> {
                     width: 40.w,
                     height: 40.w,
                     child: CircularProgressIndicator(
-                      color: AppColor.blackTextColor(context),
+                      color: AppColor.primaryColor(context),
                       strokeWidth: 3,
                     ),
                   ),

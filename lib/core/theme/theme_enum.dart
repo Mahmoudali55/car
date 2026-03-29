@@ -7,4 +7,6 @@ enum ThemeEnum {
   light,
   @HiveField(1)
   dark,
+  @HiveField(2)
+  system,
 }

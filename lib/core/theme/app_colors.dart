@@ -15,8 +15,8 @@ class AppColor {
   static Color secondAppColor(BuildContext context, {bool listen = true}) {
     return AppTheme.getByTheme(
       context,
-      light: const Color(0xFFFFFFFF), // White card/nav in light mode
-      dark: const Color(0xFF1E293B), // Dark slate in dark mode
+      light: const Color(0xFFFFFFFF),
+      dark: const Color(0xFF0F1B4E), // Galactic Surface
       listen: listen,
     );
   }
@@ -25,7 +25,7 @@ class AppColor {
     return AppTheme.getByTheme(
       context,
       light: const Color(0xFFCBD5E1),
-      dark: const Color(0xffA6A6A6),
+      dark: const Color(0xFF1A2A6C),
       listen: listen,
     );
   }
@@ -33,8 +33,8 @@ class AppColor {
   static Color scaffoldColor(BuildContext context, {bool listen = true}) {
     return AppTheme.getByTheme(
       context,
-      light: const Color(0xFFF1F5F9), // Light grey in light mode
-      dark: const Color(0xFF0F172A), // Deep dark navy in dark mode
+      light: const Color(0xFFF1F5F9),
+      dark: const Color(0xFF051139), // Rich Galactic Blue
       listen: listen,
     );
   }
@@ -43,7 +43,7 @@ class AppColor {
     return AppTheme.getByTheme(
       context,
       light: const Color(0xFFF8FAFC),
-      dark: const Color(0xFF1E293B),
+      dark: const Color(0xFF0F1B4E),
       listen: listen,
     );
   }
@@ -133,8 +133,7 @@ class AppColor {
     return AppTheme.getByTheme(
       context,
       light: const Color(0xFFFFFFFF),
-      dark: const Color(0xFF0F172A),
-      listen: listen,
+      dark: const Color(0xFF051139),
     );
   }
 
@@ -152,9 +151,22 @@ class AppColor {
     return AppTheme.getByTheme(
       context,
       light: const Color(0xFFFFFFFF),
-      dark: const Color(0xFF1E293B),
+      dark: const Color(0xFF0F1B4E),
       listen: listen,
     );
+  }
+
+  static Color gradientSecondaryColor(BuildContext context, {bool listen = true}) {
+    return AppTheme.getByTheme(
+      context,
+      light: const Color(0xFFE2E8F0),
+      dark: const Color(0xFF0A0F1A),
+      listen: listen,
+    );
+  }
+
+  static Color redColor(BuildContext context, {bool listen = true}) {
+    return AppTheme.getByTheme(context, light: Colors.red, dark: Colors.red, listen: listen);
   }
 
   /// Divider / subtle separator color
@@ -162,8 +174,10 @@ class AppColor {
     return AppTheme.getByTheme(
       context,
       light: const Color(0xFFE2E8F0),
-      dark: const Color(0xFF334155),
+      dark: const Color(0xFF1A2A6C),
       listen: listen,
     );
+
+    /// Secondary color for backgrounds/gradients
   }
 }
