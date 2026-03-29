@@ -33,36 +33,32 @@ class CarHeaderWidget extends StatelessWidget {
                 Gap(4.h),
                 Text(
                   car['name'] ?? '',
-                  style: AppTextStyle.titleLarge(context).copyWith(
-                    fontSize: 28.sp,
-                    color: AppColor.blackTextColor(context),
-                    fontWeight: FontWeight.w900,
-                  ),
+                  style: AppTextStyle.titleLarge(
+                    context,
+                  ).copyWith(color: AppColor.blackTextColor(context), fontWeight: FontWeight.w900),
                 ),
               ],
             ),
           ],
         ),
-        Gap(16.h),
+        Gap(10.h),
         Row(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             Text(
               car['price'] ?? '0',
-              style: AppTextStyle.titleLarge(context).copyWith(
-                color: AppColor.primaryColor(context),
-                fontSize: 32.sp,
-                fontWeight: FontWeight.bold,
-              ),
+              style: AppTextStyle.titleMedium(
+                context,
+              ).copyWith(color: AppColor.primaryColor(context), fontWeight: FontWeight.bold),
             ),
             Gap(8.w),
             Padding(
               padding: EdgeInsets.only(bottom: 6.h),
               child: Text(
                 AppLocaleKey.taxIncluded.tr(),
-                style: AppTextStyle.bodySmall(context).copyWith(
-                  color: AppColor.blackTextColor(context).withValues(alpha: 0.4),
-                ),
+                style: AppTextStyle.bodySmall(
+                  context,
+                ).copyWith(color: AppColor.blackTextColor(context).withValues(alpha: 0.6)),
               ),
             ),
           ],

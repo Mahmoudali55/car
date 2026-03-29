@@ -1,5 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:car/core/cache/hive/hive_methods.dart';
+import 'package:car/core/custom_widgets/custom_app_bar/custom_app_bar.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
@@ -18,22 +19,7 @@ class AdminSettingsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.scaffoldColor(context),
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        leading: Navigator.canPop(context)
-            ? IconButton(
-                onPressed: () => Navigator.pop(context),
-                icon: Icon(Icons.arrow_back_ios_new_rounded, color: AppColor.blackTextColor(context)),
-              )
-            : null,
-        title: Text(
-          AppLocaleKey.adminSettings.tr(),
-          style: AppTextStyle.titleMedium(
-            context,
-          ).copyWith(color: AppColor.blackTextColor(context), fontWeight: FontWeight.w900, fontSize: 20.sp),
-        ),
-      ),
+      appBar: CustomAppBar(context, title: Text(AppLocaleKey.adminSettings.tr())),
       body: Stack(
         children: [
           // Background Glow
@@ -45,10 +31,10 @@ class AdminSettingsScreen extends StatelessWidget {
               height: 300.h,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: Colors.grey.withOpacity(0.02),
+                color: Colors.grey.withValues(alpha: 0.02),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.grey.withOpacity(0.02),
+                    color: Colors.grey.withValues(alpha: 0.02),
                     blurRadius: 100,
                     spreadRadius: 50,
                   ),
@@ -61,8 +47,7 @@ class AdminSettingsScreen extends StatelessWidget {
             physics: const BouncingScrollPhysics(),
             child: BlocBuilder<AppThemeCubit, AppThemeState>(
               builder: (context, themeState) {
-                final isDark =
-                    context.read<AppThemeCubit>().theme == ThemeEnum.dark;
+                final isDark = context.read<AppThemeCubit>().theme == ThemeEnum.dark;
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -144,7 +129,7 @@ class AdminSettingsScreen extends StatelessWidget {
           child: Text(
             title,
             style: TextStyle(
-              color: AppColor.blackTextColor(context).withOpacity(0.5),
+              color: AppColor.blackTextColor(context).withValues(alpha: 0.5),
               fontSize: 13.sp,
               fontWeight: FontWeight.bold,
             ),
@@ -169,10 +154,7 @@ class AdminSettingsScreen extends StatelessWidget {
         child: ListTile(
           leading: Container(
             padding: EdgeInsets.all(10.w),
-            decoration: BoxDecoration(
-              color: baseColor.withOpacity(0.05),
-              shape: BoxShape.circle,
-            ),
+            decoration: BoxDecoration(color: baseColor.withOpacity(0.05), shape: BoxShape.circle),
             child: AnimatedSwitcher(
               duration: const Duration(milliseconds: 300),
               child: Icon(
@@ -185,22 +167,17 @@ class AdminSettingsScreen extends StatelessWidget {
           ),
           title: Text(
             AppLocaleKey.appearance.tr(),
-            style: TextStyle(
-                color: baseColor,
-                fontSize: 14.sp,
-                fontWeight: FontWeight.bold),
+            style: TextStyle(color: baseColor, fontSize: 14.sp, fontWeight: FontWeight.bold),
           ),
           subtitle: Text(
             isDark ? AppLocaleKey.darkMode.tr() : AppLocaleKey.lightMode.tr(),
-            style: TextStyle(
-                color: baseColor.withOpacity(0.4), fontSize: 11.sp),
+            style: TextStyle(color: baseColor.withValues(alpha: 0.4), fontSize: 11.sp),
           ),
           trailing: Switch(
             value: isDark,
             activeColor: AppColor.primaryColor(context),
             onChanged: (val) {
-              context.read<AppThemeCubit>().theme =
-                  val ? ThemeEnum.dark : ThemeEnum.light;
+              context.read<AppThemeCubit>().theme = val ? ThemeEnum.dark : ThemeEnum.light;
             },
           ),
         ),
@@ -208,7 +185,13 @@ class AdminSettingsScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildSettingItem(BuildContext context, IconData icon, String title, String subtitle, {VoidCallback? onTap}) {
+  Widget _buildSettingItem(
+    BuildContext context,
+    IconData icon,
+    String title,
+    String subtitle, {
+    VoidCallback? onTap,
+  }) {
     final baseColor = AppColor.blackTextColor(context);
     return FadeInUp(
       child: Container(
@@ -222,10 +205,7 @@ class AdminSettingsScreen extends StatelessWidget {
           onTap: onTap,
           leading: Container(
             padding: EdgeInsets.all(10.w),
-            decoration: BoxDecoration(
-              color: baseColor.withOpacity(0.05),
-              shape: BoxShape.circle,
-            ),
+            decoration: BoxDecoration(color: baseColor.withOpacity(0.05), shape: BoxShape.circle),
             child: Icon(icon, color: baseColor, size: 20.sp),
           ),
           title: Text(
@@ -234,9 +214,9 @@ class AdminSettingsScreen extends StatelessWidget {
           ),
           subtitle: Text(
             subtitle,
-            style: TextStyle(color: baseColor.withOpacity(0.4), fontSize: 11.sp),
+            style: TextStyle(color: baseColor.withValues(alpha: 0.4), fontSize: 11.sp),
           ),
-          trailing: Icon(Icons.chevron_left_rounded, color: baseColor.withOpacity(0.2)),
+          trailing: Icon(Icons.chevron_left_rounded, color: baseColor.withValues(alpha: 0.2)),
         ),
       ),
     );
@@ -309,15 +289,11 @@ class AdminSettingsScreen extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
         decoration: BoxDecoration(
           color: isSelected
-              ? AppColor.primaryColor(
-                  context,
-                ).withOpacity(0.1)
-              : baseColor.withOpacity(0.03),
+              ? AppColor.primaryColor(context).withValues(alpha: 0.1)
+              : baseColor.withValues(alpha: 0.03),
           borderRadius: BorderRadius.circular(12.r),
           border: Border.all(
-            color: isSelected
-                ? AppColor.primaryColor(context)
-                : baseColor.withOpacity(0.05),
+            color: isSelected ? AppColor.primaryColor(context) : baseColor.withValues(alpha: 0.05),
           ),
         ),
         child: Row(
@@ -331,11 +307,7 @@ class AdminSettingsScreen extends StatelessWidget {
               ),
             ),
             if (isSelected)
-              Icon(
-                Icons.check_circle_rounded,
-                color: AppColor.primaryColor(context),
-                size: 20.sp,
-              ),
+              Icon(Icons.check_circle_rounded, color: AppColor.primaryColor(context), size: 20.sp),
           ],
         ),
       ),
@@ -348,9 +320,9 @@ class AdminSettingsScreen extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.all(4.w),
         decoration: BoxDecoration(
-          color: Colors.redAccent.withOpacity(0.1),
+          color: Colors.redAccent.withValues(alpha: 0.1),
           borderRadius: BorderRadius.circular(16.r),
-          border: Border.all(color: Colors.redAccent.withOpacity(0.1)),
+          border: Border.all(color: Colors.redAccent.withValues(alpha: 0.1)),
         ),
         child: ListTile(
           onTap: () {},

@@ -56,7 +56,7 @@ class CarsCategoriesRowWidget extends StatelessWidget {
                 categories[index],
                 style: AppTextStyle.bodyMedium(context).copyWith(
                   color: isSelected
-                      ? AppColor.blackTextColor(context)
+                      ? AppColor.whiteColor(context)
                       : AppColor.blackTextColor(context).withValues(alpha: 0.60),
                   fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
                 ),

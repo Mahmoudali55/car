@@ -21,7 +21,7 @@ class BespokeSelectionScreen extends StatelessWidget {
           SliverAppBar(
             expandedHeight: 180.h,
             pinned: true,
-            backgroundColor: AppColor.scaffoldColor(context),
+            backgroundColor: AppColor.appBarColor(context),
             leading: IconButton(
               onPressed: () => Navigator.pop(context),
               icon: Icon(Icons.arrow_back_ios_new_rounded, color: AppColor.blackTextColor(context)),
@@ -115,9 +115,9 @@ class BespokeSelectionScreen extends StatelessWidget {
   Widget _buildTextField(String hint, BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: const Color(0xFF1F2937),
+        color: AppColor.secondAppColor(context),
         borderRadius: BorderRadius.circular(12.r),
-        border: Border.all(color: AppColor.blackTextColor(context).withOpacity(0.05)),
+        border: Border.all(color: AppColor.blackTextColor(context).withValues(alpha: 0.05)),
       ),
       child: CustomFormField(hintText: hint),
     );
@@ -132,7 +132,7 @@ class BespokeSelectionScreen extends StatelessWidget {
         borderRadius: BorderRadius.circular(16.r),
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFF075985).withOpacity(0.3),
+            color: const Color(0xFF075985).withValues(alpha: 0.3),
             blurRadius: 10,
             offset: const Offset(0, 5),
           ),
@@ -147,11 +147,7 @@ class BespokeSelectionScreen extends StatelessWidget {
         ),
         child: Text(
           text,
-          style: TextStyle(
-            color: AppColor.blackTextColor(context),
-            fontSize: 16.sp,
-            fontWeight: FontWeight.bold,
-          ),
+          style: TextStyle(color: Colors.white, fontSize: 16.sp, fontWeight: FontWeight.bold),
         ),
       ),
     );

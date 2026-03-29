@@ -21,7 +21,7 @@ class SellCarScreen extends StatelessWidget {
           SliverAppBar(
             expandedHeight: 180.h,
             pinned: true,
-            backgroundColor: AppColor.scaffoldColor(context),
+            backgroundColor: AppColor.appBarColor(context),
             leading: IconButton(
               onPressed: () => Navigator.pop(context),
               icon: Icon(Icons.arrow_back_ios_new_rounded, color: AppColor.blackTextColor(context)),
@@ -134,6 +134,17 @@ class SellCarScreen extends StatelessWidget {
     );
   }
 
+  Widget _buildTextField(String hint, BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: AppColor.secondAppColor(context),
+        borderRadius: BorderRadius.circular(12.r),
+        border: Border.all(color: AppColor.blackTextColor(context).withValues(alpha: 0.05)),
+      ),
+      child: CustomFormField(hintText: hint),
+    );
+  }
+
   Widget _buildSectionHeader(String title, BuildContext context) {
     return Text(
       title,
@@ -142,17 +153,6 @@ class SellCarScreen extends StatelessWidget {
         fontSize: 18.sp,
         fontWeight: FontWeight.bold,
       ),
-    );
-  }
-
-  Widget _buildTextField(String hint, BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: const Color(0xFF1F2937),
-        borderRadius: BorderRadius.circular(12.r),
-        border: Border.all(color: AppColor.blackTextColor(context).withOpacity(0.05)),
-      ),
-      child: CustomFormField(hintText: hint),
     );
   }
 
@@ -174,7 +174,7 @@ class SellCarScreen extends StatelessWidget {
         ),
         child: Text(
           text,
-          style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
+          style: TextStyle(color: Colors.white, fontSize: 16.sp, fontWeight: FontWeight.bold),
         ),
       ),
     );

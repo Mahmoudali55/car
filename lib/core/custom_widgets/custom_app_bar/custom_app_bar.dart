@@ -38,30 +38,35 @@ class CustomAppBar extends PreferredSize {
     this.automaticallyImplyLeading = true,
     this.borderRadius,
   }) : super(
-         preferredSize: Size.fromHeight(height),
-         child: AppBar(
-           elevation: elevation,
-           backgroundColor: appBarColor ?? AppColor.appBarColor(context),
-           toolbarHeight: height,
-           automaticallyImplyLeading: automaticallyImplyLeading,
-           shadowColor: shadowColor,
-           centerTitle: centerTitle,
-           title: title,
-           leading: InkWell(
-             onTap: leadingOnTap ?? () => Navigator.pop(context),
-             child: Padding(
-               padding: const EdgeInsets.all(12.0),
-               child: leading,
-             ),
-           ),
-           actions: actions,
-           leadingWidth: leadingWidth,
-           shape: RoundedRectangleBorder(
-             borderRadius:
-                 borderRadius ??
-                 BorderRadius.vertical(bottom: Radius.circular(radius)),
-           ),
-           bottom: bottom,
-         ),
-       );
+          preferredSize: Size.fromHeight(height),
+          child: AppBar(
+            elevation: elevation,
+            backgroundColor: appBarColor ?? AppColor.appBarColor(context),
+            toolbarHeight: height,
+            iconTheme: IconThemeData(color: AppColor.appBarTextColor(context)),
+            actionsIconTheme: IconThemeData(color: AppColor.appBarTextColor(context)),
+            automaticallyImplyLeading: automaticallyImplyLeading,
+            shadowColor: shadowColor,
+            centerTitle: centerTitle,
+            title: title,
+            leading: InkWell(
+              onTap: leadingOnTap ?? () => Navigator.pop(context),
+              child: Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: leading ??
+                    Icon(
+                      Icons.arrow_back_ios,
+                      size: 20,
+                      color: AppColor.appBarTextColor(context),
+                    ),
+              ),
+            ),
+            actions: actions,
+            leadingWidth: leadingWidth,
+            shape: RoundedRectangleBorder(
+              borderRadius: borderRadius ?? BorderRadius.vertical(bottom: Radius.circular(radius)),
+            ),
+            bottom: bottom,
+          ),
+        );
 }

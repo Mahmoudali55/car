@@ -45,10 +45,10 @@ class ServicesScreen extends StatelessWidget {
                         Container(
                           padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 2.h),
                           decoration: BoxDecoration(
-                            color: AppColor.primaryColor(context).withOpacity(0.1),
+                            color: AppColor.primaryColor(context).withValues(alpha: 0.1),
                             borderRadius: BorderRadius.circular(6.r),
                             border: Border.all(
-                              color: AppColor.primaryColor(context).withOpacity(0.2),
+                              color: AppColor.primaryColor(context).withValues(alpha: 0.2),
                             ),
                           ),
                           child: Text(
@@ -165,9 +165,22 @@ class ServicesScreen extends StatelessWidget {
       margin: EdgeInsets.symmetric(horizontal: 20.w),
       height: 200.h,
       decoration: BoxDecoration(
-        color: const Color(0xFF111827),
+        gradient: LinearGradient(
+          colors: [
+            AppColor.primaryColor(context),
+            AppColor.primaryColor(context).withValues(alpha: 0.8),
+          ],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
         borderRadius: BorderRadius.circular(24.r),
-        border: Border.all(color: AppColor.blackTextColor(context).withOpacity(0.05)),
+        boxShadow: [
+          BoxShadow(
+            color: AppColor.primaryColor(context).withValues(alpha: 0.3),
+            blurRadius: 20,
+            offset: const Offset(0, 10),
+          ),
+        ],
       ),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(24.r),
@@ -197,7 +210,7 @@ class ServicesScreen extends StatelessWidget {
                   Text(
                     AppLocaleKey.sellYourCar.tr(),
                     style: AppTextStyle.titleLarge(context).copyWith(
-                      color: AppColor.blackTextColor(context),
+                      color: Colors.white,
                       fontWeight: FontWeight.w900,
                       fontSize: 26.sp,
                     ),
@@ -208,7 +221,7 @@ class ServicesScreen extends StatelessWidget {
                     child: Text(
                       AppLocaleKey.buyNowDesc.tr(),
                       style: AppTextStyle.bodySmall(context).copyWith(
-                        color: AppColor.blackTextColor(context).withValues(alpha: 0.60),
+                        color: Colors.white.withValues(alpha: 0.8),
                         fontSize: 12.sp,
                         height: 1.4,
                       ),
@@ -230,7 +243,7 @@ class ServicesScreen extends StatelessWidget {
                         borderRadius: BorderRadius.circular(12.r),
                         boxShadow: [
                           BoxShadow(
-                            color: AppColor.primaryColor(context).withOpacity(0.4),
+                            color: Colors.black.withValues(alpha: 0.1),
                             blurRadius: 15,
                             offset: const Offset(0, 5),
                           ),
@@ -239,7 +252,7 @@ class ServicesScreen extends StatelessWidget {
                       child: Text(
                         AppLocaleKey.bookService.tr(),
                         style: TextStyle(
-                          color: AppColor.blackTextColor(context),
+                          color: AppColor.primaryColor(context),
                           fontWeight: FontWeight.bold,
                           fontSize: 13.sp,
                         ),
@@ -254,7 +267,7 @@ class ServicesScreen extends StatelessWidget {
       ),
     );
   }
-
+ 
   Widget _buildQuickActionItem(BuildContext context, Map<String, dynamic> action) {
     return GestureDetector(
       onTap: () {
@@ -275,7 +288,7 @@ class ServicesScreen extends StatelessWidget {
               decoration: BoxDecoration(
                 color: AppColor.secondAppColor(context),
                 borderRadius: BorderRadius.circular(20.r),
-                border: Border.all(color: AppColor.blackTextColor(context).withOpacity(0.05)),
+                border: Border.all(color: AppColor.blackTextColor(context).withValues(alpha: 0.05)),
               ),
               child: Icon(action['icon'], color: action['color'], size: 24.sp),
             ),
@@ -285,7 +298,7 @@ class ServicesScreen extends StatelessWidget {
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: AppColor.blackTextColor(context).withValues(alpha: 0.70),
-                fontSize: 10.sp,
+                fontSize: 14.sp,
                 fontWeight: FontWeight.w600,
               ),
               maxLines: 1,
@@ -304,7 +317,7 @@ class ServicesScreen extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColor.secondAppColor(context),
         borderRadius: BorderRadius.circular(22.r),
-        border: Border.all(color: AppColor.blackTextColor(context).withOpacity(0.03)),
+        border: Border.all(color: AppColor.blackTextColor(context).withValues(alpha: 0.03)),
       ),
       child: Material(
         color: Colors.transparent,
@@ -325,7 +338,7 @@ class ServicesScreen extends StatelessWidget {
                   width: 70.w,
                   height: 70.h,
                   decoration: BoxDecoration(
-                    color: (service['color'] as Color).withOpacity(0.1),
+                    color: (service['color'] as Color).withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(16.r),
                   ),
                   child: Icon(service['icon'], color: service['color'], size: 30.sp),

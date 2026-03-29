@@ -26,11 +26,7 @@ class InspectionBadgeWidget extends StatelessWidget {
               color: AppColor.primaryColor(context),
               shape: BoxShape.circle,
             ),
-            child: Icon(
-              Icons.verified_user_rounded,
-              color: AppColor.blackTextColor(context),
-              size: 20,
-            ),
+            child: Icon(Icons.verified_user_rounded, color: AppColor.whiteColor(context), size: 20),
           ),
           Gap(12.w),
           Expanded(

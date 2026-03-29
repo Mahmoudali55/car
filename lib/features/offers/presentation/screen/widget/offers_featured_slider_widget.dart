@@ -1,7 +1,9 @@
 import 'dart:async';
 
+import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -21,7 +23,7 @@ class _OffersFeaturedSliderState extends State<OffersFeaturedSlider> {
   final List<Map<String, dynamic>> _featuredOffers = [
     {
       'title': 'موسم القوة!',
-      'subtitle': 'وفر حتى 50,000 د.إ على موديلات مرسيدس',
+      'subtitle': 'وفر حتى 50,000  ر.س        على موديلات مرسيدس',
       'color1': const Color(0xff1E293B),
       'color2': const Color(0xff0F172A),
       'icon': Icons.speed_rounded,
@@ -125,9 +127,9 @@ class _OffersFeaturedSliderState extends State<OffersFeaturedSlider> {
                               borderRadius: BorderRadius.circular(10.r),
                             ),
                             child: Text(
-                              'عرض محدود',
+                              AppLocaleKey.limited.tr(),
                               style: TextStyle(
-                                color: AppColor.blackTextColor(context),
+                                color: AppColor.whiteColor(context),
                                 fontSize: 10.sp,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -137,7 +139,7 @@ class _OffersFeaturedSliderState extends State<OffersFeaturedSlider> {
                           Text(
                             item['title'],
                             style: AppTextStyle.titleLarge(context).copyWith(
-                              color: AppColor.blackTextColor(context),
+                              color: AppColor.whiteColor(context),
                               fontWeight: FontWeight.w900,
                               fontSize: 24.sp,
                             ),
@@ -148,7 +150,7 @@ class _OffersFeaturedSliderState extends State<OffersFeaturedSlider> {
                             child: Text(
                               item['subtitle'],
                               style: AppTextStyle.bodyMedium(context).copyWith(
-                                color: AppColor.blackTextColor(context).withValues(alpha: 0.70),
+                                color: AppColor.whiteColor(context).withValues(alpha: 0.70),
                                 fontSize: 13.sp,
                               ),
                             ),

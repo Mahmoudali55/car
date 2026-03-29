@@ -41,9 +41,7 @@ class HomeGuestScreen extends StatelessWidget {
               Navigator.pop(context);
               NavigatorMethods.pushNamed(context, RoutesName.loginScreen);
             },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: AppColor.primaryColor(context),
-            ),
+            style: ElevatedButton.styleFrom(backgroundColor: AppColor.primaryColor(context)),
             child: Text(AppLocaleKey.login.tr()),
           ),
         ],
@@ -77,10 +75,7 @@ class HomeGuestScreen extends StatelessWidget {
                 SectionTitleWidget(
                   title: AppLocaleKey.popularCars.tr(),
                   onSeeAll: () {
-                    NavigatorMethods.pushNamed(
-                      context,
-                      RoutesName.popularCarsScreen,
-                    );
+                    NavigatorMethods.pushNamed(context, RoutesName.popularCarsScreen);
                   },
                 ),
                 SizedBox(height: 15.h),
@@ -89,19 +84,13 @@ class HomeGuestScreen extends StatelessWidget {
                 SectionTitleWidget(
                   title: AppLocaleKey.usedCars.tr(),
                   onSeeAll: () {
-                    NavigatorMethods.pushNamed(
-                      context,
-                      RoutesName.usedCarsScreen,
-                    );
+                    NavigatorMethods.pushNamed(context, RoutesName.usedCarsScreen);
                   },
                 ),
                 SizedBox(height: 15.h),
                 const UsedCarsSliderWidget(),
                 SizedBox(height: 30.h),
-                SectionTitleWidget(
-                  title: AppLocaleKey.searchByBudget.tr(),
-                  onSeeAll: null,
-                ),
+                SectionTitleWidget(title: AppLocaleKey.searchByBudget.tr(), onSeeAll: null),
                 SizedBox(height: 15.h),
                 const BudgetSearchWidget(),
                 SizedBox(height: 30.h),

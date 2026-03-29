@@ -52,9 +52,9 @@ class ManageServicesScreen extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(16.w),
       decoration: BoxDecoration(
-        color: const Color(0xFF1F2937),
+        color: AppColor.secondAppColor(context),
         borderRadius: BorderRadius.circular(16.r),
-        border: Border.all(color: AppColor.blackTextColor(context).withOpacity(0.03)),
+        border: Border.all(color: AppColor.blackTextColor(context).withValues(alpha: 0.03)),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

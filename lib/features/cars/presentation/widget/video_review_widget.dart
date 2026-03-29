@@ -70,7 +70,7 @@ class _VideoReviewWidgetState extends State<VideoReviewWidget> {
                           backgroundColor: AppColor.primaryColor(context).withValues(alpha: 0.9),
                           child: Icon(
                             Icons.play_arrow_rounded,
-                            color: AppColor.blackTextColor(context),
+                            color: AppColor.whiteColor(context),
                             size: 40.sp,
                           ),
                         ),
@@ -82,7 +82,7 @@ class _VideoReviewWidgetState extends State<VideoReviewWidget> {
                       child: Container(
                         padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 6.h),
                         decoration: BoxDecoration(
-                          color: AppColor.blackTextColor(context).withValues(alpha: 0.7),
+                          color: AppColor.blackTextColor(context).withValues(alpha: 0.4),
                           borderRadius: BorderRadius.circular(8.r),
                         ),
                         child: Text(

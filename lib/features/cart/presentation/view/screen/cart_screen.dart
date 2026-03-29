@@ -25,10 +25,7 @@ class CartScreen extends StatelessWidget {
             elevation: 0,
             centerTitle: true,
             leading: IconButton(
-              icon: Icon(
-                Icons.arrow_back_ios_new_rounded,
-                color: AppColor.blackTextColor(context),
-              ),
+              icon: Icon(Icons.arrow_back_ios_new_rounded, color: AppColor.blackTextColor(context)),
               onPressed: () => Navigator.pop(context),
               style: IconButton.styleFrom(
                 backgroundColor: AppColor.blackTextColor(context).withOpacity(0.05),
@@ -48,9 +45,7 @@ class CartScreen extends StatelessWidget {
                       context: context,
                       builder: (_) => AlertDialog(
                         backgroundColor: AppColor.secondAppColor(context),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20.r),
-                        ),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.r)),
                         title: Text(
                           'تفريغ السلة',
                           style: AppTextStyle.titleMedium(
@@ -93,9 +88,7 @@ class CartScreen extends StatelessWidget {
                   },
                   child: Text(
                     'تفريغ',
-                    style: AppTextStyle.bodySmall(
-                      context,
-                    ).copyWith(color: Colors.redAccent),
+                    style: AppTextStyle.bodySmall(context).copyWith(color: Colors.redAccent),
                   ),
                 ),
             ],
@@ -113,19 +106,12 @@ class CartScreen extends StatelessWidget {
                           // Header Badge
                           Container(
                             margin: EdgeInsets.only(bottom: 20.h),
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 16.w,
-                              vertical: 10.h,
-                            ),
+                            padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
                             decoration: BoxDecoration(
-                              color: AppColor.primaryColor(
-                                context,
-                              ).withOpacity(0.1),
+                              color: AppColor.primaryColor(context).withOpacity(0.1),
                               borderRadius: BorderRadius.circular(12.r),
                               border: Border.all(
-                                color: AppColor.primaryColor(
-                                  context,
-                                ).withOpacity(0.3),
+                                color: AppColor.primaryColor(context).withOpacity(0.3),
                               ),
                             ),
                             child: Row(
@@ -138,11 +124,10 @@ class CartScreen extends StatelessWidget {
                                 Gap(10.w),
                                 Text(
                                   '${items.length} ${items.length == 1 ? 'سيارة' : 'سيارات'} في سلتك',
-                                  style: AppTextStyle.bodyMedium(context)
-                                      .copyWith(
-                                        color: AppColor.primaryColor(context),
-                                        fontWeight: FontWeight.w600,
-                                      ),
+                                  style: AppTextStyle.bodyMedium(context).copyWith(
+                                    color: AppColor.primaryColor(context),
+                                    fontWeight: FontWeight.w600,
+                                  ),
                                 ),
                               ],
                             ),
@@ -181,19 +166,17 @@ class CartScreen extends StatelessWidget {
                             children: [
                               Text(
                                 'الإجمالي',
-                                style: AppTextStyle.titleMedium(context)
-                                    .copyWith(
-                                      color: AppColor.blackTextColor(context).withOpacity(0.7),
-                                    ),
+                                style: AppTextStyle.titleMedium(context).copyWith(
+                                  color: AppColor.blackTextColor(context).withOpacity(0.7),
+                                ),
                               ),
                               Text(
-                                '${totalPrice.toStringAsFixed(0).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (m) => '${m[1]},')} د.إ',
-                                style: AppTextStyle.titleLarge(context)
-                                    .copyWith(
-                                      color: AppColor.primaryColor(context),
-                                      fontWeight: FontWeight.w900,
-                                      fontSize: 22.sp,
-                                    ),
+                                '${totalPrice.toStringAsFixed(0).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (m) => '${m[1]},')}  ر.س       ',
+                                style: AppTextStyle.titleLarge(context).copyWith(
+                                  color: AppColor.primaryColor(context),
+                                  fontWeight: FontWeight.w900,
+                                  fontSize: 22.sp,
+                                ),
                               ),
                             ],
                           ),
@@ -229,11 +212,10 @@ class CartScreen extends StatelessWidget {
                                   Gap(10.w),
                                   Text(
                                     'ادفع الآن',
-                                    style: AppTextStyle.titleMedium(context)
-                                        .copyWith(
-                                          color: AppColor.blackTextColor(context),
-                                          fontWeight: FontWeight.bold,
-                                        ),
+                                    style: AppTextStyle.titleMedium(context).copyWith(
+                                      color: AppColor.blackTextColor(context),
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                 ],
                               ),
@@ -290,9 +272,7 @@ class CartScreen extends StatelessWidget {
             style: ElevatedButton.styleFrom(
               backgroundColor: AppColor.primaryColor(context),
               padding: EdgeInsets.symmetric(horizontal: 32.w, vertical: 14.h),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(14.r),
-              ),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14.r)),
             ),
             child: Text(
               'تصفح السيارات',

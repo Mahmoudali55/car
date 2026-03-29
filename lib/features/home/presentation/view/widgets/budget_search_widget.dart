@@ -61,9 +61,7 @@ class _BudgetSearchWidgetState extends State<BudgetSearchWidget> {
                 boxShadow: isSelected
                     ? [
                         BoxShadow(
-                          color: AppColor.primaryColor(
-                            context,
-                          ).withOpacity(0.3),
+                          color: AppColor.primaryColor(context).withOpacity(0.3),
                           blurRadius: 15,
                           offset: const Offset(0, 5),
                         ),
@@ -75,7 +73,7 @@ class _BudgetSearchWidgetState extends State<BudgetSearchWidget> {
                   budgets[index],
                   style: AppTextStyle.bodySmall(context).copyWith(
                     color: isSelected
-                        ? AppColor.blackTextColor(context)
+                        ? AppColor.whiteColor(context)
                         : AppColor.blackTextColor(context).withOpacity(0.8),
                     fontWeight: isSelected ? FontWeight.w800 : FontWeight.w600,
                     fontSize: 12.sp,

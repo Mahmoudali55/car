@@ -13,7 +13,7 @@ class AppTextStyle {
     return TextStyle(
       fontSize: 24.sp,
       fontWeight: FontWeight.bold,
-      color: color ?? AppColor.secondAppColor(context, listen: listen),
+      color: color ?? AppColor.whiteColor(context, listen: listen),
     );
   }
 

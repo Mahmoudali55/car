@@ -83,7 +83,7 @@ class _FeaturedCarsSliderWidgetState extends State<FeaturedCarsSliderWidget> {
                                   child: Text(
                                     AppLocaleKey.specialOffersCars.tr(),
                                     style: AppTextStyle.bodySmall(context).copyWith(
-                                      color: AppColor.blackTextColor(context),
+                                      color: AppColor.whiteColor(context),
                                       fontSize: 10.sp,
                                       fontWeight: FontWeight.bold,
                                     ),
@@ -114,7 +114,13 @@ class _FeaturedCarsSliderWidgetState extends State<FeaturedCarsSliderWidget> {
                             flex: 6,
                             child: Hero(
                               tag: 'featured_car_${car['name']}',
-                              child: Image.asset(car['image']!, fit: BoxFit.contain),
+                              child: Center(
+                                child: Image.asset(
+                                  car['image']!,
+                                  fit: BoxFit.contain,
+                                  height: 120.h,
+                                ),
+                              ),
                             ),
                           ),
                         ],

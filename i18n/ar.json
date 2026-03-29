@@ -314,7 +314,7 @@
   "sunroof": "فتحة سقف",
   "cruise_control": "مثبت سرعة",
   "all": "الكل",
-  "aed": "د.إ",
+  "aed": " ر.س       ",
   "km": "كم",
   "notifications": "التنبيهات",
   "mark_as_read": "تحديد كقروء",
@@ -393,7 +393,7 @@
   "low_stock_alert": "تنبيه مخزون منخفض",
   "low_stock_body": "مرسيدس S-Class أصبحت غير متوفرة في المستودع.",
   "payment_failed_title": "فشل عملية دفع",
-  "payment_failed_body": "فشل العميل خالد في إتمام عملية دفع لمبلغ 15,000 د.إ.",
+  "payment_failed_body": "فشل العميل خالد في إتمام عملية دفع لمبلغ 15,000  ر.س       .",
   "new_car_added_activity": "تم إضافة مرسيدس G-Class",
   "added_by_admin": "بواسطة أدمن: محمد علي",
   "new_inspection_request": "طلب فحص جديد رقم #1204",
@@ -401,7 +401,7 @@
   "new_user_joined": "مستخدم جديد انضم للنظام",
   "user_email_label": "البريد: omar@example.com",
   "successful_payment_title": "اكتمال عملية دفع ناجحة",
-  "amount_label": "المبلغ: 12,500 د.إ",
+  "amount_label": "المبلغ: 12,500  ر.س       ",
   "edit_trip_price": "تعديل سعر رحلة",
   "three_requests": "3 طلبات",
   "booking_payment_gclass": "دفعة حجز: سيارة G-Class",
@@ -445,6 +445,9 @@
   "available_banks": "يسرنا أخباركم بالبنوك المتاحة للتقسيط لعملاء: مصرف الراجحي، البنك الأهلي السعودي، مصرف الإنماء، بنك البلاد، البنك السعودي الفرنسي، بنك الجزيرة، مصرف الراجحي، بنك الرياض",
   "view": "عرض",
   "share": "مشاركة",
-  "print": "طباعة"
+  "print": "طباعة",
+  "markAllAsRead": "تحديد الكل كمقروءة",
+  "most_requested":"الأكثر طلباً",
+  "limited":"عرض محدود"
 }
 

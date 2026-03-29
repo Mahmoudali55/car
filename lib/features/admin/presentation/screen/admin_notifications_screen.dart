@@ -1,4 +1,5 @@
 import 'package:animate_do/animate_do.dart';
+import 'package:car/core/custom_widgets/custom_app_bar/custom_app_bar.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
@@ -14,18 +15,15 @@ class AdminNotificationsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.scaffoldColor(context),
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        leading: IconButton(
-          onPressed: () => Navigator.pop(context),
-          icon: Icon(Icons.arrow_back_ios_new_rounded, color: AppColor.blackTextColor(context)),
-        ),
+      appBar: CustomAppBar(
+        context,
         title: Text(
           AppLocaleKey.notifications.tr(),
-          style: AppTextStyle.titleMedium(
-            context,
-          ).copyWith(color: AppColor.blackTextColor(context), fontWeight: FontWeight.w900, fontSize: 20.sp),
+          style: AppTextStyle.titleMedium(context).copyWith(
+            color: AppColor.blackTextColor(context),
+            fontWeight: FontWeight.w900,
+            fontSize: 20.sp,
+          ),
         ),
       ),
       body: ListView.separated(
@@ -91,7 +89,10 @@ class AdminNotificationsScreen extends StatelessWidget {
                 Gap(4.h),
                 Text(
                   notif['desc'] as String,
-                  style: TextStyle(color: AppColor.blackTextColor(context).withOpacity(0.4), fontSize: 11.sp),
+                  style: TextStyle(
+                    color: AppColor.blackTextColor(context).withOpacity(0.4),
+                    fontSize: 11.sp,
+                  ),
                 ),
                 Gap(8.h),
                 Text(

@@ -22,7 +22,7 @@ class SupportScreen extends StatelessWidget {
           SliverAppBar(
             expandedHeight: 180.h,
             pinned: true,
-            backgroundColor: AppColor.scaffoldColor(context),
+            backgroundColor: AppColor.appBarColor(context),
             leading: IconButton(
               onPressed: () => Navigator.pop(context),
               icon: Icon(Icons.arrow_back_ios_new_rounded, color: AppColor.blackTextColor(context)),
@@ -38,7 +38,10 @@ class SupportScreen extends StatelessWidget {
               background: Container(
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
-                    colors: [Color(0xFF4C1D95), Color(0xFF1E1E2C)],
+                    colors: [
+                      AppColor.primaryColor(context),
+                      AppColor.primaryColor(context).withValues(alpha: 0.8),
+                    ],
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                   ),
@@ -154,7 +157,7 @@ class SupportScreen extends StatelessWidget {
             Text(
               title,
               style: TextStyle(
-                color: AppColor.blackTextColor(context).withOpacity(0.9),
+                color: AppColor.blackTextColor(context).withValues(alpha: 0.9),
                 fontSize: 15.sp,
                 fontWeight: FontWeight.bold,
               ),
@@ -170,13 +173,13 @@ class SupportScreen extends StatelessWidget {
       child: Container(
         margin: EdgeInsets.only(bottom: 8.h),
         decoration: BoxDecoration(
-          color: const Color(0xFF1F2937).withOpacity(0.5),
+          color: AppColor.secondAppColor(context),
           borderRadius: BorderRadius.circular(12.r),
-          border: Border.all(color: AppColor.blackTextColor(context).withOpacity(0.05)),
+          border: Border.all(color: AppColor.blackTextColor(context).withValues(alpha: 0.05)),
         ),
         child: ListTile(
           dense: true,
-          leading: Icon(icon, color: AppColor.blackTextColor(context).withOpacity(0.6), size: 18.sp),
+          leading: Icon(icon, color: AppColor.blackTextColor(context).withValues(alpha: 0.6), size: 18.sp),
           title: Text(
             value,
             style: TextStyle(
@@ -187,7 +190,7 @@ class SupportScreen extends StatelessWidget {
           ),
           trailing: Icon(
             Icons.copy_rounded,
-            color: AppColor.blackTextColor(context).withOpacity(0.2),
+            color: AppColor.blackTextColor(context).withValues(alpha: 0.2),
             size: 16.sp,
           ),
           onTap: () {
@@ -209,7 +212,7 @@ class SupportScreen extends StatelessWidget {
         margin: EdgeInsets.only(bottom: 8.h),
         padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 14.h),
         decoration: BoxDecoration(
-          color: const Color(0xFF1F2937).withValues(alpha: (0.5)),
+          color: AppColor.secondAppColor(context),
           borderRadius: BorderRadius.circular(12.r),
         ),
         child: Row(

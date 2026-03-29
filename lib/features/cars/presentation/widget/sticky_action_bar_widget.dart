@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:car/core/cache/hive/hive_methods.dart';
+import 'package:car/core/custom_widgets/buttons/custom_button.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
@@ -42,7 +43,9 @@ class StickyActionBarWidget extends StatelessWidget {
                   child: BlocBuilder<CartCubit, CartState>(
                     builder: (context, state) {
                       final isInCart = context.read<CartCubit>().isInCart(car['name'] ?? '');
-                      return ElevatedButton(
+                      return CustomButton(
+                        height: 50.h,
+                        radius: 12.r,
                         onPressed: () {
                           if (HiveMethods.getToken() == null) {
                             CommonMethods.showLoginRequiredDialog(context);
@@ -54,15 +57,7 @@ class StickyActionBarWidget extends StatelessWidget {
                             }
                           }
                         },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: isInCart
-                              ? Colors.redAccent.withValues(alpha: 0.8)
-                              : AppColor.primaryColor(context),
-                          padding: EdgeInsets.symmetric(vertical: 18.h),
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.r)),
-                          elevation: 10,
-                          shadowColor: AppColor.primaryColor(context).withValues(alpha: 0.3),
-                        ),
+
                         child: Text(
                           isInCart ? AppLocaleKey.removeFromCart.tr() : AppLocaleKey.addToCart.tr(),
                           style: AppTextStyle.buttonStyle(
@@ -75,7 +70,7 @@ class StickyActionBarWidget extends StatelessWidget {
                 ),
                 Gap(16.w),
                 Container(
-                  height: 56.h,
+                  height: 50.h,
                   width: 56.h,
                   decoration: BoxDecoration(
                     color: AppColor.blackTextColor(context).withValues(alpha: 0.1),
@@ -93,7 +88,7 @@ class StickyActionBarWidget extends StatelessWidget {
                 ),
                 Gap(12.w),
                 Container(
-                  height: 56.h,
+                  height: 50.h,
                   width: 56.h,
                   decoration: BoxDecoration(
                     color: const Color(0xff25D366),
@@ -107,11 +102,7 @@ class StickyActionBarWidget extends StatelessWidget {
                     ],
                   ),
                   child: IconButton(
-                    icon: Icon(
-                      Icons.phone_rounded,
-                      color: AppColor.blackTextColor(context),
-                      size: 28,
-                    ),
+                    icon: Icon(Icons.phone_rounded, color: AppColor.whiteColor(context), size: 28),
                     onPressed: () {
                       if (HiveMethods.getToken() == null) {
                         CommonMethods.showLoginRequiredDialog(context);
@@ -133,7 +124,7 @@ class StickyActionBarWidget extends StatelessWidget {
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
-      builder: (context) => Container(
+      builder: (bottomSheetContext) => Container(
         padding: EdgeInsets.all(24.w),
         decoration: BoxDecoration(
           color: AppColor.scaffoldColor(context),
@@ -144,7 +135,11 @@ class StickyActionBarWidget extends StatelessWidget {
           children: [
             Text(
               AppLocaleKey.carQuotation.tr(),
-              style: AppTextStyle.titleLarge(context).copyWith(fontWeight: FontWeight.w900),
+              style: AppTextStyle.titleMedium(
+                context,
+                listen: false,
+                color: AppColor.blackTextColor(context),
+              ).copyWith(fontWeight: FontWeight.w900),
             ),
             Gap(24.h),
             _buildOptionItem(
@@ -152,8 +147,9 @@ class StickyActionBarWidget extends StatelessWidget {
               icon: Icons.print_rounded,
               label: AppLocaleKey.print.tr(),
               onTap: () async {
-                Navigator.pop(context);
-                final bytes = await QuotePdfGenerator.generatePdfBytes(car, context);
+                final langCode = context.locale.languageCode;
+                Navigator.pop(bottomSheetContext);
+                final bytes = await QuotePdfGenerator.generatePdfBytes(car, langCode);
                 await QuotePdfGenerator.printQuotation(bytes, 'Quotation_${car['name']}.pdf');
               },
             ),
@@ -162,8 +158,9 @@ class StickyActionBarWidget extends StatelessWidget {
               icon: Icons.visibility_rounded,
               label: AppLocaleKey.view.tr(),
               onTap: () async {
-                Navigator.pop(context);
-                final bytes = await QuotePdfGenerator.generatePdfBytes(car, context);
+                final langCode = context.locale.languageCode;
+                Navigator.pop(bottomSheetContext);
+                final bytes = await QuotePdfGenerator.generatePdfBytes(car, langCode);
                 await QuotePdfGenerator.viewQuotation(bytes, 'Quotation_${car['name']}.pdf');
               },
             ),
@@ -172,8 +169,9 @@ class StickyActionBarWidget extends StatelessWidget {
               icon: Icons.share_rounded,
               label: AppLocaleKey.share.tr(),
               onTap: () async {
-                Navigator.pop(context);
-                final bytes = await QuotePdfGenerator.generatePdfBytes(car, context);
+                final langCode = context.locale.languageCode;
+                Navigator.pop(bottomSheetContext);
+                final bytes = await QuotePdfGenerator.generatePdfBytes(car, langCode);
                 await QuotePdfGenerator.shareQuotation(bytes, 'Quotation_${car['name']}.pdf');
               },
             ),
@@ -182,16 +180,19 @@ class StickyActionBarWidget extends StatelessWidget {
               icon: Icons.file_download_rounded,
               label: AppLocaleKey.downloadQuotation.tr(),
               onTap: () async {
-                Navigator.pop(context);
-                final bytes = await QuotePdfGenerator.generatePdfBytes(car, context);
+                final langCode = context.locale.languageCode;
+                Navigator.pop(bottomSheetContext);
+                final bytes = await QuotePdfGenerator.generatePdfBytes(car, langCode);
                 await QuotePdfGenerator.downloadQuotation(bytes, 'Quotation_${car['name']}.pdf');
                 // ignore: use_build_context_synchronously
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text(AppLocaleKey.orderSuccess.tr()),
-                    backgroundColor: Colors.green,
-                  ),
-                );
+                if (context.mounted) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(AppLocaleKey.orderSuccess.tr()),
+                      backgroundColor: Colors.green,
+                    ),
+                  );
+                }
               },
             ),
             Gap(16.h),

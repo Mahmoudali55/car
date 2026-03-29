@@ -201,7 +201,7 @@ class _FilterScreenState extends State<FilterScreen> {
                 AppLocaleKey.applyFilter.tr(),
                 style: AppTextStyle.titleMedium(
                   context,
-                ).copyWith(color: AppColor.blackTextColor(context), fontWeight: FontWeight.bold),
+                ).copyWith(color: AppColor.whiteColor(context), fontWeight: FontWeight.bold),
               ),
             ),
           ),
@@ -268,7 +268,7 @@ class _FilterScreenState extends State<FilterScreen> {
             child: Text(
               item.tr(),
               style: AppTextStyle.bodySmall(context).copyWith(
-                color: isSelected ? AppColor.blackTextColor(context) : AppColor.blackTextColor(context).withValues(alpha: 0.70),
+                color: isSelected ? AppColor.whiteColor(context) : AppColor.blackTextColor(context).withValues(alpha: 0.70),
                 fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
               ),
             ),
@@ -340,7 +340,7 @@ class _FilterScreenState extends State<FilterScreen> {
           ).copyWith(color: AppColor.blackTextColor(context).withValues(alpha: 0.70)),
         ),
         activeColor: AppColor.primaryColor(context),
-        checkColor: AppColor.blackTextColor(context),
+        checkColor: AppColor.whiteColor(context),
         contentPadding: EdgeInsets.zero,
         controlAffinity: ListTileControlAffinity.trailing,
         shape: RoundedRectangleBorder(

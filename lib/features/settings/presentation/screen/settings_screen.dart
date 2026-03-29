@@ -1,5 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:car/core/cache/hive/hive_methods.dart';
+import 'package:car/core/custom_widgets/custom_app_bar/custom_app_bar.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/routes/routes_name.dart';
 import 'package:car/core/theme/app_colors.dart';
@@ -20,18 +21,14 @@ class SettingsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.scaffoldColor(context),
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
+      appBar: CustomAppBar(
+        context,
         title: Text(
           AppLocaleKey.settings.tr(),
-          style: AppTextStyle.titleMedium(
-            context,
-          ).copyWith(color: AppColor.blackTextColor(context), fontWeight: FontWeight.bold),
-        ),
-        leading: IconButton(
-          onPressed: () => Navigator.pop(context),
-          icon: Icon(Icons.arrow_back_ios_new_rounded, color: AppColor.blackTextColor(context)),
+          style: AppTextStyle.titleMedium(context).copyWith(
+            color: AppColor.blackTextColor(context),
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
       body: BlocBuilder<AppThemeCubit, AppThemeState>(

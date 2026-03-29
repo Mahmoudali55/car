@@ -12,7 +12,7 @@ import 'package:printing/printing.dart';
 import 'package:share_plus/share_plus.dart';
 
 class QuotePdfGenerator {
-  static Future<Uint8List> generatePdfBytes(Map<String, dynamic> car, BuildContext context) async {
+  static Future<Uint8List> generatePdfBytes(Map<String, dynamic> car, String languageCode) async {
     final pdf = pw.Document();
 
     // Load Arabic font
@@ -52,7 +52,7 @@ class QuotePdfGenerator {
         pageFormat: PdfPageFormat.a4,
         theme: pw.ThemeData.withFont(base: arabicFont, bold: arabicFontBold),
         textDirection:
-            context.locale.languageCode == 'ar' ? pw.TextDirection.rtl : pw.TextDirection.ltr,
+            languageCode == 'ar' ? pw.TextDirection.rtl : pw.TextDirection.ltr,
         build: (pw.Context ctx) {
           return pw.Column(
             crossAxisAlignment: pw.CrossAxisAlignment.stretch,

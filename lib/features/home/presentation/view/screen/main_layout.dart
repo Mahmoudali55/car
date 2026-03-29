@@ -92,8 +92,8 @@ class _MainLayoutState extends State<MainLayout> {
                               ),
                               child: Text(
                                 unreadCount.toString(),
-                                style: TextStyle(
-                                  color: AppColor.blackTextColor(context),
+                                style: AppTextStyle.titleMedium(context).copyWith(
+                                  color: AppColor.whiteColor(context),
                                   fontSize: 10.sp,
                                   fontWeight: FontWeight.bold,
                                 ),

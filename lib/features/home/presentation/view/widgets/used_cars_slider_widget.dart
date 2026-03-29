@@ -16,7 +16,7 @@ class UsedCarsSliderWidget extends StatelessWidget {
       'name': 'Toyota Camry 2020',
       'brand': 'Toyota',
       'image': 'assets/images/cars/toyota.png',
-      'price': '85,000 د.إ',
+      'price': '85,000  ر.س       ',
       'year': '2020',
       'mileage': '45,000 كم',
       'engine': '2.5L I4',
@@ -26,7 +26,7 @@ class UsedCarsSliderWidget extends StatelessWidget {
       'name': 'Nissan Altima 2021',
       'brand': 'Nissan',
       'image': 'assets/images/cars/nissan.png',
-      'price': '75,000 د.إ',
+      'price': '75,000  ر.س       ',
       'year': '2021',
       'mileage': '30,000 كم',
       'engine': '2.5L I4',
@@ -36,7 +36,7 @@ class UsedCarsSliderWidget extends StatelessWidget {
       'name': 'Hyundai Elantra 2019',
       'brand': 'Hyundai',
       'image': 'assets/images/cars/hyundai.png',
-      'price': '55,000 د.إ',
+      'price': '55,000  ر.س       ',
       'year': '2019',
       'mileage': '60,000 كم',
       'engine': '2.0L I4',
@@ -45,11 +45,7 @@ class UsedCarsSliderWidget extends StatelessWidget {
   ];
 
   void _navigateToDetails(BuildContext context, Map<String, dynamic> car) {
-    NavigatorMethods.pushNamed(
-      context,
-      RoutesName.carDetailsScreen,
-      arguments: car,
-    );
+    NavigatorMethods.pushNamed(context, RoutesName.carDetailsScreen, arguments: car);
   }
 
   @override
@@ -84,12 +80,11 @@ class UsedCarsSliderWidget extends StatelessWidget {
                         Container(
                           width: double.infinity,
                           padding: EdgeInsets.all(12.w),
-                          color: AppColor.blackTextColor(context).withValues(alpha: 0.02),
+
                           child: Hero(
                             tag: 'used_car_${car['name']}',
-                            child: Image.asset(
-                              car['image']!,
-                              fit: BoxFit.contain,
+                            child: Center(
+                              child: Image.asset(car['image']!, fit: BoxFit.contain, height: 60.h),
                             ),
                           ),
                         ),
@@ -98,22 +93,14 @@ class UsedCarsSliderWidget extends StatelessWidget {
                           right: 8.w,
                           child: BlocBuilder<FavoritesCubit, FavoritesState>(
                             builder: (context, state) {
-                              final isFav = context
-                                  .read<FavoritesCubit>()
-                                  .isFavorite(car['name']!);
+                              final isFav = context.read<FavoritesCubit>().isFavorite(car['name']!);
                               return GestureDetector(
-                                onTap: () => context
-                                    .read<FavoritesCubit>()
-                                    .toggleFavorite(car),
+                                onTap: () => context.read<FavoritesCubit>().toggleFavorite(car),
                                 child: CircleAvatar(
                                   radius: 14.r,
-                                  backgroundColor: Colors.black.withValues(
-                                    alpha: 0.3,
-                                  ),
+                                  backgroundColor: Colors.black.withValues(alpha: 0.1),
                                   child: Icon(
-                                    isFav
-                                        ? Icons.favorite_rounded
-                                        : Icons.favorite_border_rounded,
+                                    isFav ? Icons.favorite_rounded : Icons.favorite_border_rounded,
                                     color: isFav
                                         ? Colors.redAccent
                                         : AppColor.blackTextColor(context),

@@ -170,13 +170,14 @@ class LoginScreen extends StatelessWidget {
                                     width: 24.h,
                                     child: Theme(
                                       data: ThemeData(
-                                        unselectedWidgetColor: AppColor.whiteColor(
+                                        unselectedWidgetColor: AppColor.blackTextColor(
                                           context,
                                         ).withValues(alpha: 0.3),
                                       ),
                                       child: Checkbox(
                                         value: cubit.rememberMe,
                                         activeColor: AppColor.primaryColor(context),
+                                        checkColor: AppColor.whiteColor(context),
                                         onChanged: (value) => cubit.changeRememberMe(),
                                       ),
                                     ),

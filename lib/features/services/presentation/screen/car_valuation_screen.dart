@@ -21,7 +21,7 @@ class CarValuationScreen extends StatelessWidget {
           SliverAppBar(
             expandedHeight: 180.h,
             pinned: true,
-            backgroundColor: AppColor.scaffoldColor(context),
+            backgroundColor: AppColor.appBarColor(context),
             leading: IconButton(
               onPressed: () => Navigator.pop(context),
               icon: Icon(Icons.arrow_back_ios_new_rounded, color: AppColor.blackTextColor(context)),
@@ -120,7 +120,7 @@ class CarValuationScreen extends StatelessWidget {
   Widget _buildTextField(String hint, BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: const Color(0xFF1F2937),
+        color: AppColor.secondAppColor(context),
         borderRadius: BorderRadius.circular(12.r),
         border: Border.all(color: AppColor.blackTextColor(context).withValues(alpha: (0.05))),
       ),
@@ -153,7 +153,7 @@ class CarValuationScreen extends StatelessWidget {
         child: Text(
           text,
           style: TextStyle(
-            color: AppColor.blackTextColor(context),
+            color: Colors.white,
             fontSize: 16.sp,
             fontWeight: FontWeight.bold,
           ),

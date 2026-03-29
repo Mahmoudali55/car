@@ -131,7 +131,7 @@ class ManageBookingsScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Text(
-                    '2,400 د.إ',
+                    '2,400  ر.س       ',
                     style: TextStyle(
                       color: Colors.greenAccent,
                       fontSize: 14.sp,

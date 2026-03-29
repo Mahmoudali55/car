@@ -81,7 +81,7 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
                     borderRadius: BorderRadius.circular(30.r),
                     border: Border.all(
                       color: isSelected
-                          ? AppColor.blackTextColor(context).withValues(alpha: 0.2)
+                          ? AppColor.whiteColor(context).withValues(alpha: 0.2)
                           : AppColor.blackTextColor(context).withValues(alpha: 0.05),
                       width: 1,
                     ),
@@ -117,11 +117,11 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
                           width: 22.w,
                           height: 22.w,
                           fit: BoxFit.contain,
-                          color: isSelected ? AppColor.blackTextColor(context) : null,
+                          color: isSelected ? AppColor.whiteColor(context) : null,
                           errorBuilder: (context, error, stackTrace) => Icon(
                             Icons.directions_car_rounded,
                             color: isSelected
-                                ? AppColor.blackTextColor(context)
+                                ? AppColor.whiteColor(context)
                                 : AppColor.primaryColor(context),
                             size: 18.w,
                           ),
@@ -132,7 +132,7 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
                         categories[index]['name'] as String,
                         style: AppTextStyle.bodySmall(context).copyWith(
                           color: isSelected
-                              ? AppColor.blackTextColor(context)
+                              ? AppColor.whiteColor(context)
                               : AppColor.blackTextColor(context).withValues(alpha: 0.7),
                           fontWeight: isSelected ? FontWeight.w900 : FontWeight.w600,
                           fontSize: 13.sp,

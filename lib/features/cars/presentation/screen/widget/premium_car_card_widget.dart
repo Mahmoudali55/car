@@ -43,19 +43,12 @@ class PremiumCarCardWidget extends StatelessWidget {
                   height: 160.h,
                   width: double.infinity,
                   padding: EdgeInsets.all(20.w),
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [
-                        AppColor.primaryColor(context).withValues(alpha: 0.05),
-                        Colors.transparent,
-                      ],
-                    ),
-                  ),
+
                   child: Hero(
                     tag: 'car_image_${car['name']}',
-                    child: Image.asset(car['image'], fit: BoxFit.contain),
+                    child: Center(
+                      child: Image.asset(car['image'], fit: BoxFit.contain, height: 150.h),
+                    ),
                   ),
                 ),
                 // Badges
@@ -68,7 +61,7 @@ class PremiumCarCardWidget extends StatelessWidget {
                     alignment: Alignment.center,
                     padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
                     decoration: BoxDecoration(
-                      color: AppColor.blackTextColor(context).withValues(alpha: 0.2),
+                      color: AppColor.blackTextColor(context).withValues(alpha: 0.1),
                       shape: BoxShape.circle,
                     ),
                     child: Text(
@@ -90,7 +83,7 @@ class PremiumCarCardWidget extends StatelessWidget {
                       return Container(
                         height: 30.h,
                         decoration: BoxDecoration(
-                          color: AppColor.blackTextColor(context).withValues(alpha: 0.2),
+                          color: AppColor.blackTextColor(context).withValues(alpha: 0.1),
                           shape: BoxShape.circle,
                         ),
                         child: IconButton(

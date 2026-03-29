@@ -245,7 +245,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                   children: [
                     _buildSummaryRow(context, 'مجموع السيارات', _formatPrice(widget.totalPrice)),
                     Gap(10.h),
-                    _buildSummaryRow(context, 'رسوم الخدمة', '2,500 د.إ'),
+                    _buildSummaryRow(context, 'رسوم الخدمة', '2,500  ر.س       '),
                     Gap(10.h),
                     Divider(color: AppColor.blackTextColor(context).withOpacity(0.1)),
                     Gap(10.h),
@@ -591,6 +591,6 @@ class _PaymentScreenState extends State<PaymentScreen> {
     final formatted = price
         .toStringAsFixed(0)
         .replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (m) => '${m[1]},');
-    return '$formatted د.إ';
+    return '$formatted  ر.س       ';
   }
 }

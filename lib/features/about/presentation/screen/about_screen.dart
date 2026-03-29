@@ -145,17 +145,17 @@ class _AboutScreenState extends State<AboutScreen> {
     return SliverAppBar(
       expandedHeight: 380.h,
       pinned: true,
-      backgroundColor: AppColor.secondAppColor(context),
+      backgroundColor: AppColor.appBarColor(context),
       leading: IconButton(
         onPressed: () => Navigator.pop(context),
-        icon: Icon(Icons.arrow_back_ios_new_rounded, color: Colors.white, size: 22.sp),
+        icon: Icon(Icons.arrow_back_ios_new_rounded, color: AppColor.whiteColor(context), size: 22.sp),
       ),
       flexibleSpace: FlexibleSpaceBar(
         centerTitle: true,
         titlePadding: EdgeInsets.only(bottom: 16.h),
         title: Text(
           AppLocaleKey.aboutCompany.tr(),
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18.sp),
+          style: TextStyle(color: AppColor.whiteColor(context), fontWeight: FontWeight.bold, fontSize: 18.sp),
         ),
         background: Stack(
           fit: StackFit.expand,
@@ -203,7 +203,7 @@ class _AboutScreenState extends State<AboutScreen> {
         Text(
           AppLocaleKey.companyBio.tr(),
           style: TextStyle(
-            color: AppColor.blackTextColor(context).withOpacity(0.7),
+            color: AppColor.blackTextColor(context).withValues(alpha: 0.7),
             fontSize: 15.sp,
             height: 1.8,
           ),
@@ -244,7 +244,7 @@ class _AboutScreenState extends State<AboutScreen> {
                     _promos[index].tr(),
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      color: AppColor.blackTextColor(context).withOpacity(0.9),
+                      color: AppColor.whiteColor(context),
                       fontSize: 14.sp,
                       fontWeight: FontWeight.w600,
                       height: 1.6,
@@ -345,7 +345,7 @@ class _AboutScreenState extends State<AboutScreen> {
       child: Text(
         brand,
         style: TextStyle(
-          color: AppColor.blackTextColor(context),
+          color: AppColor.whiteColor(context),
           fontWeight: FontWeight.w600,
           fontSize: 14.sp,
         ),
@@ -374,7 +374,7 @@ class _AboutScreenState extends State<AboutScreen> {
             child: Text(
               AppLocaleKey.financingAvailable.tr(),
               style: TextStyle(
-                color: AppColor.blackTextColor(context).withOpacity(0.9),
+                color: AppColor.blackTextColor(context).withValues(alpha: 0.9),
                 fontWeight: FontWeight.bold,
                 fontSize: 14.sp,
                 height: 1.5,

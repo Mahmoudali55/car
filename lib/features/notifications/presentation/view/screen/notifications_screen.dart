@@ -1,8 +1,11 @@
+import 'package:car/core/custom_widgets/custom_app_bar/custom_app_bar.dart';
+import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/features/notifications/presentation/view/cubit/notifications_cubit.dart';
 import 'package:car/features/notifications/presentation/view/cubit/notifications_state.dart';
 import 'package:car/features/notifications/presentation/view/widget/notification_item_widget.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -15,22 +18,10 @@ class NotificationsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.scaffoldColor(context),
-      appBar: AppBar(
-        backgroundColor: AppColor.scaffoldColor(context),
-        elevation: 0,
-        centerTitle: true,
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back_ios_new_rounded,
-            color: AppColor.blackTextColor(context),
-          ),
-          onPressed: () => Navigator.pop(context),
-          style: IconButton.styleFrom(
-            backgroundColor: AppColor.blackTextColor(context).withOpacity(0.05),
-          ),
-        ),
+      appBar: CustomAppBar(
+        context,
         title: Text(
-          'التنبيهات',
+          AppLocaleKey.notifications.tr(),
           style: AppTextStyle.titleMedium(
             context,
           ).copyWith(color: AppColor.blackTextColor(context), fontWeight: FontWeight.bold),
@@ -40,14 +31,12 @@ class NotificationsScreen extends StatelessWidget {
             builder: (context, state) {
               if (state is NotificationsLoaded && state.unreadCount > 0) {
                 return TextButton(
-                  onPressed: () =>
-                      context.read<NotificationsCubit>().markAllAsRead(),
+                  onPressed: () => context.read<NotificationsCubit>().markAllAsRead(),
                   child: Text(
-                    'تحديد كقروء',
-                    style: AppTextStyle.bodySmall(context).copyWith(
-                      color: AppColor.primaryColor(context),
-                      fontWeight: FontWeight.bold,
-                    ),
+                    AppLocaleKey.markAllAsRead.tr(),
+                    style: AppTextStyle.bodySmall(
+                      context,
+                    ).copyWith(color: AppColor.primaryColor(context), fontWeight: FontWeight.bold),
                   ),
                 );
               }
@@ -70,9 +59,7 @@ class NotificationsScreen extends StatelessWidget {
                 final notification = state.notifications[index];
                 return NotificationItemWidget(
                   notification: notification,
-                  onTap: () => context.read<NotificationsCubit>().markAsRead(
-                    notification['id'],
-                  ),
+                  onTap: () => context.read<NotificationsCubit>().markAsRead(notification['id']),
                 );
               },
             );

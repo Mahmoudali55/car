@@ -123,7 +123,7 @@ class AppColor {
   static Color appBarTextColor(BuildContext context, {bool listen = true}) {
     return AppTheme.getByTheme(
       context,
-      light: const Color(0xFF0F172A),
+      light: const Color(0xFF0F172A), // Dark Slate
       dark: const Color(0xFFFFFFFF),
       listen: listen,
     );
@@ -132,8 +132,9 @@ class AppColor {
   static Color appBarColor(BuildContext context, {bool listen = true}) {
     return AppTheme.getByTheme(
       context,
-      light: const Color(0xFFFFFFFF),
-      dark: const Color(0xFF051139),
+      light: const Color(0xFFFFFFFF), // Premium White
+      dark: const Color(0xFF051139), // Rich Galactic Navy
+      listen: listen,
     );
   }
 
@@ -159,7 +160,7 @@ class AppColor {
   static Color gradientSecondaryColor(BuildContext context, {bool listen = true}) {
     return AppTheme.getByTheme(
       context,
-      light: const Color(0xFFE2E8F0),
+      light: const Color(0xFFF8FAFC), // Cleaner Light White
       dark: const Color(0xFF0A0F1A),
       listen: listen,
     );

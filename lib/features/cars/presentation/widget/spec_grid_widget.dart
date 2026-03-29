@@ -69,20 +69,13 @@ class SpecGridWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildSpecItem(
-    BuildContext context,
-    IconData icon,
-    String title,
-    String value,
-  ) {
+  Widget _buildSpecItem(BuildContext context, IconData icon, String title, String value) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 12.w),
       decoration: BoxDecoration(
         color: AppColor.secondAppColor(context),
         borderRadius: BorderRadius.circular(16.r),
-        border: Border.all(
-          color: AppColor.blackTextColor(context).withValues(alpha: 0.05),
-        ),
+        border: Border.all(color: AppColor.blackTextColor(context).withValues(alpha: 0.05)),
       ),
       child: Row(
         children: [
@@ -92,11 +85,7 @@ class SpecGridWidget extends StatelessWidget {
               color: AppColor.blackTextColor(context).withValues(alpha: 0.05),
               borderRadius: BorderRadius.circular(10.r),
             ),
-            child: Icon(
-              icon,
-              color: AppColor.primaryColor(context),
-              size: 18.sp,
-            ),
+            child: Icon(icon, color: AppColor.primaryColor(context), size: 18.sp),
           ),
           Gap(12.w),
           Expanded(
@@ -106,18 +95,15 @@ class SpecGridWidget extends StatelessWidget {
               children: [
                 Text(
                   title,
-                  style: AppTextStyle.bodySmall(context).copyWith(
-                    color: AppColor.blackTextColor(context).withValues(alpha: 0.4),
-                    fontSize: 10.sp,
-                  ),
+                  style: AppTextStyle.bodySmall(
+                    context,
+                  ).copyWith(color: AppColor.blackTextColor(context)),
                 ),
                 Text(
                   value,
-                  style: AppTextStyle.bodyMedium(context).copyWith(
-                    color: AppColor.blackTextColor(context),
-                    fontWeight: FontWeight.bold,
-                    fontSize: 12.sp,
-                  ),
+                  style: AppTextStyle.bodyMedium(
+                    context,
+                  ).copyWith(color: AppColor.blackTextColor(context), fontWeight: FontWeight.bold),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),

@@ -16,8 +16,8 @@ class OffersGridWidget extends StatelessWidget {
       'name': 'G63 AMG 2024',
       'brand': 'Mercedes-Benz',
       'image': 'assets/images/cars/mercedes-benz.png',
-      'price': '850,000 د.إ',
-      'oldPrice': '1,000,000 د.إ',
+      'price': '850,000  ر.س       ',
+      'oldPrice': '1,000,000  ر.س       ',
       'discount': '15%',
       'year': '2024',
       'mileage': '0 كم',
@@ -29,8 +29,8 @@ class OffersGridWidget extends StatelessWidget {
       'name': 'M5 Competition',
       'brand': 'BMW',
       'image': 'assets/images/cars/bmw.png',
-      'price': '440,000 د.إ',
-      'oldPrice': '520,000 د.إ',
+      'price': '440,000  ر.س       ',
+      'oldPrice': '520,000  ر.س       ',
       'discount': '10%',
       'year': '2023',
       'mileage': '5,000 كم',
@@ -42,8 +42,8 @@ class OffersGridWidget extends StatelessWidget {
       'name': 'Land Cruiser 300',
       'brand': 'Toyota',
       'image': 'assets/images/cars/toyota.png',
-      'price': '330,000 د.إ',
-      'oldPrice': '350,000 د.إ',
+      'price': '330,000  ر.س       ',
+      'oldPrice': '350,000  ر.س       ',
       'discount': '5%',
       'year': '2024',
       'mileage': '0 كم',
@@ -55,8 +55,8 @@ class OffersGridWidget extends StatelessWidget {
       'name': 'Model S Plaid',
       'brand': 'Tesla',
       'image': 'assets/images/cars/tesla.png',
-      'price': '450,000 د.إ',
-      'oldPrice': '480,000 د.إ',
+      'price': '450,000  ر.س       ',
+      'oldPrice': '480,000  ر.س       ',
       'discount': '7%',
       'year': '2024',
       'mileage': '0 كم',
@@ -83,11 +83,7 @@ class OffersGridWidget extends StatelessWidget {
         final car = _offers[index];
         return GestureDetector(
           onTap: () {
-            NavigatorMethods.pushNamed(
-              context,
-              RoutesName.carDetailsScreen,
-              arguments: car,
-            );
+            NavigatorMethods.pushNamed(context, RoutesName.carDetailsScreen, arguments: car);
           },
           child: Container(
             decoration: BoxDecoration(
@@ -147,49 +143,40 @@ class OffersGridWidget extends StatelessWidget {
                           children: [
                             Hero(
                               tag: 'car_image_${car['name']}',
-                              child: Padding(
-                                padding: EdgeInsets.all(16.w),
-                                child: Image.asset(
-                                  car['image'],
-                                  fit: BoxFit.contain,
-                                ),
+                              child: Center(
+                                child: Image.asset(car['image'], height: 60.h, fit: BoxFit.contain),
                               ),
                             ),
                             // Favorite Button
                             Positioned(
                               top: 12.h,
                               right: 12.w,
-                              child:
-                                  BlocBuilder<FavoritesCubit, FavoritesState>(
-                                    builder: (context, state) {
-                                      final isFav = context
-                                          .read<FavoritesCubit>()
-                                          .isFavorite(car['name']!);
-                                      return GestureDetector(
-                                        onTap: () => context
-                                            .read<FavoritesCubit>()
-                                            .toggleFavorite(car),
-                                        child: Container(
-                                          padding: EdgeInsets.all(6.w),
-                                          decoration: BoxDecoration(
-                                            color: Colors.black.withValues(
-                                              alpha: 0.3,
-                                            ),
-                                            shape: BoxShape.circle,
-                                          ),
-                                          child: Icon(
-                                            isFav
-                                                ? Icons.favorite_rounded
-                                                : Icons.favorite_border_rounded,
-                                            color: isFav
-                                                ? Colors.redAccent
-                                                : AppColor.blackTextColor(context),
-                                            size: 14.sp,
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                  ),
+                              child: BlocBuilder<FavoritesCubit, FavoritesState>(
+                                builder: (context, state) {
+                                  final isFav = context.read<FavoritesCubit>().isFavorite(
+                                    car['name']!,
+                                  );
+                                  return GestureDetector(
+                                    onTap: () => context.read<FavoritesCubit>().toggleFavorite(car),
+                                    child: Container(
+                                      padding: EdgeInsets.all(6.w),
+                                      decoration: BoxDecoration(
+                                        color: Colors.black.withValues(alpha: 0.1),
+                                        shape: BoxShape.circle,
+                                      ),
+                                      child: Icon(
+                                        isFav
+                                            ? Icons.favorite_rounded
+                                            : Icons.favorite_border_rounded,
+                                        color: isFav
+                                            ? Colors.redAccent
+                                            : AppColor.blackTextColor(context),
+                                        size: 14.sp,
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
                             ),
                           ],
                         ),
@@ -237,7 +224,9 @@ class OffersGridWidget extends StatelessWidget {
                                   child: Text(
                                     car['mileage'],
                                     style: TextStyle(
-                                      color: AppColor.blackTextColor(context).withValues(alpha: 0.38),
+                                      color: AppColor.blackTextColor(
+                                        context,
+                                      ).withValues(alpha: 0.38),
                                       fontSize: 9.sp,
                                     ),
                                     maxLines: 1,
@@ -271,7 +260,9 @@ class OffersGridWidget extends StatelessWidget {
                                     Text(
                                       car['oldPrice'],
                                       style: TextStyle(
-                                        color: AppColor.blackTextColor(context).withValues(alpha: 0.24),
+                                        color: AppColor.blackTextColor(
+                                          context,
+                                        ).withValues(alpha: 0.24),
                                         fontSize: 9.sp,
                                         decoration: TextDecoration.lineThrough,
                                       ),
@@ -294,7 +285,7 @@ class OffersGridWidget extends StatelessWidget {
                                   ),
                                   child: Icon(
                                     Icons.arrow_forward_rounded,
-                                    color: AppColor.blackTextColor(context),
+                                    color: AppColor.whiteColor(context),
                                     size: 14.sp,
                                   ),
                                 ),
@@ -312,10 +303,7 @@ class OffersGridWidget extends StatelessWidget {
                   top: 12.h,
                   left: 12.w,
                   child: Container(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 8.w,
-                      vertical: 4.h,
-                    ),
+                    padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
                     decoration: BoxDecoration(
                       color: Colors.redAccent.withValues(alpha: 0.9),
                       borderRadius: BorderRadius.circular(8.r),
@@ -323,7 +311,7 @@ class OffersGridWidget extends StatelessWidget {
                     child: Text(
                       "${car['discount']} OFF",
                       style: TextStyle(
-                        color: AppColor.blackTextColor(context),
+                        color: AppColor.whiteColor(context),
                         fontSize: 9.sp,
                         fontWeight: FontWeight.w900,
                       ),

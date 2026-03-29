@@ -79,16 +79,16 @@ class ServiceHistoryScreen extends StatelessWidget {
               margin: EdgeInsets.only(bottom: 16.h),
               padding: EdgeInsets.all(16.w),
               decoration: BoxDecoration(
-                color: const Color(0xFF1F2937),
+                color: AppColor.secondAppColor(context),
                 borderRadius: BorderRadius.circular(16.r),
-                border: Border.all(color: AppColor.blackTextColor(context).withOpacity(0.05)),
+                border: Border.all(color: AppColor.blackTextColor(context).withValues(alpha: 0.05)),
               ),
               child: Row(
                 children: [
                   Container(
                     padding: EdgeInsets.all(12.w),
                     decoration: BoxDecoration(
-                      color: item['color'].withOpacity(0.1),
+                      color: item['color'].withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(12.r),
                     ),
                     child: Icon(item['icon'], color: item['color'], size: 24.sp),

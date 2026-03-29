@@ -31,9 +31,17 @@ class CustomToast extends StatelessWidget {
       padding: EdgeInsets.all(10),
       margin: EdgeInsets.all(10),
       decoration: BoxDecoration(
-        color: AppColor.secondAppColor(context),
-        borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: backgroundColor ?? _backgroundColor()),
+        color: AppColor.cardColor(context),
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.08),
+            blurRadius: 15,
+            spreadRadius: 2,
+            offset: const Offset(0, 4),
+          ),
+        ],
+        border: Border.all(color: (backgroundColor ?? _backgroundColor()).withOpacity(0.5), width: 1.5),
       ),
       child: Row(
         children: [
