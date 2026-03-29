@@ -455,4 +455,10 @@ class AppLocaleKey {
   static const String mostRequested = 'most_requested';
   static const String limited = 'limited';
   static const String total = 'total';
+  static const String profile = 'profile';
+  static const String myAccount = 'myAccount';
+  static const String memberSince = 'member_since';
+  static const String editProfile = 'edit_profile';
+  static const String personalDetails = 'personal_details';
+  static const String accountSettings = 'account_settings';
 }

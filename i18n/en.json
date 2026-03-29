@@ -1,4 +1,10 @@
 {
+  "profile": "Profile",
+  "myAccount": "My Account",
+  "member_since": "Member Since",
+  "edit_profile": "Edit Profile",
+  "personal_details": "Personal Details",
+  "account_settings": "Account Settings",
   "PleaseCheckYourConnectionAndTryAgain": "Please check your connection and try again.",
   "car_app": "Hajed bin Wazir Co.",
   "quality_reliability": "Quality & Reliability",

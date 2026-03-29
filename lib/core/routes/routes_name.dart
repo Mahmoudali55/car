@@ -16,6 +16,7 @@ class RoutesName {
   static const String notificationsScreen = 'notificationsScreen';
   static const String usedCarsScreen = 'usedCarsScreen';
   static const String settingsScreen = 'settingsScreen';
+  static const String profileScreen = 'profileScreen';
 
   // Service Screens
   static const String tradeInScreen = 'tradeInScreen';

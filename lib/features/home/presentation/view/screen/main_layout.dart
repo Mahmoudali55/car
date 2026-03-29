@@ -47,7 +47,13 @@ class _MainLayoutState extends State<MainLayout> {
               centerTitle: false,
               automaticallyImplyLeading: false,
               leading: IconButton(
-                onPressed: () => Navigator.pushNamed(context, RoutesName.settingsScreen),
+                onPressed: () {
+                  if (HiveMethods.isGuest()) {
+                    Navigator.pushNamed(context, RoutesName.loginScreen);
+                  } else {
+                    Navigator.pushNamed(context, RoutesName.profileScreen);
+                  }
+                },
                 icon: Icon(Icons.person, color: AppColor.primaryColor(context)),
               ),
               title: Text(

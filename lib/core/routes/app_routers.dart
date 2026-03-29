@@ -62,6 +62,13 @@ class AppRouters {
             child: const SettingsScreen(),
           ),
         );
+      case RoutesName.profileScreen:
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (context) => sl<AuthCubit>(),
+            child: const UserProfileScreen(),
+          ),
+        );
       case RoutesName.tradeInScreen:
         return MaterialPageRoute(builder: (_) => const TradeInScreen());
       case RoutesName.importOnDemandScreen:

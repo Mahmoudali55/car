@@ -39,6 +39,7 @@ import 'package:car/features/admin/presentation/screen/all_activities_screen.dar
 import 'package:car/features/admin/presentation/screen/admin_main_layout.dart';
 import 'package:car/features/admin/presentation/screen/admin_notifications_screen.dart';
 import 'package:car/features/about/presentation/screen/about_screen.dart';
+import 'package:car/features/profile/presentation/screen/user_profile_screen.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
