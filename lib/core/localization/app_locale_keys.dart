@@ -448,4 +448,7 @@ class AppLocaleKey {
   static const String promo3 = 'promo3';
   static const String promo4 = 'promo4';
   static const String availableBanks = 'available_banks';
+  static const String view = 'view';
+  static const String share = 'share';
+  static const String print = 'print';
 }

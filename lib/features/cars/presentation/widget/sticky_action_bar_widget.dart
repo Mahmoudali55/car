@@ -88,7 +88,7 @@ class StickyActionBarWidget extends StatelessWidget {
                       size: 28,
                     ),
                     tooltip: AppLocaleKey.downloadQuotation.tr(),
-                    onPressed: () => QuotePdfGenerator.generateCarQuotation(car, context),
+                    onPressed: () => _showPdfOptions(context),
                   ),
                 ),
                 Gap(12.w),
@@ -126,6 +126,102 @@ class StickyActionBarWidget extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  void _showPdfOptions(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      builder: (context) => Container(
+        padding: EdgeInsets.all(24.w),
+        decoration: BoxDecoration(
+          color: AppColor.scaffoldColor(context),
+          borderRadius: BorderRadius.vertical(top: Radius.circular(24.r)),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              AppLocaleKey.carQuotation.tr(),
+              style: AppTextStyle.titleLarge(context).copyWith(fontWeight: FontWeight.w900),
+            ),
+            Gap(24.h),
+            _buildOptionItem(
+              context,
+              icon: Icons.print_rounded,
+              label: AppLocaleKey.print.tr(),
+              onTap: () async {
+                Navigator.pop(context);
+                final bytes = await QuotePdfGenerator.generatePdfBytes(car, context);
+                await QuotePdfGenerator.printQuotation(bytes, 'Quotation_${car['name']}.pdf');
+              },
+            ),
+            _buildOptionItem(
+              context,
+              icon: Icons.visibility_rounded,
+              label: AppLocaleKey.view.tr(),
+              onTap: () async {
+                Navigator.pop(context);
+                final bytes = await QuotePdfGenerator.generatePdfBytes(car, context);
+                await QuotePdfGenerator.viewQuotation(bytes, 'Quotation_${car['name']}.pdf');
+              },
+            ),
+            _buildOptionItem(
+              context,
+              icon: Icons.share_rounded,
+              label: AppLocaleKey.share.tr(),
+              onTap: () async {
+                Navigator.pop(context);
+                final bytes = await QuotePdfGenerator.generatePdfBytes(car, context);
+                await QuotePdfGenerator.shareQuotation(bytes, 'Quotation_${car['name']}.pdf');
+              },
+            ),
+            _buildOptionItem(
+              context,
+              icon: Icons.file_download_rounded,
+              label: AppLocaleKey.downloadQuotation.tr(),
+              onTap: () async {
+                Navigator.pop(context);
+                final bytes = await QuotePdfGenerator.generatePdfBytes(car, context);
+                await QuotePdfGenerator.downloadQuotation(bytes, 'Quotation_${car['name']}.pdf');
+                // ignore: use_build_context_synchronously
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(AppLocaleKey.orderSuccess.tr()),
+                    backgroundColor: Colors.green,
+                  ),
+                );
+              },
+            ),
+            Gap(16.h),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildOptionItem(
+    BuildContext context, {
+    required IconData icon,
+    required String label,
+    required VoidCallback onTap,
+  }) {
+    return ListTile(
+      leading: Container(
+        padding: EdgeInsets.all(8.w),
+        decoration: BoxDecoration(
+          color: AppColor.primaryColor(context).withValues(alpha: 0.1),
+          borderRadius: BorderRadius.circular(12.r),
+        ),
+        child: Icon(icon, color: AppColor.primaryColor(context)),
+      ),
+      title: Text(
+        label,
+        style: AppTextStyle.bodyMedium(context).copyWith(fontWeight: FontWeight.w600),
+      ),
+      onTap: onTap,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.r)),
     );
   }
 }

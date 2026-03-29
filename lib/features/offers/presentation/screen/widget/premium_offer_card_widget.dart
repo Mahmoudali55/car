@@ -71,7 +71,7 @@ class PremiumOfferCardWidget extends StatelessWidget {
                 Expanded(
                   flex: 6,
                   child: Padding(
-                    padding: EdgeInsets.fromLTRB(0, 20.h, 20.w, 20.h),
+                    padding: EdgeInsets.fromLTRB(0, 14.h, 20.w, 14.h), // Reduced vertical padding
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -79,7 +79,7 @@ class PremiumOfferCardWidget extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Container(
-                              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 4.h),
+                              padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 4.h),
                               decoration: BoxDecoration(
                                 color: AppColor.primaryColor(context).withValues(alpha: 0.1),
                                 borderRadius: BorderRadius.circular(8.r),
@@ -111,7 +111,7 @@ class PremiumOfferCardWidget extends StatelessWidget {
                                           : AppColor.blackTextColor(
                                               context,
                                             ).withValues(alpha: 0.24),
-                                      size: 22.sp,
+                                      size: 20.sp, // Slightly reduced icon
                                     ),
                                   ),
                                 );
@@ -119,7 +119,7 @@ class PremiumOfferCardWidget extends StatelessWidget {
                             ),
                           ],
                         ),
-                        Gap(8.h),
+                        Gap(6.h), // Reduced gap from 8
                         Text(
                           offer['brand'] ?? '',
                           style: TextStyle(
@@ -171,7 +171,7 @@ class PremiumOfferCardWidget extends StatelessWidget {
                             ),
                           ],
                         ),
-                        Gap(12.h),
+                        Gap(10.h), // Reduced gap from 12
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [

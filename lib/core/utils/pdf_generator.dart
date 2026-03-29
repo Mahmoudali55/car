@@ -1,13 +1,18 @@
+import 'dart:io';
+
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:open_filex/open_filex.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
+import 'package:share_plus/share_plus.dart';
 
 class QuotePdfGenerator {
-  static Future<void> generateCarQuotation(Map<String, dynamic> car, BuildContext context) async {
+  static Future<Uint8List> generatePdfBytes(Map<String, dynamic> car, BuildContext context) async {
     final pdf = pw.Document();
 
     // Load Arabic font
@@ -39,15 +44,15 @@ class QuotePdfGenerator {
     final engine = AppLocaleKey.engine.tr();
     final priceStr = car['price'] ?? "N/A";
     final textTotalPrice = "${AppLocaleKey.price.tr()}: $priceStr";
-    final refNo = "${AppLocaleKey.referenceNumber.tr()}: HBW-${car['name'].hashCode.abs().toString().substring(0, 4)}";
+    final refNo =
+        "${AppLocaleKey.referenceNumber.tr()}: HBW-${car['name'].hashCode.abs().toString().substring(0, 4)}";
 
     pdf.addPage(
       pw.Page(
         pageFormat: PdfPageFormat.a4,
         theme: pw.ThemeData.withFont(base: arabicFont, bold: arabicFontBold),
-        textDirection: context.locale.languageCode == 'ar'
-            ? pw.TextDirection.rtl
-            : pw.TextDirection.ltr,
+        textDirection:
+            context.locale.languageCode == 'ar' ? pw.TextDirection.rtl : pw.TextDirection.ltr,
         build: (pw.Context ctx) {
           return pw.Column(
             crossAxisAlignment: pw.CrossAxisAlignment.stretch,
@@ -190,10 +195,47 @@ class QuotePdfGenerator {
       ),
     );
 
+    return pdf.save();
+  }
+
+  static Future<void> printQuotation(Uint8List bytes, String fileName) async {
     await Printing.layoutPdf(
-      onLayout: (PdfPageFormat format) async => pdf.save(),
-      name: 'Quotation_${car['name'] ?? 'Car'}.pdf',
+      onLayout: (PdfPageFormat format) async => bytes,
+      name: fileName,
     );
+  }
+
+  static Future<void> viewQuotation(Uint8List bytes, String fileName) async {
+    final output = await getTemporaryDirectory();
+    final file = File("${output.path}/$fileName");
+    await file.writeAsBytes(bytes);
+    await OpenFilex.open(file.path);
+  }
+
+  static Future<void> shareQuotation(Uint8List bytes, String fileName) async {
+    final output = await getTemporaryDirectory();
+    final file = File("${output.path}/$fileName");
+    await file.writeAsBytes(bytes);
+    await Share.shareXFiles([XFile(file.path)], text: fileName);
+  }
+
+  static Future<void> downloadQuotation(Uint8List bytes, String fileName) async {
+    // For mobile, we usually save to Downloads or Documents
+    Directory? output;
+    if (Platform.isAndroid) {
+      output = Directory('/storage/emulated/0/Download');
+      if (!await output.exists()) {
+        output = await getExternalStorageDirectory();
+      }
+    } else {
+      output = await getApplicationDocumentsDirectory();
+    }
+
+    final file = File("${output!.path}/$fileName");
+    await file.writeAsBytes(bytes);
+
+    // Show a message or open the file
+    // OpenFilex.open(file.path);
   }
 
   static pw.Row _buildRowInfo(String label, String value, pw.Font boldFont) {

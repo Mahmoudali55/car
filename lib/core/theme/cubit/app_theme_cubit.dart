@@ -12,7 +12,7 @@ class AppThemeCubit extends Cubit<AppThemeState> {
     emit(AppThemeUpdate());
   }
 
-  ThemeEnum _theme = ThemeEnum.light;
+  ThemeEnum _theme = ThemeEnum.dark;
   set theme(ThemeEnum value) {
     _theme = value;
     HiveMethods.updateThem(_theme);
