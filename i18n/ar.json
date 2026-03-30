@@ -487,7 +487,25 @@
   "inOneMonth": "بعد شهر",
   "inTwoMonths": "بعد شهرين",
   "inThreeMonths": "بعد 3 أشهر",
-  "tabbyDesc": "اختر تابي في صفحة الدفع لتسديد مشترياتك على 4 دفعات ميسرة.",
-  "tamaraDesc": "اختر تمارا في صفحة الدفع لتسديد مشترياتك على 4 دفعات ميسرة."
+  "tamaraDesc": "اختر تمارا في صفحة الدفع لتسديد مشترياتك على 4 دفعات ميسرة.",
+  "cashPackagesTitle": "باقات الدفع النقدي",
+  "cashPackagesSubtitle": "اختر الباقة التي تناسب تطلعاتك",
+  "packageBasic": "الأساسية",
+  "packageGold": "الذهبية",
+  "packagePlatinum": "البلاتينية",
+  "packageBasicDesc": "سعر السيارة الأساسي مع الضمان",
+  "packageGoldDesc": "إضافات مميزة وحماية",
+  "packagePlatinumDesc": "أقصى درجات الفخامة والحماية",
+  "includedFeatures": "المميزات المشمولة:",
+  "featureAgencyWarranty": "ضمان الوكيل المعتمد",
+  "featureComprehensiveCheck": "فحص فني شامل لـ 200 نقطة",
+  "featureTinting": "تظليل عازل حراري",
+  "featureFrontPPF": "حماية واجهة أمامية",
+  "featureRoadsideAssistance": "مساعدة على الطريق (سنة)",
+  "featureFullPPF": "حماية كاملة للسيارة (PPF)",
+  "featureFreeMaintenance": "صيانة مجانية (3 سنوات)",
+  "featureExtendedWarranty": "ضمان ممتد (5 سنوات)",
+  "sar": "ريال",
+  "totalWithPackage": "الإجمالي مع الباقة:"
 }
 

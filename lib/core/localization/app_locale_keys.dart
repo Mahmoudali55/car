@@ -499,4 +499,25 @@ class AppLocaleKey {
   static const String inThreeMonths = 'inThreeMonths';
   static const String tabbyDesc = 'tabbyDesc';
   static const String tamaraDesc = 'tamaraDesc';
+
+  // Cash Packages
+  static const String cashPackagesTitle = 'cashPackagesTitle';
+  static const String cashPackagesSubtitle = 'cashPackagesSubtitle';
+  static const String packageBasic = 'packageBasic';
+  static const String packageGold = 'packageGold';
+  static const String packagePlatinum = 'packagePlatinum';
+  static const String packageBasicDesc = 'packageBasicDesc';
+  static const String packageGoldDesc = 'packageGoldDesc';
+  static const String packagePlatinumDesc = 'packagePlatinumDesc';
+  static const String includedFeatures = 'includedFeatures';
+  static const String featureAgencyWarranty = 'featureAgencyWarranty';
+  static const String featureComprehensiveCheck = 'featureComprehensiveCheck';
+  static const String featureTinting = 'featureTinting';
+  static const String featureFrontPPF = 'featureFrontPPF';
+  static const String featureRoadsideAssistance = 'featureRoadsideAssistance';
+  static const String featureFullPPF = 'featureFullPPF';
+  static const String featureFreeMaintenance = 'featureFreeMaintenance';
+  static const String featureExtendedWarranty = 'featureExtendedWarranty';
+  static const String sar = 'sar';
+  static const String totalWithPackage = 'totalWithPackage';
 }

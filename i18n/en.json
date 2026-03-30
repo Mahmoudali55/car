@@ -487,7 +487,25 @@
     "inOneMonth": "In 1 month",
     "inTwoMonths": "In 2 months",
     "inThreeMonths": "In 3 months",
-    "tabbyDesc": "Choose Tabby at checkout to split your purchases into 4 easy installments.",
-    "tamaraDesc": "Choose Tamara at checkout to split your purchases into 4 easy installments."
+    "tamaraDesc": "Choose Tamara at checkout to split your purchases into 4 easy installments.",
+    "cashPackagesTitle": "Cash Purchase Packages",
+    "cashPackagesSubtitle": "Choose the package that suits your needs",
+    "packageBasic": "Basic",
+    "packageGold": "Gold",
+    "packagePlatinum": "Platinum",
+    "packageBasicDesc": "Standard car price with warranty",
+    "packageGoldDesc": "Premium add-ons & protection",
+    "packagePlatinumDesc": "Ultimate luxury & full protection",
+    "includedFeatures": "Included Features:",
+    "featureAgencyWarranty": "Authorized Agency Warranty",
+    "featureComprehensiveCheck": "Comprehensive 200-Point Inspection",
+    "featureTinting": "Thermal Insulation Tinting",
+    "featureFrontPPF": "Front PPF Protection",
+    "featureRoadsideAssistance": "Roadside Assistance (1 Year)",
+    "featureFullPPF": "Full Car PPF Protection",
+    "featureFreeMaintenance": "Free Maintenance (3 Years)",
+    "featureExtendedWarranty": "Extended Warranty (5 Years)",
+    "sar": "SAR",
+    "totalWithPackage": "Total with Package:"
 }
 
