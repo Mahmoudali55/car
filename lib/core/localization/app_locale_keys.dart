@@ -487,7 +487,7 @@ class AppLocaleKey {
   static const String noOffersFound = 'noOffersFound';
   static const String compareBankInstallments = 'compareBankInstallments';
   static const String compareBankInstallmentsDesc = 'compareBankInstallmentsDesc';
-  
+
   // BNPL
   static const String splitPayment = 'splitPayment';
   static const String withoutInterestTabby = 'withoutInterestTabby';
@@ -520,4 +520,20 @@ class AppLocaleKey {
   static const String featureExtendedWarranty = 'featureExtendedWarranty';
   static const String sar = 'sar';
   static const String totalWithPackage = 'totalWithPackage';
+
+  // Reservation System
+  static const String reserveCar = 'reserveCar';
+  static const String depositAmount = 'depositAmount';
+  static const String timeRemaining = 'timeRemaining';
+  static const String reservationExpired = 'reservationExpired';
+  static const String reservationExpiredDesc = 'reservationExpiredDesc';
+  static const String buyerName = 'buyerName';
+  static const String buyerNameHint = 'buyerNameHint';
+  static const String buyerId = 'buyerId';
+  static const String buyerIban = 'buyerIban';
+  static const String payDeposit = 'payDeposit';
+  static const String reservationSuccess = 'reservationSuccess';
+  static const String whatsappSent = 'whatsappSent';
+  static const String nameMustMatch = 'nameMustMatch';
+  static const String validateEmpty = 'validateEmpty';
 }

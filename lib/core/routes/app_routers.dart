@@ -38,6 +38,14 @@ class AppRouters {
         return MaterialPageRoute(
           builder: (_) => BankOffersScreen(car: args as Map<String, dynamic>),
         );
+      case RoutesName.carReservationScreen:
+        final argsMap = args as Map<String, dynamic>;
+        return MaterialPageRoute(
+          builder: (_) => CarReservationScreen(
+            car: argsMap['car'],
+            isFromLink: argsMap['isFromLink'] ?? false,
+          ),
+        );
       case RoutesName.popularCarsScreen:
         return MaterialPageRoute(builder: (_) => const PopularCarsScreen());
       case RoutesName.filterScreen:

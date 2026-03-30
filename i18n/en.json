@@ -506,6 +506,20 @@
     "featureFreeMaintenance": "Free Maintenance (3 Years)",
     "featureExtendedWarranty": "Extended Warranty (5 Years)",
     "sar": "SAR",
-    "totalWithPackage": "Total with Package:"
+    "totalWithPackage": "Total with Package:",
+    "reserveCar": "Reserve Car (Pay Deposit)",
+    "depositAmount": "Required Deposit Amount",
+    "timeRemaining": "Time Remaining",
+    "reservationExpired": "Reservation Expired",
+    "reservationExpiredDesc": "The allocated time to pay the deposit has ended and the reservation was automatically cancelled.",
+    "buyerName": "Buyer's Full Name",
+    "buyerNameHint": "Must match the bank account holder doing the transfer",
+    "buyerId": "ID / Iqama Number",
+    "buyerIban": "Transferring IBAN Number",
+    "payDeposit": "Confirm and Pay Deposit",
+    "reservationSuccess": "Car Reserved Successfully!",
+    "whatsappSent": "A WhatsApp message with the reservation details has been sent to your number.",
+    "nameMustMatch": "Important Note: To avoid cancellation, the transfer must be from a bank account exactly matching the buyer's ID name.",
+    "validateEmpty": "Please fill this field"
 }
 

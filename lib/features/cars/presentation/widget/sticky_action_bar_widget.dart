@@ -3,14 +3,13 @@ import 'dart:ui';
 import 'package:car/core/cache/hive/hive_methods.dart';
 import 'package:car/core/custom_widgets/buttons/custom_button.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
+import 'package:car/core/routes/routes_name.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/core/utils/common_methods.dart';
 import 'package:car/core/utils/pdf_generator.dart';
-import 'package:car/features/cart/presentation/view/cubit/cart_cubit.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
@@ -40,32 +39,26 @@ class StickyActionBarWidget extends StatelessWidget {
               children: [
                 Expanded(
                   flex: 2,
-                  child: BlocBuilder<CartCubit, CartState>(
-                    builder: (context, state) {
-                      final isInCart = context.read<CartCubit>().isInCart(car['name'] ?? '');
-                      return CustomButton(
-                        height: 50.h,
-                        radius: 12.r,
-                        onPressed: () {
-                          if (HiveMethods.getToken() == null) {
-                            CommonMethods.showLoginRequiredDialog(context);
-                          } else {
-                            if (isInCart) {
-                              context.read<CartCubit>().removeFromCart(car);
-                            } else {
-                              context.read<CartCubit>().addToCart(car);
-                            }
-                          }
-                        },
-
-                        child: Text(
-                          isInCart ? AppLocaleKey.removeFromCart.tr() : AppLocaleKey.addToCart.tr(),
-                          style: AppTextStyle.buttonStyle(
-                            context,
-                          ).copyWith(fontWeight: FontWeight.w900),
-                        ),
-                      );
+                  child: CustomButton(
+                    height: 50.h,
+                    radius: 12.r,
+                    onPressed: () {
+                      if (HiveMethods.getToken() == null) {
+                        CommonMethods.showLoginRequiredDialog(context);
+                      } else {
+                        Navigator.pushNamed(
+                          context,
+                          RoutesName.carReservationScreen,
+                          arguments: {'car': car, 'isFromLink': false},
+                        );
+                      }
                     },
+                    child: Text(
+                      AppLocaleKey.reserveCar.tr(),
+                      style: AppTextStyle.buttonStyle(
+                        context,
+                      ).copyWith(fontWeight: FontWeight.w900, fontSize: 13.sp),
+                    ),
                   ),
                 ),
                 Gap(16.w),
