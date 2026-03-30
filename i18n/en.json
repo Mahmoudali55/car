@@ -455,6 +455,9 @@
    "markAllAsRead": "Mark All As Read",
    "most_requested":"Most Requested",
    "limited":"Limited",
-    "total":"Total"
+    "total":"Total",
+    "request_car": "Request a Car",
+    "request_car_desc": "Can't find your dream car? Request it now and we'll find it for you in minutes.",
+    "request_submitted_success": "Your request has been submitted successfully. Our team will contact you shortly."
 }
 

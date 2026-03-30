@@ -461,4 +461,8 @@ class AppLocaleKey {
   static const String editProfile = 'edit_profile';
   static const String personalDetails = 'personal_details';
   static const String accountSettings = 'account_settings';
+
+  static const String requestCar = 'request_car';
+  static const String requestCarDesc = 'request_car_desc';
+  static const String requestSubmittedSuccess = 'request_submitted_success';
 }

@@ -71,6 +71,8 @@ class AppRouters {
         );
       case RoutesName.tradeInScreen:
         return MaterialPageRoute(builder: (_) => const TradeInScreen());
+      case RoutesName.requestCarScreen:
+        return MaterialPageRoute(builder: (_) => const RequestCarScreen());
       case RoutesName.importOnDemandScreen:
         return MaterialPageRoute(builder: (_) => const ImportOnDemandScreen());
       case RoutesName.financingScreen:

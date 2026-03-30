@@ -386,8 +386,8 @@ class ServicesScreen extends StatelessWidget {
   List<Map<String, dynamic>> _getQuickActions() {
     return [
       {
-        'icon': Icons.swap_vert_rounded,
-        'label': AppLocaleKey.swap.tr(),
+        'icon': Icons.car_rental_rounded,
+        'label': AppLocaleKey.requestCar.tr(),
         'color': Colors.blueAccent,
       },
       {
@@ -411,8 +411,8 @@ class ServicesScreen extends StatelessWidget {
   List<Map<String, dynamic>> _getServicesData() {
     return [
       {
-        'icon': Icons.swap_horizontal_circle_rounded,
-        'label': AppLocaleKey.tradeIn.tr(),
+        'icon': Icons.directions_car_filled_rounded,
+        'label': AppLocaleKey.requestCar.tr(),
         'color': const Color(0xFF6366F1),
       },
       {
@@ -454,8 +454,8 @@ class ServicesScreen extends StatelessWidget {
   }
 
   String _getServiceDescription(String label) {
-    if (label == AppLocaleKey.tradeIn.tr()) {
-      return AppLocaleKey.tradeInDesc.tr();
+    if (label == AppLocaleKey.requestCar.tr()) {
+      return AppLocaleKey.requestCarDesc.tr();
     }
     if (label == AppLocaleKey.importOnDemand.tr()) {
       return AppLocaleKey.importOnDemandDesc.tr();
@@ -476,8 +476,8 @@ class ServicesScreen extends StatelessWidget {
   }
 
   void _navigateToService(BuildContext context, String label) {
-    if (label == AppLocaleKey.tradeIn.tr()) {
-      Navigator.pushNamed(context, RoutesName.tradeInScreen);
+    if (label == AppLocaleKey.requestCar.tr()) {
+      Navigator.pushNamed(context, RoutesName.requestCarScreen);
     } else if (label == AppLocaleKey.importOnDemand.tr()) {
       Navigator.pushNamed(context, RoutesName.importOnDemandScreen);
     } else if (label == AppLocaleKey.financingSolutions.tr()) {
@@ -496,8 +496,8 @@ class ServicesScreen extends StatelessWidget {
   }
 
   void _navigateToQuickAction(BuildContext context, String label) {
-    if (label == AppLocaleKey.swap.tr()) {
-      Navigator.pushNamed(context, RoutesName.tradeInScreen);
+    if (label == AppLocaleKey.requestCar.tr()) {
+      Navigator.pushNamed(context, RoutesName.requestCarScreen);
     } else if (label == AppLocaleKey.bookAppointments.tr()) {
       Navigator.pushNamed(context, RoutesName.bookingAppointmentScreen);
     } else if (label == AppLocaleKey.myHistory.tr()) {
