@@ -478,6 +478,16 @@
   "viewOffers": "عرض العروض",
   "noOffersFound": "لم يتم العثور على عروض",
   "compareBankInstallments": "قارن أقساط البنوك السعودية",
-  "compareBankInstallmentsDesc": "اكتشف أفضل عروض التمويل التي تناسب ميزانيتك من البنوك المعتمدة"
+  "compareBankInstallmentsDesc": "اكتشف أفضل عروض التمويل التي تناسب ميزانيتك من البنوك المعتمدة",
+  "splitPayment": "قسّمها على 4 دفعات بقيمة",
+  "withoutInterestTabby": "بدون رسوم تأخير أو فوائد مع تابي",
+  "withoutInterestTamara": "بدون رسوم أو فوائد إضافية مع تمارا",
+  "howItWorks": "كيف تعمل؟",
+  "payToday": "ادفع اليوم",
+  "inOneMonth": "بعد شهر",
+  "inTwoMonths": "بعد شهرين",
+  "inThreeMonths": "بعد 3 أشهر",
+  "tabbyDesc": "اختر تابي في صفحة الدفع لتسديد مشترياتك على 4 دفعات ميسرة.",
+  "tamaraDesc": "اختر تمارا في صفحة الدفع لتسديد مشترياتك على 4 دفعات ميسرة."
 }
 

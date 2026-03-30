@@ -487,4 +487,16 @@ class AppLocaleKey {
   static const String noOffersFound = 'noOffersFound';
   static const String compareBankInstallments = 'compareBankInstallments';
   static const String compareBankInstallmentsDesc = 'compareBankInstallmentsDesc';
+  
+  // BNPL
+  static const String splitPayment = 'splitPayment';
+  static const String withoutInterestTabby = 'withoutInterestTabby';
+  static const String withoutInterestTamara = 'withoutInterestTamara';
+  static const String howItWorks = 'howItWorks';
+  static const String payToday = 'payToday';
+  static const String inOneMonth = 'inOneMonth';
+  static const String inTwoMonths = 'inTwoMonths';
+  static const String inThreeMonths = 'inThreeMonths';
+  static const String tabbyDesc = 'tabbyDesc';
+  static const String tamaraDesc = 'tamaraDesc';
 }

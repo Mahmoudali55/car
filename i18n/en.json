@@ -478,6 +478,16 @@
     "viewOffers": "View Offers",
     "noOffersFound": "No offers found",
     "compareBankInstallments": "Compare Saudi Bank Installments",
-    "compareBankInstallmentsDesc": "Discover the best financing offers that suit your budget from certified banks"
+    "compareBankInstallmentsDesc": "Discover the best financing offers that suit your budget from certified banks",
+    "splitPayment": "Split into 4 payments of",
+    "withoutInterestTabby": "no hidden fees or interest with Tabby",
+    "withoutInterestTamara": "no hidden fees or interest with Tamara",
+    "howItWorks": "How it works?",
+    "payToday": "Pay today",
+    "inOneMonth": "In 1 month",
+    "inTwoMonths": "In 2 months",
+    "inThreeMonths": "In 3 months",
+    "tabbyDesc": "Choose Tabby at checkout to split your purchases into 4 easy installments.",
+    "tamaraDesc": "Choose Tamara at checkout to split your purchases into 4 easy installments."
 }
 
