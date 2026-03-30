@@ -74,11 +74,11 @@ class QuotePdfGenerator {
                       pw.SizedBox(height: 6),
                       pw.Text(
                         textDate,
-                        style: const pw.TextStyle(fontSize: 12, color: PdfColors.grey700),
+                        style: pw.TextStyle(font: arabicFont, fontSize: 12, color: PdfColors.grey700),
                       ),
                       pw.Text(
                         refNo,
-                        style: const pw.TextStyle(fontSize: 12, color: PdfColors.grey700),
+                        style: pw.TextStyle(font: arabicFont, fontSize: 12, color: PdfColors.grey700),
                       ),
                     ],
                   ),
@@ -119,16 +119,17 @@ class QuotePdfGenerator {
                     child: pw.Column(
                       crossAxisAlignment: pw.CrossAxisAlignment.start,
                       children: [
-                        _buildRowInfo(brandModel, car['name'] ?? '', arabicFontBold),
+                        _buildRowInfo(brandModel, car['name'] ?? '', arabicFontBold, arabicFont),
                         pw.SizedBox(height: 10),
-                        _buildRowInfo(manufacturingYear, car['year'] ?? '', arabicFontBold),
+                        _buildRowInfo(manufacturingYear, car['year'] ?? '', arabicFontBold, arabicFont),
                         pw.SizedBox(height: 10),
-                        _buildRowInfo(engine, car['engine'] ?? '', arabicFontBold),
+                        _buildRowInfo(engine, car['engine'] ?? '', arabicFontBold, arabicFont),
                         pw.SizedBox(height: 10),
                         _buildRowInfo(
                           AppLocaleKey.mileageKm.tr(),
                           car['mileage'] ?? '',
                           arabicFontBold,
+                          arabicFont,
                         ),
                       ],
                     ),
@@ -163,7 +164,7 @@ class QuotePdfGenerator {
                 children: [
                   pw.Text(
                     AppLocaleKey.quoteValidity.tr(),
-                    style: const pw.TextStyle(fontSize: 10, color: PdfColors.grey600),
+                    style: pw.TextStyle(font: arabicFont, fontSize: 10, color: PdfColors.grey600),
                   ),
                   pw.Text(
                     textTotalPrice,
@@ -184,7 +185,7 @@ class QuotePdfGenerator {
               pw.Center(
                 child: pw.Text(
                   AppLocaleKey.thankYouQuote.tr(),
-                  style: const pw.TextStyle(fontSize: 12, color: PdfColors.grey600),
+                  style: pw.TextStyle(font: arabicFont, fontSize: 12, color: PdfColors.grey600),
                   textAlign: pw.TextAlign.center,
                 ),
               ),
@@ -237,7 +238,7 @@ class QuotePdfGenerator {
     // OpenFilex.open(file.path);
   }
 
-  static pw.Row _buildRowInfo(String label, String value, pw.Font boldFont) {
+  static pw.Row _buildRowInfo(String label, String value, pw.Font boldFont, pw.Font regularFont) {
     return pw.Row(
       crossAxisAlignment: pw.CrossAxisAlignment.start,
       children: [
@@ -245,7 +246,7 @@ class QuotePdfGenerator {
           '$label: ',
           style: pw.TextStyle(font: boldFont, fontSize: 16, color: PdfColors.grey800),
         ),
-        pw.Expanded(child: pw.Text(value, style: const pw.TextStyle(fontSize: 16))),
+        pw.Expanded(child: pw.Text(value, style: pw.TextStyle(font: regularFont, fontSize: 16))),
       ],
     );
   }
