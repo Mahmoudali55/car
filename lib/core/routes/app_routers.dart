@@ -12,6 +12,15 @@ class AppRouters {
         return MaterialPageRoute(builder: (_) => const MainLayout());
       case RoutesName.allBrandsScreen:
         return MaterialPageRoute(builder: (_) => const AllBrandsScreen());
+      case RoutesName.brandCarsScreen:
+        final brandArgs = args as Map<String, dynamic>;
+        return MaterialPageRoute(
+          builder: (_) => BrandCarsScreen(
+            brandNameEn: brandArgs['nameEn'] as String,
+            brandNameAr: brandArgs['nameAr'] as String,
+            brandImage: brandArgs['image'] as String,
+          ),
+        );
       case RoutesName.homeScreen:
         return MaterialPageRoute(builder: (_) => const HomeGuestScreen());
       case RoutesName.onboardingScreen:

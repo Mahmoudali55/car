@@ -523,6 +523,9 @@
     "validateEmpty": "Please fill this field",
     "checkOutThisCar": "Check out this amazing car:",
     "atPrice": "at a price of",
-    "downloadApp": "Download the app now format details"
+    "downloadApp": "Download the app now format details",
+    "noCarsForBrand": "No cars available for this brand yet",
+    "carsAvailable": "Cars Available",
+    "comingSoon": "Coming soon, stay tuned!"
 }
 

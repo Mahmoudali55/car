@@ -541,4 +541,9 @@ class AppLocaleKey {
   static const String checkOutThisCar = 'checkOutThisCar';
   static const String atPrice = 'atPrice';
   static const String downloadApp = 'downloadApp';
+
+  // Brand Cars Screen
+  static const String noCarsForBrand = 'noCarsForBrand';
+  static const String carsAvailable = 'carsAvailable';
+  static const String comingSoon = 'comingSoon';
 }
