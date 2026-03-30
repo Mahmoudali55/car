@@ -122,6 +122,31 @@ class FinancingScreen extends StatelessWidget {
     );
   }
 
+  void _showSuccessDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        backgroundColor: AppColor.secondAppColor(context),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.r)),
+        title: Icon(Icons.check_circle_outline_rounded, color: Colors.green, size: 60.sp),
+        content: Text(
+          AppLocaleKey.requestSubmittedSuccess.tr(), // Using the general success message
+          textAlign: TextAlign.center,
+          style: AppTextStyle.bodyMedium(context),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context); // close dialog
+              Navigator.pop(context); // go back
+            },
+            child: Text(AppLocaleKey.ok.tr(), style: TextStyle(color: AppColor.primaryColor(context))),
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget _buildTextField(String hint, BuildContext context) {
     return Container(
       decoration: BoxDecoration(
@@ -142,14 +167,14 @@ class FinancingScreen extends StatelessWidget {
         borderRadius: BorderRadius.circular(16.r),
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFF92400E).withOpacity(0.3),
+            color: const Color(0xFF92400E).withValues(alpha: 0.3),
             blurRadius: 10,
             offset: const Offset(0, 5),
           ),
         ],
       ),
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: () => _showSuccessDialog(context),
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.transparent,
           shadowColor: Colors.transparent,

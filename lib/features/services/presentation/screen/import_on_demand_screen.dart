@@ -126,6 +126,31 @@ class ImportOnDemandScreen extends StatelessWidget {
     );
   }
 
+  void _showSuccessDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        backgroundColor: AppColor.secondAppColor(context),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.r)),
+        title: Icon(Icons.check_circle_outline_rounded, color: Colors.green, size: 60.sp),
+        content: Text(
+          AppLocaleKey.requestSubmittedSuccess.tr(),
+          textAlign: TextAlign.center,
+          style: AppTextStyle.bodyMedium(context),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context); // close dialog
+              Navigator.pop(context); // go back
+            },
+            child: Text(AppLocaleKey.ok.tr(), style: TextStyle(color: AppColor.primaryColor(context))),
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget _buildTextField(String hint, BuildContext context) {
     return Container(
       decoration: BoxDecoration(
@@ -153,7 +178,7 @@ class ImportOnDemandScreen extends StatelessWidget {
         ],
       ),
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: () => _showSuccessDialog(context),
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.transparent,
           shadowColor: Colors.transparent,
