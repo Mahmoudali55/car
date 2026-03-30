@@ -1,12 +1,15 @@
 import 'package:car/core/cache/hive/hive_methods.dart';
+import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/core/utils/common_methods.dart';
 import 'package:car/features/favorites/presentation/view/cubit/favorites_cubit.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
+import 'package:share_plus/share_plus.dart';
 
 class SliverAppBarWidget extends StatefulWidget {
   const SliverAppBarWidget({
@@ -64,7 +67,11 @@ class _SliverAppBarWidgetState extends State<SliverAppBarWidget> {
                 if (HiveMethods.getToken() == null) {
                   CommonMethods.showLoginRequiredDialog(context);
                 } else {
-                  // TODO: Implement Share
+                  final String carName = widget.car['name'] ?? '';
+                  final String carPrice = widget.car['price'] ?? '';
+                  final String message =
+                      '${AppLocaleKey.checkOutThisCar.tr()} $carName ${AppLocaleKey.atPrice.tr()} $carPrice\n\n${AppLocaleKey.downloadApp.tr()}: https://hbwinternational.com';
+                  Share.share(message);
                 }
               },
             ),

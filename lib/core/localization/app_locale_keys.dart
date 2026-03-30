@@ -536,4 +536,9 @@ class AppLocaleKey {
   static const String whatsappSent = 'whatsappSent';
   static const String nameMustMatch = 'nameMustMatch';
   static const String validateEmpty = 'validateEmpty';
+
+  // Share
+  static const String checkOutThisCar = 'checkOutThisCar';
+  static const String atPrice = 'atPrice';
+  static const String downloadApp = 'downloadApp';
 }

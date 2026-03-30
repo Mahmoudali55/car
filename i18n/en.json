@@ -520,6 +520,9 @@
     "reservationSuccess": "Car Reserved Successfully!",
     "whatsappSent": "A WhatsApp message with the reservation details has been sent to your number.",
     "nameMustMatch": "Important Note: To avoid cancellation, the transfer must be from a bank account exactly matching the buyer's ID name.",
-    "validateEmpty": "Please fill this field"
+    "validateEmpty": "Please fill this field",
+    "checkOutThisCar": "Check out this amazing car:",
+    "atPrice": "at a price of",
+    "downloadApp": "Download the app now format details"
 }
 
