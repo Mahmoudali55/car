@@ -21,6 +21,7 @@ class RoutesName {
   // Service Screens
   static const String tradeInScreen = 'tradeInScreen';
   static const String requestCarScreen = 'requestCarScreen';
+  static const String bankOffersScreen = 'bankOffersScreen';
   static const String importOnDemandScreen = 'importOnDemandScreen';
   static const String financingScreen = 'financingScreen';
   static const String carDetailingScreen = 'carDetailingScreen';

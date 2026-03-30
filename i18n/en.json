@@ -458,6 +458,26 @@
     "total":"Total",
     "request_car": "Request a Car",
     "request_car_desc": "Can't find your dream car? Request it now and we'll find it for you in minutes.",
-    "request_submitted_success": "Your request has been submitted successfully. Our team will contact you shortly."
+    "request_submitted_success": "Your request has been submitted successfully. Our team will contact you shortly.",
+    "bankOffers": "Bank Installment Offers",
+    "calculateFinancing": "Calculate Financing",
+    "downPayment": "Down Payment",
+    "durationInYears": "Duration (Years)",
+    "monthlyInstallment": "Monthly Installment",
+    "profitMargin": "Profit Margin",
+    "totalAmount": "Total Amount",
+    "sortBy": "Sort By:",
+    "lowestMargin": "Lowest Profit Margin",
+    "highestMargin": "Highest Profit Margin",
+    "lowestInstallment": "Lowest Monthly Installment",
+    "bankAlrajhi": "Al Rajhi Bank",
+    "bankSnb": "SNB (AlAhli)",
+    "bankRiyad": "Riyad Bank",
+    "bankAlinma": "Alinma Bank",
+    "bankSab": "SAB",
+    "viewOffers": "View Offers",
+    "noOffersFound": "No offers found",
+    "compareBankInstallments": "Compare Saudi Bank Installments",
+    "compareBankInstallmentsDesc": "Discover the best financing offers that suit your budget from certified banks"
 }
 

@@ -458,6 +458,26 @@
   "total":"الإجمالي",
   "request_car": "طلب سيارة",
   "request_car_desc": "مش لاقي عربية أحلامك؟ اطلبها دلوقتي وفريقنا هيوفرها لك في دقائق.",
-  "request_submitted_success": "تم ارسال طلبك بنجاح. سيتواصل معك فريقنا قريباً."
+  "request_submitted_success": "تم ارسال طلبك بنجاح. سيتواصل معك فريقنا قريباً.",
+  "bankOffers": "عروض تقسيط البنوك",
+  "calculateFinancing": "حاسبة التمويل",
+  "downPayment": "الدفعة المقدمة",
+  "durationInYears": "المدة (سنوات)",
+  "monthlyInstallment": "القسط الشهري",
+  "profitMargin": "هامش الربح",
+  "totalAmount": "المبلغ الإجمالي",
+  "sortBy": "ترتيب حسب:",
+  "lowestMargin": "أقل هامش ربح",
+  "highestMargin": "أعلى هامش ربح",
+  "lowestInstallment": "أقل قسط شهري",
+  "bankAlrajhi": "مصرف الراجحي",
+  "bankSnb": "البنك الأهلي السعودي",
+  "bankRiyad": "بنك الرياض",
+  "bankAlinma": "مصرف الإنماء",
+  "bankSab": "بنك ساب",
+  "viewOffers": "عرض العروض",
+  "noOffersFound": "لم يتم العثور على عروض",
+  "compareBankInstallments": "قارن أقساط البنوك السعودية",
+  "compareBankInstallmentsDesc": "اكتشف أفضل عروض التمويل التي تناسب ميزانيتك من البنوك المعتمدة"
 }
 

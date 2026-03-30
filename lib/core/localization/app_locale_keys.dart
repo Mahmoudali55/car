@@ -465,4 +465,26 @@ class AppLocaleKey {
   static const String requestCar = 'request_car';
   static const String requestCarDesc = 'request_car_desc';
   static const String requestSubmittedSuccess = 'request_submitted_success';
+
+  // Bank Installment Offers
+  static const String bankOffers = 'bankOffers';
+  static const String calculateFinancing = 'calculateFinancing';
+  static const String downPayment = 'downPayment';
+  static const String durationInYears = 'durationInYears';
+  static const String monthlyInstallment = 'monthlyInstallment';
+  static const String profitMargin = 'profitMargin';
+  static const String totalAmount = 'totalAmount';
+  static const String sortBy = 'sortBy';
+  static const String lowestMargin = 'lowestMargin';
+  static const String highestMargin = 'highestMargin';
+  static const String lowestInstallment = 'lowestInstallment';
+  static const String bankAlrajhi = 'bankAlrajhi';
+  static const String bankSnb = 'bankSnb';
+  static const String bankRiyad = 'bankRiyad';
+  static const String bankAlinma = 'bankAlinma';
+  static const String bankSab = 'bankSab';
+  static const String viewOffers = 'viewOffers';
+  static const String noOffersFound = 'noOffersFound';
+  static const String compareBankInstallments = 'compareBankInstallments';
+  static const String compareBankInstallmentsDesc = 'compareBankInstallmentsDesc';
 }

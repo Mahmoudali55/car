@@ -9,6 +9,7 @@ import 'package:car/features/cars/presentation/widget/sliver_app_bar_widget.dart
 import 'package:car/features/cars/presentation/widget/spec_grid_widget.dart';
 import 'package:car/features/cars/presentation/widget/sticky_action_bar_widget.dart';
 import 'package:car/features/cars/presentation/widget/video_review_widget.dart';
+import 'package:car/features/cars/presentation/widget/bank_installments_banner_widget.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -102,6 +103,8 @@ class _CarDetailsScreenState extends State<CarDetailsScreen> {
                           _buildOverview(context),
                           Gap(32.h),
                           const FeaturesGridWidget(),
+                          Gap(32.h),
+                          BankInstallmentsBannerWidget(car: widget.car),
                           Gap(32.h),
                           VideoReviewWidget(
                             car: widget.car,
