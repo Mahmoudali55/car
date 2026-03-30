@@ -34,7 +34,7 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
   final TextEditingController _idController = TextEditingController();
   final TextEditingController _ibanController = TextEditingController();
 
-  final double depositAmount = 2000.0; // Mock fixed deposit
+  final double depositAmount = 500.0; // Mock fixed deposit
 
   @override
   void initState() {
