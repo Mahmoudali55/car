@@ -617,4 +617,35 @@ class AppLocaleKey {
   static const String statusShipped = 'status_shipped';
   static const String statusDelivered = 'status_delivered';
   static const String viewTimeline = 'view_timeline';
+
+  // Financing Overhaul
+  static const String selectBrand = 'select_brand';
+  static const String selectModel = 'select_model';
+  static const String installmentNumber = 'installment_num';
+  static const String installmentValue = 'installment_val';
+  static const String viewInstallments = 'view_installments';
+  static const String installmentSchedule = 'installment_schedule';
+  static const String titaniumPlan = 'titanium_plan';
+  static const String showLess = 'show_less';
+  static const String showMore = 'show_more';
+  static const String applicationDetails = 'application_details';
+  static const String fullLegalName = 'full_legal_name';
+  static const String enterFullName = 'enter_full_name';
+  static const String enterMobileNumber = 'enter_mobile_number';
+  static const String idNumberHint = 'id_number_hint';
+  static const String employerHint = 'employer_hint';
+  static const String amountInSarHint = 'amount_in_sar_hint';
+  static const String residual = 'residual';
+  static const String lastPaymentResidual = 'last_payment_residual';
+  static const String back = 'back';
+  static const String submitApplication = 'submit_application';
+  static const String previewOffer = 'preview_offer';
+  static const String showSchedule = 'show_schedule';
+  static const String noOffersAvailable = 'no_offers_available';
+  static const String years = 'years';
+  static const String selectionRequired = 'selection_required';
+  static const String providerRequired = 'provider_required';
+  static const String luxuryConciergeContact = 'luxury_concierge_contact';
+  static const String elite = 'elite';
+  static const String fixedApr = 'fixed_apr';
 }

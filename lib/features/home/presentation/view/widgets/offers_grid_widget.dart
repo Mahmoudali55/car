@@ -37,6 +37,7 @@ class OffersGridWidget extends StatelessWidget {
       'engine': '4.4L V8',
       'video_id': 'D7O8J5vVf-M',
       'isFavorite': true,
+      'is_financing_available': false,
     },
     {
       'name': 'Land Cruiser 300',

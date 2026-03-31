@@ -95,8 +95,10 @@ class _CarDetailsScreenState extends State<CarDetailsScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           CarHeaderWidget(car: widget.car),
-                          BnplWidget(car: widget.car),
-                          CashPackagesWidget(car: widget.car),
+                          if (widget.car['is_financing_available'] ?? true) ...[
+                            BnplWidget(car: widget.car),
+                            CashPackagesWidget(car: widget.car),
+                          ],
                           Gap(24.h),
                           const InspectionBadgeWidget(),
                           Gap(32.h),
@@ -108,7 +110,8 @@ class _CarDetailsScreenState extends State<CarDetailsScreen> {
                           Gap(32.h),
                           const FeaturesGridWidget(),
                           Gap(32.h),
-                          BankInstallmentsBannerWidget(car: widget.car),
+                          if (widget.car['is_financing_available'] ?? true)
+                            BankInstallmentsBannerWidget(car: widget.car),
                           Gap(32.h),
                           VideoReviewWidget(
                             car: widget.car,

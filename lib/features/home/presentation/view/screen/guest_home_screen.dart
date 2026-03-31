@@ -81,8 +81,6 @@ class HomeGuestScreen extends StatelessWidget {
                  SizedBox(height: 15.h),
                 const PopularCarsSlider(),
                 SizedBox(height: 20.h),
-                const FinancingBannerWidget(),
-                SizedBox(height: 30.h),
                 SectionTitleWidget(title: AppLocaleKey.searchByBudget.tr(), onSeeAll: null),
                 SizedBox(height: 15.h),
                 const BudgetSearchWidget(),

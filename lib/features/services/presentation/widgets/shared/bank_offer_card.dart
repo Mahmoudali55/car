@@ -1,0 +1,175 @@
+import 'package:car/core/localization/app_locale_keys.dart';
+import 'package:car/core/theme/app_colors.dart';
+import 'package:car/core/theme/app_text_style.dart';
+import 'package:car/features/services/presentation/models/financing_models.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gap/gap.dart';
+import 'package:intl/intl.dart';
+
+class BankOfferCard extends StatelessWidget {
+  final BankOffer bank;
+  final bool isSelected;
+  final double carPrice;
+  final double downPaymentPercent;
+  final double lastPaymentPercent;
+  final int durationYears;
+  final int selectedYear;
+  final String selectedBrand;
+  final String selectedModel;
+  final VoidCallback onTap;
+
+  const BankOfferCard({
+    super.key,
+    required this.bank,
+    required this.isSelected,
+    required this.carPrice,
+    required this.downPaymentPercent,
+    required this.lastPaymentPercent,
+    required this.durationYears,
+    required this.selectedYear,
+    required this.selectedBrand,
+    required this.selectedModel,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final calc = bank.calculate(
+      carPrice: carPrice,
+      downPaymentPercent: downPaymentPercent,
+      lastPaymentPercent: lastPaymentPercent,
+      durationYears: durationYears,
+      year: selectedYear,
+      brand: selectedBrand,
+      model: selectedModel,
+    );
+    final primary = AppColor.primaryColor(context);
+    final hasCampaign =
+        bank.campaigns?.any((c) => c.matches(selectedBrand, selectedModel, selectedYear)) ?? false;
+
+    return GestureDetector(
+      onTap: onTap,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 500),
+        margin: EdgeInsets.only(bottom: 20.h),
+        padding: EdgeInsets.all(24.w),
+        decoration: BoxDecoration(
+          color: isSelected
+              ? primary.withValues(alpha: 0.05)
+              : AppColor.cardColor(context).withValues(alpha: 0.4),
+          borderRadius: BorderRadius.circular(24.r),
+          border: Border.all(
+            color: isSelected ? primary : AppColor.borderColor(context),
+            width: isSelected ? 1.2 : 1,
+          ),
+        ),
+        child: Row(
+          children: [
+            // Logo
+            Container(
+              height: 54.h,
+              width: 54.h,
+              decoration: BoxDecoration(
+                color: bank.brandColor.withValues(alpha: 0.8),
+                borderRadius: BorderRadius.circular(16.r),
+              ),
+              child: Center(
+                child: Text(
+                  bank.logoText.toUpperCase(),
+                  style: AppTextStyle.bodySmall(context).copyWith(
+                    color: AppColor.whiteColor(context),
+                    fontWeight: FontWeight.w900,
+                    letterSpacing: 1,
+                    fontSize: 12.sp,
+                  ),
+                ),
+              ),
+            ),
+            Gap(20.w),
+            // Details
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Text(
+                        bank.nameKey.tr().toUpperCase(),
+                        style: AppTextStyle.bodyMedium(context).copyWith(
+                          fontWeight: FontWeight.w900,
+                          color: isSelected
+                              ? AppColor.whiteColor(context)
+                              : AppColor.whiteColor(context).withValues(alpha: 0.7),
+                          fontSize: 13.sp,
+                          letterSpacing: 1,
+                        ),
+                      ),
+                      if (hasCampaign) ...[
+                        Gap(8.w),
+                        Container(
+                          padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
+                          decoration: BoxDecoration(
+                            color: primary.withValues(alpha: 0.1),
+                            borderRadius: BorderRadius.circular(6.r),
+                            border: Border.all(color: primary.withValues(alpha: 0.2)),
+                          ),
+                          child: Text(
+                            AppLocaleKey.elite.tr().toUpperCase(),
+                            style: AppTextStyle.bodySmall(context).copyWith(
+                              fontSize: 7.sp,
+                              fontWeight: FontWeight.w900,
+                              color: primary,
+                              letterSpacing: 1,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ],
+                  ),
+                  Gap(4.h),
+                  Text(
+                    '${AppLocaleKey.fixedApr.tr().toUpperCase()}: ${calc['apr']!.toStringAsFixed(2)}%',
+                    style: AppTextStyle.bodySmall(context).copyWith(
+                      color: AppColor.whiteColor(context).withValues(alpha: 0.24),
+                      fontSize: 9.sp,
+                      fontWeight: FontWeight.w900,
+                      letterSpacing: 1.2,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            // Monthly amount
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Text(
+                  NumberFormat('#,##0').format(calc['monthlyInstallment']),
+                  style: AppTextStyle.titleMedium(context).copyWith(
+                    color: isSelected
+                        ? AppColor.whiteColor(context)
+                        : AppColor.whiteColor(context).withValues(alpha: 0.7),
+                    fontWeight: FontWeight.w900,
+                    fontSize: 18.sp,
+                    letterSpacing: -0.5,
+                  ),
+                ),
+                Text(
+                  AppLocaleKey.sar.tr().toUpperCase(),
+                  style: AppTextStyle.bodySmall(context).copyWith(
+                    color: AppColor.whiteColor(context).withValues(alpha: 0.24),
+                    fontWeight: FontWeight.w900,
+                    fontSize: 10.sp,
+                    letterSpacing: 1,
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

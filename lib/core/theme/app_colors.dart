@@ -3,6 +3,10 @@ import 'package:flutter/material.dart';
 import 'app_theme.dart';
 
 class AppColor {
+  static bool isLight(BuildContext context, {bool listen = true}) {
+    return AppTheme.getByTheme(context, light: true, dark: false, listen: listen);
+  }
+
   static Color primaryColor(BuildContext context, {bool listen = true}) {
     return AppTheme.getByTheme(
       context,
