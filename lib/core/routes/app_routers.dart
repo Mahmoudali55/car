@@ -74,6 +74,8 @@ class AppRouters {
         return MaterialPageRoute(builder: (_) => const PaymentSuccessScreen());
       case RoutesName.notificationsScreen:
         return MaterialPageRoute(builder: (_) => const NotificationsScreen());
+      case RoutesName.faqScreen:
+        return MaterialPageRoute(builder: (_) => const FAQScreen());
       case RoutesName.settingsScreen:
         return MaterialPageRoute(
           builder: (_) => BlocProvider(

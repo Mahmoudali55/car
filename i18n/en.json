@@ -563,6 +563,14 @@
   "payment_success_subtitle": "Thank you! Your order has been received successfully.\nOur team will contact you within 24 hours.",
   "order_number_label": "Order Number:",
   "payment_success_order_prefix": "CAR-",
-  "back_to_home": "Back to Home"
+  "back_to_home": "Back to Home",
+  "faq_q1": "How can I book a test drive?",
+  "faq_a1": "You can book a test drive directly from the car details page by clicking the 'Book Test Drive' button.",
+  "faq_q2": "What payment methods are accepted?",
+  "faq_a2": "We accept Mada, Visa, Mastercard, and bank transfers through our secure payment gateway.",
+  "faq_q3": "Is there an installment option?",
+  "faq_a3": "Yes, we provide financing solutions through several local banks and services like Tabby and Tamara.",
+  "faq_q4": "How can I track my order status?",
+  "faq_a4": "You can view your order status and service history in the 'My Account' section under 'Service History'."
 }
 

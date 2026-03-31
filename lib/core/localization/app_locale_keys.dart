@@ -586,4 +586,14 @@ class AppLocaleKey {
   static const String orderNumberLabel = 'order_number_label';
   static const String paymentSuccessOrderPrefix = 'payment_success_order_prefix';
   static const String backToHome = 'back_to_home';
+
+  // FAQ Keys
+  static const String faqQ1 = 'faq_q1';
+  static const String faqA1 = 'faq_a1';
+  static const String faqQ2 = 'faq_q2';
+  static const String faqA2 = 'faq_a2';
+  static const String faqQ3 = 'faq_q3';
+  static const String faqA3 = 'faq_a3';
+  static const String faqQ4 = 'faq_q4';
+  static const String faqA4 = 'faq_a4';
 }

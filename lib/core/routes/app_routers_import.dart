@@ -18,6 +18,7 @@ import 'package:car/features/cart/presentation/view/screen/payment_success_scree
 import 'package:car/features/cart/presentation/view/cubit/cart_cubit.dart';
 import 'package:car/features/notifications/presentation/view/screen/notifications_screen.dart';
 import 'package:car/features/settings/presentation/screen/settings_screen.dart';
+import 'package:car/features/settings/presentation/screen/faq_screen.dart';
 import 'package:car/features/services/presentation/screen/trade_in_screen.dart';
 import 'package:car/features/services/presentation/screen/request_car_screen.dart';
 import 'package:car/features/services/presentation/screen/import_on_demand_screen.dart';

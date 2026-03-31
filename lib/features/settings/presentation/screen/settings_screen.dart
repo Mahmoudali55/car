@@ -64,6 +64,16 @@ class SettingsScreen extends StatelessWidget {
                 ),
               ),
               Gap(24.h),
+              FadeInLeft(
+                duration: const Duration(milliseconds: 450),
+                child: _buildSettingItem(
+                  context,
+                  icon: Icons.help_outline_rounded,
+                  title: AppLocaleKey.faqs.tr(),
+                  onTap: () => Navigator.pushNamed(context, RoutesName.faqScreen),
+                ),
+              ),
+              Gap(24.h),
               _buildSectionHeader(context, AppLocaleKey.accountSecurity.tr()),
               Gap(12.h),
               FadeInLeft(
