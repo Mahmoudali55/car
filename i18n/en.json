@@ -558,6 +558,11 @@
   "payment_card_preview_holder_title": "Card Holder",
   "payment_card_preview_expiry_title": "Expiry Date",
   "payment_method_card_label": "Card",
-  "payment_method_mada_label": "Mada"
+  "payment_method_mada_label": "Mada",
+  "payment_success_title": "Payment Successful!",
+  "payment_success_subtitle": "Thank you! Your order has been received successfully.\nOur team will contact you within 24 hours.",
+  "order_number_label": "Order Number:",
+  "payment_success_order_prefix": "CAR-",
+  "back_to_home": "Back to Home"
 }
 

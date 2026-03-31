@@ -558,6 +558,11 @@
   "payment_card_preview_holder_title": "حامل البطاقة",
   "payment_card_preview_expiry_title": "تاريخ الانتهاء",
   "payment_method_card_label": "بطاقة",
-  "payment_method_mada_label": "مدى"
+  "payment_method_mada_label": "مدى",
+  "payment_success_title": "تمّت عملية الدفع!",
+  "payment_success_subtitle": "شكراً لك! تم استلام طلبك بنجاح.\nسيتواصل معك فريقنا خلال 24 ساعة.",
+  "order_number_label": "رقم الطلب:",
+  "payment_success_order_prefix": "CAR-",
+  "back_to_home": "العودة للرئيسية"
 }
 

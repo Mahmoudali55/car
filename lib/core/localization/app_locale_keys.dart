@@ -579,4 +579,11 @@ class AppLocaleKey {
   static const String noCarsForBrand = 'noCarsForBrand';
   static const String carsAvailable = 'carsAvailable';
   static const String comingSoon = 'comingSoon';
+
+  // Payment Success Screen
+  static const String paymentSuccessTitle = 'payment_success_title';
+  static const String paymentSuccessSubtitle = 'payment_success_subtitle';
+  static const String orderNumberLabel = 'order_number_label';
+  static const String paymentSuccessOrderPrefix = 'payment_success_order_prefix';
+  static const String backToHome = 'back_to_home';
 }
