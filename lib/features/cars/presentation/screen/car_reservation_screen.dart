@@ -1,12 +1,10 @@
 import 'dart:async';
 
-import 'package:animate_do/animate_do.dart';
 import 'package:car/core/custom_widgets/buttons/custom_button.dart';
-import 'package:car/core/custom_widgets/custom_form_field/custom_form_field.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
-import 'package:car/features/cars/presentation/widget/car_header_widget.dart';
+import 'package:car/features/cars/presentation/widget/car_reservation_widgets.dart';
 import 'package:car/features/cart/presentation/view/cubit/cart_cubit.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -81,10 +79,8 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
 
   void _submitReservation() {
     if (_formKey.currentState!.validate() && !_isExpired) {
-      // Add car to the cart successfully
       context.read<CartCubit>().addToCart(widget.car);
 
-      // Simulate success
       showDialog(
         context: context,
         barrierDismissible: false,
@@ -166,239 +162,47 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
           onPressed: () => Navigator.pop(context),
         ),
       ),
-      body: _isExpired ? _buildExpiredView() : _buildActiveReservationForm(),
-    );
-  }
-
-  Widget _buildExpiredView() {
-    return Center(
-      child: FadeInUp(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 32.w),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(Icons.timer_off_rounded, size: 80.sp, color: Colors.red),
-              Gap(24.h),
-              Text(
-                AppLocaleKey.reservationExpired.tr(),
-                style: TextStyle(
-                  fontSize: 22.sp,
-                  fontWeight: FontWeight.bold,
-                  color: AppColor.blackTextColor(context),
+      body: _isExpired
+          ? ReservationExpiredView(onOkPressed: () => Navigator.pop(context))
+          : SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
+              padding: EdgeInsets.all(24.w),
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    ReservationCarSummary(car: widget.car),
+                    Gap(24.h),
+                    ReservationTimerBanner(formattedTime: _formatDuration(_timeRemaining)),
+                    Gap(24.h),
+                    ReservationDepositDisplay(depositAmount: depositAmount),
+                    Gap(32.h),
+                    const ReservationWarningNotice(),
+                    Gap(24.h),
+                    ReservationBuyerForm(
+                      nameController: _nameController,
+                      idController: _idController,
+                      ibanController: _ibanController,
+                    ),
+                    Gap(40.h),
+                    CustomButton(
+                      height: 56.h,
+                      width: double.infinity,
+                      radius: 12.r,
+                      onPressed: _submitReservation,
+                      child: Text(
+                        AppLocaleKey.payDeposit.tr(),
+                        style: AppTextStyle.buttonStyle(
+                          context,
+                        ).copyWith(fontSize: 16.sp, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    Gap(40.h),
+                  ],
                 ),
               ),
-              Gap(12.h),
-              Text(
-                AppLocaleKey.reservationExpiredDesc.tr(),
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 14.sp, color: Colors.grey[600], height: 1.5),
-              ),
-              Gap(40.h),
-              CustomButton(
-                height: 50.h,
-                width: 200.w,
-                radius: 12.r,
-                onPressed: () => Navigator.pop(context),
-                child: Text(AppLocaleKey.ok.tr(), style: AppTextStyle.buttonStyle(context)),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildActiveReservationForm() {
-    final formatter = NumberFormat('#,##0', 'en_US');
-
-    return SingleChildScrollView(
-      physics: const BouncingScrollPhysics(),
-      padding: EdgeInsets.all(24.w),
-      child: Form(
-        key: _formKey,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Car Summary
-            Container(
-              padding: EdgeInsets.all(16.w),
-              decoration: BoxDecoration(
-                color: AppColor.secondAppColor(context),
-                borderRadius: BorderRadius.circular(16.r),
-                border: Border.all(color: Colors.grey.withValues(alpha: 0.1)),
-              ),
-              child: CarHeaderWidget(car: widget.car),
             ),
-            Gap(24.h),
-
-            // Timer Banner
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
-              decoration: BoxDecoration(
-                color: AppColor.primaryColor(context).withValues(alpha: 0.05),
-                borderRadius: BorderRadius.circular(12.r),
-                border: Border.all(color: AppColor.primaryColor(context).withValues(alpha: 0.3)),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      Icon(Icons.timer_outlined, color: AppColor.primaryColor(context)),
-                      Gap(8.w),
-                      Text(
-                        AppLocaleKey.timeRemaining.tr(),
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: AppColor.blackTextColor(context),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Text(
-                    _formatDuration(_timeRemaining),
-                    style: TextStyle(
-                      fontSize: 18.sp,
-                      fontWeight: FontWeight.w900,
-                      color: AppColor.primaryColor(context),
-                      letterSpacing: 1.5,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Gap(24.h),
-
-            // Deposit Amount
-            Center(
-              child: Column(
-                children: [
-                  Text(
-                    AppLocaleKey.depositAmount.tr(),
-                    style: TextStyle(fontSize: 14.sp, color: Colors.grey[600]),
-                  ),
-                  Gap(8.h),
-                  Text(
-                    '${formatter.format(depositAmount)} ${AppLocaleKey.sar.tr()}',
-                    style: TextStyle(
-                      fontSize: 32.sp,
-                      fontWeight: FontWeight.w900,
-                      color: AppColor.blackTextColor(context),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Gap(32.h),
-
-            // Warning Notice
-            Container(
-              padding: EdgeInsets.all(12.w),
-              decoration: BoxDecoration(
-                color: Colors.amber.withValues(alpha: 0.1),
-                borderRadius: BorderRadius.circular(8.r),
-                border: Border.all(color: Colors.amber.withValues(alpha: 0.5)),
-              ),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Icon(Icons.warning_amber_rounded, color: Colors.amber, size: 20.sp),
-                  Gap(8.w),
-                  Expanded(
-                    child: Text(
-                      AppLocaleKey.nameMustMatch.tr(),
-                      style: TextStyle(color: Colors.amber[800], fontSize: 12.sp, height: 1.5),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Gap(24.h),
-
-            // Buyer Name
-            Text(
-              AppLocaleKey.buyerName.tr(),
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: AppColor.blackTextColor(context),
-              ),
-            ),
-            Gap(8.h),
-            CustomFormField(
-              controller: _nameController,
-              hintText: AppLocaleKey.buyerNameHint.tr(),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return AppLocaleKey.validateEmpty.tr();
-                }
-                return null;
-              },
-            ),
-            Gap(16.h),
-
-            // Buyer ID
-            Text(
-              AppLocaleKey.buyerId.tr(),
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: AppColor.blackTextColor(context),
-              ),
-            ),
-            Gap(8.h),
-            CustomFormField(
-              controller: _idController,
-              hintText: '10XXXXXX',
-              keyboardType: TextInputType.number,
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return AppLocaleKey.validateEmpty.tr();
-                }
-                return null;
-              },
-            ),
-            Gap(16.h),
-
-            // Buyer IBAN
-            Text(
-              AppLocaleKey.buyerIban.tr(),
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: AppColor.blackTextColor(context),
-              ),
-            ),
-            Gap(8.h),
-            CustomFormField(
-              controller: _ibanController,
-              hintText: 'SAXXXXXXXXXXXXXXXXXXXXXX',
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return AppLocaleKey.validateEmpty.tr();
-                }
-                if (!value.startsWith('SA') && value.length < 10) {
-                  return AppLocaleKey.validateEmpty.tr(); // Generically invalid for demo
-                }
-                return null;
-              },
-            ),
-            Gap(40.h),
-
-            CustomButton(
-              height: 56.h,
-              width: double.infinity,
-              radius: 12.r,
-              onPressed: _submitReservation,
-              child: Text(
-                AppLocaleKey.payDeposit.tr(),
-                style: AppTextStyle.buttonStyle(
-                  context,
-                ).copyWith(fontSize: 16.sp, fontWeight: FontWeight.bold),
-              ),
-            ),
-            Gap(40.h),
-          ],
-        ),
-      ),
     );
   }
 }
