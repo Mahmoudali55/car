@@ -143,6 +143,19 @@ class AppLocaleKey {
   static const String continueShopping = 'continue_shopping';
   static const String availableCars = 'available_cars';
   static const String showAll = 'show_all';
+
+  // Cart Screen
+  static const String cartScreenTitle = 'cart_screen_title';
+  static const String clearCartDialogTitle = 'clear_cart_dialog_title';
+  static const String clearCartDialogBody = 'clear_cart_dialog_body';
+  static const String clearCartAction = 'clear_cart_action';
+  static const String cartEmptyTitle = 'cart_empty_title';
+  static const String cartEmptySubtitle = 'cart_empty_subtitle';
+  static const String browseCars = 'browse_cars';
+  static const String cartCarSingular = 'cart_car_singular';
+  static const String cartCarPlural = 'cart_car_plural';
+  static const String inYourCart = 'in_your_cart';
+
   static const String specialOffersCars = 'special_offers_cars';
   static const String generalView = 'general_view';
   static const String specialView = 'special_view';

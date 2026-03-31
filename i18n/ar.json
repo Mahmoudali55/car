@@ -526,6 +526,19 @@
   "downloadApp": "حمّل التطبيق الآن لمعرفة المزيد",
   "noCarsForBrand": "لا توجد سيارات لهذه الماركة حالياً",
   "carsAvailable": "سيارة متوفرة",
-  "comingSoon": "جاري الإضافة قريباً"
+  "comingSoon": "جاري الإضافة قريباً",
+
+  "cart_screen_title": "سلة المشتريات",
+  "clear_cart_dialog_title": "تفريغ السلة",
+  "clear_cart_dialog_body": "هل تريد حذف جميع السيارات من السلة؟",
+  "clear_cart_action": "تفريغ",
+
+  "cart_empty_title": "سلتك فارغة",
+  "cart_empty_subtitle": "ابدأ بإضافة سيارات من قائمة السيارات",
+  "browse_cars": "تصفح السيارات",
+
+  "cart_car_singular": "سيارة",
+  "cart_car_plural": "سيارات",
+  "in_your_cart": "في سلتك"
 }
 

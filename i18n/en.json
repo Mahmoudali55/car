@@ -525,7 +525,20 @@
     "atPrice": "at a price of",
     "downloadApp": "Download the app now format details",
     "noCarsForBrand": "No cars available for this brand yet",
-    "carsAvailable": "Cars Available",
-    "comingSoon": "Coming soon, stay tuned!"
+  "carsAvailable": "Cars Available",
+  "comingSoon": "Coming soon, stay tuned!",
+
+  "cart_screen_title": "Shopping Cart",
+  "clear_cart_dialog_title": "Clear Cart",
+  "clear_cart_dialog_body": "Do you want to remove all cars from your cart?",
+  "clear_cart_action": "Clear",
+
+  "cart_empty_title": "Your cart is empty",
+  "cart_empty_subtitle": "Start adding cars from the available cars list",
+  "browse_cars": "Browse Cars",
+
+  "cart_car_singular": "car",
+  "cart_car_plural": "cars",
+  "in_your_cart": "in your cart"
 }
 
