@@ -39,13 +39,13 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 65.h,
+      height: 120.h,
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
-        padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 5.h),
+        padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
         physics: const BouncingScrollPhysics(),
         itemCount: categories.length,
-        separatorBuilder: (context, index) => Gap(12.w),
+        separatorBuilder: (context, index) => Gap(16.w),
         itemBuilder: (context, index) {
           final isSelected = _selectedIndex == index;
 
@@ -58,85 +58,79 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
                 });
               },
               child: AnimatedScale(
-                scale: isSelected ? 1.05 : 1.0,
+                scale: isSelected ? 1.08 : 1.0,
                 duration: const Duration(milliseconds: 200),
                 child: AnimatedContainer(
                   duration: const Duration(milliseconds: 300),
                   curve: Curves.easeOutCubic,
-                  padding: EdgeInsets.fromLTRB(8.w, 8.h, 16.w, 8.h),
+                  width: 90.w,
                   decoration: BoxDecoration(
                     gradient: isSelected
                         ? LinearGradient(
                             colors: [
                               AppColor.primaryColor(context),
-                              const Color(0xff0047BB), // Deep blue for depth
+                              const Color(0xff0047BB), // Deep royal blue
                             ],
                             begin: Alignment.topLeft,
                             end: Alignment.bottomRight,
                           )
                         : null,
-                    color: isSelected
-                        ? null
-                        : AppColor.secondAppColor(context).withValues(alpha: 0.8),
-                    borderRadius: BorderRadius.circular(30.r),
+                    color: isSelected ? null : AppColor.secondAppColor(context),
+                    borderRadius: BorderRadius.circular(24.r),
                     border: Border.all(
                       color: isSelected
-                          ? AppColor.whiteColor(context).withValues(alpha: 0.2)
-                          : AppColor.blackTextColor(context).withValues(alpha: 0.05),
-                      width: 1,
+                          ? AppColor.whiteColor(context).withValues(alpha: 0.3)
+                          : AppColor.blackTextColor(context).withValues(alpha: 0.08),
+                      width: 1.5,
                     ),
-                    boxShadow: isSelected
-                        ? [
-                            BoxShadow(
-                              color: AppColor.primaryColor(context).withValues(alpha: 0.3),
-                              blurRadius: 15,
-                              offset: const Offset(0, 8),
-                            ),
-                          ]
-                        : [
-                            BoxShadow(
-                              color: Colors.black.withValues(alpha: 0.1),
-                              blurRadius: 5,
-                              offset: const Offset(0, 2),
-                            ),
-                          ],
+                    boxShadow: [
+                      BoxShadow(
+                        color: isSelected
+                            ? AppColor.primaryColor(context).withValues(alpha: 0.4)
+                            : Colors.black.withValues(alpha: 0.03),
+                        blurRadius: isSelected ? 20 : 10,
+                        offset: isSelected ? const Offset(0, 8) : const Offset(0, 4),
+                      ),
+                    ],
                   ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Container(
-                        padding: EdgeInsets.all(5.w),
+                      AnimatedContainer(
+                        duration: const Duration(milliseconds: 300),
+                        padding: EdgeInsets.all(12.w),
                         decoration: BoxDecoration(
                           color: isSelected
-                              ? AppColor.whiteColor(context).withValues(alpha: 0.2)
-                              : AppColor.blackTextColor(context).withValues(alpha: 0.05),
+                              ? Colors.white.withValues(alpha: 0.2)
+                              : AppColor.blackTextColor(context).withValues(alpha: 0.03),
                           shape: BoxShape.circle,
                         ),
                         child: Image.asset(
                           categories[index]['image']!,
-                          width: 22.w,
-                          height: 22.w,
+                          width: 32.w,
+                          height: 32.w,
                           fit: BoxFit.contain,
-                          color: isSelected ? AppColor.whiteColor(context) : null,
+                          color: isSelected ? Colors.white : null,
                           errorBuilder: (context, error, stackTrace) => Icon(
                             Icons.directions_car_rounded,
-                            color: isSelected
-                                ? AppColor.whiteColor(context)
-                                : AppColor.primaryColor(context),
-                            size: 18.w,
+                            color: isSelected ? Colors.white : AppColor.primaryColor(context),
+                            size: 24.w,
                           ),
                         ),
                       ),
-                      Gap(10.w),
+                      Gap(10.h),
                       Text(
                         categories[index]['name'] as String,
+                        textAlign: TextAlign.center,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                         style: AppTextStyle.bodySmall(context).copyWith(
                           color: isSelected
-                              ? AppColor.whiteColor(context)
-                              : AppColor.blackTextColor(context).withValues(alpha: 0.7),
-                          fontWeight: isSelected ? FontWeight.w900 : FontWeight.w600,
-                          fontSize: 13.sp,
-                          letterSpacing: 0.5,
+                              ? Colors.white
+                              : AppColor.blackTextColor(context).withValues(alpha: 0.8),
+                          fontWeight: isSelected ? FontWeight.w900 : FontWeight.w700,
+                          fontSize: 11.sp,
+                          letterSpacing: 0.2,
                         ),
                       ),
                     ],
