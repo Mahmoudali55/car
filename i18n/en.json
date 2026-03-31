@@ -571,6 +571,16 @@
   "faq_q3": "Is there an installment option?",
   "faq_a3": "Yes, we provide financing solutions through several local banks and services like Tabby and Tamara.",
   "faq_q4": "How can I track my order status?",
-  "faq_a4": "You can view your order status and service history in the 'My Account' section under 'Service History'."
+  "faq_a4": "You can view your order status and service history in the 'My Account' section under 'Service History'.",
+  "track_order": "Track Order",
+  "no_active_orders": "No active orders currently",
+  "order_id_label": "Order ID",
+  "estimated_delivery": "Est. Delivery",
+  "status_order_placed": "Order Placed",
+  "status_confirmed": "Confirmed",
+  "status_processing": "Processing",
+  "status_shipped": "Shipped",
+  "status_delivered": "Delivered",
+  "view_timeline": "View Timeline"
 }
 

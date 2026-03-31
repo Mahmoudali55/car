@@ -596,4 +596,16 @@ class AppLocaleKey {
   static const String faqA3 = 'faq_a3';
   static const String faqQ4 = 'faq_q4';
   static const String faqA4 = 'faq_a4';
+
+  // Track Order Keys
+  static const String trackOrder = 'track_order';
+  static const String noActiveOrders = 'no_active_orders';
+  static const String orderID = 'order_id_label';
+  static const String estimatedDelivery = 'estimated_delivery';
+  static const String statusOrderPlaced = 'status_order_placed';
+  static const String statusConfirmed = 'status_confirmed';
+  static const String statusProcessing = 'status_processing';
+  static const String statusShipped = 'status_shipped';
+  static const String statusDelivered = 'status_delivered';
+  static const String viewTimeline = 'view_timeline';
 }

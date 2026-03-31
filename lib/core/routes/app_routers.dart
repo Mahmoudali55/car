@@ -76,6 +76,8 @@ class AppRouters {
         return MaterialPageRoute(builder: (_) => const NotificationsScreen());
       case RoutesName.faqScreen:
         return MaterialPageRoute(builder: (_) => const FAQScreen());
+      case RoutesName.trackOrderScreen:
+        return MaterialPageRoute(builder: (_) => const TrackOrderScreen());
       case RoutesName.settingsScreen:
         return MaterialPageRoute(
           builder: (_) => BlocProvider(

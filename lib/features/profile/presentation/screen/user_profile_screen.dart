@@ -1,5 +1,7 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:car/core/custom_widgets/custom_app_bar/custom_app_bar.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
+import 'package:car/core/routes/routes_name.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/features/auth/presentation/view/cubit/auth_cubit.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -7,7 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
-import 'package:animate_do/animate_do.dart';
 
 class UserProfileScreen extends StatelessWidget {
   const UserProfileScreen({super.key});
@@ -43,58 +44,56 @@ class UserProfileScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       FadeInUp(
-                        child: _buildSection(
-                          context,
-                          AppLocaleKey.personalDetails.tr(),
-                          [
-                            _buildInfoTile(
-                              context,
-                              Icons.person_outline_rounded,
-                              AppLocaleKey.fullName.tr(),
-                              user != null ? '${user.firstName} ${user.lastName}' : '---',
-                            ),
-                            _buildInfoTile(
-                              context,
-                              Icons.email_outlined,
-                              AppLocaleKey.email.tr(),
-                              user?.email ?? '---',
-                            ),
-                            _buildInfoTile(
-                              context,
-                              Icons.phone_android_rounded,
-                              AppLocaleKey.mobileNumber.tr(),
-                              user?.mobile ?? '---',
-                            ),
-                          ],
-                        ),
+                        child: _buildSection(context, AppLocaleKey.personalDetails.tr(), [
+                          _buildInfoTile(
+                            context,
+                            Icons.person_outline_rounded,
+                            AppLocaleKey.fullName.tr(),
+                            user != null ? '${user.firstName} ${user.lastName}' : '---',
+                          ),
+                          _buildInfoTile(
+                            context,
+                            Icons.email_outlined,
+                            AppLocaleKey.email.tr(),
+                            user?.email ?? '---',
+                          ),
+                          _buildInfoTile(
+                            context,
+                            Icons.phone_android_rounded,
+                            AppLocaleKey.mobileNumber.tr(),
+                            user?.mobile ?? '---',
+                          ),
+                        ]),
                       ),
                       Gap(24.h),
                       FadeInUp(
                         delay: const Duration(milliseconds: 100),
-                        child: _buildSection(
-                          context,
-                          AppLocaleKey.accountSettings.tr(),
-                          [
-                            _buildActionTile(
-                              context,
-                              Icons.edit_note_rounded,
-                              AppLocaleKey.editProfile.tr(),
-                              () {},
-                            ),
-                            _buildActionTile(
-                              context,
-                              Icons.lock_outline_rounded,
-                              AppLocaleKey.changePassword.tr(),
-                              () {},
-                            ),
-                            _buildActionTile(
-                              context,
-                              Icons.history_rounded,
-                              AppLocaleKey.myHistory.tr(),
-                              () {},
-                            ),
-                          ],
-                        ),
+                        child: _buildSection(context, AppLocaleKey.accountSettings.tr(), [
+                          _buildActionTile(
+                            context,
+                            Icons.edit_note_rounded,
+                            AppLocaleKey.editProfile.tr(),
+                            () {},
+                          ),
+                          _buildActionTile(
+                            context,
+                            Icons.lock_outline_rounded,
+                            AppLocaleKey.changePassword.tr(),
+                            () {},
+                          ),
+                          _buildActionTile(
+                            context,
+                            Icons.local_shipping_outlined,
+                            AppLocaleKey.trackOrder.tr(),
+                            () => Navigator.pushNamed(context, RoutesName.trackOrderScreen),
+                          ),
+                          _buildActionTile(
+                            context,
+                            Icons.history_rounded,
+                            AppLocaleKey.myHistory.tr(),
+                            () {},
+                          ),
+                        ]),
                       ),
                       Gap(40.h),
                       FadeInUp(
@@ -172,10 +171,7 @@ class UserProfileScreen extends StatelessWidget {
           Gap(4.h),
           Text(
             user?.email ?? '---',
-            style: TextStyle(
-              color: AppColor.greyColor(context),
-              fontSize: 14.sp,
-            ),
+            style: TextStyle(color: AppColor.greyColor(context), fontSize: 14.sp),
           ),
           if (user != null) ...[
             Gap(12.h),
