@@ -15,7 +15,6 @@ class RoutesName {
   static const String paymentScreen = 'paymentScreen';
   static const String paymentSuccessScreen = 'paymentSuccessScreen';
   static const String notificationsScreen = 'notificationsScreen';
-  static const String usedCarsScreen = 'usedCarsScreen';
   static const String settingsScreen = 'settingsScreen';
   static const String profileScreen = 'profileScreen';
 

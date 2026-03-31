@@ -9,7 +9,6 @@ import 'package:car/features/onboarding/presentation/view/screen/onboarding_scre
 import 'package:car/features/splash/presentation/view/screen/splash_screen.dart';
 import 'package:car/features/cars/presentation/screen/car_details_screen.dart';
 import 'package:car/features/home/presentation/view/screen/popular_cars_screen.dart';
-import 'package:car/features/home/presentation/view/screen/used_cars_screen.dart';
 import 'package:car/features/cars/presentation/screen/bank_offers_screen.dart';
 import 'package:car/features/cars/presentation/screen/car_reservation_screen.dart';
 import 'package:car/features/cars/presentation/screen/filter_screen.dart';

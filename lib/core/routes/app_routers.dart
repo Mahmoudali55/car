@@ -74,8 +74,6 @@ class AppRouters {
         return MaterialPageRoute(builder: (_) => const PaymentSuccessScreen());
       case RoutesName.notificationsScreen:
         return MaterialPageRoute(builder: (_) => const NotificationsScreen());
-      case RoutesName.usedCarsScreen:
-        return MaterialPageRoute(builder: (_) => const UsedCarsScreen());
       case RoutesName.settingsScreen:
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
