@@ -156,6 +156,26 @@ class AppLocaleKey {
   static const String cartCarPlural = 'cart_car_plural';
   static const String inYourCart = 'in_your_cart';
 
+  // Payment Screen
+  static const String paymentScreenTitle = 'payment_screen_title';
+  static const String paymentMethodTitle = 'payment_method_title';
+  static const String paymentCardDetailsTitle = 'payment_card_details_title';
+  static const String paymentCardNumberLabel = 'payment_card_number_label';
+  static const String paymentCardHolderLabel = 'payment_card_holder_label';
+  static const String paymentExpiryLabel = 'payment_expiry_label';
+  static const String paymentCardNumberInvalidMessage = 'payment_card_number_invalid_message';
+  static const String paymentCardHolderInvalidMessage = 'payment_card_holder_invalid_message';
+  static const String paymentExpiryInvalidMessage = 'payment_expiry_invalid_message';
+  static const String paymentCvvInvalidMessage = 'payment_cvv_invalid_message';
+  static const String paymentSslNote = 'payment_ssl_note';
+  static const String paymentCarsTotalLabel = 'payment_cars_total_label';
+  static const String paymentServiceFeeLabel = 'payment_service_fee_label';
+  static const String paymentCardHolderPlaceholder = 'payment_card_holder_placeholder';
+  static const String paymentCardPreviewHolderTitle = 'payment_card_preview_holder_title';
+  static const String paymentCardPreviewExpiryTitle = 'payment_card_preview_expiry_title';
+  static const String paymentMethodCardLabel = 'payment_method_card_label';
+  static const String paymentMethodMadaLabel = 'payment_method_mada_label';
+
   static const String specialOffersCars = 'special_offers_cars';
   static const String generalView = 'general_view';
   static const String specialView = 'special_view';

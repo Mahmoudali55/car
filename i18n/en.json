@@ -539,6 +539,25 @@
 
   "cart_car_singular": "car",
   "cart_car_plural": "cars",
-  "in_your_cart": "in your cart"
+  "in_your_cart": "in your cart",
+
+  "payment_screen_title": "Secure Payment",
+  "payment_method_title": "Payment Method",
+  "payment_card_details_title": "Card Details",
+  "payment_card_number_label": "Card Number",
+  "payment_card_holder_label": "Card Holder Name",
+  "payment_expiry_label": "Expiry Date",
+  "payment_card_number_invalid_message": "Please enter a valid card number",
+  "payment_card_holder_invalid_message": "Please enter the card holder name",
+  "payment_expiry_invalid_message": "Invalid expiry date",
+  "payment_cvv_invalid_message": "Invalid CVV",
+  "payment_ssl_note": "Secure payments with SSL encryption",
+  "payment_cars_total_label": "Cars Total",
+  "payment_service_fee_label": "Service Fee",
+  "payment_card_holder_placeholder": "Full Name",
+  "payment_card_preview_holder_title": "Card Holder",
+  "payment_card_preview_expiry_title": "Expiry Date",
+  "payment_method_card_label": "Card",
+  "payment_method_mada_label": "Mada"
 }
 

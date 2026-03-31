@@ -1,10 +1,15 @@
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/routes/routes_name.dart';
 import 'package:car/core/theme/app_colors.dart';
-import 'package:car/core/theme/app_text_style.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:car/features/cart/presentation/view/widget/payment_app_bar_widget.dart';
+import 'package:car/features/cart/presentation/view/widget/payment_card_details_form_widget.dart';
+import 'package:car/features/cart/presentation/view/widget/payment_card_preview_widget.dart';
+import 'package:car/features/cart/presentation/view/widget/payment_method_selector_widget.dart';
+import 'package:car/features/cart/presentation/view/widget/payment_order_summary_widget.dart';
+import 'package:car/features/cart/presentation/view/widget/payment_pay_button_widget.dart';
+import 'package:car/features/cart/presentation/view/widget/payment_ssl_note_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
@@ -66,30 +71,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.scaffoldColor(context),
-      appBar: AppBar(
-        backgroundColor: AppColor.scaffoldColor(context),
-        elevation: 0,
-        centerTitle: true,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios_new_rounded, color: AppColor.blackTextColor(context)),
-          onPressed: () => Navigator.pop(context),
-          style: IconButton.styleFrom(
-            backgroundColor: AppColor.blackTextColor(context).withOpacity(0.05),
-          ),
-        ),
-        title: Text(
-          'الدفع الآمن',
-          style: AppTextStyle.titleMedium(
-            context,
-          ).copyWith(color: AppColor.blackTextColor(context), fontWeight: FontWeight.bold),
-        ),
-        actions: [
-          Padding(
-            padding: EdgeInsets.only(right: 16.w),
-            child: Icon(Icons.lock_rounded, color: AppColor.primaryColor(context), size: 22.sp),
-          ),
-        ],
-      ),
+      appBar: PaymentAppBarWidget(title: AppLocaleKey.paymentScreenTitle.tr()),
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         padding: EdgeInsets.symmetric(horizontal: 20.w),
@@ -100,50 +82,31 @@ class _PaymentScreenState extends State<PaymentScreen> {
             children: [
               Gap(16.h),
 
-              // Payment Method Selection
-              Text(
-                'طريقة الدفع',
-                style: AppTextStyle.titleMedium(
-                  context,
-                ).copyWith(color: AppColor.blackTextColor(context), fontWeight: FontWeight.w700),
-              ),
-              Gap(12.h),
-              Row(
-                children: [
-                  _buildPaymentMethod(0, Icons.credit_card_rounded, 'بطاقة'),
-                  Gap(12.w),
-                  _buildPaymentMethod(1, Icons.apple_rounded, 'Apple Pay'),
-                  Gap(12.w),
-                  _buildPaymentMethod(2, Icons.payment_rounded, 'مدى'),
-                ],
+              PaymentMethodSelectorWidget(
+                title: AppLocaleKey.paymentMethodTitle.tr(),
+                selectedIndex: _selectedPayment,
+                onSelected: (i) => setState(() => _selectedPayment = i),
               ),
               Gap(28.h),
 
-              // Card Preview
-              _buildCardPreview(context),
+              PaymentCardPreviewWidget(
+                cardNumber: _cardNumberController.text.isEmpty
+                    ? '•••• •••• •••• ••••'
+                    : _cardNumberController.text.padRight(19, '•'),
+                cardHolder: _cardHolderController.text.isEmpty
+                    ? AppLocaleKey.paymentCardHolderPlaceholder.tr()
+                    : _cardHolderController.text,
+                expiry: _expiryController.text.isEmpty ? 'MM/YY' : _expiryController.text,
+              ),
               Gap(28.h),
 
-              // Card Details Form
-              Text(
-                'بيانات البطاقة',
-                style: AppTextStyle.titleMedium(
-                  context,
-                ).copyWith(color: AppColor.blackTextColor(context), fontWeight: FontWeight.w700),
-              ),
-              Gap(16.h),
-
-              // Card Number
-              _buildFormField(
-                controller: _cardNumberController,
-                label: 'رقم البطاقة',
-                hint: '0000 0000 0000 0000',
-                icon: Icons.credit_card_rounded,
-                keyboardType: TextInputType.number,
-                inputFormatters: [
-                  FilteringTextInputFormatter.digitsOnly,
-                  LengthLimitingTextInputFormatter(16),
-                ],
-                onChanged: (v) {
+              PaymentCardDetailsFormWidget(
+                title: AppLocaleKey.paymentCardDetailsTitle.tr(),
+                cardNumberController: _cardNumberController,
+                cardHolderController: _cardHolderController,
+                expiryController: _expiryController,
+                cvvController: _cvvController,
+                onCardNumberChanged: (v) {
                   final formatted = _formatCardNumber(v);
                   if (formatted != v) {
                     _cardNumberController.value = _cardNumberController.value.copyWith(
@@ -153,177 +116,38 @@ class _PaymentScreenState extends State<PaymentScreen> {
                   }
                   setState(() {});
                 },
-                validator: (v) {
-                  if (v == null || v.replaceAll(' ', '').length < 16) {
-                    return 'أدخل رقم بطاقة صحيح';
+                onCardHolderChanged: (_) => setState(() {}),
+                onExpiryChanged: (v) {
+                  final formatted = _formatExpiry(v);
+                  if (formatted != v) {
+                    _expiryController.value = _expiryController.value.copyWith(
+                      text: formatted,
+                      selection: TextSelection.collapsed(offset: formatted.length),
+                    );
                   }
-                  return null;
+                  setState(() {});
                 },
-              ),
-              Gap(14.h),
-
-              // Card Holder
-              _buildFormField(
-                controller: _cardHolderController,
-                label: 'اسم حامل البطاقة',
-                hint: 'AHMED ALI',
-                icon: Icons.person_outline_rounded,
-                textCapitalization: TextCapitalization.characters,
-                validator: (v) {
-                  if (v == null || v.trim().isEmpty) {
-                    return 'أدخل اسم حامل البطاقة';
-                  }
-                  return null;
-                },
-                onChanged: (_) => setState(() {}),
-              ),
-              Gap(14.h),
-
-              // Expiry & CVV
-              Row(
-                children: [
-                  Expanded(
-                    child: _buildFormField(
-                      controller: _expiryController,
-                      label: 'تاريخ الانتهاء',
-                      hint: 'MM/YY',
-                      icon: Icons.date_range_rounded,
-                      keyboardType: TextInputType.number,
-                      inputFormatters: [
-                        FilteringTextInputFormatter.digitsOnly,
-                        LengthLimitingTextInputFormatter(4),
-                      ],
-                      onChanged: (v) {
-                        final formatted = _formatExpiry(v);
-                        if (formatted != v) {
-                          _expiryController.value = _expiryController.value.copyWith(
-                            text: formatted,
-                            selection: TextSelection.collapsed(offset: formatted.length),
-                          );
-                        }
-                        setState(() {});
-                      },
-                      validator: (v) {
-                        if (v == null || v.length < 5) {
-                          return 'تاريخ غير صحيح';
-                        }
-                        return null;
-                      },
-                    ),
-                  ),
-                  Gap(12.w),
-                  Expanded(
-                    child: _buildFormField(
-                      controller: _cvvController,
-                      label: 'CVV',
-                      hint: '•••',
-                      icon: Icons.security_rounded,
-                      keyboardType: TextInputType.number,
-                      inputFormatters: [
-                        FilteringTextInputFormatter.digitsOnly,
-                        LengthLimitingTextInputFormatter(3),
-                      ],
-                      obscureText: true,
-                      onChanged: (_) => setState(() {}),
-                      validator: (v) {
-                        if (v == null || v.length < 3) return 'CVV غير صحيح';
-                        return null;
-                      },
-                    ),
-                  ),
-                ],
+                onCvvChanged: (_) => setState(() {}),
               ),
               Gap(32.h),
 
-              // Price Summary
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 18.h),
-                decoration: BoxDecoration(
-                  color: AppColor.secondAppColor(context),
-                  borderRadius: BorderRadius.circular(20.r),
-                  border: Border.all(color: AppColor.blackTextColor(context).withOpacity(0.06)),
-                ),
-                child: Column(
-                  children: [
-                    _buildSummaryRow(context, 'مجموع السيارات', _formatPrice(widget.totalPrice)),
-                    Gap(10.h),
-                    _buildSummaryRow(context, 'رسوم الخدمة', '2,500  ر.س       '),
-                    Gap(10.h),
-                    Divider(color: AppColor.blackTextColor(context).withOpacity(0.1)),
-                    Gap(10.h),
-                    _buildSummaryRow(
-                      context,
-                      'الإجمالي',
-                      _formatPrice(widget.totalPrice + 2500),
-                      isTotal: true,
-                    ),
-                  ],
-                ),
+              PaymentOrderSummaryWidget(
+                carsTotalLabel: AppLocaleKey.paymentCarsTotalLabel.tr(),
+                serviceFeeLabel: AppLocaleKey.paymentServiceFeeLabel.tr(),
+                totalLabel: AppLocaleKey.total.tr(),
+                carsTotalValue: _formatPrice(widget.totalPrice),
+                serviceFeeValue: _formatPrice(2500),
+                totalValue: _formatPrice(widget.totalPrice + 2500),
               ),
               Gap(28.h),
 
-              // Pay Button
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: _isLoading ? null : _processPayment,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColor.primaryColor(context),
-                    disabledBackgroundColor: AppColor.primaryColor(context).withOpacity(0.5),
-                    padding: EdgeInsets.symmetric(vertical: 18.h),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.r)),
-                    elevation: 0,
-                  ),
-                  child: _isLoading
-                      ? SizedBox(
-                          height: 22.h,
-                          width: 22.h,
-                          child: CircularProgressIndicator(
-                            strokeWidth: 2.5,
-                            valueColor: AlwaysStoppedAnimation(AppColor.blackTextColor(context)),
-                          ),
-                        )
-                      : Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              Icons.lock_rounded,
-                              color: AppColor.whiteColor(context),
-                              size: 20.sp,
-                            ),
-                            Gap(10.w),
-                            Text(
-                              AppLocaleKey.payNow.tr(),
-                              style: AppTextStyle.titleMedium(context).copyWith(
-                                color: AppColor.whiteColor(context),
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
-                        ),
-                ),
+              PaymentPayButtonWidget(
+                isLoading: _isLoading,
+                onPressed: _processPayment,
+                title: AppLocaleKey.payNow.tr(),
               ),
               Gap(12.h),
-              Center(
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(
-                      Icons.shield_outlined,
-                      color: AppColor.blackTextColor(context).withOpacity(0.4),
-                      size: 14.sp,
-                    ),
-                    Gap(6.w),
-                    Text(
-                      'مدفوعات آمنة بتشفير SSL',
-                      style: AppTextStyle.bodySmall(context).copyWith(
-                        color: AppColor.blackTextColor(context).withOpacity(0.4),
-                        fontSize: 11.sp,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+              PaymentSslNoteWidget(text: AppLocaleKey.paymentSslNote.tr()),
               Gap(40.h),
             ],
           ),
@@ -332,266 +156,10 @@ class _PaymentScreenState extends State<PaymentScreen> {
     );
   }
 
-  Widget _buildPaymentMethod(int index, IconData icon, String label) {
-    final isSelected = _selectedPayment == index;
-    return Expanded(
-      child: GestureDetector(
-        onTap: () => setState(() => _selectedPayment = index),
-        child: AnimatedContainer(
-          duration: const Duration(milliseconds: 250),
-          padding: EdgeInsets.symmetric(vertical: 12.h),
-          decoration: BoxDecoration(
-            color: isSelected
-                ? AppColor.primaryColor(context).withOpacity(0.15)
-                : AppColor.secondAppColor(context),
-            borderRadius: BorderRadius.circular(14.r),
-            border: Border.all(
-              color: isSelected
-                  ? AppColor.primaryColor(context)
-                  : AppColor.blackTextColor(context).withOpacity(0.06),
-              width: isSelected ? 1.5 : 1,
-            ),
-          ),
-          child: Column(
-            children: [
-              Icon(
-                icon,
-                color: isSelected
-                    ? AppColor.primaryColor(context)
-                    : AppColor.blackTextColor(context).withOpacity(0.5),
-                size: 22.sp,
-              ),
-              Gap(4.h),
-              Text(
-                label,
-                style: AppTextStyle.bodySmall(context).copyWith(
-                  color: isSelected
-                      ? AppColor.primaryColor(context)
-                      : AppColor.blackTextColor(context).withOpacity(0.5),
-                  fontSize: 10.sp,
-                  fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildCardPreview(BuildContext context) {
-    final cardNumber = _cardNumberController.text.isEmpty
-        ? '•••• •••• •••• ••••'
-        : _cardNumberController.text.padRight(19, '•');
-    final cardHolder = _cardHolderController.text.isEmpty
-        ? 'الاسم الكامل'
-        : _cardHolderController.text;
-    final expiry = _expiryController.text.isEmpty ? 'MM/YY' : _expiryController.text;
-
-    return Container(
-      height: 190.h,
-      width: double.infinity,
-      padding: EdgeInsets.all(24.w),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [AppColor.primaryColor(context), AppColor.primaryColor(context).withOpacity(0.6)],
-        ),
-        borderRadius: BorderRadius.circular(24.r),
-        boxShadow: [
-          BoxShadow(
-            color: AppColor.primaryColor(context).withOpacity(0.35),
-            blurRadius: 25,
-            offset: const Offset(0, 10),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'VISA',
-                style: TextStyle(
-                  color: AppColor.blackTextColor(context),
-                  fontSize: 22.sp,
-                  fontWeight: FontWeight.w900,
-                  fontStyle: FontStyle.italic,
-                  letterSpacing: 2,
-                ),
-              ),
-              Icon(
-                Icons.wifi_rounded,
-                color: AppColor.blackTextColor(context).withOpacity(0.8),
-                size: 24.sp,
-              ),
-            ],
-          ),
-          Text(
-            cardNumber,
-            style: TextStyle(
-              color: AppColor.blackTextColor(context),
-              fontSize: 18.sp,
-              fontWeight: FontWeight.w600,
-              letterSpacing: 2.5,
-            ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'حامل البطاقة',
-                    style: TextStyle(
-                      color: AppColor.blackTextColor(context).withOpacity(0.6),
-                      fontSize: 9.sp,
-                    ),
-                  ),
-                  Text(
-                    cardHolder,
-                    style: TextStyle(
-                      color: AppColor.blackTextColor(context),
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ],
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'تاريخ الانتهاء',
-                    style: TextStyle(
-                      color: AppColor.blackTextColor(context).withOpacity(0.6),
-                      fontSize: 9.sp,
-                    ),
-                  ),
-                  Text(
-                    expiry,
-                    style: TextStyle(
-                      color: AppColor.blackTextColor(context),
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildFormField({
-    required TextEditingController controller,
-    required String label,
-    required String hint,
-    required IconData icon,
-    TextInputType keyboardType = TextInputType.text,
-    List<TextInputFormatter>? inputFormatters,
-    bool obscureText = false,
-    TextCapitalization textCapitalization = TextCapitalization.none,
-    required Function(String) onChanged,
-    required String? Function(String?) validator,
-  }) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          label,
-          style: AppTextStyle.bodySmall(
-            context,
-          ).copyWith(color: AppColor.blackTextColor(context).withOpacity(0.6), fontSize: 12.sp),
-        ),
-        Gap(8.h),
-        TextFormField(
-          controller: controller,
-          keyboardType: keyboardType,
-          inputFormatters: inputFormatters,
-          obscureText: obscureText,
-          textCapitalization: textCapitalization,
-          onChanged: onChanged,
-          validator: validator,
-          style: AppTextStyle.bodyMedium(
-            context,
-          ).copyWith(color: AppColor.blackTextColor(context), fontWeight: FontWeight.w600),
-          decoration: InputDecoration(
-            hintText: hint,
-            hintStyle: AppTextStyle.bodyMedium(
-              context,
-            ).copyWith(color: AppColor.blackTextColor(context).withOpacity(0.25)),
-            prefixIcon: Icon(icon, color: AppColor.primaryColor(context), size: 20.sp),
-            filled: true,
-            fillColor: AppColor.secondAppColor(context),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(14.r),
-              borderSide: BorderSide.none,
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(14.r),
-              borderSide: BorderSide(color: AppColor.blackTextColor(context).withOpacity(0.06)),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(14.r),
-              borderSide: BorderSide(color: AppColor.primaryColor(context), width: 1.5),
-            ),
-            errorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(14.r),
-              borderSide: const BorderSide(color: Colors.redAccent, width: 1),
-            ),
-            focusedErrorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(14.r),
-              borderSide: const BorderSide(color: Colors.redAccent, width: 1.5),
-            ),
-            contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildSummaryRow(
-    BuildContext context,
-    String label,
-    String value, {
-    bool isTotal = false,
-  }) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(
-          label,
-          style: AppTextStyle.bodyMedium(context).copyWith(
-            color: isTotal
-                ? AppColor.blackTextColor(context)
-                : AppColor.blackTextColor(context).withOpacity(0.6),
-            fontWeight: isTotal ? FontWeight.bold : FontWeight.normal,
-          ),
-        ),
-        Text(
-          value,
-          style: AppTextStyle.bodyMedium(context).copyWith(
-            color: isTotal ? AppColor.primaryColor(context) : AppColor.blackTextColor(context),
-            fontWeight: FontWeight.bold,
-            fontSize: isTotal ? 16.sp : 14.sp,
-          ),
-        ),
-      ],
-    );
-  }
-
   String _formatPrice(double price) {
     final formatted = price
         .toStringAsFixed(0)
         .replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (m) => '${m[1]},');
-    return '$formatted  ر.س       ';
+    return '$formatted ${AppLocaleKey.sar.tr()}       ';
   }
 }

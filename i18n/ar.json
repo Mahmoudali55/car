@@ -539,6 +539,25 @@
 
   "cart_car_singular": "سيارة",
   "cart_car_plural": "سيارات",
-  "in_your_cart": "في سلتك"
+  "in_your_cart": "في سلتك",
+
+  "payment_screen_title": "الدفع الآمن",
+  "payment_method_title": "طريقة الدفع",
+  "payment_card_details_title": "بيانات البطاقة",
+  "payment_card_number_label": "رقم البطاقة",
+  "payment_card_holder_label": "اسم حامل البطاقة",
+  "payment_expiry_label": "تاريخ الانتهاء",
+  "payment_card_number_invalid_message": "أدخل رقم بطاقة صحيح",
+  "payment_card_holder_invalid_message": "أدخل اسم حامل البطاقة",
+  "payment_expiry_invalid_message": "تاريخ غير صحيح",
+  "payment_cvv_invalid_message": "CVV غير صحيح",
+  "payment_ssl_note": "مدفوعات آمنة بتشفير SSL",
+  "payment_cars_total_label": "مجموع السيارات",
+  "payment_service_fee_label": "رسوم الخدمة",
+  "payment_card_holder_placeholder": "الاسم الكامل",
+  "payment_card_preview_holder_title": "حامل البطاقة",
+  "payment_card_preview_expiry_title": "تاريخ الانتهاء",
+  "payment_method_card_label": "بطاقة",
+  "payment_method_mada_label": "مدى"
 }
 
