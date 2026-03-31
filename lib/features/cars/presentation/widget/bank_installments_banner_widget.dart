@@ -13,7 +13,7 @@ class BankInstallmentsBannerWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, RoutesName.bankOffersScreen, arguments: car);
+        Navigator.pushNamed(context, RoutesName.financingScreen, arguments: car);
       },
       child: Container(
         width: double.infinity,

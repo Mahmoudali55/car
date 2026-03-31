@@ -99,7 +99,9 @@ class AppRouters {
       case RoutesName.importOnDemandScreen:
         return MaterialPageRoute(builder: (_) => const ImportOnDemandScreen());
       case RoutesName.financingScreen:
-        return MaterialPageRoute(builder: (_) => const FinancingScreen());
+        return MaterialPageRoute(
+          builder: (_) => FinancingScreen(car: args as Map<String, dynamic>?),
+        );
       case RoutesName.carDetailingScreen:
         return MaterialPageRoute(builder: (_) => const CarDetailingScreen());
       case RoutesName.shippingScreen:

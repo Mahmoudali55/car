@@ -414,6 +414,15 @@ class AppLocaleKey {
   static const String reportNumber = 'report_number';
   static const String inspectionCompleted = 'inspection_completed';
   static const String viewFullReport = 'view_full_report';
+  static const String welcomeTo = 'welcome_to';
+  static const String carGroup = 'car_group';
+
+  // Financing Validation
+  static const String nationalId = 'national_id';
+  static const String validatePhoneNumber = 'validate_phone_number';
+  static const String validateId = 'validate_id';
+  static const String validateWork = 'validate_work';
+  static const String validateSalary = 'validate_salary';
   static const String reject = 'reject';
   static const String approve = 'approve';
 
