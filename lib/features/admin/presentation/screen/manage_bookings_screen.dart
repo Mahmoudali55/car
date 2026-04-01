@@ -131,7 +131,7 @@ class ManageBookingsScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Text(
-                    '2,400  ر.س       ',
+                    '2,400 ${AppLocaleKey.sarAmount.tr()}       ',
                     style: TextStyle(
                       color: Colors.greenAccent,
                       fontSize: 14.sp,

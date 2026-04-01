@@ -154,6 +154,20 @@ class AppRouters {
         return MaterialPageRoute(
           builder: (_) => const AdminNotificationsScreen(),
         );
+      case RoutesName.securitySettings:
+        return MaterialPageRoute(builder: (_) => const AdminSecurityScreen());
+      case RoutesName.systemAlerts:
+        return MaterialPageRoute(builder: (_) => const SystemAlertsScreen());
+      case RoutesName.manageCategories:
+        return MaterialPageRoute(builder: (_) => const ManageCategoriesScreen());
+      case RoutesName.discountCoupons:
+        return MaterialPageRoute(builder: (_) => const DiscountCouponsScreen());
+      case RoutesName.termsSettings:
+        return MaterialPageRoute(builder: (_) => const TermsSettingsScreen());
+      case RoutesName.adminSupport:
+        return MaterialPageRoute(builder: (_) => const AdminSupportScreen());
+      case RoutesName.contactDeveloper:
+        return MaterialPageRoute(builder: (_) => const ContactDeveloperScreen());
 
       default:
         return null;

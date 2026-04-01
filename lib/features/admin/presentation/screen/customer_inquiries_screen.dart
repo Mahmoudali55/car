@@ -161,8 +161,8 @@ class _CustomerInquiriesScreenState extends State<CustomerInquiriesScreen> with 
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('سالم العتيبي', style: TextStyle(color: AppColor.blackTextColor(context), fontSize: 13.sp, fontWeight: FontWeight.bold)),
-                      Text('منذ 3 ساعات', style: TextStyle(color: AppColor.blackTextColor(context).withValues(alpha: 0.3), fontSize: 10.sp)),
+                      Text(AppLocaleKey.salemAlOtaibi.tr(), style: TextStyle(color: AppColor.blackTextColor(context), fontSize: 13.sp, fontWeight: FontWeight.bold)),
+                      Text(AppLocaleKey.threeHoursAgo.tr(), style: TextStyle(color: AppColor.blackTextColor(context).withValues(alpha: 0.3), fontSize: 10.sp)),
                     ],
                   ),
                 ],
@@ -176,18 +176,18 @@ class _CustomerInquiriesScreenState extends State<CustomerInquiriesScreen> with 
           ),
           Gap(12.h),
           Text(
-            'أرغب في الاستفسار عن توفر مرسيدس G63 موديل 2024 باللون الأسود المطفي.',
+            AppLocaleKey.carG63Inquiry.tr(),
             style: TextStyle(color: AppColor.blackTextColor(context).withValues(alpha: 0.7), fontSize: 12.sp),
           ),
           Gap(16.h),
           Row(
             children: [
               Expanded(
-                child: _buildActionButton(Icons.chat_bubble_outline_rounded, 'رد سريع', Colors.blueAccent),
+                child: _buildActionButton(Icons.chat_bubble_outline_rounded, AppLocaleKey.quickReply.tr(), Colors.blueAccent),
               ),
               Gap(12.w),
               Expanded(
-                child: _buildActionButton(Icons.phone_in_talk_rounded, 'اتصال', Colors.greenAccent),
+                child: _buildActionButton(Icons.phone_in_talk_rounded, AppLocaleKey.callLabel.tr(), Colors.greenAccent),
               ),
             ],
           ),

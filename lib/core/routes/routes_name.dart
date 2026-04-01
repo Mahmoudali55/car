@@ -51,4 +51,11 @@ class RoutesName {
   static const String adminSettings = 'adminSettings';
   static const String allActivities = 'allActivities';
   static const String adminNotifications = 'adminNotifications';
+  static const String securitySettings = 'securitySettings';
+  static const String systemAlerts = 'systemAlerts';
+  static const String manageCategories = 'manageCategories';
+  static const String discountCoupons = 'discountCoupons';
+  static const String termsSettings = 'termsSettings';
+  static const String adminSupport = 'adminSupport';
+  static const String contactDeveloper = 'contactDeveloper';
 }

@@ -2,6 +2,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:car/core/cache/hive/hive_methods.dart';
 import 'package:car/core/custom_widgets/custom_app_bar/custom_app_bar.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
+import 'package:car/core/routes/routes_name.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/core/theme/cubit/app_theme_cubit.dart';
@@ -58,6 +59,7 @@ class AdminSettingsScreen extends StatelessWidget {
                         Icons.security_rounded,
                         AppLocaleKey.securityAndPrivacy.tr(),
                         AppLocaleKey.managePasswordsPermissions.tr(),
+                        onTap: () => Navigator.pushNamed(context, RoutesName.securitySettings),
                       ),
                       _buildSettingItem(
                         context,
@@ -71,6 +73,7 @@ class AdminSettingsScreen extends StatelessWidget {
                         Icons.notifications_active_rounded,
                         AppLocaleKey.systemAlerts.tr(),
                         AppLocaleKey.systemNotificationsDesc.tr(),
+                        onTap: () => Navigator.pushNamed(context, RoutesName.systemAlerts),
                       ),
                     ]),
                     Gap(32.h),
@@ -80,18 +83,21 @@ class AdminSettingsScreen extends StatelessWidget {
                         Icons.category_rounded,
                         AppLocaleKey.categories.tr(),
                         AppLocaleKey.manageCategoriesDesc.tr(),
+                        onTap: () => Navigator.pushNamed(context, RoutesName.manageCategories),
                       ),
                       _buildSettingItem(
                         context,
                         Icons.discount_rounded,
                         AppLocaleKey.discountCoupons.tr(),
                         AppLocaleKey.manageOffersDiscounts.tr(),
+                        onTap: () => Navigator.pushNamed(context, RoutesName.discountCoupons),
                       ),
                       _buildSettingItem(
                         context,
                         Icons.policy_rounded,
                         AppLocaleKey.termsAndConditions.tr(),
                         AppLocaleKey.updateUsagePolicies.tr(),
+                        onTap: () => Navigator.pushNamed(context, RoutesName.termsSettings),
                       ),
                     ]),
                     Gap(32.h),
@@ -101,12 +107,14 @@ class AdminSettingsScreen extends StatelessWidget {
                         Icons.help_outline_rounded,
                         AppLocaleKey.supportCenter.tr(),
                         AppLocaleKey.helpCenterDesc.tr(),
+                        onTap: () => Navigator.pushNamed(context, RoutesName.adminSupport),
                       ),
                       _buildSettingItem(
                         context,
                         Icons.contact_support_outlined,
                         AppLocaleKey.contactDeveloper.tr(),
                         AppLocaleKey.raiseSupportTicket.tr(),
+                        onTap: () => Navigator.pushNamed(context, RoutesName.contactDeveloper),
                       ),
                     ]),
                     Gap(40.h),
@@ -154,7 +162,10 @@ class AdminSettingsScreen extends StatelessWidget {
         child: ListTile(
           leading: Container(
             padding: EdgeInsets.all(10.w),
-            decoration: BoxDecoration(color: baseColor.withValues(alpha: 0.05), shape: BoxShape.circle),
+            decoration: BoxDecoration(
+              color: baseColor.withValues(alpha: 0.05),
+              shape: BoxShape.circle,
+            ),
             child: AnimatedSwitcher(
               duration: const Duration(milliseconds: 300),
               child: Icon(
@@ -205,7 +216,10 @@ class AdminSettingsScreen extends StatelessWidget {
           onTap: onTap,
           leading: Container(
             padding: EdgeInsets.all(10.w),
-            decoration: BoxDecoration(color: baseColor.withValues(alpha: 0.05), shape: BoxShape.circle),
+            decoration: BoxDecoration(
+              color: baseColor.withValues(alpha: 0.05),
+              shape: BoxShape.circle,
+            ),
             child: Icon(icon, color: baseColor, size: 20.sp),
           ),
           title: Text(
@@ -325,7 +339,15 @@ class AdminSettingsScreen extends StatelessWidget {
           border: Border.all(color: Colors.redAccent.withValues(alpha: 0.1)),
         ),
         child: ListTile(
-          onTap: () {},
+          onTap: () {
+            HiveMethods.deleteToken();
+            HiveMethods.updateRole('user');
+            Navigator.pushNamedAndRemoveUntil(
+              context,
+              RoutesName.loginScreen,
+              (route) => false,
+            );
+          },
           leading: const Icon(Icons.logout_rounded, color: Colors.redAccent),
           title: Text(
             AppLocaleKey.logout.tr(),

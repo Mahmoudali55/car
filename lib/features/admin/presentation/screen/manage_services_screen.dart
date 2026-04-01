@@ -38,14 +38,14 @@ class ManageServicesScreen extends StatelessWidget {
 
   Widget _buildServiceItem(BuildContext context, int index) {
     final services = [
-      'التبديل (Trade-In)',
-      'الاستيراد حسب الطلب',
-      'التمويل',
-      'العناية الكاملة بالسيارة',
-      'الشحن والتوصيل',
-      'الاختيارات المخصصة',
-      'تقييم السيارة',
-      'بيع سيارتك',
+    AppLocaleKey.tradeInService.tr(),
+    AppLocaleKey.importOnDemandService.tr(),
+    AppLocaleKey.financingServiceLabel.tr(),
+    AppLocaleKey.fullCarCareService.tr(),
+    AppLocaleKey.shippingDeliveryService.tr(),
+    AppLocaleKey.bespokeSelectionService.tr(),
+    AppLocaleKey.carValuationService.tr(),
+    AppLocaleKey.sellYourCarService.tr(),
     ];
     // These should ideally be in ar.json if they are static content
 

@@ -51,28 +51,28 @@ class AllActivitiesScreen extends StatelessWidget {
       {
         'title': AppLocaleKey.newCarAddedActivity.tr(),
         'desc': AppLocaleKey.addedByAdmin.tr(),
-        'time': '10 min', // Or use a generic time key
+        'time': AppLocaleKey.tenMin.tr(),
         'icon': Icons.add_business_rounded,
         'color': const Color(0xFF3B82F6),
       },
       {
         'title': AppLocaleKey.newInspectionRequest.tr(),
         'desc': AppLocaleKey.fromUser.tr(),
-        'time': '25 min',
+        'time': AppLocaleKey.twentyFiveMin.tr(),
         'icon': Icons.car_repair_rounded,
         'color': const Color(0xFFF59E0B),
       },
       {
         'title': AppLocaleKey.newUserJoined.tr(),
         'desc': AppLocaleKey.userEmailLabel.tr(),
-        'time': '1 hour',
+        'time': AppLocaleKey.oneHour.tr(),
         'icon': Icons.person_add_rounded,
         'color': const Color(0xFF10B981),
       },
       {
         'title': AppLocaleKey.successfulPaymentTitle.tr(),
         'desc': AppLocaleKey.amountLabel.tr(),
-        'time': '3 hours',
+        'time': AppLocaleKey.threeHoursMin.tr(),
         'icon': Icons.check_circle_rounded,
         'color': const Color(0xFF2DD4BF),
       },

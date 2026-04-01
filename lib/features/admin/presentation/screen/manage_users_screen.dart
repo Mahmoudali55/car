@@ -151,7 +151,7 @@ class _ManageUsersScreenState extends State<ManageUsersScreen> with SingleTicker
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'معرض النخبة للسيارات',
+                      AppLocaleKey.eliteCarExhibition.tr(),
                       style: TextStyle(
                         color: AppColor.blackTextColor(context),
                         fontSize: 14.sp,
@@ -159,7 +159,7 @@ class _ManageUsersScreenState extends State<ManageUsersScreen> with SingleTicker
                       ),
                     ),
                     Text(
-                      'المدينة: دبي | منذ يومين',
+                      AppLocaleKey.cityDubaiTwoDaysAgo.tr(),
                       style: TextStyle(
                         color: AppColor.blackTextColor(context).withValues(alpha: 0.4),
                         fontSize: 11.sp,
@@ -280,7 +280,7 @@ class _ManageUsersScreenState extends State<ManageUsersScreen> with SingleTicker
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'خالد محمد عبد الرحمن',
+                      AppLocaleKey.khaledMohamed.tr(),
                       style: TextStyle(
                         color: AppColor.blackTextColor(context),
                         fontSize: 14.sp,

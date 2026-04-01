@@ -227,7 +227,15 @@ class AdminDashboardScreen extends StatelessWidget {
                       reservedSize: 22,
                       interval: 1,
                       getTitlesWidget: (value, meta) {
-                        const days = ['Sat', 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri'];
+                        final days = [
+                          AppLocaleKey.sat.tr(),
+                          AppLocaleKey.sun.tr(),
+                          AppLocaleKey.mon.tr(),
+                          AppLocaleKey.tue.tr(),
+                          AppLocaleKey.wed.tr(),
+                          AppLocaleKey.thu.tr(),
+                          AppLocaleKey.fri.tr()
+                        ];
                         if (value.toInt() >= 0 && value.toInt() < days.length) {
                           return Text(
                             days[value.toInt()],
@@ -375,13 +383,13 @@ class AdminDashboardScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      _buildLegendItem(context, 'Mercedes', AppColor.primaryColor(context)),
+                      _buildLegendItem(context, AppLocaleKey.mercedes.tr(), AppColor.primaryColor(context)),
                       Gap(8.h),
-                      _buildLegendItem(context, 'BMW', Colors.blueAccent),
+                      _buildLegendItem(context, AppLocaleKey.bmw.tr(), Colors.blueAccent),
                       Gap(8.h),
-                      _buildLegendItem(context, 'Toyota', Colors.orangeAccent),
+                      _buildLegendItem(context, AppLocaleKey.toyota.tr(), Colors.orangeAccent),
                       Gap(8.h),
-                      _buildLegendItem(context, 'Tesla', Colors.greenAccent),
+                      _buildLegendItem(context, AppLocaleKey.tesla.tr(), Colors.greenAccent),
                     ],
                   ),
                 ),

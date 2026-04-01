@@ -8,7 +8,6 @@ import 'package:gap/gap.dart';
 
 class ContentManagementScreen extends StatefulWidget {
   const ContentManagementScreen({super.key});
-
   @override
   State<ContentManagementScreen> createState() => _ContentManagementScreenState();
 }
@@ -16,7 +15,6 @@ class ContentManagementScreen extends StatefulWidget {
 class _ContentManagementScreenState extends State<ContentManagementScreen>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
-
   @override
   void initState() {
     super.initState();
@@ -228,7 +226,7 @@ class _ContentManagementScreenState extends State<ContentManagementScreen>
                         activeColor: AppColor.primaryColor(context),
                       ),
                       Text(
-                        'نشط',
+                        AppLocaleKey.activeLabel.tr(),
                         style: TextStyle(
                           color: AppColor.primaryColor(context),
                           fontSize: 10.sp,

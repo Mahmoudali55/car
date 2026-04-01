@@ -43,6 +43,13 @@ import 'package:car/features/admin/presentation/screen/admin_settings_screen.dar
 import 'package:car/features/admin/presentation/screen/all_activities_screen.dart';
 import 'package:car/features/admin/presentation/screen/admin_main_layout.dart';
 import 'package:car/features/admin/presentation/screen/admin_notifications_screen.dart';
+import 'package:car/features/admin/presentation/screen/admin_security_screen.dart';
+import 'package:car/features/admin/presentation/screen/system_alerts_screen.dart';
+import 'package:car/features/admin/presentation/screen/manage_categories_screen.dart';
+import 'package:car/features/admin/presentation/screen/discount_coupons_screen.dart';
+import 'package:car/features/admin/presentation/screen/terms_settings_screen.dart';
+import 'package:car/features/admin/presentation/screen/admin_support_screen.dart';
+import 'package:car/features/admin/presentation/screen/contact_developer_screen.dart';
 import 'package:car/features/about/presentation/screen/about_screen.dart';
 import 'package:car/features/profile/presentation/screen/user_profile_screen.dart';
 
