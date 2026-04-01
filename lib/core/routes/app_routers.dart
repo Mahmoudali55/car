@@ -136,6 +136,7 @@ class AppRouters {
       case RoutesName.manageUsers:
         return MaterialPageRoute(builder: (_) => const ManageUsersScreen());
       case RoutesName.revenueReport:
+      case RoutesName.revenueReports:
         return MaterialPageRoute(builder: (_) => const RevenueReportScreen());
       case RoutesName.addCar:
         return MaterialPageRoute(builder: (_) => const AddCarScreen());

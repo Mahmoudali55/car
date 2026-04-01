@@ -22,20 +22,39 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
   final List<Map<String, String>> dummyCars = [
     {
       'name': 'Mercedes Benz G63',
-      'status': AppLocaleKey.completed,
-      'price': '1200',
-    }, // Mapping statuses to keys
-    {'name': 'Bentley Continental', 'status': AppLocaleKey.available, 'price': '2500'},
+      'status': AppLocaleKey.adminCarStatusPublished,
+      'price': '1,200',
+      'year': '2024',
+      'mileage': '5,000 km',
+    },
+    {
+      'name': 'Bentley Continental',
+      'status': AppLocaleKey.adminCarStatusPublished,
+      'price': '2,500',
+      'year': '2023',
+      'mileage': '1,200 km',
+    },
     {
       'name': 'Ferrari F8 Tributo',
-      'status': 'maintenance',
-      'price': '3500',
-    }, // Need to add maintenance key if missing or use existing
-    {'name': 'Range Rover Vogue', 'status': AppLocaleKey.completed, 'price': '900'},
-    {'name': 'Lamborghini Urus', 'status': AppLocaleKey.available, 'price': '4000'},
-    {'name': 'Porsche 911 Turbo', 'status': AppLocaleKey.available, 'price': '2200'},
-    {'name': 'Audi RS7 Sportback', 'status': 'maintenance', 'price': '1500'},
-    {'name': 'Mercedes S-Class', 'status': AppLocaleKey.available, 'price': '1800'},
+      'status': AppLocaleKey.adminCarStatusPending,
+      'price': '3,500',
+      'year': '2024',
+      'mileage': '0 km',
+    },
+    {
+      'name': 'Range Rover Vogue',
+      'status': AppLocaleKey.adminCarStatusPublished,
+      'price': '900',
+      'year': '2022',
+      'mileage': '24,000 km',
+    },
+    {
+      'name': 'Lamborghini Urus',
+      'status': AppLocaleKey.adminCarStatusDeleted,
+      'price': '4,000',
+      'year': '2023',
+      'mileage': '8,500 km',
+    },
   ];
 
   @override
@@ -102,9 +121,9 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
   Widget _buildStatusFilters() {
     final filters = [
       AppLocaleKey.all,
-      AppLocaleKey.available,
-      'maintenance',
-      AppLocaleKey.completed,
+      AppLocaleKey.adminCarStatusPublished,
+      AppLocaleKey.adminCarStatusPending,
+      AppLocaleKey.adminCarStatusDeleted,
     ];
     return Container(
       height: 50.h,
@@ -121,12 +140,7 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
 
   Widget _buildFilterChip(String labelKey) {
     final isSelected = selectedFilterKey == labelKey;
-    String label = labelKey == 'maintenance' ? 'في الصيانة' : labelKey.tr();
-    if (labelKey == AppLocaleKey.completed) label = 'مؤجرة';
-    if (labelKey == 'maintenance' && context.locale.languageCode == 'en') {
-      label = 'In Maintenance';
-    }
-    if (labelKey == AppLocaleKey.completed && context.locale.languageCode == 'en') label = 'Rented';
+    final label = labelKey.tr();
 
     return GestureDetector(
       onTap: () => setState(() => selectedFilterKey = labelKey),
@@ -136,11 +150,11 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
         decoration: BoxDecoration(
           color: isSelected
               ? AppColor.primaryColor(context)
-              : AppColor.blackTextColor(context).withOpacity(0.05),
+              : AppColor.blackTextColor(context).withValues(alpha: 0.05),
           borderRadius: BorderRadius.circular(16.r),
           border: isSelected
               ? null
-              : Border.all(color: AppColor.blackTextColor(context).withOpacity(0.1)),
+              : Border.all(color: AppColor.blackTextColor(context).withValues(alpha: 0.1)),
         ),
         alignment: Alignment.center,
         child: Text(
@@ -148,7 +162,7 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
           style: TextStyle(
             color: isSelected
                 ? AppColor.whiteColor(context)
-                : AppColor.blackTextColor(context).withOpacity(0.5),
+                : AppColor.blackTextColor(context).withValues(alpha: 0.5),
             fontWeight: isSelected ? FontWeight.bold : FontWeight.w500,
             fontSize: 12.sp,
           ),
@@ -159,123 +173,147 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
 
   Widget _buildCarInventoryCard(Map<String, String> car) {
     final statusKey = car['status']!;
-    final statusColor = statusKey == AppLocaleKey.available
+    final statusColor = statusKey == AppLocaleKey.adminCarStatusPublished
         ? Colors.greenAccent
-        : (statusKey == AppLocaleKey.completed ? Colors.orangeAccent : Colors.redAccent);
-
-    String statusLabel = statusKey == 'maintenance' ? 'في الصيانة' : statusKey.tr();
-    if (statusKey == AppLocaleKey.completed) statusLabel = 'مؤجرة';
-    if (statusKey == 'maintenance' && context.locale.languageCode == 'en') {
-      statusLabel = 'In Maintenance';
-    }
-    if (statusKey == AppLocaleKey.completed && context.locale.languageCode == 'en') {
-      statusLabel = 'Rented';
-    }
+        : (statusKey == AppLocaleKey.adminCarStatusPending ? Colors.orangeAccent : Colors.redAccent);
 
     return Container(
       decoration: BoxDecoration(
-        color: AppColor.blackTextColor(context).withOpacity(0.03),
-        borderRadius: BorderRadius.circular(28.r),
-        border: Border.all(color: AppColor.blackTextColor(context).withOpacity(0.05)),
+        color: AppColor.blackTextColor(context).withValues(alpha: 0.02),
+        borderRadius: BorderRadius.circular(32.r),
+        border: Border.all(color: AppColor.blackTextColor(context).withValues(alpha: 0.05)),
       ),
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(28.r),
+        borderRadius: BorderRadius.circular(32.r),
         child: Column(
           children: [
             Stack(
               children: [
                 Container(
-                  height: 140.h,
+                  height: 160.h,
                   width: double.infinity,
                   decoration: BoxDecoration(
-                    color: AppColor.blackTextColor(context).withOpacity(0.05),
+                    color: AppColor.blackTextColor(context).withValues(alpha: 0.05),
                   ),
                   child: CachedNetworkImage(
-                    imageUrl:
-                        'https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=500',
+                    imageUrl: 'https://images.unsplash.com/photo-1544636331-e26879cd4d9b?q=80&w=500',
                     fit: BoxFit.cover,
                     placeholder: (context, url) =>
-                        Container(color: AppColor.blackTextColor(context).withOpacity(0.05)),
-                    errorWidget: (context, url, error) => Container(
-                      color: AppColor.blackTextColor(context).withOpacity(0.05),
-                      child: Icon(
-                        Icons.error_outline,
-                        color: AppColor.blackTextColor(context).withOpacity(0.2),
-                      ),
-                    ),
+                        Container(color: AppColor.blackTextColor(context).withValues(alpha: 0.05)),
                   ),
                 ),
                 Positioned(
-                  top: 12.h,
-                  right: 12.w,
-                  child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 6.h),
-                    decoration: BoxDecoration(
-                      color: Colors.black54,
-                      borderRadius: BorderRadius.circular(12.r),
-                    ),
-                    child: Text(
-                      '2024',
-                      style: TextStyle(
-                        color: AppColor.blackTextColor(context),
-                        fontSize: 10.sp,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ),
-                Positioned(
-                  bottom: 12.h,
-                  left: 12.w,
+                  top: 16.h,
+                  right: 16.w,
                   child: Container(
                     padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
                     decoration: BoxDecoration(
-                      color: statusColor.withOpacity(0.9),
-                      borderRadius: BorderRadius.circular(12.r),
+                      color: Colors.black.withValues(alpha: 0.6),
+                      borderRadius: BorderRadius.circular(16.r),
+                      border: Border.all(color: Colors.white.withValues(alpha: 0.1)),
                     ),
                     child: Text(
-                      statusLabel,
-                      style: const TextStyle(
-                        color: Colors.black,
-                        fontSize: 10,
-                        fontWeight: FontWeight.bold,
-                      ),
+                      car['year']!,
+                      style: TextStyle(color: Colors.white, fontSize: 11.sp, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ),
+                Positioned(
+                  bottom: 16.h,
+                  left: 16.w,
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 8.h),
+                    decoration: BoxDecoration(
+                      color: statusColor,
+                      borderRadius: BorderRadius.circular(16.r),
+                      boxShadow: [
+                        BoxShadow(color: statusColor.withValues(alpha: 0.3), blurRadius: 10, offset: const Offset(0, 4))
+                      ],
+                    ),
+                    child: Text(
+                      statusKey.tr(),
+                      style: const TextStyle(color: Colors.black, fontSize: 11, fontWeight: FontWeight.w900),
                     ),
                   ),
                 ),
               ],
             ),
             Padding(
-              padding: EdgeInsets.all(16.w),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              padding: EdgeInsets.all(20.w),
+              child: Column(
                 children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        car['name']!,
-                        style: TextStyle(
-                          color: AppColor.blackTextColor(context),
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.bold,
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              car['name']!,
+                              style: TextStyle(
+                                color: AppColor.blackTextColor(context),
+                                fontSize: 18.sp,
+                                fontWeight: FontWeight.w900,
+                              ),
+                            ),
+                            Gap(4.h),
+                            Row(
+                              children: [
+                                Icon(Icons.speed_rounded,
+                                    size: 14.sp, color: AppColor.blackTextColor(context).withValues(alpha: 0.4)),
+                                Gap(4.w),
+                                Text(
+                                  car['mileage']!,
+                                  style: TextStyle(
+                                      color: AppColor.blackTextColor(context).withValues(alpha: 0.4), fontSize: 11.sp),
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
                       ),
-                      Gap(4.h),
-                      Text(
-                        '${AppLocaleKey.price.tr()}: ${car['price']} ${AppLocaleKey.aed.tr()}',
-                        style: TextStyle(
-                          color: AppColor.blackTextColor(context).withOpacity(0.4),
-                          fontSize: 12.sp,
-                        ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Text(
+                            car['price']!,
+                            style: TextStyle(
+                              color: AppColor.primaryColor(context),
+                              fontSize: 18.sp,
+                              fontWeight: FontWeight.w900,
+                            ),
+                          ),
+                          Text(
+                            AppLocaleKey.aed.tr(),
+                            style: TextStyle(
+                              color: AppColor.blackTextColor(context).withValues(alpha: 0.4),
+                              fontSize: 10.sp,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
+                  Gap(20.h),
                   Row(
                     children: [
-                      _buildActionCircle(Icons.edit_note_rounded, Colors.blueAccent),
-                      Gap(10.w),
-                      _buildActionCircle(Icons.delete_sweep_rounded, Colors.redAccent),
+                      Expanded(
+                        child: _buildInventoryAction(
+                          Icons.edit_note_rounded,
+                          AppLocaleKey.edit.tr(),
+                          Colors.blueAccent,
+                        ),
+                      ),
+                      Gap(12.w),
+                      Expanded(
+                        child: _buildInventoryAction(
+                          Icons.delete_sweep_rounded,
+                          AppLocaleKey.delete.tr(),
+                          Colors.redAccent,
+                        ),
+                      ),
                     ],
                   ),
                 ],
@@ -287,11 +325,25 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
     );
   }
 
-  Widget _buildActionCircle(IconData icon, Color color) {
+  Widget _buildInventoryAction(IconData icon, String label, Color color) {
     return Container(
-      padding: EdgeInsets.all(8.w),
-      decoration: BoxDecoration(color: color.withOpacity(0.1), shape: BoxShape.circle),
-      child: Icon(icon, color: color, size: 20.sp),
+      padding: EdgeInsets.symmetric(vertical: 10.h),
+      decoration: BoxDecoration(
+        color: color.withValues(alpha: 0.08),
+        borderRadius: BorderRadius.circular(16.r),
+        border: Border.all(color: color.withValues(alpha: 0.1)),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(icon, color: color, size: 18.sp),
+          Gap(8.w),
+          Text(
+            label,
+            style: TextStyle(color: color, fontSize: 12.sp, fontWeight: FontWeight.bold),
+          ),
+        ],
+      ),
     );
   }
 }

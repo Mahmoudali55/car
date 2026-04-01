@@ -9,8 +9,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
-class ManageUsersScreen extends StatelessWidget {
+class ManageUsersScreen extends StatefulWidget {
   const ManageUsersScreen({super.key});
+
+  @override
+  State<ManageUsersScreen> createState() => _ManageUsersScreenState();
+}
+
+class _ManageUsersScreenState extends State<ManageUsersScreen> with SingleTickerProviderStateMixin {
+  late TabController _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 2, vsync: this);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,49 +45,176 @@ class ManageUsersScreen extends StatelessWidget {
           ),
         ),
       ),
-      body: Stack(
+      body: Column(
         children: [
-          // Background Glow
-          Positioned(
-            top: 100.h,
-            left: -150.w,
-            child: Container(
-              width: 400.w,
-              height: 400.h,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: Colors.blueAccent.withOpacity(0.02),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.blueAccent.withOpacity(0.02),
-                    blurRadius: 100,
-                    spreadRadius: 50,
-                  ),
-                ],
-              ),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.all(20.w),
-            child: Column(
+          _buildTabBar(context),
+          Expanded(
+            child: TabBarView(
+              controller: _tabController,
               children: [
-                FadeInDown(child: _buildSearchBar(context)),
-                Gap(24.h),
-                Expanded(
-                  child: ListView.separated(
-                    itemCount: 12,
-                    physics: const BouncingScrollPhysics(),
-                    separatorBuilder: (context, index) => Gap(16.h),
-                    itemBuilder: (context, index) => FadeInLeft(
-                      delay: Duration(milliseconds: index * 50),
-                      child: _buildUserCard(context, index),
-                    ),
-                  ),
-                ),
+                _buildUsersList(context),
+                _buildSellerRequestsList(context),
               ],
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildTabBar(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+      padding: EdgeInsets.all(6.w),
+      decoration: BoxDecoration(
+        color: AppColor.blackTextColor(context).withValues(alpha: 0.03),
+        borderRadius: BorderRadius.circular(20.r),
+      ),
+      child: TabBar(
+        controller: _tabController,
+        dividerColor: Colors.transparent,
+        indicatorSize: TabBarIndicatorSize.tab,
+        labelColor: Colors.white,
+        unselectedLabelColor: AppColor.blackTextColor(context).withValues(alpha: 0.4),
+        indicator: BoxDecoration(
+          color: AppColor.primaryColor(context),
+          borderRadius: BorderRadius.circular(16.r),
+          boxShadow: [
+            BoxShadow(
+              color: AppColor.primaryColor(context).withValues(alpha: 0.3),
+              blurRadius: 10,
+              offset: const Offset(0, 4),
+            ),
+          ],
+        ),
+        tabs: [
+          Tab(text: AppLocaleKey.users.tr()),
+          Tab(text: AppLocaleKey.adminSellerRequests.tr()),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildUsersList(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 20.w),
+      child: Column(
+        children: [
+          Gap(12.h),
+          _buildSearchBar(context),
+          Gap(20.h),
+          Expanded(
+            child: ListView.separated(
+              itemCount: 8,
+              physics: const BouncingScrollPhysics(),
+              separatorBuilder: (context, index) => Gap(16.h),
+              itemBuilder: (context, index) => FadeInLeft(
+                delay: Duration(milliseconds: index * 40),
+                child: _buildUserCard(context, index),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSellerRequestsList(BuildContext context) {
+    return ListView.separated(
+      padding: EdgeInsets.all(20.w),
+      itemCount: 4,
+      physics: const BouncingScrollPhysics(),
+      separatorBuilder: (context, index) => Gap(16.h),
+      itemBuilder: (context, index) => FadeInRight(
+        delay: Duration(milliseconds: index * 40),
+        child: _buildSellerRequestCard(context, index),
+      ),
+    );
+  }
+
+  Widget _buildSellerRequestCard(BuildContext context, int index) {
+    return Container(
+      padding: EdgeInsets.all(16.w),
+      decoration: BoxDecoration(
+        color: AppColor.blackTextColor(context).withValues(alpha: 0.02),
+        borderRadius: BorderRadius.circular(28.r),
+        border: Border.all(color: AppColor.blackTextColor(context).withValues(alpha: 0.05)),
+      ),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              _buildUserAvatar(true, context),
+              Gap(16.w),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'معرض النخبة للسيارات',
+                      style: TextStyle(
+                        color: AppColor.blackTextColor(context),
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w800,
+                      ),
+                    ),
+                    Text(
+                      'المدينة: دبي | منذ يومين',
+                      style: TextStyle(
+                        color: AppColor.blackTextColor(context).withValues(alpha: 0.4),
+                        fontSize: 11.sp,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.all(8.w),
+                decoration: BoxDecoration(color: Colors.blueAccent.withValues(alpha: 0.1), shape: BoxShape.circle),
+                child: Icon(Icons.description_outlined, color: Colors.blueAccent, size: 20.sp),
+              ),
+            ],
+          ),
+          Gap(20.h),
+          Row(
+            children: [
+              Expanded(
+                child: _buildRequestButton(
+                  AppLocaleKey.reject.tr(),
+                  Colors.redAccent,
+                  () {},
+                ),
+              ),
+              Gap(12.w),
+              Expanded(
+                child: _buildRequestButton(
+                  AppLocaleKey.approve.tr(),
+                  AppColor.primaryColor(context),
+                  () {},
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildRequestButton(String label, Color color, VoidCallback onTap) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: EdgeInsets.symmetric(vertical: 10.h),
+        decoration: BoxDecoration(
+          color: color.withValues(alpha: 0.1),
+          borderRadius: BorderRadius.circular(16.r),
+          border: Border.all(color: color.withValues(alpha: 0.2)),
+        ),
+        alignment: Alignment.center,
+        child: Text(
+          label,
+          style: TextStyle(color: color, fontSize: 12.sp, fontWeight: FontWeight.bold),
+        ),
       ),
     );
   }
@@ -87,21 +227,21 @@ class ManageUsersScreen extends StatelessWidget {
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 16.w),
           decoration: BoxDecoration(
-            color: AppColor.blackTextColor(context).withOpacity(0.05),
+            color: AppColor.blackTextColor(context).withValues(alpha: 0.05),
             borderRadius: BorderRadius.circular(20.r),
-            border: Border.all(color: AppColor.blackTextColor(context).withOpacity(0.1)),
+            border: Border.all(color: AppColor.blackTextColor(context).withValues(alpha: 0.1)),
           ),
           child: TextField(
             style: TextStyle(color: AppColor.blackTextColor(context)),
             decoration: InputDecoration(
               icon: Icon(
                 Icons.search_rounded,
-                color: AppColor.blackTextColor(context).withOpacity(0.5),
+                color: AppColor.blackTextColor(context).withValues(alpha: 0.5),
                 size: 22.sp,
               ),
               hintText: AppLocaleKey.searchUserHint.tr(),
               hintStyle: TextStyle(
-                color: AppColor.blackTextColor(context).withOpacity(0.3),
+                color: AppColor.blackTextColor(context).withValues(alpha: 0.3),
                 fontSize: 13.sp,
               ),
               border: InputBorder.none,
@@ -127,9 +267,9 @@ class ManageUsersScreen extends StatelessWidget {
         child: Container(
           padding: EdgeInsets.all(16.w),
           decoration: BoxDecoration(
-            color: AppColor.blackTextColor(context).withOpacity(0.03),
+            color: AppColor.blackTextColor(context).withValues(alpha: 0.03),
             borderRadius: BorderRadius.circular(24.r),
-            border: Border.all(color: AppColor.blackTextColor(context).withOpacity(0.05)),
+            border: Border.all(color: AppColor.blackTextColor(context).withValues(alpha: 0.05)),
           ),
           child: Row(
             children: [
@@ -151,7 +291,7 @@ class ManageUsersScreen extends StatelessWidget {
                     Text(
                       'khaled@example.com',
                       style: TextStyle(
-                        color: AppColor.blackTextColor(context).withOpacity(0.4),
+                        color: AppColor.blackTextColor(context).withValues(alpha: 0.4),
                         fontSize: 11.sp,
                       ),
                     ),
@@ -173,12 +313,12 @@ class ManageUsersScreen extends StatelessWidget {
           width: 50.w,
           height: 50.w,
           decoration: BoxDecoration(
-            color: AppColor.blackTextColor(context).withOpacity(0.1),
+            color: AppColor.blackTextColor(context).withValues(alpha: 0.1),
             shape: BoxShape.circle,
             gradient: LinearGradient(
               colors: [
-                AppColor.blackTextColor(context).withOpacity(0.2),
-                AppColor.blackTextColor(context).withOpacity(0.01),
+                AppColor.blackTextColor(context).withValues(alpha: 0.2),
+                AppColor.blackTextColor(context).withValues(alpha: 0.01),
               ],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
@@ -186,7 +326,7 @@ class ManageUsersScreen extends StatelessWidget {
           ),
           child: Icon(
             Icons.person_rounded,
-            color: AppColor.blackTextColor(context).withOpacity(0.5),
+            color: AppColor.blackTextColor(context).withValues(alpha: 0.5),
             size: 24.sp,
           ),
         ),
@@ -214,7 +354,7 @@ class ManageUsersScreen extends StatelessWidget {
           value: isActive,
           onChanged: (v) {},
           activeColor: Colors.greenAccent,
-          activeTrackColor: Colors.greenAccent.withOpacity(0.2),
+          activeTrackColor: Colors.greenAccent.withValues(alpha: 0.2),
         ),
         Text(
           isActive ? AppLocaleKey.active.tr() : AppLocaleKey.banned.tr(),

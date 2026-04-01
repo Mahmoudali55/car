@@ -42,7 +42,7 @@ class ManageBookingsScreen extends StatelessWidget {
             TabBar(
               indicatorColor: AppColor.primaryColor(context),
               labelColor: AppColor.blackTextColor(context),
-              unselectedLabelColor: AppColor.blackTextColor(context).withOpacity(0.4),
+              unselectedLabelColor: AppColor.blackTextColor(context).withValues(alpha: 0.4),
               dividerColor: Colors.transparent,
               tabs: [
                 Tab(text: AppLocaleKey.pendingStatus.tr()),
@@ -82,9 +82,9 @@ class ManageBookingsScreen extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(16.w),
       decoration: BoxDecoration(
-        color: AppColor.blackTextColor(context).withOpacity(0.03),
+        color: AppColor.blackTextColor(context).withValues(alpha: 0.03),
         borderRadius: BorderRadius.circular(24.r),
-        border: Border.all(color: AppColor.blackTextColor(context).withOpacity(0.05)),
+        border: Border.all(color: AppColor.blackTextColor(context).withValues(alpha: 0.05)),
       ),
       child: Column(
         children: [
@@ -94,7 +94,7 @@ class ManageBookingsScreen extends StatelessWidget {
                 width: 60.w,
                 height: 60.h,
                 decoration: BoxDecoration(
-                  color: AppColor.blackTextColor(context).withOpacity(0.05),
+                  color: AppColor.blackTextColor(context).withValues(alpha: 0.05),
                   borderRadius: BorderRadius.circular(16.r),
                 ),
                 child: Icon(
@@ -120,7 +120,7 @@ class ManageBookingsScreen extends StatelessWidget {
                     Text(
                       '${AppLocaleKey.luxury.tr()}: ${AppLocaleKey.customerName.tr()}',
                       style: TextStyle(
-                        color: AppColor.blackTextColor(context).withOpacity(0.4),
+                        color: AppColor.blackTextColor(context).withValues(alpha: 0.4),
                         fontSize: 11.sp,
                       ),
                     ),
@@ -140,7 +140,7 @@ class ManageBookingsScreen extends StatelessWidget {
                   ),
                   Text(
                     AppLocaleKey.paymentSuccessful.tr(),
-                    style: TextStyle(color: Colors.greenAccent.withOpacity(0.5), fontSize: 9.sp),
+                    style: TextStyle(color: Colors.greenAccent.withValues(alpha: 0.5), fontSize: 9.sp),
                   ),
                 ],
               ),
@@ -175,12 +175,12 @@ class ManageBookingsScreen extends StatelessWidget {
   Widget _buildInfoTag(IconData icon, String label, BuildContext context) {
     return Row(
       children: [
-        Icon(icon, color: AppColor.blackTextColor(context).withOpacity(0.3), size: 14.sp),
+        Icon(icon, color: AppColor.blackTextColor(context).withValues(alpha: 0.3), size: 14.sp),
         Gap(6.w),
         Text(
           label,
           style: TextStyle(
-            color: AppColor.blackTextColor(context).withOpacity(0.5),
+            color: AppColor.blackTextColor(context).withValues(alpha: 0.5),
             fontSize: 11.sp,
           ),
         ),
@@ -192,7 +192,7 @@ class ManageBookingsScreen extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(8.w),
       decoration: BoxDecoration(
-        color: color.withOpacity(0.1),
+        color: color.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(10.r),
       ),
       child: Icon(icon, color: color, size: 18.sp),
@@ -204,7 +204,7 @@ class ManageBookingsScreen extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
       decoration: BoxDecoration(
-        color: (isDone ? Colors.blueAccent : Colors.orangeAccent).withOpacity(0.1),
+        color: (isDone ? Colors.blueAccent : Colors.orangeAccent).withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(12.r),
       ),
       child: Text(

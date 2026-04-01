@@ -7,7 +7,6 @@ import 'core/cache/hive/hive_methods.dart';
 import 'core/theme/cubit/app_theme_cubit.dart';
 import 'service_initialize.dart';
 
-//
 void main() async {
   await ServiceInitialize.initialize();
   final String lang = HiveMethods.getLang();
@@ -18,10 +17,7 @@ void main() async {
       fallbackLocale: const Locale('ar'),
       startLocale: Locale(lang),
       saveLocale: true,
-      child: BlocProvider(
-        create: (context) => AppThemeCubit()..initial(),
-        child: const CarApp(),
-      ),
+      child: BlocProvider(create: (context) => AppThemeCubit()..initial(), child: const CarApp()),
     ),
   );
 }

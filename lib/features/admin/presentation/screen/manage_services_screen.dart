@@ -64,7 +64,7 @@ class ManageServicesScreen extends StatelessWidget {
               Container(
                 padding: EdgeInsets.all(10.w),
                 decoration: BoxDecoration(
-                  color: AppColor.primaryColor(context).withOpacity(0.1),
+                  color: AppColor.primaryColor(context).withValues(alpha: 0.1),
                   shape: BoxShape.circle,
                 ),
                 child: Icon(

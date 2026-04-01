@@ -65,9 +65,9 @@ class AdminNotificationsScreen extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(16.w),
       decoration: BoxDecoration(
-        color: AppColor.blackTextColor(context).withOpacity(0.03),
+        color: AppColor.blackTextColor(context).withValues(alpha: 0.03),
         borderRadius: BorderRadius.circular(24.r),
-        border: Border.all(color: AppColor.blackTextColor(context).withOpacity(0.05)),
+        border: Border.all(color: AppColor.blackTextColor(context).withValues(alpha: 0.05)),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -90,7 +90,7 @@ class AdminNotificationsScreen extends StatelessWidget {
                 Text(
                   notif['desc'] as String,
                   style: TextStyle(
-                    color: AppColor.blackTextColor(context).withOpacity(0.4),
+                    color: AppColor.blackTextColor(context).withValues(alpha: 0.4),
                     fontSize: 11.sp,
                   ),
                 ),
@@ -132,7 +132,7 @@ class AdminNotificationsScreen extends StatelessWidget {
 
     return Container(
       padding: EdgeInsets.all(10.w),
-      decoration: BoxDecoration(color: color.withOpacity(0.1), shape: BoxShape.circle),
+      decoration: BoxDecoration(color: color.withValues(alpha: 0.1), shape: BoxShape.circle),
       child: Icon(icon, color: color, size: 20.sp),
     );
   }

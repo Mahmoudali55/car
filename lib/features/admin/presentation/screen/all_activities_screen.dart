@@ -83,16 +83,16 @@ class AllActivitiesScreen extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(16.w),
       decoration: BoxDecoration(
-        color: AppColor.blackTextColor(context).withOpacity(0.02),
+        color: AppColor.blackTextColor(context).withValues(alpha: 0.02),
         borderRadius: BorderRadius.circular(24.r),
-        border: Border.all(color: AppColor.blackTextColor(context).withOpacity(0.05)),
+        border: Border.all(color: AppColor.blackTextColor(context).withValues(alpha: 0.05)),
       ),
       child: Row(
         children: [
           Container(
             padding: EdgeInsets.all(12.w),
             decoration: BoxDecoration(
-              color: (act['color'] as Color).withOpacity(0.1),
+              color: (act['color'] as Color).withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(16.r),
             ),
             child: Icon(
@@ -118,7 +118,7 @@ class AllActivitiesScreen extends StatelessWidget {
                 Text(
                   act['desc'] as String,
                   style: TextStyle(
-                    color: AppColor.blackTextColor(context).withOpacity(0.4),
+                    color: AppColor.blackTextColor(context).withValues(alpha: 0.4),
                     fontSize: 11.sp,
                     fontWeight: FontWeight.w500,
                   ),
@@ -129,7 +129,7 @@ class AllActivitiesScreen extends StatelessWidget {
           Text(
             act['time'] as String,
             style: TextStyle(
-              color: AppColor.blackTextColor(context).withOpacity(0.3),
+              color: AppColor.blackTextColor(context).withValues(alpha: 0.3),
               fontSize: 10.sp,
               fontWeight: FontWeight.w600,
             ),

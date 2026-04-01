@@ -147,14 +147,14 @@ class AdminSettingsScreen extends StatelessWidget {
       child: Container(
         margin: EdgeInsets.only(bottom: 12.h),
         decoration: BoxDecoration(
-          color: baseColor.withOpacity(0.03),
+          color: baseColor.withValues(alpha: 0.03),
           borderRadius: BorderRadius.circular(20.r),
-          border: Border.all(color: baseColor.withOpacity(0.05)),
+          border: Border.all(color: baseColor.withValues(alpha: 0.05)),
         ),
         child: ListTile(
           leading: Container(
             padding: EdgeInsets.all(10.w),
-            decoration: BoxDecoration(color: baseColor.withOpacity(0.05), shape: BoxShape.circle),
+            decoration: BoxDecoration(color: baseColor.withValues(alpha: 0.05), shape: BoxShape.circle),
             child: AnimatedSwitcher(
               duration: const Duration(milliseconds: 300),
               child: Icon(
@@ -197,15 +197,15 @@ class AdminSettingsScreen extends StatelessWidget {
       child: Container(
         margin: EdgeInsets.only(bottom: 12.h),
         decoration: BoxDecoration(
-          color: baseColor.withOpacity(0.03),
+          color: baseColor.withValues(alpha: 0.03),
           borderRadius: BorderRadius.circular(20.r),
-          border: Border.all(color: baseColor.withOpacity(0.05)),
+          border: Border.all(color: baseColor.withValues(alpha: 0.05)),
         ),
         child: ListTile(
           onTap: onTap,
           leading: Container(
             padding: EdgeInsets.all(10.w),
-            decoration: BoxDecoration(color: baseColor.withOpacity(0.05), shape: BoxShape.circle),
+            decoration: BoxDecoration(color: baseColor.withValues(alpha: 0.05), shape: BoxShape.circle),
             child: Icon(icon, color: baseColor, size: 20.sp),
           ),
           title: Text(

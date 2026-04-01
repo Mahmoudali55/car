@@ -22,10 +22,15 @@ class AdminStatsCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 120.h,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(28.r),
         boxShadow: [
-          BoxShadow(color: color.withOpacity(0.1), blurRadius: 20, offset: const Offset(0, 10)),
+          BoxShadow(
+            color: color.withValues(alpha: 0.08),
+            blurRadius: 20,
+            offset: const Offset(0, 10),
+          ),
         ],
       ),
       child: ClipRRect(
@@ -33,16 +38,18 @@ class AdminStatsCard extends StatelessWidget {
         child: BackdropFilter(
           filter: ImageFilter.blur(sigmaX: 12, sigmaY: 12),
           child: Container(
-            padding: EdgeInsets.all(18.w),
+            padding: EdgeInsets.all(16.w),
             decoration: BoxDecoration(
-              color: AppColor.blackTextColor(context).withValues(alpha: (0.03)),
-              borderRadius: BorderRadius.circular(24.r),
-              border: Border.all(color: AppColor.blackTextColor(context).withValues(alpha: 0.08)),
+              color: AppColor.blackTextColor(context).withValues(alpha: 0.02),
+              borderRadius: BorderRadius.circular(28.r),
+              border: Border.all(
+                color: AppColor.blackTextColor(context).withValues(alpha: 0.05),
+              ),
               gradient: LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
                 colors: [
-                  AppColor.blackTextColor(context).withValues(alpha: 0.05),
+                  AppColor.blackTextColor(context).withValues(alpha: 0.04),
                   AppColor.blackTextColor(context).withValues(alpha: 0.01),
                 ],
               ),
@@ -53,7 +60,10 @@ class AdminStatsCard extends StatelessWidget {
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [_buildIconBox(), _buildTrendIndicator()],
+                  children: [
+                    _buildIconBox(),
+                    _buildTrendIndicator(),
+                  ],
                 ),
                 _buildTextContent(context),
               ],
@@ -66,32 +76,32 @@ class AdminStatsCard extends StatelessWidget {
 
   Widget _buildIconBox() {
     return Container(
-      padding: EdgeInsets.all(12.w),
+      padding: EdgeInsets.all(10.w),
       decoration: BoxDecoration(
-        color: color.withValues(alpha: 0.15),
-        borderRadius: BorderRadius.circular(18.r),
+        color: color.withValues(alpha: 0.12),
+        borderRadius: BorderRadius.circular(16.r),
       ),
-      child: Icon(icon, color: color, size: 24.sp),
+      child: Icon(icon, color: color, size: 22.sp),
     );
   }
 
   Widget _buildTrendIndicator() {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 6.h),
+      padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
       decoration: BoxDecoration(
         color: Colors.greenAccent.withValues(alpha: 0.1),
-        borderRadius: BorderRadius.circular(24.r),
+        borderRadius: BorderRadius.circular(20.r),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(Icons.trending_up_rounded, color: Colors.greenAccent, size: 14.sp),
-          const Gap(4),
+          Icon(Icons.trending_up_rounded, color: Colors.greenAccent, size: 12.sp),
+          Gap(4.w),
           Text(
             '+8%',
             style: TextStyle(
               color: Colors.greenAccent,
-              fontSize: 11.sp,
+              fontSize: 10.sp,
               fontWeight: FontWeight.w900,
             ),
           ),
@@ -103,33 +113,26 @@ class AdminStatsCard extends StatelessWidget {
   Widget _buildTextContent(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisSize: MainAxisSize.min,
       children: [
-        FittedBox(
-          fit: BoxFit.scaleDown,
-          child: Text(
-            value,
-            style: TextStyle(
-              color: AppColor.blackTextColor(context),
-              fontSize: 22.sp,
-              fontWeight: FontWeight.w900,
-              letterSpacing: -1,
-            ),
+        Text(
+          value,
+          style: TextStyle(
+            color: AppColor.blackTextColor(context),
+            fontSize: 20.sp,
+            fontWeight: FontWeight.w900,
+            letterSpacing: -0.5,
           ),
         ),
-        FittedBox(
-          fit: BoxFit.scaleDown,
-          child: Text(
-            title,
-            style: TextStyle(
-              color: AppColor.blackTextColor(context).withValues(alpha: 0.5),
-              fontSize: 11.sp,
-              fontWeight: FontWeight.w600,
-              letterSpacing: 0.5,
-            ),
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
+        Gap(2.h),
+        Text(
+          title,
+          style: TextStyle(
+            color: AppColor.blackTextColor(context).withValues(alpha: 0.4),
+            fontSize: 10.sp,
+            fontWeight: FontWeight.w600,
           ),
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
         ),
       ],
     );
