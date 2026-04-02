@@ -199,75 +199,12 @@ class ServicesScreen extends StatelessWidget {
                 ),
               ),
             ),
-
-            // Content Overlay
-            Padding(
-              padding: EdgeInsets.all(24.w),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    AppLocaleKey.sellYourCar.tr(),
-                    style: AppTextStyle.titleLarge(context).copyWith(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w900,
-                      fontSize: 26.sp,
-                    ),
-                  ),
-                  Gap(8.h),
-                  SizedBox(
-                    width: 160.w,
-                    child: Text(
-                      AppLocaleKey.buyNowDesc.tr(),
-                      style: AppTextStyle.bodySmall(context).copyWith(
-                        color: Colors.white.withValues(alpha: 0.8),
-                        fontSize: 12.sp,
-                        height: 1.4,
-                      ),
-                    ),
-                  ),
-                  Gap(20.h),
-                  GestureDetector(
-                    onTap: () {
-                      if (HiveMethods.getToken() == null) {
-                        CommonMethods.showLoginRequiredDialog(context);
-                      } else {
-                        Navigator.pushNamed(context, RoutesName.sellCarScreen);
-                      }
-                    },
-                    child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 22.w, vertical: 12.h),
-                      decoration: BoxDecoration(
-                        color: AppColor.primaryColor(context),
-                        borderRadius: BorderRadius.circular(12.r),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withValues(alpha: 0.1),
-                            blurRadius: 15,
-                            offset: const Offset(0, 5),
-                          ),
-                        ],
-                      ),
-                      child: Text(
-                        AppLocaleKey.bookService.tr(),
-                        style: TextStyle(
-                          color: AppColor.primaryColor(context),
-                          fontWeight: FontWeight.bold,
-                          fontSize: 13.sp,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
           ],
         ),
       ),
     );
   }
- 
+
   Widget _buildQuickActionItem(BuildContext context, Map<String, dynamic> action) {
     return GestureDetector(
       onTap: () {
