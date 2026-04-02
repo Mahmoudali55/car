@@ -749,6 +749,21 @@
   "three_hours_min": "3 hours",
   "payment_success": "Payment Success",
   "payment_success_desc": "Alert for successful transactions",
-  "intelligence_center_desc": "Customize how you stay informed about system activities."
+  "intelligence_center_desc": "Customize how you stay informed about system activities.",
+  "complaints": "Complaints",
+  "complaint_type": "Complaint Type",
+  "complaint_description": "Description",
+  "select_complaint_type": "Select Complaint Type",
+  "technical_issue": "Technical Issue",
+  "service_issue": "Service Issue",
+  "payment_issue": "Payment Issue",
+  "other_issue": "Other",
+  "submit_complaint": "Submit Complaint",
+  "service_evaluation": "Service Evaluation",
+  "rating_title": "How was your experience?",
+  "feedback_hint": "Your feedback helps us improve",
+  "submit_evaluation": "Submit Evaluation",
+  "thank_you_support": "Thank you for contacting support",
+  "evaluation_success": "Thank you for your feedback!"
 }
 

@@ -769,6 +769,21 @@
   "backup_camera": "كاميرا خلفية",
   "apple_car_play": "أبل كار بلاي",
   "listing_fee": "رسوم الخدمة",
-  "car_sale": "بيع سيارة"
+  "car_sale": "بيع سيارة",
+  "complaints": "الشكاوى",
+  "complaint_type": "نوع الشكوى",
+  "complaint_description": "الوصف",
+  "select_complaint_type": "اختر نوع الشكوى",
+  "technical_issue": "مشكلة تقنية",
+  "service_issue": "مشكلة في الخدمة",
+  "payment_issue": "مشكلة في الدفع",
+  "other_issue": "أخرى",
+  "submit_complaint": "إرسال الشكوى",
+  "service_evaluation": "تقييم الخدمة",
+  "rating_title": "كيف كانت تجربتك؟",
+  "feedback_hint": "ملاحظاتك تساعدنا على التحسين",
+  "submit_evaluation": "إرسال التقييم",
+  "thank_you_support": "شكراً لتواصلك مع الدعم",
+  "evaluation_success": "شكراً لك على تقييمك!"
 }
 

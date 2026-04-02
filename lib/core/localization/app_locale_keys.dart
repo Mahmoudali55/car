@@ -818,4 +818,21 @@ class AppLocaleKey {
   static const String appleCarPlay = 'apple_car_play';
   static const String listingFee = 'listing_fee';
   static const String carSale = 'car_sale';
+
+  static const String complaints = 'complaints';
+  static const String complaintType = 'complaint_type';
+  static const String complaintDescription = 'complaint_description';
+  static const String selectComplaintType = 'select_complaint_type';
+  static const String technicalIssue = 'technical_issue';
+  static const String serviceIssue = 'service_issue';
+  static const String paymentIssue = 'payment_issue';
+  static const String otherIssue = 'other_issue';
+  static const String submitComplaint = 'submit_complaint';
+
+  static const String serviceEvaluation = 'service_evaluation';
+  static const String ratingTitle = 'rating_title';
+  static const String feedbackHint = 'feedback_hint';
+  static const String submitEvaluation = 'submit_evaluation';
+  static const String thankYouSupport = 'thank_you_support';
+  static const String evaluationSuccess = 'evaluation_success';
 }
