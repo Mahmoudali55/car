@@ -28,7 +28,7 @@ class EliteFormField extends StatelessWidget {
           child: Text(
             label,
             style: AppTextStyle.bodyMedium(context).copyWith(
-              color: AppColor.whiteColor(context).withValues(alpha: 0.6),
+              color: AppColor.blackTextColor(context).withValues(alpha: 0.6),
               fontWeight: FontWeight.w900,
               fontSize: 14.sp,
               letterSpacing: 1.2,
@@ -37,7 +37,7 @@ class EliteFormField extends StatelessWidget {
         ),
         Container(
           decoration: BoxDecoration(
-            color: AppColor.whiteColor(context).withValues(alpha: 0.03),
+            color: AppColor.blackTextColor(context).withValues(alpha: 0.03),
             borderRadius: BorderRadius.circular(16.r),
             border: Border.all(color: AppColor.borderColor(context)),
           ),
@@ -46,7 +46,7 @@ class EliteFormField extends StatelessWidget {
             controller: controller,
             keyboardType: type,
             hintStyle: TextStyle(
-              color: AppColor.whiteColor(context).withValues(alpha: 0.1),
+              color: AppColor.blackTextColor(context).withValues(alpha: 0.3),
               fontWeight: FontWeight.w500,
               fontSize: 12.sp,
               letterSpacing: 0.5,

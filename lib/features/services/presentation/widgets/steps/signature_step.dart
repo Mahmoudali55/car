@@ -35,7 +35,7 @@ class SignatureStep extends StatelessWidget {
             child: Text(
               AppLocaleKey.applicationDetails.tr().toUpperCase(),
               style: AppTextStyle.titleMedium(context).copyWith(
-                color: AppColor.whiteColor(context),
+                color: AppColor.blackTextColor(context),
                 fontWeight: FontWeight.w900,
                 letterSpacing: 2.5,
                 fontSize: 16.sp,

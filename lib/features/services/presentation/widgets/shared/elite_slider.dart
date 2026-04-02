@@ -40,13 +40,13 @@ class EliteSlider extends StatelessWidget {
                 fontWeight: FontWeight.w900,
                 fontSize: 11.sp,
                 letterSpacing: 1.5,
-                color: AppColor.whiteColor(context).withValues(alpha: 0.7),
+                color: AppColor.blackTextColor(context).withValues(alpha: 0.7),
               ),
             ),
             Text(
               '${NumberFormat('#,##0').format(value)} $suffix',
               style: AppTextStyle.bodySmall(context).copyWith(
-                color: AppColor.whiteColor(context),
+                color: AppColor.blackTextColor(context),
                 fontWeight: FontWeight.w900,
                 fontSize: 12.sp,
                 letterSpacing: 1,
@@ -58,8 +58,8 @@ class EliteSlider extends StatelessWidget {
         SliderTheme(
           data: SliderTheme.of(context).copyWith(
             activeTrackColor: primary,
-            inactiveTrackColor: AppColor.whiteColor(context).withValues(alpha: 0.05),
-            thumbColor: AppColor.whiteColor(context),
+            inactiveTrackColor: AppColor.blackTextColor(context).withValues(alpha: 0.05),
+            thumbColor: AppColor.cardColor(context),
             overlayColor: primary.withValues(alpha: 0.05),
             trackHeight: 2.h,
             thumbShape: RoundSliderThumbShape(enabledThumbRadius: 6.r, elevation: 0),

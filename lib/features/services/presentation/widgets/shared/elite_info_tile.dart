@@ -30,7 +30,7 @@ class EliteInfoTile extends StatelessWidget {
           style: AppTextStyle.bodyMedium(context).copyWith(
             fontWeight: FontWeight.w900,
             fontSize: 13.sp,
-            color: AppColor.whiteColor(context),
+            color: AppColor.blackTextColor(context),
             letterSpacing: 0.5,
           ),
         ),

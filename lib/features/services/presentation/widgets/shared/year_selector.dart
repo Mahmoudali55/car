@@ -14,7 +14,7 @@ class YearSelector extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 4.h),
       decoration: BoxDecoration(
-        color: AppColor.whiteColor(context).withValues(alpha: 0.03),
+        color: AppColor.blackTextColor(context).withValues(alpha: 0.03),
         borderRadius: BorderRadius.circular(16.r),
         border: Border.all(color: AppColor.borderColor(context)),
       ),
@@ -24,7 +24,7 @@ class YearSelector extends StatelessWidget {
         underline: Container(),
         icon: Icon(
           Icons.keyboard_arrow_down_rounded,
-          color: AppColor.whiteColor(context).withValues(alpha: 0.38),
+          color: AppColor.blackTextColor(context).withValues(alpha: 0.38),
         ),
         dropdownColor: AppColor.cardColor(context),
         borderRadius: BorderRadius.circular(16.r),
@@ -35,7 +35,7 @@ class YearSelector extends StatelessWidget {
               '$year',
               style: AppTextStyle.bodyMedium(context).copyWith(
                 fontWeight: FontWeight.w900,
-                color: AppColor.whiteColor(context),
+                color: AppColor.blackTextColor(context),
                 fontSize: 14.sp,
               ),
             ),

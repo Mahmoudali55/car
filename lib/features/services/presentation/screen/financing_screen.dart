@@ -27,37 +27,26 @@ class FinancingScreen extends StatefulWidget {
 }
 
 class _FinancingScreenState extends State<FinancingScreen> {
-  // ── Wizard state ──
   int _step = 0;
-
-  // ── Step 0: Selection ──
   String? _selectedBrand;
   String? _selectedModel;
   int _selectedYear = 2025;
-
-  // ── Step 1: Calculator ──
   late double _carPrice;
   double _downPaymentPercent = 10;
   double _lastPaymentPercent = 0;
   int _durationYears = 5;
-
-  // ── Step 2: Bank ──
   BankOffer? _selectedBank;
-
-  // ── Step 4: Form ──
   final _formKey = GlobalKey<FormState>();
   final _nameCtrl = TextEditingController();
   final _phoneCtrl = TextEditingController();
   final _idCtrl = TextEditingController();
   final _workCtrl = TextEditingController();
   final _salaryCtrl = TextEditingController();
-
   @override
   void initState() {
     super.initState();
     final raw = widget.car?['price']?.toString() ?? '150000';
     _carPrice = double.tryParse(raw.replaceAll(RegExp(r'[^0-9]'), '')) ?? 150000;
-
     if (widget.car != null) {
       _selectedBrand = kBrands.firstWhere(
         (b) => b.toLowerCase() == (widget.car?['brand']?.toString().split('-').first.toLowerCase()),
@@ -96,7 +85,6 @@ class _FinancingScreenState extends State<FinancingScreen> {
   }
 
   void _onBack() => setState(() => _step--);
-
   void _selectBank(BankOffer bank) {
     setState(() {
       _selectedBank = bank;

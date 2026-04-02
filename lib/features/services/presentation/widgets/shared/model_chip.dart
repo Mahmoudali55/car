@@ -26,7 +26,7 @@ class ModelChip extends StatelessWidget {
         decoration: BoxDecoration(
           color: isSelected
               ? primary.withValues(alpha: 0.1)
-              : AppColor.whiteColor(context).withValues(alpha: 0.03),
+              : AppColor.blackTextColor(context).withValues(alpha: 0.03),
           borderRadius: BorderRadius.circular(16.r),
           border: Border.all(
             color: isSelected ? primary : AppColor.borderColor(context),
@@ -36,7 +36,7 @@ class ModelChip extends StatelessWidget {
         child: Text(
           model.toUpperCase(),
           style: AppTextStyle.bodySmall(context).copyWith(
-            color: isSelected ? AppColor.whiteColor(context) : AppColor.greyColor(context),
+            color: isSelected ? primary : AppColor.greyColor(context),
             fontWeight: FontWeight.w900,
             fontSize: 10.sp,
             letterSpacing: 1.2,

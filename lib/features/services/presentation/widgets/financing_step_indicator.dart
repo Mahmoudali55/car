@@ -25,8 +25,8 @@ class FinancingStepIndicator extends StatelessWidget {
                   '${index + 1}'.padLeft(2, '0'),
                   style: AppTextStyle.bodySmall(context).copyWith(
                     color: isActive
-                        ? AppColor.whiteColor(context)
-                        : AppColor.whiteColor(context).withValues(alpha: 0.2),
+                        ? AppColor.blackTextColor(context)
+                        : AppColor.blackTextColor(context).withValues(alpha: 0.3),
                     fontWeight: FontWeight.w900,
                     fontSize: 10.sp,
                     letterSpacing: 1.5,
@@ -40,7 +40,7 @@ class FinancingStepIndicator extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: isActive
                         ? primary
-                        : AppColor.whiteColor(context).withValues(alpha: 0.1),
+                        : AppColor.blackTextColor(context).withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(2.r),
                     boxShadow: isActive
                         ? [BoxShadow(color: primary.withValues(alpha: 0.3), blurRadius: 4)]

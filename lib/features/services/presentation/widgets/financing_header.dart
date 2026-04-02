@@ -19,7 +19,7 @@ class FinancingHeader extends StatelessWidget {
             onPressed: () => Navigator.pop(context),
             icon: Icon(
               Icons.arrow_back_ios_new_rounded,
-              color: AppColor.whiteColor(context).withValues(alpha: 0.7),
+              color: AppColor.blackTextColor(context).withValues(alpha: 0.7),
             ),
           ),
           const Spacer(),
@@ -37,7 +37,7 @@ class FinancingHeader extends StatelessWidget {
                   gradient: LinearGradient(
                     colors: [
                       Colors.transparent,
-                      AppColor.whiteColor(context).withValues(alpha: 0.2),
+                      AppColor.blackTextColor(context).withValues(alpha: 0.1),
                       Colors.transparent,
                     ],
                   ),

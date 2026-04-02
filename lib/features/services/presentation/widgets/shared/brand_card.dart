@@ -40,7 +40,7 @@ class BrandCard extends StatelessWidget {
                 fontWeight: FontWeight.w900,
                 color: isSelected
                     ? primary
-                    : AppColor.whiteColor(context).withValues(alpha: 0.2),
+                    : AppColor.blackTextColor(context).withValues(alpha: 0.3),
                 fontSize: 24.sp,
                 fontStyle: FontStyle.italic,
               ),
@@ -49,7 +49,7 @@ class BrandCard extends StatelessWidget {
             Text(
               brand.toUpperCase(),
               style: AppTextStyle.bodySmall(context).copyWith(
-                color: isSelected ? AppColor.whiteColor(context) : AppColor.greyColor(context),
+                color: isSelected ? primary : AppColor.greyColor(context),
                 fontWeight: FontWeight.w900,
                 fontSize: 10.sp,
                 letterSpacing: 1,

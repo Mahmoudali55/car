@@ -67,7 +67,7 @@ class _ScheduleStepState extends State<ScheduleStep> {
               Text(
                 AppLocaleKey.installmentSchedule.tr().toUpperCase(),
                 style: AppTextStyle.titleMedium(context).copyWith(
-                  color: AppColor.whiteColor(context),
+                  color: AppColor.blackTextColor(context),
                   fontWeight: FontWeight.w900,
                   letterSpacing: 2.0,
                   fontSize: 16.sp,
@@ -77,14 +77,14 @@ class _ScheduleStepState extends State<ScheduleStep> {
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
                 decoration: BoxDecoration(
-                  color: AppColor.whiteColor(context).withValues(alpha: 0.05),
+                  color: AppColor.blackTextColor(context).withValues(alpha: 0.05),
                   borderRadius: BorderRadius.circular(8.r),
                   border: Border.all(color: AppColor.borderColor(context)),
                 ),
                 child: Text(
                   AppLocaleKey.titaniumPlan.tr().toUpperCase(),
                   style: AppTextStyle.bodySmall(context).copyWith(
-                    color: AppColor.whiteColor(context).withValues(alpha: 0.7),
+                    color: AppColor.blackTextColor(context).withValues(alpha: 0.7),
                     fontWeight: FontWeight.w900,
                     fontSize: 8.sp,
                     letterSpacing: 1,
@@ -139,7 +139,7 @@ class _ScheduleStepState extends State<ScheduleStep> {
                 width: double.infinity,
                 padding: EdgeInsets.symmetric(vertical: 16.h),
                 decoration: BoxDecoration(
-                  color: AppColor.whiteColor(context).withValues(alpha: 0.03),
+                  color: AppColor.blackTextColor(context).withValues(alpha: 0.03),
                   borderRadius: BorderRadius.circular(16.r),
                   border: Border.all(color: AppColor.borderColor(context)),
                 ),

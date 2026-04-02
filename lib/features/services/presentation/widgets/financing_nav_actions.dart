@@ -45,7 +45,7 @@ class FinancingNavActions extends StatelessWidget {
                   style: AppTextStyle.bodyMedium(context).copyWith(
                     fontWeight: FontWeight.w900,
                     letterSpacing: 1.5,
-                    color: AppColor.whiteColor(context).withValues(alpha: 0.7),
+                    color: AppColor.blackTextColor(context).withValues(alpha: 0.7),
                     fontSize: 15.sp,
                   ),
                 ),

@@ -39,12 +39,12 @@ class InstallmentRow extends StatelessWidget {
         decoration: BoxDecoration(
           color: isLast
               ? primary.withValues(alpha: 0.05)
-              : AppColor.whiteColor(context).withValues(alpha: 0.02),
+              : AppColor.blackTextColor(context).withValues(alpha: 0.02),
           borderRadius: BorderRadius.circular(20.r),
           border: Border.all(
             color: isLast
                 ? primary.withValues(alpha: 0.3)
-                : AppColor.whiteColor(context).withValues(alpha: 0.05),
+                : AppColor.blackTextColor(context).withValues(alpha: 0.05),
           ),
         ),
         child: Row(
@@ -56,7 +56,7 @@ class InstallmentRow extends StatelessWidget {
               decoration: BoxDecoration(
                 color: isLast
                     ? primary
-                    : AppColor.whiteColor(context).withValues(alpha: 0.05),
+                    : AppColor.blackTextColor(context).withValues(alpha: 0.05),
                 borderRadius: BorderRadius.circular(12.r),
               ),
               child: Center(
@@ -65,7 +65,7 @@ class InstallmentRow extends StatelessWidget {
                   style: AppTextStyle.bodySmall(context).copyWith(
                     color: isLast
                         ? AppColor.whiteColor(context)
-                        : AppColor.whiteColor(context).withValues(alpha: 0.6),
+                        : AppColor.blackTextColor(context).withValues(alpha: 0.6),
                     fontWeight: FontWeight.w900,
                     fontSize: 12.sp,
                   ),
@@ -86,8 +86,8 @@ class InstallmentRow extends StatelessWidget {
                       fontWeight: FontWeight.w900,
                       fontSize: 11.sp,
                       color: isLast
-                          ? AppColor.whiteColor(context)
-                          : AppColor.whiteColor(context).withValues(alpha: 0.85),
+                          ? AppColor.primaryColor(context)
+                          : AppColor.blackTextColor(context).withValues(alpha: 0.85),
                       letterSpacing: 0.5,
                     ),
                   ),
@@ -96,7 +96,7 @@ class InstallmentRow extends StatelessWidget {
                     dateStr,
                     style: AppTextStyle.bodySmall(context).copyWith(
                       color: isLast
-                          ? AppColor.whiteColor(context).withValues(alpha: 0.6)
+                          ? AppColor.primaryColor(context).withValues(alpha: 0.6)
                           : AppColor.greyColor(context),
                       fontSize: 10.sp,
                       fontWeight: FontWeight.w600,
@@ -110,7 +110,7 @@ class InstallmentRow extends StatelessWidget {
               '${formatter.format(isLast ? residualAmount : amount)} ${AppLocaleKey.sar.tr().toUpperCase()}',
               style: AppTextStyle.bodyMedium(context).copyWith(
                 fontWeight: FontWeight.w900,
-                color: AppColor.whiteColor(context),
+                color: AppColor.blackTextColor(context),
                 fontSize: 13.sp,
                 letterSpacing: 0.5,
               ),

@@ -99,8 +99,8 @@ class BankOfferCard extends StatelessWidget {
                         style: AppTextStyle.bodyMedium(context).copyWith(
                           fontWeight: FontWeight.w900,
                           color: isSelected
-                              ? AppColor.whiteColor(context)
-                              : AppColor.whiteColor(context).withValues(alpha: 0.7),
+                              ? primary
+                              : AppColor.blackTextColor(context).withValues(alpha: 0.7),
                           fontSize: 13.sp,
                           letterSpacing: 1,
                         ),
@@ -131,7 +131,7 @@ class BankOfferCard extends StatelessWidget {
                   Text(
                     '${AppLocaleKey.fixedApr.tr().toUpperCase()}: ${calc['apr']!.toStringAsFixed(2)}%',
                     style: AppTextStyle.bodySmall(context).copyWith(
-                      color: AppColor.whiteColor(context).withValues(alpha: 0.24),
+                      color: AppColor.blackTextColor(context).withValues(alpha: 0.4),
                       fontSize: 9.sp,
                       fontWeight: FontWeight.w900,
                       letterSpacing: 1.2,
@@ -148,8 +148,8 @@ class BankOfferCard extends StatelessWidget {
                   NumberFormat('#,##0').format(calc['monthlyInstallment']),
                   style: AppTextStyle.titleMedium(context).copyWith(
                     color: isSelected
-                        ? AppColor.whiteColor(context)
-                        : AppColor.whiteColor(context).withValues(alpha: 0.7),
+                        ? primary
+                        : AppColor.blackTextColor(context).withValues(alpha: 0.7),
                     fontWeight: FontWeight.w900,
                     fontSize: 18.sp,
                     letterSpacing: -0.5,
@@ -158,7 +158,7 @@ class BankOfferCard extends StatelessWidget {
                 Text(
                   AppLocaleKey.sar.tr().toUpperCase(),
                   style: AppTextStyle.bodySmall(context).copyWith(
-                    color: AppColor.whiteColor(context).withValues(alpha: 0.24),
+                    color: AppColor.blackTextColor(context).withValues(alpha: 0.4),
                     fontWeight: FontWeight.w900,
                     fontSize: 10.sp,
                     letterSpacing: 1,
