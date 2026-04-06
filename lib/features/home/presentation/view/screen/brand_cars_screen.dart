@@ -450,412 +450,438 @@ class BrandCarsScreen extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: AppColor.scaffoldColor(context),
-      body: CustomScrollView(
-        physics: const BouncingScrollPhysics(),
-        slivers: [
-          // ── HERO APP BAR ──────────────────────────────────────────────────
-          SliverAppBar(
-            expandedHeight: 280.h,
-            pinned: true,
-            stretch: true,
-            backgroundColor: AppColor.scaffoldColor(context),
-            surfaceTintColor: Colors.transparent,
-            elevation: 0,
-            leading: Padding(
-              padding: EdgeInsets.all(8.w),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: AppColor.whiteColor(context).withValues(alpha: 0.85),
-                  shape: BoxShape.circle,
-                  boxShadow: [
-                    BoxShadow(color: Colors.black.withValues(alpha: 0.08), blurRadius: 8),
-                  ],
-                ),
-                child: IconButton(
-                  onPressed: () => Navigator.pop(context),
-                  icon: Icon(
-                    Icons.arrow_back_ios_new_rounded,
-                    color: AppColor.blackTextColor(context),
-                    size: 18.sp,
-                  ),
-                ),
-              ),
-            ),
-            flexibleSpace: FlexibleSpaceBar(
-              stretchModes: const [StretchMode.zoomBackground, StretchMode.blurBackground],
-              background: Stack(
-                fit: StackFit.expand,
-                children: [
-                  // Gradient background
-                  Container(
+      body: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 1200),
+          child: CustomScrollView(
+            physics: const BouncingScrollPhysics(),
+            slivers: [
+              // ── HERO APP BAR ──────────────────────────────────────────────────
+              SliverAppBar(
+                expandedHeight: 280.h,
+                pinned: true,
+                stretch: true,
+                backgroundColor: AppColor.scaffoldColor(context),
+                surfaceTintColor: Colors.transparent,
+                elevation: 0,
+                leading: Padding(
+                  padding: EdgeInsets.all(8.w),
+                  child: Container(
                     decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        colors: [
-                          accent.withValues(alpha: 0.18),
-                          accent.withValues(alpha: 0.06),
-                          AppColor.scaffoldColor(context),
-                        ],
-                        stops: const [0.0, 0.5, 1.0],
-                      ),
-                    ),
-                  ),
-                  // Decorative huge faded brand name
-                  Positioned(
-                    bottom: 60.h,
-                    left: isAr ? null : -20,
-                    right: isAr ? -20 : null,
-                    child: Text(
-                      brandNameEn.toUpperCase(),
-                      style: TextStyle(
-                        color: accent.withValues(alpha: 0.055),
-                        fontSize: 60.sp,
-                        fontWeight: FontWeight.w900,
-                        letterSpacing: 6,
-                        height: 1,
-                      ),
-                    ),
-                  ),
-                  // Decorative circle
-                  Positioned(
-                    top: -40.h,
-                    right: isAr ? null : -40.w,
-                    left: isAr ? -40.w : null,
-                    child: Container(
-                      width: 180.w,
-                      height: 180.w,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: accent.withValues(alpha: 0.07),
-                      ),
-                    ),
-                  ),
-                  // Center content
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Gap(50.h),
-                      // Logo in elegant circle
-                      Container(
-                        width: 96.w,
-                        height: 96.w,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: AppColor.whiteColor(context),
-                          border: Border.all(color: accent.withValues(alpha: 0.2), width: 2),
-                          boxShadow: [
-                            BoxShadow(
-                              color: accent.withValues(alpha: 0.2),
-                              blurRadius: 24,
-                              offset: const Offset(0, 8),
-                            ),
-                            BoxShadow(
-                              color: Colors.black.withValues(alpha: 0.06),
-                              blurRadius: 12,
-                              offset: const Offset(0, 4),
-                            ),
-                          ],
-                        ),
-                        padding: EdgeInsets.all(20.w),
-                        child: Image.asset(
-                          brandImage,
-                          fit: BoxFit.contain,
-                          errorBuilder: (_, __, ___) =>
-                              Icon(Icons.directions_car_rounded, color: accent, size: 44.sp),
-                        ),
-                      ),
-                      Gap(14.h),
-                      Text(
-                        displayName,
-                        style: TextStyle(
-                          fontWeight: FontWeight.w900,
-                          fontSize: 26.sp,
-                          color: AppColor.blackTextColor(context),
-                          letterSpacing: 0.5,
-                        ),
-                      ),
-                      if (info != null) ...[
-                        Gap(4.h),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(Icons.location_on_rounded, size: 12.sp, color: accent),
-                            Gap(3.w),
-                            Text(
-                              isAr ? info.countryAr : info.country,
-                              style: TextStyle(
-                                fontSize: 12.sp,
-                                color: accent,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                            Text(
-                              '  ·  ',
-                              style: TextStyle(color: Colors.grey[400], fontSize: 12.sp),
-                            ),
-                            Text(
-                              'Since ${info.founded}',
-                              style: TextStyle(fontSize: 12.sp, color: Colors.grey[500]),
-                            ),
-                          ],
-                        ),
+                      color: AppColor.whiteColor(context).withValues(alpha: 0.85),
+                      shape: BoxShape.circle,
+                      boxShadow: [
+                        BoxShadow(color: Colors.black.withValues(alpha: 0.08), blurRadius: 8),
                       ],
-                      Gap(16.h),
+                    ),
+                    child: IconButton(
+                      onPressed: () => Navigator.pop(context),
+                      icon: Icon(
+                        Icons.arrow_back_ios_new_rounded,
+                        color: AppColor.blackTextColor(context),
+                        size: 18.sp,
+                      ),
+                    ),
+                  ),
+                ),
+                flexibleSpace: FlexibleSpaceBar(
+                  stretchModes: const [StretchMode.zoomBackground, StretchMode.blurBackground],
+                  background: Stack(
+                    fit: StackFit.expand,
+                    children: [
+                      // Gradient background
+                      Container(
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                            colors: [
+                              accent.withValues(alpha: 0.18),
+                              accent.withValues(alpha: 0.06),
+                              AppColor.scaffoldColor(context),
+                            ],
+                            stops: const [0.0, 0.5, 1.0],
+                          ),
+                        ),
+                      ),
+                      // Decorative huge faded brand name
+                      Positioned(
+                        bottom: 60.h,
+                        left: isAr ? null : -20,
+                        right: isAr ? -20 : null,
+                        child: Text(
+                          brandNameEn.toUpperCase(),
+                          style: TextStyle(
+                            color: accent.withValues(alpha: 0.055),
+                            fontSize: 60.sp,
+                            fontWeight: FontWeight.w900,
+                            letterSpacing: 6,
+                            height: 1,
+                          ),
+                        ),
+                      ),
+                      // Decorative circle
+                      Positioned(
+                        top: -40.h,
+                        right: isAr ? null : -40.w,
+                        left: isAr ? -40.w : null,
+                        child: Container(
+                          width: 180.w,
+                          height: 180.w,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: accent.withValues(alpha: 0.07),
+                          ),
+                        ),
+                      ),
+                      // Center content
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Gap(50.h),
+                          // Logo in elegant circle
+                          Container(
+                            width: 96.w,
+                            height: 96.w,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: AppColor.whiteColor(context),
+                              border: Border.all(color: accent.withValues(alpha: 0.2), width: 2),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: accent.withValues(alpha: 0.2),
+                                  blurRadius: 24,
+                                  offset: const Offset(0, 8),
+                                ),
+                                BoxShadow(
+                                  color: Colors.black.withValues(alpha: 0.06),
+                                  blurRadius: 12,
+                                  offset: const Offset(0, 4),
+                                ),
+                              ],
+                            ),
+                            padding: EdgeInsets.all(20.w),
+                            child: Image.asset(
+                              brandImage,
+                              fit: BoxFit.contain,
+                              errorBuilder: (_, __, ___) =>
+                                  Icon(Icons.directions_car_rounded, color: accent, size: 44.sp),
+                            ),
+                          ),
+                          Gap(14.h),
+                          Text(
+                            displayName,
+                            style: TextStyle(
+                              fontWeight: FontWeight.w900,
+                              fontSize: 26.sp,
+                              color: AppColor.blackTextColor(context),
+                              letterSpacing: 0.5,
+                            ),
+                          ),
+                          if (info != null) ...[
+                            Gap(4.h),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(Icons.location_on_rounded, size: 12.sp, color: accent),
+                                Gap(3.w),
+                                Text(
+                                  isAr ? info.countryAr : info.country,
+                                  style: TextStyle(
+                                    fontSize: 12.sp,
+                                    color: accent,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                                Text(
+                                  '  ·  ',
+                                  style: TextStyle(color: Colors.grey[400], fontSize: 12.sp),
+                                ),
+                                Text(
+                                  'Since ${info.founded}',
+                                  style: TextStyle(fontSize: 12.sp, color: Colors.grey[500]),
+                                ),
+                              ],
+                            ),
+                          ],
+                          Gap(16.h),
+                        ],
+                      ),
                     ],
                   ),
-                ],
+                ),
               ),
-            ),
-          ),
 
-          // ── BRAND INFO SECTION ────────────────────────────────────────────
-          if (info != null)
-            SliverToBoxAdapter(
-              child: Padding(
-                padding: EdgeInsets.fromLTRB(16.w, 4.h, 16.w, 0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // Stats ribbon
-                    Container(
-                      margin: EdgeInsets.only(bottom: 20.h),
-                      padding: EdgeInsets.symmetric(vertical: 16.h),
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: [accent.withValues(alpha: 0.07), accent.withValues(alpha: 0.03)],
-                        ),
-                        borderRadius: BorderRadius.circular(20.r),
-                        border: Border.all(color: accent.withValues(alpha: 0.12)),
-                      ),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: _Stat(
-                              icon: Icons.public_rounded,
-                              value: isAr ? info.countryAr : info.country,
-                              label: isAr ? 'المنشأ' : 'Origin',
-                              accent: accent,
-                            ),
-                          ),
-                          Container(width: 1, height: 40.h, color: accent.withValues(alpha: 0.12)),
-                          Expanded(
-                            child: _Stat(
-                              icon: Icons.calendar_today_rounded,
-                              value: info.founded,
-                              label: isAr ? 'تأسست' : 'Founded',
-                              accent: accent,
-                            ),
-                          ),
-                          Container(width: 1, height: 40.h, color: accent.withValues(alpha: 0.12)),
-                          Expanded(
-                            child: _Stat(
-                              icon: Icons.directions_car_rounded,
-                              value: '${cars.length}+',
-                              label: isAr ? 'موديلات' : 'Models',
-                              accent: accent,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-
-                    // Description
-                    Container(
-                      padding: EdgeInsets.all(16.w),
-                      decoration: BoxDecoration(
-                        color: accent.withValues(alpha: 0.08),
-                        borderRadius: BorderRadius.circular(16.r),
-                        border: Border.all(color: accent.withValues(alpha: 0.18)),
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            children: [
-                              Container(
-                                width: 3.w,
-                                height: 18.h,
-                                decoration: BoxDecoration(
-                                  color: accent,
-                                  borderRadius: BorderRadius.circular(2),
-                                ),
-                              ),
-                              Gap(8.w),
-                              Text(
-                                isAr ? 'نبذة عن الماركة' : 'About the Brand',
-                                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.sp),
-                              ),
-                            ],
-                          ),
-                          Gap(10.h),
-                          Text(
-                            isAr ? info.descAr : info.descEn,
-                            style: TextStyle(
-                              color: AppColor.blackTextColor(context).withValues(alpha: 0.75),
-                              fontSize: 13.sp,
-                              height: 1.7,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Gap(16.h),
-
-                    // Categories
-                    _SectionHeader(title: isAr ? 'الفئات المتاحة' : 'Categories', accent: accent),
-                    Gap(10.h),
-                    Wrap(
-                      spacing: 8.w,
-                      runSpacing: 8.h,
-                      children: info.categories
-                          .map(
-                            (cat) => Container(
-                              padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 7.h),
-                              decoration: BoxDecoration(
-                                gradient: LinearGradient(
-                                  colors: [
-                                    accent.withValues(alpha: 0.12),
-                                    accent.withValues(alpha: 0.06),
-                                  ],
-                                ),
-                                borderRadius: BorderRadius.circular(30.r),
-                                border: Border.all(color: accent.withValues(alpha: 0.3)),
-                              ),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Container(
-                                    width: 6.w,
-                                    height: 6.w,
-                                    decoration: BoxDecoration(
-                                      color: accent,
-                                      shape: BoxShape.circle,
-                                    ),
-                                  ),
-                                  Gap(6.w),
-                                  Text(
-                                    cat,
-                                    style: TextStyle(
-                                      color: accent,
-                                      fontSize: 11.sp,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          )
-                          .toList(),
-                    ),
-                    Gap(20.h),
-
-                    // Popular models
-                    _SectionHeader(
-                      title: isAr ? 'أشهر الموديلات' : 'Popular Models',
-                      accent: accent,
-                    ),
-                    Gap(10.h),
-                    SizedBox(
-                      height: 40.h,
-                      child: ListView.separated(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: info.popularModels.length,
-                        separatorBuilder: (_, __) => Gap(8.w),
-                        itemBuilder: (_, i) => Container(
-                          alignment: Alignment.center,
-                          padding: EdgeInsets.symmetric(horizontal: 16.w),
+              // ── BRAND INFO SECTION ────────────────────────────────────────────
+              if (info != null)
+                SliverToBoxAdapter(
+                  child: Padding(
+                    padding: EdgeInsets.fromLTRB(16.w, 4.h, 16.w, 0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // Stats ribbon
+                        Container(
+                          margin: EdgeInsets.only(bottom: 20.h),
+                          padding: EdgeInsets.symmetric(vertical: 16.h),
                           decoration: BoxDecoration(
                             gradient: LinearGradient(
                               colors: [
-                                accent.withValues(alpha: 0.14),
                                 accent.withValues(alpha: 0.07),
+                                accent.withValues(alpha: 0.03),
                               ],
                             ),
-                            borderRadius: BorderRadius.circular(10.r),
-                            border: Border.all(color: accent.withValues(alpha: 0.3)),
+                            borderRadius: BorderRadius.circular(20.r),
+                            border: Border.all(color: accent.withValues(alpha: 0.12)),
                           ),
-                          child: Text(
-                            info.popularModels[i],
-                            style: TextStyle(
-                              fontSize: 12.sp,
-                              fontWeight: FontWeight.w700,
-                              color: AppColor.blackTextColor(context),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: _Stat(
+                                  icon: Icons.public_rounded,
+                                  value: isAr ? info.countryAr : info.country,
+                                  label: isAr ? 'المنشأ' : 'Origin',
+                                  accent: accent,
+                                ),
+                              ),
+                              Container(
+                                width: 1,
+                                height: 40.h,
+                                color: accent.withValues(alpha: 0.12),
+                              ),
+                              Expanded(
+                                child: _Stat(
+                                  icon: Icons.calendar_today_rounded,
+                                  value: info.founded,
+                                  label: isAr ? 'تأسست' : 'Founded',
+                                  accent: accent,
+                                ),
+                              ),
+                              Container(
+                                width: 1,
+                                height: 40.h,
+                                color: accent.withValues(alpha: 0.12),
+                              ),
+                              Expanded(
+                                child: _Stat(
+                                  icon: Icons.directions_car_rounded,
+                                  value: '${cars.length}+',
+                                  label: isAr ? 'موديلات' : 'Models',
+                                  accent: accent,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+
+                        // Description
+                        Container(
+                          padding: EdgeInsets.all(16.w),
+                          decoration: BoxDecoration(
+                            color: accent.withValues(alpha: 0.08),
+                            borderRadius: BorderRadius.circular(16.r),
+                            border: Border.all(color: accent.withValues(alpha: 0.18)),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                children: [
+                                  Container(
+                                    width: 3.w,
+                                    height: 18.h,
+                                    decoration: BoxDecoration(
+                                      color: accent,
+                                      borderRadius: BorderRadius.circular(2),
+                                    ),
+                                  ),
+                                  Gap(8.w),
+                                  Text(
+                                    isAr ? 'نبذة عن الماركة' : 'About the Brand',
+                                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.sp),
+                                  ),
+                                ],
+                              ),
+                              Gap(10.h),
+                              Text(
+                                isAr ? info.descAr : info.descEn,
+                                style: TextStyle(
+                                  color: AppColor.blackTextColor(context).withValues(alpha: 0.75),
+                                  fontSize: 13.sp,
+                                  height: 1.7,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Gap(16.h),
+
+                        // Categories
+                        _SectionHeader(
+                          title: isAr ? 'الفئات المتاحة' : 'Categories',
+                          accent: accent,
+                        ),
+                        Gap(10.h),
+                        Wrap(
+                          spacing: 8.w,
+                          runSpacing: 8.h,
+                          children: info.categories
+                              .map(
+                                (cat) => Container(
+                                  padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 7.h),
+                                  decoration: BoxDecoration(
+                                    gradient: LinearGradient(
+                                      colors: [
+                                        accent.withValues(alpha: 0.12),
+                                        accent.withValues(alpha: 0.06),
+                                      ],
+                                    ),
+                                    borderRadius: BorderRadius.circular(30.r),
+                                    border: Border.all(color: accent.withValues(alpha: 0.3)),
+                                  ),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Container(
+                                        width: 6.w,
+                                        height: 6.w,
+                                        decoration: BoxDecoration(
+                                          color: accent,
+                                          shape: BoxShape.circle,
+                                        ),
+                                      ),
+                                      Gap(6.w),
+                                      Text(
+                                        cat,
+                                        style: TextStyle(
+                                          color: accent,
+                                          fontSize: 11.sp,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              )
+                              .toList(),
+                        ),
+                        Gap(20.h),
+
+                        // Popular models
+                        _SectionHeader(
+                          title: isAr ? 'أشهر الموديلات' : 'Popular Models',
+                          accent: accent,
+                        ),
+                        Gap(10.h),
+                        SizedBox(
+                          height: 40.h,
+                          child: ListView.separated(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: info.popularModels.length,
+                            separatorBuilder: (_, __) => Gap(8.w),
+                            itemBuilder: (_, i) => Container(
+                              alignment: Alignment.center,
+                              padding: EdgeInsets.symmetric(horizontal: 16.w),
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                  colors: [
+                                    accent.withValues(alpha: 0.14),
+                                    accent.withValues(alpha: 0.07),
+                                  ],
+                                ),
+                                borderRadius: BorderRadius.circular(10.r),
+                                border: Border.all(color: accent.withValues(alpha: 0.3)),
+                              ),
+                              child: Text(
+                                info.popularModels[i],
+                                style: TextStyle(
+                                  fontSize: 12.sp,
+                                  fontWeight: FontWeight.w700,
+                                  color: AppColor.blackTextColor(context),
+                                ),
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                    ),
-                    Gap(24.h),
-                    // Divider with cars label
-                    Row(
-                      children: [
-                        Expanded(child: Divider(color: Colors.grey.withValues(alpha: 0.2))),
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 12.w),
-                          child: Text(
-                            '${cars.length} ${isAr ? "سيارة" : "Cars"}',
-                            style: TextStyle(
-                              color: Colors.grey[500],
-                              fontSize: 12.sp,
-                              fontWeight: FontWeight.w600,
+                        Gap(24.h),
+                        // Divider with cars label
+                        Row(
+                          children: [
+                            Expanded(child: Divider(color: Colors.grey.withValues(alpha: 0.2))),
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 12.w),
+                              child: Text(
+                                '${cars.length} ${isAr ? "سيارة" : "Cars"}',
+                                style: TextStyle(
+                                  color: Colors.grey[500],
+                                  fontSize: 12.sp,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
                             ),
-                          ),
+                            Expanded(child: Divider(color: Colors.grey.withValues(alpha: 0.2))),
+                          ],
                         ),
-                        Expanded(child: Divider(color: Colors.grey.withValues(alpha: 0.2))),
+                        Gap(8.h),
                       ],
                     ),
-                    Gap(8.h),
-                  ],
-                ),
-              ),
-            ),
-
-          // ── CAR LIST ──────────────────────────────────────────────────────
-          if (cars.isEmpty)
-            SliverFillRemaining(
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      width: 80.w,
-                      height: 80.w,
-                      decoration: BoxDecoration(color: Colors.grey[100], shape: BoxShape.circle),
-                      child: Icon(Icons.car_crash_rounded, size: 40.sp, color: Colors.grey[300]),
-                    ),
-                    Gap(16.h),
-                    Text(
-                      AppLocaleKey.noCarsForBrand.tr(),
-                      style: TextStyle(
-                        color: Colors.grey[400],
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Gap(8.h),
-                    Text(
-                      AppLocaleKey.comingSoon.tr(),
-                      style: TextStyle(color: Colors.grey[400], fontSize: 13.sp),
-                    ),
-                  ],
-                ),
-              ),
-            )
-          else
-            SliverPadding(
-              padding: EdgeInsets.fromLTRB(16.w, 4.h, 16.w, 50.h),
-              sliver: SliverList(
-                delegate: SliverChildBuilderDelegate(
-                  (context, index) => Padding(
-                    padding: EdgeInsets.only(bottom: 24.h),
-                    child: MagazineCardWidget(car: cars[index]),
                   ),
-                  childCount: cars.length,
                 ),
-              ),
-            ),
-        ],
+
+              // ── CAR LIST ──────────────────────────────────────────────────────
+              if (cars.isEmpty)
+                SliverFillRemaining(
+                  child: Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          width: 80.w,
+                          height: 80.w,
+                          decoration: BoxDecoration(
+                            color: Colors.grey[100],
+                            shape: BoxShape.circle,
+                          ),
+                          child: Icon(
+                            Icons.car_crash_rounded,
+                            size: 40.sp,
+                            color: Colors.grey[300],
+                          ),
+                        ),
+                        Gap(16.h),
+                        Text(
+                          AppLocaleKey.noCarsForBrand.tr(),
+                          style: TextStyle(
+                            color: Colors.grey[400],
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Gap(8.h),
+                        Text(
+                          AppLocaleKey.comingSoon.tr(),
+                          style: TextStyle(color: Colors.grey[400], fontSize: 13.sp),
+                        ),
+                      ],
+                    ),
+                  ),
+                )
+              else
+                SliverPadding(
+                  padding: EdgeInsets.fromLTRB(16.w, 4.h, 16.w, 50.h),
+                  sliver: SliverList(
+                    delegate: SliverChildBuilderDelegate(
+                      (context, index) => Padding(
+                        padding: EdgeInsets.only(bottom: 24.h),
+                        child: MagazineCardWidget(car: cars[index]),
+                      ),
+                      childCount: cars.length,
+                    ),
+                  ),
+                ),
+            ],
+          ),
+        ),
       ),
     );
   }

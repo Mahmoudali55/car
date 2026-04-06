@@ -1,19 +1,29 @@
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
+import 'package:car/core/services/bnpl_service.dart';
+import 'package:car/features/cars/presentation/screen/bnpl_payment_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
-class BnplWidget extends StatelessWidget {
+class BnplWidget extends StatefulWidget {
   final Map<String, dynamic> car;
 
   const BnplWidget({super.key, required this.car});
 
   @override
+  State<BnplWidget> createState() => _BnplWidgetState();
+}
+
+class _BnplWidgetState extends State<BnplWidget> {
+  final BnplService _bnplService = BnplService();
+  bool _isLoading = false;
+
+  @override
   Widget build(BuildContext context) {
     // Correct price parsing: extract only digits
-    final priceRawString = car['price']?.toString() ?? '0';
+    final priceRawString = widget.car['price']?.toString() ?? '0';
     final priceString = priceRawString.replaceAll(RegExp(r'[^0-9.]'), '');
     final price = double.tryParse(priceString) ?? 0.0;
 
@@ -27,6 +37,14 @@ class BnplWidget extends StatelessWidget {
       margin: EdgeInsets.only(top: 16.h),
       child: Column(
         children: [
+          if (_isLoading)
+            Padding(
+              padding: EdgeInsets.only(bottom: 12.h),
+              child: LinearProgressIndicator(
+                color: AppColor.primaryColor(context),
+                backgroundColor: AppColor.primaryColor(context).withValues(alpha: 0.1),
+              ),
+            ),
           _buildProviderCard(
             context: context,
             providerName: 'tabby',
@@ -55,6 +73,67 @@ class BnplWidget extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Future<void> _handleBnplCheckout(BuildContext context, bool isTabby, double amount) async {
+    if (_isLoading) return;
+
+    setState(() {
+      _isLoading = true;
+    });
+
+    try {
+      String? checkoutUrl;
+      const String currency = 'SAR';
+      const String buyerEmail = 'test@example.com'; // Hardcoded for demo/placeholders
+      const String buyerPhone = '+966500000000';
+      const String buyerName = 'User Name';
+      final String orderId = 'ORDER_${DateTime.now().millisecondsSinceEpoch}';
+
+      if (isTabby) {
+        checkoutUrl = await _bnplService.createTabbySession(
+          amount: amount,
+          currency: currency,
+          buyerEmail: buyerEmail,
+          buyerPhone: buyerPhone,
+          buyerName: buyerName,
+          orderId: orderId,
+        );
+      } else {
+        checkoutUrl = await _bnplService.createTamaraSession(
+          amount: amount,
+          currency: currency,
+          buyerEmail: buyerEmail,
+          buyerPhone: buyerPhone,
+          buyerFullName: buyerName,
+          orderId: orderId,
+        );
+      }
+
+      if (checkoutUrl != null && mounted) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => BnplPaymentScreen(
+              checkoutUrl: checkoutUrl!,
+              providerName: isTabby ? 'Tabby' : 'Tamara',
+            ),
+          ),
+        );
+      } else {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Failed to create ${isTabby ? "Tabby" : "Tamara"} session. Check API config.')),
+          );
+        }
+      }
+    } finally {
+      if (mounted) {
+        setState(() {
+          _isLoading = false;
+        });
+      }
+    }
   }
 
   Widget _buildProviderCard({
@@ -249,14 +328,17 @@ class BnplWidget extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: () => Navigator.pop(bottomSheetContext),
+                onPressed: () {
+                  Navigator.pop(bottomSheetContext);
+                  _handleBnplCheckout(context, isTabby, total);
+                },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppColor.primaryColor(context),
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.r)),
                   padding: EdgeInsets.symmetric(vertical: 14.h),
                 ),
                 child: Text(
-                  AppLocaleKey.ok.tr(),
+                  '${AppLocaleKey.ok.tr()} - ${AppLocaleKey.payWith.tr()} ${providerName.toUpperCase()}',
                   style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
