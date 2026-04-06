@@ -29,6 +29,7 @@ class AboutBioSection extends StatelessWidget {
               AppLocaleKey.carApp.tr(),
               style: AppTextStyle.titleLarge(context).copyWith(
                 fontWeight: FontWeight.bold,
+                color: AppColor.blackTextColor(context),
                 fontSize: 22.sp,
               ),
             ),

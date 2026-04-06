@@ -39,7 +39,7 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 120.h,
+      height: 160.h,
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
         padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
@@ -119,18 +119,24 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
                         ),
                       ),
                       Gap(10.h),
-                      Text(
-                        categories[index]['name'] as String,
-                        textAlign: TextAlign.center,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: AppTextStyle.bodySmall(context).copyWith(
-                          color: isSelected
-                              ? Colors.white
-                              : AppColor.blackTextColor(context).withValues(alpha: 0.8),
-                          fontWeight: isSelected ? FontWeight.w900 : FontWeight.w700,
-                          fontSize: 11.sp,
-                          letterSpacing: 0.2,
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 4.w),
+                        child: FittedBox(
+                          fit: BoxFit.scaleDown,
+                          child: Text(
+                            categories[index]['name'] as String,
+                            textAlign: TextAlign.center,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: AppTextStyle.bodySmall(context).copyWith(
+                              color: isSelected
+                                  ? Colors.white
+                                  : AppColor.blackTextColor(context).withValues(alpha: 0.8),
+                              fontWeight: isSelected ? FontWeight.w900 : FontWeight.w700,
+                              fontSize: 11.sp,
+                              letterSpacing: 0.2,
+                            ),
+                          ),
                         ),
                       ),
                     ],

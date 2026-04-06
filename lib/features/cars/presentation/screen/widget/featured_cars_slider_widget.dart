@@ -29,7 +29,7 @@ class _FeaturedCarsSliderWidgetState extends State<FeaturedCarsSliderWidget> {
     return Column(
       children: [
         SizedBox(
-          height: 180.h,
+          height: 200.h,
           child: PageView.builder(
             controller: _pageController,
             onPageChanged: (index) => setState(() => _currentSliderIndex = index),
@@ -70,44 +70,48 @@ class _FeaturedCarsSliderWidgetState extends State<FeaturedCarsSliderWidget> {
                         children: [
                           Expanded(
                             flex: 5,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Container(
-                                  padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
-                                  decoration: BoxDecoration(
-                                    color: AppColor.primaryColor(context),
-                                    borderRadius: BorderRadius.circular(8.r),
-                                  ),
-                                  child: Text(
-                                    AppLocaleKey.specialOffersCars.tr(),
-                                    style: AppTextStyle.bodySmall(context).copyWith(
-                                      color: AppColor.whiteColor(context),
-                                      fontSize: 10.sp,
-                                      fontWeight: FontWeight.bold,
+                            child: FittedBox(
+                              fit: BoxFit.scaleDown,
+                              alignment: Alignment.centerLeft,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Container(
+                                    padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
+                                    decoration: BoxDecoration(
+                                      color: AppColor.primaryColor(context),
+                                      borderRadius: BorderRadius.circular(8.r),
+                                    ),
+                                    child: Text(
+                                      AppLocaleKey.specialOffersCars.tr(),
+                                      style: AppTextStyle.bodySmall(context).copyWith(
+                                        color: AppColor.whiteColor(context),
+                                        fontSize: 10.sp,
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                     ),
                                   ),
-                                ),
-                                Gap(8.h),
-                                Text(
-                                  car['name']!,
-                                  style: AppTextStyle.titleMedium(context).copyWith(
-                                    color: AppColor.blackTextColor(context),
-                                    fontWeight: FontWeight.bold,
+                                  Gap(8.h),
+                                  Text(
+                                    car['name']!,
+                                    style: AppTextStyle.titleMedium(context).copyWith(
+                                      color: AppColor.blackTextColor(context),
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
                                   ),
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                                Gap(4.h),
-                                Text(
-                                  car['price']!,
-                                  style: AppTextStyle.bodyMedium(context).copyWith(
-                                    color: AppColor.primaryColor(context),
-                                    fontWeight: FontWeight.w600,
+                                  Gap(4.h),
+                                  Text(
+                                    car['price']!,
+                                    style: AppTextStyle.bodyMedium(context).copyWith(
+                                      color: AppColor.primaryColor(context),
+                                      fontWeight: FontWeight.w600,
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
                           Expanded(

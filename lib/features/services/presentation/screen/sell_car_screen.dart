@@ -160,10 +160,13 @@ class SellCarScreen extends StatelessWidget {
         actions: [
           TextButton(
             onPressed: () {
-              Navigator.pop(context); // close dialog
-              Navigator.pop(context); // go back
+              Navigator.pop(context);
+              Navigator.pop(context);
             },
-            child: Text(AppLocaleKey.ok.tr(), style: TextStyle(color: AppColor.primaryColor(context))),
+            child: Text(
+              AppLocaleKey.ok.tr(),
+              style: TextStyle(color: AppColor.primaryColor(context)),
+            ),
           ),
         ],
       ),
@@ -199,7 +202,11 @@ class SellCarScreen extends StatelessWidget {
         ),
         child: Text(
           text,
-          style: TextStyle(color: Colors.white, fontSize: 16.sp, fontWeight: FontWeight.bold),
+          style: TextStyle(
+            color: AppColor.whiteColor(context),
+            fontSize: 16.sp,
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
     );

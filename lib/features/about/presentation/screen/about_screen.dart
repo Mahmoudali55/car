@@ -7,10 +7,10 @@ import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import '../widgets/about_app_bar.dart';
 import '../widgets/about_bio_section.dart';
+import '../widgets/about_brands_section.dart';
 import '../widgets/about_financing_section.dart';
 import '../widgets/about_promo_slider.dart';
 import '../widgets/about_video_section.dart';
-import '../widgets/about_brands_section.dart';
 
 class AboutScreen extends StatefulWidget {
   const AboutScreen({super.key});

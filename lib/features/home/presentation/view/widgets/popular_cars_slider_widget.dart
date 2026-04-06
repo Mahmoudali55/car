@@ -96,7 +96,7 @@ class _PopularCarsSliderState extends State<PopularCarsSlider> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 380.h,
+      height: 520.h,
       width: double.infinity,
       child: PageView.builder(
         controller: _pageController,
@@ -137,9 +137,9 @@ class _PopularCarsSliderState extends State<PopularCarsSlider> {
               clipBehavior: Clip.antiAlias,
               child: Column(
                 children: [
-                  // Image Section (Flex 1)
+                  // Image Section
                   Expanded(
-                    flex: 12,
+                    flex: 10,
                     child: Stack(
                       fit: StackFit.expand,
                       children: [
@@ -168,7 +168,7 @@ class _PopularCarsSliderState extends State<PopularCarsSlider> {
                           bottom: 0,
                           left: 0,
                           right: 0,
-                          height: 60.h,
+                          height: 40.h,
                           child: Container(
                             decoration: BoxDecoration(
                               gradient: LinearGradient(
@@ -212,7 +212,7 @@ class _PopularCarsSliderState extends State<PopularCarsSlider> {
                           ),
                         ),
 
-                        // "Hot Deal" or "Popular" Badge
+                        // "Hot Deal" Badge
                         Positioned(
                           top: 16.h,
                           left: 16.w,
@@ -239,98 +239,105 @@ class _PopularCarsSliderState extends State<PopularCarsSlider> {
                     ),
                   ),
 
-                  // Content Section (Flex 1)
+                  // Content Section
                   Expanded(
-                    flex: 13,
+                    flex: 15,
                     child: Padding(
                       padding: EdgeInsets.fromLTRB(16.w, 4.h, 16.w, 16.h),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            car['name']!,
-                            style: AppTextStyle.titleMedium(context).copyWith(
-                              color: AppColor.blackTextColor(context),
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18.sp,
-                            ),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          Gap(12.h),
-
-                          // Technical specs styled as chips
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      child: FittedBox(
+                        fit: BoxFit.scaleDown,
+                        alignment: Alignment.topCenter,
+                        child: SizedBox(
+                          width: 280.w, // Fixed content width for FittedBox calculation
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.min,
                             children: [
-                              _buildMiniDetail(
-                                context,
-                                Icons.calendar_today_outlined,
-                                car['year']!,
+                              Text(
+                                car['name']!,
+                                style: AppTextStyle.titleMedium(context).copyWith(
+                                  color: AppColor.blackTextColor(context),
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18.sp,
+                                ),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
                               ),
-                              _buildMiniDetail(context, Icons.speed_outlined, car['mileage']!),
-                              _buildMiniDetail(context, Icons.settings_outlined, car['engine']!),
-                            ],
-                          ),
+                              Gap(12.h),
 
-                          const Spacer(),
-
-                          // Price
-                          Text(
-                            car['price']!,
-                            style: AppTextStyle.titleMedium(context).copyWith(
-                              color: AppColor.primaryColor(context),
-                              fontWeight: FontWeight.w900,
-                              fontSize: 18.sp,
-                            ),
-                          ),
-                          Gap(12.h),
-
-                          // Action Buttons
-                          Row(
-                            children: [
-                              Expanded(
-                                flex: 3,
-                                child: CustomButton(
-                                  onPressed: () => _navigateToDetails(context, car),
-
-                                  child: Text(
-                                    AppLocaleKey.orderNow.tr(),
-                                    style: AppTextStyle.bodyMedium(context).copyWith(
-                                      color: AppColor.whiteColor(context),
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                              // Technical specs
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  _buildMiniDetail(
+                                    context,
+                                    Icons.calendar_today_outlined,
+                                    car['year']!,
                                   ),
+                                  _buildMiniDetail(context, Icons.speed_outlined, car['mileage']!),
+                                  _buildMiniDetail(context, Icons.settings_outlined, car['engine']!),
+                                ],
+                              ),
+
+                              Gap(16.h),
+
+                              // Price
+                              Text(
+                                car['price']!,
+                                style: AppTextStyle.titleMedium(context).copyWith(
+                                  color: AppColor.primaryColor(context),
+                                  fontWeight: FontWeight.w900,
+                                  fontSize: 19.sp,
                                 ),
                               ),
-                              Gap(12.w),
-                              Expanded(
-                                flex: 2,
-                                child: OutlinedButton(
-                                  onPressed: () => _navigateToDetails(context, car),
-                                  style: OutlinedButton.styleFrom(
-                                    side: BorderSide(
-                                      color: AppColor.blackTextColor(context).withOpacity(0.2),
-                                      width: 1.5,
-                                    ),
-                                    foregroundColor: AppColor.blackTextColor(context),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(16.r),
-                                    ),
-                                    padding: EdgeInsets.symmetric(vertical: 12.h),
-                                  ),
-                                  child: Text(
-                                    AppLocaleKey.details.tr(),
-                                    style: AppTextStyle.bodySmall(context).copyWith(
-                                      color: AppColor.blackTextColor(context),
-                                      fontWeight: FontWeight.bold,
+                              Gap(12.h),
+
+                              // Action Buttons
+                              Row(
+                                children: [
+                                  Expanded(
+                                    flex: 3,
+                                    child: CustomButton(
+                                      onPressed: () => _navigateToDetails(context, car),
+                                      child: Text(
+                                        AppLocaleKey.orderNow.tr(),
+                                        style: AppTextStyle.bodyMedium(context).copyWith(
+                                          color: AppColor.whiteColor(context),
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
                                     ),
                                   ),
-                                ),
+                                  Gap(12.w),
+                                  Expanded(
+                                    flex: 2,
+                                    child: OutlinedButton(
+                                      onPressed: () => _navigateToDetails(context, car),
+                                      style: OutlinedButton.styleFrom(
+                                        side: BorderSide(
+                                          color: AppColor.blackTextColor(context).withOpacity(0.2),
+                                          width: 1.5,
+                                        ),
+                                        foregroundColor: AppColor.blackTextColor(context),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(16.r),
+                                        ),
+                                        padding: EdgeInsets.symmetric(vertical: 12.h),
+                                      ),
+                                      child: Text(
+                                        AppLocaleKey.details.tr(),
+                                        style: AppTextStyle.bodySmall(context).copyWith(
+                                          color: AppColor.blackTextColor(context),
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ],
                           ),
-                        ],
+                        ),
                       ),
                     ),
                   ),

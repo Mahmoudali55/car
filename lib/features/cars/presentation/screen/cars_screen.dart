@@ -1,6 +1,8 @@
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
+import 'package:car/features/cars/data/model/brand_model.dart';
+import 'package:car/features/cars/presentation/screen/widget/brand_selector_widget.dart';
 import 'package:car/features/cars/presentation/screen/widget/car_search_header_widget.dart';
 import 'package:car/features/cars/presentation/screen/widget/cars_categories_row_widget.dart';
 import 'package:car/features/cars/presentation/screen/widget/featured_cars_slider_widget.dart';
@@ -19,6 +21,7 @@ class CarsScreen extends StatefulWidget {
 
 class _CarsScreenState extends State<CarsScreen> {
   int _selectedCategoryIndex = 0;
+  BrandModel? _selectedBrand;
   final List<String> _categories = [
     AppLocaleKey.all.tr(),
     AppLocaleKey.luxury.tr(),
@@ -135,8 +138,19 @@ class _CarsScreenState extends State<CarsScreen> {
                 }).toList(),
               ),
               Gap(24.h),
+              
+              // Brand Selector (NEW - Logical browsing)
+              BrandSelectorWidget(
+                selectedBrand: _selectedBrand,
+                onBrandSelected: (brand) {
+                  setState(() {
+                    _selectedBrand = brand;
+                  });
+                },
+              ),
+              Gap(24.h),
 
-              // Categories Row (Selection)
+              // Categories Row (Body Type Selection)
               CarsCategoriesRowWidget(
                 selectedIndex: _selectedCategoryIndex,
                 categories: _categories,
@@ -172,28 +186,52 @@ class _CarsScreenState extends State<CarsScreen> {
               Gap(16.h),
 
               // Cars List
-              ListView.separated(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                padding: EdgeInsets.fromLTRB(20.w, 0, 20.w, 100.h),
-                itemCount: _carsList.length,
-                separatorBuilder: (context, index) => Gap(16.h),
-                itemBuilder: (context, index) {
-                  final car = Map<String, dynamic>.from(_carsList[index]);
-                  // Localize unit suffixes if they exist in dummy data
-                  if (car['price'] != null && car['price'].toString().contains(' ر.س       ')) {
-                    car['price'] = car['price'].toString().replaceAll(
-                      ' ر.س       ',
-                      AppLocaleKey.aed.tr(),
+              Builder(
+                builder: (context) {
+                  // Filter cars list based on selected brand
+                  final filteredCars = _carsList.where((car) {
+                    if (_selectedBrand == null) return true;
+                    return car['brand'] == _selectedBrand!.name;
+                  }).toList();
+
+                  if (filteredCars.isEmpty) {
+                    return SizedBox(
+                      height: 200.h,
+                      child: Center(
+                        child: Text(
+                          AppLocaleKey.noCarsForBrand.tr(),
+                          style: AppTextStyle.bodyMedium(context).copyWith(
+                            color: AppColor.blackTextColor(context).withOpacity(0.5),
+                          ),
+                        ),
+                      ),
                     );
                   }
-                  if (car['mileage'] != null && car['mileage'].toString().contains('كم')) {
-                    car['mileage'] = car['mileage'].toString().replaceAll(
-                      'كم',
-                      AppLocaleKey.km.tr(),
-                    );
-                  }
-                  return PremiumCarCardWidget(car: car);
+
+                  return ListView.separated(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    padding: EdgeInsets.fromLTRB(20.w, 0, 20.w, 100.h),
+                    itemCount: filteredCars.length,
+                    separatorBuilder: (context, index) => Gap(16.h),
+                    itemBuilder: (context, index) {
+                      final car = Map<String, dynamic>.from(filteredCars[index]);
+                      // Localize unit suffixes if they exist in dummy data
+                      if (car['price'] != null && car['price'].toString().contains(' ر.س       ')) {
+                        car['price'] = car['price'].toString().replaceAll(
+                              ' ر.س       ',
+                              AppLocaleKey.aed.tr(),
+                            );
+                      }
+                      if (car['mileage'] != null && car['mileage'].toString().contains('كم')) {
+                        car['mileage'] = car['mileage'].toString().replaceAll(
+                              'كم',
+                              AppLocaleKey.km.tr(),
+                            );
+                      }
+                      return PremiumCarCardWidget(car: car);
+                    },
+                  );
                 },
               ),
             ],

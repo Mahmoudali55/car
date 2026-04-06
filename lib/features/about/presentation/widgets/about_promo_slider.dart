@@ -90,7 +90,7 @@ class _AboutPromoSliderState extends State<AboutPromoSlider> {
                     _promos[index].tr(),
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      color: AppColor.whiteColor(context),
+                      color: AppColor.blackTextColor(context),
                       fontSize: 14.sp,
                       fontWeight: FontWeight.w600,
                       height: 1.6,
