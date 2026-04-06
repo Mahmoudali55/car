@@ -1,6 +1,7 @@
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
+import 'package:car/core/utils/responsive_helper.dart';
 import 'package:car/features/cars/presentation/widget/section_title_widget.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -8,22 +9,22 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
 class SpecGridWidget extends StatelessWidget {
+  const SpecGridWidget({Key? key, required this.car}) : super(key: key);
   final Map<String, dynamic> car;
-
-  const SpecGridWidget({super.key, required this.car});
 
   @override
   Widget build(BuildContext context) {
+    final bool isTablet = context.isTablet || context.isDesktop;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SectionTitleWidget(title: AppLocaleKey.basicFeatures.tr()),
         Gap(16.h),
         GridView.count(
-          crossAxisCount: 2,
+          crossAxisCount: isTablet ? 3 : 2,
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
-          childAspectRatio: 2.2,
+          childAspectRatio: isTablet ? 2.8 : 2.2,
           mainAxisSpacing: 12.h,
           crossAxisSpacing: 12.w,
           children: [

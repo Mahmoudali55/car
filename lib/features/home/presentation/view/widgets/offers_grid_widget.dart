@@ -2,6 +2,7 @@ import 'package:car/core/routes/routes_name.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/core/utils/navigator_methods.dart';
+import 'package:car/core/utils/responsive_helper.dart';
 import 'package:car/features/favorites/presentation/view/cubit/favorites_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -69,14 +70,15 @@ class OffersGridWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bool isTablet = context.isTablet || context.isDesktop;
     return GridView.builder(
       shrinkWrap: true,
       padding: EdgeInsets.zero,
       physics: const NeverScrollableScrollPhysics(),
       itemCount: _offers.length,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        childAspectRatio: 0.63,
+        crossAxisCount: isTablet ? 3 : 2,
+        childAspectRatio: isTablet ? 0.75 : 0.63,
         crossAxisSpacing: 16.w,
         mainAxisSpacing: 16.h,
       ),

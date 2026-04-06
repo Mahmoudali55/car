@@ -66,77 +66,82 @@ class PopularCarsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.scaffoldColor(context),
-      body: CustomScrollView(
-        physics: const BouncingScrollPhysics(),
-        slivers: [
-          // Custom Header
-          SliverAppBar(
-            expandedHeight: 120.h,
-            floating: true,
-            pinned: true,
-            backgroundColor: AppColor.scaffoldColor(context),
-            elevation: 0,
-            leading: IconButton(
-              onPressed: () => Navigator.pop(context),
-              icon: Icon(
-                Icons.arrow_back_ios_new_rounded,
-                color: AppColor.blackTextColor(context),
-                size: 20.sp,
-              ),
-            ),
-            flexibleSpace: FlexibleSpaceBar(
-              centerTitle: true,
-              title: Text(
-                AppLocaleKey.popularCars.tr(),
-                style: AppTextStyle.titleMedium(context).copyWith(
-                  color: AppColor.blackTextColor(context),
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18.sp,
+      body: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 1000),
+          child: CustomScrollView(
+            physics: const BouncingScrollPhysics(),
+            slivers: [
+              // Custom Header
+              SliverAppBar(
+                expandedHeight: 120.h,
+                floating: true,
+                pinned: true,
+                backgroundColor: AppColor.scaffoldColor(context),
+                elevation: 0,
+                leading: IconButton(
+                  onPressed: () => Navigator.pop(context),
+                  icon: Icon(
+                    Icons.arrow_back_ios_new_rounded,
+                    color: AppColor.blackTextColor(context),
+                    size: 20.sp,
+                  ),
                 ),
-              ),
-              background: Container(
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      AppColor.primaryColor(context).withValues(alpha: 0.1),
-                      AppColor.scaffoldColor(context),
-                    ],
+                flexibleSpace: FlexibleSpaceBar(
+                  centerTitle: true,
+                  title: Text(
+                    AppLocaleKey.popularCars.tr(),
+                    style: AppTextStyle.titleMedium(context).copyWith(
+                      color: AppColor.blackTextColor(context),
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18.sp,
+                    ),
+                  ),
+                  background: Container(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                          AppColor.primaryColor(context).withValues(alpha: 0.1),
+                          AppColor.scaffoldColor(context),
+                        ],
+                      ),
+                    ),
                   ),
                 ),
               ),
-            ),
-          ),
 
-          // Search/Filter Placeholder or Info
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
-              child: Text(
-                AppLocaleKey.mostPopularAndActiveCars.tr(),
-                style: AppTextStyle.bodySmall(context).copyWith(
-                  color: AppColor.blackTextColor(context).withValues(alpha: 0.5),
-                  fontWeight: FontWeight.w500,
+              // Search/Filter Placeholder or Info
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+                  child: Text(
+                    AppLocaleKey.mostPopularAndActiveCars.tr(),
+                    style: AppTextStyle.bodySmall(context).copyWith(
+                      color: AppColor.blackTextColor(context).withValues(alpha: 0.5),
+                      fontWeight: FontWeight.w500,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
                 ),
-                textAlign: TextAlign.center,
               ),
-            ),
-          ),
 
-          // Magazine-Style List
-          SliverPadding(
-            padding: EdgeInsets.fromLTRB(20.w, 10.h, 20.w, 50.h),
-            sliver: SliverList(
-              delegate: SliverChildBuilderDelegate((context, index) {
-                return Padding(
-                  padding: EdgeInsets.only(bottom: 24.h),
-                  child: MagazineCardWidget(car: popularCars[index]),
-                );
-              }, childCount: popularCars.length),
-            ),
+              // Magazine-Style List
+              SliverPadding(
+                padding: EdgeInsets.fromLTRB(20.w, 10.h, 20.w, 50.h),
+                sliver: SliverList(
+                  delegate: SliverChildBuilderDelegate((context, index) {
+                    return Padding(
+                      padding: EdgeInsets.only(bottom: 24.h),
+                      child: MagazineCardWidget(car: popularCars[index]),
+                    );
+                  }, childCount: popularCars.length),
+                ),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }

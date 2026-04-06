@@ -29,6 +29,7 @@ class _CarAppState extends State<CarApp> {
       designSize: const Size(360, 690),
       minTextAdapt: true,
       splitScreenMode: true,
+      useInheritedMediaQuery: true,
       builder: (_, child) {
         return MultiBlocProvider(
           providers: [

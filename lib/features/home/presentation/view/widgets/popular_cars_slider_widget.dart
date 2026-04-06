@@ -96,7 +96,7 @@ class _PopularCarsSliderState extends State<PopularCarsSlider> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 520.h,
+      height: 320.h,
       width: double.infinity,
       child: PageView.builder(
         controller: _pageController,
@@ -275,7 +275,11 @@ class _PopularCarsSliderState extends State<PopularCarsSlider> {
                                     car['year']!,
                                   ),
                                   _buildMiniDetail(context, Icons.speed_outlined, car['mileage']!),
-                                  _buildMiniDetail(context, Icons.settings_outlined, car['engine']!),
+                                  _buildMiniDetail(
+                                    context,
+                                    Icons.settings_outlined,
+                                    car['engine']!,
+                                  ),
                                 ],
                               ),
 

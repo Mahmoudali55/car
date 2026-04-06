@@ -53,46 +53,51 @@ class HomeGuestScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       physics: const BouncingScrollPhysics(),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10.w),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(height: 30.h),
-                SectionTitleWidget(
-                  title: AppLocaleKey.categories.tr(),
-                  onSeeAll: () {
-                    // Navigate to Brands tab (index 2) - will be handled by MainLayout
-                    Navigator.pushNamed(context, 'allBrandsScreen');
-                  },
+      child: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 1200),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 10.w),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(height: 30.h),
+                    SectionTitleWidget(
+                      title: AppLocaleKey.categories.tr(),
+                      onSeeAll: () {
+                        // Navigate to Brands tab (index 2) - will be handled by MainLayout
+                        Navigator.pushNamed(context, 'allBrandsScreen');
+                      },
+                    ),
+                    SizedBox(height: 15.h),
+                    const CategoriesWidget(),
+                    SizedBox(height: 15.h),
+                    SectionTitleWidget(
+                      title: AppLocaleKey.popularCars.tr(),
+                      onSeeAll: () {
+                        NavigatorMethods.pushNamed(context, RoutesName.popularCarsScreen);
+                      },
+                    ),
+                    SizedBox(height: 15.h),
+                    const PopularCarsSlider(),
+                    SizedBox(height: 20.h),
+                    SectionTitleWidget(title: AppLocaleKey.searchByBudget.tr(), onSeeAll: null),
+                    SizedBox(height: 15.h),
+                    const BudgetSearchWidget(),
+                    SizedBox(height: 30.h),
+                    SectionTitleWidget(title: AppLocaleKey.trendingNow.tr()),
+                    SizedBox(height: 15.h),
+                    const OffersGridWidget(),
+                    SizedBox(height: 30.h),
+                  ],
                 ),
-                SizedBox(height: 15.h),
-                const CategoriesWidget(),
-                SizedBox(height: 15.h),
-                SectionTitleWidget(
-                  title: AppLocaleKey.popularCars.tr(),
-                  onSeeAll: () {
-                    NavigatorMethods.pushNamed(context, RoutesName.popularCarsScreen);
-                  },
-                ),
-                 SizedBox(height: 15.h),
-                const PopularCarsSlider(),
-                SizedBox(height: 20.h),
-                SectionTitleWidget(title: AppLocaleKey.searchByBudget.tr(), onSeeAll: null),
-                SizedBox(height: 15.h),
-                const BudgetSearchWidget(),
-                SizedBox(height: 30.h),
-                SectionTitleWidget(title: AppLocaleKey.trendingNow.tr()),
-                SizedBox(height: 15.h),
-                const OffersGridWidget(),
-                SizedBox(height: 30.h),
-              ],
-            ),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }

@@ -89,36 +89,41 @@ class _CarDetailsScreenState extends State<CarDetailsScreen> {
                     carImages: _carImages,
                   ),
                   SliverToBoxAdapter(
-                    child: Padding(
-                      padding: EdgeInsets.fromLTRB(20.w, 24.h, 20.w, 140.h),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          CarHeaderWidget(car: widget.car),
-                          if (widget.car['is_financing_available'] ?? true) ...[
-                            BnplWidget(car: widget.car),
-                            CashPackagesWidget(car: widget.car),
-                          ],
-                          Gap(24.h),
-                          const InspectionBadgeWidget(),
-                          Gap(32.h),
-                          SpecGridWidget(car: widget.car),
-                          Gap(32.h),
-                          const InspectionReportWidget(),
-                          Gap(32.h),
-                          _buildOverview(context),
-                          Gap(32.h),
-                          const FeaturesGridWidget(),
-                          Gap(32.h),
-                          if (widget.car['is_financing_available'] ?? true)
-                            BankInstallmentsBannerWidget(car: widget.car),
-                          Gap(32.h),
-                          VideoReviewWidget(
-                            car: widget.car,
-                            controller: _controller,
-                            player: player,
+                    child: Center(
+                      child: ConstrainedBox(
+                        constraints: const BoxConstraints(maxWidth: 1000),
+                        child: Padding(
+                          padding: EdgeInsets.fromLTRB(20.w, 24.h, 20.w, 140.h),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              CarHeaderWidget(car: widget.car),
+                              if (widget.car['is_financing_available'] ?? true) ...[
+                                BnplWidget(car: widget.car),
+                                CashPackagesWidget(car: widget.car),
+                              ],
+                              Gap(24.h),
+                              const InspectionBadgeWidget(),
+                              Gap(32.h),
+                              SpecGridWidget(car: widget.car),
+                              Gap(32.h),
+                              const InspectionReportWidget(),
+                              Gap(32.h),
+                              _buildOverview(context),
+                              Gap(32.h),
+                              const FeaturesGridWidget(),
+                              Gap(32.h),
+                              if (widget.car['is_financing_available'] ?? true)
+                                BankInstallmentsBannerWidget(car: widget.car),
+                              Gap(32.h),
+                              VideoReviewWidget(
+                                car: widget.car,
+                                controller: _controller,
+                                player: player,
+                              ),
+                            ],
                           ),
-                        ],
+                        ),
                       ),
                     ),
                   ),
