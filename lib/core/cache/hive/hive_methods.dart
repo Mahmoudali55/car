@@ -96,4 +96,22 @@ class HiveMethods {
   static bool isInComparison(String carName) {
     return getComparisonList().any((c) => c['name'] == carName);
   }
+
+  // ─── Recently Viewed ────────────────────────────────────────
+  static List<dynamic> getRecentlyViewed() {
+    return _box.get('recentlyViewed', defaultValue: []);
+  }
+
+  static void addToRecentlyViewed(Map<String, dynamic> car) {
+    final List<dynamic> list = List.from(getRecentlyViewed());
+    // Remove if exists to move it to the top
+    list.removeWhere((c) => c['name'] == car['name']);
+    list.insert(0, car);
+    
+    // Limit to 10 stored cars
+    if (list.length > 10) {
+      list.removeLast();
+    }
+    _box.put('recentlyViewed', list);
+  }
 }

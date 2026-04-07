@@ -1,3 +1,4 @@
+import 'package:car/core/cache/hive/hive_methods.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/features/cars/presentation/widget/car_header_widget.dart';
@@ -37,6 +38,7 @@ class _CarDetailsScreenState extends State<CarDetailsScreen> {
   @override
   void initState() {
     super.initState();
+    HiveMethods.addToRecentlyViewed(widget.car);
     _carImages = [widget.car['image'], widget.car['image'], widget.car['image']];
 
     _controller = YoutubePlayerController(

@@ -850,4 +850,5 @@ class AppLocaleKey {
   static const String compare_list_full = 'compare_list_full';
   static const String spec_comparison = 'spec_comparison';
   static const String clearHistory = 'clearHistory';
+  static const String recentlyViewed = 'recently_viewed';
 }
