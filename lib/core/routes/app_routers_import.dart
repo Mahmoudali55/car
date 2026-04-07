@@ -52,6 +52,8 @@ import 'package:car/features/admin/presentation/screen/admin_support_screen.dart
 import 'package:car/features/admin/presentation/screen/contact_developer_screen.dart';
 import 'package:car/features/about/presentation/screen/about_screen.dart';
 import 'package:car/features/profile/presentation/screen/user_profile_screen.dart';
+import 'package:car/features/cars/presentation/screen/car_comparison_screen.dart';
+
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

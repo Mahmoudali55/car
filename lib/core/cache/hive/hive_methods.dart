@@ -65,4 +65,35 @@ class HiveMethods {
   static void updateRole(String role) {
     _box.put('role', role);
   }
+
+  // ─── Comparison List ────────────────────────────────────────
+  static List<dynamic> getComparisonList() {
+    return _box.get('comparisonList', defaultValue: []);
+  }
+
+  static void addToComparison(Map<String, dynamic> car) {
+    final List<dynamic> list = List.from(getComparisonList());
+    if (list.length >= 3) {
+      // Keep only the latest 3
+      list.removeLast();
+    }
+    // Avoid duplicates
+    list.removeWhere((c) => c['name'] == car['name']);
+    list.insert(0, car);
+    _box.put('comparisonList', list);
+  }
+
+  static void removeFromComparison(String carName) {
+    final List<dynamic> list = List.from(getComparisonList());
+    list.removeWhere((c) => c['name'] == carName);
+    _box.put('comparisonList', list);
+  }
+
+  static void clearComparisonList() {
+    _box.put('comparisonList', []);
+  }
+
+  static bool isInComparison(String carName) {
+    return getComparisonList().any((c) => c['name'] == carName);
+  }
 }

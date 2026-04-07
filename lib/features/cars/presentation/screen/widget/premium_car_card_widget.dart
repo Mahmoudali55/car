@@ -1,3 +1,4 @@
+import 'package:car/core/cache/hive/hive_methods.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/routes/routes_name.dart';
 import 'package:car/core/theme/app_colors.dart';
@@ -77,29 +78,35 @@ class PremiumCarCardWidget extends StatelessWidget {
                 Positioned(
                   top: 10.h,
                   right: 10.w,
-                  child: BlocBuilder<FavoritesCubit, FavoritesState>(
-                    builder: (context, state) {
-                      final isFav = context.read<FavoritesCubit>().isFavorite(car['name']!);
-                      return Container(
-                        height: 30.h,
-                        decoration: BoxDecoration(
-                          color: AppColor.blackTextColor(context).withValues(alpha: 0.1),
-                          shape: BoxShape.circle,
-                        ),
-                        child: IconButton(
-                          onPressed: () {
-                            context.read<FavoritesCubit>().toggleFavorite(car);
-                          },
-                          icon: Icon(
-                            isFav ? Icons.favorite_rounded : Icons.favorite_border_rounded,
-                            color: isFav
-                                ? AppColor.redColor(context)
-                                : AppColor.blackTextColor(context),
-                            size: 20.sp,
-                          ),
-                        ),
-                      );
-                    },
+                  child: Row(
+                    children: [
+                      _buildCompareButton(context),
+                      Gap(8.w),
+                      BlocBuilder<FavoritesCubit, FavoritesState>(
+                        builder: (context, state) {
+                          final isFav = context.read<FavoritesCubit>().isFavorite(car['name']!);
+                          return Container(
+                            height: 30.h,
+                            decoration: BoxDecoration(
+                              color: AppColor.blackTextColor(context).withValues(alpha: 0.1),
+                              shape: BoxShape.circle,
+                            ),
+                            child: IconButton(
+                              onPressed: () {
+                                context.read<FavoritesCubit>().toggleFavorite(car);
+                              },
+                              icon: Icon(
+                                isFav ? Icons.favorite_rounded : Icons.favorite_border_rounded,
+                                color: isFav
+                                    ? AppColor.redColor(context)
+                                    : AppColor.blackTextColor(context),
+                                size: 20.sp,
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    ],
                   ),
                 ),
               ],
@@ -166,6 +173,39 @@ class PremiumCarCardWidget extends StatelessWidget {
               ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildCompareButton(BuildContext context) {
+    return Container(
+      height: 30.h,
+      decoration: BoxDecoration(
+        color: AppColor.blackTextColor(context).withValues(alpha: 0.1),
+        shape: BoxShape.circle,
+      ),
+      child: IconButton(
+        padding: EdgeInsets.zero,
+        onPressed: () {
+          // Note: Since this is a StatelessWidget, we rely on the parent or global state
+          // to refresh if needed, but the button itself uses Hive directly.
+          if (HiveMethods.isInComparison(car['name'])) {
+            HiveMethods.removeFromComparison(car['name']);
+          } else {
+            HiveMethods.addToComparison(car);
+          }
+          // Forces immediate UI update in the widget tree for this card
+          (context as Element).markNeedsBuild();
+        },
+        icon: Icon(
+          HiveMethods.isInComparison(car['name'])
+              ? Icons.compare_arrows_rounded
+              : Icons.add_chart_rounded,
+          color: HiveMethods.isInComparison(car['name'])
+              ? AppColor.primaryColor(context)
+              : AppColor.blackTextColor(context),
+          size: 18.sp,
         ),
       ),
     );

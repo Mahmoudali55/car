@@ -786,6 +786,17 @@
   "thank_you_support": "شكراً لتواصلك مع الدعم",
   "evaluation_success": "شكراً لك على تقييمك!",
   "payWith":"الدفع بواسطة",
-  "slogan":"موزع معتمد للكثير من شركات السيارات وبأقل الأسعار!!"
+  "slogan":"موزع معتمد للكثير من شركات السيارات وبأقل الأسعار!!",
+  "compare_cars": "مقارنة السيارات",
+  "add_to_compare": "أضف للمقارنة",
+  "remove_from_compare": "إزالة من المقارنة",
+  "compare_now": "قارن الآن",
+  "comparison_empty": "لم تضف أي سيارات للمقارنة",
+  "comparison_title": "مقارنة شاملة",
+  "download_comparison": "تحميل المقارنة (PDF)",
+  "added_to_compare": "أُضيفت للمقارنة",
+  "compare_list_full": "يمكنك مقارنة 3 سيارات كحد أقصى",
+  "spec_comparison": "مقارنة المواصفات",
+  "clearHistory": "حذف التاريخ"
 }
 

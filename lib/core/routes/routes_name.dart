@@ -36,6 +36,7 @@ class RoutesName {
   static const String serviceHistoryScreen = 'serviceHistoryScreen';
   static const String supportScreen = 'supportScreen';
   static const String aboutScreen = 'aboutScreen';
+  static const String carComparisonScreen = 'carComparisonScreen';
 
 
   // Admin Screens

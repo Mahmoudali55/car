@@ -383,6 +383,11 @@ class ServicesScreen extends StatelessWidget {
         'color': Colors.amber,
       },
       {
+        'icon': Icons.compare_arrows_rounded,
+        'label': AppLocaleKey.compareCars.tr(),
+        'color': const Color(0xFFF43F5E),
+      },
+      {
         'icon': Icons.info_outline_rounded,
         'label': AppLocaleKey.aboutCompany.tr(),
         'color': Colors.blueGrey,
@@ -427,6 +432,8 @@ class ServicesScreen extends StatelessWidget {
       Navigator.pushNamed(context, RoutesName.bespokeSelectionScreen);
     } else if (label == AppLocaleKey.carValuation.tr() || label == AppLocaleKey.valuation.tr()) {
       Navigator.pushNamed(context, RoutesName.carValuationScreen);
+    } else if (label == AppLocaleKey.compareCars.tr()) {
+      Navigator.pushNamed(context, RoutesName.carComparisonScreen);
     } else if (label == AppLocaleKey.aboutCompany.tr()) {
       Navigator.pushNamed(context, RoutesName.aboutScreen);
     }

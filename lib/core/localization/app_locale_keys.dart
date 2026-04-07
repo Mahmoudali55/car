@@ -837,4 +837,17 @@ class AppLocaleKey {
   static const String evaluationSuccess = 'evaluation_success';
   static const String slogan = 'slogan';
   static const String payWith = 'payWith';
+
+  // Car Comparison
+  static const String compareCars = 'compare_cars';
+  static const String addToCompare = 'add_to_compare';
+  static const String removeFromCompare = 'remove_from_compare';
+  static const String compareNow = 'compare_now';
+  static const String comparisonEmpty = 'comparison_empty';
+  static const String comparisonTitle = 'comparison_title';
+  static const String downloadComparison = 'download_comparison';
+  static const String added_to_compare = 'added_to_compare';
+  static const String compare_list_full = 'compare_list_full';
+  static const String spec_comparison = 'spec_comparison';
+  static const String clearHistory = 'clearHistory';
 }

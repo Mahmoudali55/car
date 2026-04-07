@@ -766,6 +766,17 @@
   "thank_you_support": "Thank you for contacting support",
   "evaluation_success": "Thank you for your feedback!",
   "payWith":"Pay With",
-  "slogan":"Authorized distributor for many car companies at the lowest prices!!"
+  "slogan":"Authorized distributor for many car companies at the lowest prices!!",
+  "compare_cars": "Compare Cars",
+  "add_to_compare": "Add to Compare",
+  "remove_from_compare": "Remove from Compare",
+  "compare_now": "Compare Now",
+  "comparison_empty": "No cars added to comparison",
+  "comparison_title": "Full Comparison",
+  "download_comparison": "Download Comparison (PDF)",
+  "added_to_compare": "Added to Compare",
+  "compare_list_full": "You can compare up to 3 cars",
+  "spec_comparison": "Spec Comparison",
+  "clearHistory": "Clear History"
 }
 

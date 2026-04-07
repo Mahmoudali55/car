@@ -125,6 +125,9 @@ class AppRouters {
       case RoutesName.aboutScreen:
         return MaterialPageRoute(builder: (_) => const AboutScreen());
 
+      case RoutesName.carComparisonScreen:
+        return MaterialPageRoute(builder: (_) => const CarComparisonScreen());
+
       case RoutesName.adminDashboard:
         return MaterialPageRoute(builder: (_) => const AdminMainLayout());
 
