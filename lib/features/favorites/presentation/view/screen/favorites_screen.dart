@@ -24,10 +24,7 @@ class FavoritesScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildFavoritesList(
-    BuildContext context,
-    List<Map<String, dynamic>> favorites,
-  ) {
+  Widget _buildFavoritesList(BuildContext context, List<Map<String, dynamic>> favorites) {
     return ListView.separated(
       padding: EdgeInsets.fromLTRB(20.w, 20.h, 20.w, 100.h),
       itemCount: favorites.length,

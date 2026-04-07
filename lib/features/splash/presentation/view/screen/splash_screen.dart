@@ -8,6 +8,7 @@ import 'package:car/core/utils/navigator_methods.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gap/gap.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -54,7 +55,7 @@ class _SplashScreenState extends State<SplashScreen> {
             colors: [
               AppColor.secondAppColor(context),
               AppColor.gradientSecondaryColor(context),
-              AppColor.primaryColor(context).withOpacity(0.3),
+              AppColor.primaryColor(context).withValues(alpha: 0.3),
             ],
           ),
         ),
@@ -73,12 +74,12 @@ class _SplashScreenState extends State<SplashScreen> {
                         shape: BoxShape.circle,
                         boxShadow: [
                           BoxShadow(
-                            color: AppColor.primaryColor(context).withOpacity(0.4),
+                            color: AppColor.primaryColor(context).withValues(alpha: 0.4),
                             blurRadius: 40,
                             spreadRadius: 5,
                           ),
                           BoxShadow(
-                            color: Colors.black.withOpacity(0.2),
+                            color: AppColor.blackTextColor(context).withValues(alpha: 0.2),
                             blurRadius: 20,
                             offset: const Offset(0, 10),
                           ),
@@ -90,7 +91,7 @@ class _SplashScreenState extends State<SplashScreen> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 30.h),
+                  Gap(30.h),
                   FadeInUp(
                     duration: const Duration(milliseconds: 1500),
                     child: Text(
@@ -103,19 +104,19 @@ class _SplashScreenState extends State<SplashScreen> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 10.h),
+                  Gap(10.h),
                   FadeInUp(
                     delay: const Duration(milliseconds: 500),
                     duration: const Duration(milliseconds: 1500),
                     child: Text(
                       AppLocaleKey.qualityReliability.tr(),
                       style: AppTextStyle.text14RGrey(context).copyWith(
-                        color: AppColor.blackTextColor(context).withOpacity(0.8),
+                        color: AppColor.blackTextColor(context).withValues(alpha: 0.8),
                         letterSpacing: 1.0,
                       ),
                     ),
                   ),
-                  SizedBox(height: 20.h),
+                  Gap(20.h),
                   FadeInUp(
                     delay: const Duration(milliseconds: 1000),
                     duration: const Duration(milliseconds: 1500),
@@ -129,28 +130,28 @@ class _SplashScreenState extends State<SplashScreen> {
                             color: AppColor.primaryColor(context),
                           ),
                         ),
-                        SizedBox(height: 8.h),
+                        Gap(8.h),
                         Text(
                           AppLocaleKey.brandsLine1.tr(),
                           style: TextStyle(
                             fontSize: 13.sp,
-                            color: AppColor.blackTextColor(context).withOpacity(0.9),
+                            color: AppColor.blackTextColor(context).withValues(alpha: 0.9),
                           ),
                         ),
                         Text(
                           AppLocaleKey.brandsLine2.tr(),
                           style: TextStyle(
                             fontSize: 13.sp,
-                            color: AppColor.blackTextColor(context).withOpacity(0.9),
+                            color: AppColor.blackTextColor(context).withValues(alpha: 0.9),
                           ),
                         ),
-                        SizedBox(height: 12.h),
+                        Gap(12.h),
                         Text(
                           AppLocaleKey.financingAvailable.tr(),
                           style: TextStyle(
                             fontSize: 14.sp,
                             fontWeight: FontWeight.w600,
-                            color: AppColor.blackTextColor(context).withOpacity(0.8),
+                            color: AppColor.blackTextColor(context).withValues(alpha: 0.8),
                           ),
                         ),
                       ],

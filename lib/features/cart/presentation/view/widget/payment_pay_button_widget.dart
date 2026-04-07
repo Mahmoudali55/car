@@ -41,18 +41,13 @@ class PaymentPayButtonWidget extends StatelessWidget {
             : Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(
-                    Icons.lock_rounded,
-                    color: AppColor.whiteColor(context),
-                    size: 20.sp,
-                  ),
+                  Icon(Icons.lock_rounded, color: AppColor.whiteColor(context), size: 20.sp),
                   Gap(10.w),
                   Text(
                     title,
-                    style: AppTextStyle.titleMedium(context).copyWith(
-                      color: AppColor.whiteColor(context),
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: AppTextStyle.titleMedium(
+                      context,
+                    ).copyWith(color: AppColor.whiteColor(context), fontWeight: FontWeight.bold),
                   ),
                 ],
               ),
@@ -60,4 +55,3 @@ class PaymentPayButtonWidget extends StatelessWidget {
     );
   }
 }
-

@@ -25,10 +25,9 @@ class SettingsScreen extends StatelessWidget {
         context,
         title: Text(
           AppLocaleKey.settings.tr(),
-          style: AppTextStyle.titleMedium(context).copyWith(
-            color: AppColor.blackTextColor(context),
-            fontWeight: FontWeight.bold,
-          ),
+          style: AppTextStyle.titleMedium(
+            context,
+          ).copyWith(color: AppColor.blackTextColor(context), fontWeight: FontWeight.bold),
         ),
       ),
       body: BlocBuilder<AppThemeCubit, AppThemeState>(
@@ -83,9 +82,7 @@ class SettingsScreen extends StatelessWidget {
                   context,
                   icon: Icons.lock_outline_rounded,
                   title: AppLocaleKey.changePassword.tr(),
-                  onTap: () {
-                    // TODO: Navigate to Change Password Screen
-                  },
+                  onTap: () {},
                 ),
               ),
               Gap(32.h),

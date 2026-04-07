@@ -15,11 +15,7 @@ class FavoriteItemWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        NavigatorMethods.pushNamed(
-          context,
-          RoutesName.carDetailsScreen,
-          arguments: car,
-        );
+        NavigatorMethods.pushNamed(context, RoutesName.carDetailsScreen, arguments: car);
       },
       child: Container(
         padding: EdgeInsets.all(12.w),
@@ -62,10 +58,9 @@ class FavoriteItemWidget extends StatelessWidget {
                   /// Brand
                   Text(
                     car['brand'],
-                    style: AppTextStyle.bodySmall(context).copyWith(
-                      color: AppColor.primaryColor(context),
-                      fontWeight: FontWeight.w600,
-                    ),
+                    style: AppTextStyle.bodySmall(
+                      context,
+                    ).copyWith(color: AppColor.primaryColor(context), fontWeight: FontWeight.w600),
                   ),
 
                   Gap(4.h),
@@ -85,10 +80,7 @@ class FavoriteItemWidget extends StatelessWidget {
 
                   /// Price
                   Container(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 10.w,
-                      vertical: 4.h,
-                    ),
+                    padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
                     decoration: BoxDecoration(
                       color: AppColor.primaryColor(context).withOpacity(0.15),
                       borderRadius: BorderRadius.circular(12.r),
@@ -107,10 +99,7 @@ class FavoriteItemWidget extends StatelessWidget {
 
             /// Favorite Button
             Container(
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: Colors.red.withOpacity(0.1),
-              ),
+              decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.red.withOpacity(0.1)),
               child: IconButton(
                 onPressed: () {
                   context.read<FavoritesCubit>().toggleFavorite(car);

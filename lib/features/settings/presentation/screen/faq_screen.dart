@@ -6,7 +6,6 @@ import 'package:car/core/theme/app_text_style.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:gap/gap.dart';
 
 class FAQScreen extends StatelessWidget {
   const FAQScreen({super.key});
@@ -26,10 +25,9 @@ class FAQScreen extends StatelessWidget {
         context,
         title: Text(
           AppLocaleKey.faqs.tr(),
-          style: AppTextStyle.titleMedium(context).copyWith(
-            color: AppColor.blackTextColor(context),
-            fontWeight: FontWeight.bold,
-          ),
+          style: AppTextStyle.titleMedium(
+            context,
+          ).copyWith(color: AppColor.blackTextColor(context), fontWeight: FontWeight.bold),
         ),
       ),
       body: ListView.builder(
@@ -39,10 +37,7 @@ class FAQScreen extends StatelessWidget {
         itemBuilder: (context, index) {
           return FadeInUp(
             delay: Duration(milliseconds: 100 * index),
-            child: _FAQItem(
-              question: faqs[index]['q']!.tr(),
-              answer: faqs[index]['a']!.tr(),
-            ),
+            child: _FAQItem(question: faqs[index]['q']!.tr(), answer: faqs[index]['a']!.tr()),
           );
         },
       ),
@@ -73,8 +68,8 @@ class _FAQItemState extends State<_FAQItem> {
         color: baseColor.withValues(alpha: 0.03),
         borderRadius: BorderRadius.circular(20.r),
         border: Border.all(
-          color: _isExpanded 
-              ? AppColor.primaryColor(context).withValues(alpha: 0.2) 
+          color: _isExpanded
+              ? AppColor.primaryColor(context).withValues(alpha: 0.2)
               : baseColor.withValues(alpha: 0.05),
         ),
       ),
@@ -94,8 +89,12 @@ class _FAQItemState extends State<_FAQItem> {
               turns: _isExpanded ? 0.5 : 0,
               duration: const Duration(milliseconds: 300),
               child: Icon(
-                _isExpanded ? Icons.remove_circle_outline_rounded : Icons.add_circle_outline_rounded,
-                color: _isExpanded ? AppColor.primaryColor(context) : baseColor.withValues(alpha: 0.3),
+                _isExpanded
+                    ? Icons.remove_circle_outline_rounded
+                    : Icons.add_circle_outline_rounded,
+                color: _isExpanded
+                    ? AppColor.primaryColor(context)
+                    : baseColor.withValues(alpha: 0.3),
                 size: 24.sp,
               ),
             ),
@@ -106,10 +105,9 @@ class _FAQItemState extends State<_FAQItem> {
               padding: EdgeInsets.fromLTRB(20.w, 0, 20.w, 20.h),
               child: Text(
                 widget.answer,
-                style: AppTextStyle.bodySmall(context).copyWith(
-                  color: baseColor.withValues(alpha: 0.6),
-                  height: 1.6,
-                ),
+                style: AppTextStyle.bodySmall(
+                  context,
+                ).copyWith(color: baseColor.withValues(alpha: 0.6), height: 1.6),
               ),
             ),
             crossFadeState: _isExpanded ? CrossFadeState.showSecond : CrossFadeState.showFirst,

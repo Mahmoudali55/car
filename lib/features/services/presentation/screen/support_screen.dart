@@ -81,7 +81,7 @@ class SupportScreen extends StatelessWidget {
                   FadeInUp(
                     delay: const Duration(milliseconds: 100),
                     child: Text(
-                      'موزع معتمد للكثير من شركات السيارات وبأقل الأسعار!!',
+                      AppLocaleKey.slogan.tr(),
                       style: TextStyle(
                         color: AppColor.primaryColor(context),
                         fontSize: 14.sp,

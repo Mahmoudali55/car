@@ -18,7 +18,6 @@ class _BookingAppointmentScreenState extends State<BookingAppointmentScreen> {
   String? selectedService;
   DateTime selectedDate = DateTime.now().add(const Duration(days: 1));
   String selectedTime = '10:00 AM';
-
   final List<String> services = [
     AppLocaleKey.periodicMaintenance.tr(),
     AppLocaleKey.oilChange.tr(),
@@ -27,7 +26,6 @@ class _BookingAppointmentScreenState extends State<BookingAppointmentScreen> {
     AppLocaleKey.paintInspection.tr(),
     AppLocaleKey.repairFaults.tr(),
   ];
-
   final List<String> timeSlots = [
     '09:00 AM',
     '10:00 AM',
@@ -162,7 +160,7 @@ class _BookingAppointmentScreenState extends State<BookingAppointmentScreen> {
                                 colorScheme: ColorScheme.fromSeed(
                                   seedColor: AppColor.primaryColor(context),
                                   primary: AppColor.primaryColor(context),
-                                  onPrimary: Colors.white,
+                                  onPrimary: AppColor.whiteColor(context),
                                   surface: AppColor.secondAppColor(context),
                                   onSurface: AppColor.blackTextColor(context),
                                   brightness: Theme.of(context).brightness,
@@ -179,7 +177,9 @@ class _BookingAppointmentScreenState extends State<BookingAppointmentScreen> {
                         decoration: BoxDecoration(
                           color: AppColor.secondAppColor(context),
                           borderRadius: BorderRadius.circular(12.r),
-                          border: Border.all(color: AppColor.blackTextColor(context).withValues(alpha: 0.05)),
+                          border: Border.all(
+                            color: AppColor.blackTextColor(context).withValues(alpha: 0.05),
+                          ),
                         ),
                         child: Row(
                           children: [
@@ -238,7 +238,7 @@ class _BookingAppointmentScreenState extends State<BookingAppointmentScreen> {
                               time,
                               style: TextStyle(
                                 color: isSelected
-                                    ? Colors.white
+                                    ? AppColor.whiteColor(context)
                                     : AppColor.blackTextColor(context).withValues(alpha: 0.60),
                                 fontWeight: FontWeight.bold,
                                 fontSize: 13.sp,
@@ -330,7 +330,6 @@ class _BookingAppointmentScreenState extends State<BookingAppointmentScreen> {
       ),
       child: ElevatedButton(
         onPressed: () {
-          // TODO: Implement actual booking logic
           _showSuccessBottomSheet(context);
         },
         style: ElevatedButton.styleFrom(
@@ -342,7 +341,7 @@ class _BookingAppointmentScreenState extends State<BookingAppointmentScreen> {
         child: Text(
           AppLocaleKey.confirmBooking.tr(),
           style: TextStyle(
-            color: Colors.white,
+            color: AppColor.whiteColor(context),
             fontSize: 16.sp,
             fontWeight: FontWeight.bold,
           ),
@@ -396,7 +395,7 @@ class _BookingAppointmentScreenState extends State<BookingAppointmentScreen> {
                 ),
                 child: Text(
                   AppLocaleKey.ok.tr(),
-                  style: const TextStyle(color: Colors.white),
+                  style: TextStyle(color: AppColor.whiteColor(context)),
                 ),
               ),
             ),

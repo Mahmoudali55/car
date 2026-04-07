@@ -835,6 +835,6 @@ class AppLocaleKey {
   static const String submitEvaluation = 'submit_evaluation';
   static const String thankYouSupport = 'thank_you_support';
   static const String evaluationSuccess = 'evaluation_success';
-
+  static const String slogan = 'slogan';
   static const String payWith = 'payWith';
 }

@@ -135,7 +135,10 @@ class CarValuationScreen extends StatelessWidget {
               Navigator.pop(context); // close dialog
               Navigator.pop(context); // go back
             },
-            child: Text(AppLocaleKey.ok.tr(), style: TextStyle(color: AppColor.primaryColor(context))),
+            child: Text(
+              AppLocaleKey.ok.tr(),
+              style: TextStyle(color: AppColor.primaryColor(context)),
+            ),
           ),
         ],
       ),
@@ -177,7 +180,9 @@ class CarValuationScreen extends StatelessWidget {
         ),
         child: Text(
           text,
-          style: TextStyle(color: Colors.white, fontSize: 16.sp, fontWeight: FontWeight.bold),
+          style: AppTextStyle.titleMedium(
+            context,
+          ).copyWith(color: AppColor.whiteColor(context), fontWeight: FontWeight.bold),
         ),
       ),
     );

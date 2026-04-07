@@ -36,11 +36,7 @@ class SuccessCircleWidget extends StatelessWidget {
             ),
           ],
         ),
-        child: Icon(
-          Icons.check_circle_rounded,
-          color: AppColor.primaryColor(context),
-          size: 80.sp,
-        ),
+        child: Icon(Icons.check_circle_rounded, color: AppColor.primaryColor(context), size: 80.sp),
       ),
     );
   }
@@ -65,10 +61,9 @@ class PaymentSuccessHeader extends StatelessWidget {
         Gap(16.h),
         Text(
           AppLocaleKey.paymentSuccessSubtitle.tr(),
-          style: AppTextStyle.bodyMedium(context).copyWith(
-            color: AppColor.blackTextColor(context).withOpacity(0.6),
-            height: 1.6,
-          ),
+          style: AppTextStyle.bodyMedium(
+            context,
+          ).copyWith(color: AppColor.blackTextColor(context).withOpacity(0.6), height: 1.6),
           textAlign: TextAlign.center,
         ),
       ],
@@ -81,34 +76,25 @@ class OrderNumberWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final orderId = '${AppLocaleKey.paymentSuccessOrderPrefix.tr()}${DateTime.now().millisecond.toString().padLeft(4, '0')}';
+    final orderId =
+        '${AppLocaleKey.paymentSuccessOrderPrefix.tr()}${DateTime.now().millisecond.toString().padLeft(4, '0')}';
     return Container(
-      padding: EdgeInsets.symmetric(
-        horizontal: 24.w,
-        vertical: 14.h,
-      ),
+      padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 14.h),
       decoration: BoxDecoration(
         color: AppColor.secondAppColor(context),
         borderRadius: BorderRadius.circular(16.r),
-        border: Border.all(
-          color: AppColor.blackTextColor(context).withOpacity(0.08),
-        ),
+        border: Border.all(color: AppColor.blackTextColor(context).withOpacity(0.08)),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(
-            Icons.receipt_long_rounded,
-            color: AppColor.primaryColor(context),
-            size: 20.sp,
-          ),
+          Icon(Icons.receipt_long_rounded, color: AppColor.primaryColor(context), size: 20.sp),
           Gap(10.w),
           Text(
             '${AppLocaleKey.orderNumberLabel.tr()} #$orderId',
-            style: AppTextStyle.bodyMedium(context).copyWith(
-              color: AppColor.blackTextColor(context),
-              fontWeight: FontWeight.w600,
-            ),
+            style: AppTextStyle.bodyMedium(
+              context,
+            ).copyWith(color: AppColor.blackTextColor(context), fontWeight: FontWeight.w600),
           ),
         ],
       ),
@@ -126,26 +112,19 @@ class BackToHomeButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: () {
           context.read<CartCubit>().clearCart();
-          Navigator.pushNamedAndRemoveUntil(
-            context,
-            RoutesName.mainLayout,
-            (route) => false,
-          );
+          Navigator.pushNamedAndRemoveUntil(context, RoutesName.mainLayout, (route) => false);
         },
         style: ElevatedButton.styleFrom(
           backgroundColor: AppColor.primaryColor(context),
           padding: EdgeInsets.symmetric(vertical: 18.h),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(18.r),
-          ),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.r)),
           elevation: 0,
         ),
         child: Text(
           AppLocaleKey.backToHome.tr(),
-          style: AppTextStyle.titleMedium(context).copyWith(
-            color: AppColor.blackTextColor(context),
-            fontWeight: FontWeight.bold,
-          ),
+          style: AppTextStyle.titleMedium(
+            context,
+          ).copyWith(color: AppColor.blackTextColor(context), fontWeight: FontWeight.bold),
         ),
       ),
     );

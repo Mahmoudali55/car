@@ -1,5 +1,4 @@
 import 'package:car/core/theme/app_colors.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -8,11 +7,7 @@ class PaymentResultScreen extends StatelessWidget {
   final bool isSuccess;
   final String providerName;
 
-  const PaymentResultScreen({
-    super.key,
-    required this.isSuccess,
-    required this.providerName,
-  });
+  const PaymentResultScreen({super.key, required this.isSuccess, required this.providerName});
 
   @override
   Widget build(BuildContext context) {
@@ -42,11 +37,7 @@ class PaymentResultScreen extends StatelessWidget {
                     ? 'Your transaction with $providerName has been completed successfully.'
                     : 'Something went wrong with your $providerName transaction. Please try again or contact support.',
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 14.sp,
-                  color: Colors.grey[600],
-                  height: 1.5,
-                ),
+                style: TextStyle(fontSize: 14.sp, color: Colors.grey[600], height: 1.5),
               ),
               const Spacer(),
               SizedBox(

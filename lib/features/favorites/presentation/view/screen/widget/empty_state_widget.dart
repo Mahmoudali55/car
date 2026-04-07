@@ -42,9 +42,7 @@ class EmptyStateWidget extends StatelessWidget {
           Text(
             AppLocaleKey.addCarsToFavorites.tr(),
             textAlign: TextAlign.center,
-            style: AppTextStyle.bodySmall(
-              context,
-            ).copyWith(color: AppColor.greyColor(context)),
+            style: AppTextStyle.bodySmall(context).copyWith(color: AppColor.greyColor(context)),
           ),
         ],
       ),
