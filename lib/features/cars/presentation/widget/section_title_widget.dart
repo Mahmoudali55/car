@@ -11,10 +11,9 @@ class SectionTitleWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       title,
-      style: AppTextStyle.titleMedium(context).copyWith(
-        color: AppColor.blackTextColor(context),
-        fontWeight: FontWeight.w800,
-      ),
+      style: AppTextStyle.titleMedium(
+        context,
+      ).copyWith(color: AppColor.blackTextColor(context), fontWeight: FontWeight.w800),
     );
   }
 }
