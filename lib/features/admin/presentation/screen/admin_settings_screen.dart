@@ -1,12 +1,14 @@
-import 'package:animate_do/animate_do.dart';
-import 'package:car/core/cache/hive/hive_methods.dart';
 import 'package:car/core/custom_widgets/custom_app_bar/custom_app_bar.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/routes/routes_name.dart';
 import 'package:car/core/theme/app_colors.dart';
-import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/core/theme/cubit/app_theme_cubit.dart';
 import 'package:car/core/theme/theme_enum.dart';
+import 'package:car/features/admin/presentation/screen/widgets/logout_button_widget.dart';
+import 'package:car/features/admin/presentation/screen/widgets/security_section_widget.dart';
+import 'package:car/features/admin/presentation/screen/widgets/setting_Item_widget.dart';
+import 'package:car/features/admin/presentation/screen/widgets/show_language_dialog_widget.dart';
+import 'package:car/features/admin/presentation/screen/widgets/theme_toggle_Item.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -52,309 +54,80 @@ class AdminSettingsScreen extends StatelessWidget {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    _buildSection(context, AppLocaleKey.systemSettings.tr(), [
-                      _buildThemeToggleItem(context, isDark),
-                      _buildSettingItem(
-                        context,
-                        Icons.security_rounded,
-                        AppLocaleKey.securityAndPrivacy.tr(),
-                        AppLocaleKey.managePasswordsPermissions.tr(),
-                        onTap: () => Navigator.pushNamed(context, RoutesName.securitySettings),
-                      ),
-                      _buildSettingItem(
-                        context,
-                        Icons.language_rounded,
-                        AppLocaleKey.language.tr(),
-                        AppLocaleKey.appLanguageDesc.tr(),
-                        onTap: () => _showLanguageDialog(context),
-                      ),
-                      _buildSettingItem(
-                        context,
-                        Icons.notifications_active_rounded,
-                        AppLocaleKey.systemAlerts.tr(),
-                        AppLocaleKey.systemNotificationsDesc.tr(),
-                        onTap: () => Navigator.pushNamed(context, RoutesName.systemAlerts),
-                      ),
-                    ]),
+                    SecuritySectionWidget(
+                      title: AppLocaleKey.systemSettings.tr(),
+                      items: [
+                        ThemeToggleItem(isDark: isDark),
+                        SettingItemWidget(
+                          icon: Icons.security_rounded,
+                          title: AppLocaleKey.securityAndPrivacy.tr(),
+                          subtitle: AppLocaleKey.managePasswordsPermissions.tr(),
+                          onTap: () => Navigator.pushNamed(context, RoutesName.securitySettings),
+                        ),
+                        SettingItemWidget(
+                          icon: Icons.language_rounded,
+                          title: AppLocaleKey.language.tr(),
+                          subtitle: AppLocaleKey.appLanguageDesc.tr(),
+                          onTap: () => showLanguageDialog(context),
+                        ),
+                        SettingItemWidget(
+                          icon: Icons.notifications_active_rounded,
+                          title: AppLocaleKey.systemAlerts.tr(),
+                          subtitle: AppLocaleKey.systemNotificationsDesc.tr(),
+                          onTap: () => Navigator.pushNamed(context, RoutesName.systemAlerts),
+                        ),
+                      ],
+                    ),
                     Gap(32.h),
-                    _buildSection(context, AppLocaleKey.contentManagement.tr(), [
-                      _buildSettingItem(
-                        context,
-                        Icons.category_rounded,
-                        AppLocaleKey.categories.tr(),
-                        AppLocaleKey.manageCategoriesDesc.tr(),
-                        onTap: () => Navigator.pushNamed(context, RoutesName.manageCategories),
-                      ),
-                      _buildSettingItem(
-                        context,
-                        Icons.discount_rounded,
-                        AppLocaleKey.discountCoupons.tr(),
-                        AppLocaleKey.manageOffersDiscounts.tr(),
-                        onTap: () => Navigator.pushNamed(context, RoutesName.discountCoupons),
-                      ),
-                      _buildSettingItem(
-                        context,
-                        Icons.policy_rounded,
-                        AppLocaleKey.termsAndConditions.tr(),
-                        AppLocaleKey.updateUsagePolicies.tr(),
-                        onTap: () => Navigator.pushNamed(context, RoutesName.termsSettings),
-                      ),
-                    ]),
+                    SecuritySectionWidget(
+                      title: AppLocaleKey.contentManagement.tr(),
+                      items: [
+                        SettingItemWidget(
+                          icon: Icons.category_rounded,
+                          title: AppLocaleKey.categories.tr(),
+                          subtitle: AppLocaleKey.manageCategoriesDesc.tr(),
+                          onTap: () => Navigator.pushNamed(context, RoutesName.manageCategories),
+                        ),
+                        SettingItemWidget(
+                          icon: Icons.discount_rounded,
+                          title: AppLocaleKey.discountCoupons.tr(),
+                          subtitle: AppLocaleKey.manageOffersDiscounts.tr(),
+                          onTap: () => Navigator.pushNamed(context, RoutesName.discountCoupons),
+                        ),
+                        SettingItemWidget(
+                          icon: Icons.policy_rounded,
+                          title: AppLocaleKey.termsAndConditions.tr(),
+                          subtitle: AppLocaleKey.updateUsagePolicies.tr(),
+                          onTap: () => Navigator.pushNamed(context, RoutesName.termsSettings),
+                        ),
+                      ],
+                    ),
                     Gap(32.h),
-                    _buildSection(context, AppLocaleKey.technicalSupport.tr(), [
-                      _buildSettingItem(
-                        context,
-                        Icons.help_outline_rounded,
-                        AppLocaleKey.supportCenter.tr(),
-                        AppLocaleKey.helpCenterDesc.tr(),
-                        onTap: () => Navigator.pushNamed(context, RoutesName.adminSupport),
-                      ),
-                      _buildSettingItem(
-                        context,
-                        Icons.contact_support_outlined,
-                        AppLocaleKey.contactDeveloper.tr(),
-                        AppLocaleKey.raiseSupportTicket.tr(),
-                        onTap: () => Navigator.pushNamed(context, RoutesName.contactDeveloper),
-                      ),
-                    ]),
+                    SecuritySectionWidget(
+                      title: AppLocaleKey.technicalSupport.tr(),
+                      items: [
+                        SettingItemWidget(
+                          icon: Icons.help_outline_rounded,
+                          title: AppLocaleKey.supportCenter.tr(),
+                          subtitle: AppLocaleKey.helpCenterDesc.tr(),
+                          onTap: () => Navigator.pushNamed(context, RoutesName.adminSupport),
+                        ),
+                        SettingItemWidget(
+                          icon: Icons.contact_support_outlined,
+                          title: AppLocaleKey.contactDeveloper.tr(),
+                          subtitle: AppLocaleKey.raiseSupportTicket.tr(),
+                          onTap: () => Navigator.pushNamed(context, RoutesName.contactDeveloper),
+                        ),
+                      ],
+                    ),
                     Gap(40.h),
-                    _buildLogoutButton(context),
+                    LogoutButtonWidget(),
                   ],
                 );
               },
             ),
           ),
         ],
-      ),
-    );
-  }
-
-  Widget _buildSection(BuildContext context, String title, List<Widget> items) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        FadeInRight(
-          child: Text(
-            title,
-            style: TextStyle(
-              color: AppColor.blackTextColor(context).withValues(alpha: 0.5),
-              fontSize: 13.sp,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ),
-        Gap(16.h),
-        ...items,
-      ],
-    );
-  }
-
-  Widget _buildThemeToggleItem(BuildContext context, bool isDark) {
-    final baseColor = AppColor.blackTextColor(context);
-    return FadeInUp(
-      child: Container(
-        margin: EdgeInsets.only(bottom: 12.h),
-        decoration: BoxDecoration(
-          color: baseColor.withValues(alpha: 0.03),
-          borderRadius: BorderRadius.circular(20.r),
-          border: Border.all(color: baseColor.withValues(alpha: 0.05)),
-        ),
-        child: ListTile(
-          leading: Container(
-            padding: EdgeInsets.all(10.w),
-            decoration: BoxDecoration(
-              color: baseColor.withValues(alpha: 0.05),
-              shape: BoxShape.circle,
-            ),
-            child: AnimatedSwitcher(
-              duration: const Duration(milliseconds: 300),
-              child: Icon(
-                isDark ? Icons.dark_mode_rounded : Icons.light_mode_rounded,
-                key: ValueKey(isDark),
-                color: baseColor,
-                size: 20.sp,
-              ),
-            ),
-          ),
-          title: Text(
-            AppLocaleKey.appearance.tr(),
-            style: TextStyle(color: baseColor, fontSize: 14.sp, fontWeight: FontWeight.bold),
-          ),
-          subtitle: Text(
-            isDark ? AppLocaleKey.darkMode.tr() : AppLocaleKey.lightMode.tr(),
-            style: TextStyle(color: baseColor.withValues(alpha: 0.4), fontSize: 11.sp),
-          ),
-          trailing: Switch(
-            value: isDark,
-            activeThumbColor: AppColor.primaryColor(context),
-            onChanged: (val) {
-              context.read<AppThemeCubit>().theme = val ? ThemeEnum.dark : ThemeEnum.light;
-            },
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildSettingItem(
-    BuildContext context,
-    IconData icon,
-    String title,
-    String subtitle, {
-    VoidCallback? onTap,
-  }) {
-    final baseColor = AppColor.blackTextColor(context);
-    return FadeInUp(
-      child: Container(
-        margin: EdgeInsets.only(bottom: 12.h),
-        decoration: BoxDecoration(
-          color: baseColor.withValues(alpha: 0.03),
-          borderRadius: BorderRadius.circular(20.r),
-          border: Border.all(color: baseColor.withValues(alpha: 0.05)),
-        ),
-        child: ListTile(
-          onTap: onTap,
-          leading: Container(
-            padding: EdgeInsets.all(10.w),
-            decoration: BoxDecoration(
-              color: baseColor.withValues(alpha: 0.05),
-              shape: BoxShape.circle,
-            ),
-            child: Icon(icon, color: baseColor, size: 20.sp),
-          ),
-          title: Text(
-            title,
-            style: TextStyle(color: baseColor, fontSize: 14.sp, fontWeight: FontWeight.bold),
-          ),
-          subtitle: Text(
-            subtitle,
-            style: TextStyle(color: baseColor.withValues(alpha: 0.4), fontSize: 11.sp),
-          ),
-          trailing: Icon(Icons.chevron_left_rounded, color: baseColor.withValues(alpha: 0.2)),
-        ),
-      ),
-    );
-  }
-
-  void _showLanguageDialog(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      backgroundColor: Colors.transparent,
-      isScrollControlled: true,
-      builder: (ctx) {
-        return Container(
-          decoration: BoxDecoration(
-            color: AppColor.secondAppColor(ctx),
-            borderRadius: BorderRadius.vertical(top: Radius.circular(20.r)),
-          ),
-          child: Padding(
-            padding: EdgeInsets.all(20.w),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  AppLocaleKey.language.tr(),
-                  style: AppTextStyle.titleMedium(
-                    context,
-                  ).copyWith(color: AppColor.blackTextColor(context)),
-                ),
-                Gap(20.h),
-                _buildLanguageOption(
-                  context,
-                  title: 'العربية',
-                  isSelected: context.locale.languageCode == 'ar',
-                  onTap: () async {
-                    await context.setLocale(const Locale('ar'));
-                    HiveMethods.updateLang(const Locale('ar'));
-                    if (ctx.mounted) Navigator.pop(ctx);
-                  },
-                ),
-                Gap(12.h),
-                _buildLanguageOption(
-                  context,
-                  title: 'English',
-                  isSelected: context.locale.languageCode == 'en',
-                  onTap: () async {
-                    await context.setLocale(const Locale('en'));
-                    HiveMethods.updateLang(const Locale('en'));
-                    if (ctx.mounted) Navigator.pop(ctx);
-                  },
-                ),
-                Gap(20.h),
-              ],
-            ),
-          ),
-        );
-      },
-    );
-  }
-
-  Widget _buildLanguageOption(
-    BuildContext context, {
-    required String title,
-    required bool isSelected,
-    required VoidCallback onTap,
-  }) {
-    final baseColor = AppColor.blackTextColor(context);
-    return InkWell(
-      onTap: onTap,
-      borderRadius: BorderRadius.circular(12.r),
-      child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
-        decoration: BoxDecoration(
-          color: isSelected
-              ? AppColor.primaryColor(context).withValues(alpha: 0.1)
-              : baseColor.withValues(alpha: 0.03),
-          borderRadius: BorderRadius.circular(12.r),
-          border: Border.all(
-            color: isSelected ? AppColor.primaryColor(context) : baseColor.withValues(alpha: 0.05),
-          ),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              title,
-              style: AppTextStyle.bodyMedium(context).copyWith(
-                color: baseColor,
-                fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-              ),
-            ),
-            if (isSelected)
-              Icon(Icons.check_circle_rounded, color: AppColor.primaryColor(context), size: 20.sp),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildLogoutButton(BuildContext context) {
-    return FadeInUp(
-      delay: const Duration(milliseconds: 400),
-      child: Container(
-        padding: EdgeInsets.all(4.w),
-        decoration: BoxDecoration(
-          color: Colors.redAccent.withValues(alpha: 0.1),
-          borderRadius: BorderRadius.circular(16.r),
-          border: Border.all(color: Colors.redAccent.withValues(alpha: 0.1)),
-        ),
-        child: ListTile(
-          onTap: () {
-            HiveMethods.deleteToken();
-            HiveMethods.updateRole('user');
-            Navigator.pushNamedAndRemoveUntil(
-              context,
-              RoutesName.loginScreen,
-              (route) => false,
-            );
-          },
-          leading: const Icon(Icons.logout_rounded, color: Colors.redAccent),
-          title: Text(
-            AppLocaleKey.logout.tr(),
-            style: const TextStyle(color: Colors.redAccent, fontWeight: FontWeight.bold),
-          ),
-          trailing: const Icon(Icons.chevron_left_rounded, color: Colors.redAccent),
-        ),
       ),
     );
   }
