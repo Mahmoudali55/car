@@ -71,16 +71,19 @@ class HiveMethods {
     return _box.get('comparisonList', defaultValue: []);
   }
 
-  static void addToComparison(Map<String, dynamic> car) {
+  static bool addToComparison(Map<String, dynamic> car) {
     final List<dynamic> list = List.from(getComparisonList());
-    if (list.length >= 3) {
-      // Keep only the latest 3
-      list.removeLast();
-    }
-    // Avoid duplicates
+    
+    // If it's already in the list, remove it so it can be added to the top
     list.removeWhere((c) => c['name'] == car['name']);
+
+    if (list.length >= 2) {
+      return false;
+    }
+    
     list.insert(0, car);
     _box.put('comparisonList', list);
+    return true;
   }
 
   static void removeFromComparison(String carName) {

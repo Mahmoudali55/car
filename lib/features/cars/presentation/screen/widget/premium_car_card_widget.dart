@@ -1,8 +1,10 @@
 import 'package:car/core/cache/hive/hive_methods.dart';
+import 'package:car/core/custom_widgets/custom_toast/custom_toast.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/routes/routes_name.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
+import 'package:car/core/utils/common_methods.dart';
 import 'package:car/core/utils/navigator_methods.dart';
 import 'package:car/features/favorites/presentation/view/cubit/favorites_cubit.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -192,11 +194,20 @@ class PremiumCarCardWidget extends StatelessWidget {
           // to refresh if needed, but the button itself uses Hive directly.
           if (HiveMethods.isInComparison(car['name'])) {
             HiveMethods.removeFromComparison(car['name']);
+            // Forces immediate UI update in the widget tree for this card
+            (context as Element).markNeedsBuild();
           } else {
-            HiveMethods.addToComparison(car);
+            bool added = HiveMethods.addToComparison(car);
+            if (added) {
+              // Forces immediate UI update in the widget tree for this card
+              (context as Element).markNeedsBuild();
+            } else {
+              CommonMethods.showToast(
+                message: AppLocaleKey.compare_list_full.tr(),
+                type: ToastType.error,
+              );
+            }
           }
-          // Forces immediate UI update in the widget tree for this card
-          (context as Element).markNeedsBuild();
         },
         icon: Icon(
           HiveMethods.isInComparison(car['name'])

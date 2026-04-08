@@ -51,24 +51,38 @@ class _CarHeaderWidgetState extends State<CarHeaderWidget> {
               onPressed: () {
                 if (isInCompare) {
                   HiveMethods.removeFromComparison(widget.car['name']);
-                } else {
-                  HiveMethods.addToComparison(widget.car);
-                }
-                setState(() {});
-                
-                // Show a premium snackbar
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text(
-                      isInCompare 
-                        ? AppLocaleKey.removeFromCompare.tr() 
-                        : AppLocaleKey.added_to_compare.tr()
+                  setState(() {});
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(AppLocaleKey.removeFromCompare.tr()),
+                      behavior: SnackBarBehavior.floating,
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.r)),
+                      backgroundColor: AppColor.primaryColor(context, listen: false),
                     ),
-                    behavior: SnackBarBehavior.floating,
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.r)),
-                    backgroundColor: AppColor.primaryColor(context),
-                  ),
-                );
+                  );
+                } else {
+                  bool added = HiveMethods.addToComparison(widget.car);
+                  if (added) {
+                    setState(() {});
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(AppLocaleKey.added_to_compare.tr()),
+                        behavior: SnackBarBehavior.floating,
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.r)),
+                        backgroundColor: AppColor.primaryColor(context, listen: false),
+                      ),
+                    );
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(AppLocaleKey.compare_list_full.tr()),
+                        behavior: SnackBarBehavior.floating,
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.r)),
+                        backgroundColor: AppColor.redColor(context, listen: false),
+                      ),
+                    );
+                  }
+                }
               },
               icon: Icon(
                 isInCompare ? Icons.compare_arrows_rounded : Icons.add_chart_rounded,
