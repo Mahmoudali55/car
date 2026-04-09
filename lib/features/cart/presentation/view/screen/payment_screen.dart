@@ -1,7 +1,6 @@
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/routes/routes_name.dart';
 import 'package:car/core/theme/app_colors.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:car/features/cart/presentation/view/widget/payment_app_bar_widget.dart';
 import 'package:car/features/cart/presentation/view/widget/payment_card_details_form_widget.dart';
 import 'package:car/features/cart/presentation/view/widget/payment_card_preview_widget.dart';
@@ -9,15 +8,14 @@ import 'package:car/features/cart/presentation/view/widget/payment_method_select
 import 'package:car/features/cart/presentation/view/widget/payment_order_summary_widget.dart';
 import 'package:car/features/cart/presentation/view/widget/payment_pay_button_widget.dart';
 import 'package:car/features/cart/presentation/view/widget/payment_ssl_note_widget.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
 class PaymentScreen extends StatefulWidget {
   final double totalPrice;
-
   const PaymentScreen({super.key, required this.totalPrice});
-
   @override
   State<PaymentScreen> createState() => _PaymentScreenState();
 }
@@ -81,14 +79,12 @@ class _PaymentScreenState extends State<PaymentScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Gap(16.h),
-
               PaymentMethodSelectorWidget(
                 title: AppLocaleKey.paymentMethodTitle.tr(),
                 selectedIndex: _selectedPayment,
                 onSelected: (i) => setState(() => _selectedPayment = i),
               ),
               Gap(28.h),
-
               PaymentCardPreviewWidget(
                 cardNumber: _cardNumberController.text.isEmpty
                     ? '•••• •••• •••• ••••'
@@ -99,7 +95,6 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 expiry: _expiryController.text.isEmpty ? 'MM/YY' : _expiryController.text,
               ),
               Gap(28.h),
-
               PaymentCardDetailsFormWidget(
                 title: AppLocaleKey.paymentCardDetailsTitle.tr(),
                 cardNumberController: _cardNumberController,
@@ -130,7 +125,6 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 onCvvChanged: (_) => setState(() {}),
               ),
               Gap(32.h),
-
               PaymentOrderSummaryWidget(
                 carsTotalLabel: AppLocaleKey.paymentCarsTotalLabel.tr(),
                 serviceFeeLabel: AppLocaleKey.paymentServiceFeeLabel.tr(),
@@ -140,7 +134,6 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 totalValue: _formatPrice(widget.totalPrice + 2500),
               ),
               Gap(28.h),
-
               PaymentPayButtonWidget(
                 isLoading: _isLoading,
                 onPressed: _processPayment,

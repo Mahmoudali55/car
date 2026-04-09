@@ -16,7 +16,6 @@ class _PaymentSuccessScreenState extends State<PaymentSuccessScreen>
   late AnimationController _controller;
   late Animation<double> _scaleAnim;
   late Animation<double> _fadeAnim;
-
   @override
   void initState() {
     super.initState();
@@ -54,7 +53,6 @@ class _PaymentSuccessScreenState extends State<PaymentSuccessScreen>
                 // Success Circle
                 SuccessCircleWidget(scaleAnim: _scaleAnim),
                 Gap(40.h),
-
                 // Title & Subtitle
                 FadeTransition(
                   opacity: _fadeAnim,
@@ -62,9 +60,7 @@ class _PaymentSuccessScreenState extends State<PaymentSuccessScreen>
                     children: [PaymentSuccessHeader(), Gap(16), OrderNumberWidget()],
                   ),
                 ),
-
                 Gap(60.h),
-
                 // Back Home Button
                 FadeTransition(opacity: _fadeAnim, child: const BackToHomeButton()),
               ],

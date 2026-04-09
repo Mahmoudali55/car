@@ -75,6 +75,10 @@ class _CarDetailsScreenState extends State<CarDetailsScreen> {
         controller: _controller,
         showVideoProgressIndicator: true,
         progressIndicatorColor: AppColor.primaryColor(context),
+        thumbnail: Image.asset(
+          widget.car['image'] ?? 'assets/images/placeholder.png',
+          fit: BoxFit.cover,
+        ),
       ),
       builder: (context, player) {
         return Scaffold(
