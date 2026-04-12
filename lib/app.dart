@@ -25,9 +25,16 @@ class CarApp extends StatefulWidget {
 class _CarAppState extends State<CarApp> {
   @override
   Widget build(BuildContext context) {
-    return ScreenUtilInit(
-      designSize: const Size(360, 690),
-      minTextAdapt: true,
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final isTablet = constraints.maxWidth >= 600;
+        final Size designSize = isTablet
+            ? Size(constraints.maxWidth, constraints.maxHeight)
+            : const Size(360, 690);
+
+        return ScreenUtilInit(
+          designSize: designSize,
+          minTextAdapt: true,
       splitScreenMode: true,
       useInheritedMediaQuery: true,
       builder: (_, child) {
@@ -64,6 +71,8 @@ class _CarAppState extends State<CarApp> {
             },
           ),
         );
+      },
+    );
       },
     );
   }
