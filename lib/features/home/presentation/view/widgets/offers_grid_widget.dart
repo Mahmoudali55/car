@@ -257,28 +257,34 @@ class OffersGridWidget extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      car['oldPrice'],
-                                      style: TextStyle(
-                                        color: AppColor.blackTextColor(
-                                          context,
-                                        ).withValues(alpha: 0.24),
-                                        fontSize: 9.sp,
-                                        decoration: TextDecoration.lineThrough,
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        car['oldPrice'],
+                                        style: TextStyle(
+                                          color: AppColor.blackTextColor(
+                                            context,
+                                          ).withValues(alpha: 0.24),
+                                          fontSize: 9.sp,
+                                          decoration: TextDecoration.lineThrough,
+                                        ),
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
                                       ),
-                                    ),
-                                    Text(
-                                      car['price'],
-                                      style: TextStyle(
-                                        color: AppColor.blackTextColor(context),
-                                        fontWeight: FontWeight.w900,
-                                        fontSize: 14.sp,
+                                      Text(
+                                        car['price'],
+                                        style: TextStyle(
+                                          color: AppColor.blackTextColor(context),
+                                          fontWeight: FontWeight.w900,
+                                          fontSize: 14.sp,
+                                        ),
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
                                 Container(
                                   padding: EdgeInsets.all(6.w),
