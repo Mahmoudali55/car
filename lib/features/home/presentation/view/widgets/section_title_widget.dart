@@ -13,11 +13,15 @@ class SectionTitleWidget extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(
-          title,
-          style: AppTextStyle.titleMedium(
-            context,
-          ).copyWith(fontWeight: FontWeight.bold),
+        Expanded(
+          child: Text(
+            title,
+            style: AppTextStyle.titleMedium(
+              context,
+            ).copyWith(fontWeight: FontWeight.bold),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          ),
         ),
         if (onSeeAll != null)
           TextButton(

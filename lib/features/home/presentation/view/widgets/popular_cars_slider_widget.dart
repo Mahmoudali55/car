@@ -96,7 +96,7 @@ class _PopularCarsSliderState extends State<PopularCarsSlider> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 320.h,
+      height: 280.h,
       width: double.infinity,
       child: PageView.builder(
         controller: _pageController,
@@ -302,6 +302,7 @@ class _PopularCarsSliderState extends State<PopularCarsSlider> {
                                   Expanded(
                                     flex: 3,
                                     child: CustomButton(
+                                      radius: 12.r,
                                       onPressed: () => _navigateToDetails(context, car),
                                       child: Text(
                                         AppLocaleKey.orderNow.tr(),

@@ -1,3 +1,4 @@
+import 'package:car/core/custom_widgets/buttons/custom_button.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
@@ -46,20 +47,15 @@ class CartEmptyStateWidget extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
           Gap(32.h),
-          ElevatedButton(
-            onPressed: () => Navigator.pop(context),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: AppColor.primaryColor(context),
-              padding: EdgeInsets.symmetric(horizontal: 32.w, vertical: 14.h),
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14.r)),
-            ),
-            child: Text(
-              AppLocaleKey.browseCars.tr(),
-              style: AppTextStyle.bodyMedium(context).copyWith(
-                color: AppColor.blackTextColor(context),
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+          CustomButton(
+            radius: 12.r,
+            height: 50.h,
+            width: 180.w,
+            text:  AppLocaleKey.browseCars.tr(),
+            onPressed: () {
+               Navigator.pop( context);
+              // Navigate to the shopping screen or home screen
+            },
           ),
         ],
       ),

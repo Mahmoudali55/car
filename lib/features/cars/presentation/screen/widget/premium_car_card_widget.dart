@@ -121,28 +121,35 @@ class PremiumCarCardWidget extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            car['brand'],
-                            style: AppTextStyle.bodySmall(context).copyWith(
-                              color: AppColor.primaryColor(context),
-                              fontSize: 10.sp,
-                              fontWeight: FontWeight.w600,
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              car['brand'],
+                              style: AppTextStyle.bodySmall(context).copyWith(
+                                color: AppColor.primaryColor(context),
+                                fontSize: 10.sp,
+                                fontWeight: FontWeight.w600,
+                              ),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
                             ),
-                          ),
-                          Gap(4.h),
-                          Text(
-                            car['name'],
-                            style: AppTextStyle.bodyMedium(context).copyWith(
-                              color: AppColor.blackTextColor(context),
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16.sp,
+                            Gap(4.h),
+                            Text(
+                              car['name'],
+                              style: AppTextStyle.bodyMedium(context).copyWith(
+                                color: AppColor.blackTextColor(context),
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16.sp,
+                              ),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
+                      Gap(4.w),
                       Text(
                         car['price'],
                         style: AppTextStyle.titleMedium(context).copyWith(

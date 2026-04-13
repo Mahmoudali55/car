@@ -174,27 +174,33 @@ class PremiumOfferCardWidget extends StatelessWidget {
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  offer['oldPrice'],
-                                  style: TextStyle(
-                                    color: AppColor.blackTextColor(context).withValues(alpha: 0.38),
-                                    fontSize: 11.sp,
-                                    decoration: TextDecoration.lineThrough,
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    offer['oldPrice'],
+                                    style: TextStyle(
+                                      color: AppColor.blackTextColor(context).withValues(alpha: 0.38),
+                                      fontSize: 11.sp,
+                                      decoration: TextDecoration.lineThrough,
+                                    ),
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
                                   ),
-                                ),
-                                Text(
-                                  offer['price'],
-                                  style: AppTextStyle.titleSmall(context).copyWith(
-                                    color: AppColor.blackTextColor(context),
-                                    fontWeight: FontWeight.w900,
+                                  Text(
+                                    offer['price'],
+                                    style: AppTextStyle.titleSmall(context).copyWith(
+                                      color: AppColor.blackTextColor(context),
+                                      fontWeight: FontWeight.w900,
+                                    ),
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                            const Spacer(),
+                            Gap(4.w),
                             Container(
                               padding: EdgeInsets.all(8.w),
                               decoration: BoxDecoration(
