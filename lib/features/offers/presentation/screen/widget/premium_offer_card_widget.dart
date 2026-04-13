@@ -17,9 +17,9 @@ class PremiumOfferCardWidget extends StatelessWidget {
       onTap: () =>
           NavigatorMethods.pushNamed(context, RoutesName.carDetailsScreen, arguments: offer),
       child: Container(
-        height: 190.h,
+        height: 200.h,
         width: double.infinity,
-        padding: EdgeInsets.symmetric(horizontal: 10.w), // Slightly increased for specs
+        padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 8.h), // Slightly increased for specs
         decoration: BoxDecoration(
           color: AppColor.secondAppColor(context),
           borderRadius: BorderRadius.circular(28.r),
@@ -272,6 +272,8 @@ class PremiumOfferCardWidget extends StatelessWidget {
           ],
         ),
       ),
+      
+      
     );
   }
 

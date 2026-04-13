@@ -109,7 +109,7 @@ class HomeGuestScreen extends StatelessWidget {
                     SectionTitleWidget(title: AppLocaleKey.trendingNow.tr()),
                     SizedBox(height: 15.h),
                     const OffersGridWidget(),
-                    SizedBox(height: 30.h),
+                    SizedBox(height: 120.h),
                   ],
                 ),
               ),

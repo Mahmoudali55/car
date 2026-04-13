@@ -18,9 +18,14 @@ class MainBottomNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bottomPadding = MediaQuery.paddingOf(context).bottom;
     return Container(
-      height: 75.h,
-      padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
+      padding: EdgeInsets.only(
+        left: 15.w,
+        right: 15.w,
+        top: 10.h,
+        bottom: 10.h + bottomPadding,
+      ),
       decoration: BoxDecoration(
         color: AppColor.secondAppColor(context),
         boxShadow: [

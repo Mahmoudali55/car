@@ -27,9 +27,12 @@ class _CarAppState extends State<CarApp> {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        final isTablet = constraints.maxWidth >= 600;
+        final bool isTablet = constraints.maxWidth >= 600;
+        // By scaling designSize relative to the actual width/height constraints, 
+        // we ensure that both .w and .h get identical scaling factors on tablets (e.g. 1.35x).
+        // This prevents component distortion (squares turning to rectangles) caused by different aspect ratios.
         final Size designSize = isTablet
-            ? Size(constraints.maxWidth, constraints.maxHeight)
+            ? Size(constraints.maxWidth / 1.35, constraints.maxHeight / 1.35)
             : const Size(360, 690);
 
         return ScreenUtilInit(
