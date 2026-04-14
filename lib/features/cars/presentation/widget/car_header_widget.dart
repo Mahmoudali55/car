@@ -27,25 +27,27 @@ class _CarHeaderWidgetState extends State<CarHeaderWidget> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  (widget.car['brand'] ?? '').toUpperCase(),
-                  style: AppTextStyle.bodySmall(context).copyWith(
-                    color: AppColor.primaryColor(context),
-                    fontWeight: FontWeight.w800,
-                    letterSpacing: 2,
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    (widget.car['brand'] ?? '').toUpperCase(),
+                    style: AppTextStyle.bodySmall(context).copyWith(
+                      color: AppColor.primaryColor(context),
+                      fontWeight: FontWeight.w800,
+                      letterSpacing: 2,
+                    ),
                   ),
-                ),
-                Gap(4.h),
-                Text(
-                  widget.car['name'] ?? '',
-                  style: AppTextStyle.titleLarge(
-                    context,
-                  ).copyWith(color: AppColor.blackTextColor(context), fontWeight: FontWeight.w900),
-                ),
-              ],
+                  Gap(4.h),
+                  Text(
+                    widget.car['name'] ?? '',
+                    style: AppTextStyle.titleLarge(
+                      context,
+                    ).copyWith(color: AppColor.blackTextColor(context), fontWeight: FontWeight.w900),
+                  ),
+                ],
+              ),
             ),
             IconButton(
               onPressed: () {
