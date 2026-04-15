@@ -24,6 +24,7 @@ class _PopularCarsSliderState extends State<PopularCarsSlider> {
   late PageController _pageController;
   int _currentPage = 0;
   late Timer _timer;
+  bool _isInit = false;
 
   final List<Map<String, dynamic>> popularCars = [
     {
@@ -64,7 +65,6 @@ class _PopularCarsSliderState extends State<PopularCarsSlider> {
   @override
   void initState() {
     super.initState();
-    _pageController = PageController(viewportFraction: 0.85, initialPage: _currentPage);
     _timer = Timer.periodic(const Duration(seconds: 4), (Timer timer) {
       if (_currentPage < popularCars.length - 1) {
         _currentPage++;
@@ -83,6 +83,20 @@ class _PopularCarsSliderState extends State<PopularCarsSlider> {
   }
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (!_isInit) {
+      final double screenWidth = MediaQuery.of(context).size.width;
+      final bool isTablet = screenWidth > 600;
+      _pageController = PageController(
+        viewportFraction: isTablet ? 0.45 : 0.85,
+        initialPage: _currentPage,
+      );
+      _isInit = true;
+    }
+  }
+
+  @override
   void dispose() {
     _timer.cancel();
     _pageController.dispose();
@@ -97,7 +111,7 @@ class _PopularCarsSliderState extends State<PopularCarsSlider> {
   Widget build(BuildContext context) {
     return SizedBox(
       height: 280.h,
-      width:MediaQuery.of(context).size.width.w,
+      width: MediaQuery.of(context).size.width.w,
       child: PageView.builder(
         controller: _pageController,
         onPageChanged: (value) => setState(() => _currentPage = value),
