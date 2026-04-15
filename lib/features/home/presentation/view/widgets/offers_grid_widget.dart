@@ -273,6 +273,7 @@ class OffersGridWidget extends StatelessWidget {
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
                                       ),
+                                      Gap(4.h),
                                       Text(
                                         car['price'],
                                         style: TextStyle(
@@ -300,6 +301,7 @@ class OffersGridWidget extends StatelessWidget {
                                 ),
                               ],
                             ),
+                            Gap(12.h),
                           ],
                         ),
                       ),

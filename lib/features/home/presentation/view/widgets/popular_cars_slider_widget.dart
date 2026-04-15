@@ -97,7 +97,7 @@ class _PopularCarsSliderState extends State<PopularCarsSlider> {
   Widget build(BuildContext context) {
     return SizedBox(
       height: 280.h,
-      width: double.infinity,
+      width:MediaQuery.of(context).size.width.w,
       child: PageView.builder(
         controller: _pageController,
         onPageChanged: (value) => setState(() => _currentPage = value),
@@ -302,6 +302,7 @@ class _PopularCarsSliderState extends State<PopularCarsSlider> {
                                   Expanded(
                                     flex: 3,
                                     child: CustomButton(
+                                      
                                       radius: 12.r,
                                       onPressed: () => _navigateToDetails(context, car),
                                       child: Text(
@@ -316,19 +317,13 @@ class _PopularCarsSliderState extends State<PopularCarsSlider> {
                                   Gap(12.w),
                                   Expanded(
                                     flex: 2,
-                                    child: OutlinedButton(
+                                    child: CustomButton(
+                                      
                                       onPressed: () => _navigateToDetails(context, car),
-                                      style: OutlinedButton.styleFrom(
-                                        side: BorderSide(
-                                          color: AppColor.blackTextColor(context).withOpacity(0.2),
-                                          width: 1.5,
-                                        ),
-                                        foregroundColor: AppColor.blackTextColor(context),
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(16.r),
-                                        ),
-                                        padding: EdgeInsets.symmetric(vertical: 12.h),
-                                      ),
+                                      color: AppColor.whiteColor(context),
+                                      radius: 12.r,
+                                      borderColor: AppColor.blackTextColor(context).withOpacity(0.1),
+
                                       child: Text(
                                         AppLocaleKey.details.tr(),
                                         style: AppTextStyle.bodySmall(context).copyWith(

@@ -57,15 +57,17 @@ class PremiumCarCardWidget extends StatelessWidget {
                 // Badges
                 Positioned(
                   top: 10.h,
-                  left: -10.w,
+                  left: -5.w,
                   child: Container(
                     height: 30.h,
-                    width: 80.w,
+                    width: 60.w,
                     alignment: Alignment.center,
+                    margin: EdgeInsets.only(left: 15.w),
                     padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
                     decoration: BoxDecoration(
                       color: AppColor.blackTextColor(context).withValues(alpha: 0.1),
-                      shape: BoxShape.circle,
+                      shape: BoxShape.rectangle,
+                      borderRadius: BorderRadius.circular(8.r),
                     ),
                     child: Text(
                       car['year'],
