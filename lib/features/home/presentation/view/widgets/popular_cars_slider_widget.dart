@@ -327,7 +327,7 @@ class _PopularCarsSliderState extends State<PopularCarsSlider> {
                                       child: Text(
                                         AppLocaleKey.details.tr(),
                                         style: AppTextStyle.bodySmall(context).copyWith(
-                                          color: AppColor.blackTextColor(context),
+                                          color: Colors.black,
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
