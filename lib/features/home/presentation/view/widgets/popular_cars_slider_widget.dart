@@ -231,7 +231,10 @@ class _PopularCarsSliderState extends State<PopularCarsSlider> {
                           top: 16.h,
                           left: 16.w,
                           child: Container(
-                            padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
+                            height: 20.h,
+                            width: 70.w,
+                            alignment: Alignment.center,
+                            padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 4.h),
                             decoration: BoxDecoration(
                               color: AppColor.primaryColor(context).withOpacity(0.2),
                               borderRadius: BorderRadius.circular(8.r),
@@ -242,7 +245,7 @@ class _PopularCarsSliderState extends State<PopularCarsSlider> {
                             child: Text(
                               AppLocaleKey.mostRequested.tr(),
                               style: AppTextStyle.bodySmall(context).copyWith(
-                                color: AppColor.primaryColor(context),
+                                color: AppColor.blackTextColor(context),
                                 fontSize: 9.sp,
                                 fontWeight: FontWeight.bold,
                               ),
