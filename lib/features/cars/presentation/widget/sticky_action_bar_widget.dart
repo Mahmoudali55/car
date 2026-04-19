@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:car/core/cache/hive/hive_methods.dart';
 import 'package:car/core/custom_widgets/buttons/custom_button.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
@@ -12,7 +11,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
-
 class StickyActionBarWidget extends StatelessWidget {
   final Map<String, dynamic> car;
 
@@ -100,7 +98,7 @@ class StickyActionBarWidget extends StatelessWidget {
                       if (HiveMethods.getToken() == null) {
                         CommonMethods.showLoginRequiredDialog(context);
                       } else {
-                        // TODO: Implement Phone Call
+                       
                       }
                     },
                   ),

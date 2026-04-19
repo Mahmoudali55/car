@@ -5,6 +5,11 @@ import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/features/cars/presentation/widget/car_reservation_widgets.dart';
+import 'package:car/features/cars/presentation/widget/reservation_buyer_form_widget.dart';
+import 'package:car/features/cars/presentation/widget/reservation_deposit_display_widget.dart';
+import 'package:car/features/cars/presentation/widget/reservation_expired_widget.dart';
+import 'package:car/features/cars/presentation/widget/reservation_timer_banner_widget.dart';
+import 'package:car/features/cars/presentation/widget/reservation_warning_notice_widget.dart';
 import 'package:car/features/cart/presentation/view/cubit/cart_cubit.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -68,13 +73,13 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
   }
 
   String _formatDuration(Duration duration) {
-    String twoDigits(int n) => n.toString().padLeft(2, "0");
+    String twoDigits(int n) => n.toString().padLeft(2, '0');
     String twoDigitMinutes = twoDigits(duration.inMinutes.remainder(60));
     String twoDigitSeconds = twoDigits(duration.inSeconds.remainder(60));
     if (duration.inHours > 0) {
-      return "${twoDigits(duration.inHours)}:$twoDigitMinutes:$twoDigitSeconds";
+      return '${twoDigits(duration.inHours)}:$twoDigitMinutes:$twoDigitSeconds';
     }
-    return "$twoDigitMinutes:$twoDigitSeconds";
+    return '$twoDigitMinutes:$twoDigitSeconds';
   }
 
   void _submitReservation() {

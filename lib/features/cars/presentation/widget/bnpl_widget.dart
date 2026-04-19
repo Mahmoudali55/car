@@ -1,6 +1,8 @@
+import 'package:car/core/custom_widgets/custom_toast/custom_toast.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/services/bnpl_service.dart';
+import 'package:car/core/utils/common_methods.dart';
 import 'package:car/features/cars/presentation/screen/bnpl_payment_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -122,9 +124,7 @@ class _BnplWidgetState extends State<BnplWidget> {
         );
       } else {
         if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Failed to create ${isTabby ? "Tabby" : "Tamara"} session. Check API config.')),
-          );
+          CommonMethods.showToast(message: 'Failed to create ${isTabby ? "Tabby" : "Tamara"} session. Check API config.', type: ToastType.error);
         }
       }
     } finally {
@@ -135,7 +135,6 @@ class _BnplWidgetState extends State<BnplWidget> {
       }
     }
   }
-
   Widget _buildProviderCard({
     required BuildContext context,
     required String providerName,
@@ -219,7 +218,6 @@ class _BnplWidgetState extends State<BnplWidget> {
       ),
     );
   }
-
   Widget _buildLogo(String text, Color bgColor, Color textColor, {bool isTabby = true, bool fullSize = false}) {
     if (fullSize) {
       return Container(
@@ -239,7 +237,6 @@ class _BnplWidgetState extends State<BnplWidget> {
         ),
       );
     }
-
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 2.h),
       decoration: BoxDecoration(

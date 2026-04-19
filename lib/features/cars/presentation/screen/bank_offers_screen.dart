@@ -1,6 +1,8 @@
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/features/cars/presentation/widget/bank_offer_card_widget.dart';
+import 'package:car/features/cars/presentation/widget/bank_offer_fliter_section_widget.dart';
+import 'package:car/features/cars/presentation/widget/bank_offers_list_widget.dart';
 import 'package:car/features/cars/presentation/widget/bank_offers_widgets.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';

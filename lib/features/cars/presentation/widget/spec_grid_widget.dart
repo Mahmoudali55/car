@@ -9,9 +9,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
 class SpecGridWidget extends StatelessWidget {
-  const SpecGridWidget({Key? key, required this.car}) : super(key: key);
+  const SpecGridWidget({super.key, required this.car});
   final Map<String, dynamic> car;
-
   @override
   Widget build(BuildContext context) {
     final bool isTablet = context.isTablet || context.isDesktop;

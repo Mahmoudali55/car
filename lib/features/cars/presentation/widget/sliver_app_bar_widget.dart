@@ -10,7 +10,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:share_plus/share_plus.dart';
-
 class SliverAppBarWidget extends StatefulWidget {
   const SliverAppBarWidget({
     super.key,
@@ -19,16 +18,13 @@ class SliverAppBarWidget extends StatefulWidget {
     required this.currentImageIndex,
     required this.carImages,
   });
-
   final Map<String, dynamic> car;
   final PageController imagePageController;
   final int currentImageIndex;
   final List<String> carImages;
-
   @override
   State<SliverAppBarWidget> createState() => _SliverAppBarWidgetState();
 }
-
 class _SliverAppBarWidgetState extends State<SliverAppBarWidget> {
   late int _currentImageIndex;
 
