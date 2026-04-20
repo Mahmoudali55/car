@@ -3,6 +3,7 @@ import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/routes/routes_name.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/utils/navigator_methods.dart';
+import 'package:car/features/home/presentation/view/widgets/ads_slider_widget.dart';
 import 'package:car/features/home/presentation/view/widgets/budget_search_widget.dart';
 import 'package:car/features/home/presentation/view/widgets/categories_widget.dart';
 import 'package:car/features/home/presentation/view/widgets/financing_banner_widget.dart';
@@ -66,6 +67,8 @@ class HomeGuestScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    SizedBox(height: 20.h),
+                    const AdsSliderWidget(),
                     SizedBox(height: 30.h),
                     SectionTitleWidget(
                       title: AppLocaleKey.categories.tr(),

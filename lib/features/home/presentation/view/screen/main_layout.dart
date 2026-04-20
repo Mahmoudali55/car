@@ -6,6 +6,7 @@ import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/features/favorites/presentation/view/screen/favorites_screen.dart';
 import 'package:car/features/home/presentation/view/screen/all_brands_screen.dart';
 import 'package:car/features/home/presentation/view/widgets/main_layout_actions.dart';
+import 'package:car/features/home/presentation/view/widgets/support_icon_widget.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -60,7 +61,16 @@ class _MainLayoutState extends State<MainLayout> {
                 Gap(5.w),
               ],
             ),
-      body: screens[_currentIndex.clamp(0, screens.length - 1)],
+      body: Stack(
+        children: [
+          screens[_currentIndex.clamp(0, screens.length - 1)],
+          Positioned(
+            bottom: 20.h,
+            left: 20.w,
+            child:  const SupportIconWidget(),
+          ),
+        ],
+      ),
       floatingActionButton: ValueListenableBuilder(
         valueListenable: Hive.box('app').listenable(keys: ['comparisonList']),
         builder: (context, box, _) {

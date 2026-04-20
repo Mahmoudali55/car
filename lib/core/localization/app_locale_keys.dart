@@ -851,4 +851,7 @@ class AppLocaleKey {
   static const String spec_comparison = 'spec_comparison';
   static const String clearHistory = 'clearHistory';
   static const String recentlyViewed = 'recently_viewed';
+  static const String contactSupport = 'Contact Support';
+  static const String weAreHereToHelp = ' We are here to help';
+  static const String whatsapp = 'WhatsApp';
 }
