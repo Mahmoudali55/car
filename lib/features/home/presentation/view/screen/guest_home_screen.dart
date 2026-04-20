@@ -16,8 +16,18 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class HomeGuestScreen extends StatelessWidget {
+import 'package:car/features/home/presentation/view/widgets/banks_slider_widget.dart';
+import 'package:car/features/home/presentation/view/widgets/budget_cars_list_widget.dart';
+
+class HomeGuestScreen extends StatefulWidget {
   const HomeGuestScreen({super.key});
+
+  @override
+  State<HomeGuestScreen> createState() => _HomeGuestScreenState();
+}
+
+class _HomeGuestScreenState extends State<HomeGuestScreen> {
+  int _selectedBudgetIndex = 0;
 
   void _performAction(BuildContext context, VoidCallback action) {
     final token = HiveMethods.getToken();
@@ -69,11 +79,11 @@ class HomeGuestScreen extends StatelessWidget {
                   children: [
                     SizedBox(height: 20.h),
                     const AdsSliderWidget(),
-                    SizedBox(height: 30.h),
+                    SizedBox(height: 15.h),
+                  
                     SectionTitleWidget(
                       title: AppLocaleKey.categories.tr(),
                       onSeeAll: () {
-                        // Navigate to Brands tab (index 2) - will be handled by MainLayout
                         Navigator.pushNamed(context, 'allBrandsScreen');
                       },
                     ),
@@ -107,7 +117,18 @@ class HomeGuestScreen extends StatelessWidget {
                     ),
                     SectionTitleWidget(title: AppLocaleKey.searchByBudget.tr(), onSeeAll: null),
                     SizedBox(height: 15.h),
-                    const BudgetSearchWidget(),
+                      const BanksSliderWidget(),
+                    SizedBox(height: 15.h),
+                    BudgetSearchWidget(
+                      initialIndex: _selectedBudgetIndex,
+                      onChanged: (index) {
+                        setState(() {
+                          _selectedBudgetIndex = index;
+                        });
+                      },
+                    ),
+                    SizedBox(height: 20.h),
+                    BudgetCarsListWidget(selectedBudgetIndex: _selectedBudgetIndex),
                     SizedBox(height: 30.h),
                     SectionTitleWidget(title: AppLocaleKey.trendingNow.tr()),
                     SizedBox(height: 15.h),

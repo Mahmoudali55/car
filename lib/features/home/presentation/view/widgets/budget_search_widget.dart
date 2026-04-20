@@ -6,14 +6,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class BudgetSearchWidget extends StatefulWidget {
-  const BudgetSearchWidget({super.key});
+  final ValueChanged<int>? onChanged;
+  final int initialIndex;
+  const BudgetSearchWidget({super.key, this.onChanged, this.initialIndex = 0});
 
   @override
   State<BudgetSearchWidget> createState() => _BudgetSearchWidgetState();
 }
 
 class _BudgetSearchWidgetState extends State<BudgetSearchWidget> {
-  int _selectedIndex = 0; // Keep track of selected budget
+  late int _selectedIndex;
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedIndex = widget.initialIndex;
+  }
 
   final budgets = [
     AppLocaleKey.under50k.tr(),
@@ -34,12 +42,12 @@ class _BudgetSearchWidgetState extends State<BudgetSearchWidget> {
         separatorBuilder: (context, index) => SizedBox(width: 12.w),
         itemBuilder: (context, index) {
           final isSelected = _selectedIndex == index;
-
           return GestureDetector(
             onTap: () {
               setState(() {
                 _selectedIndex = index;
               });
+              
             },
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 300),
