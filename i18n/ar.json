@@ -382,7 +382,7 @@
   "admin_dashboard": "لوحة القيادة",
   "bookings_and_trips": "إدارة العمليات والرحلات",
   "pending_status": "قيد الانتظار",
-  "active_now": "نشطة حالياً",
+  "active_now": "نشطة الآن",
   "completed": "تمت",
   "financial_reports": "التقارير المالية",
   "total_net_profit": "إجمالي الأرباح الصافية",
@@ -798,6 +798,9 @@
   "compare_list_full": "يمكنك مقارنة سيارتين كحد أقصى",
   "spec_comparison": "مقارنة المواصفات",
   "clearHistory": "حذف التاريخ",
-  "recently_viewed": "شاهدتها مؤخراً"
+  "recently_viewed": "شاهدتها مؤخراً",
+  "users": "المستخدمين",
+  "edit":"تعديل",
+  "delete":"حذف"
 }
 

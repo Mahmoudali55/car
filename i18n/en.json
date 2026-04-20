@@ -778,6 +778,9 @@
   "compare_list_full": "You can compare up to 2 cars",
   "spec_comparison": "Spec Comparison",
   "clearHistory": "Clear History",
-  "recently_viewed": "Recently Viewed"
+  "recently_viewed": "Recently Viewed",
+  "users": "Users",
+  "edit":"Edit",
+  "delete":"Delete"
 }
 

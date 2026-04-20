@@ -41,6 +41,8 @@ class ManageBookingsScreen extends StatelessWidget {
           children: [
             TabBar(
               indicatorColor: AppColor.primaryColor(context),
+              indicatorSize: TabBarIndicatorSize.tab,
+             
               labelColor: AppColor.blackTextColor(context),
               unselectedLabelColor: AppColor.blackTextColor(context).withValues(alpha: 0.4),
               dividerColor: Colors.transparent,

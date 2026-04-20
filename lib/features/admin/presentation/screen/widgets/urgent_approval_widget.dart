@@ -98,7 +98,7 @@ class UrgentApprovalWidget extends StatelessWidget {
                           ),
                           onPressed: () {},
                           child: Text(
-                            'Approve',
+                            AppLocaleKey.approve.tr(),
                             style: TextStyle(color: Colors.white, fontSize: 12.sp),
                           ),
                         ),
@@ -114,7 +114,7 @@ class UrgentApprovalWidget extends StatelessWidget {
                           ),
                           onPressed: () {},
                           child: Text(
-                            'Reject',
+                            AppLocaleKey.reject.tr(),
                             style: TextStyle(color: Colors.white, fontSize: 12.sp),
                           ),
                         ),
