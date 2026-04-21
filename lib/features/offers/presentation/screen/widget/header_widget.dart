@@ -35,14 +35,14 @@ class HeaderWidget extends StatelessWidget {
                     AppLocaleKey.bestDeals.tr(),
                     style: AppTextStyle.bodySmall(
                       context,
-                    ).copyWith(color: AppColor.blackTextColor(context).withValues(alpha: 0.38)),
+                    ).copyWith(color: AppColor.blackTextColor(context).withOpacity(0.38)),
                   ),
                 ],
               ),
               Container(
                 padding: EdgeInsets.all(10.w),
                 decoration: BoxDecoration(
-                  color: AppColor.primaryColor(context).withValues(alpha: 0.1),
+                  color: AppColor.primaryColor(context).withOpacity(0.1),
                   shape: BoxShape.circle,
                 ),
                 child: Icon(Icons.auto_awesome, color: AppColor.primaryColor(context), size: 24.sp),
@@ -54,7 +54,7 @@ class HeaderWidget extends StatelessWidget {
             hintText: AppLocaleKey.searchForOffers.tr(),
             prefixIcon: Icon(
               Icons.search_rounded,
-              color: AppColor.blackTextColor(context).withValues(alpha: 0.24),
+              color: AppColor.blackTextColor(context).withOpacity(0.24),
             ),
           ),
         ],

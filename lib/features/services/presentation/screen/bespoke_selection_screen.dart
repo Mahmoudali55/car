@@ -145,7 +145,7 @@ class BespokeSelectionScreen extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColor.secondAppColor(context),
         borderRadius: BorderRadius.circular(12.r),
-        border: Border.all(color: AppColor.blackTextColor(context).withValues(alpha: 0.05)),
+        border: Border.all(color: AppColor.blackTextColor(context).withOpacity(0.05)),
       ),
       child: CustomFormField(hintText: hint),
     );
@@ -160,7 +160,7 @@ class BespokeSelectionScreen extends StatelessWidget {
         borderRadius: BorderRadius.circular(16.r),
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFF075985).withValues(alpha: 0.3),
+            color: const Color(0xFF075985).withOpacity(0.3),
             blurRadius: 10,
             offset: const Offset(0, 5),
           ),

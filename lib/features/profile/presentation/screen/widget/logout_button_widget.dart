@@ -16,7 +16,7 @@ class LogoutButtonWidget extends StatelessWidget {
       child: ElevatedButton(
         onPressed: () => context.read<AuthCubit>().logout(),
         style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.red.withValues(alpha: 0.1),
+          backgroundColor: Colors.red.withOpacity(0.1),
           foregroundColor: Colors.red,
           elevation: 0,
           padding: EdgeInsets.symmetric(vertical: 16.h),

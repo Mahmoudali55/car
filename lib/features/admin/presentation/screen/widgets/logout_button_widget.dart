@@ -16,9 +16,9 @@ class LogoutButtonWidget extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.all(4.w),
         decoration: BoxDecoration(
-          color: Colors.redAccent.withValues(alpha: 0.1),
+          color: Colors.redAccent.withOpacity(0.1),
           borderRadius: BorderRadius.circular(16.r),
-          border: Border.all(color: Colors.redAccent.withValues(alpha: 0.1)),
+          border: Border.all(color: Colors.redAccent.withOpacity(0.1)),
         ),
         child: ListTile(
           onTap: () {

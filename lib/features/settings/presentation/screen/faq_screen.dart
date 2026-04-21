@@ -65,12 +65,12 @@ class _FAQItemState extends State<_FAQItem> {
       duration: const Duration(milliseconds: 300),
       margin: EdgeInsets.only(bottom: 16.h),
       decoration: BoxDecoration(
-        color: baseColor.withValues(alpha: 0.03),
+        color: baseColor.withOpacity(0.03),
         borderRadius: BorderRadius.circular(20.r),
         border: Border.all(
           color: _isExpanded
-              ? AppColor.primaryColor(context).withValues(alpha: 0.2)
-              : baseColor.withValues(alpha: 0.05),
+              ? AppColor.primaryColor(context).withOpacity(0.2)
+              : baseColor.withOpacity(0.05),
         ),
       ),
       child: Column(
@@ -94,7 +94,7 @@ class _FAQItemState extends State<_FAQItem> {
                     : Icons.add_circle_outline_rounded,
                 color: _isExpanded
                     ? AppColor.primaryColor(context)
-                    : baseColor.withValues(alpha: 0.3),
+                    : baseColor.withOpacity(0.3),
                 size: 24.sp,
               ),
             ),
@@ -107,7 +107,7 @@ class _FAQItemState extends State<_FAQItem> {
                 widget.answer,
                 style: AppTextStyle.bodySmall(
                   context,
-                ).copyWith(color: baseColor.withValues(alpha: 0.6), height: 1.6),
+                ).copyWith(color: baseColor.withOpacity(0.6), height: 1.6),
               ),
             ),
             crossFadeState: _isExpanded ? CrossFadeState.showSecond : CrossFadeState.showFirst,

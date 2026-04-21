@@ -10,7 +10,7 @@ class ActionBtnWidget extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(vertical: 8.h),
       decoration: BoxDecoration(
-        color: color.withValues(alpha: 0.08),
+        color: color.withOpacity(0.08),
         borderRadius: BorderRadius.circular(14.r),
       ),
       alignment: Alignment.center,

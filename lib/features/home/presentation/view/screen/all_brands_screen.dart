@@ -582,11 +582,11 @@ class _AllBrandsScreenState extends State<AllBrandsScreen> {
                             color: AppColor.secondAppColor(context),
                             borderRadius: BorderRadius.circular(16.r),
                             border: Border.all(
-                              color: AppColor.greyColor(context).withValues(alpha: (0.12)),
+                              color: AppColor.greyColor(context).withOpacity((0.12)),
                             ),
                             boxShadow: [
                               BoxShadow(
-                                color: AppColor.blackTextColor(context).withValues(alpha: (0.04)),
+                                color: AppColor.blackTextColor(context).withOpacity((0.04)),
                                 blurRadius: 8,
                                 offset: const Offset(0, 4),
                               ),

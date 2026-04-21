@@ -81,15 +81,15 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
                     borderRadius: BorderRadius.circular(24.r),
                     border: Border.all(
                       color: isSelected
-                          ? AppColor.whiteColor(context).withValues(alpha: 0.3)
-                          : AppColor.blackTextColor(context).withValues(alpha: 0.08),
+                          ? AppColor.whiteColor(context).withOpacity(0.3)
+                          : AppColor.blackTextColor(context).withOpacity(0.08),
                       width: 1.5,
                     ),
                     boxShadow: [
                       BoxShadow(
                         color: isSelected
-                            ? AppColor.primaryColor(context).withValues(alpha: 0.4)
-                            : Colors.black.withValues(alpha: 0.03),
+                            ? AppColor.primaryColor(context).withOpacity(0.4)
+                            : Colors.black.withOpacity(0.03),
                         blurRadius: isSelected ? 20 : 10,
                         offset: isSelected ? const Offset(0, 8) : const Offset(0, 4),
                       ),
@@ -103,8 +103,8 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
                         padding: EdgeInsets.all(12.w),
                         decoration: BoxDecoration(
                           color: isSelected
-                              ? Colors.white.withValues(alpha: 0.2)
-                              : AppColor.blackTextColor(context).withValues(alpha: 0.03),
+                              ? Colors.white.withOpacity(0.2)
+                              : AppColor.blackTextColor(context).withOpacity(0.03),
                           shape: BoxShape.circle,
                         ),
                         child: Image.asset(
@@ -133,7 +133,7 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
                             style: AppTextStyle.bodySmall(context).copyWith(
                               color: isSelected
                                   ? Colors.white
-                                  : AppColor.blackTextColor(context).withValues(alpha: 0.8),
+                                  : AppColor.blackTextColor(context).withOpacity(0.8),
                               fontWeight: isSelected ? FontWeight.w900 : FontWeight.w700,
                               fontSize: 11.sp,
                               letterSpacing: 0.2,

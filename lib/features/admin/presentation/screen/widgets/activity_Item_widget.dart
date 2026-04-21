@@ -34,16 +34,16 @@ class _ActivityItemWidgetState extends State<ActivityItemWidget> {
     return Container(
       padding: EdgeInsets.all(12.w),
       decoration: BoxDecoration(
-        color: AppColor.blackTextColor(context).withValues(alpha: 0.02),
+        color: AppColor.blackTextColor(context).withOpacity(0.02),
         borderRadius: BorderRadius.circular(20.r),
-        border: Border.all(color: AppColor.blackTextColor(context).withValues(alpha: 0.04)),
+        border: Border.all(color: AppColor.blackTextColor(context).withOpacity(0.04)),
       ),
       child: Row(
         children: [
           Container(
             padding: EdgeInsets.all(10.w),
             decoration: BoxDecoration(
-              color: colors[widget.index].withValues(alpha: 0.1),
+              color: colors[widget.index].withOpacity(0.1),
               shape: BoxShape.circle,
             ),
             child: Icon(icons[widget.index], color: colors[widget.index], size: 20.sp),
@@ -64,7 +64,7 @@ class _ActivityItemWidgetState extends State<ActivityItemWidget> {
                 Text(
                   AppLocaleKey.adminTwentyFourMinutesAgo.tr(),
                   style: TextStyle(
-                    color: AppColor.blackTextColor(context).withValues(alpha: 0.3),
+                    color: AppColor.blackTextColor(context).withOpacity(0.3),
                     fontSize: 10.sp,
                   ),
                 ),

@@ -42,7 +42,7 @@ class InspectionReportsScreen extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColor.secondAppColor(context),
         borderRadius: BorderRadius.circular(16.r),
-        border: Border.all(color: AppColor.blackTextColor(context).withValues(alpha: 0.03)),
+        border: Border.all(color: AppColor.blackTextColor(context).withOpacity(0.03)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -56,14 +56,14 @@ class InspectionReportsScreen extends StatelessWidget {
               ),
               Text(
                 '2024/03/25',
-                style: TextStyle(color: AppColor.blackTextColor(context).withValues(alpha: 0.38), fontSize: 11.sp),
+                style: TextStyle(color: AppColor.blackTextColor(context).withOpacity(0.38), fontSize: 11.sp),
               ),
             ],
           ),
           Gap(12.h),
           Text(
             '${AppLocaleKey.status.tr()}: ${AppLocaleKey.inspectionCompleted.tr()}',
-            style: TextStyle(color: AppColor.blackTextColor(context).withValues(alpha: 0.70), fontSize: 12.sp),
+            style: TextStyle(color: AppColor.blackTextColor(context).withOpacity(0.70), fontSize: 12.sp),
           ),
           Gap(12.h),
           Row(

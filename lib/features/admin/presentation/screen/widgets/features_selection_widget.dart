@@ -34,12 +34,12 @@ class _FeaturesSelectionWidgetState extends State<FeaturesSelectionWidget> {
             decoration: BoxDecoration(
               color: isSelected
                   ? AppColor.primaryColor(context)
-                  : AppColor.blackTextColor(context).withValues(alpha: 0.03),
+                  : AppColor.blackTextColor(context).withOpacity(0.03),
               borderRadius: BorderRadius.circular(14.r),
               border: Border.all(
                 color: isSelected
                     ? Colors.transparent
-                    : AppColor.blackTextColor(context).withValues(alpha: 0.05),
+                    : AppColor.blackTextColor(context).withOpacity(0.05),
               ),
             ),
             child: Text(
@@ -47,7 +47,7 @@ class _FeaturesSelectionWidgetState extends State<FeaturesSelectionWidget> {
               style: TextStyle(
                 color: isSelected
                     ? Colors.white
-                    : AppColor.blackTextColor(context).withValues(alpha: 0.5),
+                    : AppColor.blackTextColor(context).withOpacity(0.5),
                 fontSize: 12.sp,
                 fontWeight: isSelected ? FontWeight.bold : FontWeight.w500,
               ),

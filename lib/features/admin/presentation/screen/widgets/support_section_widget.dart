@@ -17,7 +17,7 @@ class SupportSectionWidget extends StatelessWidget {
           child: Text(
             title,
             style: TextStyle(
-              color: AppColor.blackTextColor(context).withValues(alpha: 0.5),
+              color: AppColor.blackTextColor(context).withOpacity(0.5),
               fontSize: 13.sp,
               fontWeight: FontWeight.bold,
             ),

@@ -32,7 +32,7 @@ class HeaderAdminDashboardWidget extends StatelessWidget {
             Text(
               AppLocaleKey.performanceSummary.tr(),
               style: TextStyle(
-                color: AppColor.blackTextColor(context).withValues(alpha: 0.4),
+                color: AppColor.blackTextColor(context).withOpacity(0.4),
                 fontSize: 12.sp,
                 fontWeight: FontWeight.w500,
               ),

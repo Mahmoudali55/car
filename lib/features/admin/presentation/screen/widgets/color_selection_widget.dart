@@ -44,7 +44,7 @@ class _ColorSelectionWidgetState extends State<ColorSelectionWidget> {
                 width: 3,
               ),
               boxShadow: isSelected
-                  ? [BoxShadow(color: color.withValues(alpha: 0.5), blurRadius: 10)]
+                  ? [BoxShadow(color: color.withOpacity(0.5), blurRadius: 10)]
                   : null,
             ),
             child: isSelected ? const Icon(Icons.check, color: Colors.white, size: 20) : null,

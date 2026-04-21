@@ -25,9 +25,9 @@ class SecurityItemWidget extends StatelessWidget {
       child: Container(
         margin: EdgeInsets.only(bottom: 12.h),
         decoration: BoxDecoration(
-          color: baseColor.withValues(alpha: 0.03),
+          color: baseColor.withOpacity(0.03),
           borderRadius: BorderRadius.circular(24.r),
-          border: Border.all(color: baseColor.withValues(alpha: 0.05)),
+          border: Border.all(color: baseColor.withOpacity(0.05)),
         ),
         child: ListTile(
           onTap: onTap,
@@ -35,7 +35,7 @@ class SecurityItemWidget extends StatelessWidget {
           leading: Container(
             padding: EdgeInsets.all(12.w),
             decoration: BoxDecoration(
-              color: baseColor.withValues(alpha: 0.05),
+              color: baseColor.withOpacity(0.05),
               shape: BoxShape.circle,
             ),
             child: Icon(icon, color: baseColor, size: 22.sp),
@@ -46,7 +46,7 @@ class SecurityItemWidget extends StatelessWidget {
           ),
           subtitle: Text(
             subtitle,
-            style: TextStyle(color: baseColor.withValues(alpha: 0.4), fontSize: 11.sp),
+            style: TextStyle(color: baseColor.withOpacity(0.4), fontSize: 11.sp),
           ),
           trailing: isSwitch
               ? Switch(
@@ -54,7 +54,7 @@ class SecurityItemWidget extends StatelessWidget {
                   onChanged: (val) {},
                   activeColor: AppColor.primaryColor(context),
                 )
-              : Icon(Icons.chevron_left_rounded, color: baseColor.withValues(alpha: 0.2)),
+              : Icon(Icons.chevron_left_rounded, color: baseColor.withOpacity(0.2)),
         ),
       ),
     );

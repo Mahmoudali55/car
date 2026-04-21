@@ -18,7 +18,7 @@ final dynamic user;
         borderRadius: BorderRadius.vertical(bottom: Radius.circular(32.r)),
         boxShadow: [
           BoxShadow(
-            color: AppColor.blackTextColor(context).withValues(alpha: 0.05),
+            color: AppColor.blackTextColor(context).withOpacity(0.05),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),
@@ -37,7 +37,7 @@ final dynamic user;
                 ),
                 child: CircleAvatar(
                   radius: 50.r,
-                  backgroundColor: AppColor.greyColor(context).withValues(alpha: 0.1),
+                  backgroundColor: AppColor.greyColor(context).withOpacity(0.1),
                   child: Icon(
                     Icons.person_rounded,
                     size: 60.sp,
@@ -75,7 +75,7 @@ final dynamic user;
             Container(
               padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 6.h),
               decoration: BoxDecoration(
-                color: AppColor.primaryColor(context).withValues(alpha: 0.1),
+                color: AppColor.primaryColor(context).withOpacity(0.1),
                 borderRadius: BorderRadius.circular(20.r),
               ),
               child: Text(

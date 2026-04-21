@@ -35,7 +35,7 @@ class RecentlyViewedWidget extends StatelessWidget {
                 borderRadius: BorderRadius.circular(16.r),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withValues(alpha: 0.05),
+                    color: Colors.black.withOpacity(0.05),
                     blurRadius: 10,
                     offset: const Offset(0, 4),
                   ),
@@ -50,7 +50,7 @@ class RecentlyViewedWidget extends StatelessWidget {
                     flex: 5,
                     child: Container(
                       decoration: BoxDecoration(
-                        color: AppColor.blackTextColor(context).withValues(alpha: 0.02),
+                        color: AppColor.blackTextColor(context).withOpacity(0.02),
                         borderRadius: BorderRadius.vertical(top: Radius.circular(16.r)),
                       ),
                       child: Center(

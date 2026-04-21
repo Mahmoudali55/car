@@ -13,9 +13,9 @@ class SettingItemsWidget extends StatelessWidget {
     final baseColor = AppColor.blackTextColor(context);
     return Container(
       decoration: BoxDecoration(
-        color: baseColor.withValues(alpha: 0.03),
+        color: baseColor.withOpacity(0.03),
         borderRadius: BorderRadius.circular(16.r),
-        border: Border.all(color: baseColor.withValues(alpha: 0.05)),
+        border: Border.all(color: baseColor.withOpacity(0.05)),
       ),
       child: ListTile(
         onTap: onTap,
@@ -23,7 +23,7 @@ class SettingItemsWidget extends StatelessWidget {
         leading: Container(
           padding: EdgeInsets.all(8.w),
           decoration: BoxDecoration(
-            color: AppColor.primaryColor(context).withValues(alpha: 0.1),
+            color: AppColor.primaryColor(context).withOpacity(0.1),
             borderRadius: BorderRadius.circular(10.r),
           ),
           child: Icon(icon, color: AppColor.primaryColor(context), size: 22.sp),
@@ -38,7 +38,7 @@ class SettingItemsWidget extends StatelessWidget {
             trailing ??
             Icon(
               Icons.arrow_forward_ios_rounded,
-              color: baseColor.withValues(alpha: 0.24),
+              color: baseColor.withOpacity(0.24),
               size: 14.sp,
             ),
       ),

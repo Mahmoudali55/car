@@ -27,7 +27,7 @@ class ContactHeaderWidget extends StatelessWidget {
           Text(
             "Report bugs, request features, or ask technical questions directly to the development team.",
             style: TextStyle(
-              color: AppColor.blackTextColor(context).withValues(alpha: 0.5),
+              color: AppColor.blackTextColor(context).withOpacity(0.5),
               fontSize: 12.sp,
             ),
           ),

@@ -81,14 +81,14 @@ class ServiceHistoryScreen extends StatelessWidget {
               decoration: BoxDecoration(
                 color: AppColor.secondAppColor(context),
                 borderRadius: BorderRadius.circular(16.r),
-                border: Border.all(color: AppColor.blackTextColor(context).withValues(alpha: 0.05)),
+                border: Border.all(color: AppColor.blackTextColor(context).withOpacity(0.05)),
               ),
               child: Row(
                 children: [
                   Container(
                     padding: EdgeInsets.all(12.w),
                     decoration: BoxDecoration(
-                      color: item['color'].withValues(alpha: 0.1),
+                      color: item['color'].withOpacity(0.1),
                       borderRadius: BorderRadius.circular(12.r),
                     ),
                     child: Icon(item['icon'], color: item['color'], size: 24.sp),
@@ -123,7 +123,7 @@ class ServiceHistoryScreen extends StatelessWidget {
                         Text(
                           "${item['car']} • ${item['date']}",
                           style: TextStyle(
-                            color: AppColor.blackTextColor(context).withValues(alpha: 0.38),
+                            color: AppColor.blackTextColor(context).withOpacity(0.38),
                             fontSize: 11.sp,
                           ),
                         ),
@@ -132,8 +132,8 @@ class ServiceHistoryScreen extends StatelessWidget {
                           padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
                           decoration: BoxDecoration(
                             color: item['status'] == AppLocaleKey.cancelledStatus.tr()
-                                ? Colors.red.withValues(alpha: (0.1))
-                                : Colors.green.withValues(alpha: (0.1)),
+                                ? Colors.red.withOpacity((0.1))
+                                : Colors.green.withOpacity((0.1)),
                             borderRadius: BorderRadius.circular(6.r),
                           ),
                           child: Text(

@@ -55,9 +55,9 @@ class ManageCategoriesScreen extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.all(24.w),
         decoration: BoxDecoration(
-          color: AppColor.blackTextColor(context).withValues(alpha: 0.03),
+          color: AppColor.blackTextColor(context).withOpacity(0.03),
           borderRadius: BorderRadius.circular(32.r),
-          border: Border.all(color: AppColor.blackTextColor(context).withValues(alpha: 0.05)),
+          border: Border.all(color: AppColor.blackTextColor(context).withOpacity(0.05)),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -68,7 +68,7 @@ class ManageCategoriesScreen extends StatelessWidget {
                 Text(
                   AppLocaleKey.totalCategories.tr(),
                   style: TextStyle(
-                    color: AppColor.blackTextColor(context).withValues(alpha: 0.5),
+                    color: AppColor.blackTextColor(context).withOpacity(0.5),
                     fontSize: 12.sp,
                     fontWeight: FontWeight.w500,
                   ),
@@ -86,7 +86,7 @@ class ManageCategoriesScreen extends StatelessWidget {
             Container(
               padding: EdgeInsets.all(12.w),
               decoration: BoxDecoration(
-                color: AppColor.primaryColor(context).withValues(alpha: 0.1),
+                color: AppColor.primaryColor(context).withOpacity(0.1),
                 shape: BoxShape.circle,
               ),
               child: Icon(Icons.analytics_rounded, color: AppColor.primaryColor(context), size: 24.sp),
@@ -105,7 +105,7 @@ class ManageCategoriesScreen extends StatelessWidget {
           child: Text(
             title,
             style: TextStyle(
-              color: AppColor.blackTextColor(context).withValues(alpha: 0.5),
+              color: AppColor.blackTextColor(context).withOpacity(0.5),
               fontSize: 13.sp,
               fontWeight: FontWeight.bold,
             ),
@@ -124,15 +124,15 @@ class ManageCategoriesScreen extends StatelessWidget {
         margin: EdgeInsets.only(bottom: 12.h),
         padding: EdgeInsets.all(16.w),
         decoration: BoxDecoration(
-          color: baseColor.withValues(alpha: 0.03),
+          color: baseColor.withOpacity(0.03),
           borderRadius: BorderRadius.circular(24.r),
-          border: Border.all(color: baseColor.withValues(alpha: 0.05)),
+          border: Border.all(color: baseColor.withOpacity(0.05)),
         ),
         child: Row(
           children: [
             Container(
               padding: EdgeInsets.all(10.w),
-              decoration: BoxDecoration(color: baseColor.withValues(alpha: 0.05), shape: BoxShape.circle),
+              decoration: BoxDecoration(color: baseColor.withOpacity(0.05), shape: BoxShape.circle),
               child: Icon(icon, color: baseColor, size: 20.sp),
             ),
             Gap(16.w),
@@ -146,13 +146,13 @@ class ManageCategoriesScreen extends StatelessWidget {
                   ),
                   Text(
                     "$count Listings",
-                    style: TextStyle(color: baseColor.withValues(alpha: 0.4), fontSize: 11.sp),
+                    style: TextStyle(color: baseColor.withOpacity(0.4), fontSize: 11.sp),
                   ),
                 ],
               ),
             ),
-            IconButton(onPressed: () {}, icon: Icon(Icons.edit_rounded, color: baseColor.withValues(alpha: 0.3), size: 18.sp)),
-            IconButton(onPressed: () {}, icon: Icon(Icons.delete_outline_rounded, color: Colors.redAccent.withValues(alpha: 0.5), size: 18.sp)),
+            IconButton(onPressed: () {}, icon: Icon(Icons.edit_rounded, color: baseColor.withOpacity(0.3), size: 18.sp)),
+            IconButton(onPressed: () {}, icon: Icon(Icons.delete_outline_rounded, color: Colors.redAccent.withOpacity(0.5), size: 18.sp)),
           ],
         ),
       ),
@@ -164,9 +164,9 @@ class ManageCategoriesScreen extends StatelessWidget {
       child: Container(
         margin: EdgeInsets.only(bottom: 12.h),
         decoration: BoxDecoration(
-          color: color.withValues(alpha: 0.05),
+          color: color.withOpacity(0.05),
           borderRadius: BorderRadius.circular(20.r),
-          border: Border.all(color: color.withValues(alpha: 0.1)),
+          border: Border.all(color: color.withOpacity(0.1)),
         ),
         child: ListTile(
           onTap: () {},
@@ -175,7 +175,7 @@ class ManageCategoriesScreen extends StatelessWidget {
             label,
             style: TextStyle(color: AppColor.blackTextColor(context), fontSize: 13.sp, fontWeight: FontWeight.bold),
           ),
-          trailing: Icon(Icons.chevron_left_rounded, color: color.withValues(alpha: 0.4)),
+          trailing: Icon(Icons.chevron_left_rounded, color: color.withOpacity(0.4)),
         ),
       ),
     );

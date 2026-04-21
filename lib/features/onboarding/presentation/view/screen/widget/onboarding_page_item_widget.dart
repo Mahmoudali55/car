@@ -23,7 +23,7 @@ class OnboardingPageItem extends StatelessWidget {
               width: 300.h,
               margin: EdgeInsets.all(20.w),
               decoration: BoxDecoration(
-                color: AppColor.primaryColor(context).withValues(alpha: 0.15),
+                color: AppColor.primaryColor(context).withOpacity(0.15),
                 shape: BoxShape.circle,
               ),
               child: Center(
@@ -67,7 +67,7 @@ class OnboardingPageItem extends StatelessWidget {
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 16.sp,
-                      color: AppColor.blackTextColor(context).withValues(alpha: 0.8),
+                      color: AppColor.blackTextColor(context).withOpacity(0.8),
                       height: 1.5,
                     ),
                   ),

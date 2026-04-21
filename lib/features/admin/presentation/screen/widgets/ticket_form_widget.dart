@@ -20,9 +20,9 @@ class TicketFormWidget extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.all(24.w),
         decoration: BoxDecoration(
-          color: baseColor.withValues(alpha: 0.03),
+          color: baseColor.withOpacity(0.03),
           borderRadius: BorderRadius.circular(32.r),
-          border: Border.all(color: baseColor.withValues(alpha: 0.05)),
+          border: Border.all(color: baseColor.withOpacity(0.05)),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

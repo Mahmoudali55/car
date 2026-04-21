@@ -15,15 +15,15 @@ class PerformanceChartWidget extends StatelessWidget {
       width: double.infinity,
       padding: EdgeInsets.all(20.w),
       decoration: BoxDecoration(
-        color: AppColor.blackTextColor(context).withValues(alpha: 0.02),
+        color: AppColor.blackTextColor(context).withOpacity(0.02),
         borderRadius: BorderRadius.circular(32.r),
-        border: Border.all(color: AppColor.blackTextColor(context).withValues(alpha: 0.05)),
+        border: Border.all(color: AppColor.blackTextColor(context).withOpacity(0.05)),
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           colors: [
-            AppColor.blackTextColor(context).withValues(alpha: 0.04),
-            AppColor.blackTextColor(context).withValues(alpha: 0.01),
+            AppColor.blackTextColor(context).withOpacity(0.04),
+            AppColor.blackTextColor(context).withOpacity(0.01),
           ],
         ),
       ),
@@ -47,7 +47,7 @@ class PerformanceChartWidget extends StatelessWidget {
                   Text(
                     AppLocaleKey.weeklyPerformanceIndex.tr(),
                     style: TextStyle(
-                      color: AppColor.blackTextColor(context).withValues(alpha: 0.4),
+                      color: AppColor.blackTextColor(context).withOpacity(0.4),
                       fontSize: 10.sp,
                     ),
                   ),
@@ -56,7 +56,7 @@ class PerformanceChartWidget extends StatelessWidget {
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
                 decoration: BoxDecoration(
-                  color: Colors.greenAccent.withValues(alpha: 0.1),
+                  color: Colors.greenAccent.withOpacity(0.1),
                   borderRadius: BorderRadius.circular(12.r),
                 ),
                 child: Text(
@@ -100,7 +100,7 @@ class PerformanceChartWidget extends StatelessWidget {
                           return Text(
                             days[value.toInt()],
                             style: TextStyle(
-                              color: AppColor.blackTextColor(context).withValues(alpha: 0.3),
+                              color: AppColor.blackTextColor(context).withOpacity(0.3),
                               fontSize: 10.sp,
                             ),
                           );
@@ -130,7 +130,7 @@ class PerformanceChartWidget extends StatelessWidget {
                     gradient: LinearGradient(
                       colors: [
                         AppColor.primaryColor(context),
-                        AppColor.primaryColor(context).withValues(alpha: 0.5),
+                        AppColor.primaryColor(context).withOpacity(0.5),
                       ],
                     ),
                     barWidth: 4,
@@ -140,8 +140,8 @@ class PerformanceChartWidget extends StatelessWidget {
                       show: true,
                       gradient: LinearGradient(
                         colors: [
-                          AppColor.primaryColor(context).withValues(alpha: 0.2),
-                          AppColor.primaryColor(context).withValues(alpha: 0.0),
+                          AppColor.primaryColor(context).withOpacity(0.2),
+                          AppColor.primaryColor(context).withOpacity(0.0),
                         ],
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,

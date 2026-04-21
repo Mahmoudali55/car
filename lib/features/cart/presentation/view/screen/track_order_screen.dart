@@ -68,13 +68,13 @@ class TrackOrderScreen extends StatelessWidget {
           Icon(
             Icons.local_shipping_outlined,
             size: 80.sp,
-            color: AppColor.blackTextColor(context).withValues(alpha: 0.1),
+            color: AppColor.blackTextColor(context).withOpacity(0.1),
           ),
           Gap(16.h),
           Text(
             AppLocaleKey.noActiveOrders.tr(),
             style: AppTextStyle.bodyMedium(context).copyWith(
-              color: AppColor.blackTextColor(context).withValues(alpha: 0.4),
+              color: AppColor.blackTextColor(context).withOpacity(0.4),
             ),
           ),
         ],
@@ -108,13 +108,13 @@ class _OrderTrackingCardState extends State<_OrderTrackingCard> {
         borderRadius: BorderRadius.circular(24.r),
         border: Border.all(
           color: _isExpanded 
-              ? AppColor.primaryColor(context).withValues(alpha: 0.3) 
-              : baseColor.withValues(alpha: 0.05),
+              ? AppColor.primaryColor(context).withOpacity(0.3) 
+              : baseColor.withOpacity(0.05),
           width: 1,
         ),
         boxShadow: [
           BoxShadow(
-            color: baseColor.withValues(alpha: 0.02),
+            color: baseColor.withOpacity(0.02),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),
@@ -128,7 +128,7 @@ class _OrderTrackingCardState extends State<_OrderTrackingCard> {
                 height: 50.h,
                 width: 50.h,
                 decoration: BoxDecoration(
-                  color: AppColor.primaryColor(context).withValues(alpha: 0.1),
+                  color: AppColor.primaryColor(context).withOpacity(0.1),
                   shape: BoxShape.circle,
                 ),
                 child: Icon(
@@ -152,7 +152,7 @@ class _OrderTrackingCardState extends State<_OrderTrackingCard> {
                     Text(
                       "${AppLocaleKey.orderID.tr()}: ${widget.order['id']}",
                       style: AppTextStyle.bodySmall(context).copyWith(
-                        color: baseColor.withValues(alpha: 0.4),
+                        color: baseColor.withOpacity(0.4),
                         fontSize: 11.sp,
                       ),
                     ),
@@ -172,7 +172,7 @@ class _OrderTrackingCardState extends State<_OrderTrackingCard> {
                   Text(
                     AppLocaleKey.estimatedDelivery.tr(),
                     style: AppTextStyle.bodySmall(context).copyWith(
-                      color: baseColor.withValues(alpha: 0.4),
+                      color: baseColor.withOpacity(0.4),
                       fontSize: 10.sp,
                     ),
                   ),
@@ -189,7 +189,7 @@ class _OrderTrackingCardState extends State<_OrderTrackingCard> {
                 onPressed: () => setState(() => _isExpanded = !_isExpanded),
                 style: TextButton.styleFrom(
                   padding: EdgeInsets.symmetric(horizontal: 12.w),
-                  backgroundColor: AppColor.primaryColor(context).withValues(alpha: 0.05),
+                  backgroundColor: AppColor.primaryColor(context).withOpacity(0.05),
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.r)),
                 ),
                 child: Row(
@@ -250,7 +250,7 @@ class _OrderTrackingCardState extends State<_OrderTrackingCard> {
                     color: isCompleted ? AppColor.primaryColor(context) : Colors.transparent,
                     shape: BoxShape.circle,
                     border: Border.all(
-                      color: isCompleted ? AppColor.primaryColor(context) : AppColor.blackTextColor(context).withValues(alpha: 0.1),
+                      color: isCompleted ? AppColor.primaryColor(context) : AppColor.blackTextColor(context).withOpacity(0.1),
                     ),
                   ),
                   child: isCompleted
@@ -261,7 +261,7 @@ class _OrderTrackingCardState extends State<_OrderTrackingCard> {
                   Container(
                     width: 2.w,
                     height: 30.h,
-                    color: isCompleted ? AppColor.primaryColor(context) : AppColor.blackTextColor(context).withValues(alpha: 0.1),
+                    color: isCompleted ? AppColor.primaryColor(context) : AppColor.blackTextColor(context).withOpacity(0.1),
                   ),
               ],
             ),
@@ -273,7 +273,7 @@ class _OrderTrackingCardState extends State<_OrderTrackingCard> {
                   Text(
                     steps[index].tr(),
                     style: AppTextStyle.bodySmall(context).copyWith(
-                      color: isCompleted ? AppColor.blackTextColor(context) : AppColor.blackTextColor(context).withValues(alpha: 0.3),
+                      color: isCompleted ? AppColor.blackTextColor(context) : AppColor.blackTextColor(context).withOpacity(0.3),
                       fontWeight: isCompleted ? FontWeight.bold : FontWeight.normal,
                     ),
                   ),
@@ -297,7 +297,7 @@ class _StatusBadge extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
       decoration: BoxDecoration(
-        color: AppColor.primaryColor(context).withValues(alpha: 0.1),
+        color: AppColor.primaryColor(context).withOpacity(0.1),
         borderRadius: BorderRadius.circular(8.r),
       ),
       child: Text(

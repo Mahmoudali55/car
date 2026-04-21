@@ -103,7 +103,7 @@ class PopularCarsScreen extends StatelessWidget {
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
                         colors: [
-                          AppColor.primaryColor(context).withValues(alpha: 0.1),
+                          AppColor.primaryColor(context).withOpacity(0.1),
                           AppColor.scaffoldColor(context),
                         ],
                       ),
@@ -119,7 +119,7 @@ class PopularCarsScreen extends StatelessWidget {
                   child: Text(
                     AppLocaleKey.mostPopularAndActiveCars.tr(),
                     style: AppTextStyle.bodySmall(context).copyWith(
-                      color: AppColor.blackTextColor(context).withValues(alpha: 0.5),
+                      color: AppColor.blackTextColor(context).withOpacity(0.5),
                       fontWeight: FontWeight.w500,
                     ),
                     textAlign: TextAlign.center,

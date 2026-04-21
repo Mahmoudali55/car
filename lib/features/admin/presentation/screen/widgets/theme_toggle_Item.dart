@@ -18,15 +18,15 @@ class ThemeToggleItem extends StatelessWidget {
       child: Container(
         margin: EdgeInsets.only(bottom: 12.h),
         decoration: BoxDecoration(
-          color: baseColor.withValues(alpha: 0.03),
+          color: baseColor.withOpacity(0.03),
           borderRadius: BorderRadius.circular(20.r),
-          border: Border.all(color: baseColor.withValues(alpha: 0.05)),
+          border: Border.all(color: baseColor.withOpacity(0.05)),
         ),
         child: ListTile(
           leading: Container(
             padding: EdgeInsets.all(10.w),
             decoration: BoxDecoration(
-              color: baseColor.withValues(alpha: 0.05),
+              color: baseColor.withOpacity(0.05),
               shape: BoxShape.circle,
             ),
             child: AnimatedSwitcher(
@@ -45,7 +45,7 @@ class ThemeToggleItem extends StatelessWidget {
           ),
           subtitle: Text(
             isDark ? AppLocaleKey.darkMode.tr() : AppLocaleKey.lightMode.tr(),
-            style: TextStyle(color: baseColor.withValues(alpha: 0.4), fontSize: 11.sp),
+            style: TextStyle(color: baseColor.withOpacity(0.4), fontSize: 11.sp),
           ),
           trailing: Switch(
             value: isDark,

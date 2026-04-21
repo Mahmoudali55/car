@@ -95,7 +95,7 @@ class DashboardStep extends StatelessWidget {
                     Text(
                       AppLocaleKey.sar.tr().toUpperCase(),
                       style: AppTextStyle.bodyMedium(context).copyWith(
-                        color: AppColor.blackTextColor(context).withValues(alpha: 0.4),
+                        color: AppColor.blackTextColor(context).withOpacity(0.4),
                         fontWeight: FontWeight.w900,
                         fontSize: 14.sp,
                         letterSpacing: 1.5,

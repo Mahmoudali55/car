@@ -30,7 +30,7 @@ class MainBottomNavBar extends StatelessWidget {
         color: AppColor.secondAppColor(context),
         boxShadow: [
           BoxShadow(
-            color: AppColor.blackTextColor(context).withValues(alpha: 0.05),
+            color: AppColor.blackTextColor(context).withOpacity(0.05),
             blurRadius: 20,
             offset: const Offset(0, -5),
           ),

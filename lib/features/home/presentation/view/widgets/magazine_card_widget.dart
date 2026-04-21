@@ -28,7 +28,7 @@ class MagazineCardWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(32.r),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withValues(alpha: 0.3),
+              color: Colors.black.withOpacity(0.3),
               blurRadius: 20,
               offset: const Offset(0, 10),
             ),
@@ -46,7 +46,7 @@ class MagazineCardWidget extends StatelessWidget {
                 child: Text(
                   car['brand'].toUpperCase(),
                   style: TextStyle(
-                    color: AppColor.blackTextColor(context).withValues(alpha: 0.03),
+                    color: AppColor.blackTextColor(context).withOpacity(0.03),
                     fontSize: 80.sp,
                     fontWeight: FontWeight.w900,
                     letterSpacing: 10,
@@ -73,12 +73,12 @@ class MagazineCardWidget extends StatelessWidget {
                         decoration: BoxDecoration(
                           color: AppColor.primaryColor(
                             context,
-                          ).withValues(alpha: 0.15),
+                          ).withOpacity(0.15),
                           borderRadius: BorderRadius.circular(12.r),
                           border: Border.all(
                             color: AppColor.primaryColor(
                               context,
-                            ).withValues(alpha: 0.3),
+                            ).withOpacity(0.3),
                           ),
                         ),
                         child: Text(
@@ -136,10 +136,10 @@ class MagazineCardWidget extends StatelessWidget {
                 Container(
                   padding: EdgeInsets.all(20.w),
                   decoration: BoxDecoration(
-                    color: Colors.black.withValues(alpha: 0.2),
+                    color: Colors.black.withOpacity(0.2),
                     border: Border(
                       top: BorderSide(
-                        color: AppColor.blackTextColor(context).withValues(alpha: 0.05),
+                        color: AppColor.blackTextColor(context).withOpacity(0.05),
                       ),
                     ),
                   ),

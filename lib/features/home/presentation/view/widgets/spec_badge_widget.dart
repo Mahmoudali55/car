@@ -12,13 +12,13 @@ class SpecBadgeWidget extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 6.h),
       decoration: BoxDecoration(
-        color: AppColor.blackTextColor(context).withValues(alpha: 0.05),
+        color: AppColor.blackTextColor(context).withOpacity(0.05),
         borderRadius: BorderRadius.circular(10.r),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(icon, color: AppColor.blackTextColor(context).withValues(alpha: 0.54), size: 14.sp),
+          Icon(icon, color: AppColor.blackTextColor(context).withOpacity(0.54), size: 14.sp),
           Gap(6.w),
           Text(
             text,

@@ -21,14 +21,14 @@ class EmptyStateWidget extends StatelessWidget {
               color: AppColor.secondAppColor(context),
               shape: BoxShape.circle,
               border: Border.all(
-                color: AppColor.primaryColor(context).withValues(alpha: 0.1),
+                color: AppColor.primaryColor(context).withOpacity(0.1),
                 width: 2,
               ),
             ),
             child: Icon(
               Icons.favorite_border_rounded,
               size: 80.sp,
-              color: AppColor.greyColor(context).withValues(alpha: 0.2),
+              color: AppColor.greyColor(context).withOpacity(0.2),
             ),
           ),
           Gap(24.h),

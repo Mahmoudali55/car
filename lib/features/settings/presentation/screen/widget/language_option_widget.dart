@@ -17,11 +17,11 @@ class LanguageOptionWidget extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
         decoration: BoxDecoration(
           color: isSelected
-              ? AppColor.primaryColor(context).withValues(alpha: 0.1)
-              : baseColor.withValues(alpha: 0.03),
+              ? AppColor.primaryColor(context).withOpacity(0.1)
+              : baseColor.withOpacity(0.03),
           borderRadius: BorderRadius.circular(12.r),
           border: Border.all(
-            color: isSelected ? AppColor.primaryColor(context) : baseColor.withValues(alpha: 0.05),
+            color: isSelected ? AppColor.primaryColor(context) : baseColor.withOpacity(0.05),
           ),
         ),
         child: Row(

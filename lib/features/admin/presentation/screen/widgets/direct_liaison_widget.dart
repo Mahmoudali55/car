@@ -16,16 +16,16 @@ class DirectLiaisonWidget extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.all(24.w),
         decoration: BoxDecoration(
-          color: AppColor.primaryColor(context).withValues(alpha: 0.05),
+          color: AppColor.primaryColor(context).withOpacity(0.05),
           borderRadius: BorderRadius.circular(32.r),
-          border: Border.all(color: AppColor.primaryColor(context).withValues(alpha: 0.1)),
+          border: Border.all(color: AppColor.primaryColor(context).withOpacity(0.1)),
         ),
         child: Row(
           children: [
             Container(
               padding: EdgeInsets.all(12.w),
               decoration: BoxDecoration(
-                color: AppColor.primaryColor(context).withValues(alpha: 0.1),
+                color: AppColor.primaryColor(context).withOpacity(0.1),
                 shape: BoxShape.circle,
               ),
               child: Icon(
@@ -50,7 +50,7 @@ class DirectLiaisonWidget extends StatelessWidget {
                   Text(
                     "Administrative tickets are handled with high priority.",
                     style: TextStyle(
-                      color: AppColor.blackTextColor(context).withValues(alpha: 0.5),
+                      color: AppColor.blackTextColor(context).withOpacity(0.5),
                       fontSize: 11.sp,
                     ),
                   ),

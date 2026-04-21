@@ -67,7 +67,7 @@ class _ManageUsersScreenState extends State<ManageUsersScreen> with SingleTicker
       margin: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
       padding: EdgeInsets.all(6.w),
       decoration: BoxDecoration(
-        color: AppColor.blackTextColor(context).withValues(alpha: 0.03),
+        color: AppColor.blackTextColor(context).withOpacity(0.03),
         borderRadius: BorderRadius.circular(20.r),
       ),
       child: TabBar(
@@ -75,13 +75,13 @@ class _ManageUsersScreenState extends State<ManageUsersScreen> with SingleTicker
         dividerColor: Colors.transparent,
         indicatorSize: TabBarIndicatorSize.tab,
         labelColor: Colors.white,
-        unselectedLabelColor: AppColor.blackTextColor(context).withValues(alpha: 0.4),
+        unselectedLabelColor: AppColor.blackTextColor(context).withOpacity(0.4),
         indicator: BoxDecoration(
           color: AppColor.primaryColor(context),
           borderRadius: BorderRadius.circular(16.r),
           boxShadow: [
             BoxShadow(
-              color: AppColor.primaryColor(context).withValues(alpha: 0.3),
+              color: AppColor.primaryColor(context).withOpacity(0.3),
               blurRadius: 10,
               offset: const Offset(0, 4),
             ),
@@ -136,9 +136,9 @@ class _ManageUsersScreenState extends State<ManageUsersScreen> with SingleTicker
     return Container(
       padding: EdgeInsets.all(16.w),
       decoration: BoxDecoration(
-        color: AppColor.blackTextColor(context).withValues(alpha: 0.02),
+        color: AppColor.blackTextColor(context).withOpacity(0.02),
         borderRadius: BorderRadius.circular(28.r),
-        border: Border.all(color: AppColor.blackTextColor(context).withValues(alpha: 0.05)),
+        border: Border.all(color: AppColor.blackTextColor(context).withOpacity(0.05)),
       ),
       child: Column(
         children: [
@@ -161,7 +161,7 @@ class _ManageUsersScreenState extends State<ManageUsersScreen> with SingleTicker
                     Text(
                       AppLocaleKey.cityDubaiTwoDaysAgo.tr(),
                       style: TextStyle(
-                        color: AppColor.blackTextColor(context).withValues(alpha: 0.4),
+                        color: AppColor.blackTextColor(context).withOpacity(0.4),
                         fontSize: 11.sp,
                       ),
                     ),
@@ -170,7 +170,7 @@ class _ManageUsersScreenState extends State<ManageUsersScreen> with SingleTicker
               ),
               Container(
                 padding: EdgeInsets.all(8.w),
-                decoration: BoxDecoration(color: Colors.blueAccent.withValues(alpha: 0.1), shape: BoxShape.circle),
+                decoration: BoxDecoration(color: Colors.blueAccent.withOpacity(0.1), shape: BoxShape.circle),
                 child: Icon(Icons.description_outlined, color: Colors.blueAccent, size: 20.sp),
               ),
             ],
@@ -206,9 +206,9 @@ class _ManageUsersScreenState extends State<ManageUsersScreen> with SingleTicker
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 10.h),
         decoration: BoxDecoration(
-          color: color.withValues(alpha: 0.1),
+          color: color.withOpacity(0.1),
           borderRadius: BorderRadius.circular(16.r),
-          border: Border.all(color: color.withValues(alpha: 0.2)),
+          border: Border.all(color: color.withOpacity(0.2)),
         ),
         alignment: Alignment.center,
         child: Text(
@@ -227,21 +227,21 @@ class _ManageUsersScreenState extends State<ManageUsersScreen> with SingleTicker
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 16.w),
           decoration: BoxDecoration(
-            color: AppColor.blackTextColor(context).withValues(alpha: 0.05),
+            color: AppColor.blackTextColor(context).withOpacity(0.05),
             borderRadius: BorderRadius.circular(20.r),
-            border: Border.all(color: AppColor.blackTextColor(context).withValues(alpha: 0.1)),
+            border: Border.all(color: AppColor.blackTextColor(context).withOpacity(0.1)),
           ),
           child: TextField(
             style: TextStyle(color: AppColor.blackTextColor(context)),
             decoration: InputDecoration(
               icon: Icon(
                 Icons.search_rounded,
-                color: AppColor.blackTextColor(context).withValues(alpha: 0.5),
+                color: AppColor.blackTextColor(context).withOpacity(0.5),
                 size: 22.sp,
               ),
               hintText: AppLocaleKey.searchUserHint.tr(),
               hintStyle: TextStyle(
-                color: AppColor.blackTextColor(context).withValues(alpha: 0.3),
+                color: AppColor.blackTextColor(context).withOpacity(0.3),
                 fontSize: 13.sp,
               ),
               border: InputBorder.none,
@@ -267,9 +267,9 @@ class _ManageUsersScreenState extends State<ManageUsersScreen> with SingleTicker
         child: Container(
           padding: EdgeInsets.all(16.w),
           decoration: BoxDecoration(
-            color: AppColor.blackTextColor(context).withValues(alpha: 0.03),
+            color: AppColor.blackTextColor(context).withOpacity(0.03),
             borderRadius: BorderRadius.circular(24.r),
-            border: Border.all(color: AppColor.blackTextColor(context).withValues(alpha: 0.05)),
+            border: Border.all(color: AppColor.blackTextColor(context).withOpacity(0.05)),
           ),
           child: Row(
             children: [
@@ -291,7 +291,7 @@ class _ManageUsersScreenState extends State<ManageUsersScreen> with SingleTicker
                     Text(
                       'khaled@example.com',
                       style: TextStyle(
-                        color: AppColor.blackTextColor(context).withValues(alpha: 0.4),
+                        color: AppColor.blackTextColor(context).withOpacity(0.4),
                         fontSize: 11.sp,
                       ),
                     ),
@@ -313,12 +313,12 @@ class _ManageUsersScreenState extends State<ManageUsersScreen> with SingleTicker
           width: 50.w,
           height: 50.w,
           decoration: BoxDecoration(
-            color: AppColor.blackTextColor(context).withValues(alpha: 0.1),
+            color: AppColor.blackTextColor(context).withOpacity(0.1),
             shape: BoxShape.circle,
             gradient: LinearGradient(
               colors: [
-                AppColor.blackTextColor(context).withValues(alpha: 0.2),
-                AppColor.blackTextColor(context).withValues(alpha: 0.01),
+                AppColor.blackTextColor(context).withOpacity(0.2),
+                AppColor.blackTextColor(context).withOpacity(0.01),
               ],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
@@ -326,7 +326,7 @@ class _ManageUsersScreenState extends State<ManageUsersScreen> with SingleTicker
           ),
           child: Icon(
             Icons.person_rounded,
-            color: AppColor.blackTextColor(context).withValues(alpha: 0.5),
+            color: AppColor.blackTextColor(context).withOpacity(0.5),
             size: 24.sp,
           ),
         ),
@@ -354,7 +354,7 @@ class _ManageUsersScreenState extends State<ManageUsersScreen> with SingleTicker
           value: isActive,
           onChanged: (v) {},
           activeColor: Colors.greenAccent,
-          activeTrackColor: Colors.greenAccent.withValues(alpha: 0.2),
+          activeTrackColor: Colors.greenAccent.withOpacity(0.2),
         ),
         Text(
           isActive ? AppLocaleKey.active.tr() : AppLocaleKey.banned.tr(),

@@ -34,7 +34,7 @@ class FinancingBannerWidget extends StatelessWidget {
             ),
             boxShadow: [
               BoxShadow(
-                color: AppColor.primaryColor(context).withValues(alpha: 0.3),
+                color: AppColor.primaryColor(context).withOpacity(0.3),
                 blurRadius: 20,
                 offset: const Offset(0, 10),
               ),
@@ -66,7 +66,7 @@ class FinancingBannerWidget extends StatelessWidget {
                         Container(
                           padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
                           decoration: BoxDecoration(
-                            color: Colors.white.withValues(alpha: 0.2),
+                            color: Colors.white.withOpacity(0.2),
                             borderRadius: BorderRadius.circular(20.r),
                           ),
                           child: Text(
@@ -95,7 +95,7 @@ class FinancingBannerWidget extends StatelessWidget {
                       child: Text(
                         AppLocaleKey.financingSolutionsDesc.tr(),
                         style: AppTextStyle.bodySmall(context).copyWith(
-                          color: Colors.white.withValues(alpha: 0.8),
+                          color: Colors.white.withOpacity(0.8),
                           fontSize: 12.sp,
                         ),
                         maxLines: 2,

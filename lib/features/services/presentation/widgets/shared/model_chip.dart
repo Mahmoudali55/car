@@ -25,8 +25,8 @@ class ModelChip extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 14.h),
         decoration: BoxDecoration(
           color: isSelected
-              ? primary.withValues(alpha: 0.1)
-              : AppColor.blackTextColor(context).withValues(alpha: 0.03),
+              ? primary.withOpacity(0.1)
+              : AppColor.blackTextColor(context).withOpacity(0.03),
           borderRadius: BorderRadius.circular(16.r),
           border: Border.all(
             color: isSelected ? primary : AppColor.borderColor(context),

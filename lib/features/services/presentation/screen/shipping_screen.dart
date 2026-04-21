@@ -179,7 +179,7 @@ class _ShippingScreenState extends State<ShippingScreen> {
       decoration: BoxDecoration(
         color: AppColor.secondAppColor(context),
         borderRadius: BorderRadius.circular(12.r),
-        border: Border.all(color: AppColor.blackTextColor(context).withValues(alpha: (0.05))),
+        border: Border.all(color: AppColor.blackTextColor(context).withOpacity((0.05))),
       ),
       child: CustomFormField(hintText: hint),
     );
@@ -191,13 +191,13 @@ class _ShippingScreenState extends State<ShippingScreen> {
       padding: EdgeInsets.all(16.w),
       decoration: BoxDecoration(
         color: isSelected
-            ? AppColor.primaryColor(context).withValues(alpha: 0.1)
+            ? AppColor.primaryColor(context).withOpacity(0.1)
             : AppColor.secondAppColor(context),
         borderRadius: BorderRadius.circular(12.r),
         border: Border.all(
           color: isSelected
               ? AppColor.primaryColor(context)
-              : AppColor.blackTextColor(context).withValues(alpha: 0.05),
+              : AppColor.blackTextColor(context).withOpacity(0.05),
           width: isSelected ? 2 : 1,
         ),
       ),
@@ -215,7 +215,7 @@ class _ShippingScreenState extends State<ShippingScreen> {
             isSelected ? Icons.radio_button_checked : Icons.radio_button_off,
             color: isSelected
                 ? AppColor.primaryColor(context)
-                : AppColor.blackTextColor(context).withValues(alpha: 0.24),
+                : AppColor.blackTextColor(context).withOpacity(0.24),
           ),
         ],
       ),
@@ -231,7 +231,7 @@ class _ShippingScreenState extends State<ShippingScreen> {
         borderRadius: BorderRadius.circular(16.r),
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFF4C1D95).withValues(alpha: (0.3)),
+            color: const Color(0xFF4C1D95).withOpacity((0.3)),
             blurRadius: 10,
             offset: const Offset(0, 5),
           ),

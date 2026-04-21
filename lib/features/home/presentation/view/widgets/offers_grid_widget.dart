@@ -100,10 +100,10 @@ class OffersGridWidget extends StatelessWidget {
             decoration: BoxDecoration(
               color: AppColor.secondAppColor(context),
               borderRadius: BorderRadius.circular(28.r),
-              border: Border.all(color: AppColor.blackTextColor(context).withValues(alpha: 0.08)),
+              border: Border.all(color: AppColor.blackTextColor(context).withOpacity(0.08)),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withValues(alpha: 0.2),
+                  color: Colors.black.withOpacity(0.2),
                   blurRadius: 15,
                   offset: const Offset(0, 8),
                 ),
@@ -144,7 +144,7 @@ class OffersGridWidget extends StatelessWidget {
                             begin: Alignment.topCenter,
                             end: Alignment.bottomCenter,
                             colors: [
-                              AppColor.blackTextColor(context).withValues(alpha: 0.05),
+                              AppColor.blackTextColor(context).withOpacity(0.05),
                               Colors.transparent,
                             ],
                           ),
@@ -172,7 +172,7 @@ class OffersGridWidget extends StatelessWidget {
                                     child: Container(
                                       padding: EdgeInsets.all(6.w),
                                       decoration: BoxDecoration(
-                                        color: Colors.black.withValues(alpha: 0.1),
+                                        color: Colors.black.withOpacity(0.1),
                                         shape: BoxShape.circle,
                                       ),
                                       child: Icon(
@@ -227,7 +227,7 @@ class OffersGridWidget extends StatelessWidget {
                               children: [
                                 Icon(
                                   Icons.speed_outlined,
-                                  color: AppColor.blackTextColor(context).withValues(alpha: 0.24),
+                                  color: AppColor.blackTextColor(context).withOpacity(0.24),
                                   size: 12.sp,
                                 ),
                                 Gap(4.w),
@@ -237,7 +237,7 @@ class OffersGridWidget extends StatelessWidget {
                                     style: TextStyle(
                                       color: AppColor.blackTextColor(
                                         context,
-                                      ).withValues(alpha: 0.38),
+                                      ).withOpacity(0.38),
                                       fontSize: 9.sp,
                                     ),
                                     maxLines: 1,
@@ -246,14 +246,14 @@ class OffersGridWidget extends StatelessWidget {
                                 Gap(4.w),
                                 Icon(
                                   Icons.bolt_rounded,
-                                  color: AppColor.blackTextColor(context).withValues(alpha: 0.24),
+                                  color: AppColor.blackTextColor(context).withOpacity(0.24),
                                   size: 12.sp,
                                 ),
                                 Gap(2.w),
                                 Text(
                                   (car['engine'] as String).split(' ').last,
                                   style: TextStyle(
-                                    color: AppColor.blackTextColor(context).withValues(alpha: 0.38),
+                                    color: AppColor.blackTextColor(context).withOpacity(0.38),
                                     fontSize: 9.sp,
                                   ),
                                 ),
@@ -274,7 +274,7 @@ class OffersGridWidget extends StatelessWidget {
                                         style: TextStyle(
                                           color: AppColor.blackTextColor(
                                             context,
-                                          ).withValues(alpha: 0.24),
+                                          ).withOpacity(0.24),
                                           fontSize: 9.sp,
                                           decoration: TextDecoration.lineThrough,
                                         ),
@@ -324,7 +324,7 @@ class OffersGridWidget extends StatelessWidget {
                   child: Container(
                     padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
                     decoration: BoxDecoration(
-                      color: Colors.redAccent.withValues(alpha: 0.9),
+                      color: Colors.redAccent.withOpacity(0.9),
                       borderRadius: BorderRadius.circular(8.r),
                     ),
                     child: Text(

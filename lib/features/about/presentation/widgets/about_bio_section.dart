@@ -39,7 +39,7 @@ class AboutBioSection extends StatelessWidget {
         Text(
           AppLocaleKey.companyBio.tr(),
           style: TextStyle(
-            color: AppColor.blackTextColor(context).withValues(alpha: 0.7),
+            color: AppColor.blackTextColor(context).withOpacity(0.7),
             fontSize: 15.sp,
             height: 1.8,
           ),

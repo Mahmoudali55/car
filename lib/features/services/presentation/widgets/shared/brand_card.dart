@@ -24,7 +24,7 @@ class BrandCard extends StatelessWidget {
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 500),
         decoration: BoxDecoration(
-          color: isSelected ? primary.withValues(alpha: 0.05) : AppColor.cardColor(context),
+          color: isSelected ? primary.withOpacity(0.05) : AppColor.cardColor(context),
           borderRadius: BorderRadius.circular(20.r),
           border: Border.all(
             color: isSelected ? primary : AppColor.borderColor(context),
@@ -40,7 +40,7 @@ class BrandCard extends StatelessWidget {
                 fontWeight: FontWeight.w900,
                 color: isSelected
                     ? primary
-                    : AppColor.blackTextColor(context).withValues(alpha: 0.3),
+                    : AppColor.blackTextColor(context).withOpacity(0.3),
                 fontSize: 24.sp,
                 fontStyle: FontStyle.italic,
               ),

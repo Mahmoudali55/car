@@ -45,10 +45,10 @@ class ServicesScreen extends StatelessWidget {
                         Container(
                           padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 2.h),
                           decoration: BoxDecoration(
-                            color: AppColor.primaryColor(context).withValues(alpha: 0.1),
+                            color: AppColor.primaryColor(context).withOpacity(0.1),
                             borderRadius: BorderRadius.circular(6.r),
                             border: Border.all(
-                              color: AppColor.primaryColor(context).withValues(alpha: 0.2),
+                              color: AppColor.primaryColor(context).withOpacity(0.2),
                             ),
                           ),
                           child: Text(
@@ -67,7 +67,7 @@ class ServicesScreen extends StatelessWidget {
                       onPressed: () => Navigator.pushNamed(context, RoutesName.settingsScreen),
                       icon: Icon(
                         Icons.settings,
-                        color: AppColor.blackTextColor(context).withValues(alpha: 0.70),
+                        color: AppColor.blackTextColor(context).withOpacity(0.70),
                         size: 26.sp,
                       ),
                     ),
@@ -168,7 +168,7 @@ class ServicesScreen extends StatelessWidget {
         gradient: LinearGradient(
           colors: [
             AppColor.primaryColor(context),
-            AppColor.primaryColor(context).withValues(alpha: 0.8),
+            AppColor.primaryColor(context).withOpacity(0.8),
           ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
@@ -176,7 +176,7 @@ class ServicesScreen extends StatelessWidget {
         borderRadius: BorderRadius.circular(24.r),
         boxShadow: [
           BoxShadow(
-            color: AppColor.primaryColor(context).withValues(alpha: 0.3),
+            color: AppColor.primaryColor(context).withOpacity(0.3),
             blurRadius: 20,
             offset: const Offset(0, 10),
           ),
@@ -225,7 +225,7 @@ class ServicesScreen extends StatelessWidget {
               decoration: BoxDecoration(
                 color: AppColor.secondAppColor(context),
                 borderRadius: BorderRadius.circular(20.r),
-                border: Border.all(color: AppColor.blackTextColor(context).withValues(alpha: 0.05)),
+                border: Border.all(color: AppColor.blackTextColor(context).withOpacity(0.05)),
               ),
               child: Icon(action['icon'], color: action['color'], size: 24.sp),
             ),
@@ -234,7 +234,7 @@ class ServicesScreen extends StatelessWidget {
               action['label'],
               textAlign: TextAlign.center,
               style: TextStyle(
-                color: AppColor.blackTextColor(context).withValues(alpha: 0.70),
+                color: AppColor.blackTextColor(context).withOpacity(0.70),
                 fontSize: 14.sp,
                 fontWeight: FontWeight.w600,
               ),
@@ -254,7 +254,7 @@ class ServicesScreen extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColor.secondAppColor(context),
         borderRadius: BorderRadius.circular(22.r),
-        border: Border.all(color: AppColor.blackTextColor(context).withValues(alpha: 0.03)),
+        border: Border.all(color: AppColor.blackTextColor(context).withOpacity(0.03)),
       ),
       child: Material(
         color: Colors.transparent,
@@ -275,7 +275,7 @@ class ServicesScreen extends StatelessWidget {
                   width: 70.w,
                   height: 70.h,
                   decoration: BoxDecoration(
-                    color: (service['color'] as Color).withValues(alpha: 0.1),
+                    color: (service['color'] as Color).withOpacity(0.1),
                     borderRadius: BorderRadius.circular(16.r),
                   ),
                   child: Icon(service['icon'], color: service['color'], size: 30.sp),
@@ -298,7 +298,7 @@ class ServicesScreen extends StatelessWidget {
                       Text(
                         _getServiceDescription(service['label']),
                         style: TextStyle(
-                          color: AppColor.blackTextColor(context).withValues(alpha: 0.38),
+                          color: AppColor.blackTextColor(context).withOpacity(0.38),
                           fontSize: 11.sp,
                         ),
                         maxLines: 1,
@@ -309,7 +309,7 @@ class ServicesScreen extends StatelessWidget {
                 ),
                 Icon(
                   Icons.arrow_forward_ios_rounded,
-                  color: AppColor.blackTextColor(context).withValues(alpha: 0.10),
+                  color: AppColor.blackTextColor(context).withOpacity(0.10),
                   size: 16.sp,
                 ),
               ],

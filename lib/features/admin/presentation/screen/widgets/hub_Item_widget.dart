@@ -21,9 +21,9 @@ class HubItemWidget extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.all(16.w),
         decoration: BoxDecoration(
-          color: color.withValues(alpha: 0.05),
+          color: color.withOpacity(0.05),
           borderRadius: BorderRadius.circular(28.r),
-          border: Border.all(color: color.withValues(alpha: 0.1)),
+          border: Border.all(color: color.withOpacity(0.1)),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -32,7 +32,7 @@ class HubItemWidget extends StatelessWidget {
             Container(
               padding: EdgeInsets.all(8.w),
               decoration: BoxDecoration(
-                color: color.withValues(alpha: 0.1),
+                color: color.withOpacity(0.1),
                 shape: BoxShape.circle,
               ),
               child: Icon(icon, color: color, size: 20.sp),

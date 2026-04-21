@@ -66,7 +66,7 @@ class _AboutPromoSliderState extends State<AboutPromoSlider> {
         borderRadius: BorderRadius.circular(20.r),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.1),
+            color: Colors.black.withOpacity(0.1),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),
@@ -115,7 +115,7 @@ class _AboutPromoSliderState extends State<AboutPromoSlider> {
                   decoration: BoxDecoration(
                     color: _currentPromoIndex == index
                         ? AppColor.primaryColor(context)
-                        : AppColor.primaryColor(context).withValues(alpha: 0.2),
+                        : AppColor.primaryColor(context).withOpacity(0.2),
                     borderRadius: BorderRadius.circular(3.r),
                   ),
                 ),

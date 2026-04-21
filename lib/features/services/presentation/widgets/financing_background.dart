@@ -35,7 +35,7 @@ class FinancingBackground extends StatelessWidget {
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
                 colors: [
-                  AppColor.whiteColor(context).withValues(alpha: 0.05),
+                  AppColor.whiteColor(context).withOpacity(0.05),
                   Colors.transparent,
                 ],
               ),

@@ -22,9 +22,9 @@ class GlassFieldWidget extends StatelessWidget {
         filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
         child: Container(
           decoration: BoxDecoration(
-            color: AppColor.blackTextColor(context).withValues(alpha: 0.03),
+            color: AppColor.blackTextColor(context).withOpacity(0.03),
             borderRadius: BorderRadius.circular(20.r),
-            border: Border.all(color: AppColor.blackTextColor(context).withValues(alpha: 0.05)),
+            border: Border.all(color: AppColor.blackTextColor(context).withOpacity(0.05)),
           ),
           child: TextField(
             maxLines: maxLines,
@@ -33,7 +33,7 @@ class GlassFieldWidget extends StatelessWidget {
             decoration: InputDecoration(
               hintText: hint,
               hintStyle: TextStyle(
-                color: AppColor.blackTextColor(context).withValues(alpha: 0.2),
+                color: AppColor.blackTextColor(context).withOpacity(0.2),
                 fontSize: 13.sp,
               ),
               contentPadding: EdgeInsets.all(20.w),

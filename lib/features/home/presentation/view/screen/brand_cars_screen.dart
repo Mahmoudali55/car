@@ -468,10 +468,10 @@ class BrandCarsScreen extends StatelessWidget {
                   padding: EdgeInsets.all(8.w),
                   child: Container(
                     decoration: BoxDecoration(
-                      color: AppColor.whiteColor(context).withValues(alpha: 0.85),
+                      color: AppColor.whiteColor(context).withOpacity(0.85),
                       shape: BoxShape.circle,
                       boxShadow: [
-                        BoxShadow(color: Colors.black.withValues(alpha: 0.08), blurRadius: 8),
+                        BoxShadow(color: Colors.black.withOpacity(0.08), blurRadius: 8),
                       ],
                     ),
                     child: IconButton(
@@ -496,8 +496,8 @@ class BrandCarsScreen extends StatelessWidget {
                             begin: Alignment.topLeft,
                             end: Alignment.bottomRight,
                             colors: [
-                              accent.withValues(alpha: 0.18),
-                              accent.withValues(alpha: 0.06),
+                              accent.withOpacity(0.18),
+                              accent.withOpacity(0.06),
                               AppColor.scaffoldColor(context),
                             ],
                             stops: const [0.0, 0.5, 1.0],
@@ -512,7 +512,7 @@ class BrandCarsScreen extends StatelessWidget {
                         child: Text(
                           brandNameEn.toUpperCase(),
                           style: TextStyle(
-                            color: accent.withValues(alpha: 0.055),
+                            color: accent.withOpacity(0.055),
                             fontSize: 60.sp,
                             fontWeight: FontWeight.w900,
                             letterSpacing: 6,
@@ -530,7 +530,7 @@ class BrandCarsScreen extends StatelessWidget {
                           height: 180.w,
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
-                            color: accent.withValues(alpha: 0.07),
+                            color: accent.withOpacity(0.07),
                           ),
                         ),
                       ),
@@ -546,15 +546,15 @@ class BrandCarsScreen extends StatelessWidget {
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
                               color: AppColor.whiteColor(context),
-                              border: Border.all(color: accent.withValues(alpha: 0.2), width: 2),
+                              border: Border.all(color: accent.withOpacity(0.2), width: 2),
                               boxShadow: [
                                 BoxShadow(
-                                  color: accent.withValues(alpha: 0.2),
+                                  color: accent.withOpacity(0.2),
                                   blurRadius: 24,
                                   offset: const Offset(0, 8),
                                 ),
                                 BoxShadow(
-                                  color: Colors.black.withValues(alpha: 0.06),
+                                  color: Colors.black.withOpacity(0.06),
                                   blurRadius: 12,
                                   offset: const Offset(0, 4),
                                 ),
@@ -627,12 +627,12 @@ class BrandCarsScreen extends StatelessWidget {
                           decoration: BoxDecoration(
                             gradient: LinearGradient(
                               colors: [
-                                accent.withValues(alpha: 0.07),
-                                accent.withValues(alpha: 0.03),
+                                accent.withOpacity(0.07),
+                                accent.withOpacity(0.03),
                               ],
                             ),
                             borderRadius: BorderRadius.circular(20.r),
-                            border: Border.all(color: accent.withValues(alpha: 0.12)),
+                            border: Border.all(color: accent.withOpacity(0.12)),
                           ),
                           child: Row(
                             children: [
@@ -647,7 +647,7 @@ class BrandCarsScreen extends StatelessWidget {
                               Container(
                                 width: 1,
                                 height: 40.h,
-                                color: accent.withValues(alpha: 0.12),
+                                color: accent.withOpacity(0.12),
                               ),
                               Expanded(
                                 child: _Stat(
@@ -660,7 +660,7 @@ class BrandCarsScreen extends StatelessWidget {
                               Container(
                                 width: 1,
                                 height: 40.h,
-                                color: accent.withValues(alpha: 0.12),
+                                color: accent.withOpacity(0.12),
                               ),
                               Expanded(
                                 child: _Stat(
@@ -678,9 +678,9 @@ class BrandCarsScreen extends StatelessWidget {
                         Container(
                           padding: EdgeInsets.all(16.w),
                           decoration: BoxDecoration(
-                            color: accent.withValues(alpha: 0.08),
+                            color: accent.withOpacity(0.08),
                             borderRadius: BorderRadius.circular(16.r),
-                            border: Border.all(color: accent.withValues(alpha: 0.18)),
+                            border: Border.all(color: accent.withOpacity(0.18)),
                           ),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -706,7 +706,7 @@ class BrandCarsScreen extends StatelessWidget {
                               Text(
                                 isAr ? info.descAr : info.descEn,
                                 style: TextStyle(
-                                  color: AppColor.blackTextColor(context).withValues(alpha: 0.75),
+                                  color: AppColor.blackTextColor(context).withOpacity(0.75),
                                   fontSize: 13.sp,
                                   height: 1.7,
                                 ),
@@ -732,12 +732,12 @@ class BrandCarsScreen extends StatelessWidget {
                                   decoration: BoxDecoration(
                                     gradient: LinearGradient(
                                       colors: [
-                                        accent.withValues(alpha: 0.12),
-                                        accent.withValues(alpha: 0.06),
+                                        accent.withOpacity(0.12),
+                                        accent.withOpacity(0.06),
                                       ],
                                     ),
                                     borderRadius: BorderRadius.circular(30.r),
-                                    border: Border.all(color: accent.withValues(alpha: 0.3)),
+                                    border: Border.all(color: accent.withOpacity(0.3)),
                                   ),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.min,
@@ -785,12 +785,12 @@ class BrandCarsScreen extends StatelessWidget {
                               decoration: BoxDecoration(
                                 gradient: LinearGradient(
                                   colors: [
-                                    accent.withValues(alpha: 0.14),
-                                    accent.withValues(alpha: 0.07),
+                                    accent.withOpacity(0.14),
+                                    accent.withOpacity(0.07),
                                   ],
                                 ),
                                 borderRadius: BorderRadius.circular(10.r),
-                                border: Border.all(color: accent.withValues(alpha: 0.3)),
+                                border: Border.all(color: accent.withOpacity(0.3)),
                               ),
                               child: Text(
                                 info.popularModels[i],
@@ -807,7 +807,7 @@ class BrandCarsScreen extends StatelessWidget {
                         // Divider with cars label
                         Row(
                           children: [
-                            Expanded(child: Divider(color: Colors.grey.withValues(alpha: 0.2))),
+                            Expanded(child: Divider(color: Colors.grey.withOpacity(0.2))),
                             Padding(
                               padding: EdgeInsets.symmetric(horizontal: 12.w),
                               child: Text(
@@ -819,7 +819,7 @@ class BrandCarsScreen extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            Expanded(child: Divider(color: Colors.grey.withValues(alpha: 0.2))),
+                            Expanded(child: Divider(color: Colors.grey.withOpacity(0.2))),
                           ],
                         ),
                         Gap(8.h),

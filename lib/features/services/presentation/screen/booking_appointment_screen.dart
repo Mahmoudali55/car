@@ -64,7 +64,7 @@ class _BookingAppointmentScreenState extends State<BookingAppointmentScreen> {
                   gradient: LinearGradient(
                     colors: [
                       AppColor.primaryColor(context),
-                      AppColor.primaryColor(context).withValues(alpha: 0.8),
+                      AppColor.primaryColor(context).withOpacity(0.8),
                     ],
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
@@ -103,8 +103,8 @@ class _BookingAppointmentScreenState extends State<BookingAppointmentScreen> {
                                 borderRadius: BorderRadius.circular(16.r),
                                 border: Border.all(
                                   color: isSelected
-                                      ? AppColor.whiteColor(context).withValues(alpha: 0.24)
-                                      : AppColor.blackTextColor(context).withValues(alpha: 0.05),
+                                      ? AppColor.whiteColor(context).withOpacity(0.24)
+                                      : AppColor.blackTextColor(context).withOpacity(0.05),
                                 ),
                               ),
                               child: Column(
@@ -114,7 +114,7 @@ class _BookingAppointmentScreenState extends State<BookingAppointmentScreen> {
                                     _getServiceIcon(services[index]),
                                     color: isSelected
                                         ? AppColor.whiteColor(context)
-                                        : AppColor.blackTextColor(context).withValues(alpha: 0.38),
+                                        : AppColor.blackTextColor(context).withOpacity(0.38),
                                     size: 28.sp,
                                   ),
                                   Gap(8.h),
@@ -125,7 +125,7 @@ class _BookingAppointmentScreenState extends State<BookingAppointmentScreen> {
                                           ? AppColor.whiteColor(context)
                                           : AppColor.blackTextColor(
                                               context,
-                                            ).withValues(alpha: 0.38),
+                                            ).withOpacity(0.38),
                                       fontSize: 10.sp,
                                       fontWeight: FontWeight.bold,
                                     ),
@@ -178,7 +178,7 @@ class _BookingAppointmentScreenState extends State<BookingAppointmentScreen> {
                           color: AppColor.secondAppColor(context),
                           borderRadius: BorderRadius.circular(12.r),
                           border: Border.all(
-                            color: AppColor.blackTextColor(context).withValues(alpha: 0.05),
+                            color: AppColor.blackTextColor(context).withOpacity(0.05),
                           ),
                         ),
                         child: Row(
@@ -230,8 +230,8 @@ class _BookingAppointmentScreenState extends State<BookingAppointmentScreen> {
                               borderRadius: BorderRadius.circular(10.r),
                               border: Border.all(
                                 color: isSelected
-                                    ? AppColor.blackTextColor(context).withValues(alpha: 0.24)
-                                    : AppColor.blackTextColor(context).withValues(alpha: 0.05),
+                                    ? AppColor.blackTextColor(context).withOpacity(0.24)
+                                    : AppColor.blackTextColor(context).withOpacity(0.05),
                               ),
                             ),
                             child: Text(
@@ -239,7 +239,7 @@ class _BookingAppointmentScreenState extends State<BookingAppointmentScreen> {
                               style: TextStyle(
                                 color: isSelected
                                     ? AppColor.whiteColor(context)
-                                    : AppColor.blackTextColor(context).withValues(alpha: 0.60),
+                                    : AppColor.blackTextColor(context).withOpacity(0.60),
                                 fontWeight: FontWeight.bold,
                                 fontSize: 13.sp,
                               ),
@@ -295,7 +295,7 @@ class _BookingAppointmentScreenState extends State<BookingAppointmentScreen> {
       decoration: BoxDecoration(
         color: AppColor.secondAppColor(context),
         borderRadius: BorderRadius.circular(12.r),
-        border: Border.all(color: AppColor.blackTextColor(context).withValues(alpha: 0.05)),
+        border: Border.all(color: AppColor.blackTextColor(context).withOpacity(0.05)),
       ),
       child: TextField(
         maxLines: maxLines,
@@ -303,7 +303,7 @@ class _BookingAppointmentScreenState extends State<BookingAppointmentScreen> {
         decoration: InputDecoration(
           hintText: hint,
           hintStyle: TextStyle(
-            color: AppColor.blackTextColor(context).withValues(alpha: 0.38),
+            color: AppColor.blackTextColor(context).withOpacity(0.38),
             fontSize: 14.sp,
           ),
           contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
@@ -322,7 +322,7 @@ class _BookingAppointmentScreenState extends State<BookingAppointmentScreen> {
         borderRadius: BorderRadius.circular(16.r),
         boxShadow: [
           BoxShadow(
-            color: AppColor.primaryColor(context).withValues(alpha: 0.3),
+            color: AppColor.primaryColor(context).withOpacity(0.3),
             blurRadius: 10,
             offset: const Offset(0, 5),
           ),
@@ -378,7 +378,7 @@ class _BookingAppointmentScreenState extends State<BookingAppointmentScreen> {
             Gap(10.h),
             Text(
               AppLocaleKey.teamWillContactSoon.tr(),
-              style: TextStyle(color: AppColor.blackTextColor(context).withValues(alpha: 0.70)),
+              style: TextStyle(color: AppColor.blackTextColor(context).withOpacity(0.70)),
               textAlign: TextAlign.center,
             ),
             Gap(30.h),

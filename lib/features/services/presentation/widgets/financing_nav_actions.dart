@@ -45,7 +45,7 @@ class FinancingNavActions extends StatelessWidget {
                   style: AppTextStyle.bodyMedium(context).copyWith(
                     fontWeight: FontWeight.w900,
                     letterSpacing: 1.5,
-                    color: AppColor.blackTextColor(context).withValues(alpha: 0.7),
+                    color: AppColor.blackTextColor(context).withOpacity(0.7),
                     fontSize: 15.sp,
                   ),
                 ),
@@ -61,7 +61,7 @@ class FinancingNavActions extends StatelessWidget {
                 padding: EdgeInsets.symmetric(vertical: 20.h),
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.r)),
                 elevation: 0,
-                shadowColor: primary.withValues(alpha: 0.4),
+                shadowColor: primary.withOpacity(0.4),
               ),
               child: Text(
                 nextLabel.toUpperCase(),

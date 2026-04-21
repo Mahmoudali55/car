@@ -105,7 +105,7 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
                       children: [
                         CircleAvatar(
                           radius: 40.r,
-                          backgroundColor: Colors.green.withValues(alpha: 0.1),
+                          backgroundColor: Colors.green.withOpacity(0.1),
                           child: Icon(Icons.check_circle_rounded, color: Colors.green, size: 50.sp),
                         ),
                         Gap(24.h),

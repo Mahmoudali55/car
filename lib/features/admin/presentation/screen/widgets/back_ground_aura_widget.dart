@@ -14,10 +14,10 @@ class BackGroundAuraWidget extends StatelessWidget {
         height: 400.h,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          color: const Color(0xFF3B82F6).withValues(alpha: 0.05),
+          color: const Color(0xFF3B82F6).withOpacity(0.05),
           boxShadow: [
             BoxShadow(
-              color: const Color(0xFF3B82F6).withValues(alpha: 0.05),
+              color: const Color(0xFF3B82F6).withOpacity(0.05),
               blurRadius: 100,
               spreadRadius: 50,
             ),

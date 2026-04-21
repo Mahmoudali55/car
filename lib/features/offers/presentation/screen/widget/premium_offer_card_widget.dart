@@ -23,10 +23,10 @@ class PremiumOfferCardWidget extends StatelessWidget {
         decoration: BoxDecoration(
           color: AppColor.secondAppColor(context),
           borderRadius: BorderRadius.circular(28.r),
-          border: Border.all(color: AppColor.blackTextColor(context).withValues(alpha: 0.08)),
+          border: Border.all(color: AppColor.blackTextColor(context).withOpacity(0.08)),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withValues(alpha: 0.15),
+              color: Colors.black.withOpacity(0.15),
               blurRadius: 12,
               offset: const Offset(0, 6),
             ),
@@ -81,7 +81,7 @@ class PremiumOfferCardWidget extends StatelessWidget {
                             Container(
                               padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 4.h),
                               decoration: BoxDecoration(
-                                color: AppColor.primaryColor(context).withValues(alpha: 0.1),
+                                color: AppColor.primaryColor(context).withOpacity(0.1),
                                 borderRadius: BorderRadius.circular(8.r),
                               ),
                               child: Text(
@@ -110,7 +110,7 @@ class PremiumOfferCardWidget extends StatelessWidget {
                                           ? Colors.redAccent
                                           : AppColor.blackTextColor(
                                               context,
-                                            ).withValues(alpha: 0.24),
+                                            ).withOpacity(0.24),
                                       size: 20.sp, // Slightly reduced icon
                                     ),
                                   ),
@@ -181,7 +181,7 @@ class PremiumOfferCardWidget extends StatelessWidget {
                                   Text(
                                     offer['oldPrice'],
                                     style: TextStyle(
-                                      color: AppColor.blackTextColor(context).withValues(alpha: 0.38),
+                                      color: AppColor.blackTextColor(context).withOpacity(0.38),
                                       fontSize: 11.sp,
                                       decoration: TextDecoration.lineThrough,
                                     ),
@@ -208,7 +208,7 @@ class PremiumOfferCardWidget extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(12.r),
                                 boxShadow: [
                                   BoxShadow(
-                                    color: AppColor.primaryColor(context).withValues(alpha: 0.3),
+                                    color: AppColor.primaryColor(context).withOpacity(0.3),
                                     blurRadius: 8,
                                     offset: const Offset(0, 4),
                                   ),
@@ -241,7 +241,7 @@ class PremiumOfferCardWidget extends StatelessWidget {
                   borderRadius: BorderRadius.vertical(bottom: Radius.circular(12.r)),
                   boxShadow: [
                     BoxShadow(
-                      color: AppColor.primaryColor(context).withValues(alpha: 0.3),
+                      color: AppColor.primaryColor(context).withOpacity(0.3),
                       blurRadius: 10,
                       offset: const Offset(0, 4),
                     ),
@@ -261,7 +261,7 @@ class PremiumOfferCardWidget extends StatelessWidget {
                     Text(
                       'OFF',
                       style: TextStyle(
-                        color: AppColor.whiteColor(context).withValues(alpha: 0.8),
+                        color: AppColor.whiteColor(context).withOpacity(0.8),
                         fontSize: 8.sp,
                         fontWeight: FontWeight.bold,
                       ),
@@ -281,12 +281,12 @@ class PremiumOfferCardWidget extends StatelessWidget {
   Widget _buildMiniSpec(IconData icon, String value, BuildContext context) {
     return Row(
       children: [
-        Icon(icon, color: AppColor.blackTextColor(context).withValues(alpha: 0.24), size: 13.sp),
+        Icon(icon, color: AppColor.blackTextColor(context).withOpacity(0.24), size: 13.sp),
         Gap(4.w),
         Text(
           value,
           style: TextStyle(
-            color: AppColor.blackTextColor(context).withValues(alpha: 0.38),
+            color: AppColor.blackTextColor(context).withOpacity(0.38),
             fontSize: 10.sp,
             fontWeight: FontWeight.w500,
           ),

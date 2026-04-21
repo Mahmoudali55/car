@@ -18,13 +18,13 @@ class SecurityHeaderWidget extends StatelessWidget {
           gradient: LinearGradient(
             colors: [
               AppColor.primaryColor(context),
-              AppColor.primaryColor(context).withValues(alpha: 0.8),
+              AppColor.primaryColor(context).withOpacity(0.8),
             ],
           ),
           borderRadius: BorderRadius.circular(32.r),
           boxShadow: [
             BoxShadow(
-              color: AppColor.primaryColor(context).withValues(alpha: 0.3),
+              color: AppColor.primaryColor(context).withOpacity(0.3),
               blurRadius: 20,
               offset: const Offset(0, 10),
             ),
@@ -35,7 +35,7 @@ class SecurityHeaderWidget extends StatelessWidget {
             Container(
               padding: EdgeInsets.all(12.w),
               decoration: BoxDecoration(
-                color: Colors.white.withValues(alpha: 0.2),
+                color: Colors.white.withOpacity(0.2),
                 shape: BoxShape.circle,
               ),
               child: Icon(Icons.shield_rounded, color: Colors.white, size: 32.sp),
@@ -48,7 +48,7 @@ class SecurityHeaderWidget extends StatelessWidget {
                   Text(
                     AppLocaleKey.securityStatusLabel.tr(),
                     style: TextStyle(
-                      color: Colors.white.withValues(alpha: 0.8),
+                      color: Colors.white.withOpacity(0.8),
                       fontSize: 12.sp,
                       fontWeight: FontWeight.w500,
                     ),

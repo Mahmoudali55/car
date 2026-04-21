@@ -185,7 +185,7 @@ class _CarComparisonScreenState extends State<CarComparisonScreen> {
                 borderRadius: BorderRadius.circular(12.r),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withValues(alpha: 0.05),
+                    color: Colors.black.withOpacity(0.05),
                     blurRadius: 10,
                     offset: const Offset(0, 4),
                   ),
@@ -219,11 +219,18 @@ class _CarComparisonScreenState extends State<CarComparisonScreen> {
         ),
         Gap(4.h),
         Text(
-          car['price'],
+          car['price'] ?? '---',
           style: AppTextStyle.bodySmall(
             context,
-          ).copyWith(color: AppColor.primaryColor(context), fontWeight: FontWeight.bold),
+          ).copyWith(color: AppColor.blackTextColor(context), fontWeight: FontWeight.bold),
         ),
+        if (car['installments'] != null)
+          Text(
+            car['installments'],
+            style: AppTextStyle.bodySmall(
+              context,
+            ).copyWith(color: AppColor.primaryColor(context), fontWeight: FontWeight.w800, fontSize: 10.sp),
+          ),
       ],
     );
   }

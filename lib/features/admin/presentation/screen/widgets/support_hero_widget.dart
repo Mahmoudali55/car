@@ -16,16 +16,16 @@ class SupportHeroWidget extends StatelessWidget {
         width: double.infinity,
         padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 32.h),
         decoration: BoxDecoration(
-          color: AppColor.primaryColor(context).withValues(alpha: 0.05),
+          color: AppColor.primaryColor(context).withOpacity(0.05),
           borderRadius: BorderRadius.circular(32.r),
-          border: Border.all(color: AppColor.primaryColor(context).withValues(alpha: 0.1)),
+          border: Border.all(color: AppColor.primaryColor(context).withOpacity(0.1)),
         ),
         child: Column(
           children: [
             Container(
               padding: EdgeInsets.all(12.w),
               decoration: BoxDecoration(
-                color: AppColor.primaryColor(context).withValues(alpha: 0.1),
+                color: AppColor.primaryColor(context).withOpacity(0.1),
                 shape: BoxShape.circle,
               ),
               child: Icon(
@@ -49,7 +49,7 @@ class SupportHeroWidget extends StatelessWidget {
               AppLocaleKey.adminHelpDesc.tr(),
               textAlign: TextAlign.center,
               style: TextStyle(
-                color: AppColor.blackTextColor(context).withValues(alpha: 0.5),
+                color: AppColor.blackTextColor(context).withOpacity(0.5),
                 fontSize: 12.sp,
               ),
             ),

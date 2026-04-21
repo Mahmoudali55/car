@@ -22,9 +22,9 @@ class SupportTileWidget extends StatelessWidget {
       child: Container(
         margin: EdgeInsets.only(bottom: 12.h),
         decoration: BoxDecoration(
-          color: baseColor.withValues(alpha: 0.03),
+          color: baseColor.withOpacity(0.03),
           borderRadius: BorderRadius.circular(24.r),
-          border: Border.all(color: baseColor.withValues(alpha: 0.05)),
+          border: Border.all(color: baseColor.withOpacity(0.05)),
         ),
         child: ListTile(
           onTap: onTap,
@@ -32,7 +32,7 @@ class SupportTileWidget extends StatelessWidget {
           leading: Container(
             padding: EdgeInsets.all(12.w),
             decoration: BoxDecoration(
-              color: baseColor.withValues(alpha: 0.05),
+              color: baseColor.withOpacity(0.05),
               shape: BoxShape.circle,
             ),
             child: Icon(icon, color: baseColor, size: 22.sp),
@@ -43,11 +43,11 @@ class SupportTileWidget extends StatelessWidget {
           ),
           subtitle: Text(
             subtitle,
-            style: TextStyle(color: baseColor.withValues(alpha: 0.4), fontSize: 11.sp),
+            style: TextStyle(color: baseColor.withOpacity(0.4), fontSize: 11.sp),
           ),
           trailing: Icon(
             Icons.arrow_forward_rounded,
-            color: baseColor.withValues(alpha: 0.1),
+            color: baseColor.withOpacity(0.1),
             size: 18.sp,
           ),
         ),

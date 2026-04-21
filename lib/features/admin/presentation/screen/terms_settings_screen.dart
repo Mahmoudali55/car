@@ -83,16 +83,16 @@ class TermsSettingsScreen extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.all(24.w),
         decoration: BoxDecoration(
-          color: AppColor.blackTextColor(context).withValues(alpha: 0.03),
+          color: AppColor.blackTextColor(context).withOpacity(0.03),
           borderRadius: BorderRadius.circular(32.r),
-          border: Border.all(color: AppColor.blackTextColor(context).withValues(alpha: 0.05)),
+          border: Border.all(color: AppColor.blackTextColor(context).withOpacity(0.05)),
         ),
         child: Row(
           children: [
             Container(
               padding: EdgeInsets.all(12.w),
               decoration: BoxDecoration(
-                color: Colors.greenAccent.withValues(alpha: 0.1),
+                color: Colors.greenAccent.withOpacity(0.1),
                 shape: BoxShape.circle,
               ),
               child: Icon(Icons.verified_user_rounded, color: Colors.greenAccent, size: 28.sp),
@@ -113,7 +113,7 @@ class TermsSettingsScreen extends StatelessWidget {
                   Text(
                     "All policies are up to date with regional regulations.",
                     style: TextStyle(
-                      color: AppColor.blackTextColor(context).withValues(alpha: 0.5),
+                      color: AppColor.blackTextColor(context).withOpacity(0.5),
                       fontSize: 11.sp,
                     ),
                   ),
@@ -134,7 +134,7 @@ class TermsSettingsScreen extends StatelessWidget {
           child: Text(
             title,
             style: TextStyle(
-              color: AppColor.blackTextColor(context).withValues(alpha: 0.5),
+              color: AppColor.blackTextColor(context).withOpacity(0.5),
               fontSize: 13.sp,
               fontWeight: FontWeight.bold,
             ),
@@ -158,9 +158,9 @@ class TermsSettingsScreen extends StatelessWidget {
       child: Container(
         margin: EdgeInsets.only(bottom: 12.h),
         decoration: BoxDecoration(
-          color: baseColor.withValues(alpha: 0.03),
+          color: baseColor.withOpacity(0.03),
           borderRadius: BorderRadius.circular(24.r),
-          border: Border.all(color: baseColor.withValues(alpha: 0.05)),
+          border: Border.all(color: baseColor.withOpacity(0.05)),
         ),
         child: ListTile(
           onTap: onTap,
@@ -168,7 +168,7 @@ class TermsSettingsScreen extends StatelessWidget {
           leading: Container(
             padding: EdgeInsets.all(12.w),
             decoration: BoxDecoration(
-              color: baseColor.withValues(alpha: 0.05),
+              color: baseColor.withOpacity(0.05),
               shape: BoxShape.circle,
             ),
             child: Icon(icon, color: baseColor, size: 22.sp),
@@ -179,9 +179,9 @@ class TermsSettingsScreen extends StatelessWidget {
           ),
           subtitle: Text(
             subtitle,
-            style: TextStyle(color: baseColor.withValues(alpha: 0.4), fontSize: 11.sp),
+            style: TextStyle(color: baseColor.withOpacity(0.4), fontSize: 11.sp),
           ),
-          trailing: Icon(Icons.arrow_forward_ios_rounded, color: baseColor.withValues(alpha: 0.1), size: 14.sp),
+          trailing: Icon(Icons.arrow_forward_ios_rounded, color: baseColor.withOpacity(0.1), size: 14.sp),
         ),
       ),
     );

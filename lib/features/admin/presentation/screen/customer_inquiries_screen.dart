@@ -81,9 +81,9 @@ class _CustomerInquiriesScreenState extends State<CustomerInquiriesScreen> with 
       child: Container(
         padding: EdgeInsets.all(12.w),
         decoration: BoxDecoration(
-          color: color.withValues(alpha: 0.05),
+          color: color.withOpacity(0.05),
           borderRadius: BorderRadius.circular(16.r),
-          border: Border.all(color: color.withValues(alpha: 0.1)),
+          border: Border.all(color: color.withOpacity(0.1)),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -101,7 +101,7 @@ class _CustomerInquiriesScreenState extends State<CustomerInquiriesScreen> with 
       margin: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
       padding: EdgeInsets.all(6.w),
       decoration: BoxDecoration(
-        color: AppColor.blackTextColor(context).withValues(alpha: 0.03),
+        color: AppColor.blackTextColor(context).withOpacity(0.03),
         borderRadius: BorderRadius.circular(20.r),
       ),
       child: TabBar(
@@ -109,7 +109,7 @@ class _CustomerInquiriesScreenState extends State<CustomerInquiriesScreen> with 
         dividerColor: Colors.transparent,
         indicatorSize: TabBarIndicatorSize.tab,
         labelColor: Colors.white,
-        unselectedLabelColor: AppColor.blackTextColor(context).withValues(alpha: 0.4),
+        unselectedLabelColor: AppColor.blackTextColor(context).withOpacity(0.4),
         indicator: BoxDecoration(
           color: AppColor.primaryColor(context),
           borderRadius: BorderRadius.circular(16.r),
@@ -144,9 +144,9 @@ class _CustomerInquiriesScreenState extends State<CustomerInquiriesScreen> with 
     return Container(
       padding: EdgeInsets.all(16.w),
       decoration: BoxDecoration(
-        color: AppColor.blackTextColor(context).withValues(alpha: 0.02),
+        color: AppColor.blackTextColor(context).withOpacity(0.02),
         borderRadius: BorderRadius.circular(28.r),
-        border: Border.all(color: AppColor.blackTextColor(context).withValues(alpha: 0.05)),
+        border: Border.all(color: AppColor.blackTextColor(context).withOpacity(0.05)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -156,20 +156,20 @@ class _CustomerInquiriesScreenState extends State<CustomerInquiriesScreen> with 
             children: [
               Row(
                 children: [
-                  CircleAvatar(radius: 18.r, backgroundColor: AppColor.blackTextColor(context).withValues(alpha: 0.05), child: Icon(Icons.person_outline_rounded, size: 20.sp, color: AppColor.blackTextColor(context).withValues(alpha: 0.5))),
+                  CircleAvatar(radius: 18.r, backgroundColor: AppColor.blackTextColor(context).withOpacity(0.05), child: Icon(Icons.person_outline_rounded, size: 20.sp, color: AppColor.blackTextColor(context).withOpacity(0.5))),
                   Gap(12.w),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(AppLocaleKey.salemAlOtaibi.tr(), style: TextStyle(color: AppColor.blackTextColor(context), fontSize: 13.sp, fontWeight: FontWeight.bold)),
-                      Text(AppLocaleKey.threeHoursAgo.tr(), style: TextStyle(color: AppColor.blackTextColor(context).withValues(alpha: 0.3), fontSize: 10.sp)),
+                      Text(AppLocaleKey.threeHoursAgo.tr(), style: TextStyle(color: AppColor.blackTextColor(context).withOpacity(0.3), fontSize: 10.sp)),
                     ],
                   ),
                 ],
               ),
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
-                decoration: BoxDecoration(color: statusColor.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(10.r)),
+                decoration: BoxDecoration(color: statusColor.withOpacity(0.1), borderRadius: BorderRadius.circular(10.r)),
                 child: Text(statusKey.tr(), style: TextStyle(color: statusColor, fontSize: 10.sp, fontWeight: FontWeight.bold)),
               ),
             ],
@@ -177,7 +177,7 @@ class _CustomerInquiriesScreenState extends State<CustomerInquiriesScreen> with 
           Gap(12.h),
           Text(
             AppLocaleKey.carG63Inquiry.tr(),
-            style: TextStyle(color: AppColor.blackTextColor(context).withValues(alpha: 0.7), fontSize: 12.sp),
+            style: TextStyle(color: AppColor.blackTextColor(context).withOpacity(0.7), fontSize: 12.sp),
           ),
           Gap(16.h),
           Row(
@@ -199,7 +199,7 @@ class _CustomerInquiriesScreenState extends State<CustomerInquiriesScreen> with 
   Widget _buildActionButton(IconData icon, String label, Color color) {
     return Container(
       padding: EdgeInsets.symmetric(vertical: 8.h),
-      decoration: BoxDecoration(color: color.withValues(alpha: 0.08), borderRadius: BorderRadius.circular(14.r)),
+      decoration: BoxDecoration(color: color.withOpacity(0.08), borderRadius: BorderRadius.circular(14.r)),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

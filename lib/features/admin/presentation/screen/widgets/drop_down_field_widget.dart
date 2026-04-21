@@ -12,7 +12,7 @@ class DropDownFieldWidget extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColor.scaffoldColor(context),
         borderRadius: BorderRadius.circular(16.r),
-        border: Border.all(color: AppColor.blackTextColor(context).withValues(alpha: 0.05)),
+        border: Border.all(color: AppColor.blackTextColor(context).withOpacity(0.05)),
       ),
       child: DropdownButtonHideUnderline(
         child: DropdownButton<String>(
@@ -20,7 +20,7 @@ class DropDownFieldWidget extends StatelessWidget {
           hint: Text(
             hint,
             style: TextStyle(
-              color: AppColor.blackTextColor(context).withValues(alpha: 0.2),
+              color: AppColor.blackTextColor(context).withOpacity(0.2),
               fontSize: 13.sp,
             ),
           ),

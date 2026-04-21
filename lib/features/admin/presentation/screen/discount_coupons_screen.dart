@@ -61,7 +61,7 @@ class DiscountCouponsScreen extends StatelessWidget {
           borderRadius: BorderRadius.circular(32.r),
           boxShadow: [
             BoxShadow(
-              color: Colors.orangeAccent.withValues(alpha: 0.3),
+              color: Colors.orangeAccent.withOpacity(0.3),
               blurRadius: 20,
               offset: const Offset(0, 10),
             ),
@@ -79,7 +79,7 @@ class DiscountCouponsScreen extends StatelessWidget {
             Text(
               "Drive sales by managing your administrative discount codes and seasonal offers.",
               textAlign: TextAlign.center,
-              style: TextStyle(color: Colors.white.withValues(alpha: 0.8), fontSize: 12.sp),
+              style: TextStyle(color: Colors.white.withOpacity(0.8), fontSize: 12.sp),
             ),
           ],
         ),
@@ -95,7 +95,7 @@ class DiscountCouponsScreen extends StatelessWidget {
           child: Text(
             title,
             style: TextStyle(
-              color: AppColor.blackTextColor(context).withValues(alpha: 0.5),
+              color: AppColor.blackTextColor(context).withOpacity(0.5),
               fontSize: 13.sp,
               fontWeight: FontWeight.bold,
             ),
@@ -114,9 +114,9 @@ class DiscountCouponsScreen extends StatelessWidget {
         margin: EdgeInsets.only(bottom: 16.h),
         padding: EdgeInsets.all(20.w),
         decoration: BoxDecoration(
-          color: baseColor.withValues(alpha: 0.03),
+          color: baseColor.withOpacity(0.03),
           borderRadius: BorderRadius.circular(28.r),
-          border: Border.all(color: baseColor.withValues(alpha: 0.05)),
+          border: Border.all(color: baseColor.withOpacity(0.05)),
           image: DecorationImage(
             image: const AssetImage('assets/images/coupon_pattern.png'), // Placeholder or subtle pattern
             opacity: 0.02,
@@ -128,7 +128,7 @@ class DiscountCouponsScreen extends StatelessWidget {
             Container(
               padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 20.h),
               decoration: BoxDecoration(
-                color: isActive ? Colors.orangeAccent.withValues(alpha: 0.1) : Colors.grey.withValues(alpha: 0.1),
+                color: isActive ? Colors.orangeAccent.withOpacity(0.1) : Colors.grey.withOpacity(0.1),
                 borderRadius: BorderRadius.circular(16.r),
               ),
               child: RotatedBox(
@@ -161,7 +161,7 @@ class DiscountCouponsScreen extends StatelessWidget {
                   Text(
                     expiry,
                     style: TextStyle(
-                      color: baseColor.withValues(alpha: 0.4),
+                      color: baseColor.withOpacity(0.4),
                       fontSize: 11.sp,
                     ),
                   ),
@@ -172,11 +172,11 @@ class DiscountCouponsScreen extends StatelessWidget {
               children: [
                 IconButton(
                   onPressed: () {},
-                  icon: Icon(Icons.share_outlined, color: baseColor.withValues(alpha: 0.3), size: 18.sp),
+                  icon: Icon(Icons.share_outlined, color: baseColor.withOpacity(0.3), size: 18.sp),
                 ),
                 IconButton(
                   onPressed: () {},
-                  icon: Icon(Icons.delete_outline_rounded, color: Colors.redAccent.withValues(alpha: 0.5), size: 18.sp),
+                  icon: Icon(Icons.delete_outline_rounded, color: Colors.redAccent.withOpacity(0.5), size: 18.sp),
                 ),
               ],
             ),

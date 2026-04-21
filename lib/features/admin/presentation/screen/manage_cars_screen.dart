@@ -150,11 +150,11 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
         decoration: BoxDecoration(
           color: isSelected
               ? AppColor.primaryColor(context)
-              : AppColor.blackTextColor(context).withValues(alpha: 0.05),
+              : AppColor.blackTextColor(context).withOpacity(0.05),
           borderRadius: BorderRadius.circular(16.r),
           border: isSelected
               ? null
-              : Border.all(color: AppColor.blackTextColor(context).withValues(alpha: 0.1)),
+              : Border.all(color: AppColor.blackTextColor(context).withOpacity(0.1)),
         ),
         alignment: Alignment.center,
         child: Text(
@@ -162,7 +162,7 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
           style: TextStyle(
             color: isSelected
                 ? AppColor.whiteColor(context)
-                : AppColor.blackTextColor(context).withValues(alpha: 0.5),
+                : AppColor.blackTextColor(context).withOpacity(0.5),
             fontWeight: isSelected ? FontWeight.bold : FontWeight.w500,
             fontSize: 12.sp,
           ),
@@ -179,9 +179,9 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
 
     return Container(
       decoration: BoxDecoration(
-        color: AppColor.blackTextColor(context).withValues(alpha: 0.02),
+        color: AppColor.blackTextColor(context).withOpacity(0.02),
         borderRadius: BorderRadius.circular(32.r),
-        border: Border.all(color: AppColor.blackTextColor(context).withValues(alpha: 0.05)),
+        border: Border.all(color: AppColor.blackTextColor(context).withOpacity(0.05)),
       ),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(32.r),
@@ -193,13 +193,13 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
                   height: 160.h,
                   width: double.infinity,
                   decoration: BoxDecoration(
-                    color: AppColor.blackTextColor(context).withValues(alpha: 0.05),
+                    color: AppColor.blackTextColor(context).withOpacity(0.05),
                   ),
                   child: CachedNetworkImage(
                     imageUrl: 'https://images.unsplash.com/photo-1544636331-e26879cd4d9b?q=80&w=500',
                     fit: BoxFit.cover,
                     placeholder: (context, url) =>
-                        Container(color: AppColor.blackTextColor(context).withValues(alpha: 0.05)),
+                        Container(color: AppColor.blackTextColor(context).withOpacity(0.05)),
                   ),
                 ),
                 Positioned(
@@ -208,9 +208,9 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
                   child: Container(
                     padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
                     decoration: BoxDecoration(
-                      color: Colors.black.withValues(alpha: 0.6),
+                      color: Colors.black.withOpacity(0.6),
                       borderRadius: BorderRadius.circular(16.r),
-                      border: Border.all(color: Colors.white.withValues(alpha: 0.1)),
+                      border: Border.all(color: Colors.white.withOpacity(0.1)),
                     ),
                     child: Text(
                       car['year']!,
@@ -227,7 +227,7 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
                       color: statusColor,
                       borderRadius: BorderRadius.circular(16.r),
                       boxShadow: [
-                        BoxShadow(color: statusColor.withValues(alpha: 0.3), blurRadius: 10, offset: const Offset(0, 4))
+                        BoxShadow(color: statusColor.withOpacity(0.3), blurRadius: 10, offset: const Offset(0, 4))
                       ],
                     ),
                     child: Text(
@@ -261,12 +261,12 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
                             Row(
                               children: [
                                 Icon(Icons.speed_rounded,
-                                    size: 14.sp, color: AppColor.blackTextColor(context).withValues(alpha: 0.4)),
+                                    size: 14.sp, color: AppColor.blackTextColor(context).withOpacity(0.4)),
                                 Gap(4.w),
                                 Text(
                                   car['mileage']!,
                                   style: TextStyle(
-                                      color: AppColor.blackTextColor(context).withValues(alpha: 0.4), fontSize: 11.sp),
+                                      color: AppColor.blackTextColor(context).withOpacity(0.4), fontSize: 11.sp),
                                 ),
                               ],
                             ),
@@ -287,7 +287,7 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
                           Text(
                             AppLocaleKey.aed.tr(),
                             style: TextStyle(
-                              color: AppColor.blackTextColor(context).withValues(alpha: 0.4),
+                              color: AppColor.blackTextColor(context).withOpacity(0.4),
                               fontSize: 10.sp,
                               fontWeight: FontWeight.bold,
                             ),
@@ -329,9 +329,9 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
     return Container(
       padding: EdgeInsets.symmetric(vertical: 10.h),
       decoration: BoxDecoration(
-        color: color.withValues(alpha: 0.08),
+        color: color.withOpacity(0.08),
         borderRadius: BorderRadius.circular(16.r),
-        border: Border.all(color: color.withValues(alpha: 0.1)),
+        border: Border.all(color: color.withOpacity(0.1)),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,

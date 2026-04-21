@@ -17,7 +17,7 @@ class LogoutButtonWidget extends StatelessWidget {
       height: 56.h,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.redAccent.withValues(alpha: 0.1),
+          backgroundColor: Colors.redAccent.withOpacity(0.1),
           foregroundColor: Colors.redAccent,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16.r),

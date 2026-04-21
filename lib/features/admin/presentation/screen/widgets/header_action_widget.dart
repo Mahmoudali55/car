@@ -15,9 +15,9 @@ class HeaderActionWidget extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.all(12.w),
         decoration: BoxDecoration(
-          color: color.withValues(alpha: 0.1),
+          color: color.withOpacity(0.1),
           borderRadius: BorderRadius.circular(16.r),
-          border: Border.all(color: color.withValues(alpha: 0.1)),
+          border: Border.all(color: color.withOpacity(0.1)),
         ),
         child: Icon(icon, color: color, size: 22.sp),
       ),

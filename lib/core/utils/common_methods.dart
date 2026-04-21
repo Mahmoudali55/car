@@ -65,7 +65,7 @@ class CommonMethods {
           AppLocaleKey.loginToContinueYourPremiumExperience.tr(),
           style: AppTextStyle.bodyMedium(
             context,
-          ).copyWith(color: AppColor.blackTextColor(context).withValues(alpha: 0.70)),
+          ).copyWith(color: AppColor.blackTextColor(context).withOpacity(0.70)),
         ),
         actions: [
           TextButton(
@@ -73,7 +73,7 @@ class CommonMethods {
             child: Text(
               AppLocaleKey.cancel.tr(),
               style: TextStyle(
-                color: AppColor.blackTextColor(context).withValues(alpha: 0.5),
+                color: AppColor.blackTextColor(context).withOpacity(0.5),
                 fontSize: 14.sp,
               ),
             ),

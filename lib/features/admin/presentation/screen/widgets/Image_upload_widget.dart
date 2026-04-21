@@ -21,9 +21,9 @@ class ImageUploadWidget extends StatelessWidget {
           width: double.infinity,
           height: 200.h,
           decoration: BoxDecoration(
-            color: AppColor.blackTextColor(context).withValues(alpha: 0.04),
+            color: AppColor.blackTextColor(context).withOpacity(0.04),
             borderRadius: BorderRadius.circular(32.r),
-            border: Border.all(color: AppColor.blackTextColor(context).withValues(alpha: 0.1)),
+            border: Border.all(color: AppColor.blackTextColor(context).withOpacity(0.1)),
           ),
           child: Stack(
             children: [
@@ -33,15 +33,15 @@ class ImageUploadWidget extends StatelessWidget {
                 fit: BoxFit.cover,
                 width: double.infinity,
                 height: double.infinity,
-                color: Colors.black.withValues(alpha: 0.6),
+                color: Colors.black.withOpacity(0.6),
                 colorBlendMode: BlendMode.darken,
                 placeholder: (context, url) =>
-                    Container(color: AppColor.blackTextColor(context).withValues(alpha: 0.05)),
+                    Container(color: AppColor.blackTextColor(context).withOpacity(0.05)),
                 errorWidget: (context, url, error) => Container(
-                  color: AppColor.blackTextColor(context).withValues(alpha: 0.05),
+                  color: AppColor.blackTextColor(context).withOpacity(0.05),
                   child: Icon(
                     Icons.error_outline,
-                    color: AppColor.blackTextColor(context).withValues(alpha: 0.2),
+                    color: AppColor.blackTextColor(context).withOpacity(0.2),
                   ),
                 ),
               ),
@@ -52,7 +52,7 @@ class ImageUploadWidget extends StatelessWidget {
                     Container(
                       padding: EdgeInsets.all(16.w),
                       decoration: BoxDecoration(
-                        color: AppColor.blackTextColor(context).withValues(alpha: 0.1),
+                        color: AppColor.blackTextColor(context).withOpacity(0.1),
                         shape: BoxShape.circle,
                       ),
                       child: Icon(
@@ -73,7 +73,7 @@ class ImageUploadWidget extends StatelessWidget {
                     Text(
                       AppLocaleKey.transparentBgHint.tr(),
                       style: TextStyle(
-                        color: AppColor.blackTextColor(context).withValues(alpha: 0.4),
+                        color: AppColor.blackTextColor(context).withOpacity(0.4),
                         fontSize: 11.sp,
                       ),
                     ),

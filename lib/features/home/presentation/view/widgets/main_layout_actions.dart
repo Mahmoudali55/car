@@ -36,7 +36,7 @@ class SearchIconWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CircleAvatar(
-      backgroundColor: AppColor.greyColor(context).withValues(alpha: 0.1),
+      backgroundColor: AppColor.greyColor(context).withOpacity(0.1),
       child: IconButton(
         onPressed: () {},
         icon: Icon(Icons.search, color: AppColor.blackTextColor(context)),
@@ -57,7 +57,7 @@ class NotificationIconWidget extends StatelessWidget {
           alignment: Alignment.center,
           children: [
             CircleAvatar(
-              backgroundColor: AppColor.greyColor(context).withValues(alpha: 0.1),
+              backgroundColor: AppColor.greyColor(context).withOpacity(0.1),
               child: IconButton(
                 onPressed: () => Navigator.pushNamed(context, RoutesName.notificationsScreen),
                 icon: Icon(
@@ -104,7 +104,7 @@ class CartIconWidget extends StatelessWidget {
           alignment: Alignment.center,
           children: [
             CircleAvatar(
-              backgroundColor: AppColor.greyColor(context).withValues(alpha: 0.1),
+              backgroundColor: AppColor.greyColor(context).withOpacity(0.1),
               child: IconButton(
                 onPressed: () => Navigator.pushNamed(context, RoutesName.cartScreen),
                 icon: Icon(
@@ -151,7 +151,7 @@ class _TranslateIconWidgetState extends State<TranslateIconWidget> {
   @override
   Widget build(BuildContext context) {
     return CircleAvatar(
-      backgroundColor: AppColor.greyColor(context).withValues(alpha: 0.1),
+      backgroundColor: AppColor.greyColor(context).withOpacity(0.1),
       child: IconButton(
         onPressed: () async {
           final newLocale =

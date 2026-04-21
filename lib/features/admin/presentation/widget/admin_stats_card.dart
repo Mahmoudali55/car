@@ -27,7 +27,7 @@ class AdminStatsCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(28.r),
         boxShadow: [
           BoxShadow(
-            color: color.withValues(alpha: 0.08),
+            color: color.withOpacity(0.08),
             blurRadius: 20,
             offset: const Offset(0, 10),
           ),
@@ -40,17 +40,17 @@ class AdminStatsCard extends StatelessWidget {
           child: Container(
             padding: EdgeInsets.all(16.w),
             decoration: BoxDecoration(
-              color: AppColor.blackTextColor(context).withValues(alpha: 0.02),
+              color: AppColor.blackTextColor(context).withOpacity(0.02),
               borderRadius: BorderRadius.circular(28.r),
               border: Border.all(
-                color: AppColor.blackTextColor(context).withValues(alpha: 0.05),
+                color: AppColor.blackTextColor(context).withOpacity(0.05),
               ),
               gradient: LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
                 colors: [
-                  AppColor.blackTextColor(context).withValues(alpha: 0.04),
-                  AppColor.blackTextColor(context).withValues(alpha: 0.01),
+                  AppColor.blackTextColor(context).withOpacity(0.04),
+                  AppColor.blackTextColor(context).withOpacity(0.01),
                 ],
               ),
             ),
@@ -78,7 +78,7 @@ class AdminStatsCard extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(10.w),
       decoration: BoxDecoration(
-        color: color.withValues(alpha: 0.12),
+        color: color.withOpacity(0.12),
         borderRadius: BorderRadius.circular(16.r),
       ),
       child: Icon(icon, color: color, size: 22.sp),
@@ -89,7 +89,7 @@ class AdminStatsCard extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
       decoration: BoxDecoration(
-        color: Colors.greenAccent.withValues(alpha: 0.1),
+        color: Colors.greenAccent.withOpacity(0.1),
         borderRadius: BorderRadius.circular(20.r),
       ),
       child: Row(
@@ -127,7 +127,7 @@ class AdminStatsCard extends StatelessWidget {
         Text(
           title,
           style: TextStyle(
-            color: AppColor.blackTextColor(context).withValues(alpha: 0.4),
+            color: AppColor.blackTextColor(context).withOpacity(0.4),
             fontSize: 10.sp,
             fontWeight: FontWeight.w600,
           ),

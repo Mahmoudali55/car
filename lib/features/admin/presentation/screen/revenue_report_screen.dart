@@ -73,7 +73,7 @@ class RevenueReportScreen extends StatelessWidget {
         ),
         boxShadow: [
           BoxShadow(
-            color: AppColor.primaryColor(context).withValues(alpha: 0.3),
+            color: AppColor.primaryColor(context).withOpacity(0.3),
             blurRadius: 20,
             offset: const Offset(0, 10),
           ),
@@ -113,7 +113,7 @@ class RevenueReportScreen extends StatelessWidget {
               Container(
                 width: 1,
                 height: 40,
-                color: AppColor.blackTextColor(context).withValues(alpha: 0.1),
+                color: AppColor.blackTextColor(context).withOpacity(0.1),
               ),
               _buildBalanceDetail(
                 AppLocaleKey.expenses.tr(),
@@ -181,21 +181,21 @@ class RevenueReportScreen extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(16.w),
       decoration: BoxDecoration(
-        color: AppColor.blackTextColor(context).withValues(alpha: 0.02),
+        color: AppColor.blackTextColor(context).withOpacity(0.02),
         borderRadius: BorderRadius.circular(24.r),
-        border: Border.all(color: AppColor.blackTextColor(context).withValues(alpha: 0.05)),
+        border: Border.all(color: AppColor.blackTextColor(context).withOpacity(0.05)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
             padding: EdgeInsets.all(8.w),
-            decoration: BoxDecoration(color: color.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(12.r)),
+            decoration: BoxDecoration(color: color.withOpacity(0.1), borderRadius: BorderRadius.circular(12.r)),
             child: Icon(icon, color: color, size: 18.sp),
           ),
           Gap(12.h),
           Text(value, style: TextStyle(color: AppColor.blackTextColor(context), fontSize: 18.sp, fontWeight: FontWeight.w900)),
-          Text(label, style: TextStyle(color: AppColor.blackTextColor(context).withValues(alpha: 0.4), fontSize: 10.sp, fontWeight: FontWeight.bold)),
+          Text(label, style: TextStyle(color: AppColor.blackTextColor(context).withOpacity(0.4), fontSize: 10.sp, fontWeight: FontWeight.bold)),
         ],
       ),
     );
@@ -206,9 +206,9 @@ class RevenueReportScreen extends StatelessWidget {
       height: 180.h,
       padding: EdgeInsets.all(20.w),
       decoration: BoxDecoration(
-        color: AppColor.blackTextColor(context).withValues(alpha: 0.02),
+        color: AppColor.blackTextColor(context).withOpacity(0.02),
         borderRadius: BorderRadius.circular(32.r),
-        border: Border.all(color: AppColor.blackTextColor(context).withValues(alpha: 0.05)),
+        border: Border.all(color: AppColor.blackTextColor(context).withOpacity(0.05)),
       ),
       child: BarChart(
         BarChartData(
@@ -224,7 +224,7 @@ class RevenueReportScreen extends StatelessWidget {
                 getTitlesWidget: (value, meta) {
                   const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'];
                   if (value.toInt() >= 0 && value.toInt() < months.length) {
-                    return Text(months[value.toInt()], style: TextStyle(color: AppColor.blackTextColor(context).withValues(alpha: 0.3), fontSize: 10.sp));
+                    return Text(months[value.toInt()], style: TextStyle(color: AppColor.blackTextColor(context).withOpacity(0.3), fontSize: 10.sp));
                   }
                   return const Text('');
                 },
@@ -251,7 +251,7 @@ class RevenueReportScreen extends StatelessWidget {
       x: x,
       barRods: [
         BarChartRodData(toY: y1, color: AppColor.primaryColor(context), width: 8.w, borderRadius: BorderRadius.circular(4.r)),
-        BarChartRodData(toY: y2, color: Colors.blueAccent.withValues(alpha: 0.3), width: 8.w, borderRadius: BorderRadius.circular(4.r)),
+        BarChartRodData(toY: y2, color: Colors.blueAccent.withOpacity(0.3), width: 8.w, borderRadius: BorderRadius.circular(4.r)),
       ],
     );
   }
@@ -275,16 +275,16 @@ class RevenueReportScreen extends StatelessWidget {
           margin: EdgeInsets.only(bottom: 12.h),
           padding: EdgeInsets.all(16.w),
           decoration: BoxDecoration(
-            color: AppColor.blackTextColor(context).withValues(alpha: 0.02),
+            color: AppColor.blackTextColor(context).withOpacity(0.02),
             borderRadius: BorderRadius.circular(20.r),
-            border: Border.all(color: AppColor.blackTextColor(context).withValues(alpha: 0.05)),
+            border: Border.all(color: AppColor.blackTextColor(context).withOpacity(0.05)),
           ),
           child: Row(
             children: [
               Container(
                 padding: EdgeInsets.all(10.w),
                 decoration: BoxDecoration(
-                  color: (index == 0 ? Colors.green : Colors.blue).withValues(alpha: 0.1),
+                  color: (index == 0 ? Colors.green : Colors.blue).withOpacity(0.1),
                   shape: BoxShape.circle,
                 ),
                 child: Icon(
@@ -304,7 +304,7 @@ class RevenueReportScreen extends StatelessWidget {
                     ),
                     Text(
                       '24 March 2024',
-                      style: TextStyle(color: AppColor.blackTextColor(context).withValues(alpha: 0.4), fontSize: 10.sp),
+                      style: TextStyle(color: AppColor.blackTextColor(context).withOpacity(0.4), fontSize: 10.sp),
                     ),
                   ],
                 ),

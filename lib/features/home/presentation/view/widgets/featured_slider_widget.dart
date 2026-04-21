@@ -89,7 +89,7 @@ class FeaturedSliderWidget extends StatelessWidget {
                               children: [
                                 Icon(
                                   Icons.timer_outlined,
-                                  color: AppColor.blackTextColor(context).withValues(alpha: 0.70),
+                                  color: AppColor.blackTextColor(context).withOpacity(0.70),
                                   size: 14.w,
                                 ),
                                 SizedBox(width: 6.w),
@@ -97,7 +97,7 @@ class FeaturedSliderWidget extends StatelessWidget {
                                   AppLocaleKey.limitedTime.tr(),
                                   style: AppTextStyle.bodySmall(
                                     context,
-                                    color: AppColor.blackTextColor(context).withValues(alpha: 0.70),
+                                    color: AppColor.blackTextColor(context).withOpacity(0.70),
                                   ),
                                 ),
                               ],
@@ -119,7 +119,7 @@ class FeaturedSliderWidget extends StatelessWidget {
                                     Text(
                                       'Monthly from AED 12,500',
                                       style: TextStyle(
-                                        color: AppColor.blackTextColor(context).withValues(alpha: 0.60),
+                                        color: AppColor.blackTextColor(context).withOpacity(0.60),
                                         fontSize: 9.sp,
                                       ),
                                     ),

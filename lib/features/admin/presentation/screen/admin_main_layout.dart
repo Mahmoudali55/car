@@ -43,8 +43,8 @@ class _AdminMainLayoutState extends State<AdminMainLayout> {
     return Container(
       height: 90.h,
       decoration: BoxDecoration(
-        color: AppColor.secondAppColor(context).withValues(alpha: 0.8),
-        border: Border(top: BorderSide(color: AppColor.blackTextColor(context).withValues(alpha: 0.05))),
+        color: AppColor.secondAppColor(context).withOpacity(0.8),
+        border: Border(top: BorderSide(color: AppColor.blackTextColor(context).withOpacity(0.05))),
       ),
       child: ClipRRect(
         child: BackdropFilter(
@@ -69,7 +69,7 @@ class _AdminMainLayoutState extends State<AdminMainLayout> {
 
   Widget _buildNavItem(int index, IconData icon, String label) {
     bool isSelected = _currentIndex == index;
-    Color color = isSelected ? AppColor.primaryColor(context) : AppColor.blackTextColor(context).withValues(alpha: 0.4);
+    Color color = isSelected ? AppColor.primaryColor(context) : AppColor.blackTextColor(context).withOpacity(0.4);
 
     return Expanded(
       child: InkWell(
@@ -79,7 +79,7 @@ class _AdminMainLayoutState extends State<AdminMainLayout> {
           duration: const Duration(milliseconds: 300),
           padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 8.h),
           decoration: BoxDecoration(
-            color: isSelected ? AppColor.primaryColor(context).withValues(alpha: 0.1) : Colors.transparent,
+            color: isSelected ? AppColor.primaryColor(context).withOpacity(0.1) : Colors.transparent,
             borderRadius: BorderRadius.circular(20.r),
           ),
           child: Column(

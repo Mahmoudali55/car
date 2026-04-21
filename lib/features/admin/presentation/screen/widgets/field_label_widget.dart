@@ -12,7 +12,7 @@ class FieldLabelWidget extends StatelessWidget {
       child: Text(
         label,
         style: TextStyle(
-          color: AppColor.blackTextColor(context).withValues(alpha: 0.6),
+          color: AppColor.blackTextColor(context).withOpacity(0.6),
           fontSize: 12.sp,
           fontWeight: FontWeight.bold,
         ),

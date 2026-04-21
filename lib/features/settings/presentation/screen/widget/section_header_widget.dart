@@ -10,7 +10,7 @@ final String title;
     return Text(
       title,
       style: AppTextStyle.bodySmall(context).copyWith(
-        color: AppColor.blackTextColor(context).withValues(alpha: 0.38),
+        color: AppColor.blackTextColor(context).withOpacity(0.38),
         fontWeight: FontWeight.bold,
         letterSpacing: 1.2,
       ),

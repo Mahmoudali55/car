@@ -14,9 +14,9 @@ class ReviewCardWidget extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(16.w),
       decoration: BoxDecoration(
-        color: AppColor.blackTextColor(context).withValues(alpha: 0.02),
+        color: AppColor.blackTextColor(context).withOpacity(0.02),
         borderRadius: BorderRadius.circular(28.r),
-        border: Border.all(color: AppColor.blackTextColor(context).withValues(alpha: 0.05)),
+        border: Border.all(color: AppColor.blackTextColor(context).withOpacity(0.05)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -28,11 +28,11 @@ class ReviewCardWidget extends StatelessWidget {
                 children: [
                   CircleAvatar(
                     radius: 16.r,
-                    backgroundColor: AppColor.blackTextColor(context).withValues(alpha: 0.05),
+                    backgroundColor: AppColor.blackTextColor(context).withOpacity(0.05),
                     child: Icon(
                       Icons.person,
                       size: 18.sp,
-                      color: AppColor.blackTextColor(context).withValues(alpha: 0.5),
+                      color: AppColor.blackTextColor(context).withOpacity(0.5),
                     ),
                   ),
                   Gap(12.w),
@@ -58,7 +58,7 @@ class ReviewCardWidget extends StatelessWidget {
           Text(
             AppLocaleKey.dummyReviewText.tr(),
             style: TextStyle(
-              color: AppColor.blackTextColor(context).withValues(alpha: 0.7),
+              color: AppColor.blackTextColor(context).withOpacity(0.7),
               fontSize: 12.sp,
             ),
           ),

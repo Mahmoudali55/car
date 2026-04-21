@@ -13,21 +13,21 @@ class AdCardWidget extends StatelessWidget {
     return Container(
       height: 120.h,
       decoration: BoxDecoration(
-        color: AppColor.blackTextColor(context).withValues(alpha: 0.02),
+        color: AppColor.blackTextColor(context).withOpacity(0.02),
         borderRadius: BorderRadius.circular(24.r),
-        border: Border.all(color: AppColor.blackTextColor(context).withValues(alpha: 0.05)),
+        border: Border.all(color: AppColor.blackTextColor(context).withOpacity(0.05)),
       ),
       child: Row(
         children: [
           Container(
             width: 120.w,
             decoration: BoxDecoration(
-              color: AppColor.blackTextColor(context).withValues(alpha: 0.1),
+              color: AppColor.blackTextColor(context).withOpacity(0.1),
               borderRadius: BorderRadius.horizontal(right: Radius.circular(24.r)),
             ),
             child: Icon(
               Icons.image_outlined,
-              color: AppColor.blackTextColor(context).withValues(alpha: 0.2),
+              color: AppColor.blackTextColor(context).withOpacity(0.2),
               size: 30.sp,
             ),
           ),
@@ -50,7 +50,7 @@ class AdCardWidget extends StatelessWidget {
                   Text(
                     AppLocaleKey.expiryDateLabel.tr(),
                     style: TextStyle(
-                      color: AppColor.blackTextColor(context).withValues(alpha: 0.4),
+                      color: AppColor.blackTextColor(context).withOpacity(0.4),
                       fontSize: 10.sp,
                     ),
                   ),

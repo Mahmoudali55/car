@@ -23,7 +23,7 @@ class FinancingSuccessDialog extends StatelessWidget {
             Container(
               padding: EdgeInsets.all(24.w),
               decoration: BoxDecoration(
-                color: Colors.green.withValues(alpha: 0.1),
+                color: Colors.green.withOpacity(0.1),
                 shape: BoxShape.circle,
               ),
               child: Icon(Icons.check_circle_rounded, color: Colors.green, size: 80.sp),

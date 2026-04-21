@@ -52,7 +52,7 @@ class _FilterChipsWidgetState extends State<FilterChipsWidget> {
                 boxShadow: isSelected
                     ? [
                         BoxShadow(
-                          color: AppColor.primaryColor(context).withValues(alpha: 0.3),
+                          color: AppColor.primaryColor(context).withOpacity(0.3),
                           blurRadius: 10,
                           offset: const Offset(0, 4),
                         ),
@@ -64,7 +64,7 @@ class _FilterChipsWidgetState extends State<FilterChipsWidget> {
                 style: AppTextStyle.bodyMedium(context).copyWith(
                   color: isSelected
                       ? AppColor.whiteColor(context)
-                      : AppColor.blackTextColor(context).withValues(alpha: 0.54),
+                      : AppColor.blackTextColor(context).withOpacity(0.54),
                   fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
                 ),
               ),

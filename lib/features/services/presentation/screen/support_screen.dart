@@ -42,7 +42,7 @@ class SupportScreen extends StatelessWidget {
                   gradient: LinearGradient(
                     colors: [
                       AppColor.primaryColor(context),
-                      AppColor.primaryColor(context).withValues(alpha: 0.8),
+                      AppColor.primaryColor(context).withOpacity(0.8),
                     ],
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
@@ -211,7 +211,7 @@ class SupportScreen extends StatelessWidget {
             Text(
               title,
               style: TextStyle(
-                color: AppColor.blackTextColor(context).withValues(alpha: 0.9),
+                color: AppColor.blackTextColor(context).withOpacity(0.9),
                 fontSize: 15.sp,
                 fontWeight: FontWeight.bold,
               ),
@@ -229,13 +229,13 @@ class SupportScreen extends StatelessWidget {
         decoration: BoxDecoration(
           color: AppColor.secondAppColor(context),
           borderRadius: BorderRadius.circular(12.r),
-          border: Border.all(color: AppColor.blackTextColor(context).withValues(alpha: 0.05)),
+          border: Border.all(color: AppColor.blackTextColor(context).withOpacity(0.05)),
         ),
         child: ListTile(
           dense: true,
           leading: Icon(
             icon,
-            color: AppColor.blackTextColor(context).withValues(alpha: 0.6),
+            color: AppColor.blackTextColor(context).withOpacity(0.6),
             size: 18.sp,
           ),
           title: Text(
@@ -248,7 +248,7 @@ class SupportScreen extends StatelessWidget {
           ),
           trailing: Icon(
             Icons.copy_rounded,
-            color: AppColor.blackTextColor(context).withValues(alpha: 0.2),
+            color: AppColor.blackTextColor(context).withOpacity(0.2),
             size: 16.sp,
           ),
           onTap: () {
@@ -279,13 +279,13 @@ class SupportScreen extends StatelessWidget {
             Text(
               question,
               style: TextStyle(
-                color: AppColor.blackTextColor(context).withValues(alpha: 0.70),
+                color: AppColor.blackTextColor(context).withOpacity(0.70),
                 fontSize: 13,
               ),
             ),
             Icon(
               Icons.add_rounded,
-              color: AppColor.blackTextColor(context).withValues(alpha: 0.24),
+              color: AppColor.blackTextColor(context).withOpacity(0.24),
             ),
           ],
         ),
@@ -313,7 +313,7 @@ class SupportScreen extends StatelessWidget {
           border: Border.all(color: isDark ? AppColor.borderColor(context) : Colors.transparent),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withValues(alpha: 0.05),
+              color: Colors.black.withOpacity(0.05),
               blurRadius: 10,
               offset: const Offset(0, 4),
             ),
@@ -324,7 +324,7 @@ class SupportScreen extends StatelessWidget {
             Container(
               padding: EdgeInsets.all(10.w),
               decoration: BoxDecoration(
-                color: isDark ? iconColor.withValues(alpha: 0.1) : iconColor.withValues(alpha: 0.2),
+                color: isDark ? iconColor.withOpacity(0.1) : iconColor.withOpacity(0.2),
                 shape: BoxShape.circle,
               ),
               child: Icon(icon, color: iconColor, size: 24.sp),
@@ -333,7 +333,7 @@ class SupportScreen extends StatelessWidget {
             Text(
               title,
               style: TextStyle(
-                color: isDark ? AppColor.blackTextColor(context) : iconColor.withValues(alpha: 0.2),
+                color: isDark ? AppColor.blackTextColor(context) : iconColor.withOpacity(0.2),
                 fontSize: 14.sp,
                 fontWeight: FontWeight.bold,
               ),

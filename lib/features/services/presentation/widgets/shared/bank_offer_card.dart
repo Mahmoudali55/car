@@ -56,8 +56,8 @@ class BankOfferCard extends StatelessWidget {
         padding: EdgeInsets.all(24.w),
         decoration: BoxDecoration(
           color: isSelected
-              ? primary.withValues(alpha: 0.05)
-              : AppColor.cardColor(context).withValues(alpha: 0.4),
+              ? primary.withOpacity(0.05)
+              : AppColor.cardColor(context).withOpacity(0.4),
           borderRadius: BorderRadius.circular(24.r),
           border: Border.all(
             color: isSelected ? primary : AppColor.borderColor(context),
@@ -71,7 +71,7 @@ class BankOfferCard extends StatelessWidget {
               height: 54.h,
               width: 54.h,
               decoration: BoxDecoration(
-                color: bank.brandColor.withValues(alpha: 0.8),
+                color: bank.brandColor.withOpacity(0.8),
                 borderRadius: BorderRadius.circular(16.r),
               ),
               child: Center(
@@ -100,7 +100,7 @@ class BankOfferCard extends StatelessWidget {
                           fontWeight: FontWeight.w900,
                           color: isSelected
                               ? primary
-                              : AppColor.blackTextColor(context).withValues(alpha: 0.7),
+                              : AppColor.blackTextColor(context).withOpacity(0.7),
                           fontSize: 13.sp,
                           letterSpacing: 1,
                         ),
@@ -110,9 +110,9 @@ class BankOfferCard extends StatelessWidget {
                         Container(
                           padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
                           decoration: BoxDecoration(
-                            color: primary.withValues(alpha: 0.1),
+                            color: primary.withOpacity(0.1),
                             borderRadius: BorderRadius.circular(6.r),
-                            border: Border.all(color: primary.withValues(alpha: 0.2)),
+                            border: Border.all(color: primary.withOpacity(0.2)),
                           ),
                           child: Text(
                             AppLocaleKey.elite.tr().toUpperCase(),
@@ -131,7 +131,7 @@ class BankOfferCard extends StatelessWidget {
                   Text(
                     '${AppLocaleKey.fixedApr.tr().toUpperCase()}: ${calc['apr']!.toStringAsFixed(2)}%',
                     style: AppTextStyle.bodySmall(context).copyWith(
-                      color: AppColor.blackTextColor(context).withValues(alpha: 0.4),
+                      color: AppColor.blackTextColor(context).withOpacity(0.4),
                       fontSize: 9.sp,
                       fontWeight: FontWeight.w900,
                       letterSpacing: 1.2,
@@ -149,7 +149,7 @@ class BankOfferCard extends StatelessWidget {
                   style: AppTextStyle.titleMedium(context).copyWith(
                     color: isSelected
                         ? primary
-                        : AppColor.blackTextColor(context).withValues(alpha: 0.7),
+                        : AppColor.blackTextColor(context).withOpacity(0.7),
                     fontWeight: FontWeight.w900,
                     fontSize: 18.sp,
                     letterSpacing: -0.5,
@@ -158,7 +158,7 @@ class BankOfferCard extends StatelessWidget {
                 Text(
                   AppLocaleKey.sar.tr().toUpperCase(),
                   style: AppTextStyle.bodySmall(context).copyWith(
-                    color: AppColor.blackTextColor(context).withValues(alpha: 0.4),
+                    color: AppColor.blackTextColor(context).withOpacity(0.4),
                     fontWeight: FontWeight.w900,
                     fontSize: 10.sp,
                     letterSpacing: 1,

@@ -16,7 +16,7 @@ final List<Widget> children;
           child: Text(
             title,
             style: TextStyle(
-              color: AppColor.blackTextColor(context).withValues(alpha: 0.6),
+              color: AppColor.blackTextColor(context).withOpacity(0.6),
               fontSize: 14.sp,
               fontWeight: FontWeight.bold,
               letterSpacing: 0.5,
@@ -27,7 +27,7 @@ final List<Widget> children;
           decoration: BoxDecoration(
             color: AppColor.cardColor(context),
             borderRadius: BorderRadius.circular(20.r),
-            border: Border.all(color: AppColor.dividerColor(context).withValues(alpha: 0.5)),
+            border: Border.all(color: AppColor.dividerColor(context).withOpacity(0.5)),
           ),
           child: Column(
             children: List.generate(children.length, (index) {
@@ -39,7 +39,7 @@ final List<Widget> children;
                       height: 1,
                       indent: 50.w,
                       endIndent: 20.w,
-                      color: AppColor.dividerColor(context).withValues(alpha: 0.3),
+                      color: AppColor.dividerColor(context).withOpacity(0.3),
                     ),
                 ],
               );

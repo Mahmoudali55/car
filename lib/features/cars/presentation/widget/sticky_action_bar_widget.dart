@@ -29,9 +29,9 @@ class StickyActionBarWidget extends StatelessWidget {
           child: Container(
             padding: EdgeInsets.fromLTRB(24.w, 16.h, 24.w, 40.h),
             decoration: BoxDecoration(
-              color: AppColor.scaffoldColor(context).withValues(alpha: 0.8),
+              color: AppColor.scaffoldColor(context).withOpacity(0.8),
               border: Border(
-                top: BorderSide(color: AppColor.blackTextColor(context).withValues(alpha: 0.08)),
+                top: BorderSide(color: AppColor.blackTextColor(context).withOpacity(0.08)),
               ),
             ),
             child: Row(
@@ -65,7 +65,7 @@ class StickyActionBarWidget extends StatelessWidget {
                   height: 50.h,
                   width: 56.h,
                   decoration: BoxDecoration(
-                    color: AppColor.blackTextColor(context).withValues(alpha: 0.1),
+                    color: AppColor.blackTextColor(context).withOpacity(0.1),
                     borderRadius: BorderRadius.circular(16.r),
                   ),
                   child: IconButton(
@@ -87,7 +87,7 @@ class StickyActionBarWidget extends StatelessWidget {
                     borderRadius: BorderRadius.circular(16.r),
                     boxShadow: [
                       BoxShadow(
-                        color: const Color(0xff25D366).withValues(alpha: 0.3),
+                        color: const Color(0xff25D366).withOpacity(0.3),
                         blurRadius: 10,
                         offset: const Offset(0, 4),
                       ),
@@ -208,7 +208,7 @@ class StickyActionBarWidget extends StatelessWidget {
       leading: Container(
         padding: EdgeInsets.all(8.w),
         decoration: BoxDecoration(
-          color: AppColor.primaryColor(context).withValues(alpha: 0.1),
+          color: AppColor.primaryColor(context).withOpacity(0.1),
           borderRadius: BorderRadius.circular(12.r),
         ),
         child: Icon(icon, color: AppColor.primaryColor(context)),

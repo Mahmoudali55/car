@@ -96,7 +96,7 @@ class SellCarScreen extends StatelessWidget {
                         color: const Color(0xFF1F2937),
                         borderRadius: BorderRadius.circular(16.r),
                         border: Border.all(
-                          color: AppColor.whiteColor(context).withValues(alpha: (0.05)),
+                          color: AppColor.whiteColor(context).withOpacity((0.05)),
                           style: BorderStyle.solid,
                         ),
                       ),
@@ -105,14 +105,14 @@ class SellCarScreen extends StatelessWidget {
                         children: [
                           Icon(
                             Icons.add_a_photo_rounded,
-                            color: AppColor.blackTextColor(context).withValues(alpha: 0.38),
+                            color: AppColor.blackTextColor(context).withOpacity(0.38),
                             size: 40.sp,
                           ),
                           Gap(8.h),
                           Text(
                             AppLocaleKey.pressToAddPhotos.tr(),
                             style: TextStyle(
-                              color: AppColor.blackTextColor(context).withValues(alpha: 0.38),
+                              color: AppColor.blackTextColor(context).withOpacity(0.38),
                             ),
                           ),
                         ],
@@ -139,7 +139,7 @@ class SellCarScreen extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColor.secondAppColor(context),
         borderRadius: BorderRadius.circular(12.r),
-        border: Border.all(color: AppColor.blackTextColor(context).withValues(alpha: 0.05)),
+        border: Border.all(color: AppColor.blackTextColor(context).withOpacity(0.05)),
       ),
       child: CustomFormField(hintText: hint),
     );

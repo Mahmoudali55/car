@@ -89,16 +89,16 @@ class SystemAlertsScreen extends StatelessWidget {
         width: double.infinity,
         padding: EdgeInsets.all(24.w),
         decoration: BoxDecoration(
-          color: AppColor.primaryColor(context).withValues(alpha: 0.05),
+          color: AppColor.primaryColor(context).withOpacity(0.05),
           borderRadius: BorderRadius.circular(32.r),
-          border: Border.all(color: AppColor.primaryColor(context).withValues(alpha: 0.1)),
+          border: Border.all(color: AppColor.primaryColor(context).withOpacity(0.1)),
         ),
         child: Column(
           children: [
             Container(
               padding: EdgeInsets.all(12.w),
               decoration: BoxDecoration(
-                color: AppColor.primaryColor(context).withValues(alpha: 0.1),
+                color: AppColor.primaryColor(context).withOpacity(0.1),
                 shape: BoxShape.circle,
               ),
               child: Icon(Icons.notifications_active_rounded, color: AppColor.primaryColor(context), size: 32.sp),
@@ -117,7 +117,7 @@ class SystemAlertsScreen extends StatelessWidget {
               AppLocaleKey.intelligenceCenterDesc.tr(),
               textAlign: TextAlign.center,
               style: TextStyle(
-                color: AppColor.blackTextColor(context).withValues(alpha: 0.5),
+                color: AppColor.blackTextColor(context).withOpacity(0.5),
                 fontSize: 12.sp,
               ),
             ),
@@ -135,7 +135,7 @@ class SystemAlertsScreen extends StatelessWidget {
           child: Text(
             title,
             style: TextStyle(
-              color: AppColor.blackTextColor(context).withValues(alpha: 0.5),
+              color: AppColor.blackTextColor(context).withOpacity(0.5),
               fontSize: 13.sp,
               fontWeight: FontWeight.bold,
             ),
@@ -159,16 +159,16 @@ class SystemAlertsScreen extends StatelessWidget {
       child: Container(
         margin: EdgeInsets.only(bottom: 12.h),
         decoration: BoxDecoration(
-          color: baseColor.withValues(alpha: 0.03),
+          color: baseColor.withOpacity(0.03),
           borderRadius: BorderRadius.circular(24.r),
-          border: Border.all(color: baseColor.withValues(alpha: 0.05)),
+          border: Border.all(color: baseColor.withOpacity(0.05)),
         ),
         child: ListTile(
           contentPadding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 8.h),
           leading: Container(
             padding: EdgeInsets.all(12.w),
             decoration: BoxDecoration(
-              color: baseColor.withValues(alpha: 0.05),
+              color: baseColor.withOpacity(0.05),
               shape: BoxShape.circle,
             ),
             child: Icon(icon, color: baseColor, size: 22.sp),
@@ -179,12 +179,12 @@ class SystemAlertsScreen extends StatelessWidget {
           ),
           subtitle: Text(
             subtitle,
-            style: TextStyle(color: baseColor.withValues(alpha: 0.4), fontSize: 11.sp),
+            style: TextStyle(color: baseColor.withOpacity(0.4), fontSize: 11.sp),
           ),
           trailing: Switch(
             value: initialValue,
             onChanged: (val) {},
-            activeTrackColor: AppColor.primaryColor(context).withValues(alpha: 0.3),
+            activeTrackColor: AppColor.primaryColor(context).withOpacity(0.3),
             activeColor: AppColor.primaryColor(context),
           ),
         ),

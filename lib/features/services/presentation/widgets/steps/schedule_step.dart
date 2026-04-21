@@ -77,14 +77,14 @@ class _ScheduleStepState extends State<ScheduleStep> {
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
                 decoration: BoxDecoration(
-                  color: AppColor.blackTextColor(context).withValues(alpha: 0.05),
+                  color: AppColor.blackTextColor(context).withOpacity(0.05),
                   borderRadius: BorderRadius.circular(8.r),
                   border: Border.all(color: AppColor.borderColor(context)),
                 ),
                 child: Text(
                   AppLocaleKey.titaniumPlan.tr().toUpperCase(),
                   style: AppTextStyle.bodySmall(context).copyWith(
-                    color: AppColor.blackTextColor(context).withValues(alpha: 0.7),
+                    color: AppColor.blackTextColor(context).withOpacity(0.7),
                     fontWeight: FontWeight.w900,
                     fontSize: 8.sp,
                     letterSpacing: 1,
@@ -99,9 +99,9 @@ class _ScheduleStepState extends State<ScheduleStep> {
           Container(
             padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
             decoration: BoxDecoration(
-              color: primary.withValues(alpha: 0.08),
+              color: primary.withOpacity(0.08),
               borderRadius: BorderRadius.circular(12.r),
-              border: Border.all(color: primary.withValues(alpha: 0.2)),
+              border: Border.all(color: primary.withOpacity(0.2)),
             ),
             child: Row(
               mainAxisSize: MainAxisSize.min,
@@ -139,7 +139,7 @@ class _ScheduleStepState extends State<ScheduleStep> {
                 width: double.infinity,
                 padding: EdgeInsets.symmetric(vertical: 16.h),
                 decoration: BoxDecoration(
-                  color: AppColor.blackTextColor(context).withValues(alpha: 0.03),
+                  color: AppColor.blackTextColor(context).withOpacity(0.03),
                   borderRadius: BorderRadius.circular(16.r),
                   border: Border.all(color: AppColor.borderColor(context)),
                 ),

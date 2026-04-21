@@ -15,12 +15,12 @@ class AboutFinancingSection extends StatelessWidget {
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            AppColor.primaryColor(context).withValues(alpha: 0.1),
-            AppColor.primaryColor(context).withValues(alpha: 0.05),
+            AppColor.primaryColor(context).withOpacity(0.1),
+            AppColor.primaryColor(context).withOpacity(0.05),
           ],
         ),
         borderRadius: BorderRadius.circular(20.r),
-        border: Border.all(color: AppColor.primaryColor(context).withValues(alpha: 0.2)),
+        border: Border.all(color: AppColor.primaryColor(context).withOpacity(0.2)),
       ),
       child: Row(
         children: [
@@ -30,7 +30,7 @@ class AboutFinancingSection extends StatelessWidget {
             child: Text(
               AppLocaleKey.financingAvailable.tr(),
               style: TextStyle(
-                color: AppColor.blackTextColor(context).withValues(alpha: 0.9),
+                color: AppColor.blackTextColor(context).withOpacity(0.9),
                 fontWeight: FontWeight.bold,
                 fontSize: 14.sp,
                 height: 1.5,
