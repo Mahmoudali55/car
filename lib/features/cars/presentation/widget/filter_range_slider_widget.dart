@@ -53,7 +53,7 @@ class FilterRangeSlider extends StatelessWidget {
           max: max,
           divisions: isPrice ? 100 : (max - min).toInt(),
           activeColor: AppColor.primaryColor(context),
-          inactiveColor: AppColor.blackTextColor(context).withValues(alpha: 0.1),
+          inactiveColor: AppColor.blackTextColor(context).withOpacity(0.1),
           onChanged: onChanged,
         ),
       ],

@@ -12,41 +12,65 @@ class InspectionBadgeWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(16.w),
+      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
       decoration: BoxDecoration(
-        color: AppColor.primaryColor(context).withValues(alpha: 0.1),
-        borderRadius: BorderRadius.circular(16.r),
-        border: Border.all(color: AppColor.primaryColor(context).withValues(alpha: 0.3)),
+        gradient: LinearGradient(
+          colors: [
+            AppColor.primaryColor(context).withOpacity(0.08),
+            AppColor.primaryColor(context).withOpacity(0.02),
+          ],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+        borderRadius: BorderRadius.circular(20.r),
+        border: Border.all(color: AppColor.primaryColor(context).withOpacity(0.15)),
       ),
       child: Row(
         children: [
-          Container(
-            padding: EdgeInsets.all(8.w),
-            decoration: BoxDecoration(
-              color: AppColor.primaryColor(context),
-              shape: BoxShape.circle,
-            ),
-            child: Icon(Icons.verified_user_rounded, color: AppColor.whiteColor(context), size: 20),
+          Stack(
+            alignment: Alignment.center,
+            children: [
+              Container(
+                width: 44.w,
+                height: 44.w,
+                decoration: BoxDecoration(
+                  color: AppColor.primaryColor(context).withOpacity(0.1),
+                  shape: BoxShape.circle,
+                ),
+              ),
+              Icon(
+                Icons.verified_rounded,
+                color: AppColor.primaryColor(context),
+                size: 28.sp,
+              ),
+            ],
           ),
-          Gap(12.w),
+          Gap(16.w),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   AppLocaleKey.reliableCarSubtitle.tr(),
-                  style: AppTextStyle.bodyMedium(
-                    context,
-                  ).copyWith(color: AppColor.blackTextColor(context), fontWeight: FontWeight.bold),
+                  style: AppTextStyle.bodyMedium(context).copyWith(
+                    fontWeight: FontWeight.w900,
+                    color: AppColor.blackTextColor(context),
+                  ),
                 ),
                 Text(
                   AppLocaleKey.reliableCarDescription.tr(),
-                  style: AppTextStyle.bodySmall(
-                    context,
-                  ).copyWith(color: AppColor.blackTextColor(context).withValues(alpha: 0.6)),
+                  style: AppTextStyle.bodySmall(context).copyWith(
+                    color: AppColor.greyColor(context),
+                    fontSize: 11.sp,
+                  ),
                 ),
               ],
             ),
+          ),
+          Icon(
+            Icons.shield_outlined,
+            color: AppColor.primaryColor(context).withOpacity(0.3),
+            size: 24.sp,
           ),
         ],
       ),

@@ -27,10 +27,10 @@ class PremiumCarCardWidget extends StatelessWidget {
         decoration: BoxDecoration(
           color: AppColor.secondAppColor(context),
           borderRadius: BorderRadius.circular(24.r),
-          border: Border.all(color: AppColor.blackTextColor(context).withValues(alpha: 0.05)),
+          border: Border.all(color: AppColor.blackTextColor(context).withOpacity(0.05)),
           boxShadow: [
             BoxShadow(
-              color: AppColor.blackTextColor(context).withValues(alpha: 0.1),
+              color: AppColor.blackTextColor(context).withOpacity(0.1),
               blurRadius: 10,
               offset: const Offset(0, 4),
             ),
@@ -65,7 +65,7 @@ class PremiumCarCardWidget extends StatelessWidget {
                     margin: EdgeInsets.only(left: 15.w),
                     padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
                     decoration: BoxDecoration(
-                      color: AppColor.blackTextColor(context).withValues(alpha: 0.1),
+                      color: AppColor.blackTextColor(context).withOpacity(0.1),
                       shape: BoxShape.rectangle,
                       borderRadius: BorderRadius.circular(8.r),
                     ),
@@ -92,7 +92,7 @@ class PremiumCarCardWidget extends StatelessWidget {
                           return Container(
                             height: 30.h,
                             decoration: BoxDecoration(
-                              color: AppColor.blackTextColor(context).withValues(alpha: 0.1),
+                              color: AppColor.blackTextColor(context).withOpacity(0.1),
                               shape: BoxShape.circle,
                             ),
                             child: IconButton(
@@ -152,18 +152,37 @@ class PremiumCarCardWidget extends StatelessWidget {
                         ),
                       ),
                       Gap(4.w),
-                      Text(
-                        car['price'],
-                        style: AppTextStyle.titleMedium(context).copyWith(
-                          color: AppColor.primaryColor(context),
-                          fontWeight: FontWeight.bold,
-                        ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Text(
+                            car['price'],
+                            style: AppTextStyle.titleMedium(context).copyWith(
+                              color: AppColor.primaryColor(context),
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          if (car['installments'] != null)
+                            Text(
+                              car['installments'],
+                              style: AppTextStyle.bodySmall(context).copyWith(
+                                color: AppColor.primaryColor(context),
+                                fontSize: 10.sp,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            )
+                          else
+                            Text(
+                              "لم يتم تحديد القسط",
+                              style: TextStyle(color: Colors.red, fontSize: 8.sp),
+                            ),
+                        ],
                       ),
                     ],
                   ),
                   Gap(12.h),
                   Divider(
-                    color: AppColor.blackTextColor(context).withValues(alpha: (0.05)),
+                    color: AppColor.blackTextColor(context).withOpacity((0.05)),
                     height: 1,
                   ),
                   Gap(12.h),
@@ -193,7 +212,7 @@ class PremiumCarCardWidget extends StatelessWidget {
     return Container(
       height: 30.h,
       decoration: BoxDecoration(
-        color: AppColor.blackTextColor(context).withValues(alpha: 0.1),
+        color: AppColor.blackTextColor(context).withOpacity(0.1),
         shape: BoxShape.circle,
       ),
       child: IconButton(

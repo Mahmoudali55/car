@@ -29,7 +29,7 @@ class FilterApplyButton extends StatelessWidget {
           elevation: 8,
           shadowColor: AppColor.primaryColor(
             context,
-          ).withValues(alpha: 0.4),
+          ).withOpacity(0.4),
         ),
         child: Text(
           AppLocaleKey.applyFilter.tr(),

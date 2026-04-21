@@ -64,12 +64,12 @@ class BankOfferCardWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(16.r),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.05),
+            color: Colors.black.withOpacity(0.05),
             blurRadius: 10,
             offset: const Offset(0, 5),
           ),
         ],
-        border: Border.all(color: Colors.grey.withValues(alpha: 0.1)),
+        border: Border.all(color: Colors.grey.withOpacity(0.1)),
       ),
       child: Column(
         children: [
@@ -77,7 +77,7 @@ class BankOfferCardWidget extends StatelessWidget {
           Container(
             padding: EdgeInsets.all(16.w),
             decoration: BoxDecoration(
-              color: offer.brandColor.withValues(alpha: 0.1),
+              color: offer.brandColor.withOpacity(0.1),
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(16.r),
                 topRight: Radius.circular(16.r),
@@ -125,7 +125,7 @@ class BankOfferCardWidget extends StatelessWidget {
                     borderRadius: BorderRadius.circular(20.r),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withValues(alpha: 0.05),
+                        color: Colors.black.withOpacity(0.05),
                         blurRadius: 4,
                       )
                     ],
@@ -180,7 +180,7 @@ class BankOfferCardWidget extends StatelessWidget {
                 Container(
                   width: 1.w,
                   height: 40.h,
-                  color: Colors.grey.withValues(alpha: 0.2),
+                  color: Colors.grey.withOpacity(0.2),
                 ),
                 Expanded(
                   child: Padding(

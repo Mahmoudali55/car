@@ -856,4 +856,5 @@ class AppLocaleKey {
   static const String whatsapp = 'WhatsApp';
   static const String installments = 'Installment';
   static const String cash = 'Cash';
+  static const String requestFinancing = 'requestFinancing';
 }

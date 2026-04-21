@@ -120,7 +120,7 @@ class _SliverAppBarWidgetState extends State<SliverAppBarWidget> {
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
                         colors: [
-                          AppColor.primaryColor(context).withValues(alpha: 0.15),
+                          AppColor.primaryColor(context).withOpacity(0.15),
                           AppColor.scaffoldColor(context),
                         ],
                       ),
@@ -128,7 +128,9 @@ class _SliverAppBarWidgetState extends State<SliverAppBarWidget> {
                     child: Center(
                       child: Center(
                         child: Image.asset(
-                          widget.carImages[index],
+                          widget.carImages[index].isEmpty 
+                              ? 'assets/images/placeholder.png' 
+                              : widget.carImages[index],
                           fit: BoxFit.contain,
                           width: 300.w,
                           height: 300.h,
@@ -146,7 +148,7 @@ class _SliverAppBarWidgetState extends State<SliverAppBarWidget> {
               child: Container(
                 padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
                 decoration: BoxDecoration(
-                  color: AppColor.blackTextColor(context).withValues(alpha: 0.3),
+                  color: AppColor.blackTextColor(context).withOpacity(0.3),
                   borderRadius: BorderRadius.circular(20.r),
                 ),
                 child: Text(

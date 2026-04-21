@@ -19,7 +19,7 @@ class CarHeaderWidget extends StatefulWidget {
 class _CarHeaderWidgetState extends State<CarHeaderWidget> {
   @override
   Widget build(BuildContext context) {
-    final bool isInCompare = HiveMethods.isInComparison(widget.car['name']);
+    final bool isInCompare = HiveMethods.isInComparison(widget.car['name'] ?? '');
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -52,7 +52,7 @@ class _CarHeaderWidgetState extends State<CarHeaderWidget> {
             IconButton(
               onPressed: () {
                 if (isInCompare) {
-                  HiveMethods.removeFromComparison(widget.car['name']);
+                  HiveMethods.removeFromComparison(widget.car['name'] ?? '');
                   setState(() {});
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
@@ -97,26 +97,56 @@ class _CarHeaderWidgetState extends State<CarHeaderWidget> {
             ),
           ],
         ),
-        Gap(10.h),
+        Gap(16.h),
+        // Consolidated Pricing Row
         Row(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            Text(
-              widget.car['price'] ?? '0',
-              style: AppTextStyle.titleMedium(
-                context,
-              ).copyWith(color: AppColor.primaryColor(context), fontWeight: FontWeight.bold),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  widget.car['price'] ?? widget.car['cashPrice'] ?? '0',
+                  style: AppTextStyle.titleMedium(
+                    context,
+                  ).copyWith(color: AppColor.blackTextColor(context), fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  AppLocaleKey.taxIncluded.tr(),
+                  style: AppTextStyle.bodySmall(
+                    context,
+                  ).copyWith(color: AppColor.blackTextColor(context).withOpacity(0.6), fontSize: 10.sp),
+                ),
+              ],
             ),
-            Gap(8.w),
-            Padding(
-              padding: EdgeInsets.only(bottom: 6.h),
-              child: Text(
-                AppLocaleKey.taxIncluded.tr(),
-                style: AppTextStyle.bodySmall(
-                  context,
-                ).copyWith(color: AppColor.blackTextColor(context).withValues(alpha: 0.6)),
+            const Spacer(),
+            if (widget.car['installments'] != null)
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
+                decoration: BoxDecoration(
+                  color: AppColor.primaryColor(context).withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(12.r),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Text(
+                      AppLocaleKey.installments.tr(),
+                      style: AppTextStyle.bodySmall(context).copyWith(
+                        color: AppColor.primaryColor(context),
+                        fontSize: 10.sp,
+                      ),
+                    ),
+                    Text(
+                      widget.car['installments'],
+                      style: AppTextStyle.bodyMedium(context).copyWith(
+                        color: AppColor.primaryColor(context),
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
           ],
         ),
       ],

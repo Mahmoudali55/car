@@ -39,7 +39,8 @@ class _CarDetailsScreenState extends State<CarDetailsScreen> {
   void initState() {
     super.initState();
     HiveMethods.addToRecentlyViewed(widget.car);
-    _carImages = [widget.car['image'], widget.car['image'], widget.car['image']];
+    final mainImage = widget.car['image'] ?? 'assets/images/placeholder.png';
+    _carImages = [mainImage, mainImage, mainImage];
 
     _controller = YoutubePlayerController(
       initialVideoId: widget.car['video_id'] ?? 'D7O8J5vVf-M',
@@ -105,7 +106,11 @@ class _CarDetailsScreenState extends State<CarDetailsScreen> {
                             children: [
                               CarHeaderWidget(car: widget.car),
                               if (widget.car['is_financing_available'] ?? true) ...[
+                                 Gap(24.h),
+                                BankInstallmentsBannerWidget(car: widget.car),
+                                 Gap(24.h),
                                 BnplWidget(car: widget.car),
+                                Gap(24.h),
                                 CashPackagesWidget(car: widget.car),
                               ],
                               Gap(24.h),
@@ -118,9 +123,7 @@ class _CarDetailsScreenState extends State<CarDetailsScreen> {
                               _buildOverview(context),
                               Gap(32.h),
                               const FeaturesGridWidget(),
-                              Gap(32.h),
-                              if (widget.car['is_financing_available'] ?? true)
-                                BankInstallmentsBannerWidget(car: widget.car),
+
                               Gap(32.h),
                               VideoReviewWidget(
                                 car: widget.car,

@@ -42,18 +42,21 @@ class _CarsScreenState extends State<CarsScreen> {
       'name': 'G-Class G63',
       'brand': 'Mercedes-Benz',
       'price': '850,000  ر.س       ',
+      'installments': '1,166 ر.س / شهر',
     },
     {
       'image': 'assets/images/cars/bmw.png',
       'name': 'M5 Competition',
       'brand': 'BMW',
       'price': '520,000  ر.س       ',
+      'installments': '1,166 ر.س / شهر',
     },
     {
       'image': 'assets/images/cars/tesla.png',
       'name': 'Model S Plaid',
       'brand': 'Tesla',
       'price': '480,000  ر.س       ',
+      'installments': '1,166 ر.س / شهر',
     },
   ];
 
@@ -68,6 +71,7 @@ class _CarsScreenState extends State<CarsScreen> {
       'mileage': '0 كم',
       'isFavorite': true,
       'video_id': 'D7O8J5vVf-M',
+      'installments': '1,166 ر.س / شهر',
     },
     {
       'image': 'assets/images/cars/bmw.png',
@@ -78,6 +82,7 @@ class _CarsScreenState extends State<CarsScreen> {
       'mileage': '5,000 كم',
       'isFavorite': false,
       'video_id': 'D7O8J5vVf-M',
+       'installments': '1,166 ر.س / شهر',
     },
     {
       'image': 'assets/images/cars/toyota.png',
@@ -88,6 +93,7 @@ class _CarsScreenState extends State<CarsScreen> {
       'mileage': '0 كم',
       'isFavorite': false,
       'video_id': 'D7O8J5vVf-M',
+      'installments': '1,166 ر.س / شهر',
     },
     {
       'image': 'assets/images/cars/tesla.png',
@@ -98,6 +104,7 @@ class _CarsScreenState extends State<CarsScreen> {
       'mileage': '0 كم',
       'isFavorite': false,
       'video_id': 'D7O8J5vVf-M',
+      'installments': '1,166 ر.س / شهر',
     },
     {
       'image': 'assets/images/cars/audi.png',
@@ -108,6 +115,7 @@ class _CarsScreenState extends State<CarsScreen> {
       'mileage': '0 كم',
       'isFavorite': true,
       'video_id': 'D7O8J5vVf-M',
+      'installments': '1,166 ر.س / شهر',
     },
   ];
 

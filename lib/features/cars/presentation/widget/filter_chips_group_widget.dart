@@ -43,14 +43,14 @@ class FilterChipsGroup extends StatelessWidget {
               border: Border.all(
                 color: isSelected
                     ? Colors.transparent
-                    : AppColor.blackTextColor(context).withValues(alpha: 0.1),
+                    : AppColor.blackTextColor(context).withOpacity(0.1),
               ),
               boxShadow: isSelected
                   ? [
                       BoxShadow(
                         color: AppColor.primaryColor(
                           context,
-                        ).withValues(alpha: 0.3),
+                        ).withOpacity(0.3),
                         blurRadius: 8,
                         offset: const Offset(0, 4),
                       ),
@@ -60,7 +60,7 @@ class FilterChipsGroup extends StatelessWidget {
             child: Text(
               item.tr(),
               style: AppTextStyle.bodySmall(context).copyWith(
-                color: isSelected ? AppColor.whiteColor(context) : AppColor.blackTextColor(context).withValues(alpha: 0.70),
+                color: isSelected ? AppColor.whiteColor(context) : AppColor.blackTextColor(context).withOpacity(0.70),
                 fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
               ),
             ),

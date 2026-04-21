@@ -1,6 +1,7 @@
 import 'package:car/core/custom_widgets/custom_toast/custom_toast.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
+import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/core/services/bnpl_service.dart';
 import 'package:car/core/utils/common_methods.dart';
 import 'package:car/features/cars/presentation/screen/bnpl_payment_screen.dart';
@@ -24,91 +25,81 @@ class _BnplWidgetState extends State<BnplWidget> {
 
   @override
   Widget build(BuildContext context) {
-    // Correct price parsing: extract only digits
-    final priceRawString = widget.car['price']?.toString() ?? '0';
-    final priceString = priceRawString.replaceAll(RegExp(r'[^0-9.]'), '');
-    final price = double.tryParse(priceString) ?? 0.0;
+    // Robust price parsing to handle various formats
+    double parsePrice(dynamic priceValue) {
+      if (priceValue == null) return 0.0;
+      final priceStr = priceValue.toString();
+      // Remove everything except digits and dots
+      final cleanStr = priceStr.replaceAll(RegExp(r'[^0-9.]'), '');
+      return double.tryParse(cleanStr) ?? 0.0;
+    }
 
+    final price = parsePrice(widget.car['price'] ?? widget.car['cashPrice']);
     if (price <= 0) return const SizedBox.shrink();
 
     final installment = price / 4;
     final formatter = NumberFormat('#,##0', 'en_US');
     final formattedInstallment = formatter.format(installment);
 
-    return Container(
-      margin: EdgeInsets.only(top: 16.h),
-      child: Column(
-        children: [
-          if (_isLoading)
-            Padding(
-              padding: EdgeInsets.only(bottom: 12.h),
-              child: LinearProgressIndicator(
-                color: AppColor.primaryColor(context),
-                backgroundColor: AppColor.primaryColor(context).withValues(alpha: 0.1),
-              ),
+    return Column(
+      children: [
+        if (_isLoading)
+          Padding(
+            padding: EdgeInsets.only(bottom: 12.h),
+            child: LinearProgressIndicator(
+              color: AppColor.primaryColor(context),
+              backgroundColor: AppColor.primaryColor(context).withOpacity(0.1),
             ),
-          _buildProviderCard(
-            context: context,
-            providerName: 'tabby',
-            bgColor: const Color(0xFF3EEDC4),
-            textColor: Colors.black,
-            descKey: AppLocaleKey.withoutInterestTabby,
-            bottomSheetDescKey: AppLocaleKey.tabbyDesc,
-            installment: installment,
-            formattedInstallment: formattedInstallment,
-            total: price,
-            isTabby: true,
           ),
-          Gap(12.h),
-          _buildProviderCard(
-            context: context,
-            providerName: 'tamara',
-            bgColor: const Color(0xFFE89A8E),
-            textColor: Colors.black,
-            descKey: AppLocaleKey.withoutInterestTamara,
-            bottomSheetDescKey: AppLocaleKey.tamaraDesc,
-            installment: installment,
-            formattedInstallment: formattedInstallment,
-            total: price,
-            isTabby: false,
-          ),
-        ],
-      ),
+        _buildProviderCard(
+          context: context,
+          providerName: 'tabby',
+          bgColor: const Color(0xFF3EEDC4),
+          textColor: Colors.black,
+          descKey: AppLocaleKey.withoutInterestTabby,
+          bottomSheetDescKey: AppLocaleKey.tabbyDesc,
+          installment: installment,
+          formattedInstallment: formattedInstallment,
+          total: price,
+          isTabby: true,
+        ),
+        Gap(12.h),
+        _buildProviderCard(
+          context: context,
+          providerName: 'tamara',
+          bgColor: const Color(0xFFEBC18A), // More accurate Tamara gold
+          textColor: Colors.black,
+          descKey: AppLocaleKey.withoutInterestTamara,
+          bottomSheetDescKey: AppLocaleKey.tamaraDesc,
+          installment: installment,
+          formattedInstallment: formattedInstallment,
+          total: price,
+          isTabby: false,
+        ),
+      ],
     );
   }
 
   Future<void> _handleBnplCheckout(BuildContext context, bool isTabby, double amount) async {
     if (_isLoading) return;
-
-    setState(() {
-      _isLoading = true;
-    });
-
+    setState(() => _isLoading = true);
     try {
       String? checkoutUrl;
       const String currency = 'SAR';
-      const String buyerEmail = 'test@example.com'; // Hardcoded for demo/placeholders
+      const String buyerEmail = 'test@example.com';
       const String buyerPhone = '+966500000000';
       const String buyerName = 'User Name';
       final String orderId = 'ORDER_${DateTime.now().millisecondsSinceEpoch}';
 
       if (isTabby) {
         checkoutUrl = await _bnplService.createTabbySession(
-          amount: amount,
-          currency: currency,
-          buyerEmail: buyerEmail,
-          buyerPhone: buyerPhone,
-          buyerName: buyerName,
-          orderId: orderId,
+          amount: amount, currency: currency, buyerEmail: buyerEmail,
+          buyerPhone: buyerPhone, buyerName: buyerName, orderId: orderId,
         );
       } else {
         checkoutUrl = await _bnplService.createTamaraSession(
-          amount: amount,
-          currency: currency,
-          buyerEmail: buyerEmail,
-          buyerPhone: buyerPhone,
-          buyerFullName: buyerName,
-          orderId: orderId,
+          amount: amount, currency: currency, buyerEmail: buyerEmail,
+          buyerPhone: buyerPhone, buyerFullName: buyerName, orderId: orderId,
         );
       }
 
@@ -122,19 +113,14 @@ class _BnplWidgetState extends State<BnplWidget> {
             ),
           ),
         );
-      } else {
-        if (mounted) {
-          CommonMethods.showToast(message: 'Failed to create ${isTabby ? "Tabby" : "Tamara"} session. Check API config.', type: ToastType.error);
-        }
+      } else if (mounted) {
+        CommonMethods.showToast(message: 'Payment configuration required', type: ToastType.error);
       }
     } finally {
-      if (mounted) {
-        setState(() {
-          _isLoading = false;
-        });
-      }
+      if (mounted) setState(() => _isLoading = false);
     }
   }
+
   Widget _buildProviderCard({
     required BuildContext context,
     required String providerName,
@@ -149,36 +135,37 @@ class _BnplWidgetState extends State<BnplWidget> {
   }) {
     return GestureDetector(
       onTap: () => _showBnplDetails(
-        context: context,
-        providerName: providerName,
-        bgColor: bgColor,
-        textColor: textColor,
-        bottomSheetDescKey: bottomSheetDescKey,
-        total: total,
-        installment: installment,
-        formattedInstallment: formattedInstallment,
+        context: context, providerName: providerName, bgColor: bgColor,
+        textColor: textColor, bottomSheetDescKey: bottomSheetDescKey,
+        total: total, installment: installment, formattedInstallment: formattedInstallment,
         isTabby: isTabby,
       ),
       child: Container(
         padding: EdgeInsets.all(12.w),
         decoration: BoxDecoration(
           color: AppColor.secondAppColor(context),
-          borderRadius: BorderRadius.circular(12.r),
-          border: Border.all(color: Colors.grey.withValues(alpha: 0.2)),
+          borderRadius: BorderRadius.circular(16.r),
+          border: Border.all(color: AppColor.blackTextColor(context).withOpacity(0.05)),
         ),
         child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            // Provider Logo Box
             Container(
-              padding: EdgeInsets.all(8.w),
+              padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 6.h),
               decoration: BoxDecoration(
-                color: const Color(0xFFF1F5F9),
+                color: bgColor,
                 borderRadius: BorderRadius.circular(8.r),
               ),
-              child: _buildLogo(providerName, bgColor, textColor, isTabby: isTabby, fullSize: true),
+              child: Text(
+                providerName.toUpperCase(),
+                style: TextStyle(
+                  color: textColor,
+                  fontWeight: FontWeight.w900,
+                  fontSize: 12.sp,
+                  letterSpacing: 1,
+                ),
+              ),
             ),
-            Gap(12.w),
+            Gap(16.w),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -186,70 +173,27 @@ class _BnplWidgetState extends State<BnplWidget> {
                   RichText(
                     text: TextSpan(
                       text: '${AppLocaleKey.splitPayment.tr()} ',
-                      style: TextStyle(
-                        color: AppColor.blackTextColor(context),
-                        fontSize: 13.sp,
-                      ),
+                      style: AppTextStyle.bodyMedium(context).copyWith(fontSize: 12.sp),
                       children: [
                         TextSpan(
                           text: '$formattedInstallment SAR',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: AppColor.primaryColor(context),
-                          ),
+                          style: const TextStyle(fontWeight: FontWeight.bold),
                         ),
                       ],
                     ),
                   ),
-                  Gap(4.h),
                   Text(
                     descKey.tr(),
-                    style: TextStyle(
-                      color: Colors.grey[600],
-                      fontSize: 11.sp,
+                    style: AppTextStyle.bodySmall(context).copyWith(
+                      color: AppColor.greyColor(context),
+                      fontSize: 10.sp,
                     ),
                   ),
                 ],
               ),
             ),
-            Icon(Icons.info_outline_rounded, color: Colors.grey[400], size: 20.sp),
+            Icon(Icons.arrow_forward_ios_rounded, color: AppColor.greyColor(context), size: 14.sp),
           ],
-        ),
-      ),
-    );
-  }
-  Widget _buildLogo(String text, Color bgColor, Color textColor, {bool isTabby = true, bool fullSize = false}) {
-    if (fullSize) {
-      return Container(
-        padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
-        decoration: BoxDecoration(
-          color: bgColor,
-          borderRadius: BorderRadius.circular(6.r),
-        ),
-        child: Text(
-          text,
-          style: TextStyle(
-            color: textColor,
-            fontWeight: FontWeight.w900,
-            fontFamily: 'Arial',
-            fontSize: 14.sp,
-          ),
-        ),
-      );
-    }
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 2.h),
-      decoration: BoxDecoration(
-        color: bgColor,
-        borderRadius: BorderRadius.circular(4.r),
-      ),
-      child: Text(
-        text,
-        style: TextStyle(
-          color: textColor,
-          fontWeight: FontWeight.w900,
-          fontFamily: 'Arial',
-          fontSize: 10.sp,
         ),
       ),
     );
@@ -278,50 +222,31 @@ class _BnplWidgetState extends State<BnplWidget> {
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Center(
-              child: Container(
-                width: 40.w,
-                height: 4.h,
-                decoration: BoxDecoration(
-                  color: Colors.grey.withValues(alpha: 0.3),
-                  borderRadius: BorderRadius.circular(2.r),
-                ),
+            Container(
+              width: 40.w, height: 4.h,
+              decoration: BoxDecoration(
+                color: Colors.grey.withOpacity(0.3),
+                borderRadius: BorderRadius.circular(2.r),
               ),
             ),
             Gap(24.h),
-            Center(
-              child: _buildLogo(providerName, bgColor, textColor, isTabby: isTabby, fullSize: true),
+            Text(
+              '${AppLocaleKey.payWith.tr()} ${providerName.toUpperCase()}',
+              style: AppTextStyle.titleMedium(context).copyWith(fontWeight: FontWeight.bold),
             ),
             Gap(16.h),
-            Center(
-              child: Text(
-                AppLocaleKey.howItWorks.tr(),
-                style: TextStyle(
-                  fontSize: 18.sp,
-                  fontWeight: FontWeight.bold,
-                  color: AppColor.blackTextColor(context),
-                ),
-              ),
-            ),
-            Gap(8.h),
-            Center(
-              child: Text(
-                bottomSheetDescKey.tr(),
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 13.sp,
-                  color: Colors.grey[600],
-                ),
-              ),
+            Text(
+              bottomSheetDescKey.tr(),
+              textAlign: TextAlign.center,
+              style: AppTextStyle.bodySmall(context).copyWith(color: AppColor.greyColor(context)),
             ),
             Gap(32.h),
             _buildTimelineItem(context, AppLocaleKey.payToday.tr(), formattedInstallment, bgColor, true),
             _buildTimelineItem(context, AppLocaleKey.inOneMonth.tr(), formattedInstallment, bgColor, false),
             _buildTimelineItem(context, AppLocaleKey.inTwoMonths.tr(), formattedInstallment, bgColor, false),
             _buildTimelineItem(context, AppLocaleKey.inThreeMonths.tr(), formattedInstallment, bgColor, false, isLast: true),
-            Gap(24.h),
+            Gap(32.h),
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
@@ -335,12 +260,8 @@ class _BnplWidgetState extends State<BnplWidget> {
                   padding: EdgeInsets.symmetric(vertical: 14.h),
                 ),
                 child: Text(
-                  '${AppLocaleKey.ok.tr()} - ${AppLocaleKey.payWith.tr()} ${providerName.toUpperCase()}',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16.sp,
-                  ),
+                  AppLocaleKey.payNow.tr(),
+                  style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
                 ),
               ),
             ),
@@ -356,55 +277,29 @@ class _BnplWidgetState extends State<BnplWidget> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(
-          width: 30.w,
+          width: 24.w,
           child: Column(
             children: [
               Container(
-                width: 16.w,
-                height: 16.w,
+                width: 12.w, height: 12.w,
                 decoration: BoxDecoration(
-                  color: isFirst ? brandColor : AppColor.scaffoldColor(context),
+                  color: isFirst ? brandColor : Colors.transparent,
                   shape: BoxShape.circle,
-                  border: Border.all(
-                    color: isFirst ? brandColor : Colors.grey.withValues(alpha: 0.3),
-                    width: 4.w,
-                  ),
+                  border: Border.all(color: isFirst ? brandColor : Colors.grey.withOpacity(0.3), width: 2),
                 ),
               ),
-              if (!isLast)
-                Container(
-                  width: 2.w,
-                  height: 30.h,
-                  color: Colors.grey.withValues(alpha: 0.2),
-                ),
+              if (!isLast) Container(width: 1.w, height: 30.h, color: Colors.grey.withOpacity(0.2)),
             ],
           ),
         ),
         Gap(12.w),
         Expanded(
-          child: Padding(
-            padding: EdgeInsets.only(bottom: isLast ? 0 : 20.h),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  title,
-                  style: TextStyle(
-                    fontSize: 14.sp,
-                    fontWeight: isFirst ? FontWeight.bold : FontWeight.w500,
-                    color: AppColor.blackTextColor(context),
-                  ),
-                ),
-                Text(
-                  '$amount SAR',
-                  style: TextStyle(
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.bold,
-                    color: AppColor.blackTextColor(context),
-                  ),
-                ),
-              ],
-            ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(title, style: AppTextStyle.bodyMedium(context)),
+              Text('$amount SAR', style: AppTextStyle.bodyMedium(context).copyWith(fontWeight: FontWeight.bold)),
+            ],
           ),
         ),
       ],

@@ -40,7 +40,7 @@ class _VideoReviewWidgetState extends State<VideoReviewWidget> {
             borderRadius: BorderRadius.circular(24.r),
             boxShadow: [
               BoxShadow(
-                color: AppColor.primaryColor(context).withValues(alpha: 0.2),
+                color: AppColor.primaryColor(context).withOpacity(0.2),
                 blurRadius: 20,
                 offset: const Offset(0, 10),
               ),
@@ -58,7 +58,7 @@ class _VideoReviewWidgetState extends State<VideoReviewWidget> {
                       errorBuilder: (_, __, ___) =>
                           Image.asset(widget.car['image'], fit: BoxFit.cover),
                     ),
-                    Container(color: AppColor.blackTextColor(context).withValues(alpha: 0.4)),
+                    Container(color: AppColor.blackTextColor(context).withOpacity(0.4)),
                     Center(
                       child: GestureDetector(
                         onTap: () {
@@ -67,7 +67,7 @@ class _VideoReviewWidgetState extends State<VideoReviewWidget> {
                         },
                         child: CircleAvatar(
                           radius: 35.r,
-                          backgroundColor: AppColor.primaryColor(context).withValues(alpha: 0.9),
+                          backgroundColor: AppColor.primaryColor(context).withOpacity(0.9),
                           child: Icon(
                             Icons.play_arrow_rounded,
                             color: AppColor.whiteColor(context),
@@ -82,7 +82,7 @@ class _VideoReviewWidgetState extends State<VideoReviewWidget> {
                       child: Container(
                         padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 6.h),
                         decoration: BoxDecoration(
-                          color: AppColor.blackTextColor(context).withValues(alpha: 0.4),
+                          color: AppColor.blackTextColor(context).withOpacity(0.4),
                           borderRadius: BorderRadius.circular(8.r),
                         ),
                         child: Text(

@@ -32,7 +32,7 @@ class BankOfferCalculatorCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(16.r),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.05),
+            color: Colors.black.withOpacity(0.05),
             blurRadius: 10,
             offset: const Offset(0, 5),
           ),
@@ -100,7 +100,7 @@ class BankOfferCalculatorCard extends StatelessWidget {
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 4.h),
                 decoration: BoxDecoration(
-                  color: AppColor.primaryColor(context).withValues(alpha: 0.1),
+                  color: AppColor.primaryColor(context).withOpacity(0.1),
                   borderRadius: BorderRadius.circular(8.r),
                 ),
                 child: Text(
@@ -120,7 +120,7 @@ class BankOfferCalculatorCard extends StatelessWidget {
             max: 5,
             divisions: 4,
             activeColor: AppColor.primaryColor(context),
-            inactiveColor: Colors.grey.withValues(alpha: 0.2),
+            inactiveColor: Colors.grey.withOpacity(0.2),
             onChanged: onDurationChanged,
           ),
         ],

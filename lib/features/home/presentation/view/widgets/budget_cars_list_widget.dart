@@ -19,6 +19,7 @@ class BudgetCarsListWidget extends StatelessWidget {
         'image': 'assets/images/cars/toyota.png',
         'cashPrice': '45,000 SAR',
         'installmentPrice': '850 SAR/mo',
+        'installments': '1,166 ر.س / شهر',
         'isTamaraAvailable': true,
       },
       {
@@ -26,6 +27,7 @@ class BudgetCarsListWidget extends StatelessWidget {
         'image': 'assets/images/cars/hyundai.png',
         'cashPrice': '48,500 SAR',
         'installmentPrice': '920 SAR/mo',
+        'installments': '1,166 ر.س / شهر',
         'isTamaraAvailable': false,
       },
     ],
@@ -36,6 +38,7 @@ class BudgetCarsListWidget extends StatelessWidget {
         'image': 'assets/images/cars/toyota.png',
         'cashPrice': '95,000 SAR',
         'installmentPrice': '1,450 SAR/mo',
+        'installments': '1,166 ر.س / شهر',
         'isTamaraAvailable': true,
       },
       {
@@ -43,6 +46,7 @@ class BudgetCarsListWidget extends StatelessWidget {
         'image': 'assets/images/cars/kia.png',
         'cashPrice': '88,000 SAR',
         'installmentPrice': '1,320 SAR/mo',
+        'installments': '1,166 ر.س / شهر',
         'isTamaraAvailable': true,
       },
     ],
@@ -53,6 +57,7 @@ class BudgetCarsListWidget extends StatelessWidget {
         'image': 'assets/images/cars/lexus.png',
         'cashPrice': '185,000 SAR',
         'installmentPrice': '2,800 SAR/mo',
+        'installments': '1,166 ر.س / شهر',
         'isTamaraAvailable': false,
       },
       {
@@ -60,6 +65,7 @@ class BudgetCarsListWidget extends StatelessWidget {
         'image': 'assets/images/cars/ford.png',
         'cashPrice': '165,000 SAR',
         'installmentPrice': '2,400 SAR/mo',
+        'installments': '1,166 ر.س / شهر',
         'isTamaraAvailable': true,
       },
     ],
@@ -70,6 +76,7 @@ class BudgetCarsListWidget extends StatelessWidget {
         'image': 'assets/images/cars/mercedes-benz.png',
         'cashPrice': '1,200,000 SAR',
         'installmentPrice': '18,500 SAR/mo',
+        'installments': '1,166 ر.س / شهر',
         'isTamaraAvailable': false,
       },
       {
@@ -77,6 +84,7 @@ class BudgetCarsListWidget extends StatelessWidget {
         'image': 'assets/images/cars/landrover.png',
         'cashPrice': '750,000 SAR',
         'installmentPrice': '11,200 SAR/mo',
+        'installments': '1,166 ر.س / شهر',
         'isTamaraAvailable': true,
       },
     ],

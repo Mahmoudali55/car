@@ -17,9 +17,9 @@ class ReservationTimerBanner extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
       decoration: BoxDecoration(
-        color: AppColor.primaryColor(context).withValues(alpha: 0.05),
+        color: AppColor.primaryColor(context).withOpacity(0.05),
         borderRadius: BorderRadius.circular(12.r),
-        border: Border.all(color: AppColor.primaryColor(context).withValues(alpha: 0.3)),
+        border: Border.all(color: AppColor.primaryColor(context).withOpacity(0.3)),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

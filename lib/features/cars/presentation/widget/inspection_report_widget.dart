@@ -85,7 +85,7 @@ class InspectionReportWidget extends StatelessWidget {
           isHealthy ? AppLocaleKey.salem.tr() : AppLocaleKey.attention.tr(),
           style: AppTextStyle.bodySmall(
             context,
-          ).copyWith(color: AppColor.blackTextColor(context).withValues(alpha: 0.9)),
+          ).copyWith(color: AppColor.blackTextColor(context).withOpacity(0.9)),
         ),
       ],
     );
@@ -94,7 +94,7 @@ class InspectionReportWidget extends StatelessWidget {
   Widget _buildReportDivider(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 12.h),
-      child: Divider(color: AppColor.blackTextColor(context).withValues(alpha: 0.05), height: 1),
+      child: Divider(color: AppColor.blackTextColor(context).withOpacity(0.05), height: 1),
     );
   }
 }

@@ -26,12 +26,12 @@ class BankOfferSortChip extends StatelessWidget {
           color: isSelected ? AppColor.primaryColor(context) : AppColor.secondAppColor(context),
           borderRadius: BorderRadius.circular(20.r),
           border: Border.all(
-            color: isSelected ? Colors.transparent : Colors.grey.withValues(alpha: 0.2),
+            color: isSelected ? Colors.transparent : Colors.grey.withOpacity(0.2),
           ),
           boxShadow: isSelected
               ? [
                   BoxShadow(
-                    color: AppColor.primaryColor(context).withValues(alpha: 0.3),
+                    color: AppColor.primaryColor(context).withOpacity(0.3),
                     blurRadius: 8,
                     offset: const Offset(0, 3),
                   )

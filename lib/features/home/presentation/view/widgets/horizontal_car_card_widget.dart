@@ -3,6 +3,7 @@ import 'package:car/core/routes/routes_name.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/core/utils/navigator_methods.dart';
+import 'package:car/features/home/presentation/view/widgets/custom_price_widget.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -120,34 +121,3 @@ class HorizontalCarCardWidget extends StatelessWidget {
   }
 }
 
-class CustomPriceWidget extends StatelessWidget {
-  const CustomPriceWidget({
-    super.key,
-    required this.car, required this.title, required this.price,
-  });
-
-  final Map<String, dynamic> car;
-  final String title ;
-  final String price ;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Text(
-          title,
-              style: AppTextStyle.bodySmall(context).copyWith(
-                color: AppColor.greyColor(context),
-          ),
-        ),
-        Text(
-              price,
-              style: AppTextStyle.bodySmall(context).copyWith(
-                fontWeight: FontWeight.w700,
-                color: AppColor.primaryColor(context),
-        ),
-    ),
-                  ],
-                );
-  }
-}

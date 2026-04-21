@@ -75,14 +75,14 @@ class SpecGridWidget extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColor.secondAppColor(context),
         borderRadius: BorderRadius.circular(16.r),
-        border: Border.all(color: AppColor.blackTextColor(context).withValues(alpha: 0.05)),
+        border: Border.all(color: AppColor.blackTextColor(context).withOpacity(0.05)),
       ),
       child: Row(
         children: [
           Container(
             padding: EdgeInsets.all(8.w),
             decoration: BoxDecoration(
-              color: AppColor.blackTextColor(context).withValues(alpha: 0.05),
+              color: AppColor.blackTextColor(context).withOpacity(0.05),
               borderRadius: BorderRadius.circular(10.r),
             ),
             child: Icon(icon, color: AppColor.primaryColor(context), size: 18.sp),
