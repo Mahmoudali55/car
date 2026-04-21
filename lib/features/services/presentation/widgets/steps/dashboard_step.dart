@@ -4,7 +4,8 @@ import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/features/services/presentation/models/financing_models.dart';
 import 'package:car/features/services/presentation/widgets/shared/elite_info_tile.dart';
-import 'package:car/features/services/presentation/widgets/shared/elite_slider.dart';
+import 'package:car/features/services/presentation/widgets/shared/elite_input_field.dart';
+import 'package:car/features/services/presentation/widgets/shared/elite_selection_group.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -13,30 +14,31 @@ import 'package:gap/gap.dart';
 class DashboardStep extends StatelessWidget {
   final BankOffer previewBank;
   final double carPrice;
-  final double downPaymentPercent;
-  final double lastPaymentPercent;
+  final double downPaymentAmount;
+  final double lastPaymentAmount;
   final int durationYears;
   final int selectedYear;
   final String selectedBrand;
   final String selectedModel;
-  final void Function(double) onCarPriceChanged;
-  final void Function(double) onDownPaymentChanged;
-  final void Function(double) onLastPaymentChanged;
-  final void Function(double) onDurationChanged;
+  
+  final TextEditingController priceController;
+  final TextEditingController downPaymentController;
+  final TextEditingController lastPaymentController;
+  final void Function(int) onDurationChanged;
 
   const DashboardStep({
     super.key,
     required this.previewBank,
     required this.carPrice,
-    required this.downPaymentPercent,
-    required this.lastPaymentPercent,
+    required this.downPaymentAmount,
+    required this.lastPaymentAmount,
     required this.durationYears,
     required this.selectedYear,
     required this.selectedBrand,
     required this.selectedModel,
-    required this.onCarPriceChanged,
-    required this.onDownPaymentChanged,
-    required this.onLastPaymentChanged,
+    required this.priceController,
+    required this.downPaymentController,
+    required this.lastPaymentController,
     required this.onDurationChanged,
   });
 
@@ -45,8 +47,8 @@ class DashboardStep extends StatelessWidget {
     final formatter = NumberFormat('#,##0', 'en_US');
     final calc = previewBank.calculate(
       carPrice: carPrice,
-      downPaymentPercent: downPaymentPercent,
-      lastPaymentPercent: lastPaymentPercent,
+      downPaymentAmount: downPaymentAmount,
+      lastPaymentAmount: lastPaymentAmount,
       durationYears: durationYears,
       year: selectedYear,
       brand: selectedBrand,
@@ -123,41 +125,33 @@ class DashboardStep extends StatelessWidget {
             ),
           ),
           Gap(48.h),
-          EliteSlider(
+          EliteInputField(
             label: AppLocaleKey.approxCarValue.tr().toUpperCase(),
-            value: carPrice,
-            min: 10000,
-            max: carPrice > 2000000 ? carPrice * 1.5 : 2000000,
-            onChanged: onCarPriceChanged,
+            controller: priceController,
             suffix: 'SAR',
+            hint: '0',
           ),
           Gap(32.h),
-          EliteSlider(
+          EliteInputField(
             label: AppLocaleKey.availableDownPayment.tr().toUpperCase(),
-            value: downPaymentPercent,
-            min: 0,
-            max: 90,
-            onChanged: onDownPaymentChanged,
-            suffix: '%',
+            controller: downPaymentController,
+            suffix: 'SAR',
+            hint: '0',
           ),
           Gap(32.h),
-          EliteSlider(
+          EliteInputField(
             label: AppLocaleKey.lastPaymentResidual.tr().toUpperCase(),
-            value: lastPaymentPercent,
-            min: 0,
-            max: 50,
-            onChanged: onLastPaymentChanged,
-            suffix: '%',
+            controller: lastPaymentController,
+            suffix: 'SAR',
+            hint: '0',
           ),
           Gap(32.h),
-          EliteSlider(
+          EliteSelectionGroup(
             label: AppLocaleKey.financingDurationYears.tr().toUpperCase(),
-            value: durationYears.toDouble(),
-            min: 1,
-            max: 5,
-            onChanged: onDurationChanged,
+            options: const [1, 2, 3, 4, 5],
+            selectedValue: durationYears,
+            onSelected: onDurationChanged,
             suffix: AppLocaleKey.years.tr().toUpperCase(),
-            divisions: 4,
           ),
         ],
       ),

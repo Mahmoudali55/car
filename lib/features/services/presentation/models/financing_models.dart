@@ -69,8 +69,8 @@ class BankOffer {
 
   Map<String, double> calculate({
     required num carPrice,
-    required num downPaymentPercent,
-    required num lastPaymentPercent,
+    required num downPaymentAmount,
+    required num lastPaymentAmount,
     required int durationYears,
     required int year,
     required String brand,
@@ -78,8 +78,8 @@ class BankOffer {
   }) {
     final apr = getAdjustedApr(year, brand, model);
     final principal = carPrice.toDouble();
-    final down = (principal * downPaymentPercent) / 100;
-    final residual = (principal * lastPaymentPercent) / 100;
+    final down = downPaymentAmount.toDouble();
+    final residual = lastPaymentAmount.toDouble();
     final financed = principal - down;
     if (financed <= 0) {
       return {'totalAmount': 0, 'monthlyInstallment': 0, 'apr': apr, 'lastPaymentAmount': 0};

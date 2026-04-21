@@ -32,8 +32,8 @@ class _FinancingScreenState extends State<FinancingScreen> {
   String? _selectedModel;
   int _selectedYear = 2025;
   late double _carPrice;
-  double _downPaymentPercent = 10;
-  double _lastPaymentPercent = 0;
+  double _downPaymentAmount = 0;
+  double _lastPaymentAmount = 0;
   int _durationYears = 5;
   BankOffer? _selectedBank;
   final _formKey = GlobalKey<FormState>();
@@ -42,6 +42,17 @@ class _FinancingScreenState extends State<FinancingScreen> {
   final _idCtrl = TextEditingController();
   final _workCtrl = TextEditingController();
   final _salaryCtrl = TextEditingController();
+  
+  // New controllers for specific numeric inputs
+  final _priceCtrl = TextEditingController();
+  final _downPaymentCtrl = TextEditingController();
+  final _lastPaymentCtrl = TextEditingController();
+
+  void _syncControllers() {
+    _priceCtrl.text = _carPrice.toStringAsFixed(0);
+    _downPaymentCtrl.text = _downPaymentAmount.toStringAsFixed(0);
+    _lastPaymentCtrl.text = _lastPaymentAmount.toStringAsFixed(0);
+  }
   @override
   void initState() {
     super.initState();
@@ -56,6 +67,21 @@ class _FinancingScreenState extends State<FinancingScreen> {
       _selectedYear = int.tryParse(widget.car?['year']?.toString() ?? '2025') ?? 2025;
       _step = 1;
     }
+    _syncControllers();
+
+    // Listeners to update state when text changes
+    _priceCtrl.addListener(() {
+      final val = double.tryParse(_priceCtrl.text) ?? 0;
+      if (val != _carPrice) setState(() => _carPrice = val);
+    });
+    _downPaymentCtrl.addListener(() {
+      final val = double.tryParse(_downPaymentCtrl.text) ?? 0;
+      if (val != _downPaymentAmount) setState(() => _downPaymentAmount = val);
+    });
+    _lastPaymentCtrl.addListener(() {
+      final val = double.tryParse(_lastPaymentCtrl.text) ?? 0;
+      if (val != _lastPaymentAmount) setState(() => _lastPaymentAmount = val);
+    });
   }
 
   @override
@@ -65,6 +91,9 @@ class _FinancingScreenState extends State<FinancingScreen> {
     _idCtrl.dispose();
     _workCtrl.dispose();
     _salaryCtrl.dispose();
+    _priceCtrl.dispose();
+    _downPaymentCtrl.dispose();
+    _lastPaymentCtrl.dispose();
     super.dispose();
   }
 
@@ -91,12 +120,13 @@ class _FinancingScreenState extends State<FinancingScreen> {
       if (bank.campaigns != null) {
         for (final c in bank.campaigns!) {
           if (c.matches(_selectedBrand ?? '', _selectedModel ?? '', _selectedYear)) {
-            _downPaymentPercent = c.defaultDownPayment;
-            _lastPaymentPercent = c.defaultLastPayment;
+            _downPaymentAmount = (_carPrice * c.defaultDownPayment) / 100;
+            _lastPaymentAmount = (_carPrice * c.defaultLastPayment) / 100;
             break;
           }
         }
       }
+      _syncControllers();
     });
   }
 
@@ -153,16 +183,16 @@ class _FinancingScreenState extends State<FinancingScreen> {
         return DashboardStep(
           previewBank: _selectedBank ?? kBanks[0],
           carPrice: _carPrice,
-          downPaymentPercent: _downPaymentPercent,
-          lastPaymentPercent: _lastPaymentPercent,
+          downPaymentAmount: _downPaymentAmount,
+          lastPaymentAmount: _lastPaymentAmount,
           durationYears: _durationYears,
           selectedYear: _selectedYear,
           selectedBrand: _selectedBrand ?? '',
           selectedModel: _selectedModel ?? '',
-          onCarPriceChanged: (v) => setState(() => _carPrice = v),
-          onDownPaymentChanged: (v) => setState(() => _downPaymentPercent = v),
-          onLastPaymentChanged: (v) => setState(() => _lastPaymentPercent = v),
-          onDurationChanged: (v) => setState(() => _durationYears = v.toInt()),
+          priceController: _priceCtrl,
+          downPaymentController: _downPaymentCtrl,
+          lastPaymentController: _lastPaymentCtrl,
+          onDurationChanged: (v) => setState(() => _durationYears = v),
         );
       case 2:
         return PlatinumStep(
@@ -172,8 +202,8 @@ class _FinancingScreenState extends State<FinancingScreen> {
           selectedModel: _selectedModel ?? '',
           selectedYear: _selectedYear,
           carPrice: _carPrice,
-          downPaymentPercent: _downPaymentPercent,
-          lastPaymentPercent: _lastPaymentPercent,
+          downPaymentAmount: _downPaymentAmount,
+          lastPaymentAmount: _lastPaymentAmount,
           durationYears: _durationYears,
           onBankSelected: _selectBank,
         );
@@ -181,8 +211,8 @@ class _FinancingScreenState extends State<FinancingScreen> {
         return ScheduleStep(
           selectedBank: _selectedBank ?? kBanks[0],
           carPrice: _carPrice,
-          downPaymentPercent: _downPaymentPercent,
-          lastPaymentPercent: _lastPaymentPercent,
+          downPaymentAmount: _downPaymentAmount,
+          lastPaymentAmount: _lastPaymentAmount,
           durationYears: _durationYears,
           selectedYear: _selectedYear,
           selectedBrand: _selectedBrand ?? '',

@@ -10,43 +10,24 @@ import 'package:gap/gap.dart';
 class BankOfferCard extends StatelessWidget {
   final BankOffer bank;
   final bool isSelected;
-  final double carPrice;
-  final double downPaymentPercent;
-  final double lastPaymentPercent;
-  final int durationYears;
-  final int selectedYear;
-  final String selectedBrand;
-  final String selectedModel;
+  final double monthlyInstallment;
+  final double totalAmount;
+  final double apr;
   final VoidCallback onTap;
 
   const BankOfferCard({
     super.key,
     required this.bank,
     required this.isSelected,
-    required this.carPrice,
-    required this.downPaymentPercent,
-    required this.lastPaymentPercent,
-    required this.durationYears,
-    required this.selectedYear,
-    required this.selectedBrand,
-    required this.selectedModel,
+    required this.monthlyInstallment,
+    required this.totalAmount,
+    required this.apr,
     required this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
-    final calc = bank.calculate(
-      carPrice: carPrice,
-      downPaymentPercent: downPaymentPercent,
-      lastPaymentPercent: lastPaymentPercent,
-      durationYears: durationYears,
-      year: selectedYear,
-      brand: selectedBrand,
-      model: selectedModel,
-    );
     final primary = AppColor.primaryColor(context);
-    final hasCampaign =
-        bank.campaigns?.any((c) => c.matches(selectedBrand, selectedModel, selectedYear)) ?? false;
 
     return GestureDetector(
       onTap: onTap,
@@ -92,44 +73,20 @@ class BankOfferCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    children: [
-                      Text(
-                        bank.nameKey.tr().toUpperCase(),
-                        style: AppTextStyle.bodyMedium(context).copyWith(
-                          fontWeight: FontWeight.w900,
-                          color: isSelected
-                              ? primary
-                              : AppColor.blackTextColor(context).withOpacity(0.7),
-                          fontSize: 13.sp,
-                          letterSpacing: 1,
-                        ),
-                      ),
-                      if (hasCampaign) ...[
-                        Gap(8.w),
-                        Container(
-                          padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
-                          decoration: BoxDecoration(
-                            color: primary.withOpacity(0.1),
-                            borderRadius: BorderRadius.circular(6.r),
-                            border: Border.all(color: primary.withOpacity(0.2)),
-                          ),
-                          child: Text(
-                            AppLocaleKey.elite.tr().toUpperCase(),
-                            style: AppTextStyle.bodySmall(context).copyWith(
-                              fontSize: 7.sp,
-                              fontWeight: FontWeight.w900,
-                              color: primary,
-                              letterSpacing: 1,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ],
+                  Text(
+                    bank.nameKey.tr().toUpperCase(),
+                    style: AppTextStyle.bodyMedium(context).copyWith(
+                      fontWeight: FontWeight.w900,
+                      color: isSelected
+                          ? primary
+                          : AppColor.blackTextColor(context).withOpacity(0.7),
+                      fontSize: 13.sp,
+                      letterSpacing: 1,
+                    ),
                   ),
                   Gap(4.h),
                   Text(
-                    '${AppLocaleKey.fixedApr.tr().toUpperCase()}: ${calc['apr']!.toStringAsFixed(2)}%',
+                    '${AppLocaleKey.fixedApr.tr().toUpperCase()}: ${apr.toStringAsFixed(2)}%',
                     style: AppTextStyle.bodySmall(context).copyWith(
                       color: AppColor.blackTextColor(context).withOpacity(0.4),
                       fontSize: 9.sp,
@@ -145,7 +102,7 @@ class BankOfferCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Text(
-                  NumberFormat('#,##0').format(calc['monthlyInstallment']),
+                  NumberFormat('#,##0').format(monthlyInstallment),
                   style: AppTextStyle.titleMedium(context).copyWith(
                     color: isSelected
                         ? primary

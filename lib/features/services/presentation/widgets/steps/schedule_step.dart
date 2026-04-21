@@ -12,8 +12,8 @@ import 'package:gap/gap.dart';
 class ScheduleStep extends StatefulWidget {
   final BankOffer selectedBank;
   final double carPrice;
-  final double downPaymentPercent;
-  final double lastPaymentPercent;
+  final double downPaymentAmount;
+  final double lastPaymentAmount;
   final int durationYears;
   final int selectedYear;
   final String selectedBrand;
@@ -23,8 +23,8 @@ class ScheduleStep extends StatefulWidget {
     super.key,
     required this.selectedBank,
     required this.carPrice,
-    required this.downPaymentPercent,
-    required this.lastPaymentPercent,
+    required this.downPaymentAmount,
+    required this.lastPaymentAmount,
     required this.durationYears,
     required this.selectedYear,
     required this.selectedBrand,
@@ -42,8 +42,8 @@ class _ScheduleStepState extends State<ScheduleStep> {
   Widget build(BuildContext context) {
     final calc = widget.selectedBank.calculate(
       carPrice: widget.carPrice,
-      downPaymentPercent: widget.downPaymentPercent,
-      lastPaymentPercent: widget.lastPaymentPercent,
+      downPaymentAmount: widget.downPaymentAmount,
+      lastPaymentAmount: widget.lastPaymentAmount,
       durationYears: widget.durationYears,
       year: widget.selectedYear,
       brand: widget.selectedBrand,

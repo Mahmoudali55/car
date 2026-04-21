@@ -16,8 +16,8 @@ class PlatinumStep extends StatelessWidget {
   final String selectedModel;
   final int selectedYear;
   final double carPrice;
-  final double downPaymentPercent;
-  final double lastPaymentPercent;
+  final double downPaymentAmount;
+  final double lastPaymentAmount;
   final int durationYears;
   final void Function(BankOffer bank) onBankSelected;
 
@@ -29,8 +29,8 @@ class PlatinumStep extends StatelessWidget {
     required this.selectedModel,
     required this.selectedYear,
     required this.carPrice,
-    required this.downPaymentPercent,
-    required this.lastPaymentPercent,
+    required this.downPaymentAmount,
+    required this.lastPaymentAmount,
     required this.durationYears,
     required this.onBankSelected,
   });
@@ -66,18 +66,25 @@ class PlatinumStep extends StatelessWidget {
               ),
             )
           else
-            ...supportedBanks.map((bank) => BankOfferCard(
-                  bank: bank,
-                  isSelected: selectedBank == bank,
-                  carPrice: carPrice,
-                  downPaymentPercent: downPaymentPercent,
-                  lastPaymentPercent: lastPaymentPercent,
-                  durationYears: durationYears,
-                  selectedYear: selectedYear,
-                  selectedBrand: selectedBrand,
-                  selectedModel: selectedModel,
-                  onTap: () => onBankSelected(bank),
-                )),
+            ...supportedBanks.map((bank) {
+              final calc = bank.calculate(
+                carPrice: carPrice,
+                downPaymentAmount: downPaymentAmount,
+                lastPaymentAmount: lastPaymentAmount,
+                durationYears: durationYears,
+                year: selectedYear,
+                brand: selectedBrand,
+                model: selectedModel,
+              );
+              return BankOfferCard(
+                bank: bank,
+                isSelected: selectedBank == bank,
+                monthlyInstallment: calc['monthlyInstallment'] ?? 0,
+                totalAmount: calc['totalAmount'] ?? 0,
+                apr: calc['apr'] ?? 0,
+                onTap: () => onBankSelected(bank),
+              );
+            }),
         ],
       ),
     );
