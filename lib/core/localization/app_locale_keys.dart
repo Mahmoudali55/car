@@ -854,4 +854,6 @@ class AppLocaleKey {
   static const String contactSupport = 'Contact Support';
   static const String weAreHereToHelp = ' We are here to help';
   static const String whatsapp = 'WhatsApp';
+  static const String installments = 'Installment';
+  static const String cash = 'Cash';
 }
