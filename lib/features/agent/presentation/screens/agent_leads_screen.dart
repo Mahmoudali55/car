@@ -1,5 +1,7 @@
 import 'package:car/core/custom_widgets/custom_form_field/custom_form_field.dart';
 import 'package:car/core/theme/app_colors.dart';
+import 'package:car/core/localization/app_locale_keys.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 
 import 'package:car/features/agent/data/agent_models.dart';
@@ -21,7 +23,7 @@ class _AgentLeadsScreenState extends State<AgentLeadsScreen> {
 
 
   List<AgentLead> _getFiltered(LeadStatus? status) {
-    return kAgentLeads.where((l) {
+    return getAgentLeads().where((l) {
       final matchStatus = status == null || l.status == status;
       final matchSearch = _search.isEmpty ||
           l.customerName.contains(_search) ||
@@ -54,7 +56,7 @@ class _AgentLeadsScreenState extends State<AgentLeadsScreen> {
                         Row(
                           children: [
                             Text(
-                              'العملاء المحتملين',
+                              AppLocaleKey.agentLeadsPotential.tr(),
                               style: TextStyle(
                                 color: AppColor.blackTextColor(context),
                                 fontWeight: FontWeight.w900,
@@ -81,7 +83,7 @@ class _AgentLeadsScreenState extends State<AgentLeadsScreen> {
                     Padding(
                       padding: EdgeInsets.fromLTRB(16.w, 8.h, 16.w, 12.h),
                       child: CustomFormField(
-                        hintText: 'ابحث بالاسم',
+                        hintText: AppLocaleKey.agentSearchByName.tr(),
                         radius: 12.r,
                         prefixIcon: Icon(Icons.search_rounded, size: 20.sp, color: AppColor.hintColor(context)),
                         onChanged: (v) => setState(() => _search = v),
@@ -116,12 +118,12 @@ class _AgentLeadsScreenState extends State<AgentLeadsScreen> {
                           unselectedLabelStyle: TextStyle(fontSize: 13.sp, fontWeight: FontWeight.w700),
                           indicatorSize: TabBarIndicatorSize.tab,
                           dividerColor: Colors.transparent,
-                          tabs: const [
-                            Tab(text: 'الكل'),
-                            Tab(text: 'جديد'),
-                            Tab(text: 'جاري'),
-                            Tab(text: 'مغلق'),
-                            Tab(text: 'مفقود'),
+                          tabs: [
+                            Tab(text: AppLocaleKey.agentAll.tr()),
+                            Tab(text: AppLocaleKey.agentNew.tr()),
+                            Tab(text: AppLocaleKey.agentStatusInProgress.tr()),
+                            Tab(text: AppLocaleKey.agentStatusClosed.tr()),
+                            Tab(text: AppLocaleKey.agentStatusLost.tr()),
                           ],
                         ),
                       ),
@@ -163,7 +165,7 @@ class _AgentLeadsScreenState extends State<AgentLeadsScreen> {
             ),
             Gap(16.h),
             Text(
-              'لا توجد نتائج مطابقة',
+              AppLocaleKey.agentNoMatchesFound.tr(),
               style: TextStyle(color: AppColor.hintColor(context), fontSize: 15.sp, fontWeight: FontWeight.w700),
             ),
           ],

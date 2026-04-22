@@ -1,5 +1,6 @@
 import 'package:car/core/theme/app_colors.dart';
-
+import 'package:car/core/localization/app_locale_keys.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 import 'package:car/features/agent/data/agent_models.dart';
 import 'package:car/features/agent/presentation/screens/widget/status_badge_widget.dart';
@@ -93,7 +94,7 @@ class LeadCard extends StatelessWidget {
                       ),
                       Gap(6.h),
                       Text(
-                        'الميزانية: ${NumberFormat('#,##0').format(lead.budget)} ر.س',
+                        AppLocaleKey.agentBudgetDisplay.tr(namedArgs: {'amount': NumberFormat('#,##0').format(lead.budget)}),
                         style: TextStyle(
                           color: AppColor.blueColor(context),
                           fontSize: 12.sp,
@@ -110,28 +111,38 @@ class LeadCard extends StatelessWidget {
 
           /// ── Actions ──
           Padding(
-            padding: EdgeInsets.fromLTRB(16.w, 0, 16.w, 16.h),
+            padding: const EdgeInsets.all(8.0),
             child: Row(
+              spacing:  5.w,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                
               children: [
-                ActionBtn(
-                  icon: Icons.phone_rounded,
-                  label: 'اتصال',
-                  color: AppColor.greenColor(context),
-                  onTap: () => launchUrl(Uri.parse('tel:${lead.phoneNumber}')),
+                Expanded(
+                  child: ActionBtn(
+                    icon: Icons.phone_rounded,
+                    label: AppLocaleKey.agentCall.tr(),
+                    color: AppColor.greenColor(context),
+                    onTap: () => launchUrl(Uri.parse('tel:${lead.phoneNumber}')),
+                  ),
                 ),
-                Gap(10.w),
-                ActionBtn(
-                  icon: Icons.chat_rounded,
-                  label: 'واتساب',
-                  color: const Color(0xFF25D366),
-                  onTap: () => launchUrl(Uri.parse('https://wa.me/966${lead.phoneNumber.substring(1)}')),
+                
+                Expanded(
+                  child: ActionBtn(
+                    icon: Icons.chat_rounded,
+                    label: AppLocaleKey.agentWhatsapp.tr(),
+                    color: const Color(0xFF25D366),
+                    onTap: () => launchUrl(Uri.parse('https://wa.me/966${lead.phoneNumber.substring(1)}')),
+                  ),
                 ),
-                Gap(10.w),
-                ActionBtn(
-                  icon: Icons.schedule_rounded,
-                  label: 'موعد',
-                  color: const Color(0xFF9C27B0),
-                  onTap: () {},
+                
+                Expanded(
+                  child: ActionBtn(
+                    icon: Icons.schedule_rounded,
+                    label: AppLocaleKey.agentAppointmentButtonLabel.tr(),
+                    color: const Color(0xFF9C27B0),
+                    onTap: () {},
+                  ),
                 ),
               ],
             ),

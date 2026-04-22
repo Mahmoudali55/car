@@ -1,4 +1,6 @@
 import 'package:car/core/theme/app_colors.dart';
+import 'package:car/core/localization/app_locale_keys.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 // ── KPI ──────────────────────────────────────────────────────────────────────
@@ -60,13 +62,13 @@ class AgentLead {
   String get statusLabel {
     switch (status) {
       case LeadStatus.newLead:
-        return 'جديد';
+        return AppLocaleKey.agentNew.tr();
       case LeadStatus.inProgress:
-        return 'جاري';
+        return AppLocaleKey.agentStatusInProgress.tr();
       case LeadStatus.closed:
-        return 'مغلق';
+        return AppLocaleKey.agentStatusClosed.tr();
       case LeadStatus.lost:
-        return 'مفقود';
+        return AppLocaleKey.agentStatusLost.tr();
     }
   }
 }
@@ -132,133 +134,130 @@ class AgentCar {
   String get availabilityLabel {
     switch (availability) {
       case CarAvailability.available:
-        return 'متاحة';
+        return AppLocaleKey.agentAvailable.tr();
       case CarAvailability.reserved:
-        return 'محجوزة';
+        return AppLocaleKey.agentReserved.tr();
       case CarAvailability.sold:
-        return 'مباعة';
+        return AppLocaleKey.agentSold.tr();
     }
   }
 }
 
 // ── Mock Data ─────────────────────────────────────────────────────────────────
-final kAgentKpis = [
-  const AgentKpi(
-    label: 'مكالمات اليوم',
+List<AgentKpi> getAgentKpis() => [
+  AgentKpi(
+    label: AppLocaleKey.adminCustomerInquiries.tr(),
     value: '14',
-    subtitle: 'من أصل 20 هدف',
+    subtitle: AppLocaleKey.agentTargetOutOfTotal.tr(namedArgs: {'total': '20'}),
     icon: Icons.phone_in_talk_rounded,
-    color: Color(0xFF3B82F6),
+    color: const Color(0xFF3B82F6),
     change: 12.0,
   ),
-  const AgentKpi(
-    label: 'مواعيد معلقة',
+  AgentKpi(
+    label: AppLocaleKey.agentUpcomingAppointments.tr(),
     value: '3',
-    subtitle: 'لهذا الأسبوع',
+    subtitle: AppLocaleKey.agentForThisWeek.tr(),
     icon: Icons.calendar_today_rounded,
-    color: Color(0xFFF59E0B),
+    color: const Color(0xFFF59E0B),
     change: -5.0,
   ),
-  const AgentKpi(
-    label: 'صفقات مغلقة',
+  AgentKpi(
+    label: AppLocaleKey.agentClosedDeals.tr(),
     value: '7',
-    subtitle: 'هذا الشهر',
+    subtitle: AppLocaleKey.agentThisMonth.tr(),
     icon: Icons.handshake_rounded,
-    color: Color(0xFF10B981),
+    color: const Color(0xFF10B981),
     change: 22.0,
   ),
-  const AgentKpi(
-    label: 'الإيرادات',
+  AgentKpi(
+    label: AppLocaleKey.agentCommissionsSales.tr(),
     value: '312K',
-    subtitle: 'ر.س هذا الشهر',
+    subtitle: '${AppLocaleKey.agentCurrencySar.tr()} ${AppLocaleKey.agentThisMonth.tr()}',
     icon: Icons.trending_up_rounded,
-    color: Color(0xFFFBBF24),
+    color: const Color(0xFFFBBF24),
     change: 18.0,
   ),
 ];
 
-final kAgentLeads = [
+List<AgentLead> getAgentLeads() => [
   AgentLead(
     id: '1',
-    customerName: 'محمد العمري',
+    customerName: AppLocaleKey.agentSimName1.tr(),
     phoneNumber: '0501234567',
-    carInterest: 'تويوتا كامري 2024',
+    carInterest: AppLocaleKey.agentSimCarCamry.tr() + " 2024",
     status: LeadStatus.newLead,
     lastContact: DateTime.now().subtract(const Duration(hours: 2)),
-    note: 'مهتم جداً، يريد التجربة',
     budget: 95000,
   ),
   AgentLead(
     id: '2',
-    customerName: 'سارة الخالدي',
+    customerName: AppLocaleKey.agentSimName2.tr(),
     phoneNumber: '0559876543',
-    carInterest: 'نيسان باترول 2023',
+    carInterest: AppLocaleKey.agentSimCarPatrol.tr() + " 2023",
     status: LeadStatus.inProgress,
     lastContact: DateTime.now().subtract(const Duration(days: 1)),
-    note: 'تنتظر موافقة التمويل',
     budget: 185000,
   ),
   AgentLead(
     id: '3',
-    customerName: 'فيصل الدوسري',
+    customerName: AppLocaleKey.agentSimName3.tr(),
     phoneNumber: '0534567890',
-    carInterest: 'BMW X5 2024',
+    carInterest: AppLocaleKey.agentSimCarX5.tr() + " 2024",
     status: LeadStatus.closed,
     lastContact: DateTime.now().subtract(const Duration(days: 2)),
     budget: 285000,
   ),
   AgentLead(
     id: '4',
-    customerName: 'لمياء الشهراني',
+    customerName: AppLocaleKey.agentSimName4.tr(),
     phoneNumber: '0521112233',
-    carInterest: 'هيونداي توسان 2024',
+    carInterest: AppLocaleKey.agentSimCarTucson.tr() + " 2024",
     status: LeadStatus.newLead,
     lastContact: DateTime.now().subtract(const Duration(hours: 5)),
     budget: 75000,
   ),
   AgentLead(
     id: '5',
-    customerName: 'خالد المطيري',
+    customerName: AppLocaleKey.agentSimName5.tr(),
     phoneNumber: '0567891234',
-    carInterest: 'لكزس LX 2023',
+    carInterest: AppLocaleKey.agentSimCarLX600.tr() + " 2023",
     status: LeadStatus.lost,
     lastContact: DateTime.now().subtract(const Duration(days: 5)),
-    note: 'ذهب للمنافس',
     budget: 350000,
   ),
 ];
 
-final kAgentAppointments = [
+List<AgentAppointment> getAgentAppointments() => [
   AgentAppointment(
     id: '1',
-    customerName: 'محمد العمري',
-    carModel: 'تويوتا كامري 2024',
+    customerName: AppLocaleKey.agentSimName1.tr(),
+    carModel: AppLocaleKey.agentSimCarCamry.tr() + " 2024",
     dateTime: DateTime.now().add(const Duration(hours: 2)),
-    location: 'صالة العرض - الرياض',
+    location: AppLocaleKey.agentSimLocationRiyadh.tr(),
     status: AppointmentStatus.upcoming,
   ),
   AgentAppointment(
     id: '2',
-    customerName: 'سارة الخالدي',
-    carModel: 'نيسان باترول 2023',
+    customerName: AppLocaleKey.agentSimName2.tr(),
+    carModel: AppLocaleKey.agentSimCarPatrol.tr() + " 2023",
     dateTime: DateTime.now().add(const Duration(hours: 5)),
-    location: 'مكتب العميل - جدة',
+    location: AppLocaleKey.agentSimLocationJeddah.tr(),
     status: AppointmentStatus.upcoming,
   ),
   AgentAppointment(
     id: '3',
-    customerName: 'فيصل الدوسري',
-    carModel: 'BMW X5 2024',
+    customerName: AppLocaleKey.agentSimName3.tr(),
+    carModel: AppLocaleKey.agentSimCarX5.tr() + " 2024",
     dateTime: DateTime.now().subtract(const Duration(hours: 3)),
-    location: 'صالة العرض - الخبر',
+    location: AppLocaleKey.agentSimLocationKhobar.tr(),
     status: AppointmentStatus.done,
   ),
 ];
 
-final kAgentCars = [
-  const AgentCar(
+List<AgentCar> getAgentCars() => [
+  AgentCar(
     id: '1',
-    name: 'كامري 2024',
+    name: AppLocaleKey.agentSimCarCamry.tr() + " 2024",
     brand: 'تويوتا',
     price: 95000,
     imageUrl: '',
@@ -267,9 +266,9 @@ final kAgentCars = [
     mileage: '0',
     color: 'أبيض',
   ),
-  const AgentCar(
+  AgentCar(
     id: '2',
-    name: 'باترول 2023',
+    name: AppLocaleKey.agentSimCarPatrol.tr() + " 2024",
     brand: 'نيسان',
     price: 185000,
     imageUrl: '',
@@ -278,9 +277,9 @@ final kAgentCars = [
     mileage: '12,000',
     color: 'فضي',
   ),
-  const AgentCar(
+  AgentCar(
     id: '3',
-    name: 'X5 2024',
+    name: AppLocaleKey.agentSimCarX5.tr() + " 2024",
     brand: 'BMW',
     price: 285000,
     imageUrl: '',
@@ -289,9 +288,9 @@ final kAgentCars = [
     mileage: '0',
     color: 'أسود',
   ),
-  const AgentCar(
+  AgentCar(
     id: '4',
-    name: 'توسان 2024',
+    name: AppLocaleKey.agentSimCarTucson.tr() + " 2024",
     brand: 'هيونداي',
     price: 75000,
     imageUrl: '',
@@ -300,9 +299,9 @@ final kAgentCars = [
     mileage: '0',
     color: 'أزرق',
   ),
-  const AgentCar(
+  AgentCar(
     id: '5',
-    name: 'LX 600 2023',
+    name: AppLocaleKey.agentSimCarLX600.tr() + " 2023",
     brand: 'لكزس',
     price: 490000,
     imageUrl: '',

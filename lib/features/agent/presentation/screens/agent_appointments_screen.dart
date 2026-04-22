@@ -1,4 +1,6 @@
 import 'package:car/core/theme/app_colors.dart';
+import 'package:car/core/localization/app_locale_keys.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:car/features/agent/data/agent_models.dart';
 import 'package:car/features/agent/presentation/screens/widget/appointment_card_widget.dart';
 import 'package:car/features/agent/presentation/screens/widget/section_header_widget.dart';
@@ -15,20 +17,15 @@ class AgentAppointmentsScreen extends StatefulWidget {
 }
 
 class _AgentAppointmentsScreenState extends State<AgentAppointmentsScreen> {
-  late List<AgentAppointment> _appointments;
 
-  @override
-  void initState() {
-    super.initState();
-    _appointments = List.from(kAgentAppointments);
-  }
 
   @override
   Widget build(BuildContext context) {
-    final upcoming = _appointments
+    final appointments = getAgentAppointments();
+    final upcoming = appointments
         .where((a) => a.status == AppointmentStatus.upcoming || a.status == AppointmentStatus.checkedIn)
         .toList();
-    final done = _appointments
+    final done = appointments
         .where((a) => a.status == AppointmentStatus.done || a.status == AppointmentStatus.cancelled)
         .toList();
 
@@ -41,7 +38,7 @@ class _AgentAppointmentsScreenState extends State<AgentAppointmentsScreen> {
         centerTitle: false,
         toolbarHeight: 70.h,
         title: Text(
-          'المواعيد',
+          AppLocaleKey.agentAppointment.tr(),
           style: TextStyle(
             color: AppColor.blackTextColor(context),
             fontWeight: FontWeight.w900,
@@ -57,7 +54,7 @@ class _AgentAppointmentsScreenState extends State<AgentAppointmentsScreen> {
         children: [
           if (upcoming.isNotEmpty) ...[
             SectionHeader(
-              title: 'المواعيد القادمة',
+              title: AppLocaleKey.agentUpcomingAppointments.tr(),
               count: upcoming.length,
               color: AppColor.blueColor(context),
             ),
@@ -72,7 +69,7 @@ class _AgentAppointmentsScreenState extends State<AgentAppointmentsScreen> {
           ],
           if (done.isNotEmpty) ...[
             SectionHeader(
-              title: 'السجل السابق',
+              title: AppLocaleKey.agentPreviousHistory.tr(),
               count: done.length,
               color: AppColor.hintColor(context),
             ),
@@ -88,7 +85,7 @@ class _AgentAppointmentsScreenState extends State<AgentAppointmentsScreen> {
                     Icon(Icons.calendar_today_outlined, size: 60.sp, color: AppColor.hintColor(context).withOpacity(0.3)),
                     Gap(16.h),
                     Text(
-                      'لا توجد مواعيد حالياً',
+                      AppLocaleKey.agentNoAppointmentsNow.tr(),
                       style: TextStyle(color: AppColor.hintColor(context), fontSize: 16.sp, fontWeight: FontWeight.w600),
                     ),
                   ],

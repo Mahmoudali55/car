@@ -1,3 +1,4 @@
+import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/features/agent/data/agent_models.dart';
 import 'package:car/features/agent/presentation/screens/widget/action_btn_widget.dart';
@@ -13,7 +14,7 @@ class AppointmentCard extends StatelessWidget {
   final VoidCallback? onDone;
   final VoidCallback? onCancel;
 
-  const AppointmentCard({
+  const AppointmentCard({super.key, 
     required this.appointment,
     this.onCheckIn,
     this.onDone,
@@ -36,13 +37,13 @@ class AppointmentCard extends StatelessWidget {
   String get _statusLabel {
     switch (appointment.status) {
       case AppointmentStatus.upcoming:
-        return 'قادم';
+        return AppLocaleKey.agentApptStatusUpcoming.tr();
       case AppointmentStatus.checkedIn:
-        return 'تم الحضور';
+        return AppLocaleKey.agentApptStatusCheckedIn.tr();
       case AppointmentStatus.done:
-        return 'منتهي';
+        return AppLocaleKey.agentApptStatusDone.tr();
       case AppointmentStatus.cancelled:
-        return 'ملغي';
+        return AppLocaleKey.agentApptStatusCancelled.tr();
     }
   }
 
@@ -182,7 +183,7 @@ class AppointmentCard extends StatelessWidget {
                     if (appointment.status == AppointmentStatus.upcoming)
                       Expanded(
                         child: ActionBtn(
-                          label: 'تسجيل الحضور',
+                          label: AppLocaleKey.agentCheckIn.tr(),
                           icon: Icons.check_circle_rounded,
                           color: AppColor.greenColor(context),
                           onTap: onCheckIn ?? () {},
@@ -191,7 +192,7 @@ class AppointmentCard extends StatelessWidget {
                     if (appointment.status == AppointmentStatus.checkedIn)
                       Expanded(
                         child: ActionBtn(
-                          label: 'إتمام الموعد',
+                          label: AppLocaleKey.agentCompleteAppointment.tr(),
                           icon: Icons.task_alt_rounded,
                           color: AppColor.blueColor(context),
                           onTap: onDone ?? () {},

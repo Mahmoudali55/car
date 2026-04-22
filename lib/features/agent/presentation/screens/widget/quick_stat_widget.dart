@@ -45,30 +45,32 @@ class QuickStat extends StatelessWidget {
             child: Icon(icon, size: 14.sp, color: color),
           ),
           Gap(10.w),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                label,
-                style: TextStyle(
-                  color: AppColor.hintColor(context).withOpacity(0.8),
-                  fontSize: 10.sp,
-                  fontWeight: FontWeight.w700,
-                  letterSpacing: 0.2,
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  label,
+                  style: TextStyle(
+                    color: AppColor.hintColor(context).withOpacity(0.8),
+                    fontSize: 10.sp,
+                    fontWeight: FontWeight.w700,
+                    letterSpacing: 0.2,
+                  ),
                 ),
-              ),
-              Gap(2.h),
-              Text(
-                value,
-                style: TextStyle(
-                  color: color,
-                  fontSize: 13.sp,
-                  fontWeight: FontWeight.w900,
-                  letterSpacing: -0.2,
+                Gap(2.h),
+                Text(
+                  value,
+                  style: TextStyle(
+                    color: color,
+                    fontSize: 13.sp,
+                    fontWeight: FontWeight.w900,
+                    letterSpacing: -0.2,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ],
       ),

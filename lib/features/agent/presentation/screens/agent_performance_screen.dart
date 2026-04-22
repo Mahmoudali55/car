@@ -1,4 +1,6 @@
 import 'package:car/core/theme/app_colors.dart';
+import 'package:car/core/localization/app_locale_keys.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:car/features/agent/data/agent_models.dart';
 import 'package:car/features/agent/presentation/screens/widget/comm_row_widget.dart';
 import 'package:car/features/agent/presentation/screens/widget/funnel_row_widget.dart';
@@ -11,18 +13,27 @@ class AgentPerformanceScreen extends StatelessWidget {
 
   // Mock weekly data
   static const _weeklyData = [4, 6, 3, 8, 5, 7, 4];
-  static const _weekDays = ['س', 'ح', 'إ', 'ث', 'أ', 'خ', 'ج'];
   static const _maxBar = 10;
 
   @override
   Widget build(BuildContext context) {
+    final weekDays = [
+      AppLocaleKey.sat.tr(),
+      AppLocaleKey.sun.tr(),
+      AppLocaleKey.mon.tr(),
+      AppLocaleKey.tue.tr(),
+      AppLocaleKey.wed.tr(),
+      AppLocaleKey.thu.tr(),
+      AppLocaleKey.fri.tr()
+    ];
+
     return Scaffold(
       backgroundColor: AppColor.scaffoldColor(context),
       appBar: AppBar(
         backgroundColor: AppColor.appBarColor(context),
         elevation: 0,
         centerTitle: false,
-        title: Text('الأداء والإحصاءات',
+        title: Text(AppLocaleKey.agentPerformanceStats.tr(),
             style: TextStyle(color: AppColor.blackTextColor(context), fontWeight: FontWeight.w900, fontSize: 20.sp)),
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios_new_rounded, color: AppColor.blackTextColor(context), size: 18.sp),
@@ -74,9 +85,9 @@ class AgentPerformanceScreen extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('مندوب ذهبي',
+                        Text(AppLocaleKey.agentTierGold.tr(),
                             style: TextStyle(color: Colors.white, fontWeight: FontWeight.w900, fontSize: 20.sp)),
-                        Text('المرتبة 3 من 24 مندوب',
+                        Text(AppLocaleKey.agentRankCount.tr(namedArgs: {'rank': '3', 'total': '24'}),
                             style: TextStyle(color: Colors.white.withOpacity(0.8), fontSize: 12.sp, fontWeight: FontWeight.w600)),
                         Gap(10.h),
                         ClipRRect(
@@ -89,7 +100,7 @@ class AgentPerformanceScreen extends StatelessWidget {
                           ),
                         ),
                         Gap(6.h),
-                        Text('72% للوصول لمستوى بلاتيني',
+                        Text(AppLocaleKey.agentToPlatinum.tr(namedArgs: {'percent': '72'}),
                             style: TextStyle(color: Colors.white.withOpacity(0.6), fontSize: 10.sp, fontWeight: FontWeight.w600)),
                       ],
                     ),
@@ -100,7 +111,7 @@ class AgentPerformanceScreen extends StatelessWidget {
             Gap(32.h),
 
             // ── Weekly Chart ───────────────────────────────────────────────
-            Text('أداء الأسبوع',
+            Text(AppLocaleKey.agentWeeklyPerformance.tr(),
                 style: TextStyle(fontWeight: FontWeight.w900, fontSize: 18.sp, color: AppColor.blackTextColor(context))),
             Gap(16.h),
             Container(
@@ -150,7 +161,7 @@ class AgentPerformanceScreen extends StatelessWidget {
                         ),
                       ),
                       Gap(10.h),
-                      Text(_weekDays[i],
+                      Text(weekDays[i],
                           style: TextStyle(
                               fontSize: 12.sp,
                               color: AppColor.hintColor(context),
@@ -163,18 +174,18 @@ class AgentPerformanceScreen extends StatelessWidget {
             Gap(32.h),
 
             // ── Conversion Funnel ──────────────────────────────────────────
-            Text('قمع التحويل',
+            Text(AppLocaleKey.agentConversionFunnel.tr(),
                 style: TextStyle(fontWeight: FontWeight.w900, fontSize: 18.sp, color: AppColor.blackTextColor(context))),
             Gap(16.h),
-            FunnelRow(label: 'عملاء محتملون', count: 32, total: 32, color: AppColor.blueColor(context)),
+            FunnelRow(label: AppLocaleKey.agentLeadsPotential.tr(), count: 32, total: 32, color: AppColor.blueColor(context)),
             Gap(10.h),
-            FunnelRow(label: 'زيارات / عروض', count: 18, total: 32, color: const Color(0xFF8B5CF6)),
+            FunnelRow(label: AppLocaleKey.agentVisitsOffers.tr(), count: 18, total: 32, color: const Color(0xFF8B5CF6)),
             Gap(10.h),
-            FunnelRow(label: 'صفقات مغلقة', count: 7, total: 32, color: AppColor.greenColor(context)),
+            FunnelRow(label: AppLocaleKey.agentClosedDeals.tr(), count: 7, total: 32, color: AppColor.greenColor(context)),
             Gap(32.h),
 
             // ── Commission ─────────────────────────────────────────────────
-            Text('العمولات والمبيعات',
+            Text(AppLocaleKey.agentCommissionsSales.tr(),
                 style: TextStyle(fontWeight: FontWeight.w900, fontSize: 18.sp, color: AppColor.blackTextColor(context))),
             Gap(16.h),
             Container(
@@ -189,11 +200,11 @@ class AgentPerformanceScreen extends StatelessWidget {
               ),
               child: Column(
                 children: [
-                  CommRow(label: 'عمولة هذا الشهر', value: '15,625 ر.س', color: AppColor.greenColor(context)),
+                  CommRow(label: AppLocaleKey.agentCommissionThisMonth.tr(), value: '15,625 ${AppLocaleKey.sar.tr()}', color: AppColor.greenColor(context)),
                   Divider(height: 32.h, color: AppColor.borderColor(context)),
-                  CommRow(label: 'إجمالي هذا الربع', value: '41,200 ر.س', color: AppColor.blueColor(context)),
+                  CommRow(label: AppLocaleKey.agentTotalQuarter.tr(), value: '41,200 ${AppLocaleKey.sar.tr()}', color: AppColor.blueColor(context)),
                   Divider(height: 32.h, color: AppColor.borderColor(context)),
-                  CommRow(label: 'هدف الشهر', value: '20,000 ر.س', color: AppColor.hintColor(context)),
+                  CommRow(label: AppLocaleKey.agentMonthTarget.tr(), value: '20,000 ${AppLocaleKey.sar.tr()}', color: AppColor.hintColor(context)),
                 ],
               ),
             ),

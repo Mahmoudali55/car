@@ -1,4 +1,6 @@
 import 'package:car/core/theme/app_colors.dart';
+import 'package:car/core/localization/app_locale_keys.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:car/features/agent/data/agent_models.dart';
 import 'package:car/features/agent/presentation/screens/agent_car_details_screen.dart';
 import 'package:car/features/agent/presentation/screens/widget/car_list_card_widget.dart';
@@ -15,8 +17,8 @@ class AgentInventoryScreen extends StatefulWidget {
 
 class _AgentInventoryScreenState extends State<AgentInventoryScreen> {
   List<AgentCar> _getByFilter(CarAvailability? filter) {
-    if (filter == null) return kAgentCars;
-    return kAgentCars.where((c) => c.availability == filter).toList();
+    if (filter == null) return getAgentCars();
+    return getAgentCars().where((c) => c.availability == filter).toList();
   }
 
   @override
@@ -37,7 +39,7 @@ class _AgentInventoryScreenState extends State<AgentInventoryScreen> {
                   child: Padding(
                     padding: EdgeInsets.fromLTRB(16.w, 16.h, 16.w, 0),
                     child: Text(
-                      'المخزون',
+                      AppLocaleKey.agentInventory.tr(),
                       style: TextStyle(
                         color: AppColor.blackTextColor(context),
                         fontWeight: FontWeight.w900,
@@ -59,11 +61,11 @@ class _AgentInventoryScreenState extends State<AgentInventoryScreen> {
                 labelStyle: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w900),
                 unselectedLabelStyle: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w600),
                 indicatorPadding: EdgeInsets.symmetric(horizontal: 4.w),
-                tabs: const [
-                  Tab(text: 'الكل'),
-                  Tab(text: 'متاحة'),
-                  Tab(text: 'محجوزة'),
-                  Tab(text: 'مباعة'),
+                tabs: [
+                  Tab(text: AppLocaleKey.agentAll.tr()),
+                  Tab(text: AppLocaleKey.agentAvailable.tr()),
+                  Tab(text: AppLocaleKey.agentReserved.tr()),
+                  Tab(text: AppLocaleKey.agentSold.tr()),
                 ],
               ),
             ),
@@ -92,7 +94,7 @@ class _AgentInventoryScreenState extends State<AgentInventoryScreen> {
             Icon(Icons.directions_car_filled_outlined, size: 48.sp, color: AppColor.hintColor(context)),
             Gap(12.h),
             Text(
-              'لا يوجد بيانات متوفرة',
+              AppLocaleKey.agentNoDataAvailable.tr(),
               style: TextStyle(color: AppColor.hintColor(context), fontSize: 14.sp, fontWeight: FontWeight.w600),
             ),
           ],

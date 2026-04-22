@@ -7,7 +7,7 @@ class PremiumQuickAction extends StatefulWidget {
   final String label;
   final Color color;
   final VoidCallback? onTap;
-  const PremiumQuickAction({required this.icon, required this.label, required this.color, this.onTap});
+  const PremiumQuickAction({super.key, required this.icon, required this.label, required this.color, this.onTap});
 
   @override
   State<PremiumQuickAction> createState() => PremiumQuickActionState();

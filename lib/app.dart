@@ -26,6 +26,11 @@ class CarApp extends StatefulWidget {
 class _CarAppState extends State<CarApp> {
   @override
   Widget build(BuildContext context) {
+    // Explicitly access context.locale to register a dependency on the localization state.
+    // This ensures that the entire sub-tree rebuilds when the language is changed.
+    // ignore: unused_local_variable
+    final currentLocale = context.locale;
+
     return LayoutBuilder(
       builder: (context, constraints) {
         final bool isTablet = constraints.maxWidth >= 600;

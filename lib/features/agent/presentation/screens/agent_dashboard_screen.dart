@@ -1,4 +1,6 @@
 import 'package:car/core/theme/app_colors.dart';
+import 'package:car/core/localization/app_locale_keys.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:car/features/agent/data/agent_models.dart';
 import 'package:car/features/agent/presentation/screens/widget/premium_avatar_widget.dart';
 import 'package:car/features/agent/presentation/screens/widget/premium_commission_banner_widget.dart';
@@ -6,6 +8,7 @@ import 'package:car/features/agent/presentation/screens/widget/premium_kpi_card_
 import 'package:car/features/agent/presentation/screens/widget/premium_lead_tile_widget.dart';
 import 'package:car/features/agent/presentation/screens/widget/premium_quick_action_widget.dart';
 import 'package:car/features/agent/presentation/screens/widget/premium_theme_toggle_widget.dart';
+import 'package:car/features/agent/presentation/screens/widget/premium_language_toggle_widget.dart';
 import 'package:car/features/agent/presentation/screens/widget/premium_weekly_chart_widget.dart';
 import 'package:car/features/agent/presentation/screens/widget/quick_stat_widget.dart';
 import 'package:car/features/agent/presentation/screens/widget/section_header_widget.dart';
@@ -25,17 +28,26 @@ class AgentDashboardScreen extends StatelessWidget {
   const AgentDashboardScreen({super.key});
 
   static const _weeklyData = [4, 6, 3, 8, 5, 7, 4];
-  static const _weekDays = ['س', 'ح', 'إ', 'ث', 'أ', 'خ', 'ج'];
 
   @override
   Widget build(BuildContext context) {
-    final pendingLeads = kAgentLeads
+    final weekDays = [
+      AppLocaleKey.sat.tr(),
+      AppLocaleKey.sun.tr(),
+      AppLocaleKey.mon.tr(),
+      AppLocaleKey.tue.tr(),
+      AppLocaleKey.wed.tr(),
+      AppLocaleKey.thu.tr(),
+      AppLocaleKey.fri.tr()
+    ];
+
+    final pendingLeads = getAgentLeads()
         .where((l) =>
             l.status == LeadStatus.newLead ||
             l.status == LeadStatus.inProgress)
         .toList();
 
-    final todayAppts = kAgentAppointments
+    final todayAppts = getAgentAppointments()
         .where((a) =>
             a.status == AppointmentStatus.upcoming ||
             a.status == AppointmentStatus.checkedIn)
@@ -47,7 +59,7 @@ class AgentDashboardScreen extends StatelessWidget {
         slivers: [
           // ───────────────── HEADER ─────────────────
           SliverAppBar(
-            expandedHeight: 180.h,
+            expandedHeight: 200.h,
             pinned: true,
             backgroundColor: AppColor.appBarColor(context),
             elevation: 0,
@@ -72,14 +84,16 @@ class AgentDashboardScreen extends StatelessWidget {
                         /// TOP
                         Row(
                           children: [
-                            const PremiumAvatar(initials: 'م.ع'),
+                            const PremiumAvatar(initials: null, localizedInitials: AppLocaleKey.agentUserInitials),
                             Gap(12.w),
                             Expanded(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    'مرحباً، محمد',
+                                    AppLocaleKey.agentWelcomeName.tr(namedArgs: {'name': AppLocaleKey.agentUserName.tr()}),
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
                                     style: TextStyle(
                                       color: AppColor.blackTextColor(context),
                                       fontWeight: FontWeight.w900,
@@ -87,7 +101,7 @@ class AgentDashboardScreen extends StatelessWidget {
                                     ),
                                   ),
                                   Text(
-                                    'مستشار مبيعات',
+                                    AppLocaleKey.agentSalesConsultant.tr(),
                                     style: TextStyle(
                                         color: AppColor.greyColor(context),
                                         fontSize: 12.sp,
@@ -110,6 +124,8 @@ class AgentDashboardScreen extends StatelessWidget {
                             ),
                             Gap(10.w),
                             const PremiumThemeToggle(),
+                            Gap(10.w),
+                            const PremiumLanguageToggle(),
                             
                           ],
                         ),
@@ -122,7 +138,7 @@ class AgentDashboardScreen extends StatelessWidget {
                             Expanded(
                               child: QuickStat(
                                 icon: Icons.calendar_today_rounded,
-                                label: 'مواعيد',
+                                label: AppLocaleKey.agentAppointment.tr(),
                                 value: '${todayAppts.length}',
                                 color: AppColor.blueColor(context),
                               ),
@@ -131,7 +147,7 @@ class AgentDashboardScreen extends StatelessWidget {
                             Expanded(
                               child: QuickStat(
                                 icon: Icons.person_add_rounded,
-                                label: 'جدد',
+                                label: AppLocaleKey.agentNew.tr(),
                                 value: '${pendingLeads.where((l) => l.status == LeadStatus.newLead).length}',
                                 color: AppColor.greenColor(context),
                               ),
@@ -140,7 +156,7 @@ class AgentDashboardScreen extends StatelessWidget {
                             Expanded(
                               child: QuickStat(
                                 icon: Icons.trending_up_rounded,
-                                label: 'الأداء',
+                                label: AppLocaleKey.agentPerformance.tr(),
                                 value: '87%',
                                 color: AppColor.orangeColor(context),
                               ),
@@ -165,36 +181,36 @@ class AgentDashboardScreen extends StatelessWidget {
                 Gap(24.h),
 
                 /// KPIs
-                const SectionHeader(title: 'المقاييس الأساسية'),
+                SectionHeader(title: AppLocaleKey.agentKeyMetrics.tr()),
                 Gap(12.h),
 
                 GridView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
-                  itemCount: kAgentKpis.length,
+                  itemCount: getAgentKpis().length,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                     mainAxisSpacing: 12.h,
                     crossAxisSpacing: 12.w,
-                    childAspectRatio: 1.15,
+                    childAspectRatio: 1.08,
                   ),
-                  itemBuilder: (_, i) => PremiumKpiCard(kpi: kAgentKpis[i]),
+                  itemBuilder: (_, i) => PremiumKpiCard(kpi: getAgentKpis()[i]),
                 ),
 
                 Gap(24.h),
 
                 /// Chart
-                const SectionHeader(title: 'النشاط الأسبوعي'),
+                SectionHeader(title: AppLocaleKey.agentWeeklyActivity.tr()),
                 Gap(12.h),
-                const PremiumWeeklyChart(
+                PremiumWeeklyChart(
                   data: _weeklyData,
-                  days: _weekDays,
+                  days: weekDays,
                 ),
 
                 Gap(24.h),
 
                 /// Actions
-                const SectionHeader(title: 'إجراءات سريعة'),
+                SectionHeader(title: AppLocaleKey.agentQuickActions.tr()),
                 Gap(5.h),
 
                 GridView.count(
@@ -206,7 +222,7 @@ class AgentDashboardScreen extends StatelessWidget {
                   children: [
                     PremiumQuickAction(
                       icon: Icons.person_add_alt_1_rounded,
-                      label: 'عميل',
+                      label: AppLocaleKey.agentCustomer.tr(),
                       color: AppColor.blueColor(context),
                       onTap: () => Navigator.push(
                         context,
@@ -215,7 +231,7 @@ class AgentDashboardScreen extends StatelessWidget {
                     ),
                     PremiumQuickAction(
                       icon: Icons.event_available_rounded,
-                      label: 'موعد',
+                      label: AppLocaleKey.agentAppointment.tr(),
                       color: AppColor.orangeColor(context),
                       onTap: () => Navigator.push(
                         context,
@@ -224,7 +240,7 @@ class AgentDashboardScreen extends StatelessWidget {
                     ),
                     PremiumQuickAction(
                       icon: Icons.note_add_rounded,
-                      label: 'ملاحظة',
+                      label: AppLocaleKey.agentNote.tr(),
                       color: AppColor.greenColor(context),
                       onTap: () => Navigator.push(
                         context,
@@ -238,7 +254,7 @@ class AgentDashboardScreen extends StatelessWidget {
 
                 /// Leads
                 SectionHeader(
-                  title: 'العملاء النشطون',
+                  title: AppLocaleKey.agentActiveCustomers.tr(),
                   count: pendingLeads.length,
                   color: AppColor.blueColor(context),
                 ),
@@ -250,7 +266,7 @@ class AgentDashboardScreen extends StatelessWidget {
                     child: Padding(
                       padding: EdgeInsets.only(top: 40.h),
                       child: Text(
-                        'لا يوجد عملاء في القائمة حالياً',
+                        AppLocaleKey.agentNoCustomersFound.tr(),
                         style: TextStyle(
                             color: AppColor.greyColor(context),
                             fontSize: 14.sp,

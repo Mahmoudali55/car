@@ -1,4 +1,6 @@
 import 'package:car/core/theme/app_colors.dart';
+import 'package:car/core/localization/app_locale_keys.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:car/features/agent/data/agent_models.dart';
 import 'package:car/features/agent/presentation/screens/widget/icon_btn_widget.dart';
 import 'package:flutter/material.dart';
@@ -141,7 +143,7 @@ class AgentCarDetailsScreen extends StatelessWidget {
                           ),
                           Gap(6.w),
                           Text(
-                            'ر.س',
+                            AppLocaleKey.sar.tr(),
                             style: TextStyle(
                               color: AppColor.greyColor(context),
                               fontSize: 16.sp,
@@ -155,7 +157,7 @@ class AgentCarDetailsScreen extends StatelessWidget {
 
                       /// Specs Grid
                       Text(
-                        'المواصفات الرئيسية',
+                        AppLocaleKey.agentMainSpecs.tr(),
                         style: TextStyle(
                           color: AppColor.blackTextColor(context),
                           fontSize: 18.sp,
@@ -173,23 +175,23 @@ class AgentCarDetailsScreen extends StatelessWidget {
                         children: [
                           _SpecCard(
                             icon: Icons.calendar_today_rounded,
-                            label: 'سنة الصنع',
+                            label: AppLocaleKey.agentYearMade.tr(),
                             value: car.year,
                           ),
                           _SpecCard(
                             icon: Icons.speed_rounded,
-                            label: 'المسافة',
-                            value: '${car.mileage} كم',
+                            label: AppLocaleKey.agentDistance.tr(),
+                            value: '${car.mileage} ${AppLocaleKey.km.tr()}',
                           ),
                           _SpecCard(
                             icon: Icons.palette_rounded,
-                            label: 'اللون',
+                            label: AppLocaleKey.agentColor.tr(),
                             value: car.color,
                           ),
                           _SpecCard(
                             icon: Icons.settings_rounded,
-                            label: 'ناقل الحركة',
-                            value: 'أوتوماتيك',
+                            label: AppLocaleKey.agentTransmission.tr(),
+                            value: AppLocaleKey.agentAutomatic.tr(),
                           ),
                         ],
                       ),
@@ -198,7 +200,7 @@ class AgentCarDetailsScreen extends StatelessWidget {
 
                       /// Description Mock
                       Text(
-                        'نبذة عن السيارة',
+                        AppLocaleKey.agentAboutCar.tr(),
                         style: TextStyle(
                           color: AppColor.blackTextColor(context),
                           fontSize: 18.sp,
@@ -207,7 +209,7 @@ class AgentCarDetailsScreen extends StatelessWidget {
                       ),
                       Gap(12.h),
                       Text(
-                        'سيارة ${car.name} بحالة ممتازة، خاضعة لجميع فحوصات الجودة. تتميز بكفاءة عالية في استهلاك الوقود وتقنيات أمان متطورة تناسب احتياجات العميل اليومية.',
+                        AppLocaleKey.agentCarDesc.tr(namedArgs: {'name': car.name}),
                         style: TextStyle(
                           color: AppColor.greyColor(context).withOpacity(0.8),
                           fontSize: 14.sp,
@@ -250,7 +252,7 @@ class AgentCarDetailsScreen extends StatelessWidget {
                   elevation: 0,
                 ),
                 child: Text(
-                  'حجز للعميل',
+                  AppLocaleKey.agentReserveForCustomer.tr(),
                   style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w900),
                 ),
               ),

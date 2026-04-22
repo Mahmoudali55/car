@@ -1,7 +1,9 @@
+import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/features/agent/data/agent_models.dart';
 import 'package:car/features/agent/presentation/screens/widget/commission_stat_divider_widget.dart';
 import 'package:car/features/agent/presentation/screens/widget/commission_stat_widget.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -46,12 +48,12 @@ class PremiumCommissionBanner extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'عمولة هذا الشهر',
+                    AppLocaleKey.agentCommissionThisMonth.tr(),
                     style: TextStyle(color: Colors.white.withOpacity(0.8), fontSize: 13.sp, fontWeight: FontWeight.w600),
                   ),
                   Gap(6.h),
                   Text(
-                    '15,625 ر.س',
+                    '15,625 ${AppLocaleKey.agentCurrencySar.tr()}',
                     style: TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.w900,
@@ -83,12 +85,12 @@ class PremiumCommissionBanner extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'التقدم نحو الهدف',
+                    AppLocaleKey.agentProgressToGoal.tr(),
                     style: TextStyle(
                         color: Colors.white.withOpacity(0.7), fontSize: 12.sp, fontWeight: FontWeight.w600),
                   ),
                   Text(
-                    '78% من 20,000 ر.س',
+                    AppLocaleKey.agentGoalProgressValue.tr(namedArgs: {'percent': '78', 'total': '20,000'}),
                     style: TextStyle(color: Colors.white, fontSize: 12.sp, fontWeight: FontWeight.w900),
                   ),
                 ],
@@ -128,11 +130,23 @@ class PremiumCommissionBanner extends StatelessWidget {
           /// ── Stats row ──
           Row(
             children: [
-              const CommissionStat(value: 'المرتبة 3', label: 'من 24 مندوب', color: Colors.white),
+              CommissionStat(
+                value: AppLocaleKey.agentRankValue.tr(namedArgs: {'rank': '3'}),
+                label: AppLocaleKey.agentOutOfConsultants.tr(namedArgs: {'total': '24'}),
+                color: Colors.white,
+              ),
               const CommissionStatDivider(),
-              const CommissionStat(value: '41.2K ر.س', label: 'إجمالي الربع', color: Colors.white),
+              CommissionStat(
+                value: '41.2K ${AppLocaleKey.agentCurrencySar.tr()}',
+                label: AppLocaleKey.agentTotalQuarter.tr(),
+                color: Colors.white,
+              ),
               const CommissionStatDivider(),
-              CommissionStat(value: 'ذهبي', label: 'المستوى', color: goldColor),
+              CommissionStat(
+                value: AppLocaleKey.agentLevelGold.tr(),
+                label: AppLocaleKey.agentLevelLabel.tr(),
+                color: goldColor,
+              ),
             ],
           ),
         ],

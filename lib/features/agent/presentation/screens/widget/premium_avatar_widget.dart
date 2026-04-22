@@ -1,15 +1,22 @@
 import 'package:car/core/theme/app_colors.dart';
-import 'package:car/features/agent/data/agent_models.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class PremiumAvatar extends StatelessWidget {
-  final String initials;
-  const PremiumAvatar({super.key, required this.initials});
+  final String? initials;
+  final String? localizedInitials;
+
+  const PremiumAvatar({
+    super.key,
+    this.initials,
+    this.localizedInitials,
+  });
 
   @override
   Widget build(BuildContext context) {
     final primaryColor = AppColor.blueColor(context);
+    final text = localizedInitials != null ? localizedInitials!.tr() : (initials ?? '');
 
     return Container(
       width: 60.w,
@@ -32,7 +39,7 @@ class PremiumAvatar extends StatelessWidget {
       ),
       child: Center(
         child: Text(
-          initials,
+          text,
           style: TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.w900,
