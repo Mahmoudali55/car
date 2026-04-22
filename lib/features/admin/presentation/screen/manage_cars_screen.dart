@@ -304,6 +304,7 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
                           Icons.edit_note_rounded,
                           AppLocaleKey.edit.tr(),
                           Colors.blueAccent,
+                          onTap: () => _showEditPriceDialog(car),
                         ),
                       ),
                       Gap(12.w),
@@ -325,24 +326,94 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
     );
   }
 
-  Widget _buildInventoryAction(IconData icon, String label, Color color) {
-    return Container(
-      padding: EdgeInsets.symmetric(vertical: 10.h),
-      decoration: BoxDecoration(
-        color: color.withOpacity(0.08),
-        borderRadius: BorderRadius.circular(16.r),
-        border: Border.all(color: color.withOpacity(0.1)),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(icon, color: color, size: 18.sp),
-          Gap(8.w),
-          Text(
-            label,
-            style: TextStyle(color: color, fontSize: 12.sp, fontWeight: FontWeight.bold),
+  void _showEditPriceDialog(Map<String, String> car) {
+    final controller = TextEditingController(text: car['price']);
+    final carName = car['name']!;
+
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        backgroundColor: AppColor.cardColor(context),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24.r)),
+        title: Text(
+          'تعديل سعر البيع',
+          style: TextStyle(color: AppColor.blackTextColor(context), fontWeight: FontWeight.w900),
+        ),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'أنت تقوم بتعديل سعر جميع سيارات ${carName}',
+              style: TextStyle(color: AppColor.greyColor(context), fontSize: 13.sp),
+            ),
+            Gap(20.h),
+            TextField(
+              controller: controller,
+              keyboardType: TextInputType.number,
+              style: TextStyle(color: AppColor.blackTextColor(context), fontWeight: FontWeight.bold),
+              decoration: InputDecoration(
+                labelText: 'السعر الجديد (ر.س)',
+                labelStyle: TextStyle(color: AppColor.primaryColor(context)),
+                border: OutlineInputBorder(borderRadius: BorderRadius.circular(16.r)),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(16.r),
+                  borderSide: BorderSide(color: AppColor.primaryColor(context), width: 2),
+                ),
+              ),
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: Text('إلغاء', style: TextStyle(color: AppColor.greyColor(context))),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              setState(() {
+                final newPrice = controller.text;
+                // Bulk update: find all cars with same name
+                for (var element in dummyCars) {
+                  if (element['name'] == carName) {
+                    element['price'] = newPrice;
+                  }
+                }
+              });
+              Navigator.pop(context);
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: AppColor.primaryColor(context),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.r)),
+            ),
+            child: const Text('تحديث الكل', style: TextStyle(color: Colors.white)),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildInventoryAction(IconData icon, String label, Color color, {VoidCallback? onTap}) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: EdgeInsets.symmetric(vertical: 10.h),
+        decoration: BoxDecoration(
+          color: color.withOpacity(0.08),
+          borderRadius: BorderRadius.circular(16.r),
+          border: Border.all(color: color.withOpacity(0.1)),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(icon, color: color, size: 18.sp),
+            Gap(8.w),
+            Text(
+              label,
+              style: TextStyle(color: color, fontSize: 12.sp, fontWeight: FontWeight.bold),
+            ),
+          ],
+        ),
       ),
     );
   }
