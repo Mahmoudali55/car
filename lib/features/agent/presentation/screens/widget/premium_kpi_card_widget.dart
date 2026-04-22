@@ -1,3 +1,4 @@
+import 'package:car/core/theme/app_colors.dart';
 import 'package:car/features/agent/data/agent_models.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -10,17 +11,20 @@ class PremiumKpiCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isUp = (kpi.change ?? 0) > 0;
+    final successColor = AppColor.greenColor(context);
+    final errorColor = AppColor.redColor(context);
+
     return Container(
-      padding: EdgeInsets.all(16.w),
+      padding: EdgeInsets.all(18.w),
       decoration: BoxDecoration(
-        color: AgentTheme.card,
-        borderRadius: BorderRadius.circular(22.r),
-        border: Border.all(color: kpi.color.withOpacity(0.15)),
+        color: AppColor.cardColor(context),
+        borderRadius: BorderRadius.circular(24.r),
+        border: Border.all(color: kpi.color.withOpacity(0.12)),
         boxShadow: [
           BoxShadow(
-            color: kpi.color.withOpacity(0.08),
-            blurRadius: 12.r,
-            offset: const Offset(0, 2),
+            color: kpi.color.withOpacity(0.04),
+            blurRadius: 16,
+            offset: const Offset(0, 4),
           ),
         ],
       ),
@@ -30,35 +34,35 @@ class PremiumKpiCard extends StatelessWidget {
           Row(
             children: [
               Container(
-                width: 40.w,
-                height: 40.w,
+                width: 44.w,
+                height: 44.w,
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
-                    colors: [kpi.color.withOpacity(0.2), kpi.color.withOpacity(0.08)],
+                    colors: [kpi.color.withOpacity(0.15), kpi.color.withOpacity(0.05)],
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                   ),
-                  borderRadius: BorderRadius.circular(12.r),
+                  borderRadius: BorderRadius.circular(14.r),
                   border: Border.all(color: kpi.color.withOpacity(0.2)),
                 ),
-                child: Icon(kpi.icon, color: kpi.color, size: 18.sp),
+                child: Icon(kpi.icon, color: kpi.color, size: 20.sp),
               ),
               const Spacer(),
               if (kpi.change != null)
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
+                  padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
                   decoration: BoxDecoration(
-                    color: (isUp ? AgentTheme.green : AgentTheme.red).withOpacity(0.12),
-                    borderRadius: BorderRadius.circular(8.r),
+                    color: (isUp ? successColor : errorColor).withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(10.r),
                     border: Border.all(
-                      color: (isUp ? AgentTheme.green : AgentTheme.red).withOpacity(0.2),
+                      color: (isUp ? successColor : errorColor).withOpacity(0.15),
                     ),
                   ),
                   child: Text(
                     '${isUp ? '↑' : '↓'} ${kpi.change!.abs().toStringAsFixed(0)}%',
                     style: TextStyle(
-                      color: isUp ? AgentTheme.green : AgentTheme.red,
-                      fontSize: 10.sp,
+                      color: isUp ? successColor : errorColor,
+                      fontSize: 11.sp,
                       fontWeight: FontWeight.w900,
                     ),
                   ),
@@ -69,19 +73,21 @@ class PremiumKpiCard extends StatelessWidget {
           Text(
             kpi.value,
             style: TextStyle(
-              color: AgentTheme.text1,
+              color: AppColor.blackTextColor(context),
               fontWeight: FontWeight.w900,
-              fontSize: 24.sp,
+              fontSize: 26.sp,
               height: 1.1,
+              letterSpacing: -0.5,
             ),
           ),
-          Gap(3.h),
+          Gap(4.h),
           Text(
             kpi.label,
             style: TextStyle(
-              color: AgentTheme.text2,
-              fontSize: 11.sp,
-              fontWeight: FontWeight.w600,
+              color: AppColor.greyColor(context),
+              fontSize: 12.sp,
+              fontWeight: FontWeight.w700,
+              letterSpacing: -0.2,
             ),
           ),
         ],

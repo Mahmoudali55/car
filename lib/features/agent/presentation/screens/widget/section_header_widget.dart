@@ -1,3 +1,4 @@
+import 'package:car/core/theme/app_colors.dart';
 import 'package:car/features/agent/data/agent_models.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -5,30 +6,56 @@ import 'package:gap/gap.dart';
 
 class SectionHeader extends StatelessWidget {
   final String title;
-  final int count;
-  final Color color;
-  const SectionHeader({super.key, required this.title, required this.count, required this.color});
+  final int? count;
+  final Color? color;
+  const SectionHeader({super.key, required this.title, this.count, this.color});
 
   @override
   Widget build(BuildContext context) {
+    final themeColor = color ?? AppColor.blueColor(context);
     return Row(
       children: [
         Container(
-          width: 3.w,
-          height: 18.h,
-          decoration: BoxDecoration(color: color, borderRadius: BorderRadius.circular(2.r)),
-        ),
-        Gap(10.w),
-        Text(title, style: TextStyle(color: AgentTheme.text1, fontWeight: FontWeight.w900, fontSize: 16.sp)),
-        Gap(8.w),
-        Container(
-          padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 2.h),
+          width: 5.w,
+          height: 22.h,
           decoration: BoxDecoration(
-            color: color.withOpacity(0.12),
-            borderRadius: BorderRadius.circular(10.r),
+            gradient: LinearGradient(
+              colors: [themeColor, themeColor.withOpacity(0.5)],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+            ),
+            borderRadius: BorderRadius.circular(4.r),
           ),
-          child: Text('$count', style: TextStyle(color: color, fontSize: 11.sp, fontWeight: FontWeight.bold)),
         ),
+        Gap(12.w),
+        Text(
+          title,
+          style: TextStyle(
+            color: AppColor.blackTextColor(context),
+            fontWeight: FontWeight.w900,
+            fontSize: 18.sp,
+            letterSpacing: -0.4,
+          ),
+        ),
+        if (count != null) ...[
+          Gap(10.w),
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
+            decoration: BoxDecoration(
+              color: themeColor.withOpacity(0.08),
+              borderRadius: BorderRadius.circular(12.r),
+              border: Border.all(color: themeColor.withOpacity(0.15)),
+            ),
+            child: Text(
+              '$count',
+              style: TextStyle(
+                color: themeColor,
+                fontSize: 12.sp,
+                fontWeight: FontWeight.w900,
+              ),
+            ),
+          ),
+        ],
       ],
     );
   }

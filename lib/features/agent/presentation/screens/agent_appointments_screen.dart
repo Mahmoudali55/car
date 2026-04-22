@@ -1,3 +1,4 @@
+import 'package:car/core/theme/app_colors.dart';
 import 'package:car/features/agent/data/agent_models.dart';
 import 'package:car/features/agent/presentation/screens/widget/appointment_card_widget.dart';
 import 'package:car/features/agent/presentation/screens/widget/section_header_widget.dart';
@@ -32,49 +33,68 @@ class _AgentAppointmentsScreenState extends State<AgentAppointmentsScreen> {
         .toList();
 
     return Scaffold(
-      backgroundColor: AgentTheme.navy,
+      backgroundColor: AppColor.scaffoldColor(context),
       appBar: AppBar(
-        backgroundColor: AgentTheme.navy2,
+        backgroundColor: AppColor.appBarColor(context),
         automaticallyImplyLeading: false,
         elevation: 0,
-        title: Text('المواعيد',
-            style: TextStyle(color: AgentTheme.text1, fontWeight: FontWeight.w900, fontSize: 22.sp)),
-        actions: [
-          GestureDetector(
-            onTap: () {},
-            child: Container(
-              margin: EdgeInsets.only(left: 16.w),
-              width: 38.w,
-              height: 38.w,
-              decoration: BoxDecoration(
-                color: AgentTheme.blue.withOpacity(0.12),
-                borderRadius: BorderRadius.circular(11.r),
-                border: Border.all(color: AgentTheme.blue.withOpacity(0.25)),
-              ),
-              child: Icon(Icons.add_rounded, color: AgentTheme.blue, size: 20.sp),
-            ),
+        centerTitle: false,
+        toolbarHeight: 70.h,
+        title: Text(
+          'المواعيد',
+          style: TextStyle(
+            color: AppColor.blackTextColor(context),
+            fontWeight: FontWeight.w900,
+            fontSize: 24.sp,
+            letterSpacing: -0.5,
           ),
-        ],
+        ),
+        
       ),
       body: ListView(
         padding: EdgeInsets.fromLTRB(16.w, 20.h, 16.w, 40.h),
+        physics: const BouncingScrollPhysics(),
         children: [
           if (upcoming.isNotEmpty) ...[
-            SectionHeader(title: 'القادمة', count: upcoming.length, color: AgentTheme.blue),
-            Gap(12.h),
+            SectionHeader(
+              title: 'المواعيد القادمة',
+              count: upcoming.length,
+              color: AppColor.blueColor(context),
+            ),
+            Gap(16.h),
             ...upcoming.map((a) => AppointmentCard(
-              appointment: a,
-              onCheckIn: () => setState(() => a.status = AppointmentStatus.checkedIn),
-              onDone: () => setState(() => a.status = AppointmentStatus.done),
-              onCancel: () => setState(() => a.status = AppointmentStatus.cancelled),
-            )),
-            Gap(24.h),
+                  appointment: a,
+                  onCheckIn: () => setState(() => a.status = AppointmentStatus.checkedIn),
+                  onDone: () => setState(() => a.status = AppointmentStatus.done),
+                  onCancel: () => setState(() => a.status = AppointmentStatus.cancelled),
+                )),
+            Gap(30.h),
           ],
           if (done.isNotEmpty) ...[
-            SectionHeader(title: 'المنتهية', count: done.length, color: AgentTheme.text3),
-            Gap(12.h),
+            SectionHeader(
+              title: 'السجل السابق',
+              count: done.length,
+              color: AppColor.hintColor(context),
+            ),
+            Gap(16.h),
             ...done.map((a) => AppointmentCard(appointment: a)),
           ],
+          if (upcoming.isEmpty && done.isEmpty)
+            Center(
+              child: Padding(
+                padding: EdgeInsets.only(top: 100.h),
+                child: Column(
+                  children: [
+                    Icon(Icons.calendar_today_outlined, size: 60.sp, color: AppColor.hintColor(context).withOpacity(0.3)),
+                    Gap(16.h),
+                    Text(
+                      'لا توجد مواعيد حالياً',
+                      style: TextStyle(color: AppColor.hintColor(context), fontSize: 16.sp, fontWeight: FontWeight.w600),
+                    ),
+                  ],
+                ),
+              ),
+            ),
         ],
       ),
     );

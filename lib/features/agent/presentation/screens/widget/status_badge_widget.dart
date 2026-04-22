@@ -8,18 +8,24 @@ class StatusBadge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final statusColor = lead.getStatusColor(context);
+
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 9.w, vertical: 4.h),
+      padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
       decoration: BoxDecoration(
-        color: lead.statusColor.withOpacity(0.12),
-        borderRadius: BorderRadius.circular(8.r),
-        border: Border.all(color: lead.statusColor.withOpacity(0.3)),
+        color: statusColor.withOpacity(0.08),
+        borderRadius: BorderRadius.circular(10.r),
+        border: Border.all(color: statusColor.withOpacity(0.15)),
       ),
-      child: Text(lead.statusLabel,
-          style: TextStyle(
-              color: lead.statusColor,
-              fontWeight: FontWeight.bold,
-              fontSize: 10.sp)),
+      child: Text(
+        lead.statusLabel,
+        style: TextStyle(
+          color: statusColor,
+          fontWeight: FontWeight.w800,
+          fontSize: 11.sp,
+          letterSpacing: 0.1,
+        ),
+      ),
     );
   }
 }

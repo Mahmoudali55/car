@@ -1,23 +1,5 @@
+import 'package:car/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
-
-// ── Theme Colors ──────────────────────────────────────────────────────────────
-class AgentTheme {
-  static const navy     = Color(0xFF080F1E);
-  static const navy2    = Color(0xFF0D1A2D);
-  static const surface  = Color(0xFF121C2E);
-  static const card     = Color(0xFF172035);
-  static const card2    = Color(0xFF1C2840);
-  static const blue     = Color(0xFF0057FF);
-  static const blue2    = Color(0xFF0047D4);
-  static const gold     = Color(0xFFF5A623);
-  static const green    = Color(0xFF00C06B);
-  static const red      = Color(0xFFFF3B3B);
-  static const orange   = Color(0xFFFF8C00);
-  static const text1    = Color(0xFFF0F4FF);
-  static const text2    = Color(0xFF8899BB);
-  static const text3    = Color(0xFF4A5870);
-  static const border   = Color(0x10FFFFFF);
-}
 
 // ── KPI ──────────────────────────────────────────────────────────────────────
 class AgentKpi {
@@ -62,21 +44,29 @@ class AgentLead {
     required this.budget,
   });
 
-  Color get statusColor {
+  Color getStatusColor(BuildContext context) {
     switch (status) {
-      case LeadStatus.newLead:   return AgentTheme.blue;
-      case LeadStatus.inProgress:return AgentTheme.orange;
-      case LeadStatus.closed:    return AgentTheme.green;
-      case LeadStatus.lost:      return AgentTheme.red;
+      case LeadStatus.newLead:
+        return AppColor.blueColor(context);
+      case LeadStatus.inProgress:
+        return AppColor.orangeColor(context);
+      case LeadStatus.closed:
+        return AppColor.greenColor(context);
+      case LeadStatus.lost:
+        return AppColor.redColor(context);
     }
   }
 
   String get statusLabel {
     switch (status) {
-      case LeadStatus.newLead:   return 'جديد';
-      case LeadStatus.inProgress:return 'جاري';
-      case LeadStatus.closed:    return 'مغلق';
-      case LeadStatus.lost:      return 'مفقود';
+      case LeadStatus.newLead:
+        return 'جديد';
+      case LeadStatus.inProgress:
+        return 'جاري';
+      case LeadStatus.closed:
+        return 'مغلق';
+      case LeadStatus.lost:
+        return 'مفقود';
     }
   }
 }
@@ -128,19 +118,25 @@ class AgentCar {
     required this.color,
   });
 
-  Color get availabilityColor {
+  Color getAvailabilityColor(BuildContext context) {
     switch (availability) {
-      case CarAvailability.available: return AgentTheme.green;
-      case CarAvailability.reserved:  return AgentTheme.orange;
-      case CarAvailability.sold:      return AgentTheme.red;
+      case CarAvailability.available:
+        return AppColor.greenColor(context);
+      case CarAvailability.reserved:
+        return AppColor.orangeColor(context);
+      case CarAvailability.sold:
+        return AppColor.redColor(context);
     }
   }
 
   String get availabilityLabel {
     switch (availability) {
-      case CarAvailability.available: return 'متاحة';
-      case CarAvailability.reserved:  return 'محجوزة';
-      case CarAvailability.sold:      return 'مباعة';
+      case CarAvailability.available:
+        return 'متاحة';
+      case CarAvailability.reserved:
+        return 'محجوزة';
+      case CarAvailability.sold:
+        return 'مباعة';
     }
   }
 }
@@ -152,7 +148,7 @@ final kAgentKpis = [
     value: '14',
     subtitle: 'من أصل 20 هدف',
     icon: Icons.phone_in_talk_rounded,
-    color: AgentTheme.blue,
+    color: Color(0xFF3B82F6),
     change: 12.0,
   ),
   const AgentKpi(
@@ -160,7 +156,7 @@ final kAgentKpis = [
     value: '3',
     subtitle: 'لهذا الأسبوع',
     icon: Icons.calendar_today_rounded,
-    color: AgentTheme.orange,
+    color: Color(0xFFF59E0B),
     change: -5.0,
   ),
   const AgentKpi(
@@ -168,7 +164,7 @@ final kAgentKpis = [
     value: '7',
     subtitle: 'هذا الشهر',
     icon: Icons.handshake_rounded,
-    color: AgentTheme.green,
+    color: Color(0xFF10B981),
     change: 22.0,
   ),
   const AgentKpi(
@@ -176,7 +172,7 @@ final kAgentKpis = [
     value: '312K',
     subtitle: 'ر.س هذا الشهر',
     icon: Icons.trending_up_rounded,
-    color: AgentTheme.gold,
+    color: Color(0xFFFBBF24),
     change: 18.0,
   ),
 ];

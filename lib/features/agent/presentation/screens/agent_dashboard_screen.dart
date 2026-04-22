@@ -1,13 +1,14 @@
+import 'package:car/core/theme/app_colors.dart';
 import 'package:car/features/agent/data/agent_models.dart';
 import 'package:car/features/agent/presentation/screens/widget/premium_avatar_widget.dart';
 import 'package:car/features/agent/presentation/screens/widget/premium_commission_banner_widget.dart';
 import 'package:car/features/agent/presentation/screens/widget/premium_kpi_card_widget.dart';
 import 'package:car/features/agent/presentation/screens/widget/premium_lead_tile_widget.dart';
 import 'package:car/features/agent/presentation/screens/widget/premium_quick_action_widget.dart';
-import 'package:car/features/agent/presentation/screens/widget/premium_tier_badge_widget.dart';
+import 'package:car/features/agent/presentation/screens/widget/premium_theme_toggle_widget.dart';
 import 'package:car/features/agent/presentation/screens/widget/premium_weekly_chart_widget.dart';
 import 'package:car/features/agent/presentation/screens/widget/quick_stat_widget.dart';
-import 'package:car/features/agent/presentation/screens/widget/section_header.dart';
+import 'package:car/features/agent/presentation/screens/widget/section_header_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -34,91 +35,100 @@ class AgentDashboardScreen extends StatelessWidget {
         .toList();
 
     return Scaffold(
-      backgroundColor: AgentTheme.navy,
+      backgroundColor: AppColor.scaffoldColor(context),
       body: CustomScrollView(
         slivers: [
-
           // ───────────────── HEADER ─────────────────
           SliverAppBar(
-            expandedHeight: 170.h, // 👈 أقل و أنضف
+            expandedHeight: 180.h,
             pinned: true,
-            backgroundColor: AgentTheme.navy2,
+            backgroundColor: AppColor.appBarColor(context),
             elevation: 0,
             flexibleSpace: FlexibleSpaceBar(
-              background: SafeArea(
-                child: Padding(
-                  padding:
-                      EdgeInsets.fromLTRB(16.w, 14.h, 16.w, 16.h),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-
-                      /// TOP
-                      Row(
-                        children: [
-                          const PremiumAvatar(initials: 'م.ع'),
-                          Gap(12.w),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment:
-                                  CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'مرحباً، محمد',
-                                  style: TextStyle(
-                                    color: AgentTheme.text1,
-                                    fontWeight: FontWeight.w900,
-                                    fontSize: 20.sp,
-                                  ),
-                                ),
-                                Text(
-                                  'مستشار مبيعات',
-                                  style: TextStyle(
-                                      color: AgentTheme.text2,
-                                      fontSize: 12.sp),
-                                ),
-                              ],
-                            ),
-                          ),
-                          const PremiumTierBadge(),
-                        ],
-                      ),
-
-                      Gap(14.h),
-
-                      /// STATS
-                      Row(
-                        children: [
-                          Expanded(
-                            child: QuickStat(
-                              icon: Icons.calendar_today,
-                              label: 'مواعيد',
-                              value: '${todayAppts.length}',
-                              color: AgentTheme.blue,
-                            ),
-                          ),
-                          Gap(8.w),
-                          Expanded(
-                            child: QuickStat(
-                              icon: Icons.person_add,
-                              label: 'جدد',
-                              value:
-                                  '${pendingLeads.where((l) => l.status == LeadStatus.newLead).length}',
-                              color: AgentTheme.green,
-                            ),
-                          ),
-                          Gap(8.w),
-                          const Expanded(
-                            child: QuickStat(
-                              icon: Icons.trending_up,
-                              label: 'الأداء',
-                              value: '87%',
-                              color: AgentTheme.orange,
-                            ),
-                          ),
-                        ],
-                      ),
+              background: Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [
+                      AppColor.blueColor(context).withOpacity(0.15),
+                      AppColor.appBarColor(context),
                     ],
+                    begin: Alignment.topRight,
+                    end: Alignment.bottomLeft,
+                  ),
+                ),
+                child: SafeArea(
+                  child: Padding(
+                    padding: EdgeInsets.fromLTRB(16.w, 14.h, 16.w, 16.h),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        /// TOP
+                        Row(
+                          children: [
+                            const PremiumAvatar(initials: 'م.ع'),
+                            Gap(12.w),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'مرحباً، محمد',
+                                    style: TextStyle(
+                                      color: AppColor.blackTextColor(context),
+                                      fontWeight: FontWeight.w900,
+                                      fontSize: 20.sp,
+                                    ),
+                                  ),
+                                  Text(
+                                    'مستشار مبيعات',
+                                    style: TextStyle(
+                                        color: AppColor.greyColor(context),
+                                        fontSize: 12.sp,
+                                        fontWeight: FontWeight.w600),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const PremiumThemeToggle(),
+                            
+                          ],
+                        ),
+
+                        const Spacer(),
+
+                        /// STATS
+                        Row(
+                          children: [
+                            Expanded(
+                              child: QuickStat(
+                                icon: Icons.calendar_today_rounded,
+                                label: 'مواعيد',
+                                value: '${todayAppts.length}',
+                                color: AppColor.blueColor(context),
+                              ),
+                            ),
+                            Gap(8.w),
+                            Expanded(
+                              child: QuickStat(
+                                icon: Icons.person_add_rounded,
+                                label: 'جدد',
+                                value: '${pendingLeads.where((l) => l.status == LeadStatus.newLead).length}',
+                                color: AppColor.greenColor(context),
+                              ),
+                            ),
+                            Gap(8.w),
+                            Expanded(
+                              child: QuickStat(
+                                icon: Icons.trending_up_rounded,
+                                label: 'الأداء',
+                                value: '87%',
+                                color: AppColor.orangeColor(context),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -130,95 +140,91 @@ class AgentDashboardScreen extends StatelessWidget {
             padding: EdgeInsets.fromLTRB(16.w, 20.h, 16.w, 30.h),
             sliver: SliverList(
               delegate: SliverChildListDelegate([
-
                 /// Commission
                 const PremiumCommissionBanner(),
-                Gap(22.h),
+                Gap(24.h),
 
                 /// KPIs
-                const SectionHeader(title: 'المقاييس'),
-                Gap(10.h),
+                const SectionHeader(title: 'المقاييس الأساسية'),
+                Gap(12.h),
 
                 GridView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
                   itemCount: kAgentKpis.length,
-                  gridDelegate:
-                      SliverGridDelegateWithFixedCrossAxisCount(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
-                    mainAxisSpacing: 10.h,
-                    crossAxisSpacing: 10.w,
-                    childAspectRatio: 1.2, // 👈 أحسن
+                    mainAxisSpacing: 12.h,
+                    crossAxisSpacing: 12.w,
+                    childAspectRatio: 1.15,
                   ),
-                  itemBuilder: (_, i) =>
-                      PremiumKpiCard(kpi: kAgentKpis[i]),
+                  itemBuilder: (_, i) => PremiumKpiCard(kpi: kAgentKpis[i]),
                 ),
 
-                Gap(22.h),
+                Gap(24.h),
 
                 /// Chart
-                const SectionHeader(title: 'الأسبوع'),
-                Gap(10.h),
+                const SectionHeader(title: 'النشاط الأسبوعي'),
+                Gap(12.h),
                 const PremiumWeeklyChart(
                   data: _weeklyData,
                   days: _weekDays,
                 ),
 
-                Gap(22.h),
+                Gap(24.h),
 
                 /// Actions
-                const SectionHeader(title: 'إجراءات'),
-                Gap(10.h),
+                const SectionHeader(title: 'إجراءات سريعة'),
+                Gap(12.h),
 
                 GridView.count(
                   crossAxisCount: 3,
-                  mainAxisSpacing: 10.h,
-                  crossAxisSpacing: 10.w,
+                  mainAxisSpacing: 12.h,
+                  crossAxisSpacing: 12.w,
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
-                  children: const [
+                  children: [
                     PremiumQuickAction(
-                        icon: Icons.person_add,
+                        icon: Icons.person_add_alt_1_rounded,
                         label: 'عميل',
-                        color: AgentTheme.blue),
+                        color: AppColor.blueColor(context)),
                     PremiumQuickAction(
-                        icon: Icons.event,
+                        icon: Icons.event_available_rounded,
                         label: 'موعد',
-                        color: AgentTheme.orange),
+                        color: AppColor.orangeColor(context)),
                     PremiumQuickAction(
-                        icon: Icons.note_add,
+                        icon: Icons.note_add_rounded,
                         label: 'ملاحظة',
-                        color: AgentTheme.green),
+                        color: AppColor.greenColor(context)),
                   ],
                 ),
 
-                Gap(22.h),
+                Gap(24.h),
 
                 /// Leads
                 SectionHeader(
-                  title: 'العملاء',
-                  trailing: '${pendingLeads.length}',
-                  trailingColor: AgentTheme.blue,
+                  title: 'العملاء النشطون',
+                  count: pendingLeads.length,
+                  color: AppColor.blueColor(context),
                 ),
 
-                Gap(10.h),
+                Gap(12.h),
 
                 if (pendingLeads.isEmpty)
                   Center(
                     child: Padding(
-                      padding: EdgeInsets.only(top: 30.h),
+                      padding: EdgeInsets.only(top: 40.h),
                       child: Text(
-                        'لا يوجد عملاء',
+                        'لا يوجد عملاء في القائمة حالياً',
                         style: TextStyle(
-                            color: AgentTheme.text2,
-                            fontSize: 14.sp),
+                            color: AppColor.greyColor(context),
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w500),
                       ),
                     ),
                   )
                 else
-                  ...pendingLeads
-                      .map((l) => PremiumLeadTile(lead: l)),
-
+                  ...pendingLeads.map((l) => PremiumLeadTile(lead: l)),
               ]),
             ),
           ),

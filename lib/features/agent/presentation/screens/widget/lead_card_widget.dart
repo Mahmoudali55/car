@@ -1,3 +1,4 @@
+import 'package:car/core/theme/app_colors.dart';
 
 
 import 'package:car/features/agent/data/agent_models.dart';
@@ -16,68 +17,89 @@ class LeadCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final statusColor = lead.getStatusColor(context);
+
     return Container(
-      margin: EdgeInsets.only(bottom: 14.h),
+      margin: EdgeInsets.only(bottom: 16.h),
       decoration: BoxDecoration(
-        color: AgentTheme.card,
-        borderRadius: BorderRadius.circular(20.r),
+        color: AppColor.cardColor(context),
+        borderRadius: BorderRadius.circular(22.r),
+        border: Border.all(color: AppColor.borderColor(context).withOpacity(0.5)),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.25),
-            blurRadius: 12,
-            offset: const Offset(0, 6),
+            color: Colors.black.withOpacity(0.04),
+            blurRadius: 15,
+            offset: const Offset(0, 8),
           ),
         ],
       ),
       child: Column(
         children: [
           Padding(
-            padding: EdgeInsets.all(14.w),
+            padding: EdgeInsets.all(16.w),
             child: Row(
               children: [
+                /// ── Avatar ──
                 Container(
-                  width: 48.w,
-                  height: 48.w,
+                  width: 52.w,
+                  height: 52.w,
                   decoration: BoxDecoration(
-                    color: lead.statusColor.withOpacity(0.12),
-                    borderRadius: BorderRadius.circular(14.r),
+                    gradient: LinearGradient(
+                      colors: [statusColor.withOpacity(0.15), statusColor.withOpacity(0.05)],
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                    ),
+                    borderRadius: BorderRadius.circular(16.r),
+                    border: Border.all(color: statusColor.withOpacity(0.2)),
                   ),
                   child: Center(
                     child: Text(
                       lead.customerName[0],
-                      style: TextStyle(
-                          color: lead.statusColor,
-                          fontWeight: FontWeight.w900,
-                          fontSize: 20.sp),
+                      style: TextStyle(color: statusColor, fontWeight: FontWeight.w900, fontSize: 22.sp),
                     ),
                   ),
                 ),
-                Gap(12.w),
+                Gap(14.w),
+
+                /// ── Info ──
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(children: [
-                        Expanded(
-                          child: Text(lead.customerName,
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              lead.customerName,
                               style: TextStyle(
-                                  color: AgentTheme.text1,
-                                  fontWeight: FontWeight.w900,
-                                  fontSize: 15.sp)),
+                                color: AppColor.blackTextColor(context),
+                                fontWeight: FontWeight.w900,
+                                fontSize: 16.sp,
+                                letterSpacing: -0.3,
+                              ),
+                            ),
+                          ),
+                          StatusBadge(lead: lead),
+                        ],
+                      ),
+                      Gap(4.h),
+                      Text(
+                        lead.carInterest,
+                        style: TextStyle(
+                          color: AppColor.greyColor(context),
+                          fontSize: 13.sp,
+                          fontWeight: FontWeight.w600,
                         ),
-                        StatusBadge(lead: lead),
-                      ]),
-                      Gap(3.h),
-                      Text(lead.carInterest,
-                          style: TextStyle(
-                              color: AgentTheme.text2, fontSize: 12.sp)),
-                      Gap(3.h),
+                      ),
+                      Gap(6.h),
                       Text(
                         'الميزانية: ${NumberFormat('#,##0').format(lead.budget)} ر.س',
                         style: TextStyle(
-                            color: AgentTheme.blue,
-                            fontSize: 11.sp,
-                            fontWeight: FontWeight.bold),
+                          color: AppColor.blueColor(context),
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.w800,
+                          letterSpacing: -0.2,
+                        ),
                       ),
                     ],
                   ),
@@ -86,34 +108,33 @@ class LeadCard extends StatelessWidget {
             ),
           ),
 
-          Gap(12.h),
-
+          /// ── Actions ──
           Padding(
-            padding: EdgeInsets.fromLTRB(14.w, 0, 14.w, 14.h),
-            child: Row(children: [
-              ActionBtn(
-                icon: Icons.phone_rounded,
-                label: 'اتصال',
-                color: AgentTheme.green,
-                onTap: () =>
-                    launchUrl(Uri.parse('tel:${lead.phoneNumber}')),
-              ),
-              Gap(8.w),
-              ActionBtn(
-                icon: Icons.chat_rounded,
-                label: 'واتساب',
-                color: const Color(0xFF25D366),
-                onTap: () => launchUrl(Uri.parse(
-                    'https://wa.me/966${lead.phoneNumber.substring(1)}')),
-              ),
-              Gap(8.w),
-              ActionBtn(
-                icon: Icons.schedule_rounded,
-                label: 'موعد',
-                color: const Color(0xFF9C27B0),
-                onTap: () {},
-              ),
-            ]),
+            padding: EdgeInsets.fromLTRB(16.w, 0, 16.w, 16.h),
+            child: Row(
+              children: [
+                ActionBtn(
+                  icon: Icons.phone_rounded,
+                  label: 'اتصال',
+                  color: AppColor.greenColor(context),
+                  onTap: () => launchUrl(Uri.parse('tel:${lead.phoneNumber}')),
+                ),
+                Gap(10.w),
+                ActionBtn(
+                  icon: Icons.chat_rounded,
+                  label: 'واتساب',
+                  color: const Color(0xFF25D366),
+                  onTap: () => launchUrl(Uri.parse('https://wa.me/966${lead.phoneNumber.substring(1)}')),
+                ),
+                Gap(10.w),
+                ActionBtn(
+                  icon: Icons.schedule_rounded,
+                  label: 'موعد',
+                  color: const Color(0xFF9C27B0),
+                  onTap: () {},
+                ),
+              ],
+            ),
           ),
         ],
       ),

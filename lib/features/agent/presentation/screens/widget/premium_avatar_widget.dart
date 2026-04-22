@@ -1,3 +1,4 @@
+import 'package:car/core/theme/app_colors.dart';
 import 'package:car/features/agent/data/agent_models.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -8,21 +9,24 @@ class PremiumAvatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final primaryColor = AppColor.blueColor(context);
+
     return Container(
-      width: 56.w,
-      height: 56.w,
+      width: 60.w,
+      height: 60.w,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        gradient: const LinearGradient(
-          colors: [AgentTheme.blue, Color(0xFF6C3EFF)],
+        gradient: LinearGradient(
+          colors: [primaryColor, primaryColor.withAlpha(200)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
+        border: Border.all(color: Colors.white.withOpacity(0.2), width: 2),
         boxShadow: [
           BoxShadow(
-            color: AgentTheme.blue.withOpacity(0.4),
-            blurRadius: 16.r,
-            offset: const Offset(0, 4),
+            color: primaryColor.withOpacity(0.3),
+            blurRadius: 20,
+            offset: const Offset(0, 6),
           ),
         ],
       ),
@@ -32,7 +36,8 @@ class PremiumAvatar extends StatelessWidget {
           style: TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.w900,
-            fontSize: 16.sp,
+            fontSize: 18.sp,
+            letterSpacing: 0.5,
           ),
         ),
       ),

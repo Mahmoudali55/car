@@ -1,3 +1,5 @@
+import 'package:car/core/theme/app_colors.dart';
+import 'package:car/features/agent/data/agent_models.dart';
 import 'package:car/features/agent/presentation/screens/widget/comm_row_widget.dart';
 import 'package:car/features/agent/presentation/screens/widget/funnel_row_widget.dart';
 import 'package:flutter/material.dart';
@@ -7,10 +9,6 @@ import 'package:gap/gap.dart';
 class AgentPerformanceScreen extends StatelessWidget {
   const AgentPerformanceScreen({super.key});
 
-  static const _kNavy = Color(0xFF0A1628);
-  static const _kGold = Color(0xFFFFD700);
-  static const _kBlue = Color(0xFF1565C0);
-
   // Mock weekly data
   static const _weeklyData = [4, 6, 3, 8, 5, 7, 4];
   static const _weekDays = ['س', 'ح', 'إ', 'ث', 'أ', 'خ', 'ج'];
@@ -19,18 +17,21 @@ class AgentPerformanceScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF5F7FA),
+      backgroundColor: AppColor.scaffoldColor(context),
       appBar: AppBar(
-        backgroundColor: _kNavy,
+        backgroundColor: AppColor.appBarColor(context),
         elevation: 0,
-        title: Text('الأداء والإحصاءات', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w900, fontSize: 20.sp)),
+        centerTitle: false,
+        title: Text('الأداء والإحصاءات',
+            style: TextStyle(color: AppColor.blackTextColor(context), fontWeight: FontWeight.w900, fontSize: 20.sp)),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios_new_rounded, color: Colors.white, size: 18.sp),
+          icon: Icon(Icons.arrow_back_ios_new_rounded, color: AppColor.blackTextColor(context), size: 18.sp),
           onPressed: () => Navigator.pop(context),
         ),
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(20.w),
+        physics: const BouncingScrollPhysics(),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -39,12 +40,22 @@ class AgentPerformanceScreen extends StatelessWidget {
               width: double.infinity,
               padding: EdgeInsets.all(24.w),
               decoration: BoxDecoration(
-                gradient: const LinearGradient(
-                  colors: [Color(0xFF0A1628), Color(0xFF1565C0)],
+                gradient: LinearGradient(
+                  colors: [
+                    AppColor.blueColor(context),
+                    AppColor.blueColor(context).withOpacity(0.7),
+                  ],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                 ),
                 borderRadius: BorderRadius.circular(24.r),
+                boxShadow: [
+                  BoxShadow(
+                    color: AppColor.blueColor(context).withOpacity(0.3),
+                    blurRadius: 20,
+                    offset: const Offset(0, 10),
+                  ),
+                ],
               ),
               child: Row(
                 children: [
@@ -53,110 +64,136 @@ class AgentPerformanceScreen extends StatelessWidget {
                     height: 64.w,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color: _kGold.withOpacity(0.15),
-                      border: Border.all(color: _kGold.withOpacity(0.4), width: 2),
+                      color: Colors.white.withOpacity(0.2),
+                      border: Border.all(color: Colors.white.withOpacity(0.4), width: 2),
                     ),
-                    child: Icon(Icons.star_rounded, color: _kGold, size: 32.sp),
+                    child: Icon(Icons.star_rounded, color: AppColor.goldColor(context), size: 32.sp),
                   ),
                   Gap(16.w),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('مندوب ذهبي', style: TextStyle(color: _kGold, fontWeight: FontWeight.w900, fontSize: 20.sp)),
-                        Text('المرتبة 3 من 24 مندوب', style: TextStyle(color: Colors.white60, fontSize: 12.sp)),
-                        Gap(8.h),
+                        Text('مندوب ذهبي',
+                            style: TextStyle(color: Colors.white, fontWeight: FontWeight.w900, fontSize: 20.sp)),
+                        Text('المرتبة 3 من 24 مندوب',
+                            style: TextStyle(color: Colors.white.withOpacity(0.8), fontSize: 12.sp, fontWeight: FontWeight.w600)),
+                        Gap(10.h),
                         ClipRRect(
-                          borderRadius: BorderRadius.circular(4.r),
+                          borderRadius: BorderRadius.circular(6.r),
                           child: LinearProgressIndicator(
                             value: 0.72,
-                            backgroundColor: Colors.white12,
-                            valueColor: const AlwaysStoppedAnimation<Color>(_kGold),
-                            minHeight: 6.h,
+                            backgroundColor: Colors.white.withOpacity(0.2),
+                            valueColor: AlwaysStoppedAnimation<Color>(AppColor.goldColor(context)),
+                            minHeight: 8.h,
                           ),
                         ),
-                        Gap(4.h),
-                        Text('72% للوصول لمستوى بلاتيني', style: TextStyle(color: Colors.white38, fontSize: 10.sp)),
+                        Gap(6.h),
+                        Text('72% للوصول لمستوى بلاتيني',
+                            style: TextStyle(color: Colors.white.withOpacity(0.6), fontSize: 10.sp, fontWeight: FontWeight.w600)),
                       ],
                     ),
                   ),
                 ],
               ),
             ),
-            Gap(28.h),
+            Gap(32.h),
 
             // ── Weekly Chart ───────────────────────────────────────────────
-            Text('أداء الأسبوع', style: TextStyle(fontWeight: FontWeight.w900, fontSize: 18.sp, color: _kNavy)),
+            Text('أداء الأسبوع',
+                style: TextStyle(fontWeight: FontWeight.w900, fontSize: 18.sp, color: AppColor.blackTextColor(context))),
             Gap(16.h),
             Container(
               padding: EdgeInsets.all(20.w),
               decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(20.r),
-                boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.04), blurRadius: 10, offset: const Offset(0,4))],
+                color: AppColor.cardColor(context),
+                borderRadius: BorderRadius.circular(24.r),
+                border: Border.all(color: AppColor.borderColor(context).withOpacity(0.5)),
+                boxShadow: [
+                  BoxShadow(color: Colors.black.withOpacity(0.03), blurRadius: 15, offset: const Offset(0, 5))
+                ],
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: List.generate(7, (i) {
-                  final h = (_weeklyData[i] / _maxBar * 100.h).clamp(12.0, 100.0);
+                  final h = (_weeklyData[i] / _maxBar * 110.h).clamp(15.0, 110.0);
                   final isMax = _weeklyData[i] == _weeklyData.reduce((a, b) => a > b ? a : b);
                   return Column(
                     children: [
                       if (isMax)
                         Container(
-                          margin: EdgeInsets.only(bottom: 4.h),
-                          padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 2.h),
-                          decoration: BoxDecoration(color: _kGold, borderRadius: BorderRadius.circular(6.r)),
-                          child: Text('${_weeklyData[i]}', style: TextStyle(fontSize: 9.sp, fontWeight: FontWeight.bold, color: _kNavy)),
+                          margin: EdgeInsets.only(bottom: 6.h),
+                          padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
+                          decoration: BoxDecoration(
+                              color: AppColor.goldColor(context), borderRadius: BorderRadius.circular(8.r)),
+                          child: Text('${_weeklyData[i]}',
+                              style: TextStyle(
+                                  fontSize: 10.sp, fontWeight: FontWeight.w900, color: Colors.white)),
                         )
                       else
-                        Gap(20.h),
+                        Gap(24.h),
                       AnimatedContainer(
-                        duration: const Duration(milliseconds: 600),
-                        width: 32.w,
+                        duration: const Duration(milliseconds: 800),
+                        curve: Curves.elasticOut,
+                        width: 34.w,
                         height: h,
                         decoration: BoxDecoration(
-                          color: isMax ? _kBlue : _kBlue.withOpacity(0.2),
-                          borderRadius: BorderRadius.circular(8.r),
+                          gradient: LinearGradient(
+                            colors: isMax
+                                ? [AppColor.blueColor(context), AppColor.blueColor(context).withOpacity(0.7)]
+                                : [AppColor.blueColor(context).withOpacity(0.2), AppColor.blueColor(context).withOpacity(0.1)],
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                          ),
+                          borderRadius: BorderRadius.circular(10.r),
                         ),
                       ),
-                      Gap(8.h),
-                      Text(_weekDays[i], style: TextStyle(fontSize: 11.sp, color: Colors.grey, fontWeight: FontWeight.bold)),
+                      Gap(10.h),
+                      Text(_weekDays[i],
+                          style: TextStyle(
+                              fontSize: 12.sp,
+                              color: AppColor.hintColor(context),
+                              fontWeight: FontWeight.w700)),
                     ],
                   );
                 }),
               ),
             ),
-            Gap(28.h),
+            Gap(32.h),
 
             // ── Conversion Funnel ──────────────────────────────────────────
-            Text('قمع التحويل', style: TextStyle(fontWeight: FontWeight.w900, fontSize: 18.sp, color: _kNavy)),
+            Text('قمع التحويل',
+                style: TextStyle(fontWeight: FontWeight.w900, fontSize: 18.sp, color: AppColor.blackTextColor(context))),
             Gap(16.h),
-            const FunnelRow(label: 'عملاء محتملون', count: 32, total: 32, color: _kBlue),
-            Gap(8.h),
-            const FunnelRow(label: 'زيارات / عروض', count: 18, total: 32, color: Color(0xFF7B1FA2)),
-            Gap(8.h),
-            const FunnelRow(label: 'صفقات مغلقة', count: 7, total: 32, color: Color(0xFF2E7D32)),
-            Gap(28.h),
+            FunnelRow(label: 'عملاء محتملون', count: 32, total: 32, color: AppColor.blueColor(context)),
+            Gap(10.h),
+            FunnelRow(label: 'زيارات / عروض', count: 18, total: 32, color: const Color(0xFF8B5CF6)),
+            Gap(10.h),
+            FunnelRow(label: 'صفقات مغلقة', count: 7, total: 32, color: AppColor.greenColor(context)),
+            Gap(32.h),
 
             // ── Commission ─────────────────────────────────────────────────
-            Text('العمولات', style: TextStyle(fontWeight: FontWeight.w900, fontSize: 18.sp, color: _kNavy)),
+            Text('العمولات والمبيعات',
+                style: TextStyle(fontWeight: FontWeight.w900, fontSize: 18.sp, color: AppColor.blackTextColor(context))),
             Gap(16.h),
             Container(
               padding: EdgeInsets.all(20.w),
               decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(20.r),
-                boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.04), blurRadius: 10)],
+                color: AppColor.cardColor(context),
+                borderRadius: BorderRadius.circular(24.r),
+                border: Border.all(color: AppColor.borderColor(context).withOpacity(0.5)),
+                boxShadow: [
+                  BoxShadow(color: Colors.black.withOpacity(0.03), blurRadius: 15, offset: const Offset(0, 5))
+                ],
               ),
               child: Column(
                 children: [
-                  const CommRow(label: 'عمولة هذا الشهر', value: '15,625 ر.س', color: Color(0xFF2E7D32)),
-                  Divider(height: 24.h, color: Colors.grey.shade100),
-                  const CommRow(label: 'إجمالي هذا الربع', value: '41,200 ر.س', color: _kBlue),
-                  Divider(height: 24.h, color: Colors.grey.shade100),
-                  const CommRow(label: 'هدف الشهر', value: '20,000 ر.س', color: Colors.grey),
+                  CommRow(label: 'عمولة هذا الشهر', value: '15,625 ر.س', color: AppColor.greenColor(context)),
+                  Divider(height: 32.h, color: AppColor.borderColor(context)),
+                  CommRow(label: 'إجمالي هذا الربع', value: '41,200 ر.س', color: AppColor.blueColor(context)),
+                  Divider(height: 32.h, color: AppColor.borderColor(context)),
+                  CommRow(label: 'هدف الشهر', value: '20,000 ر.س', color: AppColor.hintColor(context)),
                 ],
               ),
             ),

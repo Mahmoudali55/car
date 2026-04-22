@@ -23,34 +23,47 @@ class PremiumQuickActionState extends State<PremiumQuickAction> {
         onEnter: (_) => setState(() => _isHovered = true),
         onExit: (_) => setState(() => _isHovered = false),
         child: AnimatedContainer(
-          duration: const Duration(milliseconds: 200),
-          padding: EdgeInsets.symmetric(vertical: 16.h),
+          duration: const Duration(milliseconds: 250),
+          curve: Curves.easeInOut,
+          padding: EdgeInsets.symmetric(vertical: 18.h),
           decoration: BoxDecoration(
-            color: widget.color.withOpacity(_isHovered ? 0.12 : 0.08),
-            borderRadius: BorderRadius.circular(18.r),
-            border: Border.all(color: widget.color.withOpacity(0.25)),
-            boxShadow: _isHovered
-                ? [
-                    BoxShadow(
-                      color: widget.color.withOpacity(0.2),
-                      blurRadius: 12.r,
-                      offset: const Offset(0, 4),
-                    ),
-                  ]
-                : null,
+            gradient: LinearGradient(
+              colors: [
+                widget.color.withOpacity(_isHovered ? 0.15 : 0.08),
+                widget.color.withOpacity(_isHovered ? 0.08 : 0.04),
+              ],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+            borderRadius: BorderRadius.circular(22.r),
+            border: Border.all(
+              color: widget.color.withOpacity(_isHovered ? 0.4 : 0.2),
+              width: 1.5,
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: widget.color.withOpacity(_isHovered ? 0.12 : 0.04),
+                blurRadius: _isHovered ? 16 : 8,
+                offset: Offset(0, _isHovered ? 6 : 3),
+              ),
+            ],
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(widget.icon, color: widget.color, size: 24.sp),
-              Gap(8.h),
+              AnimatedScale(
+                scale: _isHovered ? 1.15 : 1.0,
+                duration: const Duration(milliseconds: 250),
+                child: Icon(widget.icon, color: widget.color, size: 28.sp),
+              ),
+              Gap(10.h),
               Text(
                 widget.label,
                 style: TextStyle(
                   color: widget.color,
-                  fontSize: 10.sp,
-                  fontWeight: FontWeight.w700,
-                  height: 1.2,
+                  fontSize: 12.sp,
+                  fontWeight: FontWeight.w900,
+                  letterSpacing: -0.2,
                 ),
                 textAlign: TextAlign.center,
               ),

@@ -1,3 +1,4 @@
+import 'package:car/core/theme/app_colors.dart';
 import 'package:car/features/agent/data/agent_models.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -10,18 +11,21 @@ class PremiumWeeklyChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (data.isEmpty) return const SizedBox.shrink();
     final maxVal = data.reduce((a, b) => a > b ? a : b);
+    final blueColor = AppColor.blueColor(context);
+
     return Container(
-      padding: EdgeInsets.all(18.w),
+      padding: EdgeInsets.all(20.w),
       decoration: BoxDecoration(
-        color: AgentTheme.card,
-        borderRadius: BorderRadius.circular(22.r),
-        border: Border.all(color: AgentTheme.border),
+        color: AppColor.cardColor(context),
+        borderRadius: BorderRadius.circular(24.r),
+        border: Border.all(color: AppColor.borderColor(context).withOpacity(0.5)),
         boxShadow: [
           BoxShadow(
-            color: AgentTheme.blue.withOpacity(0.06),
-            blurRadius: 12.r,
-            offset: const Offset(0, 2),
+            color: Colors.black.withOpacity(0.02),
+            blurRadius: 15,
+            offset: const Offset(0, 5),
           ),
         ],
       ),
@@ -32,83 +36,93 @@ class PremiumWeeklyChart extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'المبيعات المتعاقدة',
+                'النشاط الأسبوعي',
                 style: TextStyle(
-                  color: AgentTheme.text1,
-                  fontWeight: FontWeight.w700,
-                  fontSize: 12.sp,
+                  color: AppColor.blackTextColor(context),
+                  fontWeight: FontWeight.w900,
+                  fontSize: 14.sp,
+                  letterSpacing: -0.2,
                 ),
               ),
               Text(
-                'هذا الأسبوع',
+                'آخر 7 أيام',
                 style: TextStyle(
-                  color: AgentTheme.text3,
-                  fontSize: 11.sp,
-                  fontWeight: FontWeight.w600,
+                  color: AppColor.hintColor(context),
+                  fontSize: 12.sp,
+                  fontWeight: FontWeight.w700,
                 ),
               ),
             ],
           ),
-          Gap(16.h),
+          Gap(24.h),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: List.generate(data.length, (i) {
               final isPeak = data[i] == maxVal;
-              final barH = (data[i] / maxVal * 90.h).clamp(12.0, 90.0);
+              final barH = (data[i] / maxVal * 100.h).clamp(15.0, 100.0);
               return Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   if (isPeak)
                     Container(
-                      padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 3.h),
-                      margin: EdgeInsets.only(bottom: 4.h),
+                      padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
+                      margin: EdgeInsets.only(bottom: 8.h),
                       decoration: BoxDecoration(
-                        color: AgentTheme.gold,
-                        borderRadius: BorderRadius.circular(6.r),
+                        color: AppColor.goldColor(context),
+                        borderRadius: BorderRadius.circular(8.r),
+                        boxShadow: [
+                          BoxShadow(
+                            color: AppColor.goldColor(context).withOpacity(0.3),
+                            blurRadius: 10,
+                            offset: const Offset(0, 2),
+                          ),
+                        ],
                       ),
                       child: Text(
                         '${data[i]}',
                         style: TextStyle(
-                          color: AgentTheme.navy,
+                          color: Colors.white,
                           fontWeight: FontWeight.w900,
                           fontSize: 10.sp,
                         ),
                       ),
                     )
                   else
-                    SizedBox(height: 20.h),
-                  Container(
+                    Gap(28.h),
+                  AnimatedContainer(
+                    duration: const Duration(milliseconds: 800),
+                    curve: Curves.elasticOut,
                     width: 32.w,
                     height: barH,
                     decoration: BoxDecoration(
                       gradient: isPeak
-                          ? const LinearGradient(
-                              colors: [AgentTheme.blue, Color(0xFF6C3EFF)],
+                          ? LinearGradient(
+                              colors: [blueColor, blueColor.withOpacity(0.7)],
                               begin: Alignment.topCenter,
                               end: Alignment.bottomCenter,
                             )
                           : null,
-                      color: isPeak ? null : AgentTheme.blue.withOpacity(0.15),
-                      borderRadius: BorderRadius.circular(8.r),
+                      color: isPeak ? null : blueColor.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(10.r),
                       boxShadow: isPeak
                           ? [
                               BoxShadow(
-                                color: AgentTheme.blue.withOpacity(0.3),
-                                blurRadius: 8.r,
-                                offset: const Offset(0, 2),
+                                color: blueColor.withOpacity(0.2),
+                                blurRadius: 10,
+                                offset: const Offset(0, 4),
                               ),
                             ]
                           : null,
                     ),
                   ),
-                  Gap(8.h),
+                  Gap(12.h),
                   Text(
                     days[i],
                     style: TextStyle(
-                      color: AgentTheme.text3,
-                      fontSize: 11.sp,
-                      fontWeight: FontWeight.w700,
+                      color: AppColor.hintColor(context),
+                      fontSize: 12.sp,
+                      fontWeight: FontWeight.w800,
                     ),
                   ),
                 ],
