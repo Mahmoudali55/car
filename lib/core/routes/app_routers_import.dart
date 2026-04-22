@@ -53,6 +53,7 @@ import 'package:car/features/admin/presentation/screen/contact_developer_screen.
 import 'package:car/features/about/presentation/screen/about_screen.dart';
 import 'package:car/features/profile/presentation/screen/user_profile_screen.dart';
 import 'package:car/features/cars/presentation/screen/car_comparison_screen.dart';
+import 'package:car/features/agent/presentation/agent_shell.dart';
 
 
 import 'package:flutter/material.dart';

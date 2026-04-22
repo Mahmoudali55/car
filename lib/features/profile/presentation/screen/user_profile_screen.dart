@@ -14,6 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
+import 'package:car/features/agent/presentation/agent_shell.dart' as car_agent;
 
 class UserProfileScreen extends StatelessWidget {
   const UserProfileScreen({super.key});
@@ -96,6 +97,16 @@ class UserProfileScreen extends StatelessWidget {
                             Icons.history_rounded,
                           label:   AppLocaleKey.myHistory.tr(),
                            onTap:  () {},
+                          ),
+                          ActionTileWidget(
+                           icon: Icons.admin_panel_settings_rounded,
+                           label: 'لوحة المناديب',
+                           onTap: () {
+                             Navigator.push(
+                               context,
+                               MaterialPageRoute(builder: (_) => const car_agent.AgentShell()),
+                             );
+                           },
                           ),
                         ]),
                       ),

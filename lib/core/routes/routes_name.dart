@@ -41,6 +41,7 @@ class RoutesName {
 
   // Admin Screens
   static const String adminDashboard = 'adminDashboard';
+  static const String agentDashboard = 'agentDashboard';
   static const String manageCars = 'manageCars';
   static const String manageBookings = 'manageBookings';
   static const String manageUsers = 'manageUsers';

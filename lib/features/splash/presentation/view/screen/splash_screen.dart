@@ -32,6 +32,8 @@ class _SplashScreenState extends State<SplashScreen> {
         } else if (HiveMethods.getToken() != null || HiveMethods.isGuest()) {
           if (HiveMethods.getRole() == 'admin') {
             NavigatorMethods.pushReplacementNamed(context, RoutesName.adminDashboard);
+          } else if (HiveMethods.getRole() == 'agent') {
+            NavigatorMethods.pushReplacementNamed(context, RoutesName.agentDashboard);
           } else {
             NavigatorMethods.pushReplacementNamed(context, RoutesName.mainLayout);
           }

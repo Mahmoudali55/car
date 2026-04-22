@@ -47,6 +47,8 @@ class LoginScreen extends StatelessWidget {
               CommonMethods.showToast(message: state.loginStatus.data?.message ?? 'Login success');
               if (HiveMethods.getRole() == 'admin') {
                 NavigatorMethods.pushReplacementNamed(context, RoutesName.adminDashboard);
+              } else if (HiveMethods.getRole() == 'agent') {
+                NavigatorMethods.pushReplacementNamed(context, RoutesName.agentDashboard);
               } else {
                 NavigatorMethods.pushReplacementNamed(context, RoutesName.mainLayout);
               }
@@ -239,44 +241,42 @@ class LoginScreen extends StatelessWidget {
                                   TextButton(
                                     onPressed: () {
                                       HiveMethods.updateIsGuest(true);
-                                      NavigatorMethods.pushReplacementNamed(
-                                        context,
-                                        RoutesName.mainLayout,
-                                      );
+                                      NavigatorMethods.pushReplacementNamed(context, RoutesName.mainLayout);
                                     },
                                     child: Text(
                                       AppLocaleKey.continueAsGuest.tr(),
-                                      style: AppTextStyle.bodyLarge(
-                                        context,
-                                        color: AppColor.blackTextColor(context),
-                                      ),
+                                      style: AppTextStyle.bodyLarge(context, color: AppColor.blackTextColor(context)),
                                     ),
                                   ),
-                                  Container(
-                                    width: 1,
-                                    height: 20.h,
-                                    color: AppColor.blackTextColor(context).withOpacity(0.2),
-                                  ),
+                                  Container(width: 1, height: 20.h, color: AppColor.blackTextColor(context).withOpacity(0.2)),
                                   TextButton(
                                     onPressed: () {
                                       HiveMethods.updateIsGuest(false);
                                       HiveMethods.updateToken('admin_dummy_token');
                                       HiveMethods.updateRole('admin');
                                       CommonMethods.showToast(message: 'تم تسجيل الدخول كمدير');
-                                      NavigatorMethods.pushReplacementNamed(
-                                        context,
-                                        RoutesName.adminDashboard,
-                                      );
+                                      NavigatorMethods.pushReplacementNamed(context, RoutesName.adminDashboard);
                                     },
                                     child: Text(
-                                      'دخول كمسؤول (Admin)',
-                                      style: AppTextStyle.bodyLarge(
-                                        context,
-                                        color: AppColor.primaryColor(context),
-                                      ).copyWith(fontWeight: FontWeight.bold),
+                                      'دخول كمسؤول',
+                                      style: AppTextStyle.bodyLarge(context, color: AppColor.primaryColor(context)).copyWith(fontWeight: FontWeight.bold),
                                     ),
                                   ),
                                 ],
+                              ),
+                              SizedBox(height: 5.h),
+                              TextButton(
+                                onPressed: () {
+                                  HiveMethods.updateIsGuest(false);
+                                  HiveMethods.updateToken('agent_dummy_token');
+                                  HiveMethods.updateRole('agent');
+                                  CommonMethods.showToast(message: 'تم تسجيل الدخول كمندوب');
+                                  NavigatorMethods.pushReplacementNamed(context, RoutesName.agentDashboard);
+                                },
+                                child: Text(
+                                  'دخول كمندوب (Agent)',
+                                  style: AppTextStyle.bodyLarge(context, color: const Color(0xFF1565C0)).copyWith(fontWeight: FontWeight.bold),
+                                ),
                               ),
                             ],
                           ),
