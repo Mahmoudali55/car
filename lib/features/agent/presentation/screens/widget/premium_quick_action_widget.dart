@@ -6,7 +6,8 @@ class PremiumQuickAction extends StatefulWidget {
   final IconData icon;
   final String label;
   final Color color;
-  const PremiumQuickAction({required this.icon, required this.label, required this.color});
+  final VoidCallback? onTap;
+  const PremiumQuickAction({required this.icon, required this.label, required this.color, this.onTap});
 
   @override
   State<PremiumQuickAction> createState() => PremiumQuickActionState();
@@ -18,7 +19,7 @@ class PremiumQuickActionState extends State<PremiumQuickAction> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: widget.onTap,
       child: MouseRegion(
         onEnter: (_) => setState(() => _isHovered = true),
         onExit: (_) => setState(() => _isHovered = false),

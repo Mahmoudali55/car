@@ -10,6 +10,9 @@ import 'package:car/features/agent/presentation/screens/widget/premium_weekly_ch
 import 'package:car/features/agent/presentation/screens/widget/quick_stat_widget.dart';
 import 'package:car/features/agent/presentation/screens/widget/section_header_widget.dart';
 import 'package:car/core/routes/routes_name.dart';
+import 'package:car/features/agent/presentation/screens/agent_add_appointment_screen.dart';
+import 'package:car/features/agent/presentation/screens/agent_add_lead_screen.dart';
+import 'package:car/features/agent/presentation/screens/agent_add_note_screen.dart';
 import 'package:car/features/agent/presentation/screens/widget/icon_btn_widget.dart';
 import 'package:car/features/auth/presentation/view/cubit/auth_cubit.dart';
 import 'package:flutter/material.dart';
@@ -192,7 +195,7 @@ class AgentDashboardScreen extends StatelessWidget {
 
                 /// Actions
                 const SectionHeader(title: 'إجراءات سريعة'),
-                Gap(12.h),
+                Gap(5.h),
 
                 GridView.count(
                   crossAxisCount: 3,
@@ -202,17 +205,32 @@ class AgentDashboardScreen extends StatelessWidget {
                   physics: const NeverScrollableScrollPhysics(),
                   children: [
                     PremiumQuickAction(
-                        icon: Icons.person_add_alt_1_rounded,
-                        label: 'عميل',
-                        color: AppColor.blueColor(context)),
+                      icon: Icons.person_add_alt_1_rounded,
+                      label: 'عميل',
+                      color: AppColor.blueColor(context),
+                      onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (_) => const AgentAddLeadScreen()),
+                      ),
+                    ),
                     PremiumQuickAction(
-                        icon: Icons.event_available_rounded,
-                        label: 'موعد',
-                        color: AppColor.orangeColor(context)),
+                      icon: Icons.event_available_rounded,
+                      label: 'موعد',
+                      color: AppColor.orangeColor(context),
+                      onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (_) => const AgentAddAppointmentScreen()),
+                      ),
+                    ),
                     PremiumQuickAction(
-                        icon: Icons.note_add_rounded,
-                        label: 'ملاحظة',
-                        color: AppColor.greenColor(context)),
+                      icon: Icons.note_add_rounded,
+                      label: 'ملاحظة',
+                      color: AppColor.greenColor(context),
+                      onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (_) => const AgentAddNoteScreen()),
+                      ),
+                    ),
                   ],
                 ),
 
