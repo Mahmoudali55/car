@@ -1,5 +1,6 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:car/core/services/services_locator.dart';
+import 'package:car/features/auth/presentation/view/cubit/auth_cubit.dart';
 import 'package:car/core/theme/cubit/app_theme_cubit.dart';
 import 'package:car/core/theme/theme_enum.dart';
 import 'package:car/features/cart/presentation/view/cubit/cart_cubit.dart';
@@ -44,6 +45,7 @@ class _CarAppState extends State<CarApp> {
         return MultiBlocProvider(
           providers: [
             BlocProvider(create: (_) => AppThemeCubit()..initial()),
+            BlocProvider(create: (context) => sl<AuthCubit>()),
             BlocProvider(create: (context) => sl<FavoritesCubit>()),
             BlocProvider(create: (context) => CartCubit()),
             BlocProvider(create: (context) => NotificationsCubit()),

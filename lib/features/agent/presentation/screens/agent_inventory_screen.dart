@@ -1,5 +1,6 @@
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/features/agent/data/agent_models.dart';
+import 'package:car/features/agent/presentation/screens/agent_car_details_screen.dart';
 import 'package:car/features/agent/presentation/screens/widget/car_list_card_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -101,7 +102,15 @@ class _AgentInventoryScreenState extends State<AgentInventoryScreen> {
     return ListView.builder(
       padding: EdgeInsets.fromLTRB(16.w, 20.h, 16.w, 40.h),
       itemCount: list.length,
-      itemBuilder: (_, i) => CarListCard(car: list[i]),
+      itemBuilder: (_, i) => CarListCard(
+        car: list[i],
+        onTap: () => Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) => AgentCarDetailsScreen(car: list[i]),
+          ),
+        ),
+      ),
     );
   }
 }

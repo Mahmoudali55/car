@@ -47,6 +47,7 @@ class ContactBottomSheetWidget extends StatelessWidget {
             AppLocaleKey.contactSupport.tr(),
             style: AppTextStyle.titleLarge(context).copyWith(
               fontWeight: FontWeight.w900,
+              color: AppColor.blackTextColor(context),
             ),
           ),
           Gap(10.h),

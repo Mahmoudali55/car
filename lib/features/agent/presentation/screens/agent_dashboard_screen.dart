@@ -9,7 +9,11 @@ import 'package:car/features/agent/presentation/screens/widget/premium_theme_tog
 import 'package:car/features/agent/presentation/screens/widget/premium_weekly_chart_widget.dart';
 import 'package:car/features/agent/presentation/screens/widget/quick_stat_widget.dart';
 import 'package:car/features/agent/presentation/screens/widget/section_header_widget.dart';
+import 'package:car/core/routes/routes_name.dart';
+import 'package:car/features/agent/presentation/screens/widget/icon_btn_widget.dart';
+import 'package:car/features/auth/presentation/view/cubit/auth_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
@@ -89,6 +93,19 @@ class AgentDashboardScreen extends StatelessWidget {
                                 ],
                               ),
                             ),
+                            IconBtn(
+                              icon: Icons.logout_rounded,
+                              
+                              onTap: () {
+                                context.read<AuthCubit>().logout();
+                                Navigator.pushNamedAndRemoveUntil(
+                                  context,
+                                  RoutesName.loginScreen,
+                                  (route) => false,
+                                );
+                              },
+                            ),
+                            Gap(10.w),
                             const PremiumThemeToggle(),
                             
                           ],

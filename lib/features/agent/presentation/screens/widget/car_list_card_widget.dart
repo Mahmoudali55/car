@@ -7,13 +7,16 @@ import 'package:intl/intl.dart';
 
 class CarListCard extends StatelessWidget {
   final AgentCar car;
-  const CarListCard({super.key, required this.car});
+  final VoidCallback? onTap;
+  const CarListCard({super.key, required this.car, this.onTap});
 
   @override
   Widget build(BuildContext context) {
     final availabilityColor = car.getAvailabilityColor(context);
 
-    return Container(
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
       margin: EdgeInsets.only(bottom: 16.h),
       padding: EdgeInsets.all(16.w),
       decoration: BoxDecoration(
@@ -125,6 +128,7 @@ class CarListCard extends StatelessWidget {
        
         ],
       ),
+    ),
     );
   }
 }
