@@ -29,7 +29,7 @@ class _PopularCarsSliderState extends State<PopularCarsSlider> {
   final List<Map<String, dynamic>> popularCars = [
     {
       'name': 'Ferrari SF90',
-      'image': 'assets/images/cars/mercedes-benz.png', // Temporary fallback image
+      'image': 'assets/images/car.jpeg', // Temporary fallback image
       'brand': 'Ferrari',
       'price': '1,200,000  ر.س       ',
       'year': '2024',
@@ -41,7 +41,7 @@ class _PopularCarsSliderState extends State<PopularCarsSlider> {
     {
       'name': 'Lamborghini Revuelto',
       'brand': 'Lamborghini',
-      'image': 'assets/images/cars/lamborghini.png',
+      'image': 'assets/images/car.jpeg',
       'price': '2,500,000  ر.س       ',
       'year': '2024',
       'mileage': '0 كم',
@@ -52,7 +52,7 @@ class _PopularCarsSliderState extends State<PopularCarsSlider> {
     {
       'name': 'Porsche 911 GT3',
       'brand': 'Porsche',
-      'image': 'assets/images/cars/porsche.png',
+      'image': 'assets/images/car.jpeg',
       'price': '950,000  ر.س       ',
       'year': '2024',
       'mileage': '0 كم',
@@ -319,7 +319,6 @@ class _PopularCarsSliderState extends State<PopularCarsSlider> {
                                   Expanded(
                                     flex: 3,
                                     child: CustomButton(
-                                      
                                       radius: 12.r,
                                       onPressed: () => _navigateToDetails(context, car),
                                       child: Text(
@@ -335,11 +334,12 @@ class _PopularCarsSliderState extends State<PopularCarsSlider> {
                                   Expanded(
                                     flex: 2,
                                     child: CustomButton(
-                                      
                                       onPressed: () => _navigateToDetails(context, car),
                                       color: AppColor.whiteColor(context),
                                       radius: 12.r,
-                                      borderColor: AppColor.blackTextColor(context).withOpacity(0.1),
+                                      borderColor: AppColor.blackTextColor(
+                                        context,
+                                      ).withOpacity(0.1),
 
                                       child: Text(
                                         AppLocaleKey.details.tr(),

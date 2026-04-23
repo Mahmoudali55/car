@@ -52,7 +52,7 @@ class SellCarScreen extends StatelessWidget {
                     child: Opacity(
                       opacity: 0.1,
                       child: Image.asset(
-                        'assets/images/cars/aston-martin.png',
+                        'assets/images/car.jpeg',
                         height: 180.h,
                         fit: BoxFit.contain,
                       ),

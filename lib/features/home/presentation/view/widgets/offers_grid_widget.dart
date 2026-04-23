@@ -16,7 +16,7 @@ class OffersGridWidget extends StatelessWidget {
     {
       'name': 'G63 AMG 2024',
       'brand': 'Mercedes-Benz',
-      'image': 'assets/images/cars/mercedes-benz.png',
+      'image': 'assets/images/car.jpeg',
       'price': '850,000  ر.س       ',
       'oldPrice': '1,000,000  ر.س       ',
       'installments': '1,166 ر.س / شهر',
@@ -31,7 +31,7 @@ class OffersGridWidget extends StatelessWidget {
     {
       'name': 'M5 Competition',
       'brand': 'BMW',
-      'image': 'assets/images/cars/bmw.png',
+      'image': 'assets/images/car.jpeg',
       'price': '440,000  ر.س       ',
       'oldPrice': '520,000  ر.س       ',
       'installments': '1,166 ر.س / شهر',
@@ -47,7 +47,7 @@ class OffersGridWidget extends StatelessWidget {
     {
       'name': 'Land Cruiser 300',
       'brand': 'Toyota',
-      'image': 'assets/images/cars/toyota.png',
+      'image': 'assets/images/car.jpeg',
       'price': '330,000  ر.س       ',
       'oldPrice': '350,000  ر.س       ',
       'installments': '1,166 ر.س / شهر',
@@ -62,7 +62,7 @@ class OffersGridWidget extends StatelessWidget {
     {
       'name': 'Model S Plaid',
       'brand': 'Tesla',
-      'image': 'assets/images/cars/tesla.png',
+      'image': 'assets/images/car.jpeg',
       'price': '450,000  ر.س       ',
       'oldPrice': '480,000  ر.س       ',
       'installments': '1,166 ر.س / شهر',
@@ -235,9 +235,7 @@ class OffersGridWidget extends StatelessWidget {
                                   child: Text(
                                     car['mileage'],
                                     style: TextStyle(
-                                      color: AppColor.blackTextColor(
-                                        context,
-                                      ).withOpacity(0.38),
+                                      color: AppColor.blackTextColor(context).withOpacity(0.38),
                                       fontSize: 9.sp,
                                     ),
                                     maxLines: 1,
@@ -272,9 +270,7 @@ class OffersGridWidget extends StatelessWidget {
                                       Text(
                                         car['oldPrice'],
                                         style: TextStyle(
-                                          color: AppColor.blackTextColor(
-                                            context,
-                                          ).withOpacity(0.24),
+                                          color: AppColor.blackTextColor(context).withOpacity(0.24),
                                           fontSize: 9.sp,
                                           decoration: TextDecoration.lineThrough,
                                         ),

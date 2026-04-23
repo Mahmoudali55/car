@@ -38,21 +38,21 @@ class _CarsScreenState extends State<CarsScreen> {
   // Dummy slider data
   final List<Map<String, String>> _featuredCars = [
     {
-      'image': 'assets/images/cars/mercedes-benz.png',
+      'image': 'assets/images/car.jpeg',
       'name': 'G-Class G63',
       'brand': 'Mercedes-Benz',
       'price': '850,000  ر.س       ',
       'installments': '1,166 ر.س / شهر',
     },
     {
-      'image': 'assets/images/cars/bmw.png',
+      'image': 'assets/images/car.jpeg',
       'name': 'M5 Competition',
       'brand': 'BMW',
       'price': '520,000  ر.س       ',
       'installments': '1,166 ر.س / شهر',
     },
     {
-      'image': 'assets/images/cars/tesla.png',
+      'image': 'assets/images/car.jpeg',
       'name': 'Model S Plaid',
       'brand': 'Tesla',
       'price': '480,000  ر.س       ',
@@ -63,7 +63,7 @@ class _CarsScreenState extends State<CarsScreen> {
   // Dummy car list data
   final List<Map<String, dynamic>> _carsList = [
     {
-      'image': 'assets/images/cars/mercedes-benz.png',
+      'image': 'assets/images/car.jpeg',
       'name': 'G-Class G63',
       'brand': 'Mercedes-Benz',
       'price': '850,000  ر.س       ',
@@ -74,7 +74,7 @@ class _CarsScreenState extends State<CarsScreen> {
       'installments': '1,166 ر.س / شهر',
     },
     {
-      'image': 'assets/images/cars/bmw.png',
+      'image': 'assets/images/car.jpeg',
       'name': 'M5 Competition',
       'brand': 'BMW',
       'price': '520,000  ر.س       ',
@@ -82,10 +82,10 @@ class _CarsScreenState extends State<CarsScreen> {
       'mileage': '5,000 كم',
       'isFavorite': false,
       'video_id': 'D7O8J5vVf-M',
-       'installments': '1,166 ر.س / شهر',
+      'installments': '1,166 ر.س / شهر',
     },
     {
-      'image': 'assets/images/cars/toyota.png',
+      'image': 'assets/images/car.jpeg',
       'name': 'Land Cruiser 300',
       'brand': 'Toyota',
       'price': '350,000  ر.س       ',
@@ -96,7 +96,7 @@ class _CarsScreenState extends State<CarsScreen> {
       'installments': '1,166 ر.س / شهر',
     },
     {
-      'image': 'assets/images/cars/tesla.png',
+      'image': 'assets/images/car.jpeg',
       'name': 'Model S Plaid',
       'brand': 'Tesla',
       'price': '480,000  ر.س       ',
@@ -107,7 +107,7 @@ class _CarsScreenState extends State<CarsScreen> {
       'installments': '1,166 ر.س / شهر',
     },
     {
-      'image': 'assets/images/cars/audi.png',
+      'image': 'assets/images/car.jpeg',
       'name': 'RS e-tron GT',
       'brand': 'Audi',
       'price': '550,000  ر.س  ',
@@ -146,7 +146,7 @@ class _CarsScreenState extends State<CarsScreen> {
                 }).toList(),
               ),
               Gap(24.h),
-              
+
               // Brand Selector (NEW - Logical browsing)
               BrandSelectorWidget(
                 selectedBrand: _selectedBrand,
@@ -208,9 +208,9 @@ class _CarsScreenState extends State<CarsScreen> {
                       child: Center(
                         child: Text(
                           AppLocaleKey.noCarsForBrand.tr(),
-                          style: AppTextStyle.bodyMedium(context).copyWith(
-                            color: AppColor.blackTextColor(context).withOpacity(0.5),
-                          ),
+                          style: AppTextStyle.bodyMedium(
+                            context,
+                          ).copyWith(color: AppColor.blackTextColor(context).withOpacity(0.5)),
                         ),
                       ),
                     );
@@ -227,15 +227,15 @@ class _CarsScreenState extends State<CarsScreen> {
                       // Localize unit suffixes if they exist in dummy data
                       if (car['price'] != null && car['price'].toString().contains(' ر.س       ')) {
                         car['price'] = car['price'].toString().replaceAll(
-                              ' ر.س       ',
-                              AppLocaleKey.aed.tr(),
-                            );
+                          ' ر.س       ',
+                          AppLocaleKey.aed.tr(),
+                        );
                       }
                       if (car['mileage'] != null && car['mileage'].toString().contains('كم')) {
                         car['mileage'] = car['mileage'].toString().replaceAll(
-                              'كم',
-                              AppLocaleKey.km.tr(),
-                            );
+                          'كم',
+                          AppLocaleKey.km.tr(),
+                        );
                       }
                       return PremiumCarCardWidget(car: car);
                     },

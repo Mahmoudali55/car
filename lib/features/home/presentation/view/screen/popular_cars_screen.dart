@@ -12,7 +12,7 @@ class PopularCarsScreen extends StatelessWidget {
   final List<Map<String, dynamic>> popularCars = const [
     {
       'name': 'Ferrari SF90',
-      'image': 'assets/images/cars/mercedes-benz.png',
+      'image': 'assets/images/car.jpeg',
       'brand': 'Ferrari',
       'price': '1,200,000  ر.س       ',
       'year': '2024',
@@ -23,7 +23,7 @@ class PopularCarsScreen extends StatelessWidget {
     {
       'name': 'Lamborghini Revuelto',
       'brand': 'Lamborghini',
-      'image': 'assets/images/cars/lamborghini.png',
+      'image': 'assets/images/car.jpeg',
       'price': '2,500,000  ر.س       ',
       'year': '2024',
       'mileage': '0 كم',
@@ -33,7 +33,7 @@ class PopularCarsScreen extends StatelessWidget {
     {
       'name': 'Porsche 911 GT3',
       'brand': 'Porsche',
-      'image': 'assets/images/cars/porsche.png',
+      'image': 'assets/images/car.jpeg',
       'price': '950,000  ر.س       ',
       'year': '2024',
       'mileage': '0 كم',
@@ -43,7 +43,7 @@ class PopularCarsScreen extends StatelessWidget {
     {
       'name': 'Mercedes G63 AMG',
       'brand': 'Mercedes-Benz',
-      'image': 'assets/images/cars/mercedes-benz.png',
+      'image': 'assets/images/car.jpeg',
       'price': '850,000  ر.س       ',
       'year': '2024',
       'mileage': '0 كم',
@@ -53,7 +53,7 @@ class PopularCarsScreen extends StatelessWidget {
     {
       'name': 'McLaren 750S',
       'brand': 'McLaren',
-      'image': 'assets/images/cars/mercedes-benz.png', // Temporary fallback
+      'image': 'assets/images/car.jpeg', // Temporary fallback
       'price': '1,100,000  ر.س       ',
       'year': '2024',
       'mileage': '0 كم',

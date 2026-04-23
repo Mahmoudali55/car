@@ -4,11 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class BudgetCarsListWidget extends StatelessWidget {
   final int selectedBudgetIndex;
-  
-  const BudgetCarsListWidget({
-    super.key,
-    required this.selectedBudgetIndex,
-  });
+
+  const BudgetCarsListWidget({super.key, required this.selectedBudgetIndex});
 
   // Dummy data categorized by budget index
   static final List<List<Map<String, dynamic>>> budgetData = [
@@ -16,7 +13,7 @@ class BudgetCarsListWidget extends StatelessWidget {
     [
       {
         'name': 'Toyota Yaris 2024',
-        'image': 'assets/images/cars/toyota.png',
+        'image': 'assets/images/car.jpeg',
         'cashPrice': '45,000 SAR',
         'installmentPrice': '850 SAR/mo',
         'installments': '1,166 ر.س / شهر',
@@ -24,7 +21,7 @@ class BudgetCarsListWidget extends StatelessWidget {
       },
       {
         'name': 'Hyundai Accent 2023',
-        'image': 'assets/images/cars/hyundai.png',
+        'image': 'assets/images/car.jpeg',
         'cashPrice': '48,500 SAR',
         'installmentPrice': '920 SAR/mo',
         'installments': '1,166 ر.س / شهر',
@@ -35,7 +32,7 @@ class BudgetCarsListWidget extends StatelessWidget {
     [
       {
         'name': 'Camry SE 2024',
-        'image': 'assets/images/cars/toyota.png',
+        'image': 'assets/images/car.jpeg',
         'cashPrice': '95,000 SAR',
         'installmentPrice': '1,450 SAR/mo',
         'installments': '1,166 ر.س / شهر',
@@ -43,7 +40,7 @@ class BudgetCarsListWidget extends StatelessWidget {
       },
       {
         'name': 'Kia K5 2024',
-        'image': 'assets/images/cars/kia.png',
+        'image': 'assets/images/car.jpeg',
         'cashPrice': '88,000 SAR',
         'installmentPrice': '1,320 SAR/mo',
         'installments': '1,166 ر.س / شهر',
@@ -54,7 +51,7 @@ class BudgetCarsListWidget extends StatelessWidget {
     [
       {
         'name': 'Lexus ES 350',
-        'image': 'assets/images/cars/lexus.png',
+        'image': 'assets/images/car.jpeg',
         'cashPrice': '185,000 SAR',
         'installmentPrice': '2,800 SAR/mo',
         'installments': '1,166 ر.س / شهر',
@@ -62,7 +59,7 @@ class BudgetCarsListWidget extends StatelessWidget {
       },
       {
         'name': 'Ford Explorer 2024',
-        'image': 'assets/images/cars/ford.png',
+        'image': 'assets/images/car.jpeg',
         'cashPrice': '165,000 SAR',
         'installmentPrice': '2,400 SAR/mo',
         'installments': '1,166 ر.س / شهر',
@@ -73,7 +70,7 @@ class BudgetCarsListWidget extends StatelessWidget {
     [
       {
         'name': 'Ferrari SF90',
-        'image': 'assets/images/cars/mercedes-benz.png',
+        'image': 'assets/images/car.jpeg',
         'cashPrice': '1,200,000 SAR',
         'installmentPrice': '18,500 SAR/mo',
         'installments': '1,166 ر.س / شهر',
@@ -81,7 +78,7 @@ class BudgetCarsListWidget extends StatelessWidget {
       },
       {
         'name': 'Range Rover Vogue',
-        'image': 'assets/images/cars/landrover.png',
+        'image': 'assets/images/car.jpeg',
         'cashPrice': '750,000 SAR',
         'installmentPrice': '11,200 SAR/mo',
         'installments': '1,166 ر.س / شهر',

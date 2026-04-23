@@ -13,16 +13,12 @@ class HorizontalCarCardWidget extends StatelessWidget {
   final Map<String, dynamic> car;
   final VoidCallback? onTap;
 
-  const HorizontalCarCardWidget({
-    super.key,
-    required this.car,
-    this.onTap,
-  });
+  const HorizontalCarCardWidget({super.key, required this.car, this.onTap});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){
+      onTap: () {
         NavigatorMethods.pushNamed(context, RoutesName.carDetailsScreen, arguments: car);
       },
       child: Container(
@@ -39,9 +35,7 @@ class HorizontalCarCardWidget extends StatelessWidget {
               offset: const Offset(0, 4),
             ),
           ],
-          border: Border.all(
-            color: AppColor.blackTextColor(context).withOpacity(0.05),
-          ),
+          border: Border.all(color: AppColor.blackTextColor(context).withOpacity(0.05)),
         ),
         child: Column(
           children: [
@@ -51,73 +45,81 @@ class HorizontalCarCardWidget extends StatelessWidget {
               height: 120.h,
               decoration: BoxDecoration(
                 color: AppColor.blackTextColor(context).withOpacity(0.02),
-                borderRadius: BorderRadius.horizontal(
-                  left: Radius.circular(20.r),
+                borderRadius: BorderRadius.horizontal(left: Radius.circular(20.r)),
               ),
-            ),
               padding: EdgeInsets.all(12.w),
               child: Hero(
                 tag: 'budget_car_${car['name']}',
-          child: Image.asset(
-            car['image'] ?? 'assets/images/cars/mercedes-benz.png',
-                  fit: BoxFit.contain,
+                child: Image.asset(car['image'] ?? 'assets/images/car.jpeg', fit: BoxFit.contain),
+              ),
             ),
-          ),
-        ),
 
             // Right Side: Details
             Expanded(
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),
-            child: Column(
+                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                 Text(
+                  children: [
+                    Text(
                       car['name'] ?? '',
-                      style: AppTextStyle.titleSmall(context).copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
+                      style: AppTextStyle.titleSmall(context).copyWith(fontWeight: FontWeight.bold),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-              ),
+                    ),
                     Gap(30.h),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        CustomPriceWidget(car: car, title: AppLocaleKey.cash.tr(), price: car['cashPrice'] ?? '',),
-                         Gap(4.h),
-                         Container(
+                        CustomPriceWidget(
+                          car: car,
+                          title: AppLocaleKey.cash.tr(),
+                          price: car['cashPrice'] ?? '',
+                        ),
+                        Gap(4.h),
+                        Container(
                           width: 3.w,
                           height: 30.h,
-                          color: AppColor.blackTextColor(context)
-                          
+                          color: AppColor.blackTextColor(context),
                         ),
-                          Gap(4.h),
-                   GestureDetector(
-                            onTap: () {
-                             Navigator.pushNamed(context, RoutesName.financingScreen, arguments: car);
-                            },
-                    child: CustomPriceWidget(car: car, title: AppLocaleKey.installments.tr(), price: car['installmentPrice'] ?? '',)),
+                        Gap(4.h),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.pushNamed(
+                              context,
+                              RoutesName.financingScreen,
+                              arguments: car,
+                            );
+                          },
+                          child: CustomPriceWidget(
+                            car: car,
+                            title: AppLocaleKey.installments.tr(),
+                            price: car['installmentPrice'] ?? '',
+                          ),
+                        ),
                       ],
                     ),
-                   
+
                     const Spacer(),
                     if (car['isTamaraAvailable'] == true)
                       Align(
                         alignment: Alignment.bottomLeft,
-                        child: Image.asset( 'assets/images/tamara.jpeg', width: 60.w, height: 20.h, fit: BoxFit.contain),
+                        child: Image.asset(
+                          'assets/images/tamara.jpeg',
+                          width: 60.w,
+                          height: 20.h,
+                          fit: BoxFit.contain,
+                        ),
                       ),
                   ],
                 ),
               ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
-      
+      ),
     );
   }
 }
-

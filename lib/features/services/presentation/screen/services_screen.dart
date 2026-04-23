@@ -166,10 +166,7 @@ class ServicesScreen extends StatelessWidget {
       height: 200.h,
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [
-            AppColor.primaryColor(context),
-            AppColor.primaryColor(context).withOpacity(0.8),
-          ],
+          colors: [AppColor.primaryColor(context), AppColor.primaryColor(context).withOpacity(0.8)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -192,11 +189,7 @@ class ServicesScreen extends StatelessWidget {
               bottom: -10.h,
               child: Opacity(
                 opacity: 0.8,
-                child: Image.asset(
-                  'assets/images/cars/aston-martin.png',
-                  height: 160.h,
-                  fit: BoxFit.contain,
-                ),
+                child: Image.asset('assets/images/car.jpeg', height: 160.h, fit: BoxFit.contain),
               ),
             ),
           ],

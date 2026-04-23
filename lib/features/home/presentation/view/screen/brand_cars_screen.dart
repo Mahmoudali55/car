@@ -206,7 +206,7 @@ class BrandCarsScreen extends StatelessWidget {
     {
       'name': 'Mercedes G63 AMG',
       'brand': 'Mercedes-Benz',
-      'image': 'assets/images/cars/mercedes-benz.png',
+      'image': 'assets/images/car.jpeg',
       'price': '850,000 ر.س',
       'year': '2024',
       'mileage': '0 كم',
@@ -216,7 +216,7 @@ class BrandCarsScreen extends StatelessWidget {
     {
       'name': 'Mercedes S580',
       'brand': 'Mercedes-Benz',
-      'image': 'assets/images/cars/mercedes-benz.png',
+      'image': 'assets/images/car.jpeg',
       'price': '650,000 ر.س',
       'year': '2025',
       'mileage': '0 كم',
@@ -226,7 +226,7 @@ class BrandCarsScreen extends StatelessWidget {
     {
       'name': 'BMW 7 Series',
       'brand': 'BMW',
-      'image': 'assets/images/cars/bmw.png',
+      'image': 'assets/images/car.jpeg',
       'price': '450,000 ر.س',
       'year': '2024',
       'mileage': '0 كم',
@@ -236,7 +236,7 @@ class BrandCarsScreen extends StatelessWidget {
     {
       'name': 'BMW X7 M60i',
       'brand': 'BMW',
-      'image': 'assets/images/cars/bmw.png',
+      'image': 'assets/images/car.jpeg',
       'price': '520,000 ر.س',
       'year': '2025',
       'mileage': '0 كم',
@@ -246,7 +246,7 @@ class BrandCarsScreen extends StatelessWidget {
     {
       'name': 'Toyota Land Cruiser 300',
       'brand': 'Toyota',
-      'image': 'assets/images/cars/toyota.png',
+      'image': 'assets/images/car.jpeg',
       'price': '380,000 ر.س',
       'year': '2025',
       'mileage': '0 كم',
@@ -256,7 +256,7 @@ class BrandCarsScreen extends StatelessWidget {
     {
       'name': 'Toyota Camry 3.5',
       'brand': 'Toyota',
-      'image': 'assets/images/cars/toyota.png',
+      'image': 'assets/images/car.jpeg',
       'price': '145,000 ر.س',
       'year': '2025',
       'mileage': '0 كم',
@@ -266,7 +266,7 @@ class BrandCarsScreen extends StatelessWidget {
     {
       'name': 'Tesla Model S Plaid',
       'brand': 'Tesla',
-      'image': 'assets/images/cars/tesla.png',
+      'image': 'assets/images/car.jpeg',
       'price': '550,000 ر.س',
       'year': '2024',
       'mileage': '0 كم',
@@ -276,7 +276,7 @@ class BrandCarsScreen extends StatelessWidget {
     {
       'name': 'Tesla Model 3',
       'brand': 'Tesla',
-      'image': 'assets/images/cars/tesla.png',
+      'image': 'assets/images/car.jpeg',
       'price': '220,000 ر.س',
       'year': '2024',
       'mileage': '0 كم',
@@ -286,7 +286,7 @@ class BrandCarsScreen extends StatelessWidget {
     {
       'name': 'Audi Q8 RS',
       'brand': 'Audi',
-      'image': 'assets/images/cars/audi.png',
+      'image': 'assets/images/car.jpeg',
       'price': '480,000 ر.س',
       'year': '2025',
       'mileage': '0 كم',
@@ -296,7 +296,7 @@ class BrandCarsScreen extends StatelessWidget {
     {
       'name': 'Audi A8 L',
       'brand': 'Audi',
-      'image': 'assets/images/cars/audi.png',
+      'image': 'assets/images/car.jpeg',
       'price': '400,000 ر.س',
       'year': '2025',
       'mileage': '0 كم',
@@ -306,7 +306,7 @@ class BrandCarsScreen extends StatelessWidget {
     {
       'name': 'Nissan Patrol Platinum',
       'brand': 'Nissan',
-      'image': 'assets/images/cars/nissan.png',
+      'image': 'assets/images/car.jpeg',
       'price': '248,000 ر.س',
       'year': '2025',
       'mileage': '0 كم',
@@ -316,7 +316,7 @@ class BrandCarsScreen extends StatelessWidget {
     {
       'name': 'Nissan GT-R Nismo',
       'brand': 'Nissan',
-      'image': 'assets/images/cars/nissan.png',
+      'image': 'assets/images/car.jpeg',
       'price': '750,000 ر.س',
       'year': '2024',
       'mileage': '0 كم',
@@ -326,7 +326,7 @@ class BrandCarsScreen extends StatelessWidget {
     {
       'name': 'Ford Raptor R',
       'brand': 'Ford',
-      'image': 'assets/images/cars/ford.png',
+      'image': 'assets/images/car.jpeg',
       'price': '320,000 ر.س',
       'year': '2025',
       'mileage': '0 كم',
@@ -336,7 +336,7 @@ class BrandCarsScreen extends StatelessWidget {
     {
       'name': 'Hyundai IONIQ 6',
       'brand': 'Hyundai',
-      'image': 'assets/images/cars/hyundai.png',
+      'image': 'assets/images/car.jpeg',
       'price': '195,000 ر.س',
       'year': '2024',
       'mileage': '0 كم',
@@ -346,7 +346,7 @@ class BrandCarsScreen extends StatelessWidget {
     {
       'name': 'Lamborghini Revuelto',
       'brand': 'Lamborghini',
-      'image': 'assets/images/cars/lamborghini.png',
+      'image': 'assets/images/car.jpeg',
       'price': '2,500,000 ر.س',
       'year': '2024',
       'mileage': '0 كم',
@@ -356,7 +356,7 @@ class BrandCarsScreen extends StatelessWidget {
     {
       'name': 'Porsche 911 GT3',
       'brand': 'Porsche',
-      'image': 'assets/images/cars/porsche.png',
+      'image': 'assets/images/car.jpeg',
       'price': '950,000 ر.س',
       'year': '2024',
       'mileage': '0 كم',
@@ -366,7 +366,7 @@ class BrandCarsScreen extends StatelessWidget {
     {
       'name': 'McLaren 750S',
       'brand': 'McLaren',
-      'image': 'assets/images/cars/mclaren.png',
+      'image': 'assets/images/car.jpeg',
       'price': '1,100,000 ر.س',
       'year': '2024',
       'mileage': '0 كم',
@@ -376,7 +376,7 @@ class BrandCarsScreen extends StatelessWidget {
     {
       'name': 'Bugatti Chiron',
       'brand': 'Bugatti',
-      'image': 'assets/images/cars/bugatti.png',
+      'image': 'assets/images/car.jpeg',
       'price': '12,000,000 ر.س',
       'year': '2024',
       'mileage': '0 كم',
@@ -386,7 +386,7 @@ class BrandCarsScreen extends StatelessWidget {
     {
       'name': 'Jaguar F-Type R',
       'brand': 'Jaguar',
-      'image': 'assets/images/cars/jaguar.png',
+      'image': 'assets/images/car.jpeg',
       'price': '480,000 ر.س',
       'year': '2024',
       'mileage': '0 كم',
@@ -396,7 +396,7 @@ class BrandCarsScreen extends StatelessWidget {
     {
       'name': 'Mazda CX-90 Turbo S',
       'brand': 'Mazda',
-      'image': 'assets/images/cars/mazda.png',
+      'image': 'assets/images/car.jpeg',
       'price': '185,000 ر.س',
       'year': '2025',
       'mileage': '0 كم',
@@ -406,7 +406,7 @@ class BrandCarsScreen extends StatelessWidget {
     {
       'name': 'Kia EV9 GT-Line',
       'brand': 'Kia',
-      'image': 'assets/images/cars/kia.png',
+      'image': 'assets/images/car.jpeg',
       'price': '215,000 ر.س',
       'year': '2025',
       'mileage': '0 كم',
@@ -416,7 +416,7 @@ class BrandCarsScreen extends StatelessWidget {
     {
       'name': 'Volkswagen Touareg R',
       'brand': 'Volkswagen',
-      'image': 'assets/images/cars/volkswagen.png',
+      'image': 'assets/images/car.jpeg',
       'price': '290,000 ر.س',
       'year': '2025',
       'mileage': '0 كم',
@@ -470,9 +470,7 @@ class BrandCarsScreen extends StatelessWidget {
                     decoration: BoxDecoration(
                       color: AppColor.whiteColor(context).withOpacity(0.85),
                       shape: BoxShape.circle,
-                      boxShadow: [
-                        BoxShadow(color: Colors.black.withOpacity(0.08), blurRadius: 8),
-                      ],
+                      boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.08), blurRadius: 8)],
                     ),
                     child: IconButton(
                       onPressed: () => Navigator.pop(context),
@@ -626,10 +624,7 @@ class BrandCarsScreen extends StatelessWidget {
                           padding: EdgeInsets.symmetric(vertical: 16.h),
                           decoration: BoxDecoration(
                             gradient: LinearGradient(
-                              colors: [
-                                accent.withOpacity(0.07),
-                                accent.withOpacity(0.03),
-                              ],
+                              colors: [accent.withOpacity(0.07), accent.withOpacity(0.03)],
                             ),
                             borderRadius: BorderRadius.circular(20.r),
                             border: Border.all(color: accent.withOpacity(0.12)),
@@ -644,11 +639,7 @@ class BrandCarsScreen extends StatelessWidget {
                                   accent: accent,
                                 ),
                               ),
-                              Container(
-                                width: 1,
-                                height: 40.h,
-                                color: accent.withOpacity(0.12),
-                              ),
+                              Container(width: 1, height: 40.h, color: accent.withOpacity(0.12)),
                               Expanded(
                                 child: _Stat(
                                   icon: Icons.calendar_today_rounded,
@@ -657,11 +648,7 @@ class BrandCarsScreen extends StatelessWidget {
                                   accent: accent,
                                 ),
                               ),
-                              Container(
-                                width: 1,
-                                height: 40.h,
-                                color: accent.withOpacity(0.12),
-                              ),
+                              Container(width: 1, height: 40.h, color: accent.withOpacity(0.12)),
                               Expanded(
                                 child: _Stat(
                                   icon: Icons.directions_car_rounded,
@@ -731,10 +718,7 @@ class BrandCarsScreen extends StatelessWidget {
                                   padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 7.h),
                                   decoration: BoxDecoration(
                                     gradient: LinearGradient(
-                                      colors: [
-                                        accent.withOpacity(0.12),
-                                        accent.withOpacity(0.06),
-                                      ],
+                                      colors: [accent.withOpacity(0.12), accent.withOpacity(0.06)],
                                     ),
                                     borderRadius: BorderRadius.circular(30.r),
                                     border: Border.all(color: accent.withOpacity(0.3)),
@@ -784,10 +768,7 @@ class BrandCarsScreen extends StatelessWidget {
                               padding: EdgeInsets.symmetric(horizontal: 16.w),
                               decoration: BoxDecoration(
                                 gradient: LinearGradient(
-                                  colors: [
-                                    accent.withOpacity(0.14),
-                                    accent.withOpacity(0.07),
-                                  ],
+                                  colors: [accent.withOpacity(0.14), accent.withOpacity(0.07)],
                                 ),
                                 borderRadius: BorderRadius.circular(10.r),
                                 border: Border.all(color: accent.withOpacity(0.3)),

@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:car/core/theme/app_colors.dart';
+
 import 'package:car/core/theme/app_text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -21,21 +21,22 @@ class _AdsSliderWidgetState extends State<AdsSliderWidget> {
     {
       'title': 'New G63 AMG 2024',
       'subtitle': 'The Ultimate Off-Road Icon',
-      'image': 'assets/images/cars/mercedes-benz.png',
+      'image': 'assets/images/car.jpeg',
       'colors': [const Color(0xFF1A1A1A), const Color(0xFF434343)],
       'tag': 'SPECIAL OFFER',
     },
     {
       'title': 'BMW M5 Competition',
       'subtitle': 'Pure Performance Unleashed',
-      'image': 'assets/images/cars/bmw.png',
+      'image': 'assets/images/car.jpeg',
       'colors': [const Color(0xFF003366), const Color(0xFF0055A4)],
       'tag': 'FEATURED',
     },
     {
       'title': 'Porsche 911 GT3 RS',
       'subtitle': 'Born for the Racetrack',
-      'image': 'assets/images/cars/mercedes-benz.png', // Fallback as I don't see porsche png yet, but I can use mercedes as placeholder
+      'image':
+          'assets/images/car.jpeg', // Fallback as I don't see porsche png yet, but I can use mercedes as placeholder
       'colors': [const Color(0xFF8B0000), const Color(0xFFB22222)],
       'tag': 'LIMITED TIME',
     },
@@ -90,10 +91,7 @@ class _AdsSliderWidgetState extends State<AdsSliderWidget> {
           return AnimatedBuilder(
             animation: _pageController,
             builder: (context, child) {
-              return Transform.scale(
-                scale: index == _currentPage ? 1.0 : 0.95,
-                child: child,
-              );
+              return Transform.scale(scale: index == _currentPage ? 1.0 : 0.95, child: child);
             },
             child: _buildAdCard(ad),
           );
@@ -129,14 +127,10 @@ class _AdsSliderWidgetState extends State<AdsSliderWidget> {
             bottom: -20.h,
             child: Opacity(
               opacity: 0.1,
-              child: Icon(
-                Icons.speed_rounded,
-                size: 180.w,
-                color: Colors.white,
-              ),
+              child: Icon(Icons.speed_rounded, size: 180.w, color: Colors.white),
             ),
           ),
-          
+
           Padding(
             padding: EdgeInsets.all(20.w),
             child: Row(
@@ -165,19 +159,18 @@ class _AdsSliderWidgetState extends State<AdsSliderWidget> {
                       Gap(10.h),
                       Text(
                         ad['title'],
-                        style: AppTextStyle.titleMedium(context).copyWith(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w900,
-                        ),
+                        style: AppTextStyle.titleMedium(
+                          context,
+                        ).copyWith(color: Colors.white, fontWeight: FontWeight.w900),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
                       Gap(4.h),
                       Text(
                         ad['subtitle'],
-                        style: AppTextStyle.bodySmall(context).copyWith(
-                          color: Colors.white.withOpacity(0.8),
-                        ),
+                        style: AppTextStyle.bodySmall(
+                          context,
+                        ).copyWith(color: Colors.white.withOpacity(0.8)),
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -189,17 +182,12 @@ class _AdsSliderWidgetState extends State<AdsSliderWidget> {
                           foregroundColor: ad['colors'][0],
                           elevation: 0,
                           padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 0),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.r),
-                          ),
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.r)),
                           minimumSize: Size(0, 32.h),
                         ),
                         child: Text(
                           'Learn More',
-                          style: TextStyle(
-                            fontSize: 10.sp,
-                            fontWeight: FontWeight.bold,
-                          ),
+                          style: TextStyle(fontSize: 10.sp, fontWeight: FontWeight.bold),
                         ),
                       ),
                     ],
@@ -211,10 +199,7 @@ class _AdsSliderWidgetState extends State<AdsSliderWidget> {
                     tag: 'ad_car_${ad['title']}',
                     child: Transform.rotate(
                       angle: -0.05,
-                      child: Image.asset(
-                        ad['image'],
-                        fit: BoxFit.contain,
-                      ),
+                      child: Image.asset(ad['image'], fit: BoxFit.contain),
                     ),
                   ),
                 ),
@@ -226,5 +211,3 @@ class _AdsSliderWidgetState extends State<AdsSliderWidget> {
     );
   }
 }
-
-

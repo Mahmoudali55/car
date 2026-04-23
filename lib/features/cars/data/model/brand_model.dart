@@ -5,11 +5,7 @@ class BrandModel {
   final String logo;
   final String localeKey;
 
-  const BrandModel({
-    required this.name,
-    required this.logo,
-    required this.localeKey,
-  });
+  const BrandModel({required this.name, required this.logo, required this.localeKey});
 
   static List<BrandModel> get brands => [
     const BrandModel(
@@ -19,28 +15,12 @@ class BrandModel {
     ),
     const BrandModel(
       name: 'Mercedes-Benz',
-      logo: 'assets/images/cars/mercedes-benz.png',
+      logo: 'assets/images/car.jpeg',
       localeKey: AppLocaleKey.mercedes,
     ),
-    const BrandModel(
-      name: 'BMW',
-      logo: 'assets/images/cars/bmw.png',
-      localeKey: AppLocaleKey.bmw,
-    ),
-    const BrandModel(
-      name: 'Toyota',
-      logo: 'assets/images/cars/toyota.png',
-      localeKey: AppLocaleKey.toyota,
-    ),
-    const BrandModel(
-      name: 'Tesla',
-      logo: 'assets/images/cars/tesla.png',
-      localeKey: AppLocaleKey.tesla,
-    ),
-    const BrandModel(
-      name: 'Audi',
-      logo: 'assets/images/cars/audi.png',
-      localeKey: AppLocaleKey.audi,
-    ),
+    const BrandModel(name: 'BMW', logo: 'assets/images/car.jpeg', localeKey: AppLocaleKey.bmw),
+    const BrandModel(name: 'Toyota', logo: '', localeKey: AppLocaleKey.toyota),
+    const BrandModel(name: 'Tesla', logo: 'assets/images/car.jpeg', localeKey: AppLocaleKey.tesla),
+    const BrandModel(name: 'Audi', logo: 'assets/images/car.jpeg', localeKey: AppLocaleKey.audi),
   ];
 }

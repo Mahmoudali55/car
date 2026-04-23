@@ -17,22 +17,22 @@ class CategoriesWidget extends StatefulWidget {
 
 class _CategoriesWidgetState extends State<CategoriesWidget> {
   final categories = [
-    {'name': AppLocaleKey.mercedes.tr(), 'image': 'assets/images/cars/mercedes-benz.png'},
-    {'name': AppLocaleKey.bmw.tr(), 'image': 'assets/images/cars/bmw.png'},
-    {'name': AppLocaleKey.toyota.tr(), 'image': 'assets/images/cars/toyota.png'},
-    {'name': AppLocaleKey.tesla.tr(), 'image': 'assets/images/cars/tesla.png'},
-    {'name': AppLocaleKey.audi.tr(), 'image': 'assets/images/cars/audi.png'},
-    {'name': AppLocaleKey.nissan.tr(), 'image': 'assets/images/cars/nissan.png'},
-    {'name': AppLocaleKey.ford.tr(), 'image': 'assets/images/cars/ford.png'},
-    {'name': AppLocaleKey.hyundai.tr(), 'image': 'assets/images/cars/hyundai.png'},
-    {'name': AppLocaleKey.volkswagen.tr(), 'image': 'assets/images/cars/volkswagen.png'},
-    {'name': AppLocaleKey.kia.tr(), 'image': 'assets/images/cars/kia.png'},
-    {'name': AppLocaleKey.lamborghini.tr(), 'image': 'assets/images/cars/lamborghini.png'},
-    {'name': AppLocaleKey.porsche.tr(), 'image': 'assets/images/cars/porsche.png'},
-    {'name': AppLocaleKey.mclaren.tr(), 'image': 'assets/images/cars/mclaren.png'},
-    {'name': AppLocaleKey.bugatti.tr(), 'image': 'assets/images/cars/bugatti.png'},
-    {'name': AppLocaleKey.jaguar.tr(), 'image': 'assets/images/cars/jaguar.png'},
-    {'name': AppLocaleKey.mazda.tr(), 'image': 'assets/images/cars/mazda.png'},
+    {'name': AppLocaleKey.mercedes.tr(), 'image': 'assets/images/car.jpeg'},
+    {'name': AppLocaleKey.bmw.tr(), 'image': 'assets/images/car.jpeg'},
+    {'name': AppLocaleKey.toyota.tr(), 'image': 'assets/images/car.jpeg'},
+    {'name': AppLocaleKey.tesla.tr(), 'image': 'assets/images/car.jpeg'},
+    {'name': AppLocaleKey.audi.tr(), 'image': 'assets/images/car.jpeg'},
+    {'name': AppLocaleKey.nissan.tr(), 'image': 'assets/images/car.jpeg'},
+    {'name': AppLocaleKey.ford.tr(), 'image': 'assets/images/car.jpeg'},
+    {'name': AppLocaleKey.hyundai.tr(), 'image': 'assets/images/car.jpeg'},
+    {'name': AppLocaleKey.volkswagen.tr(), 'image': 'assets/images/car.jpeg'},
+    {'name': AppLocaleKey.kia.tr(), 'image': 'assets/images/car.jpeg'},
+    {'name': AppLocaleKey.lamborghini.tr(), 'image': 'assets/images/car.jpeg'},
+    {'name': AppLocaleKey.porsche.tr(), 'image': 'assets/images/car.jpeg'},
+    {'name': AppLocaleKey.mclaren.tr(), 'image': 'assets/images/car.jpeg'},
+    {'name': AppLocaleKey.bugatti.tr(), 'image': 'assets/images/car.jpeg'},
+    {'name': AppLocaleKey.jaguar.tr(), 'image': 'assets/images/car.jpeg'},
+    {'name': AppLocaleKey.mazda.tr(), 'image': 'assets/images/car.jpeg'},
   ];
 
   int _selectedIndex = 0;

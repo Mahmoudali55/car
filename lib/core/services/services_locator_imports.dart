@@ -9,4 +9,6 @@ Future<void> initDependencies() async {
   sl.registerLazySingleton<AuthRepo>(() => AuthRepoImpl(sl()));
   sl.registerLazySingleton<AuthCubit>(() => AuthCubit(sl()));
   sl.registerLazySingleton<FavoritesCubit>(() => FavoritesCubit());
+  sl.registerLazySingleton<HomeRepo>(() => HomeRepoImpl(sl()));
+  sl.registerLazySingleton<HomeCubit>(() => HomeCubit(sl()));
 }

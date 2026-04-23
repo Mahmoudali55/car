@@ -1,12 +1,13 @@
 import 'package:car/core/custom_widgets/custom_app_bar/custom_app_bar.dart';
 import 'package:car/core/custom_widgets/custom_form_field/custom_form_field.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
-import 'package:car/core/routes/routes_name.dart';
-import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/core/utils/responsive_helper.dart';
+import 'package:car/features/home/data/model/cars_models_response.dart';
+import 'package:car/features/home/presentation/cubit/home_cubit.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AllBrandsScreen extends StatefulWidget {
@@ -20,501 +21,17 @@ class AllBrandsScreen extends StatefulWidget {
 class _AllBrandsScreenState extends State<AllBrandsScreen> {
   String _searchQuery = '';
 
-  final List<Map<String, String>> _allBrands = [
-    {'nameEn': '9FF', 'nameAr': '9FF', 'image': 'assets/images/cars/9ff.png'},
-    {'nameEn': 'Abadal', 'nameAr': 'أبادال', 'image': 'assets/images/cars/abadal.png'},
-    {'nameEn': 'Abarth', 'nameAr': 'أبارث', 'image': 'assets/images/cars/abarth.png'},
-    {'nameEn': 'ABT', 'nameAr': 'ABT', 'image': 'assets/images/cars/abt.png'},
-    {'nameEn': 'AC', 'nameAr': 'AC', 'image': 'assets/images/cars/ac.png'},
-    {'nameEn': 'Acura', 'nameAr': 'أكيورا', 'image': 'assets/images/cars/acura.png'},
-    {'nameEn': 'Aiways', 'nameAr': 'إيوايز', 'image': 'assets/images/cars/aiways.png'},
-    {'nameEn': 'Aixam', 'nameAr': 'أيكسام', 'image': 'assets/images/cars/aixam.png'},
-    {'nameEn': 'Alfa Romeo', 'nameAr': 'ألفا روميو', 'image': 'assets/images/cars/alfa-romeo.png'},
-    {'nameEn': 'Alpina', 'nameAr': 'ألبينا', 'image': 'assets/images/cars/alpina.png'},
-    {'nameEn': 'Alpine', 'nameAr': 'ألباين', 'image': 'assets/images/cars/alpine.png'},
-    {'nameEn': 'Alvis', 'nameAr': 'ألفيس', 'image': 'assets/images/cars/alvis.png'},
-    {'nameEn': 'AMC', 'nameAr': 'AMC', 'image': 'assets/images/cars/amc.png'},
-    {'nameEn': 'Apollo', 'nameAr': 'أبولو', 'image': 'assets/images/cars/apollo.png'},
-    {'nameEn': 'Arash', 'nameAr': 'آراش', 'image': 'assets/images/cars/arash.png'},
-    {'nameEn': 'Arcfox', 'nameAr': 'آركفوكس', 'image': 'assets/images/cars/arcfox.png'},
-    {'nameEn': 'Ariel', 'nameAr': 'أريل', 'image': 'assets/images/cars/ariel.png'},
-    {'nameEn': 'Arrinera', 'nameAr': 'أرينيرا', 'image': 'assets/images/cars/arrinera.png'},
-    {'nameEn': 'Arrival', 'nameAr': 'أرايفال', 'image': 'assets/images/cars/arrival.png'},
-    {'nameEn': 'Artega', 'nameAr': 'أرتيغا', 'image': 'assets/images/cars/artega.png'},
-    {'nameEn': 'Ascari', 'nameAr': 'أسكاري', 'image': 'assets/images/cars/ascari.png'},
-    {'nameEn': 'Askam', 'nameAr': 'أسكام', 'image': 'assets/images/cars/askam.png'},
-    {'nameEn': 'Aspark', 'nameAr': 'أسبارك', 'image': 'assets/images/cars/aspark.png'},
-    {
-      'nameEn': 'Aston Martin',
-      'nameAr': 'أستون مارتن',
-      'image': 'assets/images/cars/aston-martin.png',
-    },
-    {'nameEn': 'Atalanta', 'nameAr': 'أتالانتا', 'image': 'assets/images/cars/atalanta.png'},
-    {'nameEn': 'Auburn', 'nameAr': 'أوبورن', 'image': 'assets/images/cars/auburn.png'},
-    {'nameEn': 'Audi', 'nameAr': 'أودي', 'image': 'assets/images/cars/audi.png'},
-    {'nameEn': 'Audi Sport', 'nameAr': 'أودي سبورت', 'image': 'assets/images/cars/audi-sport.png'},
-    {
-      'nameEn': 'Autobianchi',
-      'nameAr': 'أوتوبيانكي',
-      'image': 'assets/images/cars/autobianchi.png',
-    },
-    {'nameEn': 'Axon', 'nameAr': 'أكسون', 'image': 'assets/images/cars/axon.png'},
-    {'nameEn': 'BAC', 'nameAr': 'BAC', 'image': 'assets/images/cars/bac.png'},
-    {'nameEn': 'BAIC Motor', 'nameAr': 'بايك موتور', 'image': 'assets/images/cars/baic-motor.png'},
-    {'nameEn': 'Baojun', 'nameAr': 'باوجن', 'image': 'assets/images/cars/baojun.png'},
-    {'nameEn': 'Beiben', 'nameAr': 'بيبن', 'image': 'assets/images/cars/beiben.png'},
-    {'nameEn': 'Bentley', 'nameAr': 'بنتلي', 'image': 'assets/images/cars/bentley.png'},
-    {'nameEn': 'Berkeley', 'nameAr': 'بيركلي', 'image': 'assets/images/cars/berkeley.png'},
-    {'nameEn': 'Berliet', 'nameAr': 'برليه', 'image': 'assets/images/cars/berliet.png'},
-    {'nameEn': 'Bertone', 'nameAr': 'بيرتوني', 'image': 'assets/images/cars/bertone.png'},
-    {'nameEn': 'Bestune', 'nameAr': 'بيستيون', 'image': 'assets/images/cars/bestune.png'},
-    {'nameEn': 'BharatBenz', 'nameAr': 'بهارات بنز', 'image': 'assets/images/cars/bharatbenz.png'},
-    {'nameEn': 'Bitter', 'nameAr': 'بيتر', 'image': 'assets/images/cars/bitter.png'},
-    {'nameEn': 'BMW', 'nameAr': 'بي إم دبليو', 'image': 'assets/images/cars/bmw.png'},
-    {'nameEn': 'BMW M', 'nameAr': 'بي إم دبليو M', 'image': 'assets/images/cars/bmw-m.png'},
-    {'nameEn': 'Borgward', 'nameAr': 'بورغوارد', 'image': 'assets/images/cars/borgward.png'},
-    {'nameEn': 'Bowler', 'nameAr': 'بولر', 'image': 'assets/images/cars/bowler.png'},
-    {'nameEn': 'Brabus', 'nameAr': 'برابوس', 'image': 'assets/images/cars/brabus.png'},
-    {'nameEn': 'Brammo', 'nameAr': 'برامو', 'image': 'assets/images/cars/brammo.png'},
-    {'nameEn': 'Brilliance', 'nameAr': 'بريليانس', 'image': 'assets/images/cars/brilliance.png'},
-    {'nameEn': 'Bristol', 'nameAr': 'بريستول', 'image': 'assets/images/cars/bristol.png'},
-    {'nameEn': 'Brooke', 'nameAr': 'بروك', 'image': 'assets/images/cars/brooke.png'},
-    {'nameEn': 'Bufori', 'nameAr': 'بوفوري', 'image': 'assets/images/cars/bufori.png'},
-    {'nameEn': 'Bugatti', 'nameAr': 'بوغاتي', 'image': 'assets/images/cars/bugatti.png'},
-    {'nameEn': 'Buick', 'nameAr': 'بيوك', 'image': 'assets/images/cars/buick.png'},
-    {'nameEn': 'BYD', 'nameAr': 'بي واي دي', 'image': 'assets/images/cars/byd.png'},
-    {'nameEn': 'Byton', 'nameAr': 'بايتون', 'image': 'assets/images/cars/byton.png'},
-    {'nameEn': 'Cadillac', 'nameAr': 'كاديلاك', 'image': 'assets/images/cars/cadillac.png'},
-    {'nameEn': 'CAMC', 'nameAr': 'CAMC', 'image': 'assets/images/cars/camc.png'},
-    {'nameEn': 'Canoo', 'nameAr': 'كانو', 'image': 'assets/images/cars/canoo.png'},
-    {'nameEn': 'Caparo', 'nameAr': 'كابارو', 'image': 'assets/images/cars/caparo.png'},
-    {'nameEn': 'Carlsson', 'nameAr': 'كارلسون', 'image': 'assets/images/cars/carlsson.png'},
-    {'nameEn': 'Caterham', 'nameAr': 'كاترهام', 'image': 'assets/images/cars/caterham.png'},
-    {'nameEn': 'Changan', 'nameAr': 'شانغان', 'image': 'assets/images/cars/changan.png'},
-    {'nameEn': 'Changfeng', 'nameAr': 'شانغفينغ', 'image': 'assets/images/cars/changfeng.png'},
-    {'nameEn': 'Chery', 'nameAr': 'شيري', 'image': 'assets/images/cars/chery.png'},
-    {'nameEn': 'Chevrolet', 'nameAr': 'شيفروليه', 'image': 'assets/images/cars/chevrolet.png'},
-    {
-      'nameEn': 'Chevrolet Corvette',
-      'nameAr': 'شيفروليه كورفيت',
-      'image': 'assets/images/cars/chevrolet-corvette.png',
-    },
-    {'nameEn': 'Chrysler', 'nameAr': 'كرايسلر', 'image': 'assets/images/cars/chrysler.png'},
-    {'nameEn': 'Cisitalia', 'nameAr': 'سيسيتاليا', 'image': 'assets/images/cars/cisitalia.png'},
-    {'nameEn': 'Citroen', 'nameAr': 'سيتروين', 'image': 'assets/images/cars/citroen.png'},
-    {'nameEn': 'Cizeta', 'nameAr': 'سيزيتا', 'image': 'assets/images/cars/cizeta.png'},
-    {'nameEn': 'Cole', 'nameAr': 'كول', 'image': 'assets/images/cars/cole.png'},
-    {'nameEn': 'Cupra', 'nameAr': 'كوبرا', 'image': 'assets/images/cars/cupra.png'},
-    {'nameEn': 'Dacia', 'nameAr': 'داتشيا', 'image': 'assets/images/cars/dacia.png'},
-    {'nameEn': 'Daewoo', 'nameAr': 'دايو', 'image': 'assets/images/cars/daewoo.png'},
-    {'nameEn': 'DAF', 'nameAr': 'DAF', 'image': 'assets/images/cars/daf.png'},
-    {'nameEn': 'Daihatsu', 'nameAr': 'دايهاتسو', 'image': 'assets/images/cars/daihatsu.png'},
-    {'nameEn': 'Daimler', 'nameAr': 'دايملر', 'image': 'assets/images/cars/daimler.png'},
-    {'nameEn': 'Datsun', 'nameAr': 'داتسون', 'image': 'assets/images/cars/datsun.png'},
-    {
-      'nameEn': 'David Brown',
-      'nameAr': 'ديفيد براون',
-      'image': 'assets/images/cars/david-brown.png',
-    },
-    {'nameEn': 'Dayun', 'nameAr': 'دايون', 'image': 'assets/images/cars/dayun.png'},
-    {'nameEn': 'Delage', 'nameAr': 'ديلاج', 'image': 'assets/images/cars/delage.png'},
-    {'nameEn': 'DeSoto', 'nameAr': 'ديسوتو', 'image': 'assets/images/cars/desoto.png'},
-    {'nameEn': 'De Tomaso', 'nameAr': 'دي توماسو', 'image': 'assets/images/cars/de-tomaso.png'},
-    {
-      'nameEn': 'Detroit Electric',
-      'nameAr': 'ديترويت إلكتريك',
-      'image': 'assets/images/cars/detroit-electric.png',
-    },
-    {
-      'nameEn': 'Devel Sixteen',
-      'nameAr': 'ديفيل سيكستين',
-      'image': 'assets/images/cars/devel-sixteen.png',
-    },
-    {'nameEn': 'Dina', 'nameAr': 'دينا', 'image': 'assets/images/cars/dina.png'},
-    {'nameEn': 'DMC', 'nameAr': 'DMC', 'image': 'assets/images/cars/dmc.png'},
-    {'nameEn': 'Dodge', 'nameAr': 'دودج', 'image': 'assets/images/cars/dodge.png'},
-    {
-      'nameEn': 'Dodge Viper',
-      'nameAr': 'دودج فايبر',
-      'image': 'assets/images/cars/dodge-viper.png',
-    },
-    {'nameEn': 'Dongfeng', 'nameAr': 'دونغفينغ', 'image': 'assets/images/cars/dongfeng.png'},
-    {'nameEn': 'Donkervoort', 'nameAr': 'دونكرفورت', 'image': 'assets/images/cars/donkervoort.png'},
-    {'nameEn': 'Drako', 'nameAr': 'دراكو', 'image': 'assets/images/cars/drako.png'},
-    {'nameEn': 'DS', 'nameAr': 'DS', 'image': 'assets/images/cars/ds.png'},
-    {'nameEn': 'Duesenberg', 'nameAr': 'ديوزنبرغ', 'image': 'assets/images/cars/duesenberg.png'},
-    {'nameEn': 'Eagle', 'nameAr': 'إيغل', 'image': 'assets/images/cars/eagle.png'},
-    {'nameEn': 'EDAG', 'nameAr': 'EDAG', 'image': 'assets/images/cars/edag.png'},
-    {'nameEn': 'Edsel', 'nameAr': 'إيدسل', 'image': 'assets/images/cars/edsel.png'},
-    {'nameEn': 'Eicher', 'nameAr': 'إيشر', 'image': 'assets/images/cars/eicher.png'},
-    {'nameEn': 'Elemental', 'nameAr': 'إليمنتال', 'image': 'assets/images/cars/elemental.png'},
-    {'nameEn': 'Elva', 'nameAr': 'إلفا', 'image': 'assets/images/cars/elva.png'},
-    {'nameEn': 'ERF', 'nameAr': 'ERF', 'image': 'assets/images/cars/erf.png'},
-    {'nameEn': 'Exeed', 'nameAr': 'إكسيد', 'image': 'assets/images/cars/exeed.png'},
-    {'nameEn': 'Facel Vega', 'nameAr': 'فاسيل فيغا', 'image': 'assets/images/cars/facel-vega.png'},
-    {
-      'nameEn': 'Faraday Future',
-      'nameAr': 'فارادي فيوتشر',
-      'image': 'assets/images/cars/faraday-future.png',
-    },
-    {'nameEn': 'FAW', 'nameAr': 'FAW', 'image': 'assets/images/cars/faw.png'},
-    {
-      'nameEn': 'FAW Jiefang',
-      'nameAr': 'FAW جيفانج',
-      'image': 'assets/images/cars/faw-jiefang.png',
-    },
-    {'nameEn': 'Ferrari', 'nameAr': 'فيراري', 'image': 'assets/images/cars/ferrari.png'},
-    {'nameEn': 'Fiat', 'nameAr': 'فيات', 'image': 'assets/images/cars/fiat.png'},
-    {'nameEn': 'Fisker', 'nameAr': 'فيسكر', 'image': 'assets/images/cars/fisker.png'},
-    {'nameEn': 'Foden', 'nameAr': 'فودن', 'image': 'assets/images/cars/foden.png'},
-    {
-      'nameEn': 'Force Motors',
-      'nameAr': 'فورس موتورز',
-      'image': 'assets/images/cars/force-motors.png',
-    },
-    {'nameEn': 'Ford', 'nameAr': 'فورد', 'image': 'assets/images/cars/ford.png'},
-    {
-      'nameEn': 'Ford Mustang',
-      'nameAr': 'فورد موستانج',
-      'image': 'assets/images/cars/ford-mustang.png',
-    },
-    {'nameEn': 'Foton', 'nameAr': 'فوتون', 'image': 'assets/images/cars/foton.png'},
-    {
-      'nameEn': 'Freightliner',
-      'nameAr': 'فرايتلاينر',
-      'image': 'assets/images/cars/freightliner.png',
-    },
-    {'nameEn': 'FSO', 'nameAr': 'FSO', 'image': 'assets/images/cars/fso.png'},
-    {'nameEn': 'GAC Group', 'nameAr': 'مجموعة GAC', 'image': 'assets/images/cars/gac-group.png'},
-    {
-      'nameEn': 'Gardner Douglas',
-      'nameAr': 'غاردنر دوغلاس',
-      'image': 'assets/images/cars/gardner-douglas.png',
-    },
-    {'nameEn': 'GAZ', 'nameAr': 'GAZ', 'image': 'assets/images/cars/gaz.png'},
-    {'nameEn': 'Geely', 'nameAr': 'جيلي', 'image': 'assets/images/cars/geely.png'},
-    {
-      'nameEn': 'General Motors',
-      'nameAr': 'جنرال موتورز',
-      'image': 'assets/images/cars/general-motors.png',
-    },
-    {'nameEn': 'Geo', 'nameAr': 'جيو', 'image': 'assets/images/cars/geo.png'},
-    {'nameEn': 'Geometry', 'nameAr': 'جيومتري', 'image': 'assets/images/cars/geometry.png'},
-    {'nameEn': 'Gilbern', 'nameAr': 'جيلبيرن', 'image': 'assets/images/cars/gilbern.png'},
-    {'nameEn': 'Gillet', 'nameAr': 'جيليه', 'image': 'assets/images/cars/gillet.png'},
-    {'nameEn': 'Ginetta', 'nameAr': 'جينيتا', 'image': 'assets/images/cars/ginetta.png'},
-    {'nameEn': 'GMC', 'nameAr': 'GMC', 'image': 'assets/images/cars/gmc.png'},
-    {
-      'nameEn': 'Golden Dragon',
-      'nameAr': 'غولدن دراغون',
-      'image': 'assets/images/cars/golden-dragon.png',
-    },
-    {'nameEn': 'Gonow', 'nameAr': 'غونو', 'image': 'assets/images/cars/gonow.png'},
-    {'nameEn': 'Great Wall', 'nameAr': 'جريت وول', 'image': 'assets/images/cars/great-wall.png'},
-    {'nameEn': 'Grinnall', 'nameAr': 'غرينال', 'image': 'assets/images/cars/grinnall.png'},
-    {'nameEn': 'Gumpert', 'nameAr': 'غومبيرت', 'image': 'assets/images/cars/gumpert.png'},
-    {'nameEn': 'Hafei', 'nameAr': 'هافي', 'image': 'assets/images/cars/hafei.png'},
-    {'nameEn': 'Haima', 'nameAr': 'هايما', 'image': 'assets/images/cars/haima.png'},
-    {'nameEn': 'Haval', 'nameAr': 'هافال', 'image': 'assets/images/cars/haval.png'},
-    {'nameEn': 'Hawtai', 'nameAr': 'هاوتاي', 'image': 'assets/images/cars/hawtai.png'},
-    {'nameEn': 'Hennessey', 'nameAr': 'هينيسي', 'image': 'assets/images/cars/hennessey.png'},
-    {'nameEn': 'Higer', 'nameAr': 'هايغر', 'image': 'assets/images/cars/higer.png'},
-    {
-      'nameEn': 'Hindustan Motors',
-      'nameAr': 'هيندوستان موتورز',
-      'image': 'assets/images/cars/hindustan-motors.png',
-    },
-    {'nameEn': 'Hino', 'nameAr': 'هينو', 'image': 'assets/images/cars/hino.png'},
-    {'nameEn': 'HiPhi', 'nameAr': 'هاي فاي', 'image': 'assets/images/cars/hiphi.png'},
-    {'nameEn': 'Holden', 'nameAr': 'هولدن', 'image': 'assets/images/cars/holden.png'},
-    {'nameEn': 'Hommell', 'nameAr': 'هوميل', 'image': 'assets/images/cars/hommell.png'},
-    {'nameEn': 'Honda', 'nameAr': 'هوندا', 'image': 'assets/images/cars/honda.png'},
-    {'nameEn': 'Hongqi', 'nameAr': 'هونغتشي', 'image': 'assets/images/cars/hongqi.png'},
-    {'nameEn': 'Hongyan', 'nameAr': 'هونغيان', 'image': 'assets/images/cars/hongyan.png'},
-    {'nameEn': 'Horch', 'nameAr': 'هورش', 'image': 'assets/images/cars/horch.png'},
-    {'nameEn': 'HSV', 'nameAr': 'HSV', 'image': 'assets/images/cars/hsv.png'},
-    {'nameEn': 'Hudson', 'nameAr': 'هدسون', 'image': 'assets/images/cars/hudson.png'},
-    {'nameEn': 'Hummer', 'nameAr': 'هامر', 'image': 'assets/images/cars/hummer.png'},
-    {'nameEn': 'Hyundai', 'nameAr': 'هيونداي', 'image': 'assets/images/cars/hyundai.png'},
-    {'nameEn': 'IC Bus', 'nameAr': 'IC Bus', 'image': 'assets/images/cars/ic-bus.png'},
-    {'nameEn': 'IH', 'nameAr': 'IH', 'image': 'assets/images/cars/ih.png'},
-    {'nameEn': 'IKCO', 'nameAr': 'IKCO', 'image': 'assets/images/cars/ikco.png'},
-    {'nameEn': 'Infiniti', 'nameAr': 'إنفينيتي', 'image': 'assets/images/cars/infiniti.png'},
-    {'nameEn': 'Innocenti', 'nameAr': 'إينوشنتي', 'image': 'assets/images/cars/innocenti.png'},
-    {
-      'nameEn': 'Intermeccanica',
-      'nameAr': 'إنترميكانيكا',
-      'image': 'assets/images/cars/intermeccanica.png',
-    },
-    {
-      'nameEn': 'International',
-      'nameAr': 'إنترناشيونال',
-      'image': 'assets/images/cars/international.png',
-    },
-    {'nameEn': 'Irizar', 'nameAr': 'إيريثار', 'image': 'assets/images/cars/irizar.png'},
-    {'nameEn': 'ISO', 'nameAr': 'ISO', 'image': 'assets/images/cars/iso.png'},
-    {'nameEn': 'Isuzu', 'nameAr': 'إيسوزو', 'image': 'assets/images/cars/isuzu.png'},
-    {'nameEn': 'Iveco', 'nameAr': 'إيفيكو', 'image': 'assets/images/cars/iveco.png'},
-    {'nameEn': 'JAC', 'nameAr': 'JAC', 'image': 'assets/images/cars/jac.png'},
-    {'nameEn': 'Jaguar', 'nameAr': 'جاغوار', 'image': 'assets/images/cars/jaguar.png'},
-    {'nameEn': 'JBA Motors', 'nameAr': 'JBA موتورز', 'image': 'assets/images/cars/jba-motors.png'},
-    {'nameEn': 'Jeep', 'nameAr': 'جيب', 'image': 'assets/images/cars/jeep.png'},
-    {'nameEn': 'Jetour', 'nameAr': 'جيتور', 'image': 'assets/images/cars/jetour.png'},
-    {'nameEn': 'Jetta', 'nameAr': 'جيتا', 'image': 'assets/images/cars/jetta.png'},
-    {'nameEn': 'JMC', 'nameAr': 'JMC', 'image': 'assets/images/cars/jmc.png'},
-    {'nameEn': 'KAMAZ', 'nameAr': 'كاماز', 'image': 'assets/images/cars/kamaz.png'},
-    {
-      'nameEn': 'Karlmann King',
-      'nameAr': 'كارلمان كينج',
-      'image': 'assets/images/cars/karlmann-king.png',
-    },
-    {'nameEn': 'Karma', 'nameAr': 'كارما', 'image': 'assets/images/cars/karma.png'},
-    {'nameEn': 'Keating', 'nameAr': 'كيتينج', 'image': 'assets/images/cars/keating.png'},
-    {'nameEn': 'Kenworth', 'nameAr': 'كينوورث', 'image': 'assets/images/cars/kenworth.png'},
-    {'nameEn': 'Kia', 'nameAr': 'كيا', 'image': 'assets/images/cars/kia.png'},
-    {'nameEn': 'King Long', 'nameAr': 'كينج لونج', 'image': 'assets/images/cars/king-long.png'},
-    {'nameEn': 'Koenigsegg', 'nameAr': 'كونيغسيغ', 'image': 'assets/images/cars/koenigsegg.png'},
-    {'nameEn': 'KTM', 'nameAr': 'KTM', 'image': 'assets/images/cars/ktm.png'},
-    {'nameEn': 'Lagonda', 'nameAr': 'لاغوندا', 'image': 'assets/images/cars/lagonda.png'},
-    {
-      'nameEn': 'Lamborghini',
-      'nameAr': 'لامبورغيني',
-      'image': 'assets/images/cars/lamborghini.png',
-    },
-    {'nameEn': 'Lancia', 'nameAr': 'لانشيا', 'image': 'assets/images/cars/lancia.png'},
-    {'nameEn': 'Land Rover', 'nameAr': 'لاند روفر', 'image': 'assets/images/cars/land-rover.png'},
-    {'nameEn': 'Landwind', 'nameAr': 'لاندويند', 'image': 'assets/images/cars/landwind.png'},
-    {'nameEn': 'Laraki', 'nameAr': 'لاراكي', 'image': 'assets/images/cars/laraki.png'},
-    {'nameEn': 'Leapmotor', 'nameAr': 'ليبموتور', 'image': 'assets/images/cars/leapmotor.png'},
-    {'nameEn': 'LEVC', 'nameAr': 'LEVC', 'image': 'assets/images/cars/levc.png'},
-    {'nameEn': 'Lexus', 'nameAr': 'لكزس', 'image': 'assets/images/cars/lexus.png'},
-    {'nameEn': 'Leyland', 'nameAr': 'ليلاند', 'image': 'assets/images/cars/leyland.png'},
-    {'nameEn': 'Li Auto', 'nameAr': 'لي أوتو', 'image': 'assets/images/cars/li-auto.png'},
-    {'nameEn': 'Lifan', 'nameAr': 'ليفان', 'image': 'assets/images/cars/lifan.png'},
-    {'nameEn': 'Ligier', 'nameAr': 'ليجييه', 'image': 'assets/images/cars/ligier.png'},
-    {'nameEn': 'Lincoln', 'nameAr': 'لينكولن', 'image': 'assets/images/cars/lincoln.png'},
-    {'nameEn': 'Lister', 'nameAr': 'ليستر', 'image': 'assets/images/cars/lister.png'},
-    {'nameEn': 'Lloyd', 'nameAr': 'لويد', 'image': 'assets/images/cars/lloyd.png'},
-    {'nameEn': 'Lobini', 'nameAr': 'لوبيني', 'image': 'assets/images/cars/lobini.png'},
-    {'nameEn': 'Lordstown', 'nameAr': 'لوردزتاون', 'image': 'assets/images/cars/lordstown.png'},
-    {'nameEn': 'Lotus', 'nameAr': 'لوتس', 'image': 'assets/images/cars/lotus.png'},
-    {'nameEn': 'Lucid', 'nameAr': 'لوسيد', 'image': 'assets/images/cars/lucid.png'},
-    {'nameEn': 'Luxgen', 'nameAr': 'لكسجن', 'image': 'assets/images/cars/luxgen.png'},
-    {'nameEn': 'Lynk & Co', 'nameAr': 'لينك آند كو', 'image': 'assets/images/cars/lynk-and-co.png'},
-    {'nameEn': 'Mack', 'nameAr': 'ماك', 'image': 'assets/images/cars/mack.png'},
-    {'nameEn': 'Mahindra', 'nameAr': 'ماهيندرا', 'image': 'assets/images/cars/mahindra.png'},
-    {'nameEn': 'MAN', 'nameAr': 'MAN', 'image': 'assets/images/cars/man.png'},
-    {'nameEn': 'Mansory', 'nameAr': 'مانسوري', 'image': 'assets/images/cars/mansory.png'},
-    {'nameEn': 'Marlin', 'nameAr': 'مارلن', 'image': 'assets/images/cars/marlin.png'},
-    {'nameEn': 'Maserati', 'nameAr': 'مازيراتي', 'image': 'assets/images/cars/maserati.png'},
-    {'nameEn': 'Mastretta', 'nameAr': 'ماستريتا', 'image': 'assets/images/cars/mastretta.png'},
-    {'nameEn': 'Maxus', 'nameAr': 'ماكسوس', 'image': 'assets/images/cars/maxus.png'},
-    {'nameEn': 'Maybach', 'nameAr': 'مايباخ', 'image': 'assets/images/cars/maybach.png'},
-    {'nameEn': 'MAZ', 'nameAr': 'MAZ', 'image': 'assets/images/cars/maz.png'},
-    {'nameEn': 'Mazda', 'nameAr': 'مازدا', 'image': 'assets/images/cars/mazda.png'},
-    {'nameEn': 'Mazzanti', 'nameAr': 'مازانتي', 'image': 'assets/images/cars/mazzanti.png'},
-    {'nameEn': 'McLaren', 'nameAr': 'ماكلارين', 'image': 'assets/images/cars/mclaren.png'},
-    {'nameEn': 'Melkus', 'nameAr': 'ميلكوس', 'image': 'assets/images/cars/melkus.png'},
-    {
-      'nameEn': 'Mercedes AMG',
-      'nameAr': 'مرسيدس AMG',
-      'image': 'assets/images/cars/mercedes-amg.png',
-    },
-    {
-      'nameEn': 'Mercedes-Benz',
-      'nameAr': 'مرسيدس بنز',
-      'image': 'assets/images/cars/mercedes-benz.png',
-    },
-    {'nameEn': 'Mercury', 'nameAr': 'ميركوري', 'image': 'assets/images/cars/mercury.png'},
-    {'nameEn': 'Merkur', 'nameAr': 'ميركور', 'image': 'assets/images/cars/merkur.png'},
-    {'nameEn': 'MEV', 'nameAr': 'MEV', 'image': 'assets/images/cars/mev.png'},
-    {'nameEn': 'MG', 'nameAr': 'إم جي', 'image': 'assets/images/cars/mg.png'},
-    {'nameEn': 'Microcar', 'nameAr': 'مايكروكار', 'image': 'assets/images/cars/microcar.png'},
-    {'nameEn': 'MINI', 'nameAr': 'ميني', 'image': 'assets/images/cars/mini.png'},
-    {'nameEn': 'Mitsubishi', 'nameAr': 'ميتسوبيشي', 'image': 'assets/images/cars/mitsubishi.png'},
-    {'nameEn': 'Mitsuoka', 'nameAr': 'ميتسوكا', 'image': 'assets/images/cars/mitsuoka.png'},
-    {'nameEn': 'MK', 'nameAr': 'MK', 'image': 'assets/images/cars/mk.png'},
-    {'nameEn': 'Morgan', 'nameAr': 'مورغان', 'image': 'assets/images/cars/morgan.png'},
-    {'nameEn': 'Mosler', 'nameAr': 'موسلر', 'image': 'assets/images/cars/mosler.png'},
-    {'nameEn': 'Navistar', 'nameAr': 'نافيستار', 'image': 'assets/images/cars/navistar.png'},
-    {'nameEn': 'NEVS', 'nameAr': 'NEVS', 'image': 'assets/images/cars/nevs.png'},
-    {'nameEn': 'Nikola', 'nameAr': 'نيكولا', 'image': 'assets/images/cars/nikola.png'},
-    {'nameEn': 'NIO', 'nameAr': 'نيو', 'image': 'assets/images/cars/nio.png'},
-    {'nameEn': 'Nissan', 'nameAr': 'نيسان', 'image': 'assets/images/cars/nissan.png'},
-    {
-      'nameEn': 'Nissan GT-R',
-      'nameAr': 'نيسان GT-R',
-      'image': 'assets/images/cars/nissan-gt-r.png',
-    },
-    {
-      'nameEn': 'Nissan Nismo',
-      'nameAr': 'نيسان نيسمو',
-      'image': 'assets/images/cars/nissan-nismo.png',
-    },
-    {'nameEn': 'Noble', 'nameAr': 'نوبل', 'image': 'assets/images/cars/noble.png'},
-    {'nameEn': 'Oldsmobile', 'nameAr': 'أولدزموبيل', 'image': 'assets/images/cars/oldsmobile.png'},
-    {'nameEn': 'Oltcit', 'nameAr': 'أولتسيت', 'image': 'assets/images/cars/oltcit.png'},
-    {'nameEn': 'Omoda', 'nameAr': 'أومودا', 'image': 'assets/images/cars/omoda.png'},
-    {'nameEn': 'Opel', 'nameAr': 'أوبل', 'image': 'assets/images/cars/opel.png'},
-    {'nameEn': 'OSCA', 'nameAr': 'OSCA', 'image': 'assets/images/cars/osca.png'},
-    {'nameEn': 'PACCAR', 'nameAr': 'PACCAR', 'image': 'assets/images/cars/paccar.png'},
-    {'nameEn': 'Packard', 'nameAr': 'باكارد', 'image': 'assets/images/cars/packard.png'},
-    {'nameEn': 'Pagani', 'nameAr': 'باغاني', 'image': 'assets/images/cars/pagani.png'},
-    {'nameEn': 'Panhard', 'nameAr': 'بانهارد', 'image': 'assets/images/cars/panhard.png'},
-    {'nameEn': 'Panoz', 'nameAr': 'بانوز', 'image': 'assets/images/cars/panoz.png'},
-    {'nameEn': 'Pegaso', 'nameAr': 'بيغاسو', 'image': 'assets/images/cars/pegaso.png'},
-    {'nameEn': 'Perodua', 'nameAr': 'بيرودوا', 'image': 'assets/images/cars/perodua.png'},
-    {'nameEn': 'Peterbilt', 'nameAr': 'بيتربيلت', 'image': 'assets/images/cars/peterbilt.png'},
-    {'nameEn': 'Peugeot', 'nameAr': 'بيجو', 'image': 'assets/images/cars/peugeot.png'},
-    {
-      'nameEn': 'Pininfarina',
-      'nameAr': 'بينينفارينا',
-      'image': 'assets/images/cars/pininfarina.png',
-    },
-    {'nameEn': 'Plymouth', 'nameAr': 'بليموث', 'image': 'assets/images/cars/plymouth.png'},
-    {'nameEn': 'Polestar', 'nameAr': 'بولستار', 'image': 'assets/images/cars/polestar.png'},
-    {'nameEn': 'Pontiac', 'nameAr': 'بونتياك', 'image': 'assets/images/cars/pontiac.png'},
-    {'nameEn': 'Porsche', 'nameAr': 'بورش', 'image': 'assets/images/cars/porsche.png'},
-    {'nameEn': 'Praga', 'nameAr': 'براغا', 'image': 'assets/images/cars/praga.png'},
-    {'nameEn': 'Premier', 'nameAr': 'بريمير', 'image': 'assets/images/cars/premier.png'},
-    {'nameEn': 'Prodrive', 'nameAr': 'برودرايف', 'image': 'assets/images/cars/prodrive.png'},
-    {'nameEn': 'Proton', 'nameAr': 'بروتون', 'image': 'assets/images/cars/proton.png'},
-    {'nameEn': 'Qoros', 'nameAr': 'كيروس', 'image': 'assets/images/cars/qoros.png'},
-    {'nameEn': 'Radical', 'nameAr': 'راديكال', 'image': 'assets/images/cars/radical.png'},
-    {'nameEn': 'RAM', 'nameAr': 'RAM', 'image': 'assets/images/cars/ram.png'},
-    {'nameEn': 'Rambler', 'nameAr': 'رامبلر', 'image': 'assets/images/cars/rambler.png'},
-    {'nameEn': 'Ranz', 'nameAr': 'رانز', 'image': 'assets/images/cars/ranz.png'},
-    {'nameEn': 'Renault', 'nameAr': 'رينو', 'image': 'assets/images/cars/renault.png'},
-    {
-      'nameEn': 'Renault Samsung',
-      'nameAr': 'رينو سامسونج',
-      'image': 'assets/images/cars/renault-samsung.png',
-    },
-    {'nameEn': 'Rezvani', 'nameAr': 'ريزفاني', 'image': 'assets/images/cars/rezvani.png'},
-    {'nameEn': 'Riley', 'nameAr': 'رايلي', 'image': 'assets/images/cars/riley.png'},
-    {'nameEn': 'Rimac', 'nameAr': 'ريماك', 'image': 'assets/images/cars/rimac.png'},
-    {'nameEn': 'Rinspeed', 'nameAr': 'رينسبيد', 'image': 'assets/images/cars/rinspeed.png'},
-    {'nameEn': 'Rivian', 'nameAr': 'ريفيان', 'image': 'assets/images/cars/rivian.png'},
-    {'nameEn': 'Roewe', 'nameAr': 'روي', 'image': 'assets/images/cars/roewe.png'},
-    {'nameEn': 'Rolls-Royce', 'nameAr': 'رولز رويس', 'image': 'assets/images/cars/rolls-royce.png'},
-    {'nameEn': 'Ronart', 'nameAr': 'رونارت', 'image': 'assets/images/cars/ronart.png'},
-    {'nameEn': 'Rossion', 'nameAr': 'روسيون', 'image': 'assets/images/cars/rossion.png'},
-    {'nameEn': 'Rover', 'nameAr': 'روفر', 'image': 'assets/images/cars/rover.png'},
-    {'nameEn': 'RUF', 'nameAr': 'RUF', 'image': 'assets/images/cars/ruf.png'},
-    {'nameEn': 'Saab', 'nameAr': 'ساب', 'image': 'assets/images/cars/saab.png'},
-    {'nameEn': 'SAIC Motor', 'nameAr': 'SAIC موتور', 'image': 'assets/images/cars/saic-motor.png'},
-    {'nameEn': 'SAIPA', 'nameAr': 'SAIPA', 'image': 'assets/images/cars/saipa.png'},
-    {'nameEn': 'Saturn', 'nameAr': 'ساترن', 'image': 'assets/images/cars/saturn.png'},
-    {'nameEn': 'Scania', 'nameAr': 'سكانيا', 'image': 'assets/images/cars/scania.png'},
-    {'nameEn': 'Scion', 'nameAr': 'سيون', 'image': 'assets/images/cars/scion.png'},
-    {'nameEn': 'SEAT', 'nameAr': 'سيات', 'image': 'assets/images/cars/seat.png'},
-    {'nameEn': 'Setra', 'nameAr': 'سيترا', 'image': 'assets/images/cars/setra.png'},
-    {'nameEn': 'SEV', 'nameAr': 'SEV', 'image': 'assets/images/cars/sev.png'},
-    {'nameEn': 'Shacman', 'nameAr': 'شاكمان', 'image': 'assets/images/cars/shacman.png'},
-    {'nameEn': 'Simca', 'nameAr': 'سيمكا', 'image': 'assets/images/cars/simca.png'},
-    {'nameEn': 'Singer', 'nameAr': 'سينجر', 'image': 'assets/images/cars/singer.png'},
-    {'nameEn': 'Singulato', 'nameAr': 'سينغيلاتو', 'image': 'assets/images/cars/singulato.png'},
-    {'nameEn': 'Sinotruk', 'nameAr': 'سينوتراك', 'image': 'assets/images/cars/sinotruk.png'},
-    {'nameEn': 'Sisu', 'nameAr': 'سيسو', 'image': 'assets/images/cars/sisu.png'},
-    {'nameEn': 'Skoda', 'nameAr': 'سكودا', 'image': 'assets/images/cars/skoda.png'},
-    {'nameEn': 'Smart', 'nameAr': 'سمارت', 'image': 'assets/images/cars/smart.png'},
-    {'nameEn': 'Soueast', 'nameAr': 'سوياست', 'image': 'assets/images/cars/soueast.png'},
-    {'nameEn': 'Spania GTA', 'nameAr': 'سبانيا GTA', 'image': 'assets/images/cars/spania-gta.png'},
-    {'nameEn': 'Spirra', 'nameAr': 'سبيرا', 'image': 'assets/images/cars/spirra.png'},
-    {'nameEn': 'Spyker', 'nameAr': 'سبايكر', 'image': 'assets/images/cars/spyker.png'},
-    {'nameEn': 'SsangYong', 'nameAr': 'سانغ يونغ', 'image': 'assets/images/cars/ssangyong.png'},
-    {'nameEn': 'SSC', 'nameAr': 'SSC', 'image': 'assets/images/cars/ssc.png'},
-    {'nameEn': 'Sterling', 'nameAr': 'ستيرلينج', 'image': 'assets/images/cars/sterling.png'},
-    {'nameEn': 'Studebaker', 'nameAr': 'ستيوديبيكر', 'image': 'assets/images/cars/studebaker.png'},
-    {'nameEn': 'Stutz', 'nameAr': 'ستوتز', 'image': 'assets/images/cars/stutz.png'},
-    {'nameEn': 'Subaru', 'nameAr': 'سوبارو', 'image': 'assets/images/cars/subaru.png'},
-    {'nameEn': 'Suffolk', 'nameAr': 'سافولك', 'image': 'assets/images/cars/suffolk.png'},
-    {'nameEn': 'Suzuki', 'nameAr': 'سوزوكي', 'image': 'assets/images/cars/suzuki.png'},
-    {'nameEn': 'Talbot', 'nameAr': 'تالبوت', 'image': 'assets/images/cars/talbot.png'},
-    {'nameEn': 'Tata', 'nameAr': 'تاتا', 'image': 'assets/images/cars/tata.png'},
-    {'nameEn': 'Tatra', 'nameAr': 'تاترا', 'image': 'assets/images/cars/tatra.png'},
-    {'nameEn': 'Tauro', 'nameAr': 'تاورو', 'image': 'assets/images/cars/tauro.png'},
-    {'nameEn': 'TechArt', 'nameAr': 'تيك آرت', 'image': 'assets/images/cars/techart.png'},
-    {'nameEn': 'Tesla', 'nameAr': 'تيسلا', 'image': 'assets/images/cars/tesla.png'},
-    {'nameEn': 'Toyota', 'nameAr': 'تويوتا', 'image': 'assets/images/cars/toyota.png'},
-    {
-      'nameEn': 'Toyota Alphard',
-      'nameAr': 'تويوتا ألفارد',
-      'image': 'assets/images/cars/toyota-alphard.png',
-    },
-    {
-      'nameEn': 'Toyota Century',
-      'nameAr': 'تويوتا سنتشري',
-      'image': 'assets/images/cars/toyota-century.png',
-    },
-    {
-      'nameEn': 'Toyota Crown',
-      'nameAr': 'تويوتا كراون',
-      'image': 'assets/images/cars/toyota-crown.png',
-    },
-    {'nameEn': 'Tramontana', 'nameAr': 'ترامونتانا', 'image': 'assets/images/cars/tramontana.png'},
-    {'nameEn': 'Trion', 'nameAr': 'ترايون', 'image': 'assets/images/cars/trion.png'},
-    {'nameEn': 'Triumph', 'nameAr': 'ترايمف', 'image': 'assets/images/cars/triumph.png'},
-    {'nameEn': 'Troller', 'nameAr': 'ترولير', 'image': 'assets/images/cars/troller.png'},
-    {'nameEn': 'Tucker', 'nameAr': 'تاكر', 'image': 'assets/images/cars/tucker.png'},
-    {'nameEn': 'TVR', 'nameAr': 'TVR', 'image': 'assets/images/cars/tvr.png'},
-    {'nameEn': 'UAZ', 'nameAr': 'UAZ', 'image': 'assets/images/cars/uaz.png'},
-    {'nameEn': 'UD', 'nameAr': 'UD', 'image': 'assets/images/cars/ud.png'},
-    {'nameEn': 'Ultima', 'nameAr': 'ألتيما', 'image': 'assets/images/cars/ultima.png'},
-    {'nameEn': 'Vauxhall', 'nameAr': 'فوكسهول', 'image': 'assets/images/cars/vauxhall.png'},
-    {'nameEn': 'Vector', 'nameAr': 'فيكتور', 'image': 'assets/images/cars/vector.png'},
-    {'nameEn': 'Vencer', 'nameAr': 'فينسر', 'image': 'assets/images/cars/vencer.png'},
-    {'nameEn': 'Venturi', 'nameAr': 'فينتوري', 'image': 'assets/images/cars/venturi.png'},
-    {'nameEn': 'Venucia', 'nameAr': 'فينوشيا', 'image': 'assets/images/cars/venucia.png'},
-    {'nameEn': 'VinFast', 'nameAr': 'فينفاست', 'image': 'assets/images/cars/vinfast.png'},
-    {'nameEn': 'VLF', 'nameAr': 'VLF', 'image': 'assets/images/cars/vlf.png'},
-    {'nameEn': 'Volkswagen', 'nameAr': 'فولكسفاغن', 'image': 'assets/images/cars/volkswagen.png'},
-    {'nameEn': 'Volvo', 'nameAr': 'فولفو', 'image': 'assets/images/cars/volvo.png'},
-    {'nameEn': 'Wartburg', 'nameAr': 'وارتبورغ', 'image': 'assets/images/cars/wartburg.png'},
-    {'nameEn': 'Weltmeister', 'nameAr': 'ولتمايستر', 'image': 'assets/images/cars/weltmeister.png'},
-    {
-      'nameEn': 'Western Star',
-      'nameAr': 'ويسترن ستار',
-      'image': 'assets/images/cars/western-star.png',
-    },
-    {'nameEn': 'Westfield', 'nameAr': 'ويستفيلد', 'image': 'assets/images/cars/westfield.png'},
-    {'nameEn': 'WEY', 'nameAr': 'واي', 'image': 'assets/images/cars/wey.png'},
-    {'nameEn': 'Wiesmann', 'nameAr': 'ويسمان', 'image': 'assets/images/cars/wiesmann.png'},
-    {
-      'nameEn': 'Willys-Overland',
-      'nameAr': 'ويليز أوفرلاند',
-      'image': 'assets/images/cars/willys-overland.png',
-    },
-    {'nameEn': 'W Motors', 'nameAr': 'دبليو موتورز', 'image': 'assets/images/cars/w-motors.png'},
-    {'nameEn': 'Workhorse', 'nameAr': 'ووركهورس', 'image': 'assets/images/cars/workhorse.png'},
-    {'nameEn': 'Wuling', 'nameAr': 'ووجيليغ', 'image': 'assets/images/cars/wuling.png'},
-    {'nameEn': 'XPENG', 'nameAr': 'إكسبينغ', 'image': 'assets/images/cars/xpeng.png'},
-    {'nameEn': 'Yulon', 'nameAr': 'يولون', 'image': 'assets/images/cars/yulon.png'},
-    {'nameEn': 'Yutong', 'nameAr': 'يوتونغ', 'image': 'assets/images/cars/yutong.png'},
-    {
-      'nameEn': 'Zarooq Motors',
-      'nameAr': 'زروق موتورز',
-      'image': 'assets/images/cars/zarooq-motors.png',
-    },
-    {'nameEn': 'ZAZ', 'nameAr': 'ZAZ', 'image': 'assets/images/cars/zaz.png'},
-    {'nameEn': 'Zeekr', 'nameAr': 'زيكر', 'image': 'assets/images/cars/zeekr.png'},
-    {'nameEn': 'Zenos', 'nameAr': 'زينوس', 'image': 'assets/images/cars/zenos.png'},
-    {'nameEn': 'Zenvo', 'nameAr': 'زينفو', 'image': 'assets/images/cars/zenvo.png'},
-    {'nameEn': 'Zhongtong', 'nameAr': 'جونغتونغ', 'image': 'assets/images/cars/zhongtong.png'},
-    {'nameEn': 'Zinoro', 'nameAr': 'زينورو', 'image': 'assets/images/cars/zinoro.png'},
-    {'nameEn': 'Zotye', 'nameAr': 'زوتي', 'image': 'assets/images/cars/zotye.png'},
-  ];
-
-  String _getBrandName(Map<String, String> brand, BuildContext context) {
-    final isArabic = context.locale.languageCode == 'ar';
-    return isArabic ? brand['nameAr']! : brand['nameEn']!;
+  @override
+  void initState() {
+    super.initState();
+    context.read<HomeCubit>().getCarsModels();
   }
 
-  List<Map<String, String>> _getFilteredBrands(BuildContext context) {
-    if (_searchQuery.isEmpty) return _allBrands;
-    final q = _searchQuery.toLowerCase();
-    return _allBrands
-        .where((b) => b['nameEn']!.toLowerCase().contains(q) || b['nameAr']!.contains(_searchQuery))
+  List<CarModel> _getFilteredBrands(List<CarModel> brands) {
+    if (_searchQuery.isEmpty) return brands;
+
+    return brands
+        .where((b) => b.groupName.toLowerCase().contains(_searchQuery.toLowerCase()))
         .toList();
   }
 
@@ -553,77 +70,109 @@ class _AllBrandsScreenState extends State<AllBrandsScreen> {
                   ),
                 // Brands grid
                 Expanded(
-                  child: GridView.builder(
-                    padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
-                    physics: const BouncingScrollPhysics(),
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: isTablet ? 6 : 3,
-                      childAspectRatio: isTablet ? 1.0 : 0.9,
-                      crossAxisSpacing: 12.w,
-                      mainAxisSpacing: 12.h,
-                    ),
-                    itemCount: _getFilteredBrands(context).length,
-                    itemBuilder: (context, index) {
-                      final brand = _getFilteredBrands(context)[index];
-                      return GestureDetector(
-                        onTap: () {
-                          Navigator.pushNamed(
-                            context,
-                            RoutesName.brandCarsScreen,
-                            arguments: {
-                              'nameEn': brand['nameEn']!,
-                              'nameAr': brand['nameAr']!,
-                              'image': brand['image']!,
-                            },
-                          );
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: AppColor.secondAppColor(context),
-                            borderRadius: BorderRadius.circular(16.r),
-                            border: Border.all(
-                              color: AppColor.greyColor(context).withOpacity((0.12)),
-                            ),
-                            boxShadow: [
-                              BoxShadow(
-                                color: AppColor.blackTextColor(context).withOpacity((0.04)),
-                                blurRadius: 8,
-                                offset: const Offset(0, 4),
-                              ),
-                            ],
+                  child: BlocBuilder<HomeCubit, HomeState>(
+                    builder: (context, state) {
+                      final cubit = context.read<HomeCubit>();
+
+                      if (state.carsModelsStatus.isLoading) {
+                        return const Center(child: CircularProgressIndicator());
+                      }
+
+                      if (state.carsModelsStatus.isFailure) {
+                        return Center(
+                          child: Text(
+                            state.carsModelsStatus.message ?? '',
+                            style: AppTextStyle.bodyMedium(context),
                           ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Expanded(
-                                child: Padding(
-                                  padding: EdgeInsets.all(14.w),
-                                  child: Image.asset(
-                                    brand['image']!,
-                                    fit: BoxFit.contain,
-                                    errorBuilder: (_, __, ___) => Icon(
-                                      Icons.directions_car_rounded,
-                                      color: AppColor.primaryColor(context),
-                                      size: 32.w,
+                        );
+                      }
+
+                      final brands = _getFilteredBrands(cubit.brands);
+
+                      if (brands.isEmpty) {
+                        return const Center(child: Text("No brands found"));
+                      }
+
+                      return GridView.builder(
+                        padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
+                        physics: const BouncingScrollPhysics(),
+                        itemCount: brands.length,
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: isTablet ? 6 : 3,
+                          crossAxisSpacing: 12.w,
+                          mainAxisSpacing: 12.h,
+                          childAspectRatio: 0.85,
+                        ),
+                        itemBuilder: (context, index) {
+                          final brand = brands[index];
+
+                          return GestureDetector(
+                            onTap: () {
+                              // Navigator.pushNamed(
+                              //   context,
+                              //   RoutesName.brandCarsScreen,
+                              //   arguments: {'name': brand.groupName, 'id': brand.groupCode},
+                              // );
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).cardColor,
+                                borderRadius: BorderRadius.circular(16.r),
+                                border: Border.all(color: Colors.grey.withOpacity(0.15)),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black.withOpacity(0.05),
+                                    blurRadius: 8,
+                                    offset: const Offset(0, 4),
+                                  ),
+                                ],
+                              ),
+                              child: Column(
+                                children: [
+                                  // Image
+                                  Expanded(
+                                    child: Padding(
+                                      padding: EdgeInsets.all(12.w),
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          color: Colors.grey.withOpacity(0.05),
+                                          borderRadius: BorderRadius.circular(12.r),
+                                        ),
+                                        child: ClipRRect(
+                                          borderRadius: BorderRadius.circular(12.r),
+                                          child: Image.network(
+                                            "https://delta-asg.com:54510/MyVirtualDir/${brand.picturePath.replaceAll('../../Img/Emp/', '')}",
+                                            fit: BoxFit.contain,
+                                            width: double.infinity,
+                                            errorBuilder: (_, __, ___) => Icon(
+                                              Icons.directions_car_rounded,
+                                              size: 30.w,
+                                              color: Colors.grey,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
                                     ),
                                   ),
-                                ),
+
+                                  // Name
+                                  Padding(
+                                    padding: EdgeInsets.fromLTRB(8.w, 0, 8.w, 10.h),
+                                    child: Text(
+                                      brand.groupName,
+                                      textAlign: TextAlign.center,
+                                      style: AppTextStyle.bodyMedium(
+                                        context,
+                                      ).copyWith(fontWeight: FontWeight.w600),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ),
+                                ],
                               ),
-                              Padding(
-                                padding: EdgeInsets.only(bottom: 8.h),
-                                child: Text(
-                                  _getBrandName(brand, context),
-                                  textAlign: TextAlign.center,
-                                  style: AppTextStyle.bodyLarge(
-                                    context,
-                                  ).copyWith(fontWeight: FontWeight.w600),
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
+                            ),
+                          );
+                        },
                       );
                     },
                   ),
