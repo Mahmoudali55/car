@@ -1,5 +1,64 @@
 {
-"editor.codeActionsOnSave": {
-  "source.fixAll": "explicit"
-}
+  // ==============================
+  // 🚀 VS Code Flutter Developer Setup (Pro)
+  // ==============================
+
+  // ===== Formatting & Code Style =====
+  "editor.formatOnSave": true,
+  "editor.formatOnType": true,
+  "editor.defaultFormatter": "Dart-Code.dart-code",
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+
+  // ===== Flutter Specific =====
+  "dart.lineLength": 100,
+  "dart.completeFunctionCalls": true,
+  "dart.previewFlutterUiGuides": true,
+  "dart.showTodos": true,
+  "dart.analysisServerFolding": true,
+
+  // ===== UI Helpers =====
+  "workbench.iconTheme": "material-icon-theme",
+  "breadcrumbs.enabled": true,
+  "editor.guides.bracketPairs": "active",
+  "editor.bracketPairColorization.enabled": true,
+  "editor.renderWhitespace": "selection",
+
+  // ===== Terminal =====
+  "terminal.integrated.defaultProfile.windows": "PowerShell",
+  "terminal.integrated.copyOnSelection": true,
+
+  // ===== Files & Explorer =====
+  "files.autoSave": "off",
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true,
+  "explorer.compactFolders": false,
+
+  // ===== IntelliSense =====
+  "editor.quickSuggestions": {
+    "other": true,
+    "comments": false,
+    "strings": true
+  },
+  "editor.suggestSelection": "first",
+  "editor.parameterHints.enabled": true,
+  "editor.hover.enabled": "on",
+
+  // ===== Git =====
+  "git.autofetch": true,
+  "git.confirmSync": false,
+  "git.enableSmartCommit": true,
+
+  // ===== Extensions Recommended =====
+  "extensions.ignoreRecommendations": false,
+
+  // ===== Checks & Performance =====
+  "dart.flutterHotReloadOnSave": "all",
+  "editor.codeActionsOnSave": {
+    "source.organizeImports":"always"
+},
+"dart.debugExternalPackageLibraries": false,
+"dart.debugSdkLibraries": false,
+"claudeCode.preferredLocation": "panel",
+"workbench.colorTheme": "Dark Modern"
 }

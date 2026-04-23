@@ -8,10 +8,8 @@ import 'package:car/features/agent/presentation/screens/widget/icon_btn_widget.d
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
-
 class AgentAddLeadScreen extends StatelessWidget {
   const AgentAddLeadScreen({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,10 +53,10 @@ class AgentAddLeadScreen extends StatelessWidget {
                 prefixIcon: const Icon(Icons.person_outline_rounded),
               ),
               Gap(20.h),
-              const CustomFormField(
-                title: 'رقم الهاتف',
+               CustomFormField(
+                title: AppLocaleKey.agentPhoneNumberLabel.tr(),
                 hintText: '05xxxxxxxx',
-                prefixIcon: Icon(Icons.phone_android_rounded),
+                prefixIcon: const Icon(Icons.phone_android_rounded),
                 keyboardType: TextInputType.phone,
               ),
               Gap(20.h),
@@ -75,21 +73,20 @@ class AgentAddLeadScreen extends StatelessWidget {
                 prefixIcon: const Icon(Icons.directions_car_outlined),
               ),
               Gap(20.h),
-              const CustomFormField(
-                title: 'الميزانية المتوقعة (ر.س)',
-                hintText: 'أدخل القيمة التقديرية',
-                prefixIcon: Icon(Icons.payments_outlined),
+               CustomFormField(
+                title: AppLocaleKey.agentExpectedBudget.tr(),
+                hintText: AppLocaleKey.agentEnterEstimatedValue.tr(),
+                prefixIcon: const Icon(Icons.payments_outlined),
                 keyboardType: TextInputType.number,
               ),
           
               /// Bottom Action Bar
               Gap(40.h),
               CustomButton(
-                onPressed: () => Navigator.pop(context),
-                
+                onPressed: () => Navigator.pop(context),                
                radius: 12.r,
                 child: Text(
-                  'حفظ العميل والبدء',
+                  AppLocaleKey.agentSaveCustomerAndStart.tr(),
                   style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w900, color: Colors.white),
                 ),
               ),

@@ -2,26 +2,18 @@ import 'package:car/core/custom_widgets/custom_form_field/custom_form_field.dart
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:easy_localization/easy_localization.dart';
-
-
 import 'package:car/features/agent/data/agent_models.dart';
-import 'package:car/features/agent/presentation/screens/widget/icon_btn_widget.dart';
 import 'package:car/features/agent/presentation/screens/widget/lead_card_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
-
 class AgentLeadsScreen extends StatefulWidget {
   const AgentLeadsScreen({super.key});
-
   @override
   State<AgentLeadsScreen> createState() => _AgentLeadsScreenState();
 }
-
 class _AgentLeadsScreenState extends State<AgentLeadsScreen> {
   String _search = '';
-
-
   List<AgentLead> _getFiltered(LeadStatus? status) {
     return getAgentLeads().where((l) {
       final matchStatus = status == null || l.status == status;
@@ -73,13 +65,10 @@ class _AgentLeadsScreenState extends State<AgentLeadsScreen> {
                   ),
                 ),
               ),
-
-              /// ── Bottom Area (Search + Tabs) ──
               bottom: PreferredSize(
                 preferredSize: Size.fromHeight(130.h),
                 child: Column(
                   children: [
-                    /// 🔍 Search
                     Padding(
                       padding: EdgeInsets.fromLTRB(16.w, 8.h, 16.w, 12.h),
                       child: CustomFormField(
@@ -112,7 +101,7 @@ class _AgentLeadsScreenState extends State<AgentLeadsScreen> {
                               ),
                             ],
                           ),
-                          labelColor: Colors.white,
+                          labelColor: AppColor.whiteColor(context),
                           unselectedLabelColor: AppColor.hintColor(context),
                           labelStyle: TextStyle(fontSize: 13.sp, fontWeight: FontWeight.w900, letterSpacing: -0.2),
                           unselectedLabelStyle: TextStyle(fontSize: 13.sp, fontWeight: FontWeight.w700),
@@ -148,7 +137,6 @@ class _AgentLeadsScreenState extends State<AgentLeadsScreen> {
       ),
     );
   }
-
   Widget _buildList(List<AgentLead> list) {
     if (list.isEmpty) {
       return Center(
@@ -172,7 +160,6 @@ class _AgentLeadsScreenState extends State<AgentLeadsScreen> {
         ),
       );
     }
-
     return ListView.builder(
       padding: EdgeInsets.fromLTRB(16.w, 16.h, 16.w, 40.h),
       itemCount: list.length,

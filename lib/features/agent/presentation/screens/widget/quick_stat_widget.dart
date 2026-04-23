@@ -1,5 +1,4 @@
 import 'package:car/core/theme/app_colors.dart';
-import 'package:car/features/agent/data/agent_models.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -26,11 +25,7 @@ class QuickStat extends StatelessWidget {
         borderRadius: BorderRadius.circular(20.r),
         border: Border.all(color: color.withOpacity(0.2)),
         boxShadow: [
-          BoxShadow(
-            color: color.withOpacity(0.05),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
-          ),
+          BoxShadow(color: color.withOpacity(0.05), blurRadius: 10, offset: const Offset(0, 4)),
         ],
       ),
       child: Row(
@@ -38,10 +33,7 @@ class QuickStat extends StatelessWidget {
         children: [
           Container(
             padding: EdgeInsets.all(6.w),
-            decoration: BoxDecoration(
-              color: color.withOpacity(0.12),
-              shape: BoxShape.circle,
-            ),
+            decoration: BoxDecoration(color: color.withOpacity(0.12), shape: BoxShape.circle),
             child: Icon(icon, size: 14.sp, color: color),
           ),
           Gap(10.w),

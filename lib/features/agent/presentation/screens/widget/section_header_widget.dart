@@ -1,5 +1,4 @@
 import 'package:car/core/theme/app_colors.dart';
-import 'package:car/features/agent/data/agent_models.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -20,7 +19,10 @@ class SectionHeader extends StatelessWidget {
           height: 22.h,
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [themeColor, themeColor.withOpacity(0.5)],
+              colors: [
+                themeColor,
+                themeColor.withValues(alpha: (0.5)),
+              ],
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
             ),
@@ -42,17 +44,13 @@ class SectionHeader extends StatelessWidget {
           Container(
             padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
             decoration: BoxDecoration(
-              color: themeColor.withOpacity(0.08),
+              color: themeColor.withValues(alpha: (0.08)),
               borderRadius: BorderRadius.circular(12.r),
-              border: Border.all(color: themeColor.withOpacity(0.15)),
+              border: Border.all(color: themeColor.withValues(alpha: (0.15))),
             ),
             child: Text(
               '$count',
-              style: TextStyle(
-                color: themeColor,
-                fontSize: 12.sp,
-                fontWeight: FontWeight.w900,
-              ),
+              style: TextStyle(color: themeColor, fontSize: 12.sp, fontWeight: FontWeight.w900),
             ),
           ),
         ],

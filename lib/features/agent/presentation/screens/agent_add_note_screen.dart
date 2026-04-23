@@ -2,6 +2,7 @@ import 'package:car/core/custom_widgets/buttons/custom_button.dart';
 import 'package:car/core/custom_widgets/custom_form_field/custom_form_field.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
+import 'package:car/features/agent/presentation/screens/widget/note_tag_widget.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:car/features/agent/presentation/screens/widget/icon_btn_widget.dart';
 import 'package:flutter/material.dart';
@@ -82,11 +83,9 @@ class AgentAddNoteScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 spacing: 5.w,
                 children: [
-                  Expanded(child: _NoteTag(label: AppLocaleKey.agentFollowUp.tr(), color: AppColor.blueColor(context), isSelected: true)),
-                 
-                  Expanded(child: _NoteTag(label: AppLocaleKey.agentGeneral.tr(), color: AppColor.greyColor(context))),
-                  
-                  Expanded(child: _NoteTag(label: AppLocaleKey.agentVeryImportant.tr(), color: AppColor.redColor(context))),
+                  Expanded(child: NoteTag(label: AppLocaleKey.agentFollowUp.tr(), color: AppColor.blueColor(context), isSelected: true)),
+                  Expanded(child: NoteTag(label: AppLocaleKey.agentGeneral.tr(), color: AppColor.greyColor(context))),
+                  Expanded(child: NoteTag(label: AppLocaleKey.agentVeryImportant.tr(), color: AppColor.redColor(context))),
                 ],
               ),
               Gap(30.h),
@@ -107,35 +106,3 @@ class AgentAddNoteScreen extends StatelessWidget {
   }
 }
 
-class _NoteTag extends StatelessWidget {
-  final String label;
-  final Color color;
-  final bool isSelected;
-  const _NoteTag({required this.label, required this.color, this.isSelected = false});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
-      decoration: BoxDecoration(
-        color: isSelected ? color : color.withOpacity(0.08),
-        borderRadius: BorderRadius.circular(12.r),
-        border: Border.all(color: color.withOpacity(isSelected ? 1 : 0.3)),
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            label,
-            style: TextStyle(
-              color: isSelected ? Colors.white : color,
-              fontSize: 12.sp,
-              fontWeight: FontWeight.w900,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}

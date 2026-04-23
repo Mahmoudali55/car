@@ -10,15 +10,12 @@ import 'package:gap/gap.dart';
 
 class AgentAddAppointmentScreen extends StatefulWidget {
   const AgentAddAppointmentScreen({super.key});
-
   @override
   State<AgentAddAppointmentScreen> createState() => _AgentAddAppointmentScreenState();
 }
-
 class _AgentAddAppointmentScreenState extends State<AgentAddAppointmentScreen> {
   final TextEditingController dateController = TextEditingController();
   final TextEditingController timeController = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,8 +53,7 @@ class _AgentAddAppointmentScreenState extends State<AgentAddAppointmentScreen> {
                   fontWeight: FontWeight.w500,
                 ),
               ),
-              Gap(24.h),
-                        
+              Gap(24.h),                       
               /// Form Fields
                CustomFormField(
                 radius: 12.r,
@@ -91,9 +87,7 @@ class _AgentAddAppointmentScreenState extends State<AgentAddAppointmentScreen> {
                       },
                     ),
                   ),
-
                   Gap(12.w),
-
                   Expanded(
                     child: CustomFormField(
                       controller: timeController,
@@ -131,13 +125,11 @@ class _AgentAddAppointmentScreenState extends State<AgentAddAppointmentScreen> {
                 prefixIcon: const Icon(Icons.info_outline_rounded),
                 maxLines: 3,
               ),
-                Gap(20.h),
-          
+                Gap(20.h),         
               /// Bottom Action Bar
               CustomButton(
                 onPressed: () => Navigator.pop(context),
-                  radius: 12.r,
-                
+                  radius: 12.r,                
                 child: Text(
                   AppLocaleKey.agentConfirmAppointment.tr(),
                   style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w900, color: Colors.white),

@@ -924,19 +924,19 @@
   "agent_deals_closed": "صفقات مغلقة",
   "agent_total_sales": "إجمالي المبيعات",
   "agent_conversion_rate": "معدل التحويل",
- 
+
   "agent_phone_number_hint": "05xxxxxxxx",
- 
+
   "agent_save_customer_and_start": "حفظ العميل والبدء",
-  
+
   "agent_appointment_desc": "حدد تفاصيل الموعد مع العميل لضمان تجربة فحص أو اجتماع احترافية.",
- 
+
   "agent_enter_customer_name": "أدخل اسم العميل المسجل",
-  
+
   "agent_meeting_purpose_label": "الغرض من الاجتماع",
   "agent_example_meeting_purpose": "مثال: تجربة قيادة كامري 2024",
   "agent_confirm_appointment_scheduling": "تأكيد جدولة الموعد",
- 
+
   "agent_budget_display": "الميزانية: {amount} ر.س",
   "agent_call": "اتصال",
   "agent_whatsapp": "واتساب",
@@ -951,9 +951,10 @@
   "agent_nav_customers": "العملاء",
   "agent_nav_inventory": "المخزون",
   "agent_nav_appointments": "المواعيد",
-  "agentSaveCustomerAndStart": "حفظ العميل والبدء"
+  "agentSaveCustomerAndStart": "حفظ العميل والبدء",
+  "agent_search_customer_car_number":"ابحث عن عميل، سيارة، أو رقم..."
 
- 
+
 }
 
 

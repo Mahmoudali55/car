@@ -1,7 +1,7 @@
+import 'package:car/core/custom_widgets/custom_app_bar/custom_app_bar.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:car/features/agent/data/agent_models.dart';
 import 'package:car/features/agent/presentation/screens/widget/comm_row_widget.dart';
 import 'package:car/features/agent/presentation/screens/widget/funnel_row_widget.dart';
 import 'package:flutter/material.dart';
@@ -26,12 +26,10 @@ class AgentPerformanceScreen extends StatelessWidget {
       AppLocaleKey.thu.tr(),
       AppLocaleKey.fri.tr()
     ];
-
     return Scaffold(
       backgroundColor: AppColor.scaffoldColor(context),
-      appBar: AppBar(
-        backgroundColor: AppColor.appBarColor(context),
-        elevation: 0,
+      appBar: CustomAppBar(
+        context,
         centerTitle: false,
         title: Text(AppLocaleKey.agentPerformanceStats.tr(),
             style: TextStyle(color: AppColor.blackTextColor(context), fontWeight: FontWeight.w900, fontSize: 20.sp)),
@@ -46,7 +44,6 @@ class AgentPerformanceScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // ── Tier Badge ─────────────────────────────────────────────────
             Container(
               width: double.infinity,
               padding: EdgeInsets.all(24.w),
@@ -54,7 +51,7 @@ class AgentPerformanceScreen extends StatelessWidget {
                 gradient: LinearGradient(
                   colors: [
                     AppColor.blueColor(context),
-                    AppColor.blueColor(context).withOpacity(0.7),
+                    AppColor.blueColor(context).withValues(alpha: 0.7),
                   ],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
@@ -62,7 +59,7 @@ class AgentPerformanceScreen extends StatelessWidget {
                 borderRadius: BorderRadius.circular(24.r),
                 boxShadow: [
                   BoxShadow(
-                    color: AppColor.blueColor(context).withOpacity(0.3),
+                    color: AppColor.blueColor(context).withValues(alpha: 0.3),
                     blurRadius: 20,
                     offset: const Offset(0, 10),
                   ),
@@ -75,8 +72,8 @@ class AgentPerformanceScreen extends StatelessWidget {
                     height: 64.w,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color: Colors.white.withOpacity(0.2),
-                      border: Border.all(color: Colors.white.withOpacity(0.4), width: 2),
+                      color: AppColor.whiteColor(context).withValues(alpha: 0.2),
+                      border: Border.all(color: AppColor.whiteColor(context).withValues(alpha: 0.4), width: 2),
                     ),
                     child: Icon(Icons.star_rounded, color: AppColor.goldColor(context), size: 32.sp),
                   ),
@@ -86,22 +83,22 @@ class AgentPerformanceScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(AppLocaleKey.agentTierGold.tr(),
-                            style: TextStyle(color: Colors.white, fontWeight: FontWeight.w900, fontSize: 20.sp)),
+                            style: TextStyle(color: AppColor.whiteColor(context), fontWeight: FontWeight.w900, fontSize: 20.sp)),
                         Text(AppLocaleKey.agentRankCount.tr(namedArgs: {'rank': '3', 'total': '24'}),
-                            style: TextStyle(color: Colors.white.withOpacity(0.8), fontSize: 12.sp, fontWeight: FontWeight.w600)),
+                            style: TextStyle(color: AppColor.whiteColor(context).withValues(alpha: 0.8), fontSize: 12.sp, fontWeight: FontWeight.w600)),
                         Gap(10.h),
                         ClipRRect(
                           borderRadius: BorderRadius.circular(6.r),
                           child: LinearProgressIndicator(
                             value: 0.72,
-                            backgroundColor: Colors.white.withOpacity(0.2),
+                            backgroundColor: AppColor.whiteColor(context).withValues(alpha: 0.2),
                             valueColor: AlwaysStoppedAnimation<Color>(AppColor.goldColor(context)),
                             minHeight: 8.h,
                           ),
                         ),
                         Gap(6.h),
                         Text(AppLocaleKey.agentToPlatinum.tr(namedArgs: {'percent': '72'}),
-                            style: TextStyle(color: Colors.white.withOpacity(0.6), fontSize: 10.sp, fontWeight: FontWeight.w600)),
+                            style: TextStyle(color: AppColor.whiteColor(context).withValues(alpha: 0.6), fontSize: 10.sp, fontWeight: FontWeight.w600)),
                       ],
                     ),
                   ),
@@ -109,8 +106,6 @@ class AgentPerformanceScreen extends StatelessWidget {
               ),
             ),
             Gap(32.h),
-
-            // ── Weekly Chart ───────────────────────────────────────────────
             Text(AppLocaleKey.agentWeeklyPerformance.tr(),
                 style: TextStyle(fontWeight: FontWeight.w900, fontSize: 18.sp, color: AppColor.blackTextColor(context))),
             Gap(16.h),
@@ -119,9 +114,9 @@ class AgentPerformanceScreen extends StatelessWidget {
               decoration: BoxDecoration(
                 color: AppColor.cardColor(context),
                 borderRadius: BorderRadius.circular(24.r),
-                border: Border.all(color: AppColor.borderColor(context).withOpacity(0.5)),
+                border: Border.all(color: AppColor.borderColor(context).withValues(alpha: 0.5)),
                 boxShadow: [
-                  BoxShadow(color: Colors.black.withOpacity(0.03), blurRadius: 15, offset: const Offset(0, 5))
+                  BoxShadow(color: AppColor.blackTextColor(context).withValues(alpha: 0.03), blurRadius: 15, offset: const Offset(0, 5))
                 ],
               ),
               child: Row(
@@ -140,7 +135,7 @@ class AgentPerformanceScreen extends StatelessWidget {
                               color: AppColor.goldColor(context), borderRadius: BorderRadius.circular(8.r)),
                           child: Text('${_weeklyData[i]}',
                               style: TextStyle(
-                                  fontSize: 10.sp, fontWeight: FontWeight.w900, color: Colors.white)),
+                                  fontSize: 10.sp, fontWeight: FontWeight.w900, color: AppColor.whiteColor(context))),
                         )
                       else
                         Gap(24.h),
@@ -152,8 +147,8 @@ class AgentPerformanceScreen extends StatelessWidget {
                         decoration: BoxDecoration(
                           gradient: LinearGradient(
                             colors: isMax
-                                ? [AppColor.blueColor(context), AppColor.blueColor(context).withOpacity(0.7)]
-                                : [AppColor.blueColor(context).withOpacity(0.2), AppColor.blueColor(context).withOpacity(0.1)],
+                                ? [AppColor.blueColor(context), AppColor.blueColor(context).withValues(alpha: 0.7)]
+                                : [AppColor.blueColor(context).withValues(alpha: 0.2), AppColor.blueColor(context).withValues(alpha: 0.1)],
                             begin: Alignment.topCenter,
                             end: Alignment.bottomCenter,
                           ),
@@ -193,9 +188,9 @@ class AgentPerformanceScreen extends StatelessWidget {
               decoration: BoxDecoration(
                 color: AppColor.cardColor(context),
                 borderRadius: BorderRadius.circular(24.r),
-                border: Border.all(color: AppColor.borderColor(context).withOpacity(0.5)),
+                border: Border.all(color: AppColor.borderColor(context).withValues(alpha: 0.5)),
                 boxShadow: [
-                  BoxShadow(color: Colors.black.withOpacity(0.03), blurRadius: 15, offset: const Offset(0, 5))
+                  BoxShadow(color: AppColor.blackTextColor(context).withValues(alpha: 0.03), blurRadius: 15, offset: const Offset(0, 5))
                 ],
               ),
               child: Column(

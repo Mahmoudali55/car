@@ -8,25 +8,20 @@ import 'package:car/features/agent/presentation/screens/agent_leads_screen.dart'
 import 'package:car/features/agent/presentation/screens/widget/nav_meta_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
 class AgentShell extends StatefulWidget {
   const AgentShell({super.key});
-
   @override
   State<AgentShell> createState() => _AgentShellState();
 }
-
 class _AgentShellState extends State<AgentShell> {
   int _currentIndex = 0;
-
-
   @override
   Widget build(BuildContext context) {
     final screens = [
-      AgentDashboardScreen(),
-      AgentLeadsScreen(),
-      AgentInventoryScreen(),
-      AgentAppointmentsScreen(),
+      const AgentDashboardScreen(),
+      const AgentLeadsScreen(),
+      const AgentInventoryScreen(),
+      const AgentAppointmentsScreen(),
     ];
 
     final navItems = [

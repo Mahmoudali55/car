@@ -995,5 +995,6 @@ class AppLocaleKey {
   static const String agentSimLocationKhobar = 'agent_sim_location_khobar';
   static const String agentUserName = 'agent_user_name';
   static const String agentUserInitials = 'agent_user_initials';
+  static const String agentSaveCustomerAndStart = 'agentSaveCustomerAndStart';
+  static const String agentSearchCustomerCarNumber = 'agent_confirm_appointment_scheduling';
 }
-

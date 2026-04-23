@@ -7,20 +7,16 @@ import 'package:car/features/agent/presentation/screens/widget/car_list_card_wid
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
-
 class AgentInventoryScreen extends StatefulWidget {
   const AgentInventoryScreen({super.key});
-
   @override
   State<AgentInventoryScreen> createState() => _AgentInventoryScreenState();
 }
-
 class _AgentInventoryScreenState extends State<AgentInventoryScreen> {
   List<AgentCar> _getByFilter(CarAvailability? filter) {
     if (filter == null) return getAgentCars();
     return getAgentCars().where((c) => c.availability == filter).toList();
   }
-
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -32,7 +28,7 @@ class _AgentInventoryScreenState extends State<AgentInventoryScreen> {
             SliverAppBar(
               pinned: true,
               backgroundColor: AppColor.appBarColor(context),
-              expandedHeight: 80.h, // Reduced height as toggle is removed
+              expandedHeight: 80.h, 
               elevation: 0,
               flexibleSpace: FlexibleSpaceBar(
                 background: SafeArea(
@@ -50,8 +46,6 @@ class _AgentInventoryScreenState extends State<AgentInventoryScreen> {
                   ),
                 ),
               ),
-
-              // ── Tab Bar ──
               bottom: TabBar(
                 indicatorColor: AppColor.blueColor(context),
                 indicatorWeight: 3.5.h,
@@ -70,8 +64,6 @@ class _AgentInventoryScreenState extends State<AgentInventoryScreen> {
               ),
             ),
           ],
-
-          // ── View Content ──
           body: TabBarView(
             children: [
               _buildList(_getByFilter(null)),
