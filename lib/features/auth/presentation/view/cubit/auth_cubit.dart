@@ -1,11 +1,11 @@
 import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
-import 'package:flutter/widgets.dart';
 import 'package:car/core/cache/hive/hive_methods.dart';
 import 'package:car/core/network/status.state.dart';
+import 'package:car/features/auth/data/model/login_request_model.dart';
+import 'package:car/features/auth/data/model/login_response_model.dart';
 import 'package:car/features/auth/data/repository/auth_repo.dart';
-
-import '../../../data/model/user_model.dart';
+import 'package:equatable/equatable.dart';
+import 'package:flutter/widgets.dart';
 
 part 'auth_state.dart';
 
@@ -17,11 +17,6 @@ class AuthCubit extends Cubit<AuthState> {
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController accountTypeController = TextEditingController();
 
-  set mobile(String mobile) => mobileController.text = mobile;
-  set password(String password) => passwordController.text = password;
-  set accountType(String accountType) =>
-      accountTypeController.text = accountType;
-
   bool rememberMe = false;
 
   void changeRememberMe() {
@@ -29,43 +24,35 @@ class AuthCubit extends Cubit<AuthState> {
     emit(state.copyWith());
   }
 
-  Future<void> login({BuildContext? context}) async {
+  Future<void> login() async {
     emit(state.copyWith(loginStatus: const StatusState.loading()));
 
-    await Future.delayed(const Duration(milliseconds: 500)); // Simulate network
-
-    final role = accountTypeController.text == 'مدير' ? 'admin' : 'user';
-    final mockUser = User(
-      id: 1,
-      firstName: 'تست',
-      lastName: 'يوزر',
-      email: 'test@example.com',
-      mobile: mobileController.text.isNotEmpty ? mobileController.text : '123456789',
-      mobileVerifiedAt: '2024-01-01',
-      photoProfile: '',
-      status: 'active',
-      isAvailable: 1,
-      createdAt: '2024-01-01',
-      role: role,
+    final request = LoginRequest(
+      username: mobileController.text.trim(),
+      password: passwordController.text.trim(),
+      grantType: 'password',
     );
 
-    final mockResponse = AuthResponseModel(
-      user: mockUser,
-      token: 'mock_jwt_token_bypass_${DateTime.now().millisecondsSinceEpoch}',
-      isExpired: false,
-      message: 'تم تسجيل الدخول بنجاح',
-    );
+    final result = await authRepo.login(request: request);
 
-    HiveMethods.updateIsGuest(false);
-    HiveMethods.updateToken(mockResponse.token);
-    HiveMethods.updateRole(mockResponse.user.role);
-    emit(state.copyWith(loginStatus: StatusState.success(mockResponse)));
+    result.fold(
+      (failure) {
+        emit(state.copyWith(loginStatus: StatusState.failure(failure.errMessage)));
+      },
+      (response) async {
+        HiveMethods.updateIsGuest(false);
+        HiveMethods.updateToken(response.accessToken);
+        HiveMethods.updateRole(response.type);
+        emit(state.copyWith(loginStatus: StatusState.success(response)));
+      },
+    );
   }
 
   Future<void> logout() async {
     await authRepo.logout();
-    HiveMethods.updateIsGuest(false);
+    HiveMethods.updateIsGuest(true);
     HiveMethods.deleteToken();
     HiveMethods.updateRole('user');
+    emit(const AuthState()); // reset state
   }
 }

@@ -935,7 +935,8 @@
   "agent_nav_inventory": "Inventory",
   "agent_nav_appointments": "Appointments",
   "agentSaveCustomerAndStart": "Save Customer and Start",
-  "agent_search_customer_car_number":"Search for customer, car, or number..."
+  "agent_search_customer_car_number":"Search for customer, car, or number...",
+  "loginSuccess": "Login successful"
 }
 
 

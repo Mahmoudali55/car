@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 import '../services/services_locator.dart';
@@ -36,8 +35,19 @@ class DioConsumer implements ApiConsumer {
   }
 
   @override
-  Future get(String path, {Map<String, dynamic>? queryParameters}) async {
-    final response = await client.get(path, queryParameters: queryParameters);
+  Future get(
+    String path, {
+    Map<String, dynamic>? queryParameters,
+    Map<String, dynamic>? body,
+    Map<String, dynamic>? headers,
+    Map<String, dynamic>? extra,
+  }) async {
+    final response = await client.request(
+      path,
+      data: body,
+      queryParameters: queryParameters,
+      options: Options(method: 'GET', headers: headers, extra: extra),
+    );
     return response.data;
   }
 
@@ -46,12 +56,15 @@ class DioConsumer implements ApiConsumer {
     String path, {
     Map<String, dynamic>? body,
     Map<String, dynamic>? queryParameters,
+    Map<String, dynamic>? headers,
+    Map<String, dynamic>? extra,
     bool? isFormData,
   }) async {
     var response = await client.post(
       path,
       data: isFormData == true ? FormData.fromMap(body!) : body,
       queryParameters: queryParameters,
+      options: Options(headers: headers, extra: extra),
     );
     return response.data;
   }
@@ -61,12 +74,15 @@ class DioConsumer implements ApiConsumer {
     String path, {
     Map<String, dynamic>? body,
     Map<String, dynamic>? queryParameters,
+    Map<String, dynamic>? headers,
+    Map<String, dynamic>? extra,
     bool? isFormData,
   }) async {
     final response = await client.put(
       path,
       data: isFormData == true ? FormData.fromMap(body!) : body,
       queryParameters: queryParameters,
+      options: Options(headers: headers, extra: extra),
     );
     return response.data;
   }
@@ -76,12 +92,15 @@ class DioConsumer implements ApiConsumer {
     String path, {
     Map<String, dynamic>? body,
     Map<String, dynamic>? queryParameters,
+    Map<String, dynamic>? headers,
+    Map<String, dynamic>? extra,
     bool? isFormData,
   }) async {
-    final response = await client.get(
+    final response = await client.request(
       path,
       data: isFormData == true ? FormData.fromMap(body!) : body,
       queryParameters: queryParameters,
+      options: Options(method: 'DELETE', headers: headers, extra: extra),
     );
     return response.data;
   }

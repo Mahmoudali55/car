@@ -952,7 +952,9 @@
   "agent_nav_inventory": "المخزون",
   "agent_nav_appointments": "المواعيد",
   "agentSaveCustomerAndStart": "حفظ العميل والبدء",
-  "agent_search_customer_car_number":"ابحث عن عميل، سيارة، أو رقم..."
+  "agent_search_customer_car_number":"ابحث عن عميل، سيارة، أو رقم...",
+  "loginSuccess": "تم تسجيل الدخول بنجاح"
+
 
 
 }

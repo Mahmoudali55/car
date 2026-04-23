@@ -37,14 +37,17 @@ class LoginScreen extends StatelessWidget {
             colors: [
               AppColor.secondAppColor(context),
               AppColor.gradientSecondaryColor(context),
-              AppColor.primaryColor(context).withOpacity(0.1),
+              AppColor.primaryColor(context).withValues(alpha: 0.1),
             ],
           ),
         ),
         child: BlocConsumer<AuthCubit, AuthState>(
           listener: (context, state) {
             if (state.loginStatus.isSuccess) {
-              CommonMethods.showToast(message: state.loginStatus.data?.message ?? 'Login success');
+              CommonMethods.showToast(
+                message: AppLocaleKey.loginSuccess.tr(),
+                type: ToastType.success,
+              );
               if (HiveMethods.getRole() == 'admin') {
                 NavigatorMethods.pushReplacementNamed(context, RoutesName.adminDashboard);
               } else if (HiveMethods.getRole() == 'agent') {
@@ -76,11 +79,11 @@ class LoginScreen extends StatelessWidget {
                             child: Container(
                               padding: EdgeInsets.all(20.w),
                               decoration: BoxDecoration(
-                                color: AppColor.primaryColor(context).withOpacity(0.1),
+                                color: AppColor.primaryColor(context).withValues(alpha: 0.1),
                                 shape: BoxShape.circle,
                                 boxShadow: [
                                   BoxShadow(
-                                    color: AppColor.primaryColor(context).withOpacity(0.2),
+                                    color: AppColor.primaryColor(context).withValues(alpha: 0.2),
                                     blurRadius: 30,
                                     spreadRadius: 5,
                                   ),
@@ -112,7 +115,7 @@ class LoginScreen extends StatelessWidget {
                                 AppLocaleKey.loginToContinueYourPremiumExperience.tr(),
                                 style: AppTextStyle.bodyLarge(
                                   context,
-                                  color: AppColor.blackTextColor(context).withOpacity(0.6),
+                                  color: AppColor.blackTextColor(context).withValues(alpha: 0.6),
                                 ),
                               ),
                             ],
@@ -132,7 +135,7 @@ class LoginScreen extends StatelessWidget {
                             fillColor: AppColor.textFormFillColor(context),
                             textStyle: TextStyle(color: AppColor.blackTextColor(context)),
                             hintStyle: TextStyle(
-                              color: AppColor.blackTextColor(context).withOpacity(0.3),
+                              color: AppColor.blackTextColor(context).withValues(alpha: 0.3),
                             ),
                             radius: 16,
                             keyboardType: TextInputType.phone,
@@ -153,7 +156,7 @@ class LoginScreen extends StatelessWidget {
                             fillColor: AppColor.textFormFillColor(context),
                             textStyle: TextStyle(color: AppColor.blackTextColor(context)),
                             hintStyle: TextStyle(
-                              color: AppColor.blackTextColor(context).withOpacity(0.3),
+                              color: AppColor.blackTextColor(context).withValues(alpha: 0.3),
                             ),
                             radius: 16,
                           ),
@@ -174,7 +177,7 @@ class LoginScreen extends StatelessWidget {
                                       data: ThemeData(
                                         unselectedWidgetColor: AppColor.blackTextColor(
                                           context,
-                                        ).withOpacity(0.3),
+                                        ).withValues(alpha: 0.3),
                                       ),
                                       child: Checkbox(
                                         value: cubit.rememberMe,
@@ -241,25 +244,41 @@ class LoginScreen extends StatelessWidget {
                                   TextButton(
                                     onPressed: () {
                                       HiveMethods.updateIsGuest(true);
-                                      NavigatorMethods.pushReplacementNamed(context, RoutesName.mainLayout);
+                                      NavigatorMethods.pushReplacementNamed(
+                                        context,
+                                        RoutesName.mainLayout,
+                                      );
                                     },
                                     child: Text(
                                       AppLocaleKey.continueAsGuest.tr(),
-                                      style: AppTextStyle.bodyLarge(context, color: AppColor.blackTextColor(context)),
+                                      style: AppTextStyle.bodyLarge(
+                                        context,
+                                        color: AppColor.blackTextColor(context),
+                                      ),
                                     ),
                                   ),
-                                  Container(width: 1, height: 20.h, color: AppColor.blackTextColor(context).withOpacity(0.2)),
+                                  Container(
+                                    width: 1,
+                                    height: 20.h,
+                                    color: AppColor.blackTextColor(context).withValues(alpha: 0.2),
+                                  ),
                                   TextButton(
                                     onPressed: () {
                                       HiveMethods.updateIsGuest(false);
                                       HiveMethods.updateToken('admin_dummy_token');
                                       HiveMethods.updateRole('admin');
                                       CommonMethods.showToast(message: 'تم تسجيل الدخول كمدير');
-                                      NavigatorMethods.pushReplacementNamed(context, RoutesName.adminDashboard);
+                                      NavigatorMethods.pushReplacementNamed(
+                                        context,
+                                        RoutesName.adminDashboard,
+                                      );
                                     },
                                     child: Text(
                                       'دخول كمسؤول',
-                                      style: AppTextStyle.bodyLarge(context, color: AppColor.primaryColor(context)).copyWith(fontWeight: FontWeight.bold),
+                                      style: AppTextStyle.bodyLarge(
+                                        context,
+                                        color: AppColor.primaryColor(context),
+                                      ).copyWith(fontWeight: FontWeight.bold),
                                     ),
                                   ),
                                 ],
@@ -271,11 +290,17 @@ class LoginScreen extends StatelessWidget {
                                   HiveMethods.updateToken('agent_dummy_token');
                                   HiveMethods.updateRole('agent');
                                   CommonMethods.showToast(message: 'تم تسجيل الدخول كمندوب');
-                                  NavigatorMethods.pushReplacementNamed(context, RoutesName.agentDashboard);
+                                  NavigatorMethods.pushReplacementNamed(
+                                    context,
+                                    RoutesName.agentDashboard,
+                                  );
                                 },
                                 child: Text(
                                   'دخول كمندوب (Agent)',
-                                  style: AppTextStyle.bodyLarge(context, color: const Color(0xFF1565C0)).copyWith(fontWeight: FontWeight.bold),
+                                  style: AppTextStyle.bodyLarge(
+                                    context,
+                                    color: const Color(0xFF1565C0),
+                                  ).copyWith(fontWeight: FontWeight.bold),
                                 ),
                               ),
                             ],

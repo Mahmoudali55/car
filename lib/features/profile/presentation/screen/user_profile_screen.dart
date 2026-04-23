@@ -4,6 +4,7 @@ import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/routes/routes_name.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/features/admin/presentation/screen/widgets/logout_button_widget.dart';
+import 'package:car/features/agent/presentation/agent_shell.dart' as car_agent;
 import 'package:car/features/auth/presentation/view/cubit/auth_cubit.dart';
 import 'package:car/features/profile/presentation/screen/widget/action_tile_widget.dart';
 import 'package:car/features/profile/presentation/screen/widget/info_tile_widget.dart';
@@ -14,7 +15,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
-import 'package:car/features/agent/presentation/agent_shell.dart' as car_agent;
 
 class UserProfileScreen extends StatelessWidget {
   const UserProfileScreen({super.key});
@@ -23,7 +23,7 @@ class UserProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<AuthCubit, AuthState>(
       builder: (context, state) {
-        final user = state.loginStatus.data?.user;
+
 
         return Scaffold(
           backgroundColor: AppColor.scaffoldColor(context),
@@ -43,7 +43,7 @@ class UserProfileScreen extends StatelessWidget {
             physics: const BouncingScrollPhysics(),
             child: Column(
               children: [
-                ProfileHeaderWidget(user: user),
+                ProfileHeaderWidget(user: '---'),
                 Padding(
                   padding: EdgeInsets.all(20.w),
                   child: Column(
@@ -52,22 +52,22 @@ class UserProfileScreen extends StatelessWidget {
                       FadeInUp(
                         child: SectionWidget(title: AppLocaleKey.personalDetails.tr(),children:  [
                           InfoTileWidget(
-                            
+
                            icon:  Icons.person_outline_rounded,
                           label:  AppLocaleKey.fullName.tr(),
-                          value:   user != null ? '${user.firstName} ${user.lastName}' : '---',
+                          value:  ''
                           ),
                           InfoTileWidget(
-                            icon: 
+                            icon:
                             Icons.email_outlined,
                            label:  AppLocaleKey.email.tr(),
-                           value:  user?.email ?? '---',
+                           value: '---',
                           ),
                           InfoTileWidget(
-                            icon: 
+                            icon:
                             Icons.phone_android_rounded,
                            label:  AppLocaleKey.mobileNumber.tr(),
-                          value:   user?.mobile ?? '---',
+                          value:  '---',
                           ),
                         ]),
                       ),
@@ -81,13 +81,13 @@ class UserProfileScreen extends StatelessWidget {
                           onTap:  () {},
                           ),
                           ActionTileWidget(
-                          icon: 
+                          icon:
                             Icons.lock_outline_rounded,
                           label:   AppLocaleKey.changePassword.tr(),
                            onTap: () {},
                           ),
                           ActionTileWidget(
-                           icon: 
+                           icon:
                             Icons.local_shipping_outlined,
                            label:  AppLocaleKey.trackOrder.tr(),
                           onTap:  () => Navigator.pushNamed(context, RoutesName.trackOrderScreen),
@@ -127,13 +127,13 @@ class UserProfileScreen extends StatelessWidget {
     );
   }
 
- 
 
- 
 
-  
 
- 
 
- 
+
+
+
+
+
 }

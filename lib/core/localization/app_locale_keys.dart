@@ -997,4 +997,5 @@ class AppLocaleKey {
   static const String agentUserInitials = 'agent_user_initials';
   static const String agentSaveCustomerAndStart = 'agentSaveCustomerAndStart';
   static const String agentSearchCustomerCarNumber = 'agent_confirm_appointment_scheduling';
+  static const String loginSuccess = 'loginSuccess';
 }
