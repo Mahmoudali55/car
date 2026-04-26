@@ -227,9 +227,11 @@ class _CarComparisonScreenState extends State<CarComparisonScreen> {
         if (car['installments'] != null)
           Text(
             car['installments'],
-            style: AppTextStyle.bodySmall(
-              context,
-            ).copyWith(color: AppColor.primaryColor(context), fontWeight: FontWeight.w800, fontSize: 10.sp),
+            style: AppTextStyle.bodySmall(context).copyWith(
+              color: AppColor.primaryColor(context),
+              fontWeight: FontWeight.w800,
+              fontSize: 10.sp,
+            ),
           ),
       ],
     );

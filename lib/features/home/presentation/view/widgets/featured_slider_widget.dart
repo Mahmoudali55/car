@@ -4,6 +4,7 @@ import 'package:car/core/theme/app_text_style.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gap/gap.dart';
 
 class FeaturedSliderWidget extends StatelessWidget {
   const FeaturedSliderWidget({super.key});
@@ -58,10 +59,7 @@ class FeaturedSliderWidget extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Container(
-                              padding: EdgeInsets.symmetric(
-                                horizontal: 12.w,
-                                vertical: 6.h,
-                              ),
+                              padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
                               decoration: BoxDecoration(
                                 color: AppColor.blackTextColor(context).withOpacity(0.25),
                                 borderRadius: BorderRadius.circular(12.r),
@@ -76,7 +74,7 @@ class FeaturedSliderWidget extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            SizedBox(height: 15.h),
+                            Gap(15.h),
                             Text(
                               'Porsche 911 GT3 RS',
                               style: AppTextStyle.titleLarge(
@@ -84,7 +82,7 @@ class FeaturedSliderWidget extends StatelessWidget {
                                 color: AppColor.blackTextColor(context),
                               ),
                             ),
-                            SizedBox(height: 8.h),
+                            Gap(8.h),
                             Row(
                               children: [
                                 Icon(
@@ -149,7 +147,7 @@ class FeaturedSliderWidget extends StatelessWidget {
             },
           ),
         ),
-        SizedBox(height: 15.h),
+        Gap(15.h),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: List.generate(
@@ -159,9 +157,7 @@ class FeaturedSliderWidget extends StatelessWidget {
               width: index == 0 ? 20.w : 6.w,
               height: 6.w,
               decoration: BoxDecoration(
-                color: index == 0
-                    ? AppColor.primaryColor(context)
-                    : Colors.grey.withOpacity(0.3),
+                color: index == 0 ? AppColor.primaryColor(context) : Colors.grey.withOpacity(0.3),
                 borderRadius: BorderRadius.circular(10),
               ),
             ),

@@ -13,6 +13,7 @@ import 'package:car/features/home/presentation/view/widgets/section_title_widget
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gap/gap.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 class HomeGuestScreen extends StatefulWidget {
@@ -39,9 +40,9 @@ class _HomeGuestScreenState extends State<HomeGuestScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(height: 20.h),
+                    Gap(20.h),
                     const AdsSliderWidget(),
-                    SizedBox(height: 15.h),
+                    Gap(15.h),
 
                     SectionTitleWidget(
                       title: AppLocaleKey.categories.tr(),
@@ -49,18 +50,18 @@ class _HomeGuestScreenState extends State<HomeGuestScreen> {
                         Navigator.pushNamed(context, 'allBrandsScreen');
                       },
                     ),
-                    SizedBox(height: 15.h),
+                    Gap(15.h),
                     const CategoriesWidget(),
-                    SizedBox(height: 15.h),
+                    Gap(15.h),
                     SectionTitleWidget(
                       title: AppLocaleKey.popularCars.tr(),
                       onSeeAll: () {
                         NavigatorMethods.pushNamed(context, RoutesName.popularCarsScreen);
                       },
                     ),
-                    SizedBox(height: 15.h),
+                    Gap(15.h),
                     const PopularCarsSlider(),
-                    SizedBox(height: 20.h),
+                    Gap(20.h),
                     ValueListenableBuilder(
                       valueListenable: Hive.box('app').listenable(keys: ['recentlyViewed']),
                       builder: (context, box, _) {
@@ -73,17 +74,17 @@ class _HomeGuestScreenState extends State<HomeGuestScreen> {
                               title: AppLocaleKey.recentlyViewed.tr(),
                               onSeeAll: null,
                             ),
-                            SizedBox(height: 15.h),
+                            Gap(15.h),
                             RecentlyViewedWidget(cars: list),
-                            SizedBox(height: 20.h),
+                            Gap(20.h),
                           ],
                         );
                       },
                     ),
                     SectionTitleWidget(title: AppLocaleKey.searchByBudget.tr(), onSeeAll: null),
-                    SizedBox(height: 15.h),
+                    Gap(15.h),
                     const BanksSliderWidget(),
-                    SizedBox(height: 15.h),
+                    Gap(15.h),
                     BudgetSearchWidget(
                       initialIndex: _selectedBudgetIndex,
                       onChanged: (index) {
@@ -92,13 +93,13 @@ class _HomeGuestScreenState extends State<HomeGuestScreen> {
                         });
                       },
                     ),
-                    SizedBox(height: 20.h),
+                    Gap(20.h),
                     BudgetCarsListWidget(selectedBudgetIndex: _selectedBudgetIndex),
-                    SizedBox(height: 30.h),
+                    Gap(30.h),
                     SectionTitleWidget(title: AppLocaleKey.trendingNow.tr()),
-                    SizedBox(height: 15.h),
+                    Gap(15.h),
                     const OffersGridWidget(),
-                    SizedBox(height: 120.h),
+                    Gap(120.h),
                   ],
                 ),
               ),

@@ -1,6 +1,8 @@
-import 'package:flutter/material.dart';
 import 'package:car/core/theme/app_colors.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:gap/gap.dart';
+
 import '../../extension/context_extension.dart';
 import '../../images/app_images.dart';
 import '../../theme/app_theme.dart';
@@ -41,11 +43,7 @@ class NoDataWidget extends StatelessWidget {
                   child: Align(
                     alignment: AlignmentDirectional.centerStart,
                     child: Text(
-                      message ??
-                          context.apiTr(
-                            ar: 'لا توجد بيانات',
-                            en: 'There is no data',
-                          ),
+                      message ?? context.apiTr(ar: 'لا توجد بيانات', en: 'There is no data'),
                       style: TextStyle(
                         color: AppTheme.getByTheme(
                           context,
@@ -88,10 +86,9 @@ class NoDataWidget extends StatelessWidget {
                 height: 100,
                 fit: BoxFit.contain,
               ),
-              const SizedBox(height: 10),
+              const Gap(10),
               Text(
-                message ??
-                    context.apiTr(ar: 'لا توجد بيانات', en: 'There is no data'),
+                message ?? context.apiTr(ar: 'لا توجد بيانات', en: 'There is no data'),
                 style: TextStyle(
                   color: AppTheme.getByTheme(
                     context,

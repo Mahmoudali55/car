@@ -1,7 +1,8 @@
-import 'package:flutter/material.dart';
-import 'package:car/core/theme/app_colors.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:car/core/extension/context_extension.dart';
+import 'package:car/core/theme/app_colors.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:gap/gap.dart';
 
 import '../../images/app_images.dart';
 import '../../theme/app_theme.dart';
@@ -11,12 +12,7 @@ class ExceptionWidget extends StatelessWidget {
   final Axis axis;
   final String? message;
   final void Function()? onReload;
-  const ExceptionWidget({
-    super.key,
-    this.axis = Axis.vertical,
-    this.message,
-    this.onReload,
-  });
+  const ExceptionWidget({super.key, this.axis = Axis.vertical, this.message, this.onReload});
 
   @override
   Widget build(BuildContext context) {
@@ -48,8 +44,7 @@ class ExceptionWidget extends StatelessWidget {
                 const SizedBox(width: 10),
                 Expanded(
                   child: Text(
-                    message ??
-                        context.apiTr(ar: 'حدث خطأ', en: 'An error occurred'),
+                    message ?? context.apiTr(ar: 'حدث خطأ', en: 'An error occurred'),
                     style: TextStyle(
                       color: AppTheme.getByTheme(
                         context,
@@ -110,10 +105,9 @@ class ExceptionWidget extends StatelessWidget {
                 height: 80,
                 fit: BoxFit.contain,
               ),
-              const SizedBox(height: 10),
+              const Gap(10),
               Text(
-                message ??
-                    context.apiTr(ar: 'حدث خطأ', en: 'An error occurred'),
+                message ?? context.apiTr(ar: 'حدث خطأ', en: 'An error occurred'),
                 style: TextStyle(
                   color: AppTheme.getByTheme(
                     context,
@@ -125,16 +119,13 @@ class ExceptionWidget extends StatelessWidget {
                 ),
                 textAlign: TextAlign.center,
               ),
-              const SizedBox(height: 10),
+              const Gap(10),
               CustomButton(
                 text: context.apiTr(ar: 'إعادة تحميل', en: 'Reload'),
                 width: MediaQuery.of(context).size.width * 0.5,
                 prefixIcon: SvgPicture.asset(
                   AppImages.assetsGlobalIconRefreshIcon,
-                  colorFilter: ColorFilter.mode(
-                    AppColor.buttonTextColor(context),
-                    BlendMode.srcIn,
-                  ),
+                  colorFilter: ColorFilter.mode(AppColor.buttonTextColor(context), BlendMode.srcIn),
                   width: 20,
                   height: 20,
                   fit: BoxFit.contain,

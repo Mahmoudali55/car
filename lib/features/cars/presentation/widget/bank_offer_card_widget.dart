@@ -3,6 +3,7 @@ import 'package:car/core/theme/app_colors.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gap/gap.dart';
 
 class BankOffer {
   final String nameKey;
@@ -158,7 +159,7 @@ class BankOfferCardWidget extends StatelessWidget {
                           AppLocaleKey.monthlyInstallment.tr(),
                           style: TextStyle(color: Colors.grey[600], fontSize: 12.sp),
                         ),
-                        SizedBox(height: 4.h),
+                        Gap(4.h),
                         Text(
                           '${formatter.format(monthlyInstallment)} SAR',
                           style: TextStyle(
@@ -181,7 +182,7 @@ class BankOfferCardWidget extends StatelessWidget {
                             AppLocaleKey.totalAmount.tr(),
                             style: TextStyle(color: Colors.grey[600], fontSize: 12.sp),
                           ),
-                          SizedBox(height: 4.h),
+                          Gap(4.h),
                           Text(
                             '${formatter.format(totalAmount)} SAR',
                             style: TextStyle(

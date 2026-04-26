@@ -50,8 +50,7 @@ class QuotePdfGenerator {
       pw.Page(
         pageFormat: PdfPageFormat.a4,
         theme: pw.ThemeData.withFont(base: arabicFont, bold: arabicFontBold),
-        textDirection:
-            languageCode == 'ar' ? pw.TextDirection.rtl : pw.TextDirection.ltr,
+        textDirection: languageCode == 'ar' ? pw.TextDirection.rtl : pw.TextDirection.ltr,
         build: (pw.Context ctx) {
           return pw.Column(
             crossAxisAlignment: pw.CrossAxisAlignment.stretch,
@@ -74,11 +73,19 @@ class QuotePdfGenerator {
                       pw.SizedBox(height: 6),
                       pw.Text(
                         textDate,
-                        style: pw.TextStyle(font: arabicFont, fontSize: 12, color: PdfColors.grey700),
+                        style: pw.TextStyle(
+                          font: arabicFont,
+                          fontSize: 12,
+                          color: PdfColors.grey700,
+                        ),
                       ),
                       pw.Text(
                         refNo,
-                        style: pw.TextStyle(font: arabicFont, fontSize: 12, color: PdfColors.grey700),
+                        style: pw.TextStyle(
+                          font: arabicFont,
+                          fontSize: 12,
+                          color: PdfColors.grey700,
+                        ),
                       ),
                     ],
                   ),
@@ -121,7 +128,12 @@ class QuotePdfGenerator {
                       children: [
                         _buildRowInfo(brandModel, car['name'] ?? '', arabicFontBold, arabicFont),
                         pw.SizedBox(height: 10),
-                        _buildRowInfo(manufacturingYear, car['year'] ?? '', arabicFontBold, arabicFont),
+                        _buildRowInfo(
+                          manufacturingYear,
+                          car['year'] ?? '',
+                          arabicFontBold,
+                          arabicFont,
+                        ),
                         pw.SizedBox(height: 10),
                         _buildRowInfo(engine, car['engine'] ?? '', arabicFontBold, arabicFont),
                         pw.SizedBox(height: 10),
@@ -199,10 +211,7 @@ class QuotePdfGenerator {
   }
 
   static Future<void> printQuotation(Uint8List bytes, String fileName) async {
-    await Printing.layoutPdf(
-      onLayout: (PdfPageFormat format) async => bytes,
-      name: fileName,
-    );
+    await Printing.layoutPdf(onLayout: (PdfPageFormat format) async => bytes, name: fileName);
   }
 
   static Future<void> viewQuotation(Uint8List bytes, String fileName) async {
@@ -246,7 +255,9 @@ class QuotePdfGenerator {
           '$label: ',
           style: pw.TextStyle(font: boldFont, fontSize: 16, color: PdfColors.grey800),
         ),
-        pw.Expanded(child: pw.Text(value, style: pw.TextStyle(font: regularFont, fontSize: 16))),
+        pw.Expanded(
+          child: pw.Text(value, style: pw.TextStyle(font: regularFont, fontSize: 16)),
+        ),
       ],
     );
   }

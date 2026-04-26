@@ -3,6 +3,7 @@ import 'package:car/core/theme/app_colors.dart';
 import 'package:car/features/onboarding/data/model/on_boarding_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gap/gap.dart';
 
 class OnboardingPageItem extends StatelessWidget {
   final OnboardingModel model;
@@ -45,7 +46,7 @@ class OnboardingPageItem extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(height: 40.h),
+          Gap(40.h),
           FadeInUp(
             duration: const Duration(milliseconds: 1000),
             child: Padding(
@@ -61,7 +62,7 @@ class OnboardingPageItem extends StatelessWidget {
                       color: AppColor.blackTextColor(context),
                     ),
                   ),
-                  SizedBox(height: 20.h),
+                  Gap(20.h),
                   Text(
                     model.description,
                     textAlign: TextAlign.center,

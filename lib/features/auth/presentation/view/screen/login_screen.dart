@@ -16,6 +16,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gap/gap.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
@@ -72,7 +73,7 @@ class LoginScreen extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(height: 60.h),
+                        Gap(60.h),
                         FadeInDown(
                           duration: const Duration(milliseconds: 1500),
                           child: Center(
@@ -97,7 +98,7 @@ class LoginScreen extends StatelessWidget {
                             ),
                           ),
                         ),
-                        SizedBox(height: 40.h),
+                        Gap(40.h),
                         FadeInLeft(
                           duration: const Duration(milliseconds: 1000),
                           child: Column(
@@ -110,7 +111,7 @@ class LoginScreen extends StatelessWidget {
                                   color: AppColor.blackTextColor(context),
                                 ).copyWith(fontSize: 32.sp),
                               ),
-                              SizedBox(height: 8.h),
+                              Gap(8.h),
                               Text(
                                 AppLocaleKey.loginToContinueYourPremiumExperience.tr(),
                                 style: AppTextStyle.bodyLarge(
@@ -121,7 +122,7 @@ class LoginScreen extends StatelessWidget {
                             ],
                           ),
                         ),
-                        SizedBox(height: 40.h),
+                        Gap(40.h),
                         FadeInUp(
                           delay: const Duration(milliseconds: 200),
                           duration: const Duration(milliseconds: 1000),
@@ -141,7 +142,7 @@ class LoginScreen extends StatelessWidget {
                             keyboardType: TextInputType.phone,
                           ),
                         ),
-                        SizedBox(height: 20.h),
+                        Gap(20.h),
                         FadeInUp(
                           delay: const Duration(milliseconds: 400),
                           duration: const Duration(milliseconds: 1000),
@@ -161,7 +162,7 @@ class LoginScreen extends StatelessWidget {
                             radius: 16,
                           ),
                         ),
-                        SizedBox(height: 10.h),
+                        Gap(10.h),
                         FadeInUp(
                           delay: const Duration(milliseconds: 500),
                           duration: const Duration(milliseconds: 1000),
@@ -210,7 +211,7 @@ class LoginScreen extends StatelessWidget {
                             ],
                           ),
                         ),
-                        SizedBox(height: 30.h),
+                        Gap(30.h),
                         FadeInUp(
                           delay: const Duration(milliseconds: 600),
                           duration: const Duration(milliseconds: 1000),
@@ -237,7 +238,7 @@ class LoginScreen extends StatelessWidget {
                                   }
                                 },
                               ),
-                              SizedBox(height: 15.h),
+                              Gap(15.h),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                 children: [
@@ -283,7 +284,7 @@ class LoginScreen extends StatelessWidget {
                                   ),
                                 ],
                               ),
-                              SizedBox(height: 5.h),
+                              Gap(5.h),
                               TextButton(
                                 onPressed: () {
                                   HiveMethods.updateIsGuest(false);
@@ -306,7 +307,7 @@ class LoginScreen extends StatelessWidget {
                             ],
                           ),
                         ),
-                        SizedBox(height: 40.h),
+                        Gap(40.h),
                         FadeInUp(
                           delay: const Duration(milliseconds: 800),
                           duration: const Duration(milliseconds: 1000),
@@ -334,7 +335,7 @@ class LoginScreen extends StatelessWidget {
                             ],
                           ),
                         ),
-                        SizedBox(height: 20.h),
+                        Gap(20.h),
                       ],
                     ),
                   ),

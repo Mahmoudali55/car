@@ -2,6 +2,7 @@ import 'package:car/core/images/app_images.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:gap/gap.dart';
 
 enum ToastType { success, error, offline, warning, help }
 
@@ -41,7 +42,10 @@ class CustomToast extends StatelessWidget {
             offset: const Offset(0, 4),
           ),
         ],
-        border: Border.all(color: (backgroundColor ?? _backgroundColor()).withOpacity(0.5), width: 1.5),
+        border: Border.all(
+          color: (backgroundColor ?? _backgroundColor()).withOpacity(0.5),
+          width: 1.5,
+        ),
       ),
       child: Row(
         children: [
@@ -73,7 +77,7 @@ class CustomToast extends StatelessWidget {
                     ),
                     maxLines: 1,
                   ),
-                  const SizedBox(height: 8),
+                  const Gap(8),
                 },
                 Text(
                   message,

@@ -1,6 +1,8 @@
-import 'package:flutter/material.dart';
 import 'package:car/core/theme/app_colors.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:gap/gap.dart';
+
 import '../../extension/context_extension.dart';
 import '../../images/app_images.dart';
 import '../../theme/app_theme.dart';
@@ -103,7 +105,7 @@ class OfflineWidget extends StatelessWidget {
                 height: 80,
                 fit: BoxFit.contain,
               ),
-              const SizedBox(height: 10),
+              const Gap(10),
               Text(
                 context.apiTr(
                   ar: 'تأكد من الاتصال بالإنترنت',
@@ -120,16 +122,13 @@ class OfflineWidget extends StatelessWidget {
                 ),
                 textAlign: TextAlign.center,
               ),
-              const SizedBox(height: 10),
+              const Gap(10),
               CustomButton(
                 width: MediaQuery.of(context).size.width * 0.5,
                 text: context.apiTr(ar: 'إعادة تحميل', en: 'Reload'),
                 prefixIcon: SvgPicture.asset(
                   AppImages.assetsGlobalIconRefreshIcon,
-                  colorFilter: ColorFilter.mode(
-                    AppColor.buttonTextColor(context),
-                    BlendMode.srcIn,
-                  ),
+                  colorFilter: ColorFilter.mode(AppColor.buttonTextColor(context), BlendMode.srcIn),
                   width: 20,
                   height: 20,
                   fit: BoxFit.contain,
