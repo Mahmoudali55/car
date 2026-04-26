@@ -54,12 +54,30 @@ class _CarHeaderWidgetState extends State<CarHeaderWidget> {
                     ),
                   ),
                   Gap(4.h),
-                  Text(
-                    widget.car['name'] ?? '',
-                    style: AppTextStyle.bodyMedium(context).copyWith(
-                      color: AppColor.blackTextColor(context),
-                      fontWeight: FontWeight.w900,
-                    ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          widget.car['name'] ?? '',
+                          style: AppTextStyle.bodyMedium(context).copyWith(
+                            color: AppColor.blackTextColor(context),
+                            fontWeight: FontWeight.w900,
+                          ),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                      if (widget.car['Color'] != null) ...[
+                        Gap(8.w),
+                        Text(
+                          '(${widget.car['Color']})',
+                          style: AppTextStyle.bodySmall(context).copyWith(
+                            color: AppColor.greyColor(context),
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ],
+                    ],
                   ),
                   Gap(8.h),
                   if (widget.car['carStatusText'] != null)

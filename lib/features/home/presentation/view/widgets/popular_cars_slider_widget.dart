@@ -126,6 +126,18 @@ class _PopularCarsSliderState extends State<PopularCarsSlider> {
                     'isFavorite': false,
                     'carStatus': car.carStatus,
                     'carStatusText': car.carStatusText,
+                    // Technical Details
+                    'CHASSIS_NO': car.chassisNo,
+                    'MOTOR_NO': car.motorNo,
+                    'KILOMETER_READING': car.kilometerReading,
+                    'CYLINDER': car.cylinder,
+                    'POWER_HOURSE': car.powerHourse,
+                    'FUEL_CAPACITY': car.fuelCapacity,
+                    'SEAT_NO': car.seatNo,
+                    'DOOR_NO': car.doorNo,
+                    'Color': car.color,
+                    'TRANSMISSION': car.transmission,
+                    'MAKE_YEAR': car.makeYear,
                   },
                 )
                 .toList();
