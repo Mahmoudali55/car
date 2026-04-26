@@ -1,9 +1,9 @@
 import 'package:car/core/custom_widgets/buttons/custom_button.dart';
 import 'package:car/core/custom_widgets/custom_form_field/custom_form_field.dart';
-import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
-import 'package:easy_localization/easy_localization.dart';
+import 'package:car/core/theme/app_colors.dart';
 import 'package:car/features/agent/presentation/screens/widget/icon_btn_widget.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -13,6 +13,7 @@ class AgentAddAppointmentScreen extends StatefulWidget {
   @override
   State<AgentAddAppointmentScreen> createState() => _AgentAddAppointmentScreenState();
 }
+
 class _AgentAddAppointmentScreenState extends State<AgentAddAppointmentScreen> {
   final TextEditingController dateController = TextEditingController();
   final TextEditingController timeController = TextEditingController();
@@ -53,16 +54,17 @@ class _AgentAddAppointmentScreenState extends State<AgentAddAppointmentScreen> {
                   fontWeight: FontWeight.w500,
                 ),
               ),
-              Gap(24.h),                       
+              Gap(24.h),
+
               /// Form Fields
-               CustomFormField(
+              CustomFormField(
                 radius: 12.r,
                 title: AppLocaleKey.agentSearchCustomer.tr(),
-              
+
                 prefixIcon: const Icon(Icons.search_rounded),
               ),
               Gap(20.h),
-               Row(
+              Row(
                 children: [
                   Expanded(
                     child: CustomFormField(
@@ -111,28 +113,33 @@ class _AgentAddAppointmentScreenState extends State<AgentAddAppointmentScreen> {
                 ],
               ),
               Gap(20.h),
-               CustomFormField(
+              CustomFormField(
                 radius: 12.r,
                 title: AppLocaleKey.agentAppointmentLocation.tr(),
                 hintText: AppLocaleKey.agentBranchOrLocation.tr(),
                 prefixIcon: const Icon(Icons.location_on_outlined),
               ),
               Gap(20.h),
-               CustomFormField(
+              CustomFormField(
                 radius: 12.r,
                 title: AppLocaleKey.agentMeetingPurpose.tr(),
                 hintText: AppLocaleKey.agentExampleMeetingPurpose.tr(),
                 prefixIcon: const Icon(Icons.info_outline_rounded),
                 maxLines: 3,
               ),
-                Gap(20.h),         
+              Gap(20.h),
+
               /// Bottom Action Bar
               CustomButton(
                 onPressed: () => Navigator.pop(context),
-                  radius: 12.r,                
+                radius: 12.r,
                 child: Text(
                   AppLocaleKey.agentConfirmAppointment.tr(),
-                  style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w900, color: Colors.white),
+                  style: TextStyle(
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.w900,
+                    color: AppColor.whiteColor(context),
+                  ),
                 ),
               ),
             ],

@@ -1,13 +1,14 @@
 import 'package:car/core/custom_widgets/buttons/custom_button.dart';
 import 'package:car/core/custom_widgets/custom_app_bar/custom_app_bar.dart';
 import 'package:car/core/custom_widgets/custom_form_field/custom_form_field.dart';
-import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
-import 'package:easy_localization/easy_localization.dart';
+import 'package:car/core/theme/app_colors.dart';
 import 'package:car/features/agent/presentation/screens/widget/icon_btn_widget.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
+
 class AgentAddLeadScreen extends StatelessWidget {
   const AgentAddLeadScreen({super.key});
   @override
@@ -45,7 +46,7 @@ class AgentAddLeadScreen extends StatelessWidget {
                 ),
               ),
               Gap(24.h),
-                        
+
               /// Form Fields
               CustomFormField(
                 title: AppLocaleKey.agentFullCustomerName.tr(),
@@ -53,7 +54,7 @@ class AgentAddLeadScreen extends StatelessWidget {
                 prefixIcon: const Icon(Icons.person_outline_rounded),
               ),
               Gap(20.h),
-               CustomFormField(
+              CustomFormField(
                 title: AppLocaleKey.agentPhoneNumberLabel.tr(),
                 hintText: '05xxxxxxxx',
                 prefixIcon: const Icon(Icons.phone_android_rounded),
@@ -73,21 +74,25 @@ class AgentAddLeadScreen extends StatelessWidget {
                 prefixIcon: const Icon(Icons.directions_car_outlined),
               ),
               Gap(20.h),
-               CustomFormField(
+              CustomFormField(
                 title: AppLocaleKey.agentExpectedBudget.tr(),
                 hintText: AppLocaleKey.agentEnterEstimatedValue.tr(),
                 prefixIcon: const Icon(Icons.payments_outlined),
                 keyboardType: TextInputType.number,
               ),
-          
+
               /// Bottom Action Bar
               Gap(40.h),
               CustomButton(
-                onPressed: () => Navigator.pop(context),                
-               radius: 12.r,
+                onPressed: () => Navigator.pop(context),
+                radius: 12.r,
                 child: Text(
                   AppLocaleKey.agentSaveCustomerAndStart.tr(),
-                  style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w900, color: Colors.white),
+                  style: TextStyle(
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.w900,
+                    color: AppColor.whiteColor(context),
+                  ),
                 ),
               ),
             ],
