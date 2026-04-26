@@ -11,9 +11,10 @@ import 'package:car/features/cars/presentation/widget/section_title_widget.dart'
 import 'package:car/features/cars/presentation/widget/sliver_app_bar_widget.dart';
 import 'package:car/features/cars/presentation/widget/spec_grid_widget.dart';
 import 'package:car/features/cars/presentation/widget/sticky_action_bar_widget.dart';
-import 'package:car/features/cars/presentation/widget/video_review_widget.dart';
+import 'package:car/features/home/presentation/cubit/home_cubit.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
@@ -38,8 +39,18 @@ class _CarDetailsScreenState extends State<CarDetailsScreen> {
   void initState() {
     super.initState();
     HiveMethods.addToRecentlyViewed(widget.car);
+
     final mainImage = widget.car['image'] ?? 'assets/images/placeholder.png';
-    _carImages = [mainImage, mainImage, mainImage];
+    _carImages = [mainImage];
+
+    final String carId = widget.car['groupCode']?.toString() ?? '1008101131'; // fallback
+    final String makeYear = widget.car['year']?.toString() ?? '2024';
+
+    // Check if context is mounted safely or wrap in post frame if needed
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      // Images are now pre-loaded from GetBrandCarsDataModel.listFromResponse
+    // context.read<HomeCubit>().getCarImages(carId, makeYear);
+    });
 
     _controller = YoutubePlayerController(
       initialVideoId: widget.car['video_id'] ?? 'D7O8J5vVf-M',
@@ -75,10 +86,12 @@ class _CarDetailsScreenState extends State<CarDetailsScreen> {
         controller: _controller,
         showVideoProgressIndicator: true,
         progressIndicatorColor: AppColor.primaryColor(context),
-        thumbnail: Image.asset(
-          widget.car['image'] ?? 'assets/images/placeholder.png',
-          fit: BoxFit.cover,
-        ),
+        thumbnail: widget.car['image'] != null && widget.car['image'].toString().startsWith('http')
+            ? Image.network(widget.car['image'], fit: BoxFit.cover)
+            : Image.asset(
+                widget.car['image'] ?? 'assets/images/placeholder.png',
+                fit: BoxFit.cover,
+              ),
       ),
       builder: (context, player) {
         return Scaffold(
@@ -122,11 +135,11 @@ class _CarDetailsScreenState extends State<CarDetailsScreen> {
                               const FeaturesGridWidget(),
 
                               Gap(32.h),
-                              VideoReviewWidget(
-                                car: widget.car,
-                                controller: _controller,
-                                player: player,
-                              ),
+                              // VideoReviewWidget(
+                              //   car: widget.car,
+                              //   controller: _controller,
+                              //   player: player,
+                              // ),
                             ],
                           ),
                         ),

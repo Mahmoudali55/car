@@ -953,7 +953,9 @@
   "agent_nav_appointments": "المواعيد",
   "agentSaveCustomerAndStart": "حفظ العميل والبدء",
   "agent_search_customer_car_number":"ابحث عن عميل، سيارة، أو رقم...",
-  "loginSuccess": "تم تسجيل الدخول بنجاح"
+  "loginSuccess": "تم تسجيل الدخول بنجاح",
+  "agent_no_cars":"لا يوجد سيارات متاحة لهذه الماركة",
+  "agent_no_cars_available":"لا توجد سيارات متوفرة لهذه الماركة حالياً"
 
 
 

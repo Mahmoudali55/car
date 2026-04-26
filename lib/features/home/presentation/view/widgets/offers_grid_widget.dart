@@ -153,9 +153,20 @@ class OffersGridWidget extends StatelessWidget {
                           alignment: Alignment.center,
                           children: [
                             Hero(
-                              tag: 'car_image_${car['name']}',
+                              tag: 'car_image_${car['itemCode'] ?? car['name']}',
                               child: Center(
-                                child: Image.asset(car['image'], height: 60.h, fit: BoxFit.contain),
+                                child: car['image'].toString().startsWith('http')
+                                    ? Image.network(
+                                        car['image'],
+                                        height: 60.h,
+                                        fit: BoxFit.contain,
+                                        errorBuilder: (_, __, ___) => Icon(
+                                          Icons.directions_car_rounded,
+                                          size: 30.h,
+                                          color: AppColor.greyColor(context).withOpacity(0.5),
+                                        ),
+                                      )
+                                    : Image.asset(car['image'], height: 60.h, fit: BoxFit.contain),
                               ),
                             ),
                             // Favorite Button

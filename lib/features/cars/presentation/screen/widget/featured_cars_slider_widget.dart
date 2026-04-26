@@ -127,13 +127,24 @@ class _FeaturedCarsSliderWidgetState extends State<FeaturedCarsSliderWidget> {
                           Expanded(
                             flex: 6,
                             child: Hero(
-                              tag: 'featured_car_${car['name']}',
+                              tag: 'car_image_${car['itemCode'] ?? car['name']}',
                               child: Center(
-                                child: Image.asset(
-                                  car['image']!,
-                                  fit: BoxFit.contain,
-                                  height: 120.h,
-                                ),
+                                child: car['image'].toString().startsWith('http')
+                                    ? Image.network(
+                                        car['image']!,
+                                        fit: BoxFit.contain,
+                                        height: 120.h,
+                                        errorBuilder: (_, __, ___) => Icon(
+                                          Icons.directions_car_rounded,
+                                          size: 60.h,
+                                          color: AppColor.greyColor(context).withOpacity(0.5),
+                                        ),
+                                      )
+                                    : Image.asset(
+                                        car['image']!,
+                                        fit: BoxFit.contain,
+                                        height: 120.h,
+                                      ),
                               ),
                             ),
                           ),

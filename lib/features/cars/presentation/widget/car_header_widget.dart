@@ -18,6 +18,19 @@ class CarHeaderWidget extends StatefulWidget {
 }
 
 class _CarHeaderWidgetState extends State<CarHeaderWidget> {
+  Color _getStatusColor(int status) {
+    switch (status) {
+      case 1:
+        return Colors.green;
+      case 2:
+        return Colors.orange;
+      case 3:
+        return Colors.red;
+      default:
+        return Colors.grey;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final bool isInCompare = HiveMethods.isInComparison(widget.car['name'] ?? '');
@@ -43,11 +56,31 @@ class _CarHeaderWidgetState extends State<CarHeaderWidget> {
                   Gap(4.h),
                   Text(
                     widget.car['name'] ?? '',
-                    style: AppTextStyle.titleLarge(context).copyWith(
+                    style: AppTextStyle.bodyMedium(context).copyWith(
                       color: AppColor.blackTextColor(context),
                       fontWeight: FontWeight.w900,
                     ),
                   ),
+                  Gap(8.h),
+                  if (widget.car['carStatusText'] != null)
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
+                      decoration: BoxDecoration(
+                        color: _getStatusColor(widget.car['carStatus'] ?? 0).withOpacity(0.1),
+                        borderRadius: BorderRadius.circular(8.r),
+                        border: Border.all(
+                          color: _getStatusColor(widget.car['carStatus'] ?? 0).withOpacity(0.3),
+                        ),
+                      ),
+                      child: Text(
+                        widget.car['carStatusText'],
+                        style: TextStyle(
+                          color: _getStatusColor(widget.car['carStatus'] ?? 0),
+                          fontSize: 10.sp,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
                 ],
               ),
             ),

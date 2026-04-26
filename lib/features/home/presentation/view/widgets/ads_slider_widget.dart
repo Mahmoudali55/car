@@ -199,7 +199,16 @@ class _AdsSliderWidgetState extends State<AdsSliderWidget> {
                     tag: 'ad_car_${ad['title']}',
                     child: Transform.rotate(
                       angle: -0.05,
-                      child: Image.asset(ad['image'], fit: BoxFit.contain),
+                      child: ad['image'].toString().startsWith('http')
+                          ? Image.network(
+                              ad['image'],
+                              fit: BoxFit.contain,
+                              errorBuilder: (_, __, ___) => const Icon(
+                                Icons.directions_car_rounded,
+                                color: Colors.white,
+                              ),
+                            )
+                          : Image.asset(ad['image'], fit: BoxFit.contain),
                     ),
                   ),
                 ),

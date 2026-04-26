@@ -1,15 +1,16 @@
 import 'package:car/core/cache/hive/hive_methods.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
-import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/core/utils/common_methods.dart';
 import 'package:car/features/favorites/presentation/view/cubit/favorites_cubit.dart';
+import 'package:car/features/home/presentation/cubit/home_cubit.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:share_plus/share_plus.dart';
+
 class SliverAppBarWidget extends StatefulWidget {
   const SliverAppBarWidget({
     super.key,
@@ -25,6 +26,7 @@ class SliverAppBarWidget extends StatefulWidget {
   @override
   State<SliverAppBarWidget> createState() => _SliverAppBarWidgetState();
 }
+
 class _SliverAppBarWidgetState extends State<SliverAppBarWidget> {
   late int _currentImageIndex;
 
@@ -101,65 +103,136 @@ class _SliverAppBarWidgetState extends State<SliverAppBarWidget> {
         Gap(12.w),
       ],
       flexibleSpace: FlexibleSpaceBar(
-        background: Stack(
-          fit: StackFit.expand,
-          children: [
-            PageView.builder(
-              controller: widget.imagePageController,
-              onPageChanged: (index) => setState(() => _currentImageIndex = index),
-              itemCount: widget.carImages.length,
-              itemBuilder: (context, index) {
-                return Hero(
-                  tag: index == 0
-                      ? 'car_image_${widget.car['name'] ?? ''}'
-                      : 'car_image_gallery_$index',
-                  child: Container(
-                    padding: EdgeInsets.only(top: 80.h, bottom: 40.h),
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: [
-                          AppColor.primaryColor(context).withOpacity(0.15),
-                          AppColor.scaffoldColor(context),
-                        ],
+        background: BlocBuilder<HomeCubit, HomeState>(
+          builder: (context, state) {
+            List<String> displayedImages = [widget.car['image'] ?? 'assets/images/placeholder.png'];
+
+            if (widget.car['extraImages'] != null &&
+                (widget.car['extraImages'] as List).isNotEmpty) {
+              final extraImages = widget.car['extraImages'] as List<String>;
+              for (var img in extraImages) {
+                if (!displayedImages.contains(img)) {
+                  displayedImages.add(img);
+                }
+              }
+            }
+
+            final safeIndex = _currentImageIndex < displayedImages.length ? _currentImageIndex : 0;
+
+            return Stack(
+              fit: StackFit.expand,
+              children: [
+                // Main Image Slider
+                PageView.builder(
+                  controller: widget.imagePageController,
+                  onPageChanged: (index) => setState(() => _currentImageIndex = index),
+                  itemCount: displayedImages.length,
+                  itemBuilder: (context, index) {
+                    final imageUrl = displayedImages[index];
+                    final isNetwork = imageUrl.startsWith('http');
+
+                    return Hero(
+                      tag: index == 0
+                          ? 'car_image_${widget.car['itemCode'] ?? widget.car['name']}'
+                          : 'car_image_gallery_${widget.car['itemCode'] ?? widget.car['name']}_$index',
+                      child: Container(
+                        decoration: BoxDecoration(color: AppColor.scaffoldColor(context)),
+                        child: Stack(
+                          fit: StackFit.expand,
+                          children: [
+                            // Blurred Background Accent
+                            if (isNetwork)
+                              Opacity(
+                                opacity: 0.1,
+                                child: Image.network(imageUrl, fit: BoxFit.cover),
+                              ),
+
+                            // Car Image with better spacing
+                            Padding(
+                              padding: EdgeInsets.fromLTRB(20.w, 80.h, 20.w, 60.h),
+                              child: isNetwork
+                                  ? Image.network(
+                                      imageUrl,
+                                      fit: BoxFit.contain,
+                                      errorBuilder: (_, __, ___) => Icon(
+                                        Icons.directions_car_rounded,
+                                        size: 120.h,
+                                        color: AppColor.greyColor(context).withOpacity(0.5),
+                                      ),
+                                    )
+                                  : Image.asset(
+                                      imageUrl.isEmpty ? 'assets/images/placeholder.png' : imageUrl,
+                                      fit: BoxFit.contain,
+                                    ),
+                            ),
+
+                            // Bottom Fade Overlay
+                            Positioned(
+                              bottom: 0,
+                              left: 0,
+                              right: 0,
+                              height: 100.h,
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  gradient: LinearGradient(
+                                    begin: Alignment.bottomCenter,
+                                    end: Alignment.topCenter,
+                                    colors: [
+                                      AppColor.scaffoldColor(context),
+                                      AppColor.scaffoldColor(context).withOpacity(0),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
+                    );
+                  },
+                ),
+
+                // Premium Page Indicator (Pill Design)
+                if (displayedImages.length > 1)
+                  Positioned(
+                    bottom: 30.h,
+                    left: 0,
+                    right: 0,
                     child: Center(
-                      child: Center(
-                        child: Image.asset(
-                          widget.carImages[index].isEmpty 
-                              ? 'assets/images/placeholder.png' 
-                              : widget.carImages[index],
-                          fit: BoxFit.contain,
-                          width: 300.w,
-                          height: 300.h,
+                      child: Container(
+                        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+                        decoration: BoxDecoration(
+                          color: Colors.black.withOpacity(0.6),
+                          borderRadius: BorderRadius.circular(30.r),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.2),
+                              blurRadius: 10,
+                              offset: const Offset(0, 4),
+                            ),
+                          ],
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(Icons.photo_library_outlined, color: Colors.white, size: 14.sp),
+                            Gap(8.w),
+                            Text(
+                              '${safeIndex + 1} / ${displayedImages.length}',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 13.sp,
+                                fontWeight: FontWeight.w900,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ),
                   ),
-                );
-              },
-            ),
-            // Page Indicator
-            Positioned(
-              bottom: 20.h,
-              right: 20.w,
-              child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
-                decoration: BoxDecoration(
-                  color: AppColor.blackTextColor(context).withOpacity(0.3),
-                  borderRadius: BorderRadius.circular(20.r),
-                ),
-                child: Text(
-                  '${_currentImageIndex + 1} / ${widget.carImages.length}',
-                  style: AppTextStyle.bodySmall(
-                    context,
-                  ).copyWith(color: AppColor.whiteColor(context), fontWeight: FontWeight.bold),
-                ),
-              ),
-            ),
-          ],
+              ],
+            );
+          },
         ),
       ),
     );

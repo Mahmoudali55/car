@@ -48,9 +48,24 @@ class PremiumCarCardWidget extends StatelessWidget {
                   padding: EdgeInsets.all(20.w),
 
                   child: Hero(
-                    tag: 'car_image_${car['name']}',
+                    tag: 'car_image_${car['itemCode'] ?? car['name']}',
                     child: Center(
-                      child: Image.asset(car['image'], fit: BoxFit.contain, height: 150.h),
+                      child: car['image'] != null && car['image'].toString().startsWith('http')
+                          ? Image.network(
+                              car['image'],
+                              fit: BoxFit.contain,
+                              height: 150.h,
+                              errorBuilder: (_, __, ___) => Icon(
+                                Icons.directions_car_rounded,
+                                size: 80.h,
+                                color: AppColor.greyColor(context).withOpacity(0.5),
+                              ),
+                            )
+                          : Image.asset(
+                              car['image'] ?? 'assets/images/car.jpeg',
+                              fit: BoxFit.contain,
+                              height: 150.h,
+                            ),
                     ),
                   ),
                 ),

@@ -125,8 +125,21 @@ class MagazineCardWidget extends StatelessWidget {
                     child: Transform.scale(
                       scale: 1.1,
                       child: Hero(
-                        tag: 'popular_car_${car['name']}',
-                        child: Image.asset(car['image'], fit: BoxFit.contain),
+                        tag: 'car_image_${car['itemCode'] ?? car['name']}',
+                        child: car['image'].toString().startsWith('http')
+                            ? Image.network(
+                                car['image'],
+                                fit: BoxFit.contain,
+                                errorBuilder: (_, __, ___) => Icon(
+                                  Icons.directions_car_rounded,
+                                  size: 100.h,
+                                  color: AppColor.greyColor(context).withOpacity(0.5),
+                                ),
+                              )
+                            : Image.asset(
+                                car['image'] ?? 'assets/images/placeholder.png',
+                                fit: BoxFit.contain,
+                              ),
                       ),
                     ),
                   ),

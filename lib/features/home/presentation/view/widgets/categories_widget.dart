@@ -79,6 +79,7 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
                     setState(() {
                       _selectedIndex = index;
                     });
+                    cubit.getBrandCars(item.groupCode.toString());
                   },
                   child: AnimatedScale(
                     scale: isSelected ? 1.08 : 1.0,

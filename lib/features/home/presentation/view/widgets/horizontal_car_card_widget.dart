@@ -49,8 +49,18 @@ class HorizontalCarCardWidget extends StatelessWidget {
               ),
               padding: EdgeInsets.all(12.w),
               child: Hero(
-                tag: 'budget_car_${car['name']}',
-                child: Image.asset(car['image'] ?? 'assets/images/car.jpeg', fit: BoxFit.contain),
+                tag: 'car_image_${car['itemCode'] ?? car['name']}',
+                child: (car['image'] != null && car['image'].toString().startsWith('http'))
+                    ? Image.network(
+                        car['image'],
+                        fit: BoxFit.contain,
+                        errorBuilder: (_, __, ___) => Icon(
+                          Icons.directions_car_rounded,
+                          size: 50.h,
+                          color: AppColor.greyColor(context).withOpacity(0.5),
+                        ),
+                      )
+                    : Image.asset(car['image'] ?? 'assets/images/car.jpeg', fit: BoxFit.contain),
               ),
             ),
 

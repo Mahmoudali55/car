@@ -56,7 +56,17 @@ class RecentlyViewedWidget extends StatelessWidget {
                       child: Center(
                         child: Padding(
                           padding: EdgeInsets.all(12.w),
-                          child: Image.asset(car['image']!, fit: BoxFit.contain),
+                          child: car['image'].toString().startsWith('http')
+                              ? Image.network(
+                                  car['image'],
+                                  fit: BoxFit.contain,
+                                  errorBuilder: (_, __, ___) => Icon(
+                                    Icons.directions_car_rounded,
+                                    size: 50.h,
+                                    color: AppColor.greyColor(context).withOpacity(0.5),
+                                  ),
+                                )
+                              : Image.asset(car['image']!, fit: BoxFit.contain),
                         ),
                       ),
                     ),
