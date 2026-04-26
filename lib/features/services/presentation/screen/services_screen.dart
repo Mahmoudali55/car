@@ -179,20 +179,14 @@ class ServicesScreen extends StatelessWidget {
           ),
         ],
       ),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(24.r),
-        child: Stack(
-          children: [
-            // Side Car Visual (High Contrast)
-            Positioned(
-              right: -30.w,
-              bottom: -10.h,
-              child: Opacity(
-                opacity: 0.8,
-                child: Image.asset('assets/images/car.jpeg', height: 160.h, fit: BoxFit.contain),
-              ),
-            ),
-          ],
+      child: Opacity(
+        opacity: 0.8,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(24.r),
+            child: Image.asset('assets/images/car.jpeg', height: 160.h, fit: BoxFit.contain),
+          ),
         ),
       ),
     );

@@ -7,7 +7,7 @@ import 'package:gap/gap.dart';
 
 class ProfileHeaderWidget extends StatelessWidget {
   const ProfileHeaderWidget({super.key, this.user});
-final dynamic user;
+  final dynamic user;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -58,7 +58,7 @@ final dynamic user;
           ),
           Gap(16.h),
           Text(
-            user != null ? '${user.firstName} ${user.lastName}' : '---',
+            '---',
             style: TextStyle(
               color: AppColor.blackTextColor(context),
               fontSize: 22.sp,
@@ -79,7 +79,7 @@ final dynamic user;
                 borderRadius: BorderRadius.circular(20.r),
               ),
               child: Text(
-                '${AppLocaleKey.memberSince.tr()} ${user.createdAt}',
+                '${AppLocaleKey.memberSince.tr()} ${"---"}',
                 style: TextStyle(
                   color: AppColor.primaryColor(context),
                   fontSize: 12.sp,

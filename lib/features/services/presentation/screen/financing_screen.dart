@@ -20,7 +20,19 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class FinancingScreen extends StatefulWidget {
   final Map<String, dynamic>? car;
-  const FinancingScreen({super.key, this.car});
+  final double? initialCarPrice;
+  final double? initialDownPayment;
+  final int? initialDuration;
+  final String? bankNameKey;
+
+  const FinancingScreen({
+    super.key, 
+    this.car,
+    this.initialCarPrice,
+    this.initialDownPayment,
+    this.initialDuration,
+    this.bankNameKey,
+  });
 
   @override
   State<FinancingScreen> createState() => _FinancingScreenState();
@@ -36,6 +48,8 @@ class _FinancingScreenState extends State<FinancingScreen> {
   double _lastPaymentAmount = 0;
   int _durationYears = 5;
   BankOffer? _selectedBank;
+  double? _fixedInstallment;
+  double? _initialFixedInstallment;
   final _formKey = GlobalKey<FormState>();
   final _nameCtrl = TextEditingController();
   final _phoneCtrl = TextEditingController();
@@ -57,8 +71,25 @@ class _FinancingScreenState extends State<FinancingScreen> {
   void initState() {
     super.initState();
     final raw = widget.car?['price']?.toString() ?? '150000';
-    _carPrice = double.tryParse(raw.replaceAll(RegExp(r'[^0-9]'), '')) ?? 150000;
+    _carPrice = widget.initialCarPrice ?? (double.tryParse(raw.replaceAll(RegExp(r'[^0-9]'), '')) ?? 150000);
+    _downPaymentAmount = widget.initialDownPayment ?? 0;
+    _durationYears = widget.initialDuration ?? 5;
+    
+    if (widget.bankNameKey != null) {
+      try {
+        _selectedBank = kBanks.firstWhere((b) => b.nameKey == widget.bankNameKey);
+      } catch (_) {}
+    }
+
     if (widget.car != null) {
+      if (widget.car!['installments'] != null) {
+        final String instStr = widget.car!['installments'].toString();
+        final val = double.tryParse(instStr.replaceAll(RegExp(r'[^0-9.]'), ''));
+        if (val != null && val > 0) {
+          _fixedInstallment = val;
+          _initialFixedInstallment = val;
+        }
+      }
       _selectedBrand = kBrands.firstWhere(
         (b) => b.toLowerCase() == (widget.car?['brand']?.toString().split('-').first.toLowerCase()),
         orElse: () => kBrands[0],
@@ -72,15 +103,15 @@ class _FinancingScreenState extends State<FinancingScreen> {
     // Listeners to update state when text changes
     _priceCtrl.addListener(() {
       final val = double.tryParse(_priceCtrl.text) ?? 0;
-      if (val != _carPrice) setState(() => _carPrice = val);
+      if (val != _carPrice) setState(() { _carPrice = val; _fixedInstallment = null; });
     });
     _downPaymentCtrl.addListener(() {
       final val = double.tryParse(_downPaymentCtrl.text) ?? 0;
-      if (val != _downPaymentAmount) setState(() => _downPaymentAmount = val);
+      if (val != _downPaymentAmount) setState(() { _downPaymentAmount = val; _fixedInstallment = null; });
     });
     _lastPaymentCtrl.addListener(() {
       final val = double.tryParse(_lastPaymentCtrl.text) ?? 0;
-      if (val != _lastPaymentAmount) setState(() => _lastPaymentAmount = val);
+      if (val != _lastPaymentAmount) setState(() { _lastPaymentAmount = val; _fixedInstallment = null; });
     });
   }
 
@@ -192,7 +223,8 @@ class _FinancingScreenState extends State<FinancingScreen> {
           priceController: _priceCtrl,
           downPaymentController: _downPaymentCtrl,
           lastPaymentController: _lastPaymentCtrl,
-          onDurationChanged: (v) => setState(() => _durationYears = v),
+          fixedInstallment: _fixedInstallment,
+          onDurationChanged: (v) => setState(() { _durationYears = v; _fixedInstallment = null; }),
         );
       case 2:
         return PlatinumStep(

@@ -1,7 +1,9 @@
 import 'package:car/core/cache/hive/hive_methods.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
+import 'package:car/features/cars/presentation/widget/bnpl_widget.dart';
 import 'package:car/features/cars/presentation/widget/car_header_widget.dart';
+import 'package:car/features/cars/presentation/widget/cash_packages_widget.dart';
 import 'package:car/features/cars/presentation/widget/features_grid_widget.dart';
 import 'package:car/features/cars/presentation/widget/inspection_badge_widget.dart';
 import 'package:car/features/cars/presentation/widget/inspection_report_widget.dart';
@@ -10,9 +12,6 @@ import 'package:car/features/cars/presentation/widget/sliver_app_bar_widget.dart
 import 'package:car/features/cars/presentation/widget/spec_grid_widget.dart';
 import 'package:car/features/cars/presentation/widget/sticky_action_bar_widget.dart';
 import 'package:car/features/cars/presentation/widget/video_review_widget.dart';
-import 'package:car/features/cars/presentation/widget/bank_installments_banner_widget.dart';
-import 'package:car/features/cars/presentation/widget/bnpl_widget.dart';
-import 'package:car/features/cars/presentation/widget/cash_packages_widget.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -106,9 +105,7 @@ class _CarDetailsScreenState extends State<CarDetailsScreen> {
                             children: [
                               CarHeaderWidget(car: widget.car),
                               if (widget.car['is_financing_available'] ?? true) ...[
-                                 Gap(24.h),
-                                BankInstallmentsBannerWidget(car: widget.car),
-                                 Gap(24.h),
+                                Gap(24.h),
                                 BnplWidget(car: widget.car),
                                 Gap(24.h),
                                 CashPackagesWidget(car: widget.car),

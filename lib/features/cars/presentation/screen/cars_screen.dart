@@ -2,7 +2,6 @@ import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/features/cars/data/model/brand_model.dart';
-import 'package:car/features/cars/presentation/screen/widget/brand_selector_widget.dart';
 import 'package:car/features/cars/presentation/screen/widget/car_search_header_widget.dart';
 import 'package:car/features/cars/presentation/screen/widget/cars_categories_row_widget.dart';
 import 'package:car/features/cars/presentation/screen/widget/featured_cars_slider_widget.dart';
@@ -148,14 +147,14 @@ class _CarsScreenState extends State<CarsScreen> {
               Gap(24.h),
 
               // Brand Selector (NEW - Logical browsing)
-              BrandSelectorWidget(
-                selectedBrand: _selectedBrand,
-                onBrandSelected: (brand) {
-                  setState(() {
-                    _selectedBrand = brand;
-                  });
-                },
-              ),
+              // BrandSelectorWidget(
+              //   selectedBrand: _selectedBrand,
+              //   onBrandSelected: (brand) {
+              //     setState(() {
+              //       _selectedBrand = brand;
+              //     });
+              //   },
+              // ),
               Gap(24.h),
 
               // Categories Row (Body Type Selection)

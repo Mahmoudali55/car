@@ -7,12 +7,14 @@ class BankOffersList extends StatelessWidget {
   final num carPrice;
   final double downPayment;
   final int durationYears;
+  final Function(BankOffer)? onOfferTap;
   const BankOffersList({
     super.key,
     required this.sortedOffers,
     required this.carPrice,
     required this.downPayment,
     required this.durationYears,
+    this.onOfferTap,
   });
   @override
   Widget build(BuildContext context) {
@@ -27,6 +29,7 @@ class BankOffersList extends StatelessWidget {
               carPrice: carPrice,
               downPayment: downPayment,
               durationYears: durationYears,
+              onTap: onOfferTap != null ? () => onOfferTap!(offer) : null,
             );
           },
           childCount: sortedOffers.length,

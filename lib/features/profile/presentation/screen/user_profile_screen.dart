@@ -43,7 +43,7 @@ class UserProfileScreen extends StatelessWidget {
             physics: const BouncingScrollPhysics(),
             child: Column(
               children: [
-                ProfileHeaderWidget(user: '---'),
+                const ProfileHeaderWidget(),
                 Padding(
                   padding: EdgeInsets.all(20.w),
                   child: Column(

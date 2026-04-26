@@ -38,6 +38,27 @@ class PlatinumStep extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final supportedBanks = banks.where((b) => b.isBrandSupported(selectedBrand)).toList();
+    final bankCalculations = supportedBanks.map((bank) {
+      return {
+        'bank': bank,
+        'calc': bank.calculate(
+          carPrice: carPrice,
+          downPaymentAmount: downPaymentAmount,
+          lastPaymentAmount: lastPaymentAmount,
+          durationYears: durationYears,
+          year: selectedYear,
+          brand: selectedBrand,
+          model: selectedModel,
+        )
+      };
+    }).toList();
+
+    // Sort by lowest monthly installment
+    bankCalculations.sort((a, b) {
+      final aMonthly = (a['calc'] as Map<String, double>)['monthlyInstallment'] ?? 0.0;
+      final bMonthly = (b['calc'] as Map<String, double>)['monthlyInstallment'] ?? 0.0;
+      return aMonthly.compareTo(bMonthly);
+    });
 
     return FadeInUp(
       child: Column(
@@ -66,16 +87,9 @@ class PlatinumStep extends StatelessWidget {
               ),
             )
           else
-            ...supportedBanks.map((bank) {
-              final calc = bank.calculate(
-                carPrice: carPrice,
-                downPaymentAmount: downPaymentAmount,
-                lastPaymentAmount: lastPaymentAmount,
-                durationYears: durationYears,
-                year: selectedYear,
-                brand: selectedBrand,
-                model: selectedModel,
-              );
+            ...bankCalculations.map((item) {
+              final bank = item['bank'] as BankOffer;
+              final calc = item['calc'] as Map<String, double>;
               return BankOfferCard(
                 bank: bank,
                 isSelected: selectedBank == bank,

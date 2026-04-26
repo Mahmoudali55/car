@@ -24,6 +24,7 @@ class DashboardStep extends StatelessWidget {
   final TextEditingController priceController;
   final TextEditingController downPaymentController;
   final TextEditingController lastPaymentController;
+  final double? fixedInstallment;
   final void Function(int) onDurationChanged;
 
   const DashboardStep({
@@ -39,6 +40,7 @@ class DashboardStep extends StatelessWidget {
     required this.priceController,
     required this.downPaymentController,
     required this.lastPaymentController,
+    this.fixedInstallment,
     required this.onDurationChanged,
   });
 
@@ -54,6 +56,11 @@ class DashboardStep extends StatelessWidget {
       brand: selectedBrand,
       model: selectedModel,
     );
+
+    final double displayMonthly = fixedInstallment ?? calc['monthlyInstallment']!;
+    final double displayTotal = fixedInstallment != null 
+        ? ((fixedInstallment! * durationYears * 12) + lastPaymentAmount) 
+        : calc['totalAmount']!;
 
     return FadeInUp(
       duration: const Duration(milliseconds: 800),
@@ -85,7 +92,7 @@ class DashboardStep extends StatelessWidget {
                   textBaseline: TextBaseline.alphabetic,
                   children: [
                     Text(
-                      formatter.format(calc['monthlyInstallment']),
+                      formatter.format(displayMonthly),
                       style: AppTextStyle.titleLarge(context).copyWith(
                         color: AppColor.blackTextColor(context),
                         fontWeight: FontWeight.w900,
@@ -113,7 +120,7 @@ class DashboardStep extends StatelessWidget {
                   children: [
                     EliteInfoTile(
                       label: AppLocaleKey.totalAmount.tr(),
-                      value: '${formatter.format(calc['totalAmount'])} SAR',
+                      value: '${formatter.format(displayTotal)} SAR',
                     ),
                     EliteInfoTile(
                       label: AppLocaleKey.residual.tr().toUpperCase(),

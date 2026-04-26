@@ -4,6 +4,7 @@ import 'package:car/features/cars/presentation/widget/bank_offer_card_widget.dar
 import 'package:car/features/cars/presentation/widget/bank_offer_fliter_section_widget.dart';
 import 'package:car/features/cars/presentation/widget/bank_offers_list_widget.dart';
 import 'package:car/features/cars/presentation/widget/bank_offers_widgets.dart';
+import 'package:car/features/services/presentation/screen/financing_screen.dart' as car_services;
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
@@ -145,6 +146,20 @@ class _BankOffersScreenState extends State<BankOffersScreen> {
             carPrice: _carPrice,
             downPayment: _downPayment,
             durationYears: _durationYears,
+            onOfferTap: (offer) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => car_services.FinancingScreen(
+                    car: widget.car,
+                    initialCarPrice: _carPrice.toDouble(),
+                    initialDownPayment: _downPayment.toDouble(),
+                    initialDuration: _durationYears,
+                    bankNameKey: offer.nameKey,
+                  ),
+                ),
+              );
+            },
           ),
         ],
       ),

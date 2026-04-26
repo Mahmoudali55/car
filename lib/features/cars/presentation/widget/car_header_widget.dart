@@ -2,6 +2,7 @@ import 'package:car/core/cache/hive/hive_methods.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
+import 'package:car/features/cars/presentation/widget/bank_installments_banner_widget.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -42,9 +43,10 @@ class _CarHeaderWidgetState extends State<CarHeaderWidget> {
                   Gap(4.h),
                   Text(
                     widget.car['name'] ?? '',
-                    style: AppTextStyle.titleLarge(
-                      context,
-                    ).copyWith(color: AppColor.blackTextColor(context), fontWeight: FontWeight.w900),
+                    style: AppTextStyle.titleLarge(context).copyWith(
+                      color: AppColor.blackTextColor(context),
+                      fontWeight: FontWeight.w900,
+                    ),
                   ),
                 ],
               ),
@@ -91,9 +93,9 @@ class _CarHeaderWidgetState extends State<CarHeaderWidget> {
                 color: isInCompare ? AppColor.primaryColor(context) : AppColor.greyColor(context),
                 size: 28.sp,
               ),
-              tooltip: isInCompare 
-                ? AppLocaleKey.removeFromCompare.tr() 
-                : AppLocaleKey.addToCompare.tr(),
+              tooltip: isInCompare
+                  ? AppLocaleKey.removeFromCompare.tr()
+                  : AppLocaleKey.addToCompare.tr(),
             ),
           ],
         ),
@@ -106,6 +108,12 @@ class _CarHeaderWidgetState extends State<CarHeaderWidget> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
+                  'كاش',
+                  style: AppTextStyle.bodyLarge(
+                    context,
+                  ).copyWith(color: AppColor.primaryColor(context)),
+                ),
+                Text(
                   widget.car['price'] ?? widget.car['cashPrice'] ?? '0',
                   style: AppTextStyle.titleMedium(
                     context,
@@ -113,9 +121,10 @@ class _CarHeaderWidgetState extends State<CarHeaderWidget> {
                 ),
                 Text(
                   AppLocaleKey.taxIncluded.tr(),
-                  style: AppTextStyle.bodySmall(
-                    context,
-                  ).copyWith(color: AppColor.blackTextColor(context).withOpacity(0.6), fontSize: 10.sp),
+                  style: AppTextStyle.bodySmall(context).copyWith(
+                    color: AppColor.blackTextColor(context).withOpacity(0.6),
+                    fontSize: 10.sp,
+                  ),
                 ),
               ],
             ),
@@ -127,25 +136,7 @@ class _CarHeaderWidgetState extends State<CarHeaderWidget> {
                   color: AppColor.primaryColor(context).withOpacity(0.1),
                   borderRadius: BorderRadius.circular(12.r),
                 ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Text(
-                      AppLocaleKey.installments.tr(),
-                      style: AppTextStyle.bodySmall(context).copyWith(
-                        color: AppColor.primaryColor(context),
-                        fontSize: 10.sp,
-                      ),
-                    ),
-                    Text(
-                      widget.car['installments'],
-                      style: AppTextStyle.bodyMedium(context).copyWith(
-                        color: AppColor.primaryColor(context),
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
+                child: BankInstallmentsBannerWidget(car: widget.car),
               ),
           ],
         ),

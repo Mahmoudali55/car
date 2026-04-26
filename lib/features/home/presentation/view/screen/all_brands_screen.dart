@@ -1,6 +1,7 @@
 import 'package:car/core/custom_widgets/custom_app_bar/custom_app_bar.dart';
 import 'package:car/core/custom_widgets/custom_form_field/custom_form_field.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
+import 'package:car/core/network/contants.dart';
 import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/core/utils/responsive_helper.dart';
 import 'package:car/features/home/data/model/cars_models_response.dart';
@@ -141,7 +142,7 @@ class _AllBrandsScreenState extends State<AllBrandsScreen> {
                                         child: ClipRRect(
                                           borderRadius: BorderRadius.circular(12.r),
                                           child: Image.network(
-                                            "https://delta-asg.com:54510/MyVirtualDir/${brand.picturePath.replaceAll('../../Img/Emp/', '')}",
+                                            "${Constants.baseImage}${brand.picturePath.replaceAll('../../Img/Emp/', '')}",
                                             fit: BoxFit.contain,
                                             width: double.infinity,
                                             errorBuilder: (_, __, ___) => Icon(

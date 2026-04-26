@@ -12,32 +12,19 @@ class AppRouters {
         return MaterialPageRoute(builder: (_) => const MainLayout());
       case RoutesName.allBrandsScreen:
         return MaterialPageRoute(builder: (_) => const AllBrandsScreen());
-      case RoutesName.brandCarsScreen:
-        final brandArgs = args as Map<String, dynamic>;
-        return MaterialPageRoute(
-          builder: (_) => BrandCarsScreen(
-            brandNameEn: brandArgs['nameEn'] as String,
-            brandNameAr: brandArgs['nameAr'] as String,
-            brandImage: brandArgs['image'] as String,
-          ),
-        );
+
       case RoutesName.homeScreen:
         return MaterialPageRoute(builder: (_) => const HomeGuestScreen());
       case RoutesName.onboardingScreen:
         return MaterialPageRoute(builder: (_) => const OnboardingScreen());
       case RoutesName.loginScreen:
         return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (context) => sl<AuthCubit>(),
-            child: LoginScreen(),
-          ),
+          builder: (_) => BlocProvider(create: (context) => sl<AuthCubit>(), child: LoginScreen()),
         );
       case RoutesName.registerScreen:
         return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (context) => sl<AuthCubit>(),
-            child: const RegisterScreen(),
-          ),
+          builder: (_) =>
+              BlocProvider(create: (context) => sl<AuthCubit>(), child: const RegisterScreen()),
         );
       case RoutesName.carDetailsScreen:
         return MaterialPageRoute(
@@ -50,10 +37,8 @@ class AppRouters {
       case RoutesName.carReservationScreen:
         final argsMap = args as Map<String, dynamic>;
         return MaterialPageRoute(
-          builder: (_) => CarReservationScreen(
-            car: argsMap['car'],
-            isFromLink: argsMap['isFromLink'] ?? false,
-          ),
+          builder: (_) =>
+              CarReservationScreen(car: argsMap['car'], isFromLink: argsMap['isFromLink'] ?? false),
         );
       case RoutesName.popularCarsScreen:
         return MaterialPageRoute(builder: (_) => const PopularCarsScreen());
@@ -61,15 +46,11 @@ class AppRouters {
         return MaterialPageRoute(builder: (_) => const FilterScreen());
       case RoutesName.cartScreen:
         return MaterialPageRoute(
-          builder: (ctx) => BlocProvider.value(
-            value: ctx.read<CartCubit>(),
-            child: const CartScreen(),
-          ),
+          builder: (ctx) =>
+              BlocProvider.value(value: ctx.read<CartCubit>(), child: const CartScreen()),
         );
       case RoutesName.paymentScreen:
-        return MaterialPageRoute(
-          builder: (_) => PaymentScreen(totalPrice: args as double),
-        );
+        return MaterialPageRoute(builder: (_) => PaymentScreen(totalPrice: args as double));
       case RoutesName.paymentSuccessScreen:
         return MaterialPageRoute(builder: (_) => const PaymentSuccessScreen());
       case RoutesName.notificationsScreen:
@@ -80,17 +61,13 @@ class AppRouters {
         return MaterialPageRoute(builder: (_) => const TrackOrderScreen());
       case RoutesName.settingsScreen:
         return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (context) => sl<AuthCubit>(),
-            child: const SettingsScreen(),
-          ),
+          builder: (_) =>
+              BlocProvider(create: (context) => sl<AuthCubit>(), child: const SettingsScreen()),
         );
       case RoutesName.profileScreen:
         return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (context) => sl<AuthCubit>(),
-            child: const UserProfileScreen(),
-          ),
+          builder: (_) =>
+              BlocProvider(create: (context) => sl<AuthCubit>(), child: const UserProfileScreen()),
         );
       case RoutesName.tradeInScreen:
         return MaterialPageRoute(builder: (_) => const TradeInScreen());
@@ -107,17 +84,13 @@ class AppRouters {
       case RoutesName.shippingScreen:
         return MaterialPageRoute(builder: (_) => const ShippingScreen());
       case RoutesName.bespokeSelectionScreen:
-        return MaterialPageRoute(
-          builder: (_) => const BespokeSelectionScreen(),
-        );
+        return MaterialPageRoute(builder: (_) => const BespokeSelectionScreen());
       case RoutesName.carValuationScreen:
         return MaterialPageRoute(builder: (_) => const CarValuationScreen());
       case RoutesName.sellCarScreen:
         return MaterialPageRoute(builder: (_) => const SellCarScreen());
       case RoutesName.bookingAppointmentScreen:
-        return MaterialPageRoute(
-          builder: (_) => const BookingAppointmentScreen(),
-        );
+        return MaterialPageRoute(builder: (_) => const BookingAppointmentScreen());
       case RoutesName.serviceHistoryScreen:
         return MaterialPageRoute(builder: (_) => const ServiceHistoryScreen());
       case RoutesName.supportScreen:
@@ -148,17 +121,13 @@ class AppRouters {
       case RoutesName.manageServices:
         return MaterialPageRoute(builder: (_) => const ManageServicesScreen());
       case RoutesName.inspectionReports:
-        return MaterialPageRoute(
-          builder: (_) => const InspectionReportsScreen(),
-        );
+        return MaterialPageRoute(builder: (_) => const InspectionReportsScreen());
       case RoutesName.adminSettings:
         return MaterialPageRoute(builder: (_) => const AdminSettingsScreen());
       case RoutesName.allActivities:
         return MaterialPageRoute(builder: (_) => const AllActivitiesScreen());
       case RoutesName.adminNotifications:
-        return MaterialPageRoute(
-          builder: (_) => const AdminNotificationsScreen(),
-        );
+        return MaterialPageRoute(builder: (_) => const AdminNotificationsScreen());
       case RoutesName.securitySettings:
         return MaterialPageRoute(builder: (_) => const AdminSecurityScreen());
       case RoutesName.systemAlerts:
