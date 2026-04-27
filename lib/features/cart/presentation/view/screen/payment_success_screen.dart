@@ -50,10 +50,8 @@ class _PaymentSuccessScreenState extends State<PaymentSuccessScreen>
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                // Success Circle
                 SuccessCircleWidget(scaleAnim: _scaleAnim),
                 Gap(40.h),
-                // Title & Subtitle
                 FadeTransition(
                   opacity: _fadeAnim,
                   child: const Column(

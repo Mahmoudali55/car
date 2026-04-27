@@ -1,4 +1,6 @@
+import 'package:car/core/custom_widgets/buttons/custom_button.dart';
 import 'package:car/core/theme/app_colors.dart';
+import 'package:car/features/common/presentation/screen/widgets/bulid_icon_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -20,7 +22,7 @@ class PaymentResultScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const Spacer(),
-              _buildIcon(context),
+              BulidIconWidget(isSuccess: isSuccess),
               Gap(32.h),
               Text(
                 isSuccess ? 'Payment Successful!' : 'Payment Failed',
@@ -37,26 +39,21 @@ class PaymentResultScreen extends StatelessWidget {
                     ? 'Your transaction with $providerName has been completed successfully.'
                     : 'Something went wrong with your $providerName transaction. Please try again or contact support.',
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 14.sp, color: Colors.grey[600], height: 1.5),
+                style: TextStyle(fontSize: 14.sp, color: AppColor.greyColor(context), height: 1.5),
               ),
               const Spacer(),
               SizedBox(
                 width: double.infinity,
-                child: ElevatedButton(
+                child: CustomButton(
+                  radius: 12.r,
                   onPressed: () {
                     // Navigate back to Home or previous screen
                     Navigator.of(context).popUntil((route) => route.isFirst);
                   },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColor.primaryColor(context),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.r)),
-                    padding: EdgeInsets.symmetric(vertical: 16.h),
-                    elevation: 0,
-                  ),
                   child: Text(
                     isSuccess ? 'Continue Browsing' : 'Back to Home',
                     style: TextStyle(
-                      color: Colors.white,
+                      color: AppColor.whiteColor(context),
                       fontWeight: FontWeight.bold,
                       fontSize: 16.sp,
                     ),
@@ -67,22 +64,6 @@ class PaymentResultScreen extends StatelessWidget {
             ],
           ),
         ),
-      ),
-    );
-  }
-
-  Widget _buildIcon(BuildContext context) {
-    return Container(
-      width: 120.w,
-      height: 120.w,
-      decoration: BoxDecoration(
-        color: isSuccess ? Colors.green.withOpacity(0.1) : Colors.red.withOpacity(0.1),
-        shape: BoxShape.circle,
-      ),
-      child: Icon(
-        isSuccess ? Icons.check_circle_rounded : Icons.error_rounded,
-        size: 80.sp,
-        color: isSuccess ? Colors.green : Colors.red,
       ),
     );
   }
