@@ -1,3 +1,4 @@
+import 'package:car/core/custom_widgets/custom_image/custom_network_image.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
@@ -130,15 +131,10 @@ class _FeaturedCarsSliderWidgetState extends State<FeaturedCarsSliderWidget> {
                               tag: 'car_image_${car['itemCode'] ?? car['name']}',
                               child: Center(
                                 child: car['image'].toString().startsWith('http')
-                                    ? Image.network(
-                                        car['image']!,
+                                    ? CustomNetworkImage(
+                                        imageUrl: car['image']!,
                                         fit: BoxFit.contain,
                                         height: 120.h,
-                                        errorBuilder: (_, __, ___) => Icon(
-                                          Icons.directions_car_rounded,
-                                          size: 60.h,
-                                          color: AppColor.greyColor(context).withOpacity(0.5),
-                                        ),
                                       )
                                     : Image.asset(
                                         car['image']!,

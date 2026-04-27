@@ -1,3 +1,4 @@
+import 'package:car/core/custom_widgets/custom_loading/custom_loading.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/network/contants.dart';
 import 'package:car/core/theme/app_colors.dart';
@@ -109,9 +110,7 @@ class _PopularCarsScreenState extends State<PopularCarsScreen> {
                         ),
 
                         if (status.isLoading)
-                          const SliverFillRemaining(
-                            child: Center(child: CircularProgressIndicator()),
-                          )
+                          const SliverFillRemaining(child: Center(child: CustomLoading()))
                         else if (allCarsMap.isEmpty ||
                             (allCarsMap.length == 1 && allCarsMap.values.first.isEmpty))
                           SliverFillRemaining(

@@ -1,4 +1,5 @@
 import 'package:car/core/cache/hive/hive_methods.dart';
+import 'package:car/core/custom_widgets/custom_image/custom_network_image.dart';
 import 'package:car/core/custom_widgets/custom_toast/custom_toast.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/routes/routes_name.dart';
@@ -51,15 +52,10 @@ class PremiumCarCardWidget extends StatelessWidget {
                     tag: 'car_image_${car['itemCode'] ?? car['name']}',
                     child: Center(
                       child: car['image'] != null && car['image'].toString().startsWith('http')
-                          ? Image.network(
-                              car['image'],
+                          ? CustomNetworkImage(
+                              imageUrl: car['image'],
                               fit: BoxFit.contain,
                               height: 150.h,
-                              errorBuilder: (_, __, ___) => Icon(
-                                Icons.directions_car_rounded,
-                                size: 80.h,
-                                color: AppColor.greyColor(context).withOpacity(0.5),
-                              ),
                             )
                           : Image.asset(
                               car['image'] ?? 'assets/images/car.jpeg',
@@ -103,7 +99,9 @@ class PremiumCarCardWidget extends StatelessWidget {
                       Gap(8.w),
                       BlocBuilder<FavoritesCubit, FavoritesState>(
                         builder: (context, state) {
-                          final isFav = context.read<FavoritesCubit>().isFavorite(car['name']?.toString() ?? '');
+                          final isFav = context.read<FavoritesCubit>().isFavorite(
+                            car['name']?.toString() ?? '',
+                          );
                           return Container(
                             height: 30.h,
                             decoration: BoxDecoration(
@@ -196,14 +194,15 @@ class PremiumCarCardWidget extends StatelessWidget {
                     ],
                   ),
                   Gap(12.h),
-                  Divider(
-                    color: AppColor.blackTextColor(context).withOpacity((0.05)),
-                    height: 1,
-                  ),
+                  Divider(color: AppColor.blackTextColor(context).withOpacity((0.05)), height: 1),
                   Gap(12.h),
                   Row(
                     children: [
-                      _buildSpecIcon(context, Icons.speed_rounded, car['mileage']?.toString() ?? ''),
+                      _buildSpecIcon(
+                        context,
+                        Icons.speed_rounded,
+                        car['mileage']?.toString() ?? '',
+                      ),
                       Gap(16.w),
                       _buildSpecIcon(context, Icons.settings_rounded, AppLocaleKey.normal.tr()),
                       Gap(16.w),
@@ -237,7 +236,7 @@ class PremiumCarCardWidget extends StatelessWidget {
           // to refresh if needed, but the button itself uses Hive directly.
           final carName = car['name']?.toString() ?? '';
           if (carName.isEmpty) return;
-          
+
           if (HiveMethods.isInComparison(carName)) {
             HiveMethods.removeFromComparison(carName);
             // Forces immediate UI update in the widget tree for this card

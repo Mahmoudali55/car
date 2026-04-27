@@ -1,4 +1,5 @@
 import 'package:car/core/cache/hive/hive_methods.dart';
+import 'package:car/core/custom_widgets/custom_image/custom_network_image.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/features/cars/presentation/widget/bnpl_widget.dart';
@@ -85,7 +86,7 @@ class _CarDetailsScreenState extends State<CarDetailsScreen> {
         showVideoProgressIndicator: true,
         progressIndicatorColor: AppColor.primaryColor(context),
         thumbnail: widget.car['image'] != null && widget.car['image'].toString().startsWith('http')
-            ? Image.network(widget.car['image'], fit: BoxFit.cover)
+            ? CustomNetworkImage(imageUrl: widget.car['image'], fit: BoxFit.cover)
             : Image.asset(
                 widget.car['image'] ?? 'assets/images/placeholder.png',
                 fit: BoxFit.cover,

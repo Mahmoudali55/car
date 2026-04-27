@@ -1,3 +1,4 @@
+import 'package:car/core/custom_widgets/custom_loading/custom_loading.dart';
 import 'package:car/core/network/contants.dart';
 import 'package:car/features/home/data/model/brand_cars_data_model.dart';
 import 'package:car/features/home/presentation/cubit/home_cubit.dart';
@@ -17,7 +18,7 @@ class PopularCarsPreviewWidget extends StatelessWidget {
         if (status.isLoading) {
           return SizedBox(
             height: 200.h,
-            child: const Center(child: CircularProgressIndicator()),
+            child: const Center(child: CustomLoading()),
           );
         }
 

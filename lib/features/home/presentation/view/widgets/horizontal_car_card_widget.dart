@@ -1,3 +1,4 @@
+import 'package:car/core/custom_widgets/custom_image/custom_network_image.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/routes/routes_name.dart';
 import 'package:car/core/theme/app_colors.dart';
@@ -51,15 +52,7 @@ class HorizontalCarCardWidget extends StatelessWidget {
               child: Hero(
                 tag: 'car_image_${car['itemCode'] ?? car['name']}',
                 child: (car['image'] != null && car['image'].toString().startsWith('http'))
-                    ? Image.network(
-                        car['image'],
-                        fit: BoxFit.contain,
-                        errorBuilder: (_, __, ___) => Icon(
-                          Icons.directions_car_rounded,
-                          size: 50.h,
-                          color: AppColor.greyColor(context).withOpacity(0.5),
-                        ),
-                      )
+                    ? CustomNetworkImage(imageUrl: car['image'], fit: BoxFit.contain)
                     : Image.asset(car['image'] ?? 'assets/images/car.jpeg', fit: BoxFit.contain),
               ),
             ),

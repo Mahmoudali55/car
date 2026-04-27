@@ -1,5 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:car/core/cache/hive/hive_methods.dart';
+import 'package:car/core/custom_widgets/custom_loading/custom_loading.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/routes/routes_name.dart';
 import 'package:car/core/theme/app_colors.dart';
@@ -173,10 +174,7 @@ class _SplashScreenState extends State<SplashScreen> {
                   child: SizedBox(
                     width: 40.w,
                     height: 40.w,
-                    child: CircularProgressIndicator(
-                      color: AppColor.primaryColor(context),
-                      strokeWidth: 3,
-                    ),
+                    child: CustomLoading(color: AppColor.primaryColor(context)),
                   ),
                 ),
               ),

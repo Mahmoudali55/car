@@ -1,4 +1,5 @@
 import 'package:car/core/cache/hive/hive_methods.dart';
+import 'package:car/core/custom_widgets/custom_image/custom_network_image.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/utils/common_methods.dart';
@@ -144,22 +145,14 @@ class _SliverAppBarWidgetState extends State<SliverAppBarWidget> {
                             if (isNetwork)
                               Opacity(
                                 opacity: 0.1,
-                                child: Image.network(imageUrl, fit: BoxFit.cover),
+                                child: CustomNetworkImage(imageUrl: imageUrl, fit: BoxFit.cover),
                               ),
 
                             // Car Image with better spacing
                             Padding(
                               padding: EdgeInsets.fromLTRB(20.w, 80.h, 20.w, 60.h),
                               child: isNetwork
-                                  ? Image.network(
-                                      imageUrl,
-                                      fit: BoxFit.contain,
-                                      errorBuilder: (_, __, ___) => Icon(
-                                        Icons.directions_car_rounded,
-                                        size: 120.h,
-                                        color: AppColor.greyColor(context).withOpacity(0.5),
-                                      ),
-                                    )
+                                  ? CustomNetworkImage(imageUrl: imageUrl, fit: BoxFit.contain)
                                   : Image.asset(
                                       imageUrl.isEmpty ? 'assets/images/placeholder.png' : imageUrl,
                                       fit: BoxFit.contain,

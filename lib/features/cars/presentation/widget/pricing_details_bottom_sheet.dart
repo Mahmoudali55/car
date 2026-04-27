@@ -1,3 +1,4 @@
+import 'package:car/core/custom_widgets/custom_image/custom_network_image.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
 import 'package:flutter/material.dart';
@@ -8,11 +9,7 @@ class PricingDetailsBottomSheet extends StatelessWidget {
   final Map<String, dynamic> car;
   final double totalPrice;
 
-  const PricingDetailsBottomSheet({
-    super.key,
-    required this.car,
-    required this.totalPrice,
-  });
+  const PricingDetailsBottomSheet({super.key, required this.car, required this.totalPrice});
 
   @override
   Widget build(BuildContext context) {
@@ -31,10 +28,9 @@ class PricingDetailsBottomSheet extends StatelessWidget {
             children: [
               Text(
                 'إعرض التفاصيل',
-                style: AppTextStyle.titleMedium(context).copyWith(
-                  fontWeight: FontWeight.w900,
-                  fontSize: 22.sp,
-                ),
+                style: AppTextStyle.titleMedium(
+                  context,
+                ).copyWith(fontWeight: FontWeight.w900, fontSize: 22.sp),
               ),
               IconButton(
                 onPressed: () => Navigator.pop(context),
@@ -50,31 +46,24 @@ class PricingDetailsBottomSheet extends StatelessWidget {
               Expanded(
                 child: Text(
                   car['name'] ?? 'Car Name',
-                  style: AppTextStyle.titleMedium(context).copyWith(
-                    fontWeight: FontWeight.w900,
-                    fontSize: 18.sp,
-                  ),
+                  style: AppTextStyle.titleMedium(
+                    context,
+                  ).copyWith(fontWeight: FontWeight.w900, fontSize: 18.sp),
                 ),
               ),
               ClipRRect(
                 borderRadius: BorderRadius.circular(12.r),
-                child: Image.network(
-                  car['image'] ?? 'https://via.placeholder.com/100',
+                child: CustomNetworkImage(
+                  imageUrl: car['image'] ?? 'https://via.placeholder.com/100',
                   height: 80.h,
                   width: 120.w,
                   fit: BoxFit.cover,
-                  errorBuilder: (c, e, s) => Container(
-                    height: 80.h,
-                    width: 120.w,
-                    color: Colors.grey[200],
-                    child: const Icon(Icons.directions_car_filled_rounded, color: Colors.grey),
-                  ),
                 ),
               ),
             ],
           ),
           Gap(32.h),
-          _buildPriceItem('قيمة السيارة', '43,100',context),
+          _buildPriceItem('قيمة السيارة', '43,100', context),
           Gap(24.h),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -91,10 +80,9 @@ class PricingDetailsBottomSheet extends StatelessWidget {
                   ),
                   Text(
                     '6 أشهر او 10 ألف كم',
-                    style: AppTextStyle.bodySmall(context).copyWith(
-                      color: Colors.grey,
-                      fontSize: 10.sp,
-                    ),
+                    style: AppTextStyle.bodySmall(
+                      context,
+                    ).copyWith(color: Colors.grey, fontSize: 10.sp),
                   ),
                 ],
               ),
@@ -109,22 +97,18 @@ class PricingDetailsBottomSheet extends StatelessWidget {
             ],
           ),
           Gap(24.h),
-          _buildPriceItem('التسجيل واللوحات', '875',context),
+          _buildPriceItem('التسجيل واللوحات', '875', context),
           Gap(24.h),
-          _buildPriceItem('كلفة الشحن', '225',context),
+          _buildPriceItem('كلفة الشحن', '225', context),
           Gap(24.h),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _buildPriceItem('الضريبة المضافة على الخدمات', '138.75',context),
+              _buildPriceItem('الضريبة المضافة على الخدمات', '138.75', context),
               Gap(4.h),
               Text(
                 'تشمل رسوم التسجيل و اللوحات و كلفة الشحن\nنسبة القيمة المضافة خاضعة لتعديل بموجب القانون',
-                style: TextStyle(
-                  fontSize: 9.sp,
-                  color: Colors.grey,
-                  height: 1.5,
-                ),
+                style: TextStyle(fontSize: 9.sp, color: Colors.grey, height: 1.5),
               ),
             ],
           ),
@@ -136,17 +120,15 @@ class PricingDetailsBottomSheet extends StatelessWidget {
             children: [
               Text(
                 'المبلغ الإجمالي',
-                style: AppTextStyle.titleMedium(context).copyWith(
-                  fontWeight: FontWeight.w900,
-                  fontSize: 18.sp,
-                ),
+                style: AppTextStyle.titleMedium(
+                  context,
+                ).copyWith(fontWeight: FontWeight.w900, fontSize: 18.sp),
               ),
               Text(
                 '${totalPrice.toStringAsFixed(2)} SAR',
-                style: AppTextStyle.titleMedium(context).copyWith(
-                  fontWeight: FontWeight.w900,
-                  fontSize: 22.sp,
-                ),
+                style: AppTextStyle.titleMedium(
+                  context,
+                ).copyWith(fontWeight: FontWeight.w900, fontSize: 22.sp),
               ),
             ],
           ),
@@ -156,7 +138,7 @@ class PricingDetailsBottomSheet extends StatelessWidget {
     );
   }
 
-  Widget _buildPriceItem(String label, String value,BuildContext context) {
+  Widget _buildPriceItem(String label, String value, BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -171,10 +153,9 @@ class PricingDetailsBottomSheet extends StatelessWidget {
           children: [
             Text(
               value,
-              style: AppTextStyle.bodyMedium(context).copyWith(
-                fontWeight: FontWeight.w900,
-                fontSize: 16.sp,
-              ),
+              style: AppTextStyle.bodyMedium(
+                context,
+              ).copyWith(fontWeight: FontWeight.w900, fontSize: 16.sp),
             ),
             Gap(8.w),
             Icon(Icons.payments_outlined, color: AppColor.blackTextColor(context), size: 18.sp),

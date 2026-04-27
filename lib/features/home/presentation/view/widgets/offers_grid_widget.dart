@@ -1,3 +1,4 @@
+import 'package:car/core/custom_widgets/custom_image/custom_network_image.dart';
 import 'package:car/core/routes/routes_name.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
@@ -156,15 +157,10 @@ class OffersGridWidget extends StatelessWidget {
                               tag: 'car_image_${car['itemCode'] ?? car['name']}',
                               child: Center(
                                 child: car['image'].toString().startsWith('http')
-                                    ? Image.network(
-                                        car['image'],
+                                    ? CustomNetworkImage(
+                                        imageUrl: car['image'],
                                         height: 60.h,
                                         fit: BoxFit.contain,
-                                        errorBuilder: (_, __, ___) => Icon(
-                                          Icons.directions_car_rounded,
-                                          size: 30.h,
-                                          color: AppColor.greyColor(context).withOpacity(0.5),
-                                        ),
                                       )
                                     : Image.asset(car['image'], height: 60.h, fit: BoxFit.contain),
                               ),

@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:car/core/custom_widgets/buttons/custom_button.dart';
+import 'package:car/core/custom_widgets/custom_image/custom_network_image.dart';
+import 'package:car/core/custom_widgets/custom_loading/custom_loading.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/network/contants.dart';
 import 'package:car/core/routes/routes_name.dart';
@@ -148,7 +150,7 @@ class _PopularCarsSliderState extends State<PopularCarsSlider> {
           return SizedBox(
             height: 280.h,
             width: double.infinity,
-            child: const Center(child: CircularProgressIndicator()),
+            child: const Center(child: CustomLoading()),
           );
         }
 
@@ -238,15 +240,10 @@ class _PopularCarsSliderState extends State<PopularCarsSlider> {
                                 child: Hero(
                                   tag: 'car_image_${car['itemCode'] ?? car['name']}',
                                   child: Center(
-                                    child: Image.network(
-                                      car['image']!,
+                                    child: CustomNetworkImage(
+                                      imageUrl: car['image']!,
                                       fit: BoxFit.contain,
                                       height: 100.h,
-                                      errorBuilder: (_, __, ___) => Icon(
-                                        Icons.directions_car_rounded,
-                                        size: 50.h,
-                                        color: AppColor.greyColor(context).withOpacity(0.5),
-                                      ),
                                     ),
                                   ),
                                 ),

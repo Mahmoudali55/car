@@ -1,3 +1,4 @@
+import 'package:car/core/custom_widgets/custom_loading/custom_loading.dart';
 import 'package:car/features/favorites/presentation/view/cubit/favorites_cubit.dart';
 import 'package:car/features/favorites/presentation/view/screen/widget/empty_state_widget.dart';
 import 'package:car/features/favorites/presentation/view/screen/widget/favorite_item_widget.dart';
@@ -19,7 +20,7 @@ class FavoritesScreen extends StatelessWidget {
           }
           return _buildFavoritesList(context, state.favorites);
         }
-        return const Center(child: CircularProgressIndicator());
+        return const Center(child: CustomLoading());
       },
     );
   }

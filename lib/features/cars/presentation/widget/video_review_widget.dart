@@ -1,3 +1,4 @@
+import 'package:car/core/custom_widgets/custom_image/custom_network_image.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/features/cars/presentation/widget/section_title_widget.dart';
@@ -52,11 +53,11 @@ class _VideoReviewWidgetState extends State<VideoReviewWidget> {
               : Stack(
                   fit: StackFit.expand,
                   children: [
-                    Image.network(
-                      YoutubePlayer.getThumbnail(videoId: widget.controller.initialVideoId),
+                    CustomNetworkImage(
+                      imageUrl: YoutubePlayer.getThumbnail(
+                        videoId: widget.controller.initialVideoId,
+                      ),
                       fit: BoxFit.cover,
-                      errorBuilder: (_, __, ___) =>
-                          Image.asset(widget.car['image'], fit: BoxFit.cover),
                     ),
                     Container(color: AppColor.blackTextColor(context).withOpacity(0.4)),
                     Center(

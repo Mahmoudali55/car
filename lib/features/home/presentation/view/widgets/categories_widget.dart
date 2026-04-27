@@ -1,4 +1,5 @@
 import 'package:animate_do/animate_do.dart';
+import 'package:car/core/custom_widgets/custom_image/custom_network_image.dart';
 import 'package:car/core/custom_widgets/custom_loading/custom_shimmer_list.dart';
 import 'package:car/core/network/contants.dart';
 import 'package:car/core/theme/app_colors.dart';
@@ -21,7 +22,7 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
   @override
   void initState() {
     super.initState();
-    context.read<HomeCubit>().getCarsModels(); // ✅ fix
+    context.read<HomeCubit>().getCarsModels();
   }
 
   int _selectedIndex = 0;
@@ -29,37 +30,27 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
   @override
   Widget build(BuildContext context) {
     final bool isTablet = context.isTablet || context.isDesktop;
-
     return BlocBuilder<HomeCubit, HomeState>(
       builder: (context, state) {
         final cubit = context.read<HomeCubit>();
         final status = state.carsModelsStatus;
-
         final bool isTablet = context.isTablet || context.isDesktop;
-
-        // 🔄 Loading
         if (status.isLoading) {
           return SizedBox(
             height: isTablet ? 200.h : 140.h,
             child: CustomShimmerList(height: 100, width: 100),
           );
         }
-
-        // ❌ Failure
         if (status.isFailure) {
           return SizedBox(
             height: isTablet ? 200.h : 140.h,
             child: Center(child: Text(status.error ?? 'Error')),
           );
         }
-
-        // ✅ Success
         final brands = (status.data ?? []).take(5).toList();
-
         if (_selectedIndex >= brands.length) {
           _selectedIndex = 0;
         }
-
         return SizedBox(
           height: isTablet ? 200.h : 140.h,
           child: ListView.separated(
@@ -103,22 +94,16 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
                             padding: EdgeInsets.all(12.w),
                             decoration: BoxDecoration(
                               color: isSelected
-                                  ? AppColor.whiteColor(context).withOpacity(0.2)
-                                  : AppColor.blackTextColor(context).withOpacity(0.03),
+                                  ? AppColor.whiteColor(context).withValues(alpha: 0.9)
+                                  : AppColor.blackTextColor(context).withValues(alpha: 0.05),
                               shape: BoxShape.circle,
                             ),
-                            child: Image.network(
-                              "${Constants.baseImage}${item.picturePath.replaceAll('../../Img/Emp/', '')}",
+                            child: CustomNetworkImage(
+                              imageUrl:
+                                  "${Constants.baseImage}${item.picturePath.replaceAll('../../Img/Emp/', '')}",
                               width: 32.w,
                               height: 32.w,
                               fit: BoxFit.contain,
-                              color: isSelected ? AppColor.whiteColor(context) : null,
-                              errorBuilder: (_, __, ___) => Icon(
-                                Icons.directions_car_rounded,
-                                color: isSelected
-                                    ? AppColor.whiteColor(context)
-                                    : AppColor.primaryColor(context),
-                              ),
                             ),
                           ),
                           Gap(10.h),

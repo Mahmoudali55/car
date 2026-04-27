@@ -1,3 +1,4 @@
+import 'package:car/core/custom_widgets/custom_image/custom_network_image.dart';
 import 'package:car/core/network/contants.dart';
 import 'package:car/core/routes/routes_name.dart';
 import 'package:car/core/theme/app_text_style.dart';
@@ -45,12 +46,11 @@ class CustomItemBrandWidget extends StatelessWidget {
                   ),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(12.r),
-                    child: Image.network(
-                      "${Constants.baseImage}${brand.picturePath.replaceAll('../../Img/Emp/', '')}",
+                    child: CustomNetworkImage(
+                      imageUrl:
+                          "${Constants.baseImage}${brand.picturePath.replaceAll('../../Img/Emp/', '')}",
                       fit: BoxFit.contain,
                       width: double.infinity,
-                      errorBuilder: (_, __, ___) =>
-                          Icon(Icons.directions_car_rounded, size: 30.w, color: Colors.grey),
                     ),
                   ),
                 ),

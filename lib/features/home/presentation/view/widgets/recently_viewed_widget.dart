@@ -1,3 +1,4 @@
+import 'package:car/core/custom_widgets/custom_image/custom_network_image.dart';
 import 'package:car/core/routes/routes_name.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
@@ -8,7 +9,7 @@ import 'package:gap/gap.dart';
 
 class RecentlyViewedWidget extends StatelessWidget {
   final List<dynamic> cars;
-  
+
   const RecentlyViewedWidget({super.key, required this.cars});
 
   void _navigateToDetails(BuildContext context, Map<String, dynamic> car) {
@@ -57,15 +58,7 @@ class RecentlyViewedWidget extends StatelessWidget {
                         child: Padding(
                           padding: EdgeInsets.all(12.w),
                           child: car['image'].toString().startsWith('http')
-                              ? Image.network(
-                                  car['image'],
-                                  fit: BoxFit.contain,
-                                  errorBuilder: (_, __, ___) => Icon(
-                                    Icons.directions_car_rounded,
-                                    size: 50.h,
-                                    color: AppColor.greyColor(context).withOpacity(0.5),
-                                  ),
-                                )
+                              ? CustomNetworkImage(imageUrl: car['image'], fit: BoxFit.contain)
                               : Image.asset(car['image']!, fit: BoxFit.contain),
                         ),
                       ),
