@@ -85,7 +85,7 @@ class PremiumCarCardWidget extends StatelessWidget {
                       borderRadius: BorderRadius.circular(8.r),
                     ),
                     child: Text(
-                      car['year'],
+                      car['year']?.toString() ?? '',
                       style: AppTextStyle.bodySmall(context).copyWith(
                         color: AppColor.blackTextColor(context),
                         fontSize: 10.sp,
@@ -103,7 +103,7 @@ class PremiumCarCardWidget extends StatelessWidget {
                       Gap(8.w),
                       BlocBuilder<FavoritesCubit, FavoritesState>(
                         builder: (context, state) {
-                          final isFav = context.read<FavoritesCubit>().isFavorite(car['name']!);
+                          final isFav = context.read<FavoritesCubit>().isFavorite(car['name']?.toString() ?? '');
                           return Container(
                             height: 30.h,
                             decoration: BoxDecoration(
@@ -143,7 +143,7 @@ class PremiumCarCardWidget extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              car['brand'],
+                              car['brand']?.toString() ?? '',
                               style: AppTextStyle.bodySmall(context).copyWith(
                                 color: AppColor.primaryColor(context),
                                 fontSize: 10.sp,
@@ -154,7 +154,7 @@ class PremiumCarCardWidget extends StatelessWidget {
                             ),
                             Gap(4.h),
                             Text(
-                              car['name'],
+                              car['name']?.toString() ?? '',
                               style: AppTextStyle.bodyMedium(context).copyWith(
                                 color: AppColor.blackTextColor(context),
                                 fontWeight: FontWeight.bold,
@@ -171,7 +171,7 @@ class PremiumCarCardWidget extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           Text(
-                            car['price'],
+                            car['price']?.toString() ?? '',
                             style: AppTextStyle.titleMedium(context).copyWith(
                               color: AppColor.primaryColor(context),
                               fontWeight: FontWeight.bold,
@@ -203,7 +203,7 @@ class PremiumCarCardWidget extends StatelessWidget {
                   Gap(12.h),
                   Row(
                     children: [
-                      _buildSpecIcon(context, Icons.speed_rounded, car['mileage']),
+                      _buildSpecIcon(context, Icons.speed_rounded, car['mileage']?.toString() ?? ''),
                       Gap(16.w),
                       _buildSpecIcon(context, Icons.settings_rounded, AppLocaleKey.normal.tr()),
                       Gap(16.w),
@@ -235,8 +235,11 @@ class PremiumCarCardWidget extends StatelessWidget {
         onPressed: () {
           // Note: Since this is a StatelessWidget, we rely on the parent or global state
           // to refresh if needed, but the button itself uses Hive directly.
-          if (HiveMethods.isInComparison(car['name'])) {
-            HiveMethods.removeFromComparison(car['name']);
+          final carName = car['name']?.toString() ?? '';
+          if (carName.isEmpty) return;
+          
+          if (HiveMethods.isInComparison(carName)) {
+            HiveMethods.removeFromComparison(carName);
             // Forces immediate UI update in the widget tree for this card
             (context as Element).markNeedsBuild();
           } else {
@@ -253,10 +256,10 @@ class PremiumCarCardWidget extends StatelessWidget {
           }
         },
         icon: Icon(
-          HiveMethods.isInComparison(car['name'])
+          HiveMethods.isInComparison(car['name']?.toString() ?? '')
               ? Icons.compare_arrows_rounded
               : Icons.add_chart_rounded,
-          color: HiveMethods.isInComparison(car['name'])
+          color: HiveMethods.isInComparison(car['name']?.toString() ?? '')
               ? AppColor.primaryColor(context)
               : AppColor.blackTextColor(context),
           size: 18.sp,

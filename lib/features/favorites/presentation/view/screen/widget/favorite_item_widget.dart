@@ -43,10 +43,10 @@ class FavoriteItemWidget extends StatelessWidget {
                 borderRadius: BorderRadius.circular(16.r),
               ),
               child: Hero(
-                tag: 'car_image_${car['itemCode'] ?? car['name']}',
-                child: car['image'].toString().startsWith('http')
+                tag: 'car_image_${car['itemCode'] ?? car['name'] ?? 'unknown'}',
+                child: car['image'] != null && car['image'].toString().startsWith('http')
                     ? Image.network(
-                        car['image'],
+                        car['image'].toString(),
                         fit: BoxFit.contain,
                         errorBuilder: (_, __, ___) => Icon(
                           Icons.directions_car_rounded,
@@ -54,7 +54,13 @@ class FavoriteItemWidget extends StatelessWidget {
                           color: AppColor.greyColor(context).withOpacity(0.5),
                         ),
                       )
-                    : Image.asset(car['image'], fit: BoxFit.contain),
+                    : car['image'] != null
+                        ? Image.asset(car['image'].toString(), fit: BoxFit.contain)
+                        : Icon(
+                            Icons.directions_car_rounded,
+                            size: 40.h,
+                            color: AppColor.greyColor(context).withOpacity(0.5),
+                          ),
               ),
             ),
 
@@ -67,7 +73,7 @@ class FavoriteItemWidget extends StatelessWidget {
                 children: [
                   /// Brand
                   Text(
-                    car['brand'],
+                    car['brand'] ?? '',
                     style: AppTextStyle.bodySmall(
                       context,
                     ).copyWith(color: AppColor.primaryColor(context), fontWeight: FontWeight.w600),
@@ -77,7 +83,7 @@ class FavoriteItemWidget extends StatelessWidget {
 
                   /// Name
                   Text(
-                    car['name'],
+                    car['name'] ?? '',
                     style: AppTextStyle.bodyMedium(context).copyWith(
                       fontWeight: FontWeight.bold,
                       color: AppColor.blackTextColor(context),
@@ -96,7 +102,7 @@ class FavoriteItemWidget extends StatelessWidget {
                       borderRadius: BorderRadius.circular(12.r),
                     ),
                     child: Text(
-                      car['price'],
+                      car['price'] ?? '',
                       style: AppTextStyle.bodySmall(context).copyWith(
                         color: AppColor.primaryColor(context),
                         fontWeight: FontWeight.bold,

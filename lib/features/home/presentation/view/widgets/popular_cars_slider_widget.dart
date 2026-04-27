@@ -370,11 +370,12 @@ class _PopularCarsSliderState extends State<PopularCarsSlider> {
 
                                   // Price
                                   Text(
-                                    car['price']!,
+                                    '${car['price']!} ${AppLocaleKey.sar.tr()}',
                                     style: AppTextStyle.titleMedium(context).copyWith(
                                       color: AppColor.primaryColor(context),
                                       fontWeight: FontWeight.w900,
                                       fontSize: 19.sp,
+                                      fontFamily: 'Arial',
                                     ),
                                   ),
                                   Gap(12.h),

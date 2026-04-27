@@ -539,7 +539,7 @@
   "featureFullPPF": "حماية كاملة للسيارة (PPF)",
   "featureFreeMaintenance": "صيانة مجانية (3 سنوات)",
   "featureExtendedWarranty": "ضمان ممتد (5 سنوات)",
-  "sar": "ريال",
+  "sar": "ر.س",
   "totalWithPackage": "الإجمالي مع الباقة:",
   "reserveCar": "إحجز السيارة (دفع العربون)",
   "depositAmount": "مبلغ العربون المطلوب",
@@ -955,7 +955,11 @@
   "agent_search_customer_car_number":"ابحث عن عميل، سيارة، أو رقم...",
   "loginSuccess": "تم تسجيل الدخول بنجاح",
   "agent_no_cars":"لا يوجد سيارات متاحة لهذه الماركة",
-  "agent_no_cars_available":"لا توجد سيارات متوفرة لهذه الماركة حالياً"
+  "agent_no_cars_available":"لا توجد سيارات متوفرة لهذه الماركة حالياً",
+  "agent_car_available":"متاحة",
+  "agent_car_reserved":"محجوزة",
+  "agent_car_sold":"مباعة",
+  "agent_no_brands_available":"لا توجد ماركات متاحة حالياً"
 
 
 

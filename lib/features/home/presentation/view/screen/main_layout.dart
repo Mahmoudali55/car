@@ -4,7 +4,6 @@ import 'package:car/core/routes/routes_name.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/features/favorites/presentation/view/screen/favorites_screen.dart';
-import 'package:car/features/home/presentation/view/screen/all_brands_screen.dart';
 import 'package:car/features/home/presentation/view/widgets/main_layout_actions.dart';
 import 'package:car/features/home/presentation/view/widgets/support_icon_widget.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -64,11 +63,7 @@ class _MainLayoutState extends State<MainLayout> {
       body: Stack(
         children: [
           screens[_currentIndex.clamp(0, screens.length - 1)],
-          Positioned(
-            bottom: 20.h,
-            left: 20.w,
-            child:  const SupportIconWidget(),
-          ),
+          Positioned(bottom: 20.h, left: 20.w, child: const SupportIconWidget()),
         ],
       ),
       floatingActionButton: ValueListenableBuilder(
@@ -80,10 +75,14 @@ class _MainLayoutState extends State<MainLayout> {
           return FloatingActionButton.extended(
             onPressed: () => Navigator.pushNamed(context, RoutesName.carComparisonScreen),
             backgroundColor: AppColor.primaryColor(context),
-            icon: Icon(Icons.compare_arrows_rounded, color: Colors.white, size: 20.sp),
+            icon: Icon(
+              Icons.compare_arrows_rounded,
+              color: AppColor.whiteColor(context),
+              size: 20.sp,
+            ),
             label: Text(
               '${list.length}',
-              style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+              style: TextStyle(color: AppColor.whiteColor(context), fontWeight: FontWeight.bold),
             ),
           );
         },
@@ -93,13 +92,5 @@ class _MainLayoutState extends State<MainLayout> {
         onItemSelected: (index) => setState(() => _currentIndex = index),
       ),
     );
-  }
-}
-
-class BrandsScreen extends StatelessWidget {
-  const BrandsScreen({super.key});
-  @override
-  Widget build(BuildContext context) {
-    return const AllBrandsScreen(isFromMainLayout: true);
   }
 }

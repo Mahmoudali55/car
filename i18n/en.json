@@ -938,7 +938,11 @@
   "agent_search_customer_car_number":"Search for customer, car, or number...",
   "loginSuccess": "Login successful",
   "agent_no_cars":"No cars available for this brand",
-  "agent_no_cars_available":"No cars available for this brand at the moment"
+  "agent_no_cars_available":"No cars available for this brand at the moment",
+  "agent_car_available":"Available",
+  "agent_car_reserved":"Reserved",
+  "agent_car_sold":"Sold",
+  "agent_no_brands_available": "No brands available in the inventory"
 }
 
 

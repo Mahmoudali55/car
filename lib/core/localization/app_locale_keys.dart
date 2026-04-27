@@ -1000,4 +1000,8 @@ class AppLocaleKey {
   static const String loginSuccess = 'loginSuccess';
   static const String agentNoCars = 'agent_no_cars';
   static const String agentNoCarsAvailable = 'agent_no_cars_available';
+  static const String agentCarAvailable = 'agent_car_available';
+  static const String agentCarReserved = 'agent_car_reserved';
+  static const String agentCarSold = 'agent_car_sold';
+  static const String agentNoBrandsAvailable = 'agent_no_brands_available';
 }

@@ -1,19 +1,19 @@
 import 'package:car/core/custom_widgets/custom_app_bar/custom_app_bar.dart';
 import 'package:car/core/custom_widgets/custom_form_field/custom_form_field.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
-import 'package:car/core/network/contants.dart';
 import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/core/utils/responsive_helper.dart';
 import 'package:car/features/home/data/model/cars_models_response.dart';
 import 'package:car/features/home/presentation/cubit/home_cubit.dart';
+import 'package:car/features/home/presentation/view/widgets/custom_item_brand_widget.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gap/gap.dart';
 
 class AllBrandsScreen extends StatefulWidget {
-  final bool isFromMainLayout;
-  const AllBrandsScreen({super.key, this.isFromMainLayout = false});
+  const AllBrandsScreen({super.key});
 
   @override
   State<AllBrandsScreen> createState() => _AllBrandsScreenState();
@@ -40,35 +40,31 @@ class _AllBrandsScreenState extends State<AllBrandsScreen> {
   Widget build(BuildContext context) {
     final bool isTablet = context.isTablet || context.isDesktop;
     return Scaffold(
-      appBar: widget.isFromMainLayout
-          ? null
-          : CustomAppBar(
-              context,
-              centerTitle: false,
-              automaticallyImplyLeading: true,
-              title: Text(AppLocaleKey.allBrands.tr(), style: AppTextStyle.titleMedium(context)),
-              leading: IconButton(
-                icon: const Icon(Icons.arrow_back),
-                onPressed: () => Navigator.pop(context),
-              ),
-            ),
+      appBar: CustomAppBar(
+        context,
+        centerTitle: false,
+        automaticallyImplyLeading: true,
+        title: Text(AppLocaleKey.allBrands.tr(), style: AppTextStyle.titleMedium(context)),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => Navigator.pop(context),
+        ),
+      ),
       body: Center(
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 1200),
           child: SafeArea(
             child: Column(
               children: [
-                // Search bar
-                if (!widget.isFromMainLayout)
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(16.w, 12.h, 16.w, 8.h),
-                    child: CustomFormField(
-                      radius: 16.r,
-                      onChanged: (val) => setState(() => _searchQuery = val),
-                      prefixIcon: const Icon(Icons.search),
-                      hintText: AppLocaleKey.searchForBrand.tr(),
-                    ),
+                Padding(
+                  padding: EdgeInsets.fromLTRB(16.w, 12.h, 16.w, 8.h),
+                  child: CustomFormField(
+                    radius: 16.r,
+                    onChanged: (val) => setState(() => _searchQuery = val),
+                    prefixIcon: const Icon(Icons.search),
+                    hintText: AppLocaleKey.searchForBrand.tr(),
                   ),
+                ),
                 // Brands grid
                 Expanded(
                   child: BlocBuilder<HomeCubit, HomeState>(
@@ -91,7 +87,17 @@ class _AllBrandsScreenState extends State<AllBrandsScreen> {
                       final brands = _getFilteredBrands(cubit.brands);
 
                       if (brands.isEmpty) {
-                        return const Center(child: Text("No brands found"));
+                        return Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.car_rental_rounded, size: 60.w, color: Colors.grey),
+                            Gap(12.h),
+                            Text(
+                              AppLocaleKey.agentNoBrandsAvailable.tr(),
+                              style: AppTextStyle.bodyMedium(context),
+                            ),
+                          ],
+                        );
                       }
 
                       return GridView.builder(
@@ -107,72 +113,7 @@ class _AllBrandsScreenState extends State<AllBrandsScreen> {
                         itemBuilder: (context, index) {
                           final brand = brands[index];
 
-                          return GestureDetector(
-                            onTap: () {
-                              // Navigator.pushNamed(
-                              //   context,
-                              //   RoutesName.brandCarsScreen,
-                              //   arguments: {'name': brand.groupName, 'id': brand.groupCode},
-                              // );
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: Theme.of(context).cardColor,
-                                borderRadius: BorderRadius.circular(16.r),
-                                border: Border.all(color: Colors.grey.withOpacity(0.15)),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.05),
-                                    blurRadius: 8,
-                                    offset: const Offset(0, 4),
-                                  ),
-                                ],
-                              ),
-                              child: Column(
-                                children: [
-                                  // Image
-                                  Expanded(
-                                    child: Padding(
-                                      padding: EdgeInsets.all(12.w),
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          color: Colors.grey.withOpacity(0.05),
-                                          borderRadius: BorderRadius.circular(12.r),
-                                        ),
-                                        child: ClipRRect(
-                                          borderRadius: BorderRadius.circular(12.r),
-                                          child: Image.network(
-                                            "${Constants.baseImage}${brand.picturePath.replaceAll('../../Img/Emp/', '')}",
-                                            fit: BoxFit.contain,
-                                            width: double.infinity,
-                                            errorBuilder: (_, __, ___) => Icon(
-                                              Icons.directions_car_rounded,
-                                              size: 30.w,
-                                              color: Colors.grey,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-
-                                  // Name
-                                  Padding(
-                                    padding: EdgeInsets.fromLTRB(8.w, 0, 8.w, 10.h),
-                                    child: Text(
-                                      brand.groupName,
-                                      textAlign: TextAlign.center,
-                                      style: AppTextStyle.bodyMedium(
-                                        context,
-                                      ).copyWith(fontWeight: FontWeight.w600),
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          );
+                          return CustomItemBrandWidget(brand: brand);
                         },
                       );
                     },

@@ -103,7 +103,7 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
                             padding: EdgeInsets.all(12.w),
                             decoration: BoxDecoration(
                               color: isSelected
-                                  ? Colors.white.withOpacity(0.2)
+                                  ? AppColor.whiteColor(context).withOpacity(0.2)
                                   : AppColor.blackTextColor(context).withOpacity(0.03),
                               shape: BoxShape.circle,
                             ),
@@ -112,10 +112,12 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
                               width: 32.w,
                               height: 32.w,
                               fit: BoxFit.contain,
-                              color: isSelected ? Colors.white : null,
+                              color: isSelected ? AppColor.whiteColor(context) : null,
                               errorBuilder: (_, __, ___) => Icon(
                                 Icons.directions_car_rounded,
-                                color: isSelected ? Colors.white : AppColor.primaryColor(context),
+                                color: isSelected
+                                    ? AppColor.whiteColor(context)
+                                    : AppColor.primaryColor(context),
                               ),
                             ),
                           ),
@@ -126,8 +128,8 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
                             overflow: TextOverflow.ellipsis,
                             style: AppTextStyle.bodySmall(context).copyWith(
                               color: isSelected
-                                  ? Colors.white
-                                  : AppColor.blackTextColor(context).withOpacity(0.8),
+                                  ? AppColor.whiteColor(context)
+                                  : AppColor.blackTextColor(context).withValues(alpha: 0.8),
                               fontWeight: isSelected ? FontWeight.w900 : FontWeight.w700,
                             ),
                           ),

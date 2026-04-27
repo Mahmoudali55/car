@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:car/core/localization/app_locale_keys.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:equatable/equatable.dart';
 
 class GetBrandCarsDataModel extends Equatable {
@@ -99,11 +101,11 @@ class GetBrandCarsDataModel extends Equatable {
   String get carStatusText {
     switch (carStatus) {
       case 1:
-        return 'متاحة';
+        return AppLocaleKey.agentCarAvailable.tr();
       case 2:
-        return 'محجوزة';
+        return AppLocaleKey.agentCarReserved.tr();
       case 3:
-        return 'غير متاحة';
+        return AppLocaleKey.agentCarSold.tr();
       default:
         return '';
     }
