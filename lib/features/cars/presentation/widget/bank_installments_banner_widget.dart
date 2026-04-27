@@ -28,7 +28,7 @@ class BankInstallmentsBannerWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'التقسيط',
+            AppLocaleKey.agentInstallments.tr(),
             style: AppTextStyle.bodySmall(
               context,
             ).copyWith(color: AppColor.blackTextColor(context), fontWeight: FontWeight.bold),
@@ -60,7 +60,7 @@ class BankInstallmentsBannerWidget extends StatelessWidget {
               Icon(Icons.calculate_outlined, color: AppColor.blueColor(context), size: 14.sp),
               Gap(4.w),
               Text(
-                'احسب التمويل',
+                AppLocaleKey.agentCalculateFinancing.tr(),
                 style: AppTextStyle.bodySmall(context).copyWith(
                   color: AppColor.blueColor(context),
                   decoration: TextDecoration.underline,

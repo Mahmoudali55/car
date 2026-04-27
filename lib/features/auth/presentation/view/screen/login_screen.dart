@@ -139,7 +139,6 @@ class LoginScreen extends StatelessWidget {
                               color: AppColor.blackTextColor(context).withValues(alpha: 0.3),
                             ),
                             radius: 16,
-                            keyboardType: TextInputType.phone,
                           ),
                         ),
                         Gap(20.h),

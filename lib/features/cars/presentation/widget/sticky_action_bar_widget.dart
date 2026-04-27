@@ -1,4 +1,5 @@
 import 'dart:ui';
+
 import 'package:car/core/cache/hive/hive_methods.dart';
 import 'package:car/core/custom_widgets/buttons/custom_button.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
@@ -12,6 +13,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
+
 class StickyActionBarWidget extends StatelessWidget {
   final Map<String, dynamic> car;
 
@@ -41,7 +43,7 @@ class StickyActionBarWidget extends StatelessWidget {
                   flex: 1,
                   child: OutlinedButton.icon(
                     style: OutlinedButton.styleFrom(
-                      fixedSize: Size.fromHeight(50.h),
+                      fixedSize: Size.fromHeight(35.h),
                       side: BorderSide(color: AppColor.greenColor(context)),
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.r)),
                       foregroundColor: AppColor.greenColor(context),
@@ -55,11 +57,10 @@ class StickyActionBarWidget extends StatelessWidget {
                     },
                     icon: Icon(Icons.phone_rounded, size: 20.sp),
                     label: Text(
-                      'اتصل بنا للحجز',
-                      style: AppTextStyle.bodySmall(context).copyWith(
-                        fontWeight: FontWeight.bold,
-                        color: AppColor.greenColor(context),
-                      ),
+                      AppLocaleKey.agentCallButton.tr(),
+                      style: AppTextStyle.bodySmall(
+                        context,
+                      ).copyWith(fontWeight: FontWeight.bold, color: AppColor.greenColor(context)),
                     ),
                   ),
                 ),
@@ -67,13 +68,8 @@ class StickyActionBarWidget extends StatelessWidget {
                 // Book Now Button (Primary)
                 Expanded(
                   flex: 1,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColor.greenColor(context),
-                      fixedSize: Size.fromHeight(50.h),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.r)),
-                      elevation: 0,
-                    ),
+                  child: CustomButton(
+                    radius: 10.r,
                     onPressed: () {
                       if (HiveMethods.getToken() == null) {
                         CommonMethods.showLoginRequiredDialog(context);
@@ -86,11 +82,10 @@ class StickyActionBarWidget extends StatelessWidget {
                       }
                     },
                     child: Text(
-                      'إحجزها الآن',
-                      style: AppTextStyle.bodySmall(context).copyWith(
-                        fontWeight: FontWeight.w900,
-                        color: Colors.white,
-                      ),
+                      AppLocaleKey.agentReserveButton.tr(),
+                      style: AppTextStyle.bodySmall(
+                        context,
+                      ).copyWith(fontWeight: FontWeight.w900, color: AppColor.whiteColor(context)),
                     ),
                   ),
                 ),

@@ -944,7 +944,14 @@
   "agent_car_sold":"Sold",
   "agent_no_brands_available": "No brands available in the inventory",
   "agent_no_categories_found": "No categories found",
-  "agent_no_cars_found":"Price includes VAT"
+  "agent_no_cars_found":"Price includes VAT",
+  "agent_installments":"Installments",
+  "agent_calculate_financing": "Calculate Financing",
+  "agent_image_zoom": "Tap to zoom image",
+  "agent_call_button":"Call Us to Reserve",
+  "agent_reserve_button":"Reserve Now"
+
+
 }
 
 

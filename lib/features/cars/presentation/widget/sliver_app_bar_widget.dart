@@ -2,6 +2,7 @@ import 'package:car/core/cache/hive/hive_methods.dart';
 import 'package:car/core/custom_widgets/custom_image/custom_network_image.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
+import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/core/utils/common_methods.dart';
 import 'package:car/features/cars/presentation/widget/full_image_gallery_screen.dart';
 import 'package:car/features/favorites/presentation/view/cubit/favorites_cubit.dart';
@@ -71,7 +72,7 @@ class _SliverAppBarWidgetState extends State<SliverAppBarWidget> {
                   final String carPrice = widget.car['price'] ?? '';
                   final String message =
                       '${AppLocaleKey.checkOutThisCar.tr()} $carName ${AppLocaleKey.atPrice.tr()} $carPrice\n\n${AppLocaleKey.downloadApp.tr()}: https://hbwinternational.com';
-                  Share.share(message);
+                  SharePlus.instance.share(ShareParams(text: message));
                 }
               },
             ),
@@ -87,7 +88,7 @@ class _SliverAppBarWidgetState extends State<SliverAppBarWidget> {
                 child: IconButton(
                   icon: Icon(
                     isFav ? Icons.favorite_rounded : Icons.favorite_outline_rounded,
-                    color: isFav ? Colors.redAccent : Colors.black,
+                    color: isFav ? AppColor.redColor(context) : AppColor.blackTextColor(context),
                     size: 20,
                   ),
                   onPressed: () {
@@ -151,13 +152,11 @@ class _SliverAppBarWidgetState extends State<SliverAppBarWidget> {
                         tag:
                             'car_image_full_${widget.car['itemCode'] ?? widget.car['name']}_$index',
                         child: Container(
+                          height: 100.h,
+                          width: 50.w,
                           decoration: BoxDecoration(color: AppColor.scaffoldColor(context)),
                           child: isNetwork
-                              ? CustomNetworkImage(
-                                  imageUrl: imageUrl,
-                                  fit: BoxFit.cover,
-                                  height: 150.h,
-                                )
+                              ? CustomNetworkImage(imageUrl: imageUrl, fit: BoxFit.cover)
                               : Image.asset(
                                   imageUrl.isEmpty ? 'assets/images/placeholder.png' : imageUrl,
                                   fit: BoxFit.cover,
@@ -174,13 +173,13 @@ class _SliverAppBarWidgetState extends State<SliverAppBarWidget> {
                     child: Container(
                       padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 4.h),
                       decoration: BoxDecoration(
-                        color: Colors.black.withOpacity(0.3),
+                        color: AppColor.blackTextColor(context).withValues(alpha: 0.3),
                         borderRadius: BorderRadius.circular(4.r),
                       ),
                       child: Text(
                         '${safeIndex + 1} / ${displayedImages.length}',
                         style: TextStyle(
-                          color: Colors.white,
+                          color: AppColor.whiteColor(context),
                           fontSize: 14.sp,
                           fontWeight: FontWeight.bold,
                         ),
@@ -197,23 +196,23 @@ class _SliverAppBarWidgetState extends State<SliverAppBarWidget> {
                       child: Container(
                         padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
                         decoration: BoxDecoration(
-                          color: Colors.black.withOpacity(0.2),
+                          color: AppColor.blackTextColor(context).withValues(alpha: (0.2)),
                           borderRadius: BorderRadius.circular(20.r),
                         ),
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            Icon(Icons.fullscreen_rounded, color: Colors.white, size: 18.sp),
+                            Icon(
+                              Icons.fullscreen_rounded,
+                              color: AppColor.whiteColor(context),
+                              size: 18.sp,
+                            ),
                             Gap(6.w),
                             Text(
-                              AppLocaleKey.agentUserName.tr() == "English"
-                                  ? "Tap to enlarge"
-                                  : "اضغط لتكبير الصورة",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 12.sp,
-                                fontWeight: FontWeight.bold,
-                              ),
+                              AppLocaleKey.agentImageZoom.tr(),
+                              style: AppTextStyle.bodySmall(
+                                context,
+                              ).copyWith(color: AppColor.whiteColor(context)),
                             ),
                           ],
                         ),
@@ -239,7 +238,7 @@ class _SliverAppBarWidgetState extends State<SliverAppBarWidget> {
                             decoration: BoxDecoration(
                               color: isSelected
                                   ? AppColor.primaryColor(context)
-                                  : Colors.white.withOpacity(0.5),
+                                  : AppColor.blackTextColor(context).withValues(alpha: 0.3),
                               borderRadius: BorderRadius.circular(2.r),
                             ),
                           );
@@ -260,7 +259,7 @@ class _SliverAppBarWidgetState extends State<SliverAppBarWidget> {
                           end: Alignment.topCenter,
                           colors: [
                             AppColor.scaffoldColor(context),
-                            AppColor.scaffoldColor(context).withOpacity(0),
+                            AppColor.scaffoldColor(context),
                           ],
                         ),
                       ),

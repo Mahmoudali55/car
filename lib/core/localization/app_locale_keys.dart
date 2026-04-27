@@ -1006,4 +1006,9 @@ class AppLocaleKey {
   static const String agentNoBrandsAvailable = 'agent_no_brands_available';
   static const String agentNoCategoriesFound = 'agent_no_categories_found';
   static const String agentIncludesVat = 'agent_includes_vat';
+  static const String agentInstallments = 'agent_installments';
+  static const String agentCalculateFinancing = 'agent_calculate_financing';
+  static const String agentImageZoom = 'agent_image_zoom';
+  static const String agentCallButton = 'agent_call_button';
+  static const String agentReserveButton = 'agent_reserve_button';
 }
