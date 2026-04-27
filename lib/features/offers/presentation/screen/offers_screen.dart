@@ -1,14 +1,10 @@
-import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
-import 'package:car/core/theme/app_text_style.dart';
-import 'package:car/features/offers/presentation/screen/widget/filter_chips_widget.dart';
+import 'package:car/features/offers/presentation/screen/widget/custom_special_offers_widget.dart';
 import 'package:car/features/offers/presentation/screen/widget/header_widget.dart';
 import 'package:car/features/offers/presentation/screen/widget/offers_featured_slider_widget.dart';
 import 'package:car/features/offers/presentation/screen/widget/premium_offer_card_widget.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:gap/gap.dart';
 
 class OffersScreen extends StatefulWidget {
   const OffersScreen({super.key});
@@ -81,37 +77,10 @@ class _OffersScreenState extends State<OffersScreen> {
           const SliverToBoxAdapter(child: HeaderWidget()),
           const SliverToBoxAdapter(child: OffersFeaturedSlider()),
           SliverToBoxAdapter(
-            child: Padding(
-              padding: EdgeInsets.symmetric(vertical: 24.h),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  FilterChipsWidget(selectedFilterIndex: _selectedFilterIndex, filters: _filters),
-                  Gap(24.h),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20.w),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          AppLocaleKey.specialOffers.tr(),
-                          style: AppTextStyle.titleMedium(context).copyWith(
-                            color: AppColor.blackTextColor(context),
-                            fontWeight: FontWeight.w900,
-                            fontSize: 20.sp,
-                          ),
-                        ),
-                        Text(
-                          '${_offers.length} ${AppLocaleKey.offers.tr()}',
-                          style: AppTextStyle.bodySmall(
-                            context,
-                          ).copyWith(color: AppColor.primaryColor(context)),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
+            child: CustomSpecialOffersWidget(
+              selectedFilterIndex: _selectedFilterIndex,
+              filters: _filters,
+              offers: _offers,
             ),
           ),
 

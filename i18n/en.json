@@ -942,7 +942,8 @@
   "agent_car_available":"Available",
   "agent_car_reserved":"Reserved",
   "agent_car_sold":"Sold",
-  "agent_no_brands_available": "No brands available in the inventory"
+  "agent_no_brands_available": "No brands available in the inventory",
+  "agent_no_categories_found": "No categories found"
 }
 
 
