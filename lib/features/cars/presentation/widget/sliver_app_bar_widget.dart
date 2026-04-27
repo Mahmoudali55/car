@@ -3,6 +3,7 @@ import 'package:car/core/custom_widgets/custom_image/custom_network_image.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/utils/common_methods.dart';
+import 'package:car/features/cars/presentation/widget/full_image_gallery_screen.dart';
 import 'package:car/features/favorites/presentation/view/cubit/favorites_cubit.dart';
 import 'package:car/features/home/presentation/cubit/home_cubit.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -40,7 +41,7 @@ class _SliverAppBarWidgetState extends State<SliverAppBarWidget> {
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
-      expandedHeight: 380.h,
+      expandedHeight: 300.h,
       pinned: true,
       elevation: 0,
       stretch: true,
@@ -120,102 +121,98 @@ class _SliverAppBarWidgetState extends State<SliverAppBarWidget> {
 
             final safeIndex = _currentImageIndex < displayedImages.length ? _currentImageIndex : 0;
 
-            return Stack(
-              fit: StackFit.expand,
-              children: [
-                // Main Image Slider
-                PageView.builder(
-                  controller: widget.imagePageController,
-                  onPageChanged: (index) => setState(() => _currentImageIndex = index),
-                  itemCount: displayedImages.length,
-                  itemBuilder: (context, index) {
-                    final imageUrl = displayedImages[index];
-                    final isNetwork = imageUrl.startsWith('http');
+            return GestureDetector(
+              onTap: () {
+                // Open full screen gallery
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => FullImageGalleryScreen(
+                      images: displayedImages,
+                      initialIndex: safeIndex,
+                      car: widget.car,
+                    ),
+                  ),
+                );
+              },
+              child: Stack(
+                fit: StackFit.expand,
+                children: [
+                  // Main Image Slider
+                  PageView.builder(
+                    controller: widget.imagePageController,
+                    onPageChanged: (index) => setState(() => _currentImageIndex = index),
+                    itemCount: displayedImages.length,
+                    itemBuilder: (context, index) {
+                      final imageUrl = displayedImages[index];
+                      final isNetwork = imageUrl.startsWith('http');
 
-                    return Hero(
-                      tag: index == 0
-                          ? 'car_image_${widget.car['itemCode'] ?? widget.car['name']}'
-                          : 'car_image_gallery_${widget.car['itemCode'] ?? widget.car['name']}_$index',
-                      child: Container(
-                        decoration: BoxDecoration(color: AppColor.scaffoldColor(context)),
-                        child: Stack(
-                          fit: StackFit.expand,
-                          children: [
-                            // Blurred Background Accent
-                            if (isNetwork)
-                              Opacity(
-                                opacity: 0.1,
-                                child: CustomNetworkImage(imageUrl: imageUrl, fit: BoxFit.cover),
-                              ),
-
-                            // Car Image with better spacing
-                            Padding(
-                              padding: EdgeInsets.fromLTRB(20.w, 80.h, 20.w, 60.h),
-                              child: isNetwork
-                                  ? CustomNetworkImage(imageUrl: imageUrl, fit: BoxFit.contain)
-                                  : Image.asset(
-                                      imageUrl.isEmpty ? 'assets/images/placeholder.png' : imageUrl,
-                                      fit: BoxFit.contain,
-                                    ),
-                            ),
-
-                            // Bottom Fade Overlay
-                            Positioned(
-                              bottom: 0,
-                              left: 0,
-                              right: 0,
-                              height: 100.h,
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  gradient: LinearGradient(
-                                    begin: Alignment.bottomCenter,
-                                    end: Alignment.topCenter,
-                                    colors: [
-                                      AppColor.scaffoldColor(context),
-                                      AppColor.scaffoldColor(context).withOpacity(0),
-                                    ],
-                                  ),
+                      return Hero(
+                        tag:
+                            'car_image_full_${widget.car['itemCode'] ?? widget.car['name']}_$index',
+                        child: Container(
+                          decoration: BoxDecoration(color: AppColor.scaffoldColor(context)),
+                          child: isNetwork
+                              ? CustomNetworkImage(
+                                  imageUrl: imageUrl,
+                                  fit: BoxFit.cover,
+                                  height: 150.h,
+                                )
+                              : Image.asset(
+                                  imageUrl.isEmpty ? 'assets/images/placeholder.png' : imageUrl,
+                                  fit: BoxFit.cover,
                                 ),
-                              ),
-                            ),
-                          ],
+                        ),
+                      );
+                    },
+                  ),
+
+                  // Top Left Counter (e.g. 1 / 38)
+                  Positioned(
+                    top: 100.h,
+                    left: 20.w,
+                    child: Container(
+                      padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 4.h),
+                      decoration: BoxDecoration(
+                        color: Colors.black.withOpacity(0.3),
+                        borderRadius: BorderRadius.circular(4.r),
+                      ),
+                      child: Text(
+                        '${safeIndex + 1} / ${displayedImages.length}',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
-                    );
-                  },
-                ),
+                    ),
+                  ),
 
-                // Premium Page Indicator (Pill Design)
-                if (displayedImages.length > 1)
+                  // Click to enlarge overlay
                   Positioned(
-                    bottom: 30.h,
+                    bottom: 80.h,
                     left: 0,
                     right: 0,
                     child: Center(
                       child: Container(
                         padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
                         decoration: BoxDecoration(
-                          color: Colors.black.withOpacity(0.6),
-                          borderRadius: BorderRadius.circular(30.r),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.2),
-                              blurRadius: 10,
-                              offset: const Offset(0, 4),
-                            ),
-                          ],
+                          color: Colors.black.withOpacity(0.2),
+                          borderRadius: BorderRadius.circular(20.r),
                         ),
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            Icon(Icons.photo_library_outlined, color: Colors.white, size: 14.sp),
-                            Gap(8.w),
+                            Icon(Icons.fullscreen_rounded, color: Colors.white, size: 18.sp),
+                            Gap(6.w),
                             Text(
-                              '${safeIndex + 1} / ${displayedImages.length}',
+                              AppLocaleKey.agentUserName.tr() == "English"
+                                  ? "Tap to enlarge"
+                                  : "اضغط لتكبير الصورة",
                               style: TextStyle(
                                 color: Colors.white,
-                                fontSize: 13.sp,
-                                fontWeight: FontWeight.w900,
+                                fontSize: 12.sp,
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
                           ],
@@ -223,7 +220,54 @@ class _SliverAppBarWidgetState extends State<SliverAppBarWidget> {
                       ),
                     ),
                   ),
-              ],
+
+                  // Dash Indicators
+                  if (displayedImages.length > 1)
+                    Positioned(
+                      bottom: 50.h,
+                      left: 0,
+                      right: 0,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: List.generate(displayedImages.length, (index) {
+                          final isSelected = index == safeIndex;
+                          return AnimatedContainer(
+                            duration: const Duration(milliseconds: 300),
+                            margin: EdgeInsets.symmetric(horizontal: 3.w),
+                            height: 4.h,
+                            width: isSelected ? 30.w : 15.w,
+                            decoration: BoxDecoration(
+                              color: isSelected
+                                  ? AppColor.primaryColor(context)
+                                  : Colors.white.withOpacity(0.5),
+                              borderRadius: BorderRadius.circular(2.r),
+                            ),
+                          );
+                        }),
+                      ),
+                    ),
+
+                  // Bottom Fade Overlay
+                  Positioned(
+                    bottom: -1,
+                    left: 0,
+                    right: 0,
+                    height: 40.h,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.bottomCenter,
+                          end: Alignment.topCenter,
+                          colors: [
+                            AppColor.scaffoldColor(context),
+                            AppColor.scaffoldColor(context).withOpacity(0),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             );
           },
         ),

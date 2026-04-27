@@ -36,11 +36,44 @@ class StickyActionBarWidget extends StatelessWidget {
             ),
             child: Row(
               children: [
+                // Call Button (Secondary)
                 Expanded(
-                  flex: 2,
-                  child: CustomButton(
-                    height: 50.h,
-                    radius: 12.r,
+                  flex: 1,
+                  child: OutlinedButton.icon(
+                    style: OutlinedButton.styleFrom(
+                      fixedSize: Size.fromHeight(50.h),
+                      side: BorderSide(color: AppColor.greenColor(context)),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.r)),
+                      foregroundColor: AppColor.greenColor(context),
+                    ),
+                    onPressed: () {
+                      showModalBottomSheet(
+                        context: context,
+                        backgroundColor: Colors.transparent,
+                        builder: (context) => const ContactBottomSheetWidget(),
+                      );
+                    },
+                    icon: Icon(Icons.phone_rounded, size: 20.sp),
+                    label: Text(
+                      'اتصل بنا للحجز',
+                      style: AppTextStyle.bodySmall(context).copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: AppColor.greenColor(context),
+                      ),
+                    ),
+                  ),
+                ),
+                Gap(16.w),
+                // Book Now Button (Primary)
+                Expanded(
+                  flex: 1,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColor.greenColor(context),
+                      fixedSize: Size.fromHeight(50.h),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.r)),
+                      elevation: 0,
+                    ),
                     onPressed: () {
                       if (HiveMethods.getToken() == null) {
                         CommonMethods.showLoginRequiredDialog(context);
@@ -53,59 +86,12 @@ class StickyActionBarWidget extends StatelessWidget {
                       }
                     },
                     child: Text(
-                      AppLocaleKey.reserveCar.tr(),
-                      style: AppTextStyle.buttonStyle(
-                        context,
-                      ).copyWith(fontWeight: FontWeight.w900, fontSize: 13.sp),
-                    ),
-                  ),
-                ),
-                Gap(16.w),
-                Container(
-                  height: 50.h,
-                  width: 56.h,
-                  decoration: BoxDecoration(
-                    color: AppColor.blackTextColor(context).withOpacity(0.1),
-                    borderRadius: BorderRadius.circular(16.r),
-                  ),
-                  child: IconButton(
-                    icon: Icon(
-                      Icons.picture_as_pdf_rounded,
-                      color: AppColor.blackTextColor(context),
-                      size: 28,
-                    ),
-                    tooltip: AppLocaleKey.downloadQuotation.tr(),
-                    onPressed: () => _showPdfOptions(context),
-                  ),
-                ),
-                Gap(12.w),
-                Container(
-                  height: 50.h,
-                  width: 56.h,
-                  decoration: BoxDecoration(
-                    color: const Color(0xff25D366),
-                    borderRadius: BorderRadius.circular(16.r),
-                    boxShadow: [
-                      BoxShadow(
-                        color: const Color(0xff25D366).withOpacity(0.3),
-                        blurRadius: 10,
-                        offset: const Offset(0, 4),
+                      'إحجزها الآن',
+                      style: AppTextStyle.bodySmall(context).copyWith(
+                        fontWeight: FontWeight.w900,
+                        color: Colors.white,
                       ),
-                    ],
-                  ),
-                  child: IconButton(
-                    icon: Icon(Icons.phone_rounded, color: AppColor.whiteColor(context), size: 28),
-                    onPressed: () {
-                      if (HiveMethods.getToken() == null) {
-                        CommonMethods.showLoginRequiredDialog(context);
-                      } else {
-                        showModalBottomSheet(
-                      context: context,
-                      backgroundColor: Colors.transparent,
-                      builder: (context) => const ContactBottomSheetWidget(),
-                    );
-                      }
-                    },
+                    ),
                   ),
                 ),
               ],

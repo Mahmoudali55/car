@@ -1005,4 +1005,5 @@ class AppLocaleKey {
   static const String agentCarSold = 'agent_car_sold';
   static const String agentNoBrandsAvailable = 'agent_no_brands_available';
   static const String agentNoCategoriesFound = 'agent_no_categories_found';
+  static const String agentIncludesVat = 'agent_includes_vat';
 }

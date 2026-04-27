@@ -960,8 +960,8 @@
   "agent_car_reserved":"محجوزة",
   "agent_car_sold":"مباعة",
   "agent_no_brands_available":"لا توجد ماركات متاحة حالياً",
-  "agent_no_categories_found":"لا توجد فئات متوفرة حالياً"
-
+  "agent_no_categories_found":"لا توجد فئات متوفرة حالياً",
+  "agent_includes_vat":"السعر يشمل الضريبة المضافة"
 
 
 }
