@@ -12,6 +12,7 @@ import 'package:car/core/utils/navigator_methods.dart';
 import 'package:car/features/favorites/presentation/view/cubit/favorites_cubit.dart';
 import 'package:car/features/home/data/model/brand_cars_data_model.dart';
 import 'package:car/features/home/presentation/cubit/home_cubit.dart';
+import 'package:car/features/home/presentation/view/widgets/mini_detail_widget.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -345,20 +346,17 @@ class _PopularCarsSliderState extends State<PopularCarsSlider> {
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
-                                      _buildMiniDetail(
-                                        context,
-                                        Icons.calendar_today_outlined,
-                                        car['year']!,
+                                      MiniDetailWidget(
+                                        icon: Icons.calendar_today_outlined,
+                                        label: car['year']!,
                                       ),
-                                      _buildMiniDetail(
-                                        context,
-                                        Icons.speed_outlined,
-                                        car['mileage']!,
+                                      MiniDetailWidget(
+                                        icon: Icons.speed_outlined,
+                                        label: car['mileage']!,
                                       ),
-                                      _buildMiniDetail(
-                                        context,
-                                        Icons.settings_outlined,
-                                        car['engine']!,
+                                      MiniDetailWidget(
+                                        icon: Icons.settings_outlined,
+                                        label: car['engine']!,
                                       ),
                                     ],
                                   ),
@@ -430,32 +428,6 @@ class _PopularCarsSliderState extends State<PopularCarsSlider> {
           ),
         );
       },
-    );
-  }
-
-  Widget _buildMiniDetail(BuildContext context, IconData icon, String label) {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 6.h),
-      decoration: BoxDecoration(
-        color: AppColor.blackTextColor(context).withOpacity(0.04),
-        borderRadius: BorderRadius.circular(8.r),
-        border: Border.all(color: AppColor.blackTextColor(context).withOpacity(0.02)),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(icon, color: AppColor.greyColor(context), size: 14.w),
-          Gap(6.w),
-          Text(
-            label,
-            style: TextStyle(
-              color: AppColor.greyColor(context),
-              fontSize: 10.sp,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-        ],
-      ),
     );
   }
 }
