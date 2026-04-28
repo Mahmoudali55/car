@@ -14,7 +14,7 @@ class AppointmentCard extends StatelessWidget {
   final VoidCallback? onDone;
   final VoidCallback? onCancel;
 
-  const AppointmentCard({super.key, 
+  const AppointmentCard({super.key,
     required this.appointment,
     this.onCheckIn,
     this.onDone,
@@ -64,7 +64,7 @@ class AppointmentCard extends StatelessWidget {
           border: Border.all(color: AppColor.borderColor(context).withOpacity(0.5)),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.03),
+              color: AppColor.blackColor(context).withOpacity(0.03),
               blurRadius: 15,
               offset: const Offset(0, 8),
             ),

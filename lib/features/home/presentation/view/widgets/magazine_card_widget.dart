@@ -27,7 +27,7 @@ class MagazineCardWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(32.r),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.3),
+              color: AppColor.blackColor(context).withOpacity(0.3),
               blurRadius: 20,
               offset: const Offset(0, 10),
             ),
@@ -89,7 +89,7 @@ class MagazineCardWidget extends StatelessWidget {
                             onTap: () => context.read<FavoritesCubit>().toggleFavorite(car),
                             child: CircleAvatar(
                               radius: 18.r,
-                              backgroundColor: Colors.black.withValues(alpha: 0.3),
+                              backgroundColor: AppColor.blackColor(context).withValues(alpha: 0.3),
                               child: Icon(
                                 isFav ? Icons.favorite_rounded : Icons.favorite_outline_rounded,
                                 color: isFav ? Colors.redAccent : AppColor.blackTextColor(context),
@@ -125,7 +125,7 @@ class MagazineCardWidget extends StatelessWidget {
                 Container(
                   padding: EdgeInsets.all(20.w),
                   decoration: BoxDecoration(
-                    color: Colors.black.withOpacity(0.2),
+                    color: AppColor.blackColor(context).withOpacity(0.2),
                     border: Border(
                       top: BorderSide(color: AppColor.blackTextColor(context).withOpacity(0.05)),
                     ),

@@ -33,7 +33,7 @@ class ImageUploadWidget extends StatelessWidget {
                 fit: BoxFit.cover,
                 width: double.infinity,
                 height: double.infinity,
-                color: Colors.black.withOpacity(0.6),
+                color: AppColor.blackColor(context).withOpacity(0.6),
                 colorBlendMode: BlendMode.darken,
                 placeholder: (context, url) =>
                     Container(color: AppColor.blackTextColor(context).withOpacity(0.05)),

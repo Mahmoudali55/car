@@ -52,7 +52,11 @@ class _SliverAppBarWidgetState extends State<SliverAppBarWidget> {
         child: CircleAvatar(
           backgroundColor: AppColor.whiteColor(context),
           child: IconButton(
-            icon: const Icon(Icons.arrow_back_ios_new_rounded, color: Colors.black, size: 20),
+            icon: Icon(
+              Icons.arrow_back_ios_new_rounded,
+              color: AppColor.blackColor(context),
+              size: 20,
+            ),
             onPressed: () => Navigator.pop(context),
           ),
         ),
@@ -63,7 +67,7 @@ class _SliverAppBarWidgetState extends State<SliverAppBarWidget> {
           child: CircleAvatar(
             backgroundColor: AppColor.whiteColor(context),
             child: IconButton(
-              icon: const Icon(Icons.share_outlined, color: Colors.black, size: 20),
+              icon: Icon(Icons.share_outlined, color: AppColor.blackColor(context), size: 20),
               onPressed: () {
                 if (HiveMethods.getToken() == null) {
                   CommonMethods.showLoginRequiredDialog(context);
@@ -88,7 +92,7 @@ class _SliverAppBarWidgetState extends State<SliverAppBarWidget> {
                 child: IconButton(
                   icon: Icon(
                     isFav ? Icons.favorite_rounded : Icons.favorite_outline_rounded,
-                    color: isFav ? AppColor.redColor(context) : Colors.black,
+                    color: isFav ? AppColor.redColor(context) : AppColor.blackColor(context),
                     size: 20,
                   ),
                   onPressed: () {

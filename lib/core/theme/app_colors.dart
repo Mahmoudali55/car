@@ -142,6 +142,10 @@ class AppColor {
     );
   }
 
+  static Color blackColor(BuildContext context, {bool listen = true}) {
+    return AppTheme.getByTheme(context, light: Colors.black, dark: Colors.black, listen: listen);
+  }
+
   static Color buttonTextColor(BuildContext context, {bool listen = true}) {
     return AppTheme.getByTheme(
       context,
@@ -171,23 +175,48 @@ class AppColor {
   }
 
   static Color redColor(BuildContext context, {bool listen = true}) {
-    return AppTheme.getByTheme(context, light: const Color(0xFFFF3B3B), dark: const Color(0xFFFF4D4D), listen: listen);
+    return AppTheme.getByTheme(
+      context,
+      light: const Color(0xFFFF3B3B),
+      dark: const Color(0xFFFF4D4D),
+      listen: listen,
+    );
   }
 
   static Color greenColor(BuildContext context, {bool listen = true}) {
-    return AppTheme.getByTheme(context, light: const Color(0xFF00C06B), dark: const Color(0xFF00CC71), listen: listen);
+    return AppTheme.getByTheme(
+      context,
+      light: const Color(0xFF00C06B),
+      dark: const Color(0xFF00CC71),
+      listen: listen,
+    );
   }
 
   static Color orangeColor(BuildContext context, {bool listen = true}) {
-    return AppTheme.getByTheme(context, light: const Color(0xFFFF8C00), dark: const Color(0xFFFF9F1A), listen: listen);
+    return AppTheme.getByTheme(
+      context,
+      light: const Color(0xFFFF8C00),
+      dark: const Color(0xFFFF9F1A),
+      listen: listen,
+    );
   }
 
   static Color blueColor(BuildContext context, {bool listen = true}) {
-    return AppTheme.getByTheme(context, light: const Color(0xFF0066FF), dark: const Color(0xFF3385FF), listen: listen);
+    return AppTheme.getByTheme(
+      context,
+      light: const Color(0xFF0066FF),
+      dark: const Color(0xFF3385FF),
+      listen: listen,
+    );
   }
 
   static Color goldColor(BuildContext context, {bool listen = true}) {
-    return AppTheme.getByTheme(context, light: const Color(0xFFF5A623), dark: const Color(0xFFFFB347), listen: listen);
+    return AppTheme.getByTheme(
+      context,
+      light: const Color(0xFFF5A623),
+      dark: const Color(0xFFFFB347),
+      listen: listen,
+    );
   }
 
   /// Divider / subtle separator color
@@ -199,5 +228,6 @@ class AppColor {
       listen: listen,
     );
   }
-    /// Secondary color for backgrounds/gradients
+
+  /// Secondary color for backgrounds/gradients
 }

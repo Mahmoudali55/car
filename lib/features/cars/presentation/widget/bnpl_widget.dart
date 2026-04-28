@@ -55,7 +55,7 @@ class _BnplWidgetState extends State<BnplWidget> {
           context: context,
           providerName: 'tabby',
           bgColor: const Color(0xFF3EEDC4),
-          textColor: Colors.black,
+          textColor: AppColor.blackColor(context),
           descKey: AppLocaleKey.withoutInterestTabby,
           bottomSheetDescKey: AppLocaleKey.tabbyDesc,
           installment: installment,
@@ -68,7 +68,7 @@ class _BnplWidgetState extends State<BnplWidget> {
           context: context,
           providerName: 'tamara',
           bgColor: const Color(0xFFEBC18A), // More accurate Tamara gold
-          textColor: Colors.black,
+          textColor: AppColor.blackColor(context),
           descKey: AppLocaleKey.withoutInterestTamara,
           bottomSheetDescKey: AppLocaleKey.tamaraDesc,
           installment: installment,
@@ -93,13 +93,21 @@ class _BnplWidgetState extends State<BnplWidget> {
 
       if (isTabby) {
         checkoutUrl = await _bnplService.createTabbySession(
-          amount: amount, currency: currency, buyerEmail: buyerEmail,
-          buyerPhone: buyerPhone, buyerName: buyerName, orderId: orderId,
+          amount: amount,
+          currency: currency,
+          buyerEmail: buyerEmail,
+          buyerPhone: buyerPhone,
+          buyerName: buyerName,
+          orderId: orderId,
         );
       } else {
         checkoutUrl = await _bnplService.createTamaraSession(
-          amount: amount, currency: currency, buyerEmail: buyerEmail,
-          buyerPhone: buyerPhone, buyerFullName: buyerName, orderId: orderId,
+          amount: amount,
+          currency: currency,
+          buyerEmail: buyerEmail,
+          buyerPhone: buyerPhone,
+          buyerFullName: buyerName,
+          orderId: orderId,
         );
       }
 
@@ -135,9 +143,14 @@ class _BnplWidgetState extends State<BnplWidget> {
   }) {
     return GestureDetector(
       onTap: () => _showBnplDetails(
-        context: context, providerName: providerName, bgColor: bgColor,
-        textColor: textColor, bottomSheetDescKey: bottomSheetDescKey,
-        total: total, installment: installment, formattedInstallment: formattedInstallment,
+        context: context,
+        providerName: providerName,
+        bgColor: bgColor,
+        textColor: textColor,
+        bottomSheetDescKey: bottomSheetDescKey,
+        total: total,
+        installment: installment,
+        formattedInstallment: formattedInstallment,
         isTabby: isTabby,
       ),
       child: Container(
@@ -151,10 +164,7 @@ class _BnplWidgetState extends State<BnplWidget> {
           children: [
             Container(
               padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 6.h),
-              decoration: BoxDecoration(
-                color: bgColor,
-                borderRadius: BorderRadius.circular(8.r),
-              ),
+              decoration: BoxDecoration(color: bgColor, borderRadius: BorderRadius.circular(8.r)),
               child: Text(
                 providerName.toUpperCase(),
                 style: TextStyle(
@@ -184,10 +194,9 @@ class _BnplWidgetState extends State<BnplWidget> {
                   ),
                   Text(
                     descKey.tr(),
-                    style: AppTextStyle.bodySmall(context).copyWith(
-                      color: AppColor.greyColor(context),
-                      fontSize: 10.sp,
-                    ),
+                    style: AppTextStyle.bodySmall(
+                      context,
+                    ).copyWith(color: AppColor.greyColor(context), fontSize: 10.sp),
                   ),
                 ],
               ),
@@ -224,7 +233,8 @@ class _BnplWidgetState extends State<BnplWidget> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
-              width: 40.w, height: 4.h,
+              width: 40.w,
+              height: 4.h,
               decoration: BoxDecoration(
                 color: Colors.grey.withOpacity(0.3),
                 borderRadius: BorderRadius.circular(2.r),
@@ -242,10 +252,35 @@ class _BnplWidgetState extends State<BnplWidget> {
               style: AppTextStyle.bodySmall(context).copyWith(color: AppColor.greyColor(context)),
             ),
             Gap(32.h),
-            _buildTimelineItem(context, AppLocaleKey.payToday.tr(), formattedInstallment, bgColor, true),
-            _buildTimelineItem(context, AppLocaleKey.inOneMonth.tr(), formattedInstallment, bgColor, false),
-            _buildTimelineItem(context, AppLocaleKey.inTwoMonths.tr(), formattedInstallment, bgColor, false),
-            _buildTimelineItem(context, AppLocaleKey.inThreeMonths.tr(), formattedInstallment, bgColor, false, isLast: true),
+            _buildTimelineItem(
+              context,
+              AppLocaleKey.payToday.tr(),
+              formattedInstallment,
+              bgColor,
+              true,
+            ),
+            _buildTimelineItem(
+              context,
+              AppLocaleKey.inOneMonth.tr(),
+              formattedInstallment,
+              bgColor,
+              false,
+            ),
+            _buildTimelineItem(
+              context,
+              AppLocaleKey.inTwoMonths.tr(),
+              formattedInstallment,
+              bgColor,
+              false,
+            ),
+            _buildTimelineItem(
+              context,
+              AppLocaleKey.inThreeMonths.tr(),
+              formattedInstallment,
+              bgColor,
+              false,
+              isLast: true,
+            ),
             Gap(32.h),
             SizedBox(
               width: double.infinity,
@@ -272,7 +307,14 @@ class _BnplWidgetState extends State<BnplWidget> {
     );
   }
 
-  Widget _buildTimelineItem(BuildContext context, String title, String amount, Color brandColor, bool isFirst, {bool isLast = false}) {
+  Widget _buildTimelineItem(
+    BuildContext context,
+    String title,
+    String amount,
+    Color brandColor,
+    bool isFirst, {
+    bool isLast = false,
+  }) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -281,11 +323,15 @@ class _BnplWidgetState extends State<BnplWidget> {
           child: Column(
             children: [
               Container(
-                width: 12.w, height: 12.w,
+                width: 12.w,
+                height: 12.w,
                 decoration: BoxDecoration(
                   color: isFirst ? brandColor : Colors.transparent,
                   shape: BoxShape.circle,
-                  border: Border.all(color: isFirst ? brandColor : Colors.grey.withOpacity(0.3), width: 2),
+                  border: Border.all(
+                    color: isFirst ? brandColor : Colors.grey.withOpacity(0.3),
+                    width: 2,
+                  ),
                 ),
               ),
               if (!isLast) Container(width: 1.w, height: 30.h, color: Colors.grey.withOpacity(0.2)),
@@ -298,7 +344,10 @@ class _BnplWidgetState extends State<BnplWidget> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(title, style: AppTextStyle.bodyMedium(context)),
-              Text('$amount SAR', style: AppTextStyle.bodyMedium(context).copyWith(fontWeight: FontWeight.bold)),
+              Text(
+                '$amount SAR',
+                style: AppTextStyle.bodyMedium(context).copyWith(fontWeight: FontWeight.bold),
+              ),
             ],
           ),
         ),

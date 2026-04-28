@@ -1,6 +1,7 @@
 import 'package:car/core/custom_widgets/custom_image/custom_network_image.dart';
 import 'package:car/core/network/contants.dart';
 import 'package:car/core/routes/routes_name.dart';
+import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/features/home/data/model/cars_models_response.dart';
 import 'package:car/features/home/presentation/cubit/home_cubit.dart';
@@ -20,19 +21,9 @@ class CustomItemBrandWidget extends StatelessWidget {
         context.read<HomeCubit>().getBrandCars(brand.groupCode.toString());
         Navigator.pushNamed(context, RoutesName.popularCarsScreen);
       },
-      child: Container(
-        decoration: BoxDecoration(
-          color: Theme.of(context).cardColor,
-          borderRadius: BorderRadius.circular(16.r),
-          border: Border.all(color: Colors.grey.withOpacity(0.15)),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.05),
-              blurRadius: 8,
-              offset: const Offset(0, 4),
-            ),
-          ],
-        ),
+      child: Card(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.r)),
+        color: AppColor.whiteColor(context),
         child: Column(
           children: [
             // Image
@@ -41,7 +32,7 @@ class CustomItemBrandWidget extends StatelessWidget {
                 padding: EdgeInsets.all(12.w),
                 child: Container(
                   decoration: BoxDecoration(
-                    color: Colors.grey.withOpacity(0.05),
+                    color: AppColor.greyColor(context).withValues(alpha: (0.05)),
                     borderRadius: BorderRadius.circular(12.r),
                   ),
                   child: ClipRRect(
@@ -63,7 +54,9 @@ class CustomItemBrandWidget extends StatelessWidget {
               child: Text(
                 brand.groupName,
                 textAlign: TextAlign.center,
-                style: AppTextStyle.bodyMedium(context).copyWith(fontWeight: FontWeight.w600),
+                style: AppTextStyle.bodyMedium(
+                  context,
+                ).copyWith(fontWeight: FontWeight.w600, color: AppColor.blackColor(context)),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               ),

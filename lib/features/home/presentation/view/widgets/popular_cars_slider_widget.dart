@@ -209,7 +209,7 @@ class _PopularCarsSliderState extends State<PopularCarsSlider> {
                       BoxShadow(
                         color: isSelected
                             ? AppColor.primaryColor(context).withOpacity(0.15)
-                            : Colors.black.withOpacity(0.1),
+                            : AppColor.blackColor(context).withOpacity(0.1),
                         blurRadius: isSelected ? 20 : 10,
                         offset: isSelected ? const Offset(0, 10) : const Offset(0, 5),
                       ),
@@ -408,7 +408,7 @@ class _PopularCarsSliderState extends State<PopularCarsSlider> {
                                           child: Text(
                                             AppLocaleKey.details.tr(),
                                             style: AppTextStyle.bodySmall(context).copyWith(
-                                              color: Colors.black,
+                                              color: AppColor.blackColor(context),
                                               fontWeight: FontWeight.bold,
                                             ),
                                           ),

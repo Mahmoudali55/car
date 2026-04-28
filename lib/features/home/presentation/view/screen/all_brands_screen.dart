@@ -1,11 +1,11 @@
 import 'package:car/core/custom_widgets/custom_app_bar/custom_app_bar.dart';
-import 'package:car/core/custom_widgets/custom_form_field/custom_form_field.dart';
 import 'package:car/core/custom_widgets/custom_loading/custom_loading.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
+import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/core/utils/responsive_helper.dart';
-import 'package:car/features/home/data/model/cars_models_response.dart';
 import 'package:car/features/home/presentation/cubit/home_cubit.dart';
+import 'package:car/features/home/presentation/view/widgets/custom_header_all_brand_widget.dart';
 import 'package:car/features/home/presentation/view/widgets/custom_item_brand_widget.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -13,33 +13,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
-class AllBrandsScreen extends StatefulWidget {
+class AllBrandsScreen extends StatelessWidget {
   const AllBrandsScreen({super.key});
-
-  @override
-  State<AllBrandsScreen> createState() => _AllBrandsScreenState();
-}
-
-class _AllBrandsScreenState extends State<AllBrandsScreen> {
-  String _searchQuery = '';
-
-  @override
-  void initState() {
-    super.initState();
-    context.read<HomeCubit>().getCarsModels();
-  }
-
-  List<CarModel> _getFilteredBrands(List<CarModel> brands) {
-    if (_searchQuery.isEmpty) return brands;
-
-    return brands
-        .where((b) => b.groupName.toLowerCase().contains(_searchQuery.toLowerCase()))
-        .toList();
-  }
 
   @override
   Widget build(BuildContext context) {
     final bool isTablet = context.isTablet || context.isDesktop;
+
     return Scaffold(
       appBar: CustomAppBar(
         context,
@@ -57,48 +37,28 @@ class _AllBrandsScreenState extends State<AllBrandsScreen> {
           child: SafeArea(
             child: Column(
               children: [
-                Padding(
-                  padding: EdgeInsets.fromLTRB(16.w, 12.h, 16.w, 8.h),
-                  child: CustomFormField(
-                    radius: 16.r,
-                    onChanged: (val) => setState(() => _searchQuery = val),
-                    prefixIcon: const Icon(Icons.search),
-                    hintText: AppLocaleKey.searchForBrand.tr(),
-                  ),
-                ),
-                // Brands grid
+                const CustomHeaderAllBrandWidget(),
+
                 Expanded(
                   child: BlocBuilder<HomeCubit, HomeState>(
                     builder: (context, state) {
-                      final cubit = context.read<HomeCubit>();
-
                       if (state.carsModelsStatus.isLoading) {
                         return const Center(child: CustomLoading());
                       }
 
                       if (state.carsModelsStatus.isFailure) {
-                        return Center(
-                          child: Text(
-                            state.carsModelsStatus.message ?? '',
-                            style: AppTextStyle.bodyMedium(context),
-                          ),
-                        );
+                        return bluidCarModelFailure(state, context);
                       }
 
-                      final brands = _getFilteredBrands(cubit.brands);
+                      final brands = state.brands
+                          .where(
+                            (b) =>
+                                b.groupName.toLowerCase().contains(state.searchQuery.toLowerCase()),
+                          )
+                          .toList();
 
                       if (brands.isEmpty) {
-                        return Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(Icons.car_rental_rounded, size: 60.w, color: Colors.grey),
-                            Gap(12.h),
-                            Text(
-                              AppLocaleKey.agentNoBrandsAvailable.tr(),
-                              style: AppTextStyle.bodyMedium(context),
-                            ),
-                          ],
-                        );
+                        return bulidCarModelEmpty(context);
                       }
 
                       return GridView.builder(
@@ -125,6 +85,23 @@ class _AllBrandsScreenState extends State<AllBrandsScreen> {
           ),
         ),
       ),
+    );
+  }
+
+  Column bulidCarModelEmpty(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Icon(Icons.car_rental_rounded, size: 60.w, color: AppColor.greyColor(context)),
+        Gap(12.h),
+        Text(AppLocaleKey.agentNoBrandsAvailable.tr(), style: AppTextStyle.bodyMedium(context)),
+      ],
+    );
+  }
+
+  Center bluidCarModelFailure(HomeState state, BuildContext context) {
+    return Center(
+      child: Text(state.carsModelsStatus.message ?? '', style: AppTextStyle.bodyMedium(context)),
     );
   }
 }

@@ -283,10 +283,7 @@ class SupportScreen extends StatelessWidget {
                 fontSize: 13,
               ),
             ),
-            Icon(
-              Icons.add_rounded,
-              color: AppColor.blackTextColor(context).withOpacity(0.24),
-            ),
+            Icon(Icons.add_rounded, color: AppColor.blackTextColor(context).withOpacity(0.24)),
           ],
         ),
       ),
@@ -313,7 +310,7 @@ class SupportScreen extends StatelessWidget {
           border: Border.all(color: isDark ? AppColor.borderColor(context) : Colors.transparent),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.05),
+              color: AppColor.blackColor(context).withOpacity(0.05),
               blurRadius: 10,
               offset: const Offset(0, 4),
             ),

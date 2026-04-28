@@ -42,8 +42,8 @@ class AboutAppBar extends StatelessWidget {
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                   colors: [
-                    Colors.black.withOpacity(0.3),
-                    Colors.black.withOpacity(0.7),
+                    AppColor.blackColor(context).withOpacity(0.3),
+                    AppColor.blackColor(context).withOpacity(0.7),
                   ],
                 ),
               ),

@@ -9,22 +9,17 @@ class ReservationSuccessScreen extends StatelessWidget {
   final Map<String, dynamic> car;
   final String paymentMethod;
 
-  const ReservationSuccessScreen({
-    super.key,
-    required this.car,
-    required this.paymentMethod,
-  });
+  const ReservationSuccessScreen({super.key, required this.car, required this.paymentMethod});
 
   @override
   Widget build(BuildContext context) {
-    final bool isFinancingFlow =
-        paymentMethod == 'tamara' || paymentMethod == 'bank';
+    final bool isFinancingFlow = paymentMethod == 'tamara' || paymentMethod == 'bank';
 
     final String methodLabel = paymentMethod == 'tamara'
         ? 'تمارا'
         : paymentMethod == 'bank'
-            ? 'بطاقة الراجحي / الأهلي'
-            : 'الكاش';
+        ? 'بطاقة الراجحي / الأهلي'
+        : 'الكاش';
 
     return Scaffold(
       backgroundColor: AppColor.scaffoldColor(context),
@@ -40,10 +35,7 @@ class ReservationSuccessScreen extends StatelessWidget {
             },
             child: Text(
               'إلغاء',
-              style: TextStyle(
-                  color: Colors.grey,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 13.sp),
+              style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold, fontSize: 13.sp),
             ),
           ),
         ],
@@ -62,19 +54,14 @@ class ReservationSuccessScreen extends StatelessWidget {
                 shape: BoxShape.circle,
                 color: const Color(0xff00c853).withOpacity(0.1),
               ),
-              child: Icon(
-                Icons.check_circle_rounded,
-                color: const Color(0xff00c853),
-                size: 64.sp,
-              ),
+              child: Icon(Icons.check_circle_rounded, color: const Color(0xff00c853), size: 64.sp),
             ),
             Gap(32.h),
             Text(
               'تم تقديم طلبك بنجاح! 🎉',
-              style: AppTextStyle.titleMedium(context).copyWith(
-                fontWeight: FontWeight.w900,
-                fontSize: 24.sp,
-              ),
+              style: AppTextStyle.titleMedium(
+                context,
+              ).copyWith(fontWeight: FontWeight.w900, fontSize: 24.sp),
               textAlign: TextAlign.center,
             ),
             Gap(12.h),
@@ -130,8 +117,7 @@ class ReservationSuccessScreen extends StatelessWidget {
               ),
               child: Row(
                 children: [
-                  Icon(Icons.phone,
-                      color: const Color(0xff25D366), size: 28.sp),
+                  Icon(Icons.phone, color: const Color(0xff25D366), size: 28.sp),
                   Gap(16.w),
                   Expanded(
                     child: Text(
@@ -158,10 +144,9 @@ class ReservationSuccessScreen extends StatelessWidget {
               onPressed: () => Navigator.of(context).popUntil((r) => r.isFirst),
               child: Text(
                 'العودة للرئيسية',
-                style: AppTextStyle.buttonStyle(context).copyWith(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16.sp,
-                ),
+                style: AppTextStyle.buttonStyle(
+                  context,
+                ).copyWith(fontWeight: FontWeight.bold, fontSize: 16.sp),
               ),
             ),
             Gap(16.h),
@@ -191,7 +176,7 @@ class ReservationSuccessScreen extends StatelessWidget {
         border: Border.all(color: AppColor.borderColor(context)),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.03),
+            color: AppColor.blackColor(context).withOpacity(0.03),
             blurRadius: 12,
             offset: const Offset(0, 4),
           ),
@@ -204,8 +189,7 @@ class ReservationSuccessScreen extends StatelessWidget {
           return Column(
             children: [
               Padding(
-                padding:
-                    EdgeInsets.symmetric(horizontal: 20.w, vertical: 16.h),
+                padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 16.h),
                 child: Row(
                   children: [
                     Container(
@@ -229,10 +213,9 @@ class ReservationSuccessScreen extends StatelessWidget {
                     ),
                     Text(
                       row.value,
-                      style: AppTextStyle.bodyMedium(context).copyWith(
-                        fontWeight: FontWeight.w900,
-                        fontSize: 14.sp,
-                      ),
+                      style: AppTextStyle.bodyMedium(
+                        context,
+                      ).copyWith(fontWeight: FontWeight.w900, fontSize: 14.sp),
                     ),
                   ],
                 ),

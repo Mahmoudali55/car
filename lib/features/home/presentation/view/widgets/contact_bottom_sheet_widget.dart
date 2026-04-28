@@ -10,12 +10,13 @@ import 'package:url_launcher/url_launcher.dart';
 
 class ContactBottomSheetWidget extends StatelessWidget {
   const ContactBottomSheetWidget({super.key});
- void _launchUrl(String url) async {
+  void _launchUrl(String url) async {
     final Uri uri = Uri.parse(url);
     if (await canLaunchUrl(uri)) {
       await launchUrl(uri, mode: LaunchMode.externalApplication);
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -25,7 +26,7 @@ class ContactBottomSheetWidget extends StatelessWidget {
         borderRadius: BorderRadius.vertical(top: Radius.circular(30.r)),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.1),
+            color: AppColor.blackColor(context).withOpacity(0.1),
             blurRadius: 10,
             offset: const Offset(0, -5),
           ),
@@ -45,21 +46,17 @@ class ContactBottomSheetWidget extends StatelessWidget {
           Gap(20.h),
           Text(
             AppLocaleKey.contactSupport.tr(),
-            style: AppTextStyle.titleLarge(context).copyWith(
-              fontWeight: FontWeight.w900,
-              color: AppColor.blackTextColor(context),
-            ),
+            style: AppTextStyle.titleLarge(
+              context,
+            ).copyWith(fontWeight: FontWeight.w900, color: AppColor.blackTextColor(context)),
           ),
           Gap(10.h),
           Text(
             AppLocaleKey.weAreHereToHelp.tr(),
-            style: AppTextStyle.bodySmall(context).copyWith(
-              color: AppColor.greyColor(context),
-            ),
+            style: AppTextStyle.bodySmall(context).copyWith(color: AppColor.greyColor(context)),
           ),
           Gap(30.h),
           ContactButtonWidget(
-           
             icon: Icons.phone_in_talk_rounded,
             title: AppLocaleKey.callUs.tr(),
             subtitle: '+1 234 567 890',
@@ -68,7 +65,6 @@ class ContactBottomSheetWidget extends StatelessWidget {
           ),
           Gap(15.h),
           ContactButtonWidget(
-            
             icon: Icons.chat_rounded,
             title: AppLocaleKey.whatsapp.tr(),
             subtitle: 'Chat with our team',

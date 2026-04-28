@@ -28,7 +28,7 @@ class LeadCard extends StatelessWidget {
         border: Border.all(color: AppColor.borderColor(context).withOpacity(0.5)),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.04),
+            color: AppColor.blackColor(context).withOpacity(0.04),
             blurRadius: 15,
             offset: const Offset(0, 8),
           ),
@@ -116,7 +116,7 @@ class LeadCard extends StatelessWidget {
               spacing:  5.w,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.center,
-                
+
               children: [
                 Expanded(
                   child: ActionBtn(
@@ -126,7 +126,7 @@ class LeadCard extends StatelessWidget {
                     onTap: () => launchUrl(Uri.parse('tel:${lead.phoneNumber}')),
                   ),
                 ),
-                
+
                 Expanded(
                   child: ActionBtn(
                     icon: Icons.chat_rounded,
@@ -135,7 +135,7 @@ class LeadCard extends StatelessWidget {
                     onTap: () => launchUrl(Uri.parse('https://wa.me/966${lead.phoneNumber.substring(1)}')),
                   ),
                 ),
-                
+
                 Expanded(
                   child: ActionBtn(
                     icon: Icons.schedule_rounded,

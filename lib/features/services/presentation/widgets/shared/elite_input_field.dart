@@ -41,7 +41,7 @@ class EliteInputField extends StatelessWidget {
             border: Border.all(color: AppColor.blackTextColor(context).withOpacity(0.05)),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.02),
+                color: AppColor.blackColor(context).withOpacity(0.02),
                 blurRadius: 10,
                 offset: const Offset(0, 4),
               ),
@@ -50,9 +50,7 @@ class EliteInputField extends StatelessWidget {
           child: TextFormField(
             controller: controller,
             keyboardType: const TextInputType.numberWithOptions(decimal: true),
-            inputFormatters: [
-              FilteringTextInputFormatter.allow(RegExp(r'[0-9.]')),
-            ],
+            inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'[0-9.]'))],
             style: AppTextStyle.bodyMedium(context).copyWith(
               color: AppColor.blackTextColor(context),
               fontWeight: FontWeight.w900,
@@ -62,9 +60,9 @@ class EliteInputField extends StatelessWidget {
             cursorColor: AppColor.primaryColor(context),
             decoration: InputDecoration(
               hintText: hint,
-              hintStyle: AppTextStyle.bodySmall(context).copyWith(
-                color: AppColor.blackTextColor(context).withOpacity(0.2),
-              ),
+              hintStyle: AppTextStyle.bodySmall(
+                context,
+              ).copyWith(color: AppColor.blackTextColor(context).withOpacity(0.2)),
               suffixIcon: Container(
                 margin: EdgeInsets.only(right: 16.w, top: 14.h),
                 child: Text(

@@ -18,7 +18,7 @@ class CarSummaryCard extends StatelessWidget {
         border: Border.all(color: AppColor.borderColor(context)),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.02),
+            color: AppColor.blackColor(context).withOpacity(0.02),
             blurRadius: 8,
             offset: const Offset(0, 2),
           ),
@@ -30,19 +30,17 @@ class CarSummaryCard extends StatelessWidget {
           Expanded(
             child: Text(
               car['name'] ?? 'Car Name',
-              style: AppTextStyle.bodyMedium(context).copyWith(
-                fontWeight: FontWeight.bold,
-                fontSize: 14.sp,
-              ),
+              style: AppTextStyle.bodyMedium(
+                context,
+              ).copyWith(fontWeight: FontWeight.bold, fontSize: 14.sp),
               overflow: TextOverflow.ellipsis,
             ),
           ),
           Text(
             '${car['price'] ?? '0'} SAR',
-            style: AppTextStyle.bodyMedium(context).copyWith(
-              fontWeight: FontWeight.w900,
-              fontSize: 14.sp,
-            ),
+            style: AppTextStyle.bodyMedium(
+              context,
+            ).copyWith(fontWeight: FontWeight.w900, fontSize: 14.sp),
           ),
         ],
       ),

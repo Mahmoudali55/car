@@ -22,7 +22,7 @@ class PremiumWeeklyChart extends StatelessWidget {
         border: Border.all(color: AppColor.borderColor(context).withOpacity(0.5)),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.02),
+            color: AppColor.blackColor(context).withOpacity(0.02),
             blurRadius: 15,
             offset: const Offset(0, 5),
           ),

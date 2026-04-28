@@ -185,7 +185,7 @@ class _CarComparisonScreenState extends State<CarComparisonScreen> {
                 borderRadius: BorderRadius.circular(12.r),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.05),
+                    color: AppColor.blackColor(context).withOpacity(0.05),
                     blurRadius: 10,
                     offset: const Offset(0, 4),
                   ),

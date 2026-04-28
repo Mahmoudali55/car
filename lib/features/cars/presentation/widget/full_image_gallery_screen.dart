@@ -59,7 +59,7 @@ class _FullImageGalleryScreenState extends State<FullImageGalleryScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: AppColor.blackColor(context),
       body: Stack(
         children: [
           // Main Interactive Viewer
@@ -117,14 +117,15 @@ class _FullImageGalleryScreenState extends State<FullImageGalleryScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                     "يمكنك تكبير الصورة",
-                      style: TextStyle(
-                        color: Colors.white.withOpacity(0.8),
-                        fontSize: 14.sp,
-                      ),
+                      "يمكنك تكبير الصورة",
+                      style: TextStyle(color: Colors.white.withOpacity(0.8), fontSize: 14.sp),
                     ),
                     Gap(8.w),
-                    Icon(Icons.touch_app_outlined, color: Colors.white.withOpacity(0.8), size: 18.sp),
+                    Icon(
+                      Icons.touch_app_outlined,
+                      color: Colors.white.withOpacity(0.8),
+                      size: 18.sp,
+                    ),
                   ],
                 ),
                 Gap(24.h),
@@ -157,13 +158,17 @@ class _FullImageGalleryScreenState extends State<FullImageGalleryScreen> {
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(8.r),
                             border: Border.all(
-                              color: isSelected ? AppColor.primaryColor(context) : Colors.transparent,
+                              color: isSelected
+                                  ? AppColor.primaryColor(context)
+                                  : Colors.transparent,
                               width: 2.5,
                             ),
                             image: DecorationImage(
                               image: isNetwork
                                   ? NetworkImage(imageUrl) as ImageProvider
-                                  : AssetImage(imageUrl.isEmpty ? 'assets/images/placeholder.png' : imageUrl),
+                                  : AssetImage(
+                                      imageUrl.isEmpty ? 'assets/images/placeholder.png' : imageUrl,
+                                    ),
                               fit: BoxFit.cover,
                             ),
                           ),

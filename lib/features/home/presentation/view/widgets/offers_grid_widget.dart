@@ -104,7 +104,7 @@ class OffersGridWidget extends StatelessWidget {
               border: Border.all(color: AppColor.blackTextColor(context).withOpacity(0.08)),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.2),
+                  color: AppColor.blackColor(context).withOpacity(0.2),
                   blurRadius: 15,
                   offset: const Offset(0, 8),
                 ),
@@ -179,7 +179,7 @@ class OffersGridWidget extends StatelessWidget {
                                     child: Container(
                                       padding: EdgeInsets.all(6.w),
                                       decoration: BoxDecoration(
-                                        color: Colors.black.withOpacity(0.1),
+                                        color: AppColor.blackColor(context).withOpacity(0.1),
                                         shape: BoxShape.circle,
                                       ),
                                       child: Icon(

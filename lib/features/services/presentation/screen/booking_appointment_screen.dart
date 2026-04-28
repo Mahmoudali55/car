@@ -123,9 +123,7 @@ class _BookingAppointmentScreenState extends State<BookingAppointmentScreen> {
                                     style: TextStyle(
                                       color: isSelected
                                           ? AppColor.whiteColor(context)
-                                          : AppColor.blackTextColor(
-                                              context,
-                                            ).withOpacity(0.38),
+                                          : AppColor.blackTextColor(context).withOpacity(0.38),
                                       fontSize: 10.sp,
                                       fontWeight: FontWeight.bold,
                                     ),
@@ -334,7 +332,7 @@ class _BookingAppointmentScreenState extends State<BookingAppointmentScreen> {
         },
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.transparent,
-          foregroundColor: Colors.black,
+          foregroundColor: AppColor.blackColor(context),
           shadowColor: Colors.transparent,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.r)),
         ),

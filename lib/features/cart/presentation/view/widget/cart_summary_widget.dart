@@ -29,7 +29,7 @@ class CartSummaryWidget extends StatelessWidget {
         border: Border(top: BorderSide(color: AppColor.blackTextColor(context).withOpacity(0.06))),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.3),
+            color: AppColor.blackColor(context).withOpacity(0.3),
             blurRadius: 20,
             offset: const Offset(0, -5),
           ),

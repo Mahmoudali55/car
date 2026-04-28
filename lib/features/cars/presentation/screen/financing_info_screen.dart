@@ -32,9 +32,8 @@ class _FinancingInfoScreenState extends State<FinancingInfoScreen> {
   final ValueNotifier<bool> _whatsappNotifier = ValueNotifier(true);
   final ValueNotifier<String?> _selectedCityNotifier = ValueNotifier('الرياض');
 
-  String get _methodLabel => widget.paymentMethod == 'tamara'
-      ? 'متابعة مع تمارا'
-      : 'متابعة مع البنك';
+  String get _methodLabel =>
+      widget.paymentMethod == 'tamara' ? 'متابعة مع تمارا' : 'متابعة مع البنك';
 
   @override
   void dispose() {
@@ -58,10 +57,7 @@ class _FinancingInfoScreenState extends State<FinancingInfoScreen> {
         minChildSize: 0.5,
         builder: (context, scrollController) => SingleChildScrollView(
           controller: scrollController,
-          child: PricingDetailsBottomSheet(
-            car: widget.car,
-            totalPrice: widget.totalPrice,
-          ),
+          child: PricingDetailsBottomSheet(car: widget.car, totalPrice: widget.totalPrice),
         ),
       ),
     );
@@ -72,10 +68,8 @@ class _FinancingInfoScreenState extends State<FinancingInfoScreen> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (_) => ReservationSuccessScreen(
-            car: widget.car,
-            paymentMethod: widget.paymentMethod,
-          ),
+          builder: (_) =>
+              ReservationSuccessScreen(car: widget.car, paymentMethod: widget.paymentMethod),
         ),
       );
     }
@@ -88,17 +82,19 @@ class _FinancingInfoScreenState extends State<FinancingInfoScreen> {
       appBar: AppBar(
         title: Text(
           'المعلومات الشخصية',
-          style: AppTextStyle.titleMedium(context).copyWith(
-            fontWeight: FontWeight.w900,
-            color: AppColor.primaryColor(context),
-          ),
+          style: AppTextStyle.titleMedium(
+            context,
+          ).copyWith(fontWeight: FontWeight.w900, color: AppColor.primaryColor(context)),
         ),
         backgroundColor: AppColor.appBarColor(context),
         elevation: 0,
         centerTitle: true,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios_new_rounded,
-              color: AppColor.blackTextColor(context), size: 18.sp),
+          icon: Icon(
+            Icons.arrow_back_ios_new_rounded,
+            color: AppColor.blackTextColor(context),
+            size: 18.sp,
+          ),
           onPressed: () => Navigator.pop(context),
         ),
         actions: [
@@ -106,10 +102,7 @@ class _FinancingInfoScreenState extends State<FinancingInfoScreen> {
             onPressed: () => Navigator.of(context).popUntil((r) => r.isFirst),
             child: Text(
               'إلغاء',
-              style: TextStyle(
-                  color: Colors.grey,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 13.sp),
+              style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold, fontSize: 13.sp),
             ),
           ),
         ],
@@ -139,23 +132,23 @@ class _FinancingInfoScreenState extends State<FinancingInfoScreen> {
                           Text(
                             'المبلغ الإجمالي',
                             style: AppTextStyle.bodyMedium(context).copyWith(
-                              color: AppColor.blackTextColor(context)
-                                  .withOpacity(0.7),
+                              color: AppColor.blackTextColor(context).withOpacity(0.7),
                               fontWeight: FontWeight.bold,
                             ),
                           ),
                           Row(
                             children: [
-                              Icon(Icons.payments_outlined,
-                                  size: 18.sp,
-                                  color: AppColor.blackTextColor(context)),
+                              Icon(
+                                Icons.payments_outlined,
+                                size: 18.sp,
+                                color: AppColor.blackTextColor(context),
+                              ),
                               Gap(6.w),
                               Text(
                                 '${widget.totalPrice.toStringAsFixed(2)} SAR',
-                                style: AppTextStyle.bodyMedium(context).copyWith(
-                                  fontWeight: FontWeight.w900,
-                                  fontSize: 16.sp,
-                                ),
+                                style: AppTextStyle.bodyMedium(
+                                  context,
+                                ).copyWith(fontWeight: FontWeight.w900, fontSize: 16.sp),
                               ),
                             ],
                           ),
@@ -169,8 +162,7 @@ class _FinancingInfoScreenState extends State<FinancingInfoScreen> {
                         padding: EdgeInsets.symmetric(vertical: 14.h),
                         decoration: BoxDecoration(
                           color: const Color(0xFFEEF2F7),
-                          borderRadius:
-                              BorderRadius.vertical(bottom: Radius.circular(16.r)),
+                          borderRadius: BorderRadius.vertical(bottom: Radius.circular(16.r)),
                         ),
                         child: Center(
                           child: Text(
@@ -190,10 +182,9 @@ class _FinancingInfoScreenState extends State<FinancingInfoScreen> {
               Gap(32.h),
               Text(
                 'ادخل معلوماتك',
-                style: AppTextStyle.titleMedium(context).copyWith(
-                  fontWeight: FontWeight.w900,
-                  fontSize: 20.sp,
-                ),
+                style: AppTextStyle.titleMedium(
+                  context,
+                ).copyWith(fontWeight: FontWeight.w900, fontSize: 20.sp),
               ),
               Gap(16.h),
               FinancingContactForm(
@@ -214,7 +205,7 @@ class _FinancingInfoScreenState extends State<FinancingInfoScreen> {
           color: AppColor.scaffoldColor(context),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.06),
+              color: AppColor.blackColor(context).withOpacity(0.06),
               blurRadius: 12,
               offset: const Offset(0, -4),
             ),
@@ -233,10 +224,9 @@ class _FinancingInfoScreenState extends State<FinancingInfoScreen> {
               Gap(12.w),
               Text(
                 _methodLabel,
-                style: AppTextStyle.buttonStyle(context).copyWith(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16.sp,
-                ),
+                style: AppTextStyle.buttonStyle(
+                  context,
+                ).copyWith(fontWeight: FontWeight.bold, fontSize: 16.sp),
               ),
             ],
           ),

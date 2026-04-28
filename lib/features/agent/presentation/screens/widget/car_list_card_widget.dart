@@ -25,7 +25,7 @@ class CarListCard extends StatelessWidget {
         border: Border.all(color: AppColor.blackTextColor(context).withOpacity(0.05)),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.04),
+            color: AppColor.blackColor(context).withOpacity(0.04),
             blurRadius: 20,
             offset: const Offset(0, 8),
           ),
@@ -57,7 +57,7 @@ class CarListCard extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    
+
                     Text(
                       car.brand,
                       style: TextStyle(
@@ -125,7 +125,7 @@ class CarListCard extends StatelessWidget {
           Gap(16.w),
 
           /// ── Image Area ──
-       
+
         ],
       ),
     ),

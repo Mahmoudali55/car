@@ -19,14 +19,17 @@ class PremiumOfferCardWidget extends StatelessWidget {
       child: Container(
         height: 220.h,
         width: double.infinity,
-        padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 0.h), // Slightly increased for specs
+        padding: EdgeInsets.symmetric(
+          horizontal: 10.w,
+          vertical: 0.h,
+        ), // Slightly increased for specs
         decoration: BoxDecoration(
           color: AppColor.secondAppColor(context),
           borderRadius: BorderRadius.circular(28.r),
           border: Border.all(color: AppColor.blackTextColor(context).withOpacity(0.08)),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.15),
+              color: AppColor.blackColor(context).withOpacity(0.15),
               blurRadius: 12,
               offset: const Offset(0, 6),
             ),
@@ -108,9 +111,7 @@ class PremiumOfferCardWidget extends StatelessWidget {
                                           : Icons.favorite_outline_rounded,
                                       color: isFav
                                           ? Colors.redAccent
-                                          : AppColor.blackTextColor(
-                                              context,
-                                            ).withOpacity(0.24),
+                                          : AppColor.blackTextColor(context).withOpacity(0.24),
                                       size: 20.sp, // Slightly reduced icon
                                     ),
                                   ),
@@ -273,8 +274,6 @@ class PremiumOfferCardWidget extends StatelessWidget {
           ],
         ),
       ),
-      
-      
     );
   }
 

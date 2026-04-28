@@ -66,7 +66,7 @@ class BankOfferCardWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(16.r),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.05),
+              color: AppColor.blackColor(context).withOpacity(0.05),
               blurRadius: 10,
               offset: const Offset(0, 5),
             ),
@@ -125,7 +125,12 @@ class BankOfferCardWidget extends StatelessWidget {
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(20.r),
-                      boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 4)],
+                      boxShadow: [
+                        BoxShadow(
+                          color: AppColor.blackColor(context).withOpacity(0.05),
+                          blurRadius: 4,
+                        ),
+                      ],
                     ),
                     child: Row(
                       children: [

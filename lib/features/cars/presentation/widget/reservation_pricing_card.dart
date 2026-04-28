@@ -8,11 +8,7 @@ class ReservationPricingCard extends StatefulWidget {
   final double totalPrice;
   final double depositAmount;
 
-  const ReservationPricingCard({
-    super.key,
-    required this.totalPrice,
-    required this.depositAmount,
-  });
+  const ReservationPricingCard({super.key, required this.totalPrice, required this.depositAmount});
 
   @override
   State<ReservationPricingCard> createState() => _ReservationPricingCardState();
@@ -30,7 +26,7 @@ class _ReservationPricingCardState extends State<ReservationPricingCard> {
         border: Border.all(color: AppColor.borderColor(context)),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.03),
+            color: AppColor.blackColor(context).withOpacity(0.03),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),
@@ -138,7 +134,9 @@ class _ReservationPricingCardState extends State<ReservationPricingCard> {
                   ),
                   Gap(4.w),
                   Icon(
-                    _isExpanded ? Icons.keyboard_arrow_up_rounded : Icons.keyboard_arrow_down_rounded,
+                    _isExpanded
+                        ? Icons.keyboard_arrow_up_rounded
+                        : Icons.keyboard_arrow_down_rounded,
                     color: AppColor.primaryColor(context),
                     size: 18.sp,
                   ),
@@ -164,10 +162,9 @@ class _ReservationPricingCardState extends State<ReservationPricingCard> {
         ),
         Text(
           value,
-          style: AppTextStyle.bodyMedium(context).copyWith(
-            fontWeight: FontWeight.w900,
-            fontSize: isBold ? 16.sp : 14.sp,
-          ),
+          style: AppTextStyle.bodyMedium(
+            context,
+          ).copyWith(fontWeight: FontWeight.w900, fontSize: isBold ? 16.sp : 14.sp),
         ),
       ],
     );
@@ -179,9 +176,9 @@ class _ReservationPricingCardState extends State<ReservationPricingCard> {
       children: [
         Text(
           label,
-          style: AppTextStyle.bodySmall(context).copyWith(
-            color: AppColor.blackTextColor(context).withOpacity(0.4),
-          ),
+          style: AppTextStyle.bodySmall(
+            context,
+          ).copyWith(color: AppColor.blackTextColor(context).withOpacity(0.4)),
         ),
         Text(
           value,

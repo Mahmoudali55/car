@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
 enum SortOption { lowestMargin, highestMargin, lowestInstallment }
+
 class BankOfferCalculatorCard extends StatelessWidget {
   final num carPrice;
   final double downPayment;
@@ -32,7 +33,7 @@ class BankOfferCalculatorCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(16.r),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: AppColor.blackColor(context).withOpacity(0.05),
             blurRadius: 10,
             offset: const Offset(0, 5),
           ),
@@ -128,7 +129,3 @@ class BankOfferCalculatorCard extends StatelessWidget {
     );
   }
 }
-
-
-
-

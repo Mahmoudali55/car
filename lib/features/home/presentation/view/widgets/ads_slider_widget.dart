@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:car/core/custom_widgets/custom_image/custom_network_image.dart';
+import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -128,7 +129,7 @@ class _AdsSliderWidgetState extends State<AdsSliderWidget> {
               child: Container(
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
-                    colors: [Colors.black.withOpacity(0.25), Colors.transparent],
+                    colors: [AppColor.blackColor(context).withOpacity(0.25), Colors.transparent],
                     begin: Alignment.bottomLeft,
                     end: Alignment.topRight,
                   ),
@@ -202,7 +203,10 @@ class _AdsSliderWidgetState extends State<AdsSliderWidget> {
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(14.r),
                               boxShadow: [
-                                BoxShadow(color: Colors.black.withOpacity(0.2), blurRadius: 10),
+                                BoxShadow(
+                                  color: AppColor.blackColor(context).withOpacity(0.2),
+                                  blurRadius: 10,
+                                ),
                               ],
                             ),
                             child: Row(

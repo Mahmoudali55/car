@@ -32,7 +32,7 @@ class ExceptionWidget extends StatelessWidget {
                   colorFilter: ColorFilter.mode(
                     AppTheme.getByTheme(
                       context,
-                      light: Colors.black,
+                      light: AppColor.blackColor(context),
                       dark: AppColor.blackTextColor(context),
                     ),
                     BlendMode.srcIn,
@@ -48,7 +48,7 @@ class ExceptionWidget extends StatelessWidget {
                     style: TextStyle(
                       color: AppTheme.getByTheme(
                         context,
-                        light: Colors.black,
+                        light: AppColor.blackColor(context),
                         dark: AppColor.blackTextColor(context),
                       ),
                       fontSize: 14,
@@ -65,7 +65,7 @@ class ExceptionWidget extends StatelessWidget {
                     colorFilter: ColorFilter.mode(
                       AppTheme.getByTheme(
                         context,
-                        light: Colors.black,
+                        light: AppColor.blackColor(context),
                         dark: AppColor.blackTextColor(context),
                       ),
                       BlendMode.srcIn,
@@ -96,7 +96,7 @@ class ExceptionWidget extends StatelessWidget {
                 colorFilter: ColorFilter.mode(
                   AppTheme.getByTheme(
                     context,
-                    light: Colors.black,
+                    light: AppColor.blackColor(context),
                     dark: AppColor.blackTextColor(context),
                   ),
                   BlendMode.srcIn,
@@ -111,7 +111,7 @@ class ExceptionWidget extends StatelessWidget {
                 style: TextStyle(
                   color: AppTheme.getByTheme(
                     context,
-                    light: Colors.black,
+                    light: AppColor.blackColor(context),
                     dark: AppColor.blackTextColor(context),
                   ),
                   fontSize: 16,

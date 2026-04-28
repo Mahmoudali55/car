@@ -1,6 +1,7 @@
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/routes/routes_name.dart';
 import 'package:car/core/utils/navigator_methods.dart';
+import 'package:car/features/home/presentation/cubit/home_cubit.dart';
 import 'package:car/features/home/presentation/view/widgets/ads_slider_widget.dart';
 import 'package:car/features/home/presentation/view/widgets/banks_slider_widget.dart';
 import 'package:car/features/home/presentation/view/widgets/budget_cars_list_widget.dart';
@@ -12,6 +13,7 @@ import 'package:car/features/home/presentation/view/widgets/recently_viewed_widg
 import 'package:car/features/home/presentation/view/widgets/section_title_widget.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -25,7 +27,13 @@ class HomeGuestScreen extends StatefulWidget {
 
 class _HomeGuestScreenState extends State<HomeGuestScreen> {
   int _selectedBudgetIndex = 0;
+
   @override
+  void initState() {
+    context.read<HomeCubit>().getCarsModels();
+    super.initState();
+  }
+
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       physics: const BouncingScrollPhysics(),

@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
@@ -14,8 +15,6 @@ class HomeCubit extends Cubit<HomeState> {
 
   HomeCubit(this.homeRepo) : super(const HomeState());
 
-  List<CarModel> brands = [];
-  int selectedIndex = 0;
   Future<void> getCarsModels() async {
     emit(state.copyWith(carsModelsStatus: const StatusState.loading()));
 
@@ -28,53 +27,56 @@ class HomeCubit extends Cubit<HomeState> {
       (response) {
         dynamic data = response.cars;
 
-        // لو String → decode
         if (data is String) {
           data = jsonDecode(data);
         }
 
-        // لو already List<CarModel>
+        List<CarModel> fetchedBrands = [];
+
         if (data is List<CarModel>) {
-          brands = data;
-        }
-        // لو List<Map>
-        else if (data is List) {
-          brands = data.map((e) {
+          fetchedBrands = data;
+        } else if (data is List) {
+          fetchedBrands = data.map((e) {
             if (e is CarModel) return e;
             return CarModel.fromJson(e);
           }).toList();
         }
 
-        emit(state.copyWith(carsModelsStatus: StatusState.success(brands)));
+        emit(
+          state.copyWith(
+            carsModelsStatus: StatusState.success(fetchedBrands),
+            brands: fetchedBrands,
+          ),
+        );
+        if (state.selectedIndex >= fetchedBrands.length) {
+          emit(state.copyWith(selectedIndex: 0));
+        }
 
-        if (brands.isNotEmpty) {
-          fetchAllBrandsCars();
+        if (fetchedBrands.isNotEmpty) {
+          fetchAllBrandsCars(fetchedBrands);
         }
       },
     );
   }
 
-  Future<void> fetchAllBrandsCars() async {
+  Future<void> fetchAllBrandsCars(List<CarModel> brands) async {
     if (state.allPopularCarsStatus.isLoading) return;
+
     emit(state.copyWith(allPopularCarsStatus: const StatusState.loading()));
 
     final Map<String, List<GetBrandCarsDataModel>> allCarsMap = {};
 
-    // Fetch cars for each brand (limiting to first 12 brands for performance)
     final brandsToFetch = brands.take(12).toList();
 
-    final List<Future> futures = [];
-    for (var brand in brandsToFetch) {
-      futures.add(homeRepo.getBrandCars(brand.groupCode.toString()));
-    }
-
-    final results = await Future.wait(futures);
+    final results = await Future.wait(
+      brandsToFetch.map((b) => homeRepo.getBrandCars(b.groupCode.toString())),
+    );
 
     for (int i = 0; i < results.length; i++) {
       final result = results[i];
       final brandName = brandsToFetch[i].groupName;
 
-      result.fold((failure) => null, (carsList) {
+      result.fold((_) {}, (carsList) {
         if (carsList is List<GetBrandCarsDataModel>) {
           allCarsMap[brandName] = carsList;
         }
@@ -91,7 +93,9 @@ class HomeCubit extends Cubit<HomeState> {
         selectedBrandId: int.tryParse(brandId),
       ),
     );
+
     final result = await homeRepo.getBrandCars(brandId);
+
     result.fold(
       (failure) {
         emit(state.copyWith(brandCarsStatus: StatusState.failure(failure.errMessage)));
@@ -100,5 +104,22 @@ class HomeCubit extends Cubit<HomeState> {
         emit(state.copyWith(brandCarsStatus: StatusState.success(response)));
       },
     );
+  }
+
+  void selectBrand(int index, String brandId) {
+    emit(state.copyWith(selectedIndex: index, selectedBrandId: int.tryParse(brandId)));
+
+    // بدون await عشان الأداء
+    unawaited(getBrandCars(brandId));
+  }
+
+  List<CarModel> getFilteredBrands(List<CarModel> brands, String query) {
+    if (query.isEmpty) return brands;
+
+    return brands.where((b) => b.groupName.toLowerCase().contains(query.toLowerCase())).toList();
+  }
+
+  void updateSearchQuery(String value) {
+    emit(state.copyWith(searchQuery: value));
   }
 }

@@ -175,7 +175,9 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
     final statusKey = car['status']!;
     final statusColor = statusKey == AppLocaleKey.adminCarStatusPublished
         ? Colors.greenAccent
-        : (statusKey == AppLocaleKey.adminCarStatusPending ? Colors.orangeAccent : Colors.redAccent);
+        : (statusKey == AppLocaleKey.adminCarStatusPending
+              ? Colors.orangeAccent
+              : Colors.redAccent);
 
     return Container(
       decoration: BoxDecoration(
@@ -196,7 +198,8 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
                     color: AppColor.blackTextColor(context).withOpacity(0.05),
                   ),
                   child: CachedNetworkImage(
-                    imageUrl: 'https://images.unsplash.com/photo-1544636331-e26879cd4d9b?q=80&w=500',
+                    imageUrl:
+                        'https://images.unsplash.com/photo-1544636331-e26879cd4d9b?q=80&w=500',
                     fit: BoxFit.cover,
                     placeholder: (context, url) =>
                         Container(color: AppColor.blackTextColor(context).withOpacity(0.05)),
@@ -208,13 +211,17 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
                   child: Container(
                     padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
                     decoration: BoxDecoration(
-                      color: Colors.black.withOpacity(0.6),
+                      color: AppColor.blackColor(context).withOpacity(0.6),
                       borderRadius: BorderRadius.circular(16.r),
                       border: Border.all(color: Colors.white.withOpacity(0.1)),
                     ),
                     child: Text(
                       car['year']!,
-                      style: TextStyle(color: Colors.white, fontSize: 11.sp, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 11.sp,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ),
@@ -227,12 +234,20 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
                       color: statusColor,
                       borderRadius: BorderRadius.circular(16.r),
                       boxShadow: [
-                        BoxShadow(color: statusColor.withOpacity(0.3), blurRadius: 10, offset: const Offset(0, 4))
+                        BoxShadow(
+                          color: statusColor.withOpacity(0.3),
+                          blurRadius: 10,
+                          offset: const Offset(0, 4),
+                        ),
                       ],
                     ),
                     child: Text(
                       statusKey.tr(),
-                      style: const TextStyle(color: Colors.black, fontSize: 11, fontWeight: FontWeight.w900),
+                      style: TextStyle(
+                        color: AppColor.blackColor(context),
+                        fontSize: 11,
+                        fontWeight: FontWeight.w900,
+                      ),
                     ),
                   ),
                 ),
@@ -260,13 +275,18 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
                             Gap(4.h),
                             Row(
                               children: [
-                                Icon(Icons.speed_rounded,
-                                    size: 14.sp, color: AppColor.blackTextColor(context).withOpacity(0.4)),
+                                Icon(
+                                  Icons.speed_rounded,
+                                  size: 14.sp,
+                                  color: AppColor.blackTextColor(context).withOpacity(0.4),
+                                ),
                                 Gap(4.w),
                                 Text(
                                   car['mileage']!,
                                   style: TextStyle(
-                                      color: AppColor.blackTextColor(context).withOpacity(0.4), fontSize: 11.sp),
+                                    color: AppColor.blackTextColor(context).withOpacity(0.4),
+                                    fontSize: 11.sp,
+                                  ),
                                 ),
                               ],
                             ),
@@ -351,7 +371,10 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
             TextField(
               controller: controller,
               keyboardType: TextInputType.number,
-              style: TextStyle(color: AppColor.blackTextColor(context), fontWeight: FontWeight.bold),
+              style: TextStyle(
+                color: AppColor.blackTextColor(context),
+                fontWeight: FontWeight.bold,
+              ),
               decoration: InputDecoration(
                 labelText: 'السعر الجديد (ر.س)',
                 labelStyle: TextStyle(color: AppColor.primaryColor(context)),

@@ -23,11 +23,7 @@ class CarReservationScreen extends StatefulWidget {
   final Map<String, dynamic> car;
   final bool isFromLink;
 
-  const CarReservationScreen({
-    super.key,
-    required this.car,
-    this.isFromLink = false,
-  });
+  const CarReservationScreen({super.key, required this.car, this.isFromLink = false});
 
   @override
   State<CarReservationScreen> createState() => _CarReservationScreenState();
@@ -51,8 +47,7 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
   final double _totalPrice = 44338.75;
   final double _depositAmount = 500.0;
 
-  bool get _isFinancingFlow =>
-      _selectedMethod == 'tamara' || _selectedMethod == 'bank';
+  bool get _isFinancingFlow => _selectedMethod == 'tamara' || _selectedMethod == 'bank';
 
   @override
   void dispose() {
@@ -95,10 +90,7 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (_) => ReservationSuccessScreen(
-          car: widget.car,
-          paymentMethod: _selectedMethod!,
-        ),
+        builder: (_) => ReservationSuccessScreen(car: widget.car, paymentMethod: _selectedMethod!),
       ),
     );
   }
@@ -115,10 +107,7 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
         minChildSize: 0.5,
         builder: (context, scrollController) => SingleChildScrollView(
           controller: scrollController,
-          child: PricingDetailsBottomSheet(
-            car: widget.car,
-            totalPrice: _totalPrice,
-          ),
+          child: PricingDetailsBottomSheet(car: widget.car, totalPrice: _totalPrice),
         ),
       ),
     );
@@ -130,8 +119,7 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
       builder: (_) => Padding(
-        padding:
-            EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+        padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
         child: OtpBottomSheet(
           phoneNumber: _cashPhoneController.text,
           onVerified: () {
@@ -145,16 +133,13 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final bool isMethodSelection =
-        _currentStep == _ReservationScreenStep.methodSelection;
+    final bool isMethodSelection = _currentStep == _ReservationScreenStep.methodSelection;
 
     return Scaffold(
       backgroundColor: AppColor.scaffoldColor(context),
       appBar: AppBar(
         title: Text(
-          isMethodSelection
-              ? 'اختر الطريقة المناسبة للشراء'
-              : widget.car['name'] ?? 'Car',
+          isMethodSelection ? 'اختر الطريقة المناسبة للشراء' : widget.car['name'] ?? 'Car',
           style: AppTextStyle.titleMedium(context).copyWith(
             fontWeight: FontWeight.w900,
             fontSize: 16.sp,
@@ -171,20 +156,16 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
             onPressed: () => Navigator.pop(context),
             child: Text(
               'إلغاء',
-              style: TextStyle(
-                  color: Colors.grey,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 13.sp),
+              style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold, fontSize: 13.sp),
             ),
           ),
         ],
         leading: isMethodSelection
             ? const SizedBox.shrink()
             : IconButton(
-                icon: Icon(Icons.chevron_right_rounded,
-                    color: AppColor.blackTextColor(context)),
-                onPressed: () => setState(
-                    () => _currentStep = _ReservationScreenStep.methodSelection),
+                icon: Icon(Icons.chevron_right_rounded, color: AppColor.blackTextColor(context)),
+                onPressed: () =>
+                    setState(() => _currentStep = _ReservationScreenStep.methodSelection),
               ),
       ),
       body: SingleChildScrollView(
@@ -200,25 +181,18 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
               Gap(40.h),
               const BuyingFaqSection(),
             ] else ...[
-              ReservationStepIndicator(
-                currentStep: 0,
-                isFinancingFlow: _isFinancingFlow,
-              ),
+              ReservationStepIndicator(currentStep: 0, isFinancingFlow: _isFinancingFlow),
               Gap(8.h),
               if (_isFinancingFlow)
                 _buildFinancingPricingCard()
               else
-                ReservationPricingCard(
-                  totalPrice: _totalPrice,
-                  depositAmount: _depositAmount,
-                ),
+                ReservationPricingCard(totalPrice: _totalPrice, depositAmount: _depositAmount),
               Gap(32.h),
               Text(
                 _isFinancingFlow ? 'ادخل معلوماتك' : 'معلومات التواصل',
-                style: AppTextStyle.titleMedium(context).copyWith(
-                  fontWeight: FontWeight.w900,
-                  fontSize: 20.sp,
-                ),
+                style: AppTextStyle.titleMedium(
+                  context,
+                ).copyWith(fontWeight: FontWeight.w900, fontSize: 20.sp),
               ),
               Gap(16.h),
               if (_isFinancingFlow)
@@ -268,10 +242,9 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
         Gap(32.h),
         Text(
           'اشتري الآن، ادفع لاحقاً!',
-          style: AppTextStyle.titleMedium(context).copyWith(
-            fontWeight: FontWeight.w900,
-            fontSize: 20.sp,
-          ),
+          style: AppTextStyle.titleMedium(
+            context,
+          ).copyWith(fontWeight: FontWeight.w900, fontSize: 20.sp),
         ),
         Gap(16.h),
         PaymentMethodSelectionCard(
@@ -283,15 +256,13 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
             errorBuilder: (c, e, s) => Container(
               padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
               decoration: BoxDecoration(
-                gradient: const LinearGradient(
-                    colors: [Color(0xFF7B2D8B), Color(0xFFE91E8C)]),
+                gradient: const LinearGradient(colors: [Color(0xFF7B2D8B), Color(0xFFE91E8C)]),
                 borderRadius: BorderRadius.circular(6.r),
               ),
-              child: Text('تمارا',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w900,
-                      fontSize: 12.sp)),
+              child: Text(
+                'تمارا',
+                style: TextStyle(color: Colors.white, fontWeight: FontWeight.w900, fontSize: 12.sp),
+              ),
             ),
           ),
           isSelected: _selectedMethod == 'tamara',
@@ -352,16 +323,17 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
                 ),
                 Row(
                   children: [
-                    Icon(Icons.payments_outlined,
-                        size: 18.sp,
-                        color: AppColor.blackTextColor(context)),
+                    Icon(
+                      Icons.payments_outlined,
+                      size: 18.sp,
+                      color: AppColor.blackTextColor(context),
+                    ),
                     Gap(6.w),
                     Text(
                       '${_totalPrice.toStringAsFixed(2)} SAR',
-                      style: AppTextStyle.bodyMedium(context).copyWith(
-                        fontWeight: FontWeight.w900,
-                        fontSize: 16.sp,
-                      ),
+                      style: AppTextStyle.bodyMedium(
+                        context,
+                      ).copyWith(fontWeight: FontWeight.w900, fontSize: 16.sp),
                     ),
                   ],
                 ),
@@ -395,8 +367,7 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
   }
 
   Widget _buildStickyFooter() {
-    final bool isMethodSelection =
-        _currentStep == _ReservationScreenStep.methodSelection;
+    final bool isMethodSelection = _currentStep == _ReservationScreenStep.methodSelection;
     final bool canContinue = _selectedMethod != null;
 
     String buttonLabel = 'المتابعة';
@@ -406,9 +377,7 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
 
     if (!isMethodSelection) {
       if (_isFinancingFlow) {
-        buttonLabel = _selectedMethod == 'tamara'
-            ? 'متابعة مع تمارا'
-            : 'متابعة مع البنك';
+        buttonLabel = _selectedMethod == 'tamara' ? 'متابعة مع تمارا' : 'متابعة مع البنك';
         buttonColor = const Color(0xFF3F51B5);
       } else {
         buttonLabel = 'اكمل لدفع العربون';
@@ -422,7 +391,7 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
         color: AppColor.scaffoldColor(context),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.06),
+            color: AppColor.blackColor(context).withOpacity(0.06),
             blurRadius: 12,
             offset: const Offset(0, -4),
           ),
@@ -441,8 +410,7 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
             if (!isMethodSelection && !_isFinancingFlow) ...[
               Text(
                 '${_depositAmount.toInt()} SAR',
-                style: AppTextStyle.buttonStyle(context)
-                    .copyWith(fontWeight: FontWeight.bold),
+                style: AppTextStyle.buttonStyle(context).copyWith(fontWeight: FontWeight.bold),
               ),
               Gap(16.w),
             ],

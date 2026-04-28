@@ -22,7 +22,7 @@ class CartItemWidget extends StatelessWidget {
         border: Border.all(color: AppColor.blackTextColor(context).withOpacity(0.05)),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.15),
+            color: AppColor.blackColor(context).withOpacity(0.15),
             blurRadius: 12,
             offset: const Offset(0, 4),
           ),
@@ -50,10 +50,9 @@ class CartItemWidget extends StatelessWidget {
               children: [
                 Text(
                   car['brand'] as String? ?? '',
-                  style: AppTextStyle.bodySmall(context).copyWith(
-                    color: AppColor.primaryColor(context),
-                    fontWeight: FontWeight.w600,
-                  ),
+                  style: AppTextStyle.bodySmall(
+                    context,
+                  ).copyWith(color: AppColor.primaryColor(context), fontWeight: FontWeight.w600),
                 ),
                 Gap(4.h),
                 Text(
@@ -69,10 +68,9 @@ class CartItemWidget extends StatelessWidget {
                 Gap(6.h),
                 Text(
                   car['price'] as String? ?? '',
-                  style: AppTextStyle.bodyMedium(context).copyWith(
-                    color: AppColor.primaryColor(context),
-                    fontWeight: FontWeight.w700,
-                  ),
+                  style: AppTextStyle.bodyMedium(
+                    context,
+                  ).copyWith(color: AppColor.primaryColor(context), fontWeight: FontWeight.w700),
                 ),
               ],
             ),
@@ -89,11 +87,7 @@ class CartItemWidget extends StatelessWidget {
                 color: Colors.redAccent.withOpacity(0.15),
                 borderRadius: BorderRadius.circular(12.r),
               ),
-              child: Icon(
-                Icons.delete_outline_rounded,
-                color: Colors.redAccent,
-                size: 22.sp,
-              ),
+              child: Icon(Icons.delete_outline_rounded, color: Colors.redAccent, size: 22.sp),
             ),
           ),
         ],

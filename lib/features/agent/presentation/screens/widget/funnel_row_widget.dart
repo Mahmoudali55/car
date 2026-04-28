@@ -28,7 +28,7 @@ class FunnelRow extends StatelessWidget {
         border: Border.all(color: AppColor.borderColor(context).withOpacity(0.5)),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.04),
+            color: AppColor.blackColor(context).withOpacity(0.04),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),
