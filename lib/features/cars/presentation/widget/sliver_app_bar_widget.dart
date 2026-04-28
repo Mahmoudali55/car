@@ -88,7 +88,7 @@ class _SliverAppBarWidgetState extends State<SliverAppBarWidget> {
                 child: IconButton(
                   icon: Icon(
                     isFav ? Icons.favorite_rounded : Icons.favorite_outline_rounded,
-                    color: isFav ? AppColor.redColor(context) : AppColor.blackTextColor(context),
+                    color: isFav ? AppColor.redColor(context) : Colors.black,
                     size: 20,
                   ),
                   onPressed: () {
