@@ -1,172 +1,162 @@
 import 'package:car/core/custom_widgets/custom_image/custom_network_image.dart';
-import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/routes/routes_name.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/core/utils/navigator_methods.dart';
 import 'package:car/features/favorites/presentation/view/cubit/favorites_cubit.dart';
-import 'package:car/features/home/presentation/view/widgets/spec_badge_widget.dart';
-import 'package:easy_localization/easy_localization.dart';
+import 'package:car/features/home/presentation/view/widgets/card_footer_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:gap/gap.dart';
 
 class MagazineCardWidget extends StatelessWidget {
   const MagazineCardWidget({super.key, required this.car});
+
   final Map<String, dynamic> car;
+
+  void _navigateToDetails(BuildContext context) {
+    NavigatorMethods.pushNamed(context, RoutesName.carDetailsScreen, arguments: car);
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => NavigatorMethods.pushNamed(context, RoutesName.carDetailsScreen, arguments: car),
+      onTap: () => _navigateToDetails(context),
       child: Container(
-        height: 380.h,
+        height: 360.h,
         width: double.infinity,
+        clipBehavior: Clip.antiAlias,
         decoration: BoxDecoration(
           color: AppColor.secondAppColor(context),
           borderRadius: BorderRadius.circular(32.r),
           boxShadow: [
             BoxShadow(
-              color: AppColor.blackColor(context).withOpacity(0.3),
-              blurRadius: 20,
-              offset: const Offset(0, 10),
+              color: AppColor.blackColor(context).withOpacity(0.12),
+              blurRadius: 24,
+              offset: const Offset(0, 8),
             ),
           ],
         ),
-        clipBehavior: Clip.antiAlias,
-        child: Stack(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // 1. Background Typography (Faded Brand Name)
-            Positioned(
-              left: -20.w,
-              top: 40.h,
-              child: RotatedBox(
-                quarterTurns: 3,
-                child: Text(
-                  car['brand'].toUpperCase(),
-                  style: TextStyle(
-                    color: AppColor.blackTextColor(context).withOpacity(0.03),
-                    fontSize: 80.sp,
-                    fontWeight: FontWeight.w900,
-                    letterSpacing: 10,
-                  ),
-                ),
-              ),
-            ),
-
-            // 2. Vertical Layout Content
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            Stack(
               children: [
-                // Top Action Bar inside Card
-                Padding(
-                  padding: EdgeInsets.all(20.w),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
-                        padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
-                        decoration: BoxDecoration(
-                          color: AppColor.primaryColor(context).withOpacity(0.15),
-                          borderRadius: BorderRadius.circular(12.r),
-                          border: Border.all(
-                            color: AppColor.primaryColor(context).withOpacity(0.3),
-                          ),
-                        ),
-                        child: Text(
-                          car['brand'],
-                          style: AppTextStyle.bodySmall(context).copyWith(
-                            color: AppColor.primaryColor(context),
-                            fontWeight: FontWeight.bold,
-                            fontSize: 11.sp,
-                          ),
-                        ),
-                      ),
-                      BlocBuilder<FavoritesCubit, FavoritesState>(
-                        builder: (context, state) {
-                          final isFav = context.read<FavoritesCubit>().isFavorite(car['name']);
-                          return GestureDetector(
-                            onTap: () => context.read<FavoritesCubit>().toggleFavorite(car),
-                            child: CircleAvatar(
-                              radius: 18.r,
-                              backgroundColor: AppColor.blackColor(context).withValues(alpha: 0.3),
-                              child: Icon(
-                                isFav ? Icons.favorite_rounded : Icons.favorite_outline_rounded,
-                                color: isFav ? Colors.redAccent : AppColor.blackTextColor(context),
-                                size: 20.sp,
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-
-                // 3. Featured Car Image (Floating effect)
-                Expanded(
-                  child: Center(
-                    child: Transform.scale(
-                      scale: 1.1,
-                      child: Hero(
-                        tag: 'car_image_${car['itemCode'] ?? car['name']}',
-                        child: car['image'].toString().startsWith('http')
-                            ? CustomNetworkImage(imageUrl: car['image'], fit: BoxFit.contain)
-                            : Image.asset(
-                                car['image'] ?? 'assets/images/placeholder.png',
-                                fit: BoxFit.contain,
-                              ),
-                      ),
-                    ),
-                  ),
-                ),
-
-                // 4. Glassmorphic Footer
-                Container(
-                  padding: EdgeInsets.all(20.w),
-                  decoration: BoxDecoration(
-                    color: AppColor.blackColor(context).withOpacity(0.2),
-                    border: Border(
-                      top: BorderSide(color: AppColor.blackTextColor(context).withOpacity(0.05)),
-                    ),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        car['name'],
-                        style: AppTextStyle.titleMedium(context).copyWith(
-                          color: AppColor.blackTextColor(context),
-                          fontWeight: FontWeight.w900,
-                          fontSize: 22.sp,
-                        ),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      Text(
-                        '${car['price']} ${AppLocaleKey.sar.tr()}',
-                        style: AppTextStyle.titleMedium(context).copyWith(
-                          color: AppColor.primaryColor(context),
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18.sp,
-                        ),
-                      ),
-                      Gap(16.h),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          SpecBadgeWidget(icon: Icons.calendar_today_rounded, text: car['year']),
-                          SpecBadgeWidget(icon: Icons.speed_rounded, text: car['mileage']),
-                          SpecBadgeWidget(icon: Icons.electric_bolt_rounded, text: car['engine']),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
+                _CardImage(car: car),
+                _CardTopBar(car: car),
               ],
             ),
+            CardFooter(car: car),
           ],
         ),
+      ),
+    );
+  }
+}
+
+// ─────────────────────────────────────────────────
+// Sub-widgets
+// ─────────────────────────────────────────────────
+
+class _CardTopBar extends StatelessWidget {
+  const _CardTopBar({required this.car});
+
+  final Map<String, dynamic> car;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 8.h),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          _BrandBadge(brand: car['brand']),
+          _FavoriteButton(car: car),
+        ],
+      ),
+    );
+  }
+}
+
+class _BrandBadge extends StatelessWidget {
+  const _BrandBadge({required this.brand});
+
+  final String brand;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 6.h),
+      decoration: BoxDecoration(
+        color: AppColor.primaryColor(context).withOpacity(0.12),
+        borderRadius: BorderRadius.circular(12.r),
+        border: Border.all(color: AppColor.primaryColor(context).withOpacity(0.25)),
+      ),
+      child: Text(
+        brand,
+        style: AppTextStyle.bodySmall(context).copyWith(
+          color: AppColor.primaryColor(context),
+          fontWeight: FontWeight.bold,
+          fontSize: 11.sp,
+        ),
+      ),
+    );
+  }
+}
+
+class _FavoriteButton extends StatelessWidget {
+  const _FavoriteButton({required this.car});
+
+  final Map<String, dynamic> car;
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<FavoritesCubit, FavoritesState>(
+      builder: (context, state) {
+        final isFav = context.read<FavoritesCubit>().isFavorite(car['name']);
+        return GestureDetector(
+          onTap: () => context.read<FavoritesCubit>().toggleFavorite(car),
+          child: CircleAvatar(
+            radius: 18.r,
+            backgroundColor: AppColor.blackColor(context).withValues(alpha: (0.1)),
+            child: Icon(
+              isFav ? Icons.favorite_rounded : Icons.favorite_outline_rounded,
+              color: isFav ? Colors.redAccent : AppColor.blackTextColor(context),
+              size: 20.sp,
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
+
+class _CardImage extends StatelessWidget {
+  const _CardImage({required this.car});
+
+  final Map<String, dynamic> car;
+
+  @override
+  Widget build(BuildContext context) {
+    final imageUrl = car['image'].toString();
+    final heroTag = 'car_image_${car['itemCode'] ?? car['name']}';
+
+    return SizedBox(
+      height: 200.h,
+      width: double.infinity,
+      child: Hero(
+        tag: heroTag,
+        child: imageUrl.startsWith('http')
+            ? CustomNetworkImage(
+                imageUrl: imageUrl,
+                fit: BoxFit.fill,
+                width: double.infinity,
+                height: 200.h,
+              )
+            : Image.asset(
+                imageUrl.isNotEmpty ? imageUrl : 'assets/images/placeholder.png',
+                fit: BoxFit.contain,
+              ),
       ),
     );
   }

@@ -24,22 +24,24 @@ class EmptyState extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: 150.h,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(
-            Icons.car_rental_rounded,
-            size: 80.sp,
-            color: AppColor.greyColor(context).withValues(alpha: (0.3)),
-          ),
-          Gap(5.h),
-          Text(
-            AppLocaleKey.agentNoCars.tr(),
-            style: AppTextStyle.bodyMedium(
-              context,
-            ).copyWith(color: AppColor.greyColor(context), fontWeight: FontWeight.bold),
-          ),
-        ],
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              Icons.car_rental_rounded,
+              size: 80.sp,
+              color: AppColor.greyColor(context).withValues(alpha: (0.3)),
+            ),
+            Gap(5.h),
+            Text(
+              AppLocaleKey.agentNoCars.tr(),
+              style: AppTextStyle.bodyMedium(
+                context,
+              ).copyWith(color: AppColor.greyColor(context), fontWeight: FontWeight.bold),
+            ),
+          ],
+        ),
       ),
     );
   }

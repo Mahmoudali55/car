@@ -37,20 +37,24 @@ class BankInstallmentsBannerWidget extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              Text(
-                _getInstallmentPrice(),
-                style: AppTextStyle.titleMedium(context).copyWith(
-                  color: AppColor.blueColor(context),
-                  fontWeight: FontWeight.w900,
-                  fontSize: 18.sp,
+              Flexible(
+                child: Text(
+                  _getInstallmentPrice(),
+                  style: AppTextStyle.titleMedium(context).copyWith(
+                    color: AppColor.blueColor(context),
+                    fontWeight: FontWeight.w900,
+                    fontSize: 18.sp,
+                  ),
                 ),
               ),
               Gap(4.w),
-              Text(
-                '${AppLocaleKey.aed.tr()} / ${AppLocaleKey.agentAppointment.tr() == "English" ? "Mo" : "شهرياً"}',
-                style: AppTextStyle.bodySmall(
-                  context,
-                ).copyWith(color: AppColor.blueColor(context), fontSize: 10.sp),
+              Flexible(
+                child: Text(
+                  '${AppLocaleKey.aed.tr()} / ${AppLocaleKey.agentAppointment.tr() == "English" ? "Mo" : "شهرياً"}',
+                  style: AppTextStyle.bodySmall(
+                    context,
+                  ).copyWith(color: AppColor.blueColor(context), fontSize: 10.sp),
+                ),
               ),
             ],
           ),
