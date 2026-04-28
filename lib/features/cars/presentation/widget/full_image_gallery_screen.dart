@@ -32,7 +32,7 @@ class _FullImageGalleryScreenState extends State<FullImageGalleryScreen> {
     _currentIndex = widget.initialIndex;
     _pageController = PageController(initialPage: widget.initialIndex);
     _thumbnailController = ScrollController();
-    
+
     // Auto scroll thumbnails to initial index
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _scrollToThumbnail(widget.initialIndex);

@@ -143,10 +143,9 @@ class _CarHeaderWidgetState extends State<CarHeaderWidget> {
                     children: [
                       Text(
                         AppLocaleKey.cash.tr(),
-                        style: AppTextStyle.bodySmall(context).copyWith(
-                          color: AppColor.blackTextColor(context),
-                          fontWeight: FontWeight.bold,
-                        ),
+                        style: AppTextStyle.bodySmall(
+                          context,
+                        ).copyWith(color: Colors.black, fontWeight: FontWeight.bold),
                       ),
                       Gap(6.h),
                       Row(
@@ -172,25 +171,25 @@ class _CarHeaderWidgetState extends State<CarHeaderWidget> {
                       const Spacer(),
                       Text(
                         AppLocaleKey.agentIncludesVat.tr(),
-                        style: AppTextStyle.bodySmall(
-                          context,
-                        ).copyWith(color: AppColor.greyColor(context), fontSize: 9.sp),
+                        style: AppTextStyle.bodySmall(context),
                       ),
                     ],
                   ),
                 ),
                 VerticalDivider(color: AppColor.greyColor(context), width: 32.w),
                 widget.car['installments'] == null
-                    ? GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (_) => BankInstallmentsBannerWidget(car: widget.car),
-                            ),
-                          );
-                        },
-                        child: Expanded(child: BankInstallmentsBannerWidget(car: widget.car)),
+                    ? Expanded(
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => BankInstallmentsBannerWidget(car: widget.car),
+                              ),
+                            );
+                          },
+                          child: BankInstallmentsBannerWidget(car: widget.car),
+                        ),
                       )
                     : const SizedBox.shrink(),
               ],
@@ -198,19 +197,6 @@ class _CarHeaderWidgetState extends State<CarHeaderWidget> {
           ),
         ),
       ],
-    );
-  }
-
-  Widget _buildChip(BuildContext context, String text, Color bgColor, Color textColor) {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
-      decoration: BoxDecoration(color: bgColor, borderRadius: BorderRadius.circular(6.r)),
-      child: Text(
-        text,
-        style: AppTextStyle.bodySmall(
-          context,
-        ).copyWith(color: textColor, fontWeight: FontWeight.bold),
-      ),
     );
   }
 }
