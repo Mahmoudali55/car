@@ -197,6 +197,7 @@ class _PopularCarsScreenState extends State<PopularCarsScreen> {
                                         'name': car.itemName,
                                         'groupCode': car.groupCode.toString(),
                                         'itemCode': car.itemCode.toString(),
+                                        'chassisNo': car.chassisNo,
                                         'image': "${Constants.baseImage}${car.carImage}",
                                         'extraImages': car.extraImages
                                             .map(
@@ -209,7 +210,22 @@ class _PopularCarsScreenState extends State<PopularCarsScreen> {
                                         'year': car.makeYear.toString(),
                                         'mileage': '${car.kilometerReading ?? "0"} كم',
                                         'engine': '${car.cylinder} Cyl',
+                                        'video_id': 'D7O8J5vVf-M',
                                         'isFavorite': false,
+                                        'carStatus': car.carStatus,
+                                        'carStatusText': car.carStatusText,
+                                        // Technical Details
+                                        'CHASSIS_NO': car.chassisNo,
+                                        'MOTOR_NO': car.motorNo,
+                                        'KILOMETER_READING': car.kilometerReading,
+                                        'CYLINDER': car.cylinder,
+                                        'POWER_HOURSE': car.powerHourse,
+                                        'FUEL_CAPACITY': car.fuelCapacity,
+                                        'SEAT_NO': car.seatNo,
+                                        'DOOR_NO': car.doorNo,
+                                        'Color': car.color,
+                                        'TRANSMISSION': car.transmission,
+                                        'MAKE_YEAR': car.makeYear,
                                       };
                                       return Padding(
                                         padding: EdgeInsets.only(bottom: 24.h),
