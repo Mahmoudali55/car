@@ -30,7 +30,7 @@ class RecentlyViewedWidget extends StatelessWidget {
           return GestureDetector(
             onTap: () => _navigateToDetails(context, car),
             child: Container(
-              width: 150.w,
+              width: 200.w,
               decoration: BoxDecoration(
                 color: AppColor.cardColor(context),
                 borderRadius: BorderRadius.circular(16.r),
@@ -51,16 +51,21 @@ class RecentlyViewedWidget extends StatelessWidget {
                     flex: 5,
                     child: Container(
                       decoration: BoxDecoration(
-                        color: AppColor.blackTextColor(context).withOpacity(0.02),
+                        color: AppColor.blackTextColor(context).withValues(alpha: (0.02)),
                         borderRadius: BorderRadius.vertical(top: Radius.circular(16.r)),
                       ),
                       child: Center(
-                        child: Padding(
-                          padding: EdgeInsets.all(12.w),
-                          child: car['image'].toString().startsWith('http')
-                              ? CustomNetworkImage(imageUrl: car['image'], fit: BoxFit.contain)
-                              : Image.asset(car['image']!, fit: BoxFit.contain),
-                        ),
+                        child: car['image'].toString().startsWith('http')
+                            ? ClipRRect(
+                                borderRadius: BorderRadius.vertical(top: Radius.circular(16.r)),
+                                child: CustomNetworkImage(
+                                  imageUrl: car['image'],
+                                  fit: BoxFit.fill,
+                                  width: double.infinity,
+                                  height: double.infinity,
+                                ),
+                              )
+                            : Image.asset(car['image']!, fit: BoxFit.contain),
                       ),
                     ),
                   ),
