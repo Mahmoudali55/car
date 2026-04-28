@@ -31,7 +31,7 @@ class MagazineCardWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(32.r),
           boxShadow: [
             BoxShadow(
-              color: AppColor.blackColor(context).withOpacity(0.12),
+              color: AppColor.blackColor(context).withValues(alpha: (0.12)),
               blurRadius: 24,
               offset: const Offset(0, 8),
             ),
@@ -86,11 +86,11 @@ class _BrandBadge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 6.h),
+      padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 2.h),
       decoration: BoxDecoration(
-        color: AppColor.primaryColor(context).withOpacity(0.12),
+        color: AppColor.primaryColor(context).withValues(alpha: (0.12)),
         borderRadius: BorderRadius.circular(12.r),
-        border: Border.all(color: AppColor.primaryColor(context).withOpacity(0.25)),
+        border: Border.all(color: AppColor.primaryColor(context).withValues(alpha: (0.25))),
       ),
       child: Text(
         brand,
@@ -121,7 +121,7 @@ class _FavoriteButton extends StatelessWidget {
             backgroundColor: AppColor.blackColor(context).withValues(alpha: (0.1)),
             child: Icon(
               isFav ? Icons.favorite_rounded : Icons.favorite_outline_rounded,
-              color: isFav ? Colors.redAccent : AppColor.blackTextColor(context),
+              color: isFav ? AppColor.redColor(context) : AppColor.blackTextColor(context),
               size: 20.sp,
             ),
           ),

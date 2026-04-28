@@ -1,6 +1,5 @@
 import 'package:car/core/custom_widgets/custom_image/custom_network_image.dart';
 import 'package:car/core/theme/app_colors.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -82,7 +81,11 @@ class _FullImageGalleryScreenState extends State<FullImageGalleryScreen> {
                     tag: 'car_image_full_${widget.car['itemCode'] ?? widget.car['name']}_$index',
                     child: Center(
                       child: isNetwork
-                          ? CustomNetworkImage(imageUrl: imageUrl, fit: BoxFit.contain)
+                          ? CustomNetworkImage(
+                              imageUrl: imageUrl,
+                              fit: BoxFit.fill,
+                              width: double.infinity,
+                            )
                           : Image.asset(
                               imageUrl.isEmpty ? 'assets/images/placeholder.png' : imageUrl,
                               fit: BoxFit.contain,
