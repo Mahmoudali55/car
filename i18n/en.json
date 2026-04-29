@@ -949,7 +949,16 @@
   "agent_calculate_financing": "Calculate Financing",
   "agent_image_zoom": "Tap to zoom image",
   "agent_call_button":"Call Us to Reserve",
-  "agent_reserve_button":"Reserve Now"
+  "agent_reserve_button":"Reserve Now",
+  "agent_car_number":"Car Number",
+  "agent_sedans": "Sedans",
+  "agent_hatchbacks":"Hatchbacks",
+  "agent_fuel_capacity":"Fuel Capacity",
+  "agent_cars":"Cars",
+  "agent_manual": "Manual",
+ "agent_sedan":"Sedan",
+ "agent_hatchback":"Hatchback",
+ "agent_suv":"SUV"
 
 
 }

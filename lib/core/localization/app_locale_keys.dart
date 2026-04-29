@@ -1011,4 +1011,13 @@ class AppLocaleKey {
   static const String agentImageZoom = 'agent_image_zoom';
   static const String agentCallButton = 'agent_call_button';
   static const String agentReserveButton = 'agent_reserve_button';
+  static const String agentCarNumber = 'agent_car_number';
+  static const String agentSedans = 'agent_sedans';
+  static const String agentHatchbacks = 'agent_hatchbacks';
+  static const String agentFuelCapacity = 'agent_fuel_capacity';
+  static const String agentCars = 'agent_cars';
+  static const String agentManual = 'agent_manual';
+  static const String agentSedan = 'agent_sedan';
+  static const String agentHatchback = 'agent_hatchback';
+  static const String agentSuv = 'agent_suv';
 }

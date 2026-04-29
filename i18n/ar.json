@@ -966,7 +966,16 @@
   "agent_calculate_financing":"احسب التمويل",
   "agent_image_zoom":"اضغط لتكبير الصورة",
   "agent_call_button":"اتصل بنا للحجز",
-  "agent_reserve_button":"إحجزها الآن"
+  "agent_reserve_button":"إحجزها الآن",
+  "agent_car_number":"رقم الشاصيه",
+  "agent_sedans": "السلندرات",
+  "agent_hatchbacks":"القوة الحصانية",
+  "agent_fuel_capacity":"سعة الوقود",
+  "agent_cars":"ركاب",
+  "agent_manual": "عادي",
+ "agent_sedan":"سلندر",
+ "agent_hatchback":"حصان",
+ "agent_suv":"مل"
 
 
 }

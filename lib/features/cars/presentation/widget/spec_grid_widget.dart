@@ -43,12 +43,14 @@ class SpecGridWidget extends StatelessWidget {
               context,
               Icons.settings_input_component_rounded,
               AppLocaleKey.transmission.tr(),
-              car['TRANSMISSION'] == 1 ? "أوتوماتيك" : "عادي",
+              car['TRANSMISSION'] == 1
+                  ? AppLocaleKey.agentAutomatic.tr()
+                  : AppLocaleKey.agentManual.tr(),
             ),
             _buildSpecItem(
               context,
               Icons.tag_rounded,
-              "رقم الشاصيه",
+              AppLocaleKey.agentCarNumber.tr(),
               '${car['chassisNo'] ?? car['CHASSIS_NO'] ?? 'N/A'}',
             ),
             _buildSpecItem(
@@ -61,25 +63,25 @@ class SpecGridWidget extends StatelessWidget {
               context,
               Icons.airline_seat_recline_extra_rounded,
               AppLocaleKey.capacity.tr(),
-              '${car['SEAT_NO'] ?? 5} ركاب',
+              '${car['SEAT_NO'] ?? 5} ${AppLocaleKey.agentCars.tr()}',
             ),
             _buildSpecItem(
               context,
               Icons.engineering_rounded,
-              "السلندرات",
-              '${car['CYLINDER'] ?? "N/A"} سلندر',
+              AppLocaleKey.agentSedans.tr(),
+              '${car['CYLINDER'] ?? "N/A"} ${AppLocaleKey.agentSedan.tr()}',
             ),
             _buildSpecItem(
               context,
               Icons.bolt_rounded,
-              "القوة الحصانية",
-              '${car['POWER_HOURSE'] ?? "N/A"} حصان',
+              AppLocaleKey.agentHatchbacks.tr(),
+              '${car['POWER_HOURSE'] ?? "N/A"} ${AppLocaleKey.agentHatchback.tr()}',
             ),
             _buildSpecItem(
               context,
               Icons.local_gas_station_rounded,
-              "سعة الوقود",
-              '${car['FUEL_CAPACITY'] ?? "N/A"} مل',
+              AppLocaleKey.agentFuelCapacity.tr(),
+              '${car['FUEL_CAPACITY'] ?? "N/A"} ${AppLocaleKey.agentSuv.tr()}',
             ),
           ],
         ),
@@ -93,14 +95,14 @@ class SpecGridWidget extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColor.secondAppColor(context),
         borderRadius: BorderRadius.circular(16.r),
-        border: Border.all(color: AppColor.blackTextColor(context).withOpacity(0.05)),
+        border: Border.all(color: AppColor.blackTextColor(context).withValues(alpha: 0.05)),
       ),
       child: Row(
         children: [
           Container(
             padding: EdgeInsets.all(8.w),
             decoration: BoxDecoration(
-              color: AppColor.blackTextColor(context).withOpacity(0.05),
+              color: AppColor.blackTextColor(context).withValues(alpha: 0.05),
               borderRadius: BorderRadius.circular(10.r),
             ),
             child: Icon(icon, color: AppColor.primaryColor(context), size: 18.sp),
