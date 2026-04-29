@@ -38,16 +38,8 @@ class _CarDetailsScreenState extends State<CarDetailsScreen> {
   void initState() {
     super.initState();
     HiveMethods.addToRecentlyViewed(widget.car);
-
     final mainImage = widget.car['image'] ?? 'assets/images/placeholder.png';
     _carImages = [mainImage];
-
-    // Check if context is mounted safely or wrap in post frame if needed
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      // Images are now pre-loaded from GetBrandCarsDataModel.listFromResponse
-      // context.read<HomeCubit>().getCarImages(carId, makeYear);
-    });
-
     _controller = YoutubePlayerController(
       initialVideoId: widget.car['video_id'] ?? 'D7O8J5vVf-M',
       flags: const YoutubePlayerFlags(

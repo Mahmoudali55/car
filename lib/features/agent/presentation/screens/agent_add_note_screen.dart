@@ -1,5 +1,4 @@
 import 'package:car/core/custom_widgets/buttons/custom_button.dart';
-import 'package:car/core/custom_widgets/custom_app_bar/custom_app_bar.dart';
 import 'package:car/core/custom_widgets/custom_form_field/custom_form_field.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
@@ -18,8 +17,7 @@ class AgentAddNoteScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.scaffoldColor(context),
-      appBar: CustomAppBar(
-        context,
+      appBar: AppBar(
         elevation: 0,
         leading: Padding(
           padding: EdgeInsets.all(8.w),
@@ -30,7 +28,11 @@ class AgentAddNoteScreen extends StatelessWidget {
         ),
         title: Text(
           AppLocaleKey.agentAddProfessionalNote.tr(),
-          style: AppTextStyle.bodyLarge(context).copyWith(color: AppColor.blackTextColor(context)),
+          style: TextStyle(
+            color: AppColor.blackTextColor(context),
+            fontWeight: FontWeight.w900,
+            fontSize: 18.sp,
+          ),
         ),
         centerTitle: true,
       ),

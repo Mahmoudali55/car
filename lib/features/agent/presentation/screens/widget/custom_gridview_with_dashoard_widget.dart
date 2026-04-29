@@ -40,6 +40,7 @@ class CustomGridviewWithDashoardWidget extends StatelessWidget {
           GridView.builder(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
+            padding: EdgeInsets.zero,
             itemCount: getAgentKpis().length,
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
@@ -52,17 +53,15 @@ class CustomGridviewWithDashoardWidget extends StatelessWidget {
           Gap(24.h),
           SectionHeader(title: AppLocaleKey.agentWeeklyActivity.tr()),
           Gap(12.h),
-          PremiumWeeklyChart(
-            data: _weeklyData,
-            days: weekDays,
-          ),
+          PremiumWeeklyChart(data: _weeklyData, days: weekDays),
           Gap(24.h),
           SectionHeader(title: AppLocaleKey.agentQuickActions.tr()),
-          Gap(5.h),
+          Gap(12.h),
           GridView.count(
             crossAxisCount: 3,
             mainAxisSpacing: 12.h,
             crossAxisSpacing: 12.w,
+            padding: EdgeInsets.zero,
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             children: [
@@ -109,9 +108,10 @@ class CustomGridviewWithDashoardWidget extends StatelessWidget {
                 child: Text(
                   AppLocaleKey.agentNoCustomersFound.tr(),
                   style: TextStyle(
-                      color: AppColor.greyColor(context),
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w500),
+                    color: AppColor.greyColor(context),
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
               ),
             )

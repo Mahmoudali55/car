@@ -22,7 +22,13 @@ class AdminSettingsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.scaffoldColor(context),
-      appBar: CustomAppBar(context, title: Text(AppLocaleKey.adminSettings.tr())),
+      appBar: CustomAppBar(
+        context,
+        automaticallyImplyLeading: false,
+        title: Text(AppLocaleKey.adminSettings.tr()),
+        centerTitle: true,
+        leading: const SizedBox.shrink(),
+      ),
       body: Stack(
         children: [
           // Background Glow

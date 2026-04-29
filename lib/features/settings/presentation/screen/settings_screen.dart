@@ -17,6 +17,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
+
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
   @override
@@ -25,6 +26,9 @@ class SettingsScreen extends StatelessWidget {
       backgroundColor: AppColor.scaffoldColor(context),
       appBar: CustomAppBar(
         context,
+        centerTitle: true,
+        automaticallyImplyLeading: false,
+        leading: const SizedBox.shrink(),
         title: Text(
           AppLocaleKey.settings.tr(),
           style: AppTextStyle.titleMedium(
@@ -45,12 +49,11 @@ class SettingsScreen extends StatelessWidget {
                 child: ThemeToggleWidget(isDark: isDark),
               ),
               Gap(24.h),
-              SectionHeaderWidget(title:  AppLocaleKey.general.tr()),
+              SectionHeaderWidget(title: AppLocaleKey.general.tr()),
               Gap(12.h),
               FadeInLeft(
                 duration: const Duration(milliseconds: 400),
                 child: SettingItemsWidget(
-                  
                   icon: Icons.language_rounded,
                   title: AppLocaleKey.language.tr(),
                   trailing: Text(
@@ -68,7 +71,6 @@ class SettingsScreen extends StatelessWidget {
               FadeInLeft(
                 duration: const Duration(milliseconds: 450),
                 child: SettingItemsWidget(
-                  
                   icon: Icons.help_outline_rounded,
                   title: AppLocaleKey.faqs.tr(),
                   onTap: () => Navigator.pushNamed(context, RoutesName.faqScreen),
@@ -81,23 +83,20 @@ class SettingsScreen extends StatelessWidget {
                 delay: const Duration(milliseconds: 100),
                 duration: const Duration(milliseconds: 400),
                 child: SettingItemsWidget(
-                 
                   icon: Icons.lock_outline_rounded,
                   title: AppLocaleKey.changePassword.tr(),
                   onTap: () {},
                 ),
               ),
               Gap(32.h),
-              FadeInUp(
-                delay: const Duration(milliseconds: 200),
-                child: const LogoutButtonWidget(),
-              ),
+              FadeInUp(delay: const Duration(milliseconds: 200), child: const LogoutButtonWidget()),
             ],
           );
         },
       ),
     );
   }
+
   void _showLanguageDialog(BuildContext context) {
     showModalBottomSheet(
       context: context,
@@ -122,7 +121,6 @@ class SettingsScreen extends StatelessWidget {
                 ),
                 Gap(20.h),
                 LanguageOptionWidget(
-                 
                   title: 'العربية',
                   isSelected: context.locale.languageCode == 'ar',
                   onTap: () async {
@@ -133,7 +131,6 @@ class SettingsScreen extends StatelessWidget {
                 ),
                 Gap(12.h),
                 LanguageOptionWidget(
-                  
                   title: 'English',
                   isSelected: context.locale.languageCode == 'en',
                   onTap: () async {
