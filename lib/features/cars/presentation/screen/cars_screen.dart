@@ -122,15 +122,12 @@ class _CarsScreenState extends State<CarsScreen> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        // Search & Filter Header
         const CarSearchHeaderWidget(),
-
         Expanded(
           child: ListView(
             padding: EdgeInsets.zero,
             physics: const BouncingScrollPhysics(),
             children: [
-              // Featured Slider
               FeaturedCarsSliderWidget(
                 featuredCars: _featuredCars.map((car) {
                   final localizedCar = Map<String, String>.from(car);
@@ -145,19 +142,6 @@ class _CarsScreenState extends State<CarsScreen> {
                 }).toList(),
               ),
               Gap(24.h),
-
-              // Brand Selector (NEW - Logical browsing)
-              // BrandSelectorWidget(
-              //   selectedBrand: _selectedBrand,
-              //   onBrandSelected: (brand) {
-              //     setState(() {
-              //       _selectedBrand = brand;
-              //     });
-              //   },
-              // ),
-              Gap(24.h),
-
-              // Categories Row (Body Type Selection)
               CarsCategoriesRowWidget(
                 selectedIndex: _selectedCategoryIndex,
                 categories: _categories,
@@ -168,8 +152,6 @@ class _CarsScreenState extends State<CarsScreen> {
                 },
               ),
               Gap(24.h),
-
-              // Cars List Label
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20.w),
                 child: Row(
@@ -191,16 +173,12 @@ class _CarsScreenState extends State<CarsScreen> {
                 ),
               ),
               Gap(16.h),
-
-              // Cars List
               Builder(
                 builder: (context) {
-                  // Filter cars list based on selected brand
                   final filteredCars = _carsList.where((car) {
                     if (_selectedBrand == null) return true;
                     return car['brand'] == _selectedBrand!.name;
                   }).toList();
-
                   if (filteredCars.isEmpty) {
                     return SizedBox(
                       height: 200.h,
@@ -214,7 +192,6 @@ class _CarsScreenState extends State<CarsScreen> {
                       ),
                     );
                   }
-
                   return ListView.separated(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),

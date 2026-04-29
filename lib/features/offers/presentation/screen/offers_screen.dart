@@ -16,7 +16,6 @@ class OffersScreen extends StatefulWidget {
 class _OffersScreenState extends State<OffersScreen> {
   final int _selectedFilterIndex = 0;
   final List<String> _filters = ['الكل', 'فاخرة', 'رياضية', 'SUV', 'سيدان'];
-
   final List<Map<String, dynamic>> _offers = [
     {
       'title': 'عرض خاص على G-Class G63',
