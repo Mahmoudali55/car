@@ -1,5 +1,6 @@
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
+import 'package:car/core/theme/app_text_style.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -47,11 +48,8 @@ class _CashPackagesWidgetState extends State<CashPackagesWidget> {
       titleKey: AppLocaleKey.packageBasic,
       descKey: AppLocaleKey.packageBasicDesc,
       extraPrice: 0,
-      themeColor: const Color(0xFF64748B), // Slate Grey
-      featuresKeys: [
-        AppLocaleKey.featureComprehensiveCheck,
-        AppLocaleKey.featureAgencyWarranty,
-      ],
+      themeColor: const Color(0xFF64748B),
+      featuresKeys: [AppLocaleKey.featureComprehensiveCheck, AppLocaleKey.featureAgencyWarranty],
     ),
     CashPackage(
       titleKey: AppLocaleKey.packageGold,
@@ -106,10 +104,7 @@ class _CashPackagesWidgetState extends State<CashPackagesWidget> {
           Gap(4.h),
           Text(
             AppLocaleKey.cashPackagesSubtitle.tr(),
-            style: TextStyle(
-              fontSize: 13.sp,
-              color: Colors.grey[600],
-            ),
+            style: TextStyle(fontSize: 13.sp, color: Colors.grey[600]),
           ),
           Gap(16.h),
           SizedBox(
@@ -134,19 +129,21 @@ class _CashPackagesWidgetState extends State<CashPackagesWidget> {
                     margin: EdgeInsets.only(right: 16.w),
                     padding: EdgeInsets.all(16.w),
                     decoration: BoxDecoration(
-                      color: isSelected ? package.themeColor.withOpacity(0.05) : AppColor.secondAppColor(context),
+                      color: isSelected
+                          ? package.themeColor.withValues(alpha: 0.05)
+                          : AppColor.secondAppColor(context),
                       borderRadius: BorderRadius.circular(16.r),
                       border: Border.all(
-                        color: isSelected ? package.themeColor : Colors.grey.withOpacity(0.2),
+                        color: isSelected ? package.themeColor : Colors.grey.withValues(alpha: 0.2),
                         width: isSelected ? 2 : 1,
                       ),
                       boxShadow: isSelected
                           ? [
                               BoxShadow(
-                                color: package.themeColor.withOpacity(0.1),
+                                color: package.themeColor.withValues(alpha: 0.1),
                                 blurRadius: 10,
                                 offset: const Offset(0, 4),
-                              )
+                              ),
                             ]
                           : [],
                     ),
@@ -161,23 +158,29 @@ class _CashPackagesWidgetState extends State<CashPackagesWidget> {
                               style: TextStyle(
                                 fontSize: 18.sp,
                                 fontWeight: FontWeight.bold,
-                                color: isSelected ? package.themeColor : AppColor.blackTextColor(context),
+                                color: isSelected
+                                    ? package.themeColor
+                                    : AppColor.blackTextColor(context),
                               ),
                             ),
                             if (isSelected)
-                              Icon(Icons.check_circle_rounded, color: package.themeColor, size: 24.sp)
+                              Icon(
+                                Icons.check_circle_rounded,
+                                color: package.themeColor,
+                                size: 24.sp,
+                              )
                             else
-                              Icon(Icons.circle_outlined, color: Colors.grey.withOpacity(0.3), size: 24.sp),
+                              Icon(
+                                Icons.circle_outlined,
+                                color: Colors.grey.withValues(alpha: 0.3),
+                                size: 24.sp,
+                              ),
                           ],
                         ),
                         Gap(8.h),
                         Text(
                           package.descKey.tr(),
-                          style: TextStyle(
-                            fontSize: 12.sp,
-                            color: Colors.grey[600],
-                            height: 1.2,
-                          ),
+                          style: TextStyle(fontSize: 12.sp, color: Colors.grey[600], height: 1.2),
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                         ),
@@ -185,25 +188,22 @@ class _CashPackagesWidgetState extends State<CashPackagesWidget> {
                         Container(
                           padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 6.h),
                           decoration: BoxDecoration(
-                            color: package.themeColor.withOpacity(0.1),
+                            color: package.themeColor.withValues(alpha: 0.1),
                             borderRadius: BorderRadius.circular(8.r),
                           ),
                           child: Text(
                             package.extraPrice == 0
                                 ? '${AppLocaleKey.sar.tr()} 0'
                                 : '+ ${formatter.format(package.extraPrice)} ${AppLocaleKey.sar.tr()}',
-                            style: TextStyle(
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.bold,
-                              color: package.themeColor,
-                            ),
+                            style: AppTextStyle.bodyMedium(
+                              context,
+                            ).copyWith(fontWeight: FontWeight.bold, color: package.themeColor),
                           ),
                         ),
                         Gap(16.h),
                         Text(
                           AppLocaleKey.includedFeatures.tr(),
-                          style: TextStyle(
-                            fontSize: 12.sp,
+                          style: AppTextStyle.bodySmall(context).copyWith(
                             fontWeight: FontWeight.bold,
                             color: AppColor.blackTextColor(context),
                           ),
@@ -220,16 +220,17 @@ class _CashPackagesWidgetState extends State<CashPackagesWidget> {
                                 children: [
                                   Padding(
                                     padding: EdgeInsets.only(top: 2.h),
-                                    child: Icon(Icons.check_rounded, size: 14.sp, color: Colors.green),
+                                    child: Icon(
+                                      Icons.check_rounded,
+                                      size: 14.sp,
+                                      color: AppColor.greenColor(context),
+                                    ),
                                   ),
                                   Gap(6.w),
                                   Expanded(
                                     child: Text(
                                       package.featuresKeys[featureIndex].tr(),
-                                      style: TextStyle(
-                                        fontSize: 11.sp,
-                                        color: Colors.grey[700],
-                                      ),
+                                      style: TextStyle(fontSize: 11.sp, color: Colors.grey[700]),
                                     ),
                                   ),
                                 ],
@@ -249,28 +250,24 @@ class _CashPackagesWidgetState extends State<CashPackagesWidget> {
           Container(
             padding: EdgeInsets.all(16.w),
             decoration: BoxDecoration(
-              color: AppColor.primaryColor(context).withOpacity(0.05),
+              color: AppColor.primaryColor(context).withValues(alpha: 0.05),
               borderRadius: BorderRadius.circular(12.r),
-              border: Border.all(color: AppColor.primaryColor(context).withOpacity(0.2)),
+              border: Border.all(color: AppColor.primaryColor(context).withValues(alpha: 0.2)),
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
                   AppLocaleKey.totalWithPackage.tr(),
-                  style: TextStyle(
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.bold,
-                    color: AppColor.blackTextColor(context),
-                  ),
+                  style: AppTextStyle.bodyMedium(
+                    context,
+                  ).copyWith(color: AppColor.blackTextColor(context)),
                 ),
                 Text(
                   '${formatter.format(currentTotal)} ${AppLocaleKey.sar.tr()}',
-                  style: TextStyle(
-                    fontSize: 18.sp,
-                    fontWeight: FontWeight.w900,
-                    color: AppColor.primaryColor(context),
-                  ),
+                  style: AppTextStyle.bodyLarge(
+                    context,
+                  ).copyWith(fontWeight: FontWeight.w900, color: AppColor.primaryColor(context)),
                 ),
               ],
             ),

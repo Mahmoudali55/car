@@ -16,14 +16,14 @@ class InspectionBadgeWidget extends StatelessWidget {
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            AppColor.primaryColor(context).withOpacity(0.08),
-            AppColor.primaryColor(context).withOpacity(0.02),
+            AppColor.primaryColor(context).withValues(alpha: 0.08),
+            AppColor.primaryColor(context).withValues(alpha: 0.02),
           ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
         borderRadius: BorderRadius.circular(20.r),
-        border: Border.all(color: AppColor.primaryColor(context).withOpacity(0.15)),
+        border: Border.all(color: AppColor.primaryColor(context).withValues(alpha: 0.15)),
       ),
       child: Row(
         children: [
@@ -34,15 +34,11 @@ class InspectionBadgeWidget extends StatelessWidget {
                 width: 44.w,
                 height: 44.w,
                 decoration: BoxDecoration(
-                  color: AppColor.primaryColor(context).withOpacity(0.1),
+                  color: AppColor.primaryColor(context).withValues(alpha: 0.1),
                   shape: BoxShape.circle,
                 ),
               ),
-              Icon(
-                Icons.verified_rounded,
-                color: AppColor.primaryColor(context),
-                size: 28.sp,
-              ),
+              Icon(Icons.verified_rounded, color: AppColor.primaryColor(context), size: 28.sp),
             ],
           ),
           Gap(16.w),
@@ -52,24 +48,22 @@ class InspectionBadgeWidget extends StatelessWidget {
               children: [
                 Text(
                   AppLocaleKey.reliableCarSubtitle.tr(),
-                  style: AppTextStyle.bodyMedium(context).copyWith(
-                    fontWeight: FontWeight.w900,
-                    color: AppColor.blackTextColor(context),
-                  ),
+                  style: AppTextStyle.bodyMedium(
+                    context,
+                  ).copyWith(fontWeight: FontWeight.w900, color: AppColor.blackTextColor(context)),
                 ),
                 Text(
                   AppLocaleKey.reliableCarDescription.tr(),
-                  style: AppTextStyle.bodySmall(context).copyWith(
-                    color: AppColor.greyColor(context),
-                    fontSize: 11.sp,
-                  ),
+                  style: AppTextStyle.bodySmall(
+                    context,
+                  ).copyWith(color: AppColor.greyColor(context), fontSize: 11.sp),
                 ),
               ],
             ),
           ),
           Icon(
             Icons.shield_outlined,
-            color: AppColor.primaryColor(context).withOpacity(0.3),
+            color: AppColor.primaryColor(context).withValues(alpha: 0.3),
             size: 24.sp,
           ),
         ],

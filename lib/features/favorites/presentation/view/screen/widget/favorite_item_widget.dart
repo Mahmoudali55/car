@@ -37,7 +37,7 @@ class FavoriteItemWidget extends StatelessWidget {
             Container(
               width: 100.w,
               height: 80.h,
-              padding: EdgeInsets.all(8.w),
+
               decoration: BoxDecoration(
                 color: AppColor.blackTextColor(context).withValues(alpha: 0.05),
                 borderRadius: BorderRadius.circular(16.r),
@@ -45,7 +45,15 @@ class FavoriteItemWidget extends StatelessWidget {
               child: Hero(
                 tag: 'car_image_${car['itemCode'] ?? car['name'] ?? 'unknown'}',
                 child: car['image'] != null && car['image'].toString().startsWith('http')
-                    ? CustomNetworkImage(imageUrl: car['image'].toString(), fit: BoxFit.contain)
+                    ? ClipRRect(
+                        borderRadius: BorderRadius.circular(16.r),
+                        child: CustomNetworkImage(
+                          imageUrl: car['image'].toString(),
+                          fit: BoxFit.fill,
+                          height: 80.h,
+                          width: 100.w,
+                        ),
+                      )
                     : car['image'] != null
                     ? Image.asset(car['image'].toString(), fit: BoxFit.contain)
                     : Icon(
