@@ -111,7 +111,7 @@ class _CarDetailsScreenState extends State<CarDetailsScreen> {
                       child: ConstrainedBox(
                         constraints: const BoxConstraints(maxWidth: 1000),
                         child: Padding(
-                          padding: EdgeInsets.fromLTRB(20.w, 24.h, 20.w, 140.h),
+                          padding: EdgeInsets.fromLTRB(10.w, 24.h, 20.w, 140.h),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
