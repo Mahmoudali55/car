@@ -42,9 +42,6 @@ class _CarDetailsScreenState extends State<CarDetailsScreen> {
     final mainImage = widget.car['image'] ?? 'assets/images/placeholder.png';
     _carImages = [mainImage];
 
-    final String carId = widget.car['groupCode']?.toString() ?? '1008101131'; // fallback
-    final String makeYear = widget.car['year']?.toString() ?? '2024';
-
     // Check if context is mounted safely or wrap in post frame if needed
     WidgetsBinding.instance.addPostFrameCallback((_) {
       // Images are now pre-loaded from GetBrandCarsDataModel.listFromResponse
@@ -95,6 +92,7 @@ class _CarDetailsScreenState extends State<CarDetailsScreen> {
       builder: (context, player) {
         return Scaffold(
           backgroundColor: AppColor.scaffoldColor(context),
+          bottomNavigationBar: StickyActionBarWidget(car: widget.car),
           body: Stack(
             children: [
               CustomScrollView(
@@ -107,47 +105,44 @@ class _CarDetailsScreenState extends State<CarDetailsScreen> {
                     carImages: _carImages,
                   ),
                   SliverToBoxAdapter(
-                    child: Center(
-                      child: ConstrainedBox(
-                        constraints: const BoxConstraints(maxWidth: 1000),
-                        child: Padding(
-                          padding: EdgeInsets.fromLTRB(10.w, 24.h, 20.w, 140.h),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              CarHeaderWidget(car: widget.car),
-                              if (widget.car['is_financing_available'] ?? true) ...[
-                                Gap(24.h),
-                                BnplWidget(car: widget.car),
-                                Gap(24.h),
-                                CashPackagesWidget(car: widget.car),
-                              ],
-                              Gap(24.h),
-                              const InspectionBadgeWidget(),
-                              Gap(32.h),
-                              SpecGridWidget(car: widget.car),
-                              Gap(32.h),
-                              const InspectionReportWidget(),
-                              Gap(32.h),
-                              _buildOverview(context),
-                              Gap(32.h),
-                              const FeaturesGridWidget(),
-
-                              Gap(32.h),
-                              // VideoReviewWidget(
-                              //   car: widget.car,
-                              //   controller: _controller,
-                              //   player: player,
-                              // ),
+                    child: ConstrainedBox(
+                      constraints: const BoxConstraints(maxWidth: 1000),
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 10.w),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            CarHeaderWidget(car: widget.car),
+                            if (widget.car['is_financing_available'] ?? true) ...[
+                              Gap(16.h),
+                              BnplWidget(car: widget.car),
+                              // Gap(16.h),
+                              CashPackagesWidget(car: widget.car),
                             ],
-                          ),
+                            Gap(16.h),
+                            const InspectionBadgeWidget(),
+                            Gap(16.h),
+                            SpecGridWidget(car: widget.car),
+                            Gap(16.h),
+                            const InspectionReportWidget(),
+                            Gap(16.h),
+                            _buildOverview(context),
+                            Gap(16.h),
+                            const FeaturesGridWidget(),
+
+                            Gap(20.h),
+                            // VideoReviewWidget(
+                            //   car: widget.car,
+                            //   controller: _controller,
+                            //   player: player,
+                            // ),
+                          ],
                         ),
                       ),
                     ),
                   ),
                 ],
               ),
-              StickyActionBarWidget(car: widget.car),
             ],
           ),
         );

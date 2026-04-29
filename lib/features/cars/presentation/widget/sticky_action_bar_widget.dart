@@ -21,76 +21,71 @@ class StickyActionBarWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Positioned(
-      bottom: 0,
-      left: 0,
-      right: 0,
-      child: ClipRect(
-        child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 15, sigmaY: 15),
-          child: Container(
-            padding: EdgeInsets.fromLTRB(24.w, 16.h, 24.w, 40.h),
-            decoration: BoxDecoration(
-              color: AppColor.scaffoldColor(context).withOpacity(0.8),
-              border: Border(
-                top: BorderSide(color: AppColor.blackTextColor(context).withOpacity(0.08)),
+    return ClipRect(
+      child: BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: 15, sigmaY: 15),
+        child: Container(
+          padding: EdgeInsets.all(20.w),
+          decoration: BoxDecoration(
+            color: AppColor.scaffoldColor(context).withValues(alpha: 0.8),
+            border: Border(
+              top: BorderSide(color: AppColor.blackTextColor(context).withValues(alpha: 0.08)),
+            ),
+          ),
+          child: Row(
+            children: [
+              // Call Button (Secondary)
+              Expanded(
+                flex: 1,
+                child: OutlinedButton.icon(
+                  style: OutlinedButton.styleFrom(
+                    fixedSize: Size.fromHeight(35.h),
+                    side: BorderSide(color: AppColor.greenColor(context)),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.r)),
+                    foregroundColor: AppColor.greenColor(context),
+                  ),
+                  onPressed: () {
+                    showModalBottomSheet(
+                      context: context,
+                      backgroundColor: Colors.transparent,
+                      builder: (context) => const ContactBottomSheetWidget(),
+                    );
+                  },
+                  icon: Icon(Icons.phone_rounded, size: 20.sp),
+                  label: Text(
+                    AppLocaleKey.agentCallButton.tr(),
+                    style: AppTextStyle.bodySmall(
+                      context,
+                    ).copyWith(fontWeight: FontWeight.bold, color: AppColor.greenColor(context)),
+                  ),
+                ),
               ),
-            ),
-            child: Row(
-              children: [
-                // Call Button (Secondary)
-                Expanded(
-                  flex: 1,
-                  child: OutlinedButton.icon(
-                    style: OutlinedButton.styleFrom(
-                      fixedSize: Size.fromHeight(35.h),
-                      side: BorderSide(color: AppColor.greenColor(context)),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.r)),
-                      foregroundColor: AppColor.greenColor(context),
-                    ),
-                    onPressed: () {
-                      showModalBottomSheet(
-                        context: context,
-                        backgroundColor: Colors.transparent,
-                        builder: (context) => const ContactBottomSheetWidget(),
+              Gap(16.w),
+              // Book Now Button (Primary)
+              Expanded(
+                flex: 1,
+                child: CustomButton(
+                  radius: 10.r,
+                  onPressed: () {
+                    if (HiveMethods.getToken() == null) {
+                      CommonMethods.showLoginRequiredDialog(context);
+                    } else {
+                      Navigator.pushNamed(
+                        context,
+                        RoutesName.carReservationScreen,
+                        arguments: {'car': car, 'isFromLink': false},
                       );
-                    },
-                    icon: Icon(Icons.phone_rounded, size: 20.sp),
-                    label: Text(
-                      AppLocaleKey.agentCallButton.tr(),
-                      style: AppTextStyle.bodySmall(
-                        context,
-                      ).copyWith(fontWeight: FontWeight.bold, color: AppColor.greenColor(context)),
-                    ),
+                    }
+                  },
+                  child: Text(
+                    AppLocaleKey.agentReserveButton.tr(),
+                    style: AppTextStyle.bodySmall(
+                      context,
+                    ).copyWith(fontWeight: FontWeight.w900, color: AppColor.whiteColor(context)),
                   ),
                 ),
-                Gap(16.w),
-                // Book Now Button (Primary)
-                Expanded(
-                  flex: 1,
-                  child: CustomButton(
-                    radius: 10.r,
-                    onPressed: () {
-                      if (HiveMethods.getToken() == null) {
-                        CommonMethods.showLoginRequiredDialog(context);
-                      } else {
-                        Navigator.pushNamed(
-                          context,
-                          RoutesName.carReservationScreen,
-                          arguments: {'car': car, 'isFromLink': false},
-                        );
-                      }
-                    },
-                    child: Text(
-                      AppLocaleKey.agentReserveButton.tr(),
-                      style: AppTextStyle.bodySmall(
-                        context,
-                      ).copyWith(fontWeight: FontWeight.w900, color: AppColor.whiteColor(context)),
-                    ),
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

@@ -1,8 +1,7 @@
 import 'package:car/core/localization/app_locale_keys.dart';
-import 'package:car/core/theme/app_colors.dart';
-import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/core/utils/responsive_helper.dart';
 import 'package:car/features/cars/presentation/widget/section_title_widget.dart';
+import 'package:car/features/cars/presentation/widget/spec_item_widget.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -26,112 +25,58 @@ class SpecGridWidget extends StatelessWidget {
           childAspectRatio: isTablet ? 2.8 : 2.2,
           mainAxisSpacing: 12.h,
           crossAxisSpacing: 12.w,
+          padding: EdgeInsets.zero,
           children: [
-            _buildSpecItem(
-              context,
-              Icons.calendar_today_rounded,
-              AppLocaleKey.modelYear.tr(),
-              '${car['year'] ?? car['MAKE_YEAR'] ?? '2024'}',
+            SpecItemWidget(
+              icon: Icons.calendar_today_rounded,
+              title: AppLocaleKey.modelYear.tr(),
+              value: '${car['year'] ?? car['MAKE_YEAR'] ?? '2024'}',
             ),
-            _buildSpecItem(
-              context,
-              Icons.speed_rounded,
-              AppLocaleKey.mileage.tr(),
-              '${car['mileage'] ?? car['KILOMETER_READING'] ?? '0'} ${AppLocaleKey.km.tr()}',
+            SpecItemWidget(
+              icon: Icons.speed_rounded,
+              title: AppLocaleKey.mileage.tr(),
+              value: '${car['mileage'] ?? car['KILOMETER_READING'] ?? '0'} ${AppLocaleKey.km.tr()}',
             ),
-            _buildSpecItem(
-              context,
-              Icons.settings_input_component_rounded,
-              AppLocaleKey.transmission.tr(),
-              car['TRANSMISSION'] == 1
+            SpecItemWidget(
+              icon: Icons.settings_input_component_rounded,
+              title: AppLocaleKey.transmission.tr(),
+              value: car['TRANSMISSION'] == 1
                   ? AppLocaleKey.agentAutomatic.tr()
                   : AppLocaleKey.agentManual.tr(),
             ),
-            _buildSpecItem(
-              context,
-              Icons.tag_rounded,
-              AppLocaleKey.agentCarNumber.tr(),
-              '${car['chassisNo'] ?? car['CHASSIS_NO'] ?? 'N/A'}',
+            SpecItemWidget(
+              icon: Icons.tag_rounded,
+              title: AppLocaleKey.agentCarNumber.tr(),
+              value: '${car['chassisNo'] ?? car['CHASSIS_NO'] ?? 'N/A'}',
             ),
-            _buildSpecItem(
-              context,
-              Icons.color_lens_rounded,
-              AppLocaleKey.exteriorColor.tr(),
-              '${car['Color'] ?? car['BODY_COLOR'] ?? "N/A"}',
+            SpecItemWidget(
+              icon: Icons.color_lens_rounded,
+              title: AppLocaleKey.exteriorColor.tr(),
+              value: '${car['Color'] ?? car['BODY_COLOR'] ?? "N/A"}',
             ),
-            _buildSpecItem(
-              context,
-              Icons.airline_seat_recline_extra_rounded,
-              AppLocaleKey.capacity.tr(),
-              '${car['SEAT_NO'] ?? 5} ${AppLocaleKey.agentCars.tr()}',
+            SpecItemWidget(
+              icon: Icons.airline_seat_recline_extra_rounded,
+              title: AppLocaleKey.capacity.tr(),
+              value: '${car['SEAT_NO'] ?? 5} ${AppLocaleKey.agentCars.tr()}',
             ),
-            _buildSpecItem(
-              context,
-              Icons.engineering_rounded,
-              AppLocaleKey.agentSedans.tr(),
-              '${car['CYLINDER'] ?? "N/A"} ${AppLocaleKey.agentSedan.tr()}',
+            SpecItemWidget(
+              icon: Icons.engineering_rounded,
+              title: AppLocaleKey.agentSedans.tr(),
+              value: '${car['CYLINDER'] ?? "N/A"} ${AppLocaleKey.agentSedan.tr()}',
             ),
-            _buildSpecItem(
-              context,
-              Icons.bolt_rounded,
-              AppLocaleKey.agentHatchbacks.tr(),
-              '${car['POWER_HOURSE'] ?? "N/A"} ${AppLocaleKey.agentHatchback.tr()}',
+            SpecItemWidget(
+              icon: Icons.bolt_rounded,
+              title: AppLocaleKey.agentHatchbacks.tr(),
+              value: '${car['POWER_HOURSE'] ?? "N/A"} ${AppLocaleKey.agentHatchback.tr()}',
             ),
-            _buildSpecItem(
-              context,
-              Icons.local_gas_station_rounded,
-              AppLocaleKey.agentFuelCapacity.tr(),
-              '${car['FUEL_CAPACITY'] ?? "N/A"} ${AppLocaleKey.agentSuv.tr()}',
+            SpecItemWidget(
+              icon: Icons.local_gas_station_rounded,
+              title: AppLocaleKey.agentFuelCapacity.tr(),
+              value: '${car['FUEL_CAPACITY'] ?? "N/A"} ${AppLocaleKey.agentSuv.tr()}',
             ),
           ],
         ),
       ],
-    );
-  }
-
-  Widget _buildSpecItem(BuildContext context, IconData icon, String title, String value) {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 12.w),
-      decoration: BoxDecoration(
-        color: AppColor.secondAppColor(context),
-        borderRadius: BorderRadius.circular(16.r),
-        border: Border.all(color: AppColor.blackTextColor(context).withValues(alpha: 0.05)),
-      ),
-      child: Row(
-        children: [
-          Container(
-            padding: EdgeInsets.all(8.w),
-            decoration: BoxDecoration(
-              color: AppColor.blackTextColor(context).withValues(alpha: 0.05),
-              borderRadius: BorderRadius.circular(10.r),
-            ),
-            child: Icon(icon, color: AppColor.primaryColor(context), size: 18.sp),
-          ),
-          Gap(12.w),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  title,
-                  style: AppTextStyle.bodySmall(
-                    context,
-                  ).copyWith(color: AppColor.blackTextColor(context)),
-                ),
-                Text(
-                  value,
-                  style: AppTextStyle.bodyMedium(
-                    context,
-                  ).copyWith(color: AppColor.blackTextColor(context), fontWeight: FontWeight.bold),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
     );
   }
 }

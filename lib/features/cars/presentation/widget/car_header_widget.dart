@@ -133,7 +133,7 @@ class _CarHeaderWidgetState extends State<CarHeaderWidget> {
             ),
           ],
         ),
-        Gap(24.h),
+        Gap(15.h),
 
         // Pricing Section Card
         Container(
@@ -141,10 +141,10 @@ class _CarHeaderWidgetState extends State<CarHeaderWidget> {
           decoration: BoxDecoration(
             color: AppColor.whiteColor(context),
             borderRadius: BorderRadius.circular(12.r),
-            border: Border.all(color: AppColor.greyColor(context).withOpacity(0.1)),
+            border: Border.all(color: AppColor.greyColor(context).withValues(alpha: 0.1)),
             boxShadow: [
               BoxShadow(
-                color: AppColor.blackColor(context).withOpacity(0.02),
+                color: AppColor.blackColor(context).withValues(alpha: 0.02),
                 blurRadius: 10,
                 offset: const Offset(0, 4),
               ),

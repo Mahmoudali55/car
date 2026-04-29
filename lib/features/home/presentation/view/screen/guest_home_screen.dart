@@ -107,7 +107,7 @@ class _HomeGuestScreenState extends State<HomeGuestScreen> {
                     SectionTitleWidget(title: AppLocaleKey.trendingNow.tr()),
                     Gap(15.h),
                     const OffersGridWidget(),
-                    Gap(120.h),
+                    Gap(40.h),
                   ],
                 ),
               ),
