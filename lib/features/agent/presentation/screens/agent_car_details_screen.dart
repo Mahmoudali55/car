@@ -5,6 +5,7 @@ import 'package:car/features/agent/presentation/screens/widget/spec_card_widget.
 import 'package:easy_localization/easy_localization.dart';
 import 'package:car/features/agent/data/agent_models.dart';
 import 'package:car/features/agent/presentation/screens/widget/icon_btn_widget.dart';
+import 'package:car/features/agent/presentation/screens/widget/quote_builder_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -19,14 +20,19 @@ class AgentCarDetailsScreen extends StatelessWidget {
       bottomNavigationBar: Padding(
         padding: EdgeInsets.all(16.w),
         child: CustomButton(
-          onPressed: () {},
+          onPressed: car.availability == CarAvailability.available ? () {} : null,
           radius: 12.r,
+          color: car.availability == CarAvailability.available 
+              ? AppColor.primaryColor(context) 
+              : AppColor.greyColor(context).withOpacity(0.3),
           child: Text(
             AppLocaleKey.agentReserveForCustomer.tr(),
             style: TextStyle(
               fontSize: 16.sp,
               fontWeight: FontWeight.w900,
-              color: AppColor.whiteColor(context),
+              color: car.availability == CarAvailability.available 
+                  ? AppColor.whiteColor(context) 
+                  : AppColor.hintColor(context),
             ),
           ),
         ),
@@ -47,6 +53,26 @@ class AgentCarDetailsScreen extends StatelessWidget {
               ),
             ),
             actions: [
+              if (car.availability == CarAvailability.available)
+                Padding(
+                  padding: EdgeInsets.all(8.w),
+                  child: IconBtn(
+                    icon: Icons.description_outlined,
+                    onTap: () {
+                      QuoteBuilderDialog.show(
+                        context,
+                        carName: car.name,
+                        initialPrice: car.price,
+                        existingSpecs: {
+                          AppLocaleKey.agentYearMade.tr(): car.year,
+                          AppLocaleKey.agentDistance.tr(): car.mileage,
+                          AppLocaleKey.agentColor.tr(): car.color,
+                          AppLocaleKey.agentTransmission.tr(): AppLocaleKey.agentAutomatic.tr(),
+                        },
+                      );
+                    },
+                  ),
+                ),
               Padding(
                 padding: EdgeInsets.all(8.w),
                 child: IconBtn(

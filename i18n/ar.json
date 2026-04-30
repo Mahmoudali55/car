@@ -996,9 +996,19 @@
  "agent_contact_info":"معلومات التواصل",
  "agent_cancel":"إلغاء",
  "agent_select_payment_method":"اختر الطريقة المناسبة للشراء",
- "agent_personal_info":"المعلومات الشخصية"
-
-
+ "agent_personal_info":"المعلومات الشخصية",
+  "generate_quote": "إنشاء عرض سعر",
+  "custom_price": "سعر مخصص",
+  "instant_specs": "مواصفات فورية",
+  "add_spec": "إضافة مواصفة",
+  "existing_specs": "المواصفات الحالية",
+  "quote_success": "تم إنشاء عرض السعر بنجاح!",
+  "enter_spec_title": "أدخل عنوان المواصفة...",
+  "download_quote": "تحميل عرض السعر (PDF)",
+  "edit_price":"تعديل سعر البيع",
+  "edit_price_desc":"أنت تقوم بتعديل سعر جميع سيارات ",
+  "edit_price_title":"السعر الجديد (ر.س)",
+  "update_all":"تحديث الكل"
 }
 
 

@@ -979,8 +979,19 @@
 "agent_contact_info":"Contact information",
 "agent_cancel":"Cancel",
 "agent_select_payment_method" :"Select your preferred payment method",
- "agent_personal_info": "Personal information"
-
+ "agent_personal_info": "Personal information",
+  "generate_quote": "Generate Quote",
+  "custom_price": "Custom Price",
+  "instant_specs": "Instant Specifications",
+  "add_spec": "Add Specification",
+  "existing_specs": "Existing Specifications",
+  "quote_success": "Quote generated successfully!",
+  "enter_spec_title": "Enter specification title...",
+  "download_quote": "Download Quote (PDF)",
+  "edit_price":"Edit Price",
+  "edit_price_desc":"You are editing the price of all cars",
+  "edit_price_title":"New Price (SAR)",
+  "update_all":"Update All"
 
 }
 

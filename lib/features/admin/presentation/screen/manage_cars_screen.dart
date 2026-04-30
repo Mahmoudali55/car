@@ -1,9 +1,13 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:car/core/custom_widgets/buttons/custom_button.dart';
+import 'package:car/core/custom_widgets/custom_app_bar/custom_app_bar.dart';
+import 'package:car/core/custom_widgets/custom_form_field/custom_form_field.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/routes/routes_name.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
+import 'package:car/features/agent/presentation/screens/widget/quote_builder_dialog.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -65,8 +69,8 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
 
     return Scaffold(
       backgroundColor: AppColor.scaffoldColor(context),
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
+      appBar: CustomAppBar(
+        context,
         elevation: 0,
         leading: Navigator.canPop(context)
             ? IconButton(
@@ -150,11 +154,11 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
         decoration: BoxDecoration(
           color: isSelected
               ? AppColor.primaryColor(context)
-              : AppColor.blackTextColor(context).withOpacity(0.05),
+              : AppColor.blackTextColor(context).withValues(alpha: 0.05),
           borderRadius: BorderRadius.circular(16.r),
           border: isSelected
               ? null
-              : Border.all(color: AppColor.blackTextColor(context).withOpacity(0.1)),
+              : Border.all(color: AppColor.blackTextColor(context).withValues(alpha: 0.1)),
         ),
         alignment: Alignment.center,
         child: Text(
@@ -162,7 +166,7 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
           style: TextStyle(
             color: isSelected
                 ? AppColor.whiteColor(context)
-                : AppColor.blackTextColor(context).withOpacity(0.5),
+                : AppColor.blackTextColor(context).withValues(alpha: 0.5),
             fontWeight: isSelected ? FontWeight.bold : FontWeight.w500,
             fontSize: 12.sp,
           ),
@@ -174,16 +178,16 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
   Widget _buildCarInventoryCard(Map<String, String> car) {
     final statusKey = car['status']!;
     final statusColor = statusKey == AppLocaleKey.adminCarStatusPublished
-        ? Colors.greenAccent
+        ? AppColor.greenColor(context)
         : (statusKey == AppLocaleKey.adminCarStatusPending
               ? Colors.orangeAccent
-              : Colors.redAccent);
+              : AppColor.redColor(context));
 
     return Container(
       decoration: BoxDecoration(
-        color: AppColor.blackTextColor(context).withOpacity(0.02),
+        color: AppColor.blackTextColor(context).withValues(alpha: 0.02),
         borderRadius: BorderRadius.circular(32.r),
-        border: Border.all(color: AppColor.blackTextColor(context).withOpacity(0.05)),
+        border: Border.all(color: AppColor.blackTextColor(context).withValues(alpha: 0.05)),
       ),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(32.r),
@@ -195,14 +199,14 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
                   height: 160.h,
                   width: double.infinity,
                   decoration: BoxDecoration(
-                    color: AppColor.blackTextColor(context).withOpacity(0.05),
+                    color: AppColor.blackTextColor(context).withValues(alpha: 0.05),
                   ),
                   child: CachedNetworkImage(
                     imageUrl:
                         'https://images.unsplash.com/photo-1544636331-e26879cd4d9b?q=80&w=500',
                     fit: BoxFit.cover,
                     placeholder: (context, url) =>
-                        Container(color: AppColor.blackTextColor(context).withOpacity(0.05)),
+                        Container(color: AppColor.blackTextColor(context).withValues(alpha: 0.05)),
                   ),
                 ),
                 Positioned(
@@ -211,17 +215,17 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
                   child: Container(
                     padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
                     decoration: BoxDecoration(
-                      color: AppColor.blackColor(context).withOpacity(0.6),
+                      color: AppColor.blackColor(context).withValues(alpha: 0.6),
                       borderRadius: BorderRadius.circular(16.r),
-                      border: Border.all(color: Colors.white.withOpacity(0.1)),
+                      border: Border.all(
+                        color: AppColor.whiteColor(context).withValues(alpha: 0.1),
+                      ),
                     ),
                     child: Text(
                       car['year']!,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 11.sp,
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: AppTextStyle.bodySmall(
+                        context,
+                      ).copyWith(color: AppColor.whiteColor(context), fontWeight: FontWeight.bold),
                     ),
                   ),
                 ),
@@ -235,7 +239,7 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
                       borderRadius: BorderRadius.circular(16.r),
                       boxShadow: [
                         BoxShadow(
-                          color: statusColor.withOpacity(0.3),
+                          color: statusColor.withValues(alpha: 0.3),
                           blurRadius: 10,
                           offset: const Offset(0, 4),
                         ),
@@ -243,10 +247,10 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
                     ),
                     child: Text(
                       statusKey.tr(),
-                      style: TextStyle(
+                      style: AppTextStyle.bodySmall(context).copyWith(
                         color: AppColor.blackColor(context),
                         fontSize: 11,
-                        fontWeight: FontWeight.w900,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
@@ -278,13 +282,13 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
                                 Icon(
                                   Icons.speed_rounded,
                                   size: 14.sp,
-                                  color: AppColor.blackTextColor(context).withOpacity(0.4),
+                                  color: AppColor.blackTextColor(context).withValues(alpha: 0.4),
                                 ),
                                 Gap(4.w),
                                 Text(
                                   car['mileage']!,
                                   style: TextStyle(
-                                    color: AppColor.blackTextColor(context).withOpacity(0.4),
+                                    color: AppColor.blackTextColor(context).withValues(alpha: 0.4),
                                     fontSize: 11.sp,
                                   ),
                                 ),
@@ -307,7 +311,7 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
                           Text(
                             AppLocaleKey.aed.tr(),
                             style: TextStyle(
-                              color: AppColor.blackTextColor(context).withOpacity(0.4),
+                              color: AppColor.blackTextColor(context).withValues(alpha: 0.4),
                               fontSize: 10.sp,
                               fontWeight: FontWeight.bold,
                             ),
@@ -324,15 +328,48 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
                           Icons.edit_note_rounded,
                           AppLocaleKey.edit.tr(),
                           Colors.blueAccent,
-                          onTap: () => _showEditPriceDialog(car),
+                          onTap: () {
+                            if (car['status'] != AppLocaleKey.adminCarStatusPublished) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(AppLocaleKey.attention.tr()),
+                                  backgroundColor: Colors.orange,
+                                ),
+                              );
+                              return;
+                            }
+                            _showEditPriceDialog(car);
+                          },
                         ),
                       ),
-                      Gap(12.w),
+                      if (car['status'] == AppLocaleKey.adminCarStatusPublished) ...[
+                        Gap(8.w),
+                        Expanded(
+                          child: _buildInventoryAction(
+                            Icons.description_outlined,
+                            AppLocaleKey.generateQuote.tr(),
+                            AppColor.primaryColor(context),
+                            onTap: () {
+                              QuoteBuilderDialog.show(
+                                context,
+                                carName: car['name']!,
+                                initialPrice:
+                                    double.tryParse(car['price']!.replaceAll(',', '')) ?? 0.0,
+                                existingSpecs: {
+                                  AppLocaleKey.manufacturingYear.tr(): car['year']!,
+                                  AppLocaleKey.mileage.tr(): car['mileage']!,
+                                },
+                              );
+                            },
+                          ),
+                        ),
+                      ],
+                      Gap(8.w),
                       Expanded(
                         child: _buildInventoryAction(
                           Icons.delete_sweep_rounded,
                           AppLocaleKey.delete.tr(),
-                          Colors.redAccent,
+                          AppColor.redColor(context),
                         ),
                       ),
                     ],
@@ -356,7 +393,7 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
         backgroundColor: AppColor.cardColor(context),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24.r)),
         title: Text(
-          'تعديل سعر البيع',
+          AppLocaleKey.editPrice.tr(),
           style: TextStyle(color: AppColor.blackTextColor(context), fontWeight: FontWeight.w900),
         ),
         content: Column(
@@ -364,35 +401,27 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'أنت تقوم بتعديل سعر جميع سيارات ${carName}',
+              '${AppLocaleKey.editPriceDesc.tr()} ${carName}',
               style: TextStyle(color: AppColor.greyColor(context), fontSize: 13.sp),
             ),
             Gap(20.h),
-            TextField(
+            CustomFormField(
               controller: controller,
               keyboardType: TextInputType.number,
-              style: TextStyle(
-                color: AppColor.blackTextColor(context),
-                fontWeight: FontWeight.bold,
-              ),
-              decoration: InputDecoration(
-                labelText: 'السعر الجديد (ر.س)',
-                labelStyle: TextStyle(color: AppColor.primaryColor(context)),
-                border: OutlineInputBorder(borderRadius: BorderRadius.circular(16.r)),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(16.r),
-                  borderSide: BorderSide(color: AppColor.primaryColor(context), width: 2),
-                ),
-              ),
+              title: AppLocaleKey.editPriceDesc.tr(),
             ),
           ],
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: Text('إلغاء', style: TextStyle(color: AppColor.greyColor(context))),
+            child: Text(
+              AppLocaleKey.cancel.tr(),
+              style: TextStyle(color: AppColor.greyColor(context)),
+            ),
           ),
-          ElevatedButton(
+          CustomButton(
+            radius: 16.r,
             onPressed: () {
               setState(() {
                 final newPrice = controller.text;
@@ -405,11 +434,11 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
               });
               Navigator.pop(context);
             },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: AppColor.primaryColor(context),
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.r)),
+
+            child: Text(
+              AppLocaleKey.updateAll.tr(),
+              style: TextStyle(color: AppColor.whiteColor(context)),
             ),
-            child: const Text('تحديث الكل', style: TextStyle(color: Colors.white)),
           ),
         ],
       ),
@@ -422,19 +451,16 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 10.h),
         decoration: BoxDecoration(
-          color: color.withOpacity(0.08),
+          color: color.withValues(alpha: 0.08),
           borderRadius: BorderRadius.circular(16.r),
-          border: Border.all(color: color.withOpacity(0.1)),
+          border: Border.all(color: color.withValues(alpha: 0.1)),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(icon, color: color, size: 18.sp),
             Gap(8.w),
-            Text(
-              label,
-              style: TextStyle(color: color, fontSize: 12.sp, fontWeight: FontWeight.bold),
-            ),
+            Text(label, style: AppTextStyle.bodySmall(context).copyWith(color: color)),
           ],
         ),
       ),

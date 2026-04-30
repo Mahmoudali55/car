@@ -1041,4 +1041,18 @@ class AppLocaleKey {
   static const String agentCancel = 'agent_cancel';
   static const String agentSelectPaymentMethod = 'agent_select_payment_method';
   static const String agentPersonalInfo = 'agent_personal_info';
+
+  // Price Quote Keys
+  static const String generateQuote = 'generate_quote';
+  static const String customPrice = 'custom_price';
+  static const String instantSpecs = 'instant_specs';
+  static const String addSpec = 'add_spec';
+  static const String existingSpecs = 'existing_specs';
+  static const String quoteSuccess = 'quote_success';
+  static const String enterSpecTitle = 'enter_spec_title';
+  static const String downloadQuote = 'download_quote';
+  static const String editPrice = 'edit_price';
+  static const String editPriceDesc = 'edit_price_desc';
+  static const String editPriceTitle = 'edit_price_title';
+  static const String updateAll = 'update_all';
 }
