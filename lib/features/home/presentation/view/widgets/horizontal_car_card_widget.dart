@@ -20,8 +20,11 @@ class HorizontalCarCardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        NavigatorMethods.pushNamed(context, RoutesName.carDetailsScreen,
-            arguments: {'car': car, 'heroTag': heroTag});
+        NavigatorMethods.pushNamed(
+          context,
+          RoutesName.carDetailsScreen,
+          arguments: {'car': car, 'heroTag': heroTag},
+        );
       },
       child: Container(
         width: 320.w,
@@ -49,12 +52,15 @@ class HorizontalCarCardWidget extends StatelessWidget {
                 color: AppColor.blackTextColor(context).withOpacity(0.02),
                 borderRadius: BorderRadius.horizontal(left: Radius.circular(20.r)),
               ),
-              padding: EdgeInsets.all(12.w),
-              child: Hero(
-                tag: heroTag ?? 'car_image_${car['itemCode'] ?? car['name']}',
-                child: (car['image'] != null && car['image'].toString().startsWith('http'))
-                    ? CustomNetworkImage(imageUrl: car['image'], fit: BoxFit.contain)
-                    : Image.asset(car['image'] ?? 'assets/images/car.jpeg', fit: BoxFit.contain),
+
+              child: ClipRRect(
+                borderRadius: BorderRadius.vertical(),
+                child: Hero(
+                  tag: heroTag ?? 'car_image_${car['itemCode'] ?? car['name']}',
+                  child: (car['image'] != null && car['image'].toString().startsWith('http'))
+                      ? CustomNetworkImage(imageUrl: car['image'], fit: BoxFit.fill, height: 120.h)
+                      : Image.asset(car['image'] ?? 'assets/images/car.jpeg', fit: BoxFit.fill),
+                ),
               ),
             ),
 

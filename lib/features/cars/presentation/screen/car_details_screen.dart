@@ -7,7 +7,6 @@ import 'package:car/features/cars/presentation/widget/car_header_widget.dart';
 import 'package:car/features/cars/presentation/widget/cash_packages_widget.dart';
 import 'package:car/features/cars/presentation/widget/features_grid_widget.dart';
 import 'package:car/features/cars/presentation/widget/inspection_badge_widget.dart';
-import 'package:car/features/cars/presentation/widget/inspection_report_widget.dart';
 import 'package:car/features/cars/presentation/widget/section_title_widget.dart';
 import 'package:car/features/cars/presentation/widget/sliver_app_bar_widget.dart';
 import 'package:car/features/cars/presentation/widget/spec_grid_widget.dart';
@@ -117,8 +116,6 @@ class _CarDetailsScreenState extends State<CarDetailsScreen> {
                             const InspectionBadgeWidget(),
                             Gap(16.h),
                             SpecGridWidget(car: widget.car),
-                            Gap(16.h),
-                            const InspectionReportWidget(),
                             Gap(16.h),
                             _buildOverview(context),
                             Gap(16.h),
