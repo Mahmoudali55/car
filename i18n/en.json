@@ -958,7 +958,28 @@
   "agent_manual": "Manual",
  "agent_sedan":"Sedan",
  "agent_hatchback":"Hatchback",
- "agent_suv":"SUV"
+ "agent_suv":"SUV",
+ "month":"Month",
+ "agent_price_includes_vat": "Secure your car reservation by paying a deposit that will be deducted from the car's price.",
+"agent_buy_now_pay_later": "Buy now, pay later!",
+"agent_tamara": "Tamara",
+"agent_no_fees": "Finance your car - no late fees, Sharia-compliant.",
+"agent_credit_card": "Finance your car with Al Rajhi or Al Ahli credit cards.",
+"agent_24_months": "Pay in installments over up to 24 months - no fees.",
+"agent_total_price": "Total amount.",
+"agent_show_details": "Show details.",
+"agent_continue": "Continue.",
+"agent_continue_with_tamara": "Continue with Tamara.",
+"agent_continue_with_bank": "Continue with the bank.",
+"agent_complete_payment": "Complete the deposit payment.",
+"agent_500": "500 SAR refund",
+"agent_phone":"Mobile number",
+"agent_full_name":"Full name",
+"agent_enter_details":"Enter your information",
+"agent_contact_info":"Contact information",
+"agent_cancel":"Cancel",
+"agent_select_payment_method" :"Select your preferred payment method",
+ "agent_personal_info": "Personal information"
 
 
 }

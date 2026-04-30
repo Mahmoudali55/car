@@ -1020,4 +1020,25 @@ class AppLocaleKey {
   static const String agentSedan = 'agent_sedan';
   static const String agentHatchback = 'agent_hatchback';
   static const String agentSuv = 'agent_suv';
+  static const String month = 'month';
+  static const String agentPriceIncludesVat = 'agent_price_includes_vat';
+  static const String agentBuyNowPayLater = 'agent_buy_now_pay_later';
+  static const String agentTamara = 'agent_tamara';
+  static const String agentNoFees = 'agent_no_fees';
+  static const String agentCreditCard = 'agent_credit_card';
+  static const String agent24Months = 'agent_24_months';
+  static const String agentTotalPrice = 'agent_total_price';
+  static const String agentShowDetails = 'agent_show_details';
+  static const String agentContinue = 'agent_continue';
+  static const String agentContinueWithTamara = 'agent_continue_with_tamara';
+  static const String agentContinueWithBank = 'agent_continue_with_bank';
+  static const String agentCompletePayment = 'agent_complete_payment';
+  static const String agent500 = 'agent_500';
+  static const String agentPhone = 'agent_phone';
+  static const String agentFullName = 'agent_full_name';
+  static const String agentEnterDetails = 'agent_enter_details';
+  static const String agentContactInfo = 'agent_contact_info';
+  static const String agentCancel = 'agent_cancel';
+  static const String agentSelectPaymentMethod = 'agent_select_payment_method';
+  static const String agentPersonalInfo = 'agent_personal_info';
 }

@@ -154,10 +154,16 @@ class _PopularCarsScreenState extends State<PopularCarsScreen> {
               padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: isBrandSelected ? 20.h : 0),
               sliver: SliverList(
                 delegate: SliverChildBuilderDelegate(
-                  (context, index) => Padding(
-                    padding: EdgeInsets.only(bottom: 24.h),
-                    child: MagazineCardWidget(car: _carToMap(entry.value[index])),
-                  ),
+                  (context, index) {
+                    final car = _carToMap(entry.value[index]);
+                    return Padding(
+                      padding: EdgeInsets.only(bottom: 24.h),
+                      child: MagazineCardWidget(
+                        car: car,
+                        heroTag: 'popular_screen_car_image_${car['itemCode'] ?? car['name']}',
+                      ),
+                    );
+                  },
                   childCount: entry.value.length,
                 ),
               ),

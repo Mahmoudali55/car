@@ -975,7 +975,28 @@
   "agent_manual": "عادي",
  "agent_sedan":"سلندر",
  "agent_hatchback":"حصان",
- "agent_suv":"مل"
+ "agent_suv":"مل",
+ "month":"شهر",
+ "agent_price_includes_vat":"اضمن حجز السيارة من خلال دفع عربون مخصوم من قيمة السيارة.",
+ "agent_buy_now_pay_later":"اشتري الآن، ادفع لاحقاً!",
+ "agent_tamara":"تمارا",
+ "agent_no_fees":"قسط قيمة سيارتك - بدون رسوم تأخير، متوافقة مع الشريعة الإسلامية.",
+ "agent_credit_card":"قسط عبر بطاقة الراجحي او الاهلي الائتمانية",
+ "agent_24_months":"قسمها حتى 24 شهر - بدون رسوم.",
+ "agent_total_price":"المبلغ الإجمالي",
+ "agent_show_details":"إعرض التفاصيل",
+ "agent_continue":"المتابعة",
+ "agent_continue_with_tamara":"متابعة مع تمارا",
+ "agent_continue_with_bank":"متابعة مع البنك",
+ "agent_complete_payment":"اكمل لدفع العربون",
+ "agent_500":"500 ر.س مستردة",
+ "agent_phone":"رقم الجوال",
+ "agent_full_name":"الاسم بالكامل",
+ "agent_enter_details":"ادخل معلوماتك",
+ "agent_contact_info":"معلومات التواصل",
+ "agent_cancel":"إلغاء",
+ "agent_select_payment_method":"اختر الطريقة المناسبة للشراء",
+ "agent_personal_info":"المعلومات الشخصية"
 
 
 }

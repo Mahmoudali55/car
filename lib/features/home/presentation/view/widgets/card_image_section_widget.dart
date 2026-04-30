@@ -6,10 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CardImageSection extends StatelessWidget {
-  const CardImageSection({required this.car, required this.isSelected});
+  const CardImageSection({required this.car, required this.isSelected, this.heroTag});
 
   final Map<String, dynamic> car;
   final bool isSelected;
+  final String? heroTag;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +22,7 @@ class CardImageSection extends StatelessWidget {
             duration: const Duration(milliseconds: 400),
             scale: 1.05,
             child: Hero(
-              tag: 'car_image_${car['itemCode'] ?? car['name']}',
+              tag: heroTag ?? 'car_image_${car['itemCode'] ?? car['name']}',
               child: Center(
                 child: CustomNetworkImage(
                   imageUrl: car['image']!,

@@ -20,8 +20,9 @@ import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class CarDetailsScreen extends StatefulWidget {
   final Map<String, dynamic> car;
+  final String? heroTag;
 
-  const CarDetailsScreen({super.key, required this.car});
+  const CarDetailsScreen({super.key, required this.car, this.heroTag});
 
   @override
   State<CarDetailsScreen> createState() => _CarDetailsScreenState();
@@ -95,6 +96,7 @@ class _CarDetailsScreenState extends State<CarDetailsScreen> {
                     imagePageController: _imagePageController,
                     currentImageIndex: _currentImageIndex,
                     carImages: _carImages,
+                    heroTag: widget.heroTag,
                   ),
                   SliverToBoxAdapter(
                     child: ConstrainedBox(

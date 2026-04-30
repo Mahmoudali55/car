@@ -21,7 +21,94 @@ class CarsScreen extends StatefulWidget {
 class _CarsScreenState extends State<CarsScreen> {
   int _selectedCategoryIndex = 0;
   BrandModel? _selectedBrand;
-  final List<String> _categories = [
+
+  // ─── Dummy Data ───────────────────────────────────
+
+  static const List<Map<String, String>> _featuredCars = [
+    {
+      'image': 'assets/images/car.jpeg',
+      'name': 'G-Class G63',
+      'brand': 'Mercedes-Benz',
+      'price': '850,000',
+      'installments': '1,166',
+    },
+    {
+      'image': 'assets/images/car.jpeg',
+      'name': 'M5 Competition',
+      'brand': 'BMW',
+      'price': '520,000',
+      'installments': '1,166',
+    },
+    {
+      'image': 'assets/images/car.jpeg',
+      'name': 'Model S Plaid',
+      'brand': 'Tesla',
+      'price': '480,000',
+      'installments': '1,166',
+    },
+  ];
+
+  static const List<Map<String, dynamic>> _carsList = [
+    {
+      'image': 'assets/images/car.jpeg',
+      'name': 'G-Class G63',
+      'brand': 'Mercedes-Benz',
+      'price': '850,000',
+      'year': '2024',
+      'mileage': '0',
+      'isFavorite': true,
+      'video_id': 'D7O8J5vVf-M',
+      'installments': '1,166',
+    },
+    {
+      'image': 'assets/images/car.jpeg',
+      'name': 'M5 Competition',
+      'brand': 'BMW',
+      'price': '520,000',
+      'year': '2023',
+      'mileage': '5,000',
+      'isFavorite': false,
+      'video_id': 'D7O8J5vVf-M',
+      'installments': '1,166',
+    },
+    {
+      'image': 'assets/images/car.jpeg',
+      'name': 'Land Cruiser 300',
+      'brand': 'Toyota',
+      'price': '350,000',
+      'year': '2024',
+      'mileage': '0',
+      'isFavorite': false,
+      'video_id': 'D7O8J5vVf-M',
+      'installments': '1,166',
+    },
+    {
+      'image': 'assets/images/car.jpeg',
+      'name': 'Model S Plaid',
+      'brand': 'Tesla',
+      'price': '480,000',
+      'year': '2024',
+      'mileage': '0',
+      'isFavorite': false,
+      'video_id': 'D7O8J5vVf-M',
+      'installments': '1,166',
+    },
+    {
+      'image': 'assets/images/car.jpeg',
+      'name': 'RS e-tron GT',
+      'brand': 'Audi',
+      'price': '550,000',
+      'year': '2024',
+      'mileage': '0',
+      'isFavorite': true,
+      'video_id': 'D7O8J5vVf-M',
+      'installments': '1,166',
+    },
+  ];
+
+  // ─── Helpers ─────────────────────────────────────
+
+  List<String> get _categories => [
     AppLocaleKey.all.tr(),
     AppLocaleKey.luxury.tr(),
     AppLocaleKey.suv.tr(),
@@ -29,94 +116,32 @@ class _CarsScreenState extends State<CarsScreen> {
     AppLocaleKey.sedan.tr(),
   ];
 
-  @override
-  void dispose() {
-    super.dispose();
+  List<Map<String, dynamic>> get _filteredCars {
+    if (_selectedBrand == null) return _carsList;
+    return _carsList.where((car) => car['brand'] == _selectedBrand!.name).toList();
   }
 
-  // Dummy slider data
-  final List<Map<String, String>> _featuredCars = [
-    {
-      'image': 'assets/images/car.jpeg',
-      'name': 'G-Class G63',
-      'brand': 'Mercedes-Benz',
-      'price': '850,000  ر.س       ',
-      'installments': '1,166 ر.س / شهر',
-    },
-    {
-      'image': 'assets/images/car.jpeg',
-      'name': 'M5 Competition',
-      'brand': 'BMW',
-      'price': '520,000  ر.س       ',
-      'installments': '1,166 ر.س / شهر',
-    },
-    {
-      'image': 'assets/images/car.jpeg',
-      'name': 'Model S Plaid',
-      'brand': 'Tesla',
-      'price': '480,000  ر.س       ',
-      'installments': '1,166 ر.س / شهر',
-    },
-  ];
+  /// إضافة وحدات السعر والمسافة عند العرض — بدل تلويث الـ data بمسافات زيادة
+  Map<String, dynamic> _localizeCarData(Map<String, dynamic> car) {
+    return {
+      ...car,
+      'price': '${car['price']} ${AppLocaleKey.sar.tr()}',
+      'mileage': '${car['mileage']} ${AppLocaleKey.km.tr()}',
+      'installments':
+          '${car['installments']} ${AppLocaleKey.sar.tr()} / ${AppLocaleKey.month.tr()}',
+    };
+  }
 
-  // Dummy car list data
-  final List<Map<String, dynamic>> _carsList = [
-    {
-      'image': 'assets/images/car.jpeg',
-      'name': 'G-Class G63',
-      'brand': 'Mercedes-Benz',
-      'price': '850,000  ر.س       ',
-      'year': '2024',
-      'mileage': '0 كم',
-      'isFavorite': true,
-      'video_id': 'D7O8J5vVf-M',
-      'installments': '1,166 ر.س / شهر',
-    },
-    {
-      'image': 'assets/images/car.jpeg',
-      'name': 'M5 Competition',
-      'brand': 'BMW',
-      'price': '520,000  ر.س       ',
-      'year': '2023',
-      'mileage': '5,000 كم',
-      'isFavorite': false,
-      'video_id': 'D7O8J5vVf-M',
-      'installments': '1,166 ر.س / شهر',
-    },
-    {
-      'image': 'assets/images/car.jpeg',
-      'name': 'Land Cruiser 300',
-      'brand': 'Toyota',
-      'price': '350,000  ر.س       ',
-      'year': '2024',
-      'mileage': '0 كم',
-      'isFavorite': false,
-      'video_id': 'D7O8J5vVf-M',
-      'installments': '1,166 ر.س / شهر',
-    },
-    {
-      'image': 'assets/images/car.jpeg',
-      'name': 'Model S Plaid',
-      'brand': 'Tesla',
-      'price': '480,000  ر.س       ',
-      'year': '2024',
-      'mileage': '0 كم',
-      'isFavorite': false,
-      'video_id': 'D7O8J5vVf-M',
-      'installments': '1,166 ر.س / شهر',
-    },
-    {
-      'image': 'assets/images/car.jpeg',
-      'name': 'RS e-tron GT',
-      'brand': 'Audi',
-      'price': '550,000  ر.س  ',
-      'year': '2024',
-      'mileage': '0 كم',
-      'isFavorite': true,
-      'video_id': 'D7O8J5vVf-M',
-      'installments': '1,166 ر.س / شهر',
-    },
-  ];
+  Map<String, String> _localizeFeaturedCar(Map<String, String> car) {
+    return {
+      ...car,
+      'price': '${car['price']} ${AppLocaleKey.sar.tr()}',
+      'installments':
+          '${car['installments']} ${AppLocaleKey.sar.tr()} / ${AppLocaleKey.month.tr()}',
+    };
+  }
+
+  // ─── Build ────────────────────────────────────────
 
   @override
   Widget build(BuildContext context) {
@@ -129,99 +154,87 @@ class _CarsScreenState extends State<CarsScreen> {
             physics: const BouncingScrollPhysics(),
             children: [
               FeaturedCarsSliderWidget(
-                featuredCars: _featuredCars.map((car) {
-                  final localizedCar = Map<String, String>.from(car);
-                  if (localizedCar['price'] != null &&
-                      localizedCar['price']!.contains(' ر.س       ')) {
-                    localizedCar['price'] = localizedCar['price']!.replaceAll(
-                      ' ر.س       ',
-                      AppLocaleKey.aed.tr(),
-                    );
-                  }
-                  return localizedCar;
-                }).toList(),
+                featuredCars: _featuredCars.map(_localizeFeaturedCar).toList(),
               ),
               Gap(24.h),
               CarsCategoriesRowWidget(
                 selectedIndex: _selectedCategoryIndex,
                 categories: _categories,
-                onCategorySelected: (index) {
-                  setState(() {
-                    _selectedCategoryIndex = index;
-                  });
-                },
+                onCategorySelected: (index) => setState(() => _selectedCategoryIndex = index),
               ),
               Gap(24.h),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.w),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      AppLocaleKey.availableCars.tr(),
-                      style: AppTextStyle.titleMedium(
-                        context,
-                      ).copyWith(fontWeight: FontWeight.bold),
-                    ),
-                    Text(
-                      AppLocaleKey.showAll.tr(),
-                      style: AppTextStyle.bodySmall(
-                        context,
-                      ).copyWith(color: AppColor.primaryColor(context)),
-                    ),
-                  ],
-                ),
-              ),
+              _SectionHeader(),
               Gap(16.h),
-              Builder(
-                builder: (context) {
-                  final filteredCars = _carsList.where((car) {
-                    if (_selectedBrand == null) return true;
-                    return car['brand'] == _selectedBrand!.name;
-                  }).toList();
-                  if (filteredCars.isEmpty) {
-                    return SizedBox(
-                      height: 200.h,
-                      child: Center(
-                        child: Text(
-                          AppLocaleKey.noCarsForBrand.tr(),
-                          style: AppTextStyle.bodyMedium(
-                            context,
-                          ).copyWith(color: AppColor.blackTextColor(context).withOpacity(0.5)),
-                        ),
-                      ),
-                    );
-                  }
-                  return ListView.separated(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    padding: EdgeInsets.fromLTRB(20.w, 0, 20.w, 100.h),
-                    itemCount: filteredCars.length,
-                    separatorBuilder: (context, index) => Gap(16.h),
-                    itemBuilder: (context, index) {
-                      final car = Map<String, dynamic>.from(filteredCars[index]);
-                      // Localize unit suffixes if they exist in dummy data
-                      if (car['price'] != null && car['price'].toString().contains(' ر.س       ')) {
-                        car['price'] = car['price'].toString().replaceAll(
-                          ' ر.س       ',
-                          AppLocaleKey.aed.tr(),
-                        );
-                      }
-                      if (car['mileage'] != null && car['mileage'].toString().contains('كم')) {
-                        car['mileage'] = car['mileage'].toString().replaceAll(
-                          'كم',
-                          AppLocaleKey.km.tr(),
-                        );
-                      }
-                      return PremiumCarCardWidget(car: car);
-                    },
-                  );
-                },
-              ),
+              _CarsList(cars: _filteredCars, localizeCarData: _localizeCarData),
             ],
           ),
         ),
       ],
+    );
+  }
+}
+
+// ─────────────────────────────────────────────────
+// Sub-widgets
+// ─────────────────────────────────────────────────
+
+class _SectionHeader extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 20.w),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            AppLocaleKey.availableCars.tr(),
+            style: AppTextStyle.titleMedium(context).copyWith(fontWeight: FontWeight.bold),
+          ),
+          Text(
+            AppLocaleKey.showAll.tr(),
+            style: AppTextStyle.bodySmall(context).copyWith(color: AppColor.primaryColor(context)),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _CarsList extends StatelessWidget {
+  const _CarsList({required this.cars, required this.localizeCarData});
+
+  final List<Map<String, dynamic>> cars;
+  final Map<String, dynamic> Function(Map<String, dynamic>) localizeCarData;
+
+  @override
+  Widget build(BuildContext context) {
+    if (cars.isEmpty) {
+      return SizedBox(
+        height: 200.h,
+        child: Center(
+          child: Text(
+            AppLocaleKey.noCarsForBrand.tr(),
+            style: AppTextStyle.bodyMedium(
+              context,
+            ).copyWith(color: AppColor.blackTextColor(context).withOpacity(0.4)),
+          ),
+        ),
+      );
+    }
+
+    return ListView.separated(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      padding: EdgeInsets.fromLTRB(20.w, 0, 20.w, 100.h),
+      itemCount: cars.length,
+      separatorBuilder: (_, __) => Gap(16.h),
+      itemBuilder: (context, index) {
+        final car = localizeCarData(cars[index]);
+        return PremiumCarCardWidget(
+          car: car,
+          heroTag: 'premium_car_image_${car['itemCode'] ?? car['name']}',
+        );
+      },
     );
   }
 }

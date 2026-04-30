@@ -23,7 +23,7 @@ class ReservationTrustBadge extends StatelessWidget {
           Gap(12.w),
           Expanded(
             child: Text(
-              "شركة موقع سيارة للتجارة شركة موثقة لدى وزارة التجارة والاستثمار وبدعم من شركة علم.",
+              "شركة موقع هاجد بن وزير للتجارة شركة موثقة لدى وزارة التجارة والاستثمار وبدعم من شركة علم.",
               style: AppTextStyle.bodySmall(context).copyWith(
                 fontSize: 11.sp,
                 color: AppColor.blackTextColor(context).withOpacity(0.6),

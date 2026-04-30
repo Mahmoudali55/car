@@ -19,12 +19,12 @@ class CarsCategoriesRowWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 45.h,
+      height: 35.h,
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
-        padding: EdgeInsets.symmetric(horizontal: 20.w),
+        padding: EdgeInsets.symmetric(horizontal: 10.w),
         itemCount: categories.length,
-        separatorBuilder: (context, index) => Gap(12.w),
+        separatorBuilder: (context, index) => Gap(6.w),
         itemBuilder: (context, index) {
           bool isSelected = index == selectedIndex;
           return GestureDetector(
@@ -36,16 +36,16 @@ class CarsCategoriesRowWidget extends StatelessWidget {
                 color: isSelected
                     ? AppColor.primaryColor(context)
                     : AppColor.secondAppColor(context),
-                borderRadius: BorderRadius.circular(16.r),
+                borderRadius: BorderRadius.circular(12.r),
                 border: Border.all(
                   color: isSelected
                       ? Colors.transparent
-                      : AppColor.blackTextColor(context).withOpacity(0.05),
+                      : AppColor.blackTextColor(context).withValues(alpha: 0.05),
                 ),
                 boxShadow: isSelected
                     ? [
                         BoxShadow(
-                          color: AppColor.primaryColor(context).withOpacity(0.3),
+                          color: AppColor.primaryColor(context).withValues(alpha: 0.3),
                           blurRadius: 10,
                           offset: const Offset(0, 4),
                         ),
@@ -57,7 +57,7 @@ class CarsCategoriesRowWidget extends StatelessWidget {
                 style: AppTextStyle.bodyMedium(context).copyWith(
                   color: isSelected
                       ? AppColor.whiteColor(context)
-                      : AppColor.blackTextColor(context).withOpacity(0.60),
+                      : AppColor.blackTextColor(context).withValues(alpha: 0.60),
                   fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
                 ),
               ),

@@ -16,7 +16,8 @@ class FavoriteItemWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        NavigatorMethods.pushNamed(context, RoutesName.carDetailsScreen, arguments: car);
+        NavigatorMethods.pushNamed(context, RoutesName.carDetailsScreen,
+            arguments: {'car': car, 'heroTag': 'fav_car_image_${car['itemCode'] ?? car['name'] ?? 'unknown'}'});
       },
       child: Container(
         padding: EdgeInsets.all(12.w),
@@ -43,7 +44,7 @@ class FavoriteItemWidget extends StatelessWidget {
                 borderRadius: BorderRadius.circular(16.r),
               ),
               child: Hero(
-                tag: 'car_image_${car['itemCode'] ?? car['name'] ?? 'unknown'}',
+                tag: 'fav_car_image_${car['itemCode'] ?? car['name'] ?? 'unknown'}',
                 child: car['image'] != null && car['image'].toString().startsWith('http')
                     ? ClipRRect(
                         borderRadius: BorderRadius.circular(16.r),

@@ -27,8 +27,12 @@ class AppRouters {
               BlocProvider(create: (context) => sl<AuthCubit>(), child: const RegisterScreen()),
         );
       case RoutesName.carDetailsScreen:
+        final carArgs = args as Map<String, dynamic>;
         return MaterialPageRoute(
-          builder: (_) => CarDetailsScreen(car: args as Map<String, dynamic>),
+          builder: (_) => CarDetailsScreen(
+            car: carArgs.containsKey('car') ? carArgs['car'] : carArgs,
+            heroTag: carArgs.containsKey('heroTag') ? carArgs['heroTag'] : null,
+          ),
         );
       case RoutesName.bankOffersScreen:
         return MaterialPageRoute(

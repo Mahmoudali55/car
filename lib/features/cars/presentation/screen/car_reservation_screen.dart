@@ -1,5 +1,6 @@
 import 'package:car/core/custom_widgets/buttons/custom_button.dart';
 import 'package:car/core/custom_widgets/custom_form_field/custom_form_field.dart';
+import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/features/cars/presentation/screen/financing_info_screen.dart';
@@ -13,6 +14,7 @@ import 'package:car/features/cars/presentation/widget/pricing_details_bottom_she
 import 'package:car/features/cars/presentation/widget/reservation_pricing_card.dart';
 import 'package:car/features/cars/presentation/widget/reservation_step_indicator.dart';
 import 'package:car/features/cars/presentation/widget/reservation_trust_badge.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -139,7 +141,9 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
       backgroundColor: AppColor.scaffoldColor(context),
       appBar: AppBar(
         title: Text(
-          isMethodSelection ? 'اختر الطريقة المناسبة للشراء' : widget.car['name'] ?? 'Car',
+          isMethodSelection
+              ? AppLocaleKey.agentSelectPaymentMethod.tr()
+              : widget.car['name'] ?? 'Car',
           style: AppTextStyle.titleMedium(context).copyWith(
             fontWeight: FontWeight.w900,
             fontSize: 16.sp,
@@ -155,7 +159,7 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
           TextButton(
             onPressed: () => Navigator.pop(context),
             child: Text(
-              'إلغاء',
+              AppLocaleKey.agentCancel.tr(),
               style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold, fontSize: 13.sp),
             ),
           ),
@@ -189,7 +193,9 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
                 ReservationPricingCard(totalPrice: _totalPrice, depositAmount: _depositAmount),
               Gap(32.h),
               Text(
-                _isFinancingFlow ? 'ادخل معلوماتك' : 'معلومات التواصل',
+                _isFinancingFlow
+                    ? AppLocaleKey.agentEnterDetails.tr()
+                    : AppLocaleKey.agentContactInfo.tr(),
                 style: AppTextStyle.titleMedium(
                   context,
                 ).copyWith(fontWeight: FontWeight.w900, fontSize: 20.sp),
@@ -206,13 +212,13 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
               else ...[
                 CustomFormField(
                   controller: _cashNameController,
-                  hintText: 'الاسم بالكامل',
+                  hintText: AppLocaleKey.agentFullName.tr(),
                   radius: 12,
                 ),
                 Gap(16.h),
                 CustomFormField(
                   controller: _cashPhoneController,
-                  hintText: 'رقم الجوال',
+                  hintText: AppLocaleKey.agentPhone.tr(),
                   radius: 12,
                   keyboardType: TextInputType.phone,
                 ),
@@ -233,23 +239,23 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         PaymentMethodSelectionCard(
-          title: 'كاش',
-          badgeText: '500 ر.س مستردة',
-          description: 'اضمن حجز السيارة من خلال دفع عربون مخصوم من قيمة السيارة.',
+          title: AppLocaleKey.cash.tr(),
+          badgeText: AppLocaleKey.agent500.tr(),
+          description: AppLocaleKey.agentPriceIncludesVat.tr(),
           isSelected: _selectedMethod == 'cash',
           onTap: () => setState(() => _selectedMethod = 'cash'),
         ),
         Gap(32.h),
         Text(
-          'اشتري الآن، ادفع لاحقاً!',
+          AppLocaleKey.agentBuyNowPayLater.tr(),
           style: AppTextStyle.titleMedium(
             context,
           ).copyWith(fontWeight: FontWeight.w900, fontSize: 20.sp),
         ),
         Gap(16.h),
         PaymentMethodSelectionCard(
-          title: 'تمارا',
-          description: 'قسط قيمة سيارتك - بدون رسوم تأخير، متوافقة مع الشريعة الإسلامية.',
+          title: AppLocaleKey.agentTamara.tr(),
+          description: AppLocaleKey.agentNoFees.tr(),
           logo: Image.asset(
             'assets/images/tamara_logo.png',
             height: 24.h,
@@ -260,7 +266,7 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
                 borderRadius: BorderRadius.circular(6.r),
               ),
               child: Text(
-                'تمارا',
+                AppLocaleKey.agentTamara.tr(),
                 style: TextStyle(color: Colors.white, fontWeight: FontWeight.w900, fontSize: 12.sp),
               ),
             ),
@@ -270,8 +276,8 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
         ),
         Gap(16.h),
         PaymentMethodSelectionCard(
-          title: 'قسط عبر بطاقة الراجحي او الاهلي الائتمانية',
-          description: 'قسمها حتى 24 شهر - بدون رسوم.',
+          title: AppLocaleKey.agentCreditCard.tr(),
+          description: AppLocaleKey.agent24Months.tr(),
           logo: Row(
             children: [
               Container(
@@ -315,7 +321,7 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'المبلغ الإجمالي',
+                  AppLocaleKey.agentTotalPrice.tr(),
                   style: AppTextStyle.bodyMedium(context).copyWith(
                     color: AppColor.blackTextColor(context).withOpacity(0.7),
                     fontWeight: FontWeight.bold,
@@ -351,7 +357,7 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
               ),
               child: Center(
                 child: Text(
-                  'إعرض التفاصيل',
+                  AppLocaleKey.agentShowDetails.tr(),
                   style: TextStyle(
                     color: AppColor.primaryColor(context),
                     fontWeight: FontWeight.bold,
@@ -370,17 +376,19 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
     final bool isMethodSelection = _currentStep == _ReservationScreenStep.methodSelection;
     final bool canContinue = _selectedMethod != null;
 
-    String buttonLabel = 'المتابعة';
+    String buttonLabel = AppLocaleKey.agentContinue.tr();
     Color buttonColor = canContinue
         ? AppColor.primaryColor(context)
         : (Colors.grey[300] ?? Colors.grey);
 
     if (!isMethodSelection) {
       if (_isFinancingFlow) {
-        buttonLabel = _selectedMethod == 'tamara' ? 'متابعة مع تمارا' : 'متابعة مع البنك';
+        buttonLabel = _selectedMethod == 'tamara'
+            ? AppLocaleKey.agentContinueWithTamara.tr()
+            : AppLocaleKey.agentContinueWithBank.tr();
         buttonColor = const Color(0xFF3F51B5);
       } else {
-        buttonLabel = 'اكمل لدفع العربون';
+        buttonLabel = AppLocaleKey.agentCompletePayment.tr();
         buttonColor = const Color(0xff00c853);
       }
     }

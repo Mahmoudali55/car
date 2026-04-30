@@ -10,12 +10,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class MagazineCardWidget extends StatelessWidget {
-  const MagazineCardWidget({super.key, required this.car});
+  const MagazineCardWidget({super.key, required this.car, this.heroTag});
 
   final Map<String, dynamic> car;
+  final String? heroTag;
 
   void _navigateToDetails(BuildContext context) {
-    NavigatorMethods.pushNamed(context, RoutesName.carDetailsScreen, arguments: car);
+    NavigatorMethods.pushNamed(context, RoutesName.carDetailsScreen,
+        arguments: {'car': car, 'heroTag': heroTag});
   }
 
   @override
@@ -42,7 +44,7 @@ class MagazineCardWidget extends StatelessWidget {
           children: [
             Stack(
               children: [
-                _CardImage(car: car),
+                _CardImage(car: car, heroTag: heroTag),
                 _CardTopBar(car: car),
               ],
             ),
@@ -132,20 +134,21 @@ class _FavoriteButton extends StatelessWidget {
 }
 
 class _CardImage extends StatelessWidget {
-  const _CardImage({required this.car});
+  const _CardImage({required this.car, this.heroTag});
 
   final Map<String, dynamic> car;
+  final String? heroTag;
 
   @override
   Widget build(BuildContext context) {
     final imageUrl = car['image'].toString();
-    final heroTag = 'car_image_${car['itemCode'] ?? car['name']}';
+    final actualHeroTag = heroTag ?? 'car_image_${car['itemCode'] ?? car['name']}';
 
     return SizedBox(
       height: 200.h,
       width: double.infinity,
       child: Hero(
-        tag: heroTag,
+        tag: actualHeroTag,
         child: imageUrl.startsWith('http')
             ? CustomNetworkImage(
                 imageUrl: imageUrl,

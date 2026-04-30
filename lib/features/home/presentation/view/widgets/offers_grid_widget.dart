@@ -95,7 +95,10 @@ class OffersGridWidget extends StatelessWidget {
         final car = _offers[index];
         return GestureDetector(
           onTap: () {
-            NavigatorMethods.pushNamed(context, RoutesName.carDetailsScreen, arguments: car);
+            NavigatorMethods.pushNamed(context, RoutesName.carDetailsScreen, arguments: {
+              'car': car,
+              'heroTag': 'offers_car_image_${car['itemCode'] ?? car['name']}',
+            });
           },
           child: Container(
             decoration: BoxDecoration(
@@ -154,7 +157,7 @@ class OffersGridWidget extends StatelessWidget {
                           alignment: Alignment.center,
                           children: [
                             Hero(
-                              tag: 'car_image_${car['itemCode'] ?? car['name']}',
+                              tag: 'offers_car_image_${car['itemCode'] ?? car['name']}',
                               child: Center(
                                 child: car['image'].toString().startsWith('http')
                                     ? CustomNetworkImage(

@@ -13,14 +13,15 @@ import 'package:gap/gap.dart';
 class HorizontalCarCardWidget extends StatelessWidget {
   final Map<String, dynamic> car;
   final VoidCallback? onTap;
-
-  const HorizontalCarCardWidget({super.key, required this.car, this.onTap});
+  final String? heroTag;
+  const HorizontalCarCardWidget({super.key, required this.car, this.onTap, this.heroTag});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        NavigatorMethods.pushNamed(context, RoutesName.carDetailsScreen, arguments: car);
+        NavigatorMethods.pushNamed(context, RoutesName.carDetailsScreen,
+            arguments: {'car': car, 'heroTag': heroTag});
       },
       child: Container(
         width: 320.w,
@@ -50,7 +51,7 @@ class HorizontalCarCardWidget extends StatelessWidget {
               ),
               padding: EdgeInsets.all(12.w),
               child: Hero(
-                tag: 'car_image_${car['itemCode'] ?? car['name']}',
+                tag: heroTag ?? 'car_image_${car['itemCode'] ?? car['name']}',
                 child: (car['image'] != null && car['image'].toString().startsWith('http'))
                     ? CustomNetworkImage(imageUrl: car['image'], fit: BoxFit.contain)
                     : Image.asset(car['image'] ?? 'assets/images/car.jpeg', fit: BoxFit.contain),

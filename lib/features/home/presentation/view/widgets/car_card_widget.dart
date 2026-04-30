@@ -5,11 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CarCard extends StatelessWidget {
-  const CarCard({required this.car, required this.isSelected, required this.onTap});
+  const CarCard({required this.car, required this.isSelected, required this.onTap, this.heroTag});
 
   final Map<String, dynamic> car;
   final bool isSelected;
   final VoidCallback onTap;
+  final String? heroTag;
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +43,7 @@ class CarCard extends StatelessWidget {
           children: [
             Expanded(
               flex: 10,
-              child: CardImageSection(car: car, isSelected: isSelected),
+              child: CardImageSection(car: car, isSelected: isSelected, heroTag: heroTag),
             ),
             Expanded(
               flex: 15,

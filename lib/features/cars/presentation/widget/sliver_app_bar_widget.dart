@@ -21,11 +21,13 @@ class SliverAppBarWidget extends StatefulWidget {
     required this.imagePageController,
     required this.currentImageIndex,
     required this.carImages,
+    this.heroTag,
   });
   final Map<String, dynamic> car;
   final PageController imagePageController;
   final int currentImageIndex;
   final List<String> carImages;
+  final String? heroTag;
   @override
   State<SliverAppBarWidget> createState() => _SliverAppBarWidgetState();
 }
@@ -153,8 +155,10 @@ class _SliverAppBarWidgetState extends State<SliverAppBarWidget> {
                       final isNetwork = imageUrl.startsWith('http');
 
                       return Hero(
-                        tag:
-                            'car_image_full_${widget.car['itemCode'] ?? widget.car['name']}_$index',
+                        tag: index == 0
+                            ? (widget.heroTag ??
+                                'car_image_${widget.car['itemCode'] ?? widget.car['name']}')
+                            : 'car_image_full_${widget.car['itemCode'] ?? widget.car['name']}_$index',
                         child: Container(
                           height: 100.h,
                           width: 50.w,

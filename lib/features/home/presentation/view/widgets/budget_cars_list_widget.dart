@@ -98,7 +98,10 @@ class BudgetCarsListWidget extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 16.w),
         itemCount: cars.length,
         itemBuilder: (context, index) {
-          return HorizontalCarCardWidget(car: cars[index]);
+          return HorizontalCarCardWidget(
+            car: cars[index],
+            heroTag: 'budget_car_image_${cars[index]['itemCode'] ?? cars[index]['name']}',
+          );
         },
       ),
     );

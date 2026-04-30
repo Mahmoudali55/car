@@ -202,8 +202,11 @@ class _CarComparisonScreenState extends State<CarComparisonScreen> {
                 },
                 child: Container(
                   padding: const EdgeInsets.all(2),
-                  decoration: const BoxDecoration(color: Colors.red, shape: BoxShape.circle),
-                  child: const Icon(Icons.close, color: Colors.white, size: 14),
+                  decoration: BoxDecoration(
+                    color: AppColor.redColor(context),
+                    shape: BoxShape.circle,
+                  ),
+                  child: Icon(Icons.close, color: AppColor.whiteColor(context), size: 14),
                 ),
               ),
             ),
