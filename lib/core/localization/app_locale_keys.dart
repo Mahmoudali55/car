@@ -1055,4 +1055,6 @@ class AppLocaleKey {
   static const String editPriceDesc = 'edit_price_desc';
   static const String editPriceTitle = 'edit_price_title';
   static const String updateAll = 'update_all';
+  static const String downloadReport = 'download_report';
+  static const String generatingPdf = 'generating_pdf';
 }

@@ -1,9 +1,12 @@
 import 'package:car/core/cache/hive/hive_methods.dart';
 import 'package:car/core/custom_widgets/custom_image/custom_network_image.dart';
+import 'package:car/core/custom_widgets/custom_toast/custom_toast.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/core/utils/common_methods.dart';
+import 'package:car/core/utils/pdf_preview_screen.dart';
+import 'package:car/core/utils/pdf_service.dart';
 import 'package:car/features/cars/presentation/widget/full_image_gallery_screen.dart';
 import 'package:car/features/favorites/presentation/view/cubit/favorites_cubit.dart';
 import 'package:car/features/home/presentation/cubit/home_cubit.dart';
@@ -84,6 +87,37 @@ class _SliverAppBarWidgetState extends State<SliverAppBarWidget> {
             ),
           ),
         ),
+        Padding(
+          padding: EdgeInsets.all(8.w),
+          child: CircleAvatar(
+            backgroundColor: AppColor.whiteColor(context),
+            child: IconButton(
+              icon: Icon(
+                Icons.picture_as_pdf_outlined,
+                color: AppColor.blackColor(context),
+                size: 20,
+              ),
+              onPressed: () async {
+                CommonMethods.showToast(
+                  message: AppLocaleKey.generatingPdf.tr(),
+                  type: ToastType.help,
+                  seconds: 3,
+                );
+
+                final doc = await PdfService.generateDocument(context: context, car: widget.car);
+                if (context.mounted) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          PdfPreviewScreen(doc: doc, fileName: '${widget.car['name']}_Report.pdf'),
+                    ),
+                  );
+                }
+              },
+            ),
+          ),
+        ),
         BlocBuilder<FavoritesCubit, FavoritesState>(
           builder: (context, state) {
             final isFav = context.read<FavoritesCubit>().isFavorite(widget.car['name'] ?? '');
@@ -157,7 +191,7 @@ class _SliverAppBarWidgetState extends State<SliverAppBarWidget> {
                       return Hero(
                         tag: index == 0
                             ? (widget.heroTag ??
-                                'car_image_${widget.car['itemCode'] ?? widget.car['name']}')
+                                  'car_image_${widget.car['itemCode'] ?? widget.car['name']}')
                             : 'car_image_full_${widget.car['itemCode'] ?? widget.car['name']}_$index',
                         child: Container(
                           height: 100.h,

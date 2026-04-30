@@ -2,6 +2,9 @@ import 'package:animate_do/animate_do.dart';
 import 'package:car/core/custom_widgets/buttons/custom_button.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
+import 'package:car/core/theme/app_text_style.dart';
+import 'package:car/core/utils/pdf_preview_screen.dart';
+import 'package:car/core/utils/pdf_service.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -124,9 +127,8 @@ class _QuoteBuilderDialogState extends State<QuoteBuilderDialog> {
                         ),
                         Text(
                           widget.carName,
-                          style: TextStyle(
+                          style: AppTextStyle.bodyMedium(context).copyWith(
                             color: AppColor.greyColor(context),
-                            fontSize: 14.sp,
                             fontWeight: FontWeight.w600,
                           ),
                         ),
@@ -158,9 +160,7 @@ class _QuoteBuilderDialogState extends State<QuoteBuilderDialog> {
                     suffix: AppLocaleKey.sar.tr(),
                     keyboardType: TextInputType.number,
                   ),
-
                   Gap(32.h),
-
                   // Instant Specs Section
                   _buildSectionTitle(AppLocaleKey.instantSpecs.tr(), Icons.auto_awesome_rounded),
                   Gap(12.h),
@@ -195,7 +195,7 @@ class _QuoteBuilderDialogState extends State<QuoteBuilderDialog> {
                             label: Text(entry.value),
                             deleteIcon: Icon(Icons.close_rounded, size: 14.sp),
                             onDeleted: () => _removeSpec(entry.key),
-                            backgroundColor: AppColor.blueColor(context).withOpacity(0.1),
+                            backgroundColor: AppColor.blueColor(context).withValues(alpha: 0.1),
                             labelStyle: TextStyle(
                               color: AppColor.blueColor(context),
                               fontSize: 12.sp,
@@ -232,7 +232,7 @@ class _QuoteBuilderDialogState extends State<QuoteBuilderDialog> {
                       return Container(
                         padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
                         decoration: BoxDecoration(
-                          color: AppColor.greyColor(context).withOpacity(0.05),
+                          color: AppColor.greyColor(context).withValues(alpha: 0.05),
                           borderRadius: BorderRadius.circular(16.r),
                         ),
                         child: Column(
@@ -241,19 +241,17 @@ class _QuoteBuilderDialogState extends State<QuoteBuilderDialog> {
                           children: [
                             Text(
                               key,
-                              style: TextStyle(
+                              style: AppTextStyle.bodySmall(context).copyWith(
                                 color: AppColor.hintColor(context),
-                                fontSize: 10.sp,
+
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
                             Text(
                               value,
-                              style: TextStyle(
-                                color: AppColor.blackTextColor(context),
-                                fontSize: 13.sp,
-                                fontWeight: FontWeight.bold,
-                              ),
+                              style: AppTextStyle.bodyMedium(
+                                context,
+                              ).copyWith(color: AppColor.blackTextColor(context)),
                             ),
                           ],
                         ),
@@ -268,14 +266,38 @@ class _QuoteBuilderDialogState extends State<QuoteBuilderDialog> {
             Padding(
               padding: EdgeInsets.fromLTRB(24.w, 0, 24.w, 40.h),
               child: CustomButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(AppLocaleKey.quoteSuccess.tr()),
-                      backgroundColor: Colors.green,
-                    ),
-                  );
+                onPressed: () async {
+                  final String customPrice = _priceController.text;
+                  final Map<String, dynamic> carData = {
+                    'name': widget.carName,
+                    'price': customPrice,
+                    'year':
+                        widget.existingSpecs[AppLocaleKey.agentYearMade.tr()] ??
+                        widget.existingSpecs[AppLocaleKey.manufacturingYear.tr()] ??
+                        '',
+                    'mileage':
+                        widget.existingSpecs[AppLocaleKey.agentDistance.tr()] ??
+                        widget.existingSpecs[AppLocaleKey.mileage.tr()] ??
+                        '',
+                    'Color':
+                        widget.existingSpecs[AppLocaleKey.agentColor.tr()] ??
+                        widget.existingSpecs[AppLocaleKey.exteriorColor.tr()] ??
+                        '',
+                    'TRANSMISSION': 1,
+                    'instantSpecs': _instantSpecs,
+                  };
+
+                  final doc = await PdfService.generateDocument(context: context, car: carData);
+
+                  if (context.mounted) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            PdfPreviewScreen(doc: doc, fileName: '${widget.carName}_Quote.pdf'),
+                      ),
+                    );
+                  }
                 },
                 radius: 16.r,
                 child: Row(
@@ -285,11 +307,9 @@ class _QuoteBuilderDialogState extends State<QuoteBuilderDialog> {
                     Gap(10.w),
                     Text(
                       AppLocaleKey.downloadQuote.tr(),
-                      style: TextStyle(
-                        color: AppColor.whiteColor(context),
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.w900,
-                      ),
+                      style: AppTextStyle.bodyLarge(
+                        context,
+                      ).copyWith(color: AppColor.whiteColor(context), fontWeight: FontWeight.w900),
                     ),
                   ],
                 ),
@@ -308,11 +328,9 @@ class _QuoteBuilderDialogState extends State<QuoteBuilderDialog> {
         Gap(8.w),
         Text(
           title,
-          style: TextStyle(
-            color: AppColor.blackTextColor(context),
-            fontSize: 16.sp,
-            fontWeight: FontWeight.w900,
-          ),
+          style: AppTextStyle.bodyLarge(
+            context,
+          ).copyWith(color: AppColor.blackTextColor(context), fontWeight: FontWeight.w900),
         ),
       ],
     );
