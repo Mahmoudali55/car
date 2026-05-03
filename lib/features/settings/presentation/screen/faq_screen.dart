@@ -3,6 +3,7 @@ import 'package:car/core/custom_widgets/custom_app_bar/custom_app_bar.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
+import 'package:car/features/settings/presentation/screen/widget/fAQ_Item_widget.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -37,83 +38,9 @@ class FAQScreen extends StatelessWidget {
         itemBuilder: (context, index) {
           return FadeInUp(
             delay: Duration(milliseconds: 100 * index),
-            child: _FAQItem(question: faqs[index]['q']!.tr(), answer: faqs[index]['a']!.tr()),
+            child: FAQItem(question: faqs[index]['q']!.tr(), answer: faqs[index]['a']!.tr()),
           );
         },
-      ),
-    );
-  }
-}
-
-class _FAQItem extends StatefulWidget {
-  final String question;
-  final String answer;
-
-  const _FAQItem({required this.question, required this.answer});
-
-  @override
-  State<_FAQItem> createState() => _FAQItemState();
-}
-
-class _FAQItemState extends State<_FAQItem> {
-  bool _isExpanded = false;
-
-  @override
-  Widget build(BuildContext context) {
-    final baseColor = AppColor.blackTextColor(context);
-    return AnimatedContainer(
-      duration: const Duration(milliseconds: 300),
-      margin: EdgeInsets.only(bottom: 16.h),
-      decoration: BoxDecoration(
-        color: baseColor.withOpacity(0.03),
-        borderRadius: BorderRadius.circular(20.r),
-        border: Border.all(
-          color: _isExpanded
-              ? AppColor.primaryColor(context).withOpacity(0.2)
-              : baseColor.withOpacity(0.05),
-        ),
-      ),
-      child: Column(
-        children: [
-          ListTile(
-            onTap: () => setState(() => _isExpanded = !_isExpanded),
-            contentPadding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 8.h),
-            title: Text(
-              widget.question,
-              style: AppTextStyle.bodyMedium(context).copyWith(
-                color: baseColor,
-                fontWeight: _isExpanded ? FontWeight.bold : FontWeight.w600,
-              ),
-            ),
-            trailing: AnimatedRotation(
-              turns: _isExpanded ? 0.5 : 0,
-              duration: const Duration(milliseconds: 300),
-              child: Icon(
-                _isExpanded
-                    ? Icons.remove_circle_outline_rounded
-                    : Icons.add_circle_outline_rounded,
-                color: _isExpanded
-                    ? AppColor.primaryColor(context)
-                    : baseColor.withOpacity(0.3),
-                size: 24.sp,
-              ),
-            ),
-          ),
-          AnimatedCrossFade(
-            firstChild: const SizedBox.shrink(),
-            secondChild: Padding(
-              padding: EdgeInsets.fromLTRB(20.w, 0, 20.w, 20.h),
-              child: Text(
-                widget.answer,
-                style: AppTextStyle.bodySmall(
-                  context,
-                ).copyWith(color: baseColor.withOpacity(0.6), height: 1.6),
-              ),
-            ),
-            crossFadeState: _isExpanded ? CrossFadeState.showSecond : CrossFadeState.showFirst,
-            duration: const Duration(milliseconds: 300),
-          ),
-        ],
       ),
     );
   }

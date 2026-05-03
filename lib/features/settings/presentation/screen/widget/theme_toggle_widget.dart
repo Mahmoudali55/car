@@ -10,22 +10,22 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ThemeToggleWidget extends StatelessWidget {
   const ThemeToggleWidget({super.key, required this.isDark});
-final  bool isDark;
+  final bool isDark;
   @override
   Widget build(BuildContext context) {
     final baseColor = AppColor.blackTextColor(context);
     return Container(
       decoration: BoxDecoration(
-        color: baseColor.withOpacity(0.03),
+        color: baseColor.withValues(alpha: 0.03),
         borderRadius: BorderRadius.circular(16.r),
-        border: Border.all(color: baseColor.withOpacity(0.05)),
+        border: Border.all(color: baseColor.withValues(alpha: 0.05)),
       ),
       child: ListTile(
         contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 4.h),
         leading: Container(
           padding: EdgeInsets.all(8.w),
           decoration: BoxDecoration(
-            color: AppColor.primaryColor(context).withOpacity(0.1),
+            color: AppColor.primaryColor(context).withValues(alpha: 0.1),
             borderRadius: BorderRadius.circular(10.r),
           ),
           child: AnimatedSwitcher(

@@ -4,24 +4,31 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LanguageOptionWidget extends StatelessWidget {
-  const LanguageOptionWidget({super.key, required this.title, required this.isSelected, required this.onTap,});
-    final String title;final bool isSelected;final VoidCallback onTap;
+  const LanguageOptionWidget({
+    super.key,
+    required this.title,
+    required this.isSelected,
+    required this.onTap,
+  });
+  final String title;
+  final bool isSelected;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
     final baseColor = AppColor.blackTextColor(context);
-    return  InkWell(
+    return InkWell(
       onTap: onTap,
       borderRadius: BorderRadius.circular(12.r),
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
         decoration: BoxDecoration(
           color: isSelected
-              ? AppColor.primaryColor(context).withOpacity(0.1)
-              : baseColor.withOpacity(0.03),
+              ? AppColor.primaryColor(context).withValues(alpha: 0.1)
+              : baseColor.withValues(alpha: 0.03),
           borderRadius: BorderRadius.circular(12.r),
           border: Border.all(
-            color: isSelected ? AppColor.primaryColor(context) : baseColor.withOpacity(0.05),
+            color: isSelected ? AppColor.primaryColor(context) : baseColor.withValues(alpha: 0.05),
           ),
         ),
         child: Row(
