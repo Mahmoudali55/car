@@ -85,56 +85,58 @@ class _CarDetailsScreenState extends State<CarDetailsScreen> {
         return Scaffold(
           backgroundColor: AppColor.scaffoldColor(context),
           bottomNavigationBar: StickyActionBarWidget(car: widget.car),
-          body: Stack(
-            children: [
-              CustomScrollView(
-                physics: const BouncingScrollPhysics(),
-                slivers: [
-                  SliverAppBarWidget(
-                    car: widget.car,
-                    imagePageController: _imagePageController,
-                    currentImageIndex: _currentImageIndex,
-                    carImages: _carImages,
-                    heroTag: widget.heroTag,
-                  ),
-                  SliverToBoxAdapter(
-                    child: ConstrainedBox(
-                      constraints: const BoxConstraints(maxWidth: 1000),
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 10.w),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            CarHeaderWidget(car: widget.car),
-                            if (widget.car['is_financing_available'] ?? true) ...[
+          body: SafeArea(
+            child: Stack(
+              children: [
+                CustomScrollView(
+                  physics: const BouncingScrollPhysics(),
+                  slivers: [
+                    SliverAppBarWidget(
+                      car: widget.car,
+                      imagePageController: _imagePageController,
+                      currentImageIndex: _currentImageIndex,
+                      carImages: _carImages,
+                      heroTag: widget.heroTag,
+                    ),
+                    SliverToBoxAdapter(
+                      child: ConstrainedBox(
+                        constraints: const BoxConstraints(maxWidth: 1000),
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 10.w),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              CarHeaderWidget(car: widget.car),
+                              if (widget.car['is_financing_available'] ?? true) ...[
+                                Gap(16.h),
+                                BnplWidget(car: widget.car),
+                                // Gap(16.h),
+                                CashPackagesWidget(car: widget.car),
+                              ],
                               Gap(16.h),
-                              BnplWidget(car: widget.car),
-                              // Gap(16.h),
-                              CashPackagesWidget(car: widget.car),
-                            ],
-                            Gap(16.h),
-                            const InspectionBadgeWidget(),
-                            Gap(16.h),
-                            SpecGridWidget(car: widget.car),
-                            Gap(16.h),
-                            _buildOverview(context),
-                            Gap(16.h),
-                            const FeaturesGridWidget(),
+                              const InspectionBadgeWidget(),
+                              Gap(16.h),
+                              SpecGridWidget(car: widget.car),
+                              Gap(16.h),
+                              _buildOverview(context),
+                              Gap(16.h),
+                              const FeaturesGridWidget(),
 
-                            Gap(20.h),
-                            // VideoReviewWidget(
-                            //   car: widget.car,
-                            //   controller: _controller,
-                            //   player: player,
-                            // ),
-                          ],
+                              Gap(20.h),
+                              // VideoReviewWidget(
+                              //   car: widget.car,
+                              //   controller: _controller,
+                              //   player: player,
+                              // ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-            ],
+                  ],
+                ),
+              ],
+            ),
           ),
         );
       },

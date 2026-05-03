@@ -29,7 +29,7 @@ class CustomItemOfferWidget extends StatelessWidget {
             child: Hero(
               tag: 'car_offer_${offer['name']}',
               child: Center(
-                child: Image.asset(offer['image'], fit: BoxFit.fill, height: 200.h),
+                child: Image.asset(offer['image'], fit: BoxFit.fill, height: double.infinity),
               ),
             ),
           ),

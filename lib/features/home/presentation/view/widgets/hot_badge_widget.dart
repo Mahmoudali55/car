@@ -9,10 +9,10 @@ class HotBadge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 20.h,
+      height: 27.h,
       width: 70.w,
       alignment: Alignment.center,
-      padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 4.h),
+      //padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 1.h),
       decoration: BoxDecoration(
         color: AppColor.primaryColor(context).withValues(alpha: (0.2)),
         borderRadius: BorderRadius.circular(8.r),
