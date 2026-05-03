@@ -303,6 +303,17 @@ class AppLocaleKey {
   static const String settings = 'settings';
   static const String language = 'language';
   static const String changePassword = 'change_password';
+  static const String changeYourPassword = 'change_your_password';
+  static const String enterYourCurrentAndNewPassword = 'enter_your_current_and_new_password';
+  static const String currentPassword = 'current_password';
+  static const String newPassword = 'new_password';
+  static const String confirmNewPassword = 'confirm_new_password';
+  static const String pleaseEnterCurrentPassword = 'please_enter_current_password';
+  static const String pleaseEnterNewPassword = 'please_enter_new_password';
+  static const String passwordMustBeAtLeast6Characters = 'password_must_be_at_least_6_characters';
+  static const String pleaseConfirmNewPassword = 'please_confirm_new_password';
+  static const String passwordsDoNotMatch = 'passwords_do_not_match';
+  static const String passwordChangedSuccessfully = 'password_changed_successfully';
   static const String logout = 'logout';
   static const String arabic = 'arabic';
   static const String english = 'english';

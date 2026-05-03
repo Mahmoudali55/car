@@ -17,6 +17,10 @@ class AuthCubit extends Cubit<AuthState> {
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController accountTypeController = TextEditingController();
 
+  final TextEditingController currentPasswordController = TextEditingController();
+  final TextEditingController newPasswordController = TextEditingController();
+  final TextEditingController confirmPasswordController = TextEditingController();
+
   bool rememberMe = false;
 
   void changeRememberMe() {
@@ -46,6 +50,27 @@ class AuthCubit extends Cubit<AuthState> {
         emit(state.copyWith(loginStatus: StatusState.success(response)));
       },
     );
+  }
+
+  Future<void> changePassword() async {
+    emit(state.copyWith(changePasswordStatus: const StatusState.loading()));
+
+    // For now, simulate API call
+    await Future.delayed(const Duration(seconds: 2));
+
+    // Check if new password matches confirm password
+    if (newPasswordController.text != confirmPasswordController.text) {
+      emit(state.copyWith(changePasswordStatus: StatusState.failure('Passwords do not match')));
+      return;
+    }
+
+    // Simulate success
+    emit(state.copyWith(changePasswordStatus: const StatusState.success(true)));
+
+    // Clear controllers
+    currentPasswordController.clear();
+    newPasswordController.clear();
+    confirmPasswordController.clear();
   }
 
   Future<void> logout() async {

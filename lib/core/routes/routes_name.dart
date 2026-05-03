@@ -18,6 +18,7 @@ class RoutesName {
   static const String faqScreen = 'faqScreen';
   static const String trackOrderScreen = 'trackOrderScreen';
   static const String settingsScreen = 'settingsScreen';
+  static const String changePasswordScreen = 'changePasswordScreen';
   static const String profileScreen = 'profileScreen';
 
   // Service Screens

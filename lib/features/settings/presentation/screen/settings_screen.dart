@@ -84,7 +84,7 @@ class SettingsScreen extends StatelessWidget {
                 child: SettingItemsWidget(
                   icon: Icons.lock_outline_rounded,
                   title: AppLocaleKey.changePassword.tr(),
-                  onTap: () {},
+                  onTap: () => Navigator.pushNamed(context, RoutesName.changePasswordScreen),
                 ),
               ),
               Gap(32.h),
