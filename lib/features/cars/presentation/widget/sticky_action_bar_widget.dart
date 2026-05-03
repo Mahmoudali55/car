@@ -25,7 +25,7 @@ class StickyActionBarWidget extends StatelessWidget {
       child: BackdropFilter(
         filter: ImageFilter.blur(sigmaX: 15, sigmaY: 15),
         child: Container(
-          padding: EdgeInsets.all(20.w),
+          padding: EdgeInsets.all(30.w),
           decoration: BoxDecoration(
             color: AppColor.scaffoldColor(context).withValues(alpha: 0.8),
             border: Border(

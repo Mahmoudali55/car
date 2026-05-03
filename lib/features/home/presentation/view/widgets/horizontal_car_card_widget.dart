@@ -54,7 +54,10 @@ class HorizontalCarCardWidget extends StatelessWidget {
               ),
 
               child: ClipRRect(
-                borderRadius: BorderRadius.vertical(),
+                borderRadius: BorderRadius.horizontal(
+                  left: Radius.circular(20.r),
+                  right: Radius.circular(20.r),
+                ),
                 child: Hero(
                   tag: heroTag ?? 'car_image_${car['itemCode'] ?? car['name']}',
                   child: (car['image'] != null && car['image'].toString().startsWith('http'))

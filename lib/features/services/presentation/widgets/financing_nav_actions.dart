@@ -1,3 +1,4 @@
+import 'package:car/core/custom_widgets/buttons/custom_button.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
@@ -24,9 +25,9 @@ class FinancingNavActions extends StatelessWidget {
   Widget build(BuildContext context) {
     final primary = AppColor.primaryColor(context);
     return Container(
-      padding: EdgeInsets.fromLTRB(24.w, 20.h, 24.w, 32.h),
+      padding: EdgeInsets.only(top: 16.h, bottom: 20.h, left: 20.w, right: 20.w),
       decoration: BoxDecoration(
-        color: AppColor.scaffoldColor(context),
+        color: AppColor.whiteColor(context),
         border: Border(top: BorderSide(color: AppColor.borderColor(context))),
       ),
       child: Row(
@@ -36,8 +37,8 @@ class FinancingNavActions extends StatelessWidget {
               child: OutlinedButton(
                 onPressed: onBack,
                 style: OutlinedButton.styleFrom(
-                  padding: EdgeInsets.symmetric(vertical: 20.h),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.r)),
+                  padding: EdgeInsets.symmetric(vertical: 6.h),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.r)),
                   side: BorderSide(color: AppColor.borderColor(context)),
                 ),
                 child: Text(
@@ -45,7 +46,7 @@ class FinancingNavActions extends StatelessWidget {
                   style: AppTextStyle.bodyMedium(context).copyWith(
                     fontWeight: FontWeight.w900,
                     letterSpacing: 1.5,
-                    color: AppColor.blackTextColor(context).withOpacity(0.7),
+                    color: AppColor.blackTextColor(context).withValues(alpha: 0.7),
                     fontSize: 15.sp,
                   ),
                 ),
@@ -54,25 +55,7 @@ class FinancingNavActions extends StatelessWidget {
           if (currentStep > 0) Gap(16.w),
           Expanded(
             flex: 2,
-            child: ElevatedButton(
-              onPressed: onNext,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: primary,
-                padding: EdgeInsets.symmetric(vertical: 20.h),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.r)),
-                elevation: 0,
-                shadowColor: primary.withOpacity(0.4),
-              ),
-              child: Text(
-                nextLabel.toUpperCase(),
-                style: AppTextStyle.bodyMedium(context).copyWith(
-                  fontWeight: FontWeight.w900,
-                  color: AppColor.whiteColor(context),
-                  letterSpacing: 1.5,
-                  fontSize: 16.sp,
-                ),
-              ),
-            ),
+            child: CustomButton(radius: 12.r, onPressed: onNext, text: nextLabel.toUpperCase()),
           ),
         ],
       ),

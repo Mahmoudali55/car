@@ -49,7 +49,7 @@ class _BookingAppointmentScreenState extends State<BookingAppointmentScreen> {
             backgroundColor: AppColor.appBarColor(context),
             leading: IconButton(
               onPressed: () => Navigator.pop(context),
-              icon: Icon(Icons.close_rounded, color: AppColor.appBarTextColor(context)),
+              icon: Icon(Icons.close_rounded, color: AppColor.whiteColor(context)),
             ),
             flexibleSpace: FlexibleSpaceBar(
               centerTitle: true,
@@ -57,7 +57,7 @@ class _BookingAppointmentScreenState extends State<BookingAppointmentScreen> {
                 AppLocaleKey.bookNewAppointment.tr(),
                 style: AppTextStyle.titleMedium(
                   context,
-                ).copyWith(color: AppColor.appBarTextColor(context), fontWeight: FontWeight.bold),
+                ).copyWith(color: AppColor.whiteColor(context), fontWeight: FontWeight.bold),
               ),
               background: Container(
                 decoration: BoxDecoration(
@@ -187,7 +187,7 @@ class _BookingAppointmentScreenState extends State<BookingAppointmentScreen> {
                             ),
                             Gap(12.w),
                             Text(
-                              DateFormat('EEEE, d MMMM yyyy', 'ar').format(selectedDate),
+                              DateFormat('yyyy / dd / MM', 'en').format(selectedDate),
                               style: TextStyle(
                                 color: AppColor.blackTextColor(context),
                                 fontWeight: FontWeight.bold,

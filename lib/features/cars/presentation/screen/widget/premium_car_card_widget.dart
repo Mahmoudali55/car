@@ -24,12 +24,16 @@ class PremiumCarCardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        NavigatorMethods.pushNamed(context, RoutesName.carDetailsScreen,
-            arguments: {'car': car, 'heroTag': heroTag});
+        NavigatorMethods.pushNamed(
+          context,
+          RoutesName.carDetailsScreen,
+          arguments: {'car': car, 'heroTag': heroTag},
+        );
       },
       child: Card(
         clipBehavior: Clip.antiAlias,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.r)),
+        color: AppColor.secondAppColor(context),
         child: Column(
           children: [
             Stack(
@@ -61,7 +65,7 @@ class PremiumCarCardWidget extends StatelessWidget {
                     margin: EdgeInsets.only(left: 15.w),
                     padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
                     decoration: BoxDecoration(
-                      color: AppColor.blackTextColor(context).withOpacity(0.1),
+                      color: AppColor.blackColor(context).withOpacity(0.1),
                       shape: BoxShape.rectangle,
                       borderRadius: BorderRadius.circular(8.r),
                     ),
@@ -88,7 +92,7 @@ class PremiumCarCardWidget extends StatelessWidget {
                           return Container(
                             height: 30.h,
                             decoration: BoxDecoration(
-                              color: AppColor.blackTextColor(context).withOpacity(0.1),
+                              color: AppColor.blackColor(context).withValues(alpha: 0.1),
                               shape: BoxShape.circle,
                             ),
                             child: IconButton(
@@ -133,19 +137,6 @@ class PremiumCarCardWidget extends StatelessWidget {
                   ),
                   Gap(10.w),
                   Container(
-                    padding: EdgeInsets.all(16.w),
-                    decoration: BoxDecoration(
-                      color: AppColor.whiteColor(context),
-                      borderRadius: BorderRadius.circular(12.r),
-                      border: Border.all(color: AppColor.greyColor(context).withValues(alpha: 0.1)),
-                      boxShadow: [
-                        BoxShadow(
-                          color: AppColor.blackColor(context).withValues(alpha: 0.02),
-                          blurRadius: 10,
-                          offset: const Offset(0, 4),
-                        ),
-                      ],
-                    ),
                     child: IntrinsicHeight(
                       child: Row(
                         children: [
@@ -157,7 +148,7 @@ class PremiumCarCardWidget extends StatelessWidget {
                                 Text(
                                   AppLocaleKey.cash.tr(),
                                   style: AppTextStyle.bodySmall(context).copyWith(
-                                    color: AppColor.blackColor(context),
+                                    color: AppColor.blackTextColor(context),
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
@@ -211,8 +202,7 @@ class PremiumCarCardWidget extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Gap(12.h),
-                  Divider(color: AppColor.blackTextColor(context).withOpacity((0.05)), height: 1),
+
                   Gap(12.h),
                   Row(
                     children: [

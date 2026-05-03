@@ -17,6 +17,7 @@ import 'package:car/features/services/presentation/widgets/steps/signature_step.
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gap/gap.dart';
 
 class FinancingScreen extends StatefulWidget {
   final Map<String, dynamic>? car;
@@ -26,7 +27,7 @@ class FinancingScreen extends StatefulWidget {
   final String? bankNameKey;
 
   const FinancingScreen({
-    super.key, 
+    super.key,
     this.car,
     this.initialCarPrice,
     this.initialDownPayment,
@@ -56,7 +57,7 @@ class _FinancingScreenState extends State<FinancingScreen> {
   final _idCtrl = TextEditingController();
   final _workCtrl = TextEditingController();
   final _salaryCtrl = TextEditingController();
-  
+
   // New controllers for specific numeric inputs
   final _priceCtrl = TextEditingController();
   final _downPaymentCtrl = TextEditingController();
@@ -67,14 +68,17 @@ class _FinancingScreenState extends State<FinancingScreen> {
     _downPaymentCtrl.text = _downPaymentAmount.toStringAsFixed(0);
     _lastPaymentCtrl.text = _lastPaymentAmount.toStringAsFixed(0);
   }
+
   @override
   void initState() {
     super.initState();
     final raw = widget.car?['price']?.toString() ?? '150000';
-    _carPrice = widget.initialCarPrice ?? (double.tryParse(raw.replaceAll(RegExp(r'[^0-9]'), '')) ?? 150000);
+    _carPrice =
+        widget.initialCarPrice ??
+        (double.tryParse(raw.replaceAll(RegExp(r'[^0-9]'), '')) ?? 150000);
     _downPaymentAmount = widget.initialDownPayment ?? 0;
     _durationYears = widget.initialDuration ?? 5;
-    
+
     if (widget.bankNameKey != null) {
       try {
         _selectedBank = kBanks.firstWhere((b) => b.nameKey == widget.bankNameKey);
@@ -103,15 +107,27 @@ class _FinancingScreenState extends State<FinancingScreen> {
     // Listeners to update state when text changes
     _priceCtrl.addListener(() {
       final val = double.tryParse(_priceCtrl.text) ?? 0;
-      if (val != _carPrice) setState(() { _carPrice = val; _fixedInstallment = null; });
+      if (val != _carPrice)
+        setState(() {
+          _carPrice = val;
+          _fixedInstallment = null;
+        });
     });
     _downPaymentCtrl.addListener(() {
       final val = double.tryParse(_downPaymentCtrl.text) ?? 0;
-      if (val != _downPaymentAmount) setState(() { _downPaymentAmount = val; _fixedInstallment = null; });
+      if (val != _downPaymentAmount)
+        setState(() {
+          _downPaymentAmount = val;
+          _fixedInstallment = null;
+        });
     });
     _lastPaymentCtrl.addListener(() {
       final val = double.tryParse(_lastPaymentCtrl.text) ?? 0;
-      if (val != _lastPaymentAmount) setState(() { _lastPaymentAmount = val; _fixedInstallment = null; });
+      if (val != _lastPaymentAmount)
+        setState(() {
+          _lastPaymentAmount = val;
+          _fixedInstallment = null;
+        });
     });
   }
 
@@ -165,31 +181,34 @@ class _FinancingScreenState extends State<FinancingScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.scaffoldColor(context),
-      body: Stack(
-        children: [
-          const FinancingBackground(),
-          SafeArea(
-            child: Column(
-              children: [
-                const FinancingHeader(),
-                FinancingStepIndicator(currentStep: _step),
-                Expanded(
-                  child: SingleChildScrollView(
-                    physics: const BouncingScrollPhysics(),
-                    padding: EdgeInsets.symmetric(horizontal: 24.w),
-                    child: Form(key: _formKey, child: _buildCurrentStep()),
+      bottomNavigationBar: FinancingNavActions(
+        currentStep: _step,
+        onBack: _onBack,
+        onNext: _onNext,
+        nextLabel: _step == 4 ? AppLocaleKey.sendRequest.tr() : AppLocaleKey.next.tr(),
+      ),
+      body: SafeArea(
+        child: Stack(
+          children: [
+            const FinancingBackground(),
+            SafeArea(
+              child: Column(
+                children: [
+                  const FinancingHeader(),
+                  FinancingStepIndicator(currentStep: _step),
+                  Expanded(
+                    child: SingleChildScrollView(
+                      physics: const BouncingScrollPhysics(),
+                      padding: EdgeInsets.symmetric(horizontal: 24.w),
+                      child: Form(key: _formKey, child: _buildCurrentStep()),
+                    ),
                   ),
-                ),
-                FinancingNavActions(
-                  currentStep: _step,
-                  onBack: _onBack,
-                  onNext: _onNext,
-                  nextLabel: _step == 4 ? AppLocaleKey.sendRequest.tr() : AppLocaleKey.next.tr(),
-                ),
-              ],
+                  Gap(16.h),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -224,7 +243,10 @@ class _FinancingScreenState extends State<FinancingScreen> {
           downPaymentController: _downPaymentCtrl,
           lastPaymentController: _lastPaymentCtrl,
           fixedInstallment: _fixedInstallment,
-          onDurationChanged: (v) => setState(() { _durationYears = v; _fixedInstallment = null; }),
+          onDurationChanged: (v) => setState(() {
+            _durationYears = v;
+            _fixedInstallment = null;
+          }),
         );
       case 2:
         return PlatinumStep(
