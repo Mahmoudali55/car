@@ -50,9 +50,9 @@ import 'package:car/features/services/presentation/screen/service_history_screen
 import 'package:car/features/services/presentation/screen/shipping_screen.dart';
 import 'package:car/features/services/presentation/screen/support_screen.dart';
 import 'package:car/features/services/presentation/screen/trade_in_screen.dart';
+import 'package:car/features/settings/presentation/screen/change_password_screen.dart';
 import 'package:car/features/settings/presentation/screen/faq_screen.dart';
 import 'package:car/features/settings/presentation/screen/settings_screen.dart';
-import 'package:car/features/settings/presentation/screen/change_password_screen.dart';
 import 'package:car/features/splash/presentation/view/screen/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

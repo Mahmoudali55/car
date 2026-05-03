@@ -29,10 +29,9 @@ class ChangePasswordScreen extends StatelessWidget {
         centerTitle: true,
         title: Text(
           AppLocaleKey.changePassword.tr(),
-          style: AppTextStyle.titleMedium(context).copyWith(
-            color: AppColor.blackTextColor(context),
-            fontWeight: FontWeight.bold,
-          ),
+          style: AppTextStyle.titleMedium(
+            context,
+          ).copyWith(color: AppColor.blackTextColor(context), fontWeight: FontWeight.bold),
         ),
       ),
       body: BlocConsumer<AuthCubit, AuthState>(
@@ -64,10 +63,9 @@ class ChangePasswordScreen extends StatelessWidget {
                       duration: const Duration(milliseconds: 800),
                       child: Text(
                         AppLocaleKey.changeYourPassword.tr(),
-                        style: AppTextStyle.titleLarge(context).copyWith(
-                          color: AppColor.blackTextColor(context),
-                          fontSize: 28.sp,
-                        ),
+                        style: AppTextStyle.titleLarge(
+                          context,
+                        ).copyWith(color: AppColor.blackTextColor(context), fontSize: 28.sp),
                       ),
                     ),
                     Gap(8.h),
@@ -76,9 +74,9 @@ class ChangePasswordScreen extends StatelessWidget {
                       duration: const Duration(milliseconds: 800),
                       child: Text(
                         AppLocaleKey.enterYourCurrentAndNewPassword.tr(),
-                        style: AppTextStyle.bodyLarge(context).copyWith(
-                          color: AppColor.blackTextColor(context).withValues(alpha: 0.6),
-                        ),
+                        style: AppTextStyle.bodyLarge(
+                          context,
+                        ).copyWith(color: AppColor.blackTextColor(context).withValues(alpha: 0.6)),
                       ),
                     ),
                     Gap(40.h),
@@ -115,10 +113,7 @@ class ChangePasswordScreen extends StatelessWidget {
                         controller: cubit.newPasswordController,
                         hintText: AppLocaleKey.newPassword.tr(),
                         isPassword: true,
-                        prefixIcon: Icon(
-                          Icons.lock_rounded,
-                          color: AppColor.primaryColor(context),
-                        ),
+                        prefixIcon: Icon(Icons.lock_rounded, color: AppColor.primaryColor(context)),
                         fillColor: AppColor.textFormFillColor(context),
                         textStyle: TextStyle(color: AppColor.blackTextColor(context)),
                         hintStyle: TextStyle(

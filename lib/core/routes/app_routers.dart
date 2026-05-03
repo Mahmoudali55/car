@@ -70,8 +70,10 @@ class AppRouters {
         );
       case RoutesName.changePasswordScreen:
         return MaterialPageRoute(
-          builder: (_) =>
-              BlocProvider(create: (context) => sl<AuthCubit>(), child: const ChangePasswordScreen()),
+          builder: (_) => BlocProvider(
+            create: (context) => sl<AuthCubit>(),
+            child: const ChangePasswordScreen(),
+          ),
         );
       case RoutesName.profileScreen:
         return MaterialPageRoute(
