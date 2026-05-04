@@ -228,28 +228,33 @@ class _FinancingScreenState extends State<FinancingScreen> with SingleTickerProv
       child: Scaffold(
         backgroundColor: AppColor.scaffoldColor(context),
         appBar: _buildAppBar(),
-        body: TabBarView(
-          controller: _tabController,
-          physics: const NeverScrollableScrollPhysics(),
-          children: [
-            FinancingPersonalInfoTab(
-              formKey: _formKey1,
-              car: widget.car,
-              monthlyInstallment: _monthlyInstallment,
-              durationYears: _durationYears,
-              downPayment: _downPayment,
-              lastPayment: _lastPayment,
-              onEditCalculator: _showCalculatorSheet,
-              onShowRequirements: _showRequirementsSheet,
-            ),
-            FinancingWorkInfoTab(formKey: _formKey2, onShowCalculator: _showCalculatorSheet),
-            FinancingDocumentsTab(),
-          ],
+        body: SafeArea(
+          child: TabBarView(
+            controller: _tabController,
+            physics: const NeverScrollableScrollPhysics(),
+            children: [
+              FinancingPersonalInfoTab(
+                formKey: _formKey1,
+                car: widget.car,
+                monthlyInstallment: _monthlyInstallment,
+                durationYears: _durationYears,
+                downPayment: _downPayment,
+                lastPayment: _lastPayment,
+                onEditCalculator: _showCalculatorSheet,
+                onShowRequirements: _showRequirementsSheet,
+              ),
+              FinancingWorkInfoTab(formKey: _formKey2, onShowCalculator: _showCalculatorSheet),
+              FinancingDocumentsTab(),
+            ],
+          ),
         ),
-        bottomNavigationBar: FinancingBottomBar(
-          currentIndex: _tabController.index,
-          onNext: _onNextStep,
-          onBack: () => _tabController.animateTo(_tabController.index - 1),
+        bottomNavigationBar: Padding(
+          padding: EdgeInsets.only(bottom: 20.r),
+          child: FinancingBottomBar(
+            currentIndex: _tabController.index,
+            onNext: _onNextStep,
+            onBack: () => _tabController.animateTo(_tabController.index - 1),
+          ),
         ),
       ),
     );

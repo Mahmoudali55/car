@@ -1077,5 +1077,18 @@
   "validatePhoneLength": "يجب أن يتكون رقم الجوال من 10 أرقام",
   "validatePhoneStart": "يجب أن يبدأ رقم الجوال بـ 05",
   "validateIdLength": "يجب أن تتكون الهوية من 10 أرقام",
-  "validateIdStart": "يجب أن تبدأ الهوية برقم 2"
+  "validateIdStart": "يجب أن تبدأ الهوية برقم 2",
+  "info_tab_car_info": "معلومات السيارة",
+  "info_tab_inspection_report": "المميزات الاضافية",
+  "info_tab_car_details": "تفاصيل السيارة",
+  "info_tab_brand": "الماركة",
+  "info_tab_type": "النوع",
+  "info_tab_model": "الموديل",
+  "info_tab_category": "الفئة",
+  "info_tab_interior_color": "اللون الداخلي",
+  "info_tab_exterior_color": "اللون الخارجي",
+  "info_tab_import": "الوارد",
+  "info_tab_fuel_type": "نوع الوقود",
+  "info_tab_saudi": "سعودي",
+  "info_tab_gasoline": "بنزين"
 }

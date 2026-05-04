@@ -1156,4 +1156,17 @@ class AppLocaleKey {
   static const String validatePhoneStart = 'validatePhoneStart';
   static const String validateIdLength = 'validateIdLength';
   static const String validateIdStart = 'validateIdStart';
+  static const String info_tab_car_info = 'info_tab_car_info';
+  static const String info_tab_inspection_report = 'info_tab_inspection_report';
+  static const String info_tab_car_details = 'info_tab_car_details';
+  static const String info_tab_brand = 'info_tab_brand';
+  static const String info_tab_type = 'info_tab_type';
+  static const String info_tab_model = 'info_tab_model';
+  static const String info_tab_category = 'info_tab_category';
+  static const String info_tab_interior_color = 'info_tab_interior_color';
+  static const String info_tab_exterior_color = 'info_tab_exterior_color';
+  static const String info_tab_import = 'info_tab_import';
+  static const String info_tab_fuel_type = 'info_tab_fuel_type';
+  static const String info_tab_saudi = 'info_tab_saudi';
+  static const String info_tab_gasoline = 'info_tab_gasoline';
 }

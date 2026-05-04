@@ -202,20 +202,22 @@ class ReservationSuccessScreen extends StatelessWidget {
                       child: Icon(row.icon, color: row.iconColor, size: 18.sp),
                     ),
                     Gap(14.w),
-                    Expanded(
-                      child: Text(
-                        row.label,
-                        style: AppTextStyle.bodyMedium(context).copyWith(
-                          color: AppColor.blackTextColor(context).withOpacity(0.5),
-                          fontSize: 13.sp,
-                        ),
+                    Text(
+                      row.label,
+                      style: AppTextStyle.bodyMedium(context).copyWith(
+                        color: AppColor.blackTextColor(context).withOpacity(0.5),
+                        fontSize: 13.sp,
                       ),
                     ),
-                    Text(
-                      row.value,
-                      style: AppTextStyle.bodyMedium(
-                        context,
-                      ).copyWith(fontWeight: FontWeight.w900, fontSize: 14.sp),
+                    Gap(14.w),
+                    Expanded(
+                      child: Text(
+                        row.value,
+                        style: AppTextStyle.bodyMedium(
+                          context,
+                        ).copyWith(fontWeight: FontWeight.w900, fontSize: 14.sp),
+                        textAlign: TextAlign.end,
+                      ),
                     ),
                   ],
                 ),

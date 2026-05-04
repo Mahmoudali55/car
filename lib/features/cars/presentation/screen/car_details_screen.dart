@@ -6,10 +6,9 @@ import 'package:car/features/cars/presentation/widget/bnpl_widget.dart';
 import 'package:car/features/cars/presentation/widget/car_header_widget.dart';
 import 'package:car/features/cars/presentation/widget/cash_packages_widget.dart';
 import 'package:car/features/cars/presentation/widget/features_grid_widget.dart';
-import 'package:car/features/cars/presentation/widget/inspection_badge_widget.dart';
 import 'package:car/features/cars/presentation/widget/section_title_widget.dart';
 import 'package:car/features/cars/presentation/widget/sliver_app_bar_widget.dart';
-import 'package:car/features/cars/presentation/widget/spec_grid_widget.dart';
+import 'package:car/features/cars/presentation/widget/car_info_tabs_widget.dart';
 import 'package:car/features/cars/presentation/widget/sticky_action_bar_widget.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -114,10 +113,7 @@ class _CarDetailsScreenState extends State<CarDetailsScreen> {
                                 CashPackagesWidget(car: widget.car),
                               ],
                               Gap(16.h),
-                              const InspectionBadgeWidget(),
-                              Gap(16.h),
-                              SpecGridWidget(car: widget.car),
-                              Gap(16.h),
+                              CarInfoTabsWidget(car: widget.car),
                               _buildOverview(context),
                               Gap(16.h),
                               const FeaturesGridWidget(),

@@ -899,5 +899,19 @@
   "validatePhoneLength": "Phone number must be 10 digits",
   "validatePhoneStart": "Phone number must start with 05",
   "validateIdLength": "ID must be 10 digits",
-  "validateIdStart": "ID must start with 2"
+  "validateIdStart": "ID must start with 2",
+  "info_tab_car_info": "Car Information",
+  "info_tab_inspection_report": "Additional Features",
+  "info_tab_car_details": "Car Details",
+  "info_tab_brand": "Brand",
+  "info_tab_type": "Type",
+  "info_tab_model": "Model",
+  "info_tab_category": "Category",
+  "info_tab_interior_color": "Interior Color",
+  "info_tab_exterior_color": "Exterior Color",
+  "info_tab_import": "Import",
+  "info_tab_fuel_type": "Fuel Type",
+  "info_tab_saudi": "Saudi",
+  "info_tab_gasoline": "Gasoline"
+
 }
