@@ -30,31 +30,31 @@ class _BankOffersScreenState extends State<BankOffersScreen> {
       nameKey: AppLocaleKey.bankAlrajhi,
       logoText: 'AR',
       apr: 3.5,
-      brandColor: const Color(0xFF133261), // Al Rajhi Blue
+      brandColor: const Color(0xFF133261), 
     ),
     BankOffer(
       nameKey: AppLocaleKey.bankSnb,
       logoText: 'SNB',
       apr: 2.9,
-      brandColor: const Color(0xFF00755F), // SNB Green
+      brandColor: const Color(0xFF00755F), 
     ),
     BankOffer(
       nameKey: AppLocaleKey.bankRiyad,
       logoText: 'RB',
       apr: 3.2,
-      brandColor: const Color(0xFFCE1126), // Riyad Bank Red
+      brandColor: const Color(0xFFCE1126), 
     ),
     BankOffer(
       nameKey: AppLocaleKey.bankAlinma,
       logoText: 'INM',
       apr: 3.0,
-      brandColor: const Color(0xFF886A34), // Alinma Gold
+      brandColor: const Color(0xFF886A34), 
     ),
     BankOffer(
       nameKey: AppLocaleKey.bankSab,
       logoText: 'SAB',
       apr: 3.4,
-      brandColor: const Color(0xFFD61A0C), // SAB Red
+      brandColor: const Color(0xFFD61A0C), 
     ),
   ];
 

@@ -1169,4 +1169,10 @@ class AppLocaleKey {
   static const String info_tab_fuel_type = 'info_tab_fuel_type';
   static const String info_tab_saudi = 'info_tab_saudi';
   static const String info_tab_gasoline = 'info_tab_gasoline';
+
+  static const String cylinders = 'cylinders';
+  static const String seats = 'seats';
+  static const String doors = 'doors';
+  static const String liter = 'liter';
+  static const String hp = 'hp';
 }

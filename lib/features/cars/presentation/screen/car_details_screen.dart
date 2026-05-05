@@ -116,7 +116,7 @@ class _CarDetailsScreenState extends State<CarDetailsScreen> {
                               CarInfoTabsWidget(car: widget.car),
                               _buildOverview(context),
                               Gap(16.h),
-                              const FeaturesGridWidget(),
+                              FeaturesGridWidget(car: widget.car),
 
                               Gap(20.h),
                               // VideoReviewWidget(

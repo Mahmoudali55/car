@@ -8,18 +8,47 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
 class FeaturesGridWidget extends StatelessWidget {
-  const FeaturesGridWidget({super.key});
+  final Map<String, dynamic> car;
+
+  const FeaturesGridWidget({super.key, required this.car});
 
   @override
   Widget build(BuildContext context) {
-    final List<Map<String, dynamic>> features = [
-      {'icon': Icons.bluetooth_rounded, 'label': AppLocaleKey.bluetooth.tr()},
-      {'icon': Icons.camera_alt_rounded, 'label': AppLocaleKey.camera360.tr()},
-      {'icon': Icons.airline_seat_recline_extra_rounded, 'label': AppLocaleKey.leather.tr()},
-      {'icon': Icons.navigation_rounded, 'label': AppLocaleKey.gpsMaps.tr()},
-      {'icon': Icons.brightness_high_rounded, 'label': AppLocaleKey.sunroof.tr()},
-      {'icon': Icons.speed_rounded, 'label': AppLocaleKey.cruiseControl.tr()},
-    ];
+    final List<Map<String, dynamic>> features = [];
+
+    final mileage = car['KILOMETER_READING'] ?? car['kilometerReading'];
+    if (mileage != null && mileage.toString().isNotEmpty && mileage.toString() != '0') {
+      features.add({'icon': Icons.speed_rounded, 'label': '$mileage ${AppLocaleKey.km.tr()}'});
+    }
+
+    final cylinder = car['CYLINDER'] ?? car['cylinder'];
+    if (cylinder != null && cylinder.toString().isNotEmpty && cylinder.toString() != '0') {
+      features.add({'icon': Icons.settings_applications_rounded, 'label': '$cylinder ${AppLocaleKey.cylinders.tr()}'});
+    }
+
+    final seatNo = car['SEAT_NO'] ?? car['seatNo'];
+    if (seatNo != null && seatNo.toString().isNotEmpty && seatNo.toString() != '0') {
+      features.add({'icon': Icons.airline_seat_recline_extra_rounded, 'label': '$seatNo ${AppLocaleKey.seats.tr()}'});
+    }
+
+    final doorNo = car['DOOR_NO'] ?? car['doorNo'];
+    if (doorNo != null && doorNo.toString().isNotEmpty && doorNo.toString() != '0') {
+      features.add({'icon': Icons.meeting_room_rounded, 'label': '$doorNo ${AppLocaleKey.doors.tr()}'});
+    }
+
+    final fuelCapacity = car['FUEL_CAPACITY'] ?? car['fuelCapacity'];
+    if (fuelCapacity != null && fuelCapacity.toString().isNotEmpty && fuelCapacity.toString() != '0') {
+      features.add({'icon': Icons.local_gas_station_rounded, 'label': '$fuelCapacity ${AppLocaleKey.liter.tr()}'});
+    }
+
+    final powerHourse = car['POWER_HOURSE'] ?? car['powerHourse'];
+    if (powerHourse != null && powerHourse.toString().isNotEmpty && powerHourse.toString() != '0') {
+      features.add({'icon': Icons.bolt_rounded, 'label': '$powerHourse ${AppLocaleKey.hp.tr()}'});
+    }
+
+    if (features.isEmpty) {
+      return const SizedBox.shrink();
+    }
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

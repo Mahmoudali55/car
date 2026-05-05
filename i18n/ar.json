@@ -1090,5 +1090,10 @@
   "info_tab_import": "الوارد",
   "info_tab_fuel_type": "نوع الوقود",
   "info_tab_saudi": "سعودي",
-  "info_tab_gasoline": "بنزين"
+  "info_tab_gasoline": "بنزين",
+  "cylinders": "أسطوانات",
+  "seats": "مقاعد",
+  "doors": "أبواب",
+  "liter": "لتر",
+  "hp": "حصان"
 }

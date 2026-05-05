@@ -912,6 +912,10 @@
   "info_tab_import": "Import",
   "info_tab_fuel_type": "Fuel Type",
   "info_tab_saudi": "Saudi",
-  "info_tab_gasoline": "Gasoline"
-
+  "info_tab_gasoline": "Gasoline",
+  "cylinders": "Cylinders",
+  "seats": "Seats",
+  "doors": "Doors",
+  "liter": "L",
+  "hp": "HP"
 }
