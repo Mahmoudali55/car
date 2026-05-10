@@ -1095,5 +1095,11 @@
   "seats": "مقاعد",
   "doors": "أبواب",
   "liter": "لتر",
-  "hp": "حصان"
+  "hp": "حصان",
+  "validateOtp":"رمز التحقق (OTP)",
+  "validateOtpHint":"أدخل رمز التحقق المرسل إلى رقم جوالك",
+  "validateOtpResend":"إعادة إرسال الرمز بعد",
+  "validateOtpResendNow" :"إعادة إرسال الرمز",
+  "validateOtpVerify" :"تحقق ومتابعة"
+
 }

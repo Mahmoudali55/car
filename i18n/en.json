@@ -917,5 +917,10 @@
   "seats": "Seats",
   "doors": "Doors",
   "liter": "L",
-  "hp": "HP"
+  "hp": "HP",
+  "validateOtp":"OTP Verification",
+  "validateOtpHint":"Enter the verification code sent to your mobile number",
+  "validateOtpResend":"Resend code after",
+  "validateOtpResendNow" :"Resend Code",
+  "validateOtpVerify" :"Verify and Continue"
 }

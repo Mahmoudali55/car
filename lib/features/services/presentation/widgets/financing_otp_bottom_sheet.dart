@@ -1,7 +1,10 @@
 import 'dart:async';
+
 import 'package:car/core/custom_widgets/buttons/custom_button.dart';
+import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -17,7 +20,7 @@ class FinancingOtpBottomSheet extends StatefulWidget {
 class _FinancingOtpBottomSheetState extends State<FinancingOtpBottomSheet> {
   final _pinController = TextEditingController();
   final _focusNode = FocusNode();
-  
+
   bool _isError = false;
   int _secondsRemaining = 60;
   Timer? _timer;
@@ -115,31 +118,28 @@ class _FinancingOtpBottomSheetState extends State<FinancingOtpBottomSheet> {
           ),
           Gap(24.h),
           Text(
-            'رمز التحقق (OTP)',
+            AppLocaleKey.validateOtp.tr(),
             style: AppTextStyle.titleMedium(context).copyWith(fontWeight: FontWeight.w900),
           ),
           Gap(8.h),
           Text(
-            'أدخل رمز التحقق المرسل إلى رقم جوالك',
+            AppLocaleKey.validateOtpHint.tr(),
             style: AppTextStyle.bodySmall(context).copyWith(color: AppColor.greyColor(context)),
             textAlign: TextAlign.center,
           ),
           Gap(32.h),
-          Directionality(
-            textDirection: TextDirection.ltr,
-            child: Pinput(
-              length: 4,
-              controller: _pinController,
-              focusNode: _focusNode,
-              defaultPinTheme: defaultPinTheme,
-              focusedPinTheme: focusedPinTheme,
-              errorPinTheme: errorPinTheme,
-              forceErrorState: _isError,
-              onChanged: (v) {
-                if (_isError) setState(() => _isError = false);
-              },
-              onCompleted: (v) => _verify(),
-            ),
+          Pinput(
+            length: 4,
+            controller: _pinController,
+            focusNode: _focusNode,
+            defaultPinTheme: defaultPinTheme,
+            focusedPinTheme: focusedPinTheme,
+            errorPinTheme: errorPinTheme,
+            forceErrorState: _isError,
+            onChanged: (v) {
+              if (_isError) setState(() => _isError = false);
+            },
+            onCompleted: (v) => _verify(),
           ),
           Gap(24.h),
           // Timer and resend row
@@ -148,22 +148,25 @@ class _FinancingOtpBottomSheetState extends State<FinancingOtpBottomSheet> {
             children: [
               Text(
                 _secondsRemaining > 0 ? _formattedTime : '',
-                style: AppTextStyle.bodyMedium(context).copyWith(
-                  fontWeight: FontWeight.bold,
-                  color: AppColor.primaryColor(context),
-                ),
+                style: AppTextStyle.bodyMedium(
+                  context,
+                ).copyWith(fontWeight: FontWeight.bold, color: AppColor.primaryColor(context)),
               ),
               if (_secondsRemaining > 0) Gap(8.w),
               GestureDetector(
                 onTap: _secondsRemaining == 0 ? _startTimer : null,
                 child: Text(
-                  _secondsRemaining > 0 ? 'إعادة إرسال الرمز بعد' : 'إعادة إرسال الرمز',
+                  _secondsRemaining > 0
+                      ? AppLocaleKey.validateOtpResend.tr()
+                      : AppLocaleKey.validateOtpResendNow.tr(),
                   style: AppTextStyle.bodyMedium(context).copyWith(
-                    color: _secondsRemaining == 0 
-                      ? AppColor.primaryColor(context)
-                      : AppColor.greyColor(context),
+                    color: _secondsRemaining == 0
+                        ? AppColor.primaryColor(context)
+                        : AppColor.greyColor(context),
                     fontWeight: _secondsRemaining == 0 ? FontWeight.bold : FontWeight.normal,
-                    decoration: _secondsRemaining == 0 ? TextDecoration.underline : TextDecoration.none,
+                    decoration: _secondsRemaining == 0
+                        ? TextDecoration.underline
+                        : TextDecoration.none,
                   ),
                 ),
               ),
@@ -174,8 +177,12 @@ class _FinancingOtpBottomSheetState extends State<FinancingOtpBottomSheet> {
             onPressed: _verify,
             radius: 12.r,
             child: Text(
-              'تحقق ومتابعة',
-              style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16.sp),
+              AppLocaleKey.validateOtpVerify.tr(),
+              style: TextStyle(
+                color: AppColor.whiteColor(context),
+                fontWeight: FontWeight.bold,
+                fontSize: 16.sp,
+              ),
             ),
           ),
           Gap(32.h),

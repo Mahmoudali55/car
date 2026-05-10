@@ -84,22 +84,11 @@ class AppRouters {
         return MaterialPageRoute(builder: (_) => const TradeInScreen());
       case RoutesName.requestCarScreen:
         return MaterialPageRoute(builder: (_) => const RequestCarScreen());
-      case RoutesName.importOnDemandScreen:
-        return MaterialPageRoute(builder: (_) => const ImportOnDemandScreen());
+
       case RoutesName.financingScreen:
         return MaterialPageRoute(
           builder: (_) => FinancingScreen(car: args as Map<String, dynamic>?),
         );
-      case RoutesName.carDetailingScreen:
-        return MaterialPageRoute(builder: (_) => const CarDetailingScreen());
-      case RoutesName.shippingScreen:
-        return MaterialPageRoute(builder: (_) => const ShippingScreen());
-      case RoutesName.bespokeSelectionScreen:
-        return MaterialPageRoute(builder: (_) => const BespokeSelectionScreen());
-      case RoutesName.carValuationScreen:
-        return MaterialPageRoute(builder: (_) => const CarValuationScreen());
-      case RoutesName.sellCarScreen:
-        return MaterialPageRoute(builder: (_) => const SellCarScreen());
       case RoutesName.bookingAppointmentScreen:
         return MaterialPageRoute(builder: (_) => const BookingAppointmentScreen());
       case RoutesName.serviceHistoryScreen:

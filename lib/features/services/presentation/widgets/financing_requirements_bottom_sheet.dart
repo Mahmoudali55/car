@@ -1,8 +1,10 @@
+import 'package:car/core/localization/app_locale_keys.dart';
+import 'package:car/core/theme/app_colors.dart';
+import 'package:car/core/theme/app_text_style.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
-import 'package:car/core/theme/app_colors.dart';
-import 'package:car/core/theme/app_text_style.dart';
 
 class FinancingRequirementsBottomSheet extends StatelessWidget {
   const FinancingRequirementsBottomSheet({super.key});
@@ -34,7 +36,7 @@ class FinancingRequirementsBottomSheet extends StatelessWidget {
               children: [
                 Expanded(
                   child: Text(
-                    'متطلبات التمويل والوثائق المطلوبة',
+                    AppLocaleKey.agentCalculateFinancingAmount.tr(),
                     style: AppTextStyle.titleMedium(context).copyWith(
                       fontWeight: FontWeight.w900,
                       fontSize: 16.sp,
@@ -65,7 +67,7 @@ class FinancingRequirementsBottomSheet extends StatelessWidget {
                 children: [
                   // Financing requirements section
                   Text(
-                    'متطلبات التمويل:',
+                    AppLocaleKey.agentFinancingRequirements.tr(),
                     style: AppTextStyle.titleSmall(context).copyWith(
                       fontWeight: FontWeight.w900,
                       color: AppColor.blackTextColor(context),
@@ -83,22 +85,22 @@ class FinancingRequirementsBottomSheet extends StatelessWidget {
                         _buildRequirementRow(
                           context,
                           icon: Icons.person_outline_rounded,
-                          title: 'عمر العميل',
-                          value: 'من 18 حتى 65 سنة',
+                          title: AppLocaleKey.agentCustomerAge.tr(),
+                          value: AppLocaleKey.agentCustomerAgeLimit.tr(),
                           isLast: false,
                         ),
                         _buildRequirementRow(
                           context,
                           icon: Icons.credit_card_rounded,
-                          title: 'رخصة القيادة',
-                          value: 'سارية المفعول',
+                          title: AppLocaleKey.agentDrivingLicense.tr(),
+                          value: AppLocaleKey.agentValidLicense.tr(),
                           isLast: false,
                         ),
                         _buildRequirementRow(
                           context,
                           icon: Icons.receipt_long_rounded,
-                          title: 'المخالفات المرورية',
-                          value: 'يُمنع وجود أى مخالفة',
+                          title: AppLocaleKey.agentTrafficViolations.tr(),
+                          value: AppLocaleKey.agentNoViolations.tr(),
                           isLast: true,
                         ),
                       ],
@@ -107,25 +109,22 @@ class FinancingRequirementsBottomSheet extends StatelessWidget {
                   Gap(24.h),
                   // Required documents section
                   Text(
-                    'الوثائق المطلوبة:',
+                    AppLocaleKey.agentRequiredDocumentsList.tr(),
                     style: AppTextStyle.titleSmall(context).copyWith(
                       fontWeight: FontWeight.w900,
                       color: AppColor.blackTextColor(context),
                     ),
                   ),
                   Gap(16.h),
-                  _buildDocumentItem(context, 'الحد الأدنى للراتب: 2500 ريال.'),
+                  _buildDocumentItem(context, AppLocaleKey.agentMinSalaryDoc.tr()),
                   Gap(12.h),
-                  _buildDocumentItem(context, 'لا يشترط تحويل الراتب الى البنك.'),
+                  _buildDocumentItem(context, AppLocaleKey.agentNoSalaryTransfer.tr()),
                   Gap(12.h),
-                  _buildDocumentItem(context, 'الجهة العاملة لا يجب أن تكون معتمدة لدى شركات التمويل.'),
+                  _buildDocumentItem(context, AppLocaleKey.agentEmployerNotApproved.tr()),
                   Gap(12.h),
-                  _buildDocumentItem(
-                    context,
-                    'بدون دفعة أولى. "يخضع للتقييم الائتماني عند تقديم الطلب"',
-                  ),
+                  _buildDocumentItem(context, AppLocaleKey.agentNoDownPaymentDoc.tr()),
                   Gap(12.h),
-                  _buildDocumentItem(context, 'دفعة أخيرة قد تصل إلى 45%.'),
+                  _buildDocumentItem(context, AppLocaleKey.agentLastPaymentDoc.tr()),
                   Gap(24.h),
                 ],
               ),
@@ -161,18 +160,16 @@ class FinancingRequirementsBottomSheet extends StatelessWidget {
               Expanded(
                 child: Text(
                   title,
-                  style: AppTextStyle.bodyMedium(context).copyWith(
-                    fontWeight: FontWeight.w700,
-                    color: AppColor.blackTextColor(context),
-                  ),
+                  style: AppTextStyle.bodyMedium(
+                    context,
+                  ).copyWith(fontWeight: FontWeight.w700, color: AppColor.blackTextColor(context)),
                 ),
               ),
               Text(
                 value,
-                style: AppTextStyle.bodySmall(context).copyWith(
-                  color: AppColor.greyColor(context),
-                  fontSize: 12.sp,
-                ),
+                style: AppTextStyle.bodySmall(
+                  context,
+                ).copyWith(color: AppColor.greyColor(context), fontSize: 12.sp),
                 textAlign: TextAlign.end,
               ),
             ],
@@ -193,10 +190,9 @@ class FinancingRequirementsBottomSheet extends StatelessWidget {
         Expanded(
           child: Text(
             text,
-            style: AppTextStyle.bodyMedium(context).copyWith(
-              color: AppColor.blackTextColor(context),
-              height: 1.4,
-            ),
+            style: AppTextStyle.bodyMedium(
+              context,
+            ).copyWith(color: AppColor.blackTextColor(context), height: 1.4),
           ),
         ),
       ],
