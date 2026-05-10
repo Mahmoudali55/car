@@ -5,9 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AdCardBackground extends StatelessWidget {
   final Color accentColor;
-
   const AdCardBackground({super.key, required this.accentColor});
-
   @override
   Widget build(BuildContext context) {
     return Stack(

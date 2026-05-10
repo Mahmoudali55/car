@@ -11,9 +11,7 @@ import 'package:gap/gap.dart';
 
 class AdCardTextContent extends StatelessWidget {
   final AdItem ad;
-
   const AdCardTextContent({super.key, required this.ad});
-
   @override
   Widget build(BuildContext context) {
     return Column(

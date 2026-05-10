@@ -52,12 +52,18 @@ class RecentlyViewedWidget extends StatelessWidget {
                     child: Container(
                       decoration: BoxDecoration(
                         color: AppColor.blackTextColor(context).withValues(alpha: (0.02)),
-                        borderRadius: BorderRadius.vertical(top: Radius.circular(16.r)),
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(16.r),
+                          topRight: Radius.circular(16.r),
+                        ),
                       ),
                       child: Center(
                         child: car['image'].toString().startsWith('http')
                             ? ClipRRect(
-                                borderRadius: BorderRadius.vertical(top: Radius.circular(16.r)),
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(16.r),
+                                  topRight: Radius.circular(16.r),
+                                ),
                                 child: CustomNetworkImage(
                                   imageUrl: car['image'],
                                   fit: BoxFit.fill,
@@ -65,7 +71,18 @@ class RecentlyViewedWidget extends StatelessWidget {
                                   height: double.infinity,
                                 ),
                               )
-                            : Image.asset(car['image']!, fit: BoxFit.contain),
+                            : ClipRRect(
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(16.r),
+                                  topRight: Radius.circular(16.r),
+                                ),
+                                child: Image.asset(
+                                  car['image']!,
+                                  fit: BoxFit.fill,
+                                  width: double.infinity,
+                                  height: double.infinity,
+                                ),
+                              ),
                       ),
                     ),
                   ),

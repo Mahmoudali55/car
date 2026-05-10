@@ -7,82 +7,82 @@ class BudgetCarsListWidget extends StatelessWidget {
 
   const BudgetCarsListWidget({super.key, required this.selectedBudgetIndex});
 
-  // Dummy data categorized by budget index
+  // Real car data categorized by budget index
   static final List<List<Map<String, dynamic>>> budgetData = [
-    // index 0: Under 50k (or < 1000 installment)
+    // index 0: Under 1000 SAR installment
     [
       {
         'name': 'Toyota Yaris 2024',
-        'image': 'assets/images/car.jpeg',
-        'cashPrice': '45,000 SAR',
-        'installmentPrice': '850 SAR/mo',
-        'installments': '1,166 ر.س / شهر',
+        'image': 'assets/images/yaris.png',
+        'cashPrice': '65,000 SAR',
+        'installmentPrice': '950 SAR/mo',
+        'installments': '950 ر.س / شهر',
         'isTamaraAvailable': true,
       },
       {
-        'name': 'Hyundai Accent 2023',
-        'image': 'assets/images/car.jpeg',
-        'cashPrice': '48,500 SAR',
-        'installmentPrice': '920 SAR/mo',
-        'installments': '1,166 ر.س / شهر',
+        'name': 'Hyundai Accent 2024',
+        'image': 'assets/images/yaris.png',
+        'cashPrice': '68,500 SAR',
+        'installmentPrice': '990 SAR/mo',
+        'installments': '990 ر.س / شهر',
         'isTamaraAvailable': false,
       },
     ],
-    // index 1: 50k-100k
+    // index 1: 1000-1500 SAR installment
     [
       {
-        'name': 'Camry SE 2024',
-        'image': 'assets/images/car.jpeg',
-        'cashPrice': '95,000 SAR',
+        'name': 'Toyota Camry 2024',
+        'image': 'assets/images/camry.png',
+        'cashPrice': '115,000 SAR',
         'installmentPrice': '1,450 SAR/mo',
-        'installments': '1,166 ر.س / شهر',
+        'installments': '1,450 ر.س / شهر',
         'isTamaraAvailable': true,
       },
       {
-        'name': 'Kia K5 2024',
-        'image': 'assets/images/car.jpeg',
-        'cashPrice': '88,000 SAR',
-        'installmentPrice': '1,320 SAR/mo',
-        'installments': '1,166 ر.س / شهر',
-        'isTamaraAvailable': true,
-      },
-    ],
-    // index 2: 100k-200k
-    [
-      {
-        'name': 'Lexus ES 350',
-        'image': 'assets/images/car.jpeg',
-        'cashPrice': '185,000 SAR',
-        'installmentPrice': '2,800 SAR/mo',
-        'installments': '1,166 ر.س / شهر',
-        'isTamaraAvailable': false,
-      },
-      {
-        'name': 'Ford Explorer 2024',
-        'image': 'assets/images/car.jpeg',
-        'cashPrice': '165,000 SAR',
-        'installmentPrice': '2,400 SAR/mo',
-        'installments': '1,166 ر.س / شهر',
+        'name': 'Nissan Altima 2024',
+        'image': 'assets/images/camry.png',
+        'cashPrice': '110,000 SAR',
+        'installmentPrice': '1,380 SAR/mo',
+        'installments': '1,380 ر.س / شهر',
         'isTamaraAvailable': true,
       },
     ],
-    // index 3: Over 200k
+    // index 2: 1500-2000 SAR installment
     [
       {
-        'name': 'Ferrari SF90',
-        'image': 'assets/images/car.jpeg',
-        'cashPrice': '1,200,000 SAR',
-        'installmentPrice': '18,500 SAR/mo',
-        'installments': '1,166 ر.س / شهر',
+        'name': 'Mazda CX-5 2024',
+        'image': 'assets/images/camry.png',
+        'cashPrice': '145,000 SAR',
+        'installmentPrice': '1,850 SAR/mo',
+        'installments': '1,850 ر.س / شهر',
         'isTamaraAvailable': false,
       },
       {
-        'name': 'Range Rover Vogue',
-        'image': 'assets/images/car.jpeg',
-        'cashPrice': '750,000 SAR',
-        'installmentPrice': '11,200 SAR/mo',
-        'installments': '1,166 ر.س / شهر',
+        'name': 'Honda CR-V 2024',
+        'image': 'assets/images/camry.png',
+        'cashPrice': '155,000 SAR',
+        'installmentPrice': '1,950 SAR/mo',
+        'installments': '1,950 ر.س / شهر',
         'isTamaraAvailable': true,
+      },
+    ],
+    // index 3: Over 2000 SAR installment
+    [
+      {
+        'name': 'Mercedes G-Class 2024',
+        'image': 'assets/images/gclass.png',
+        'cashPrice': '850,000 SAR',
+        'installmentPrice': '12,500 SAR/mo',
+        'installments': '12,500 ر.س / شهر',
+        'isTamaraAvailable': false,
+      },
+      {
+        'name': 'Ferrari SF90 Stradale',
+        'image': 'assets/images/ferrari.png',
+        'cashPrice': '1,800,000 SAR',
+        'installmentPrice': '24,500 SAR/mo',
+        'installments': '24,500 ر.س / شهر',
+        'isTamaraAvailable': false,
       },
     ],
   ];

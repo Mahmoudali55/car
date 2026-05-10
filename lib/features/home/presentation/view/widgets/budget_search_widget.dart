@@ -47,7 +47,7 @@ class _BudgetSearchWidgetState extends State<BudgetSearchWidget> {
               setState(() {
                 _selectedIndex = index;
               });
-              
+              widget.onChanged?.call(index);
             },
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 300),

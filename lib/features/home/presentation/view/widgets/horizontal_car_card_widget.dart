@@ -49,20 +49,28 @@ class HorizontalCarCardWidget extends StatelessWidget {
               width: double.infinity,
               height: 120.h,
               decoration: BoxDecoration(
-                color: AppColor.blackTextColor(context).withOpacity(0.02),
+                color: AppColor.blackTextColor(context).withValues(alpha: 0.02),
                 borderRadius: BorderRadius.horizontal(left: Radius.circular(20.r)),
               ),
 
               child: ClipRRect(
-                borderRadius: BorderRadius.horizontal(
-                  left: Radius.circular(20.r),
-                  right: Radius.circular(20.r),
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(20.r),
+                  topRight: Radius.circular(20.r),
                 ),
                 child: Hero(
                   tag: heroTag ?? 'car_image_${car['itemCode'] ?? car['name']}',
                   child: (car['image'] != null && car['image'].toString().startsWith('http'))
-                      ? CustomNetworkImage(imageUrl: car['image'], fit: BoxFit.fill, height: 120.h)
-                      : Image.asset(car['image'] ?? 'assets/images/car.jpeg', fit: BoxFit.fill),
+                      ? CustomNetworkImage(
+                          imageUrl: car['image'],
+                          fit: BoxFit.fill,
+                          width: double.infinity,
+                        )
+                      : Image.asset(
+                          car['image'] ?? 'assets/images/car.jpeg',
+                          fit: BoxFit.fill,
+                          width: double.infinity,
+                        ),
                 ),
               ),
             ),
