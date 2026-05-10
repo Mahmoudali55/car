@@ -1,19 +1,20 @@
 import 'package:animate_do/animate_do.dart';
-import 'package:bot_toast/bot_toast.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/features/services/presentation/screen/complaints_screen.dart';
 import 'package:car/features/services/presentation/screen/evaluation_screen.dart';
+import 'package:car/features/services/presentation/widgets/action_card_widget.dart';
+import 'package:car/features/services/presentation/widgets/contact_item_widget.dart';
+import 'package:car/features/services/presentation/widgets/fqa_Item_widget.dart';
+import 'package:car/features/services/presentation/widgets/section_header_widget.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
 class SupportScreen extends StatelessWidget {
   const SupportScreen({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,7 +28,7 @@ class SupportScreen extends StatelessWidget {
             backgroundColor: AppColor.appBarColor(context),
             leading: IconButton(
               onPressed: () => Navigator.pop(context),
-              icon: Icon(Icons.arrow_back_ios_new_rounded, color: AppColor.blackTextColor(context)),
+              icon: Icon(Icons.arrow_back_ios_new_rounded, color: AppColor.whiteColor(context)),
             ),
             flexibleSpace: FlexibleSpaceBar(
               centerTitle: true,
@@ -35,14 +36,14 @@ class SupportScreen extends StatelessWidget {
                 AppLocaleKey.supportCenter.tr(),
                 style: AppTextStyle.titleMedium(
                   context,
-                ).copyWith(color: AppColor.blackTextColor(context), fontWeight: FontWeight.bold),
+                ).copyWith(color: AppColor.whiteColor(context), fontWeight: FontWeight.bold),
               ),
               background: Container(
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     colors: [
                       AppColor.primaryColor(context),
-                      AppColor.primaryColor(context).withOpacity(0.8),
+                      AppColor.primaryColor(context).withValues(alpha: 0.8),
                     ],
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
@@ -97,13 +98,12 @@ class SupportScreen extends StatelessWidget {
                       Expanded(
                         child: FadeInLeft(
                           delay: const Duration(milliseconds: 200),
-                          child: _buildActionCard(
-                            context,
-                            AppLocaleKey.complaints.tr(),
-                            Icons.report_problem_rounded,
-                            const Color(0xFFFEE2E2),
-                            const Color(0xFFDC2626),
-                            () => Navigator.push(
+                          child: ActionCardWidget(
+                            title: AppLocaleKey.complaints.tr(),
+                            icon: Icons.report_problem_rounded,
+                            bgColor: const Color(0xFFFEE2E2),
+                            iconColor: AppColor.redColor(context),
+                            onTap: () => Navigator.push(
                               context,
                               MaterialPageRoute(builder: (context) => const ComplaintsScreen()),
                             ),
@@ -114,13 +114,12 @@ class SupportScreen extends StatelessWidget {
                       Expanded(
                         child: FadeInRight(
                           delay: const Duration(milliseconds: 200),
-                          child: _buildActionCard(
-                            context,
-                            AppLocaleKey.serviceEvaluation.tr(),
-                            Icons.star_rate_rounded,
-                            const Color(0xFFFEF3C7),
-                            const Color(0xFFD97706),
-                            () => Navigator.push(
+                          child: ActionCardWidget(
+                            title: AppLocaleKey.serviceEvaluation.tr(),
+                            icon: Icons.star_rate_rounded,
+                            bgColor: const Color(0xFFFEF3C7),
+                            iconColor: const Color(0xFFD97706),
+                            onTap: () => Navigator.push(
                               context,
                               MaterialPageRoute(builder: (context) => const EvaluationScreen()),
                             ),
@@ -132,47 +131,53 @@ class SupportScreen extends StatelessWidget {
                   Gap(24.h),
 
                   // GENERAL CONTACT
-                  _buildSectionHeader(
-                    context,
-                    AppLocaleKey.landlineAndWhatsapp.tr(),
-                    Icons.phone_android_rounded,
+                  SectionHeaderWidget(
+                    title: AppLocaleKey.landlineAndWhatsapp.tr(),
+                    icon: Icons.phone_android_rounded,
                   ),
-                  _buildContactItem(context, '0112311114', Icons.headset_mic_rounded),
+                  const ContactItemWidget(value: '0112311114', icon: Icons.headset_mic_rounded),
                   Gap(20.h),
 
-                  _buildSectionHeader(context, AppLocaleKey.emails.tr(), Icons.email_rounded),
-                  _buildContactItem(context, 'info@binwazir.com', Icons.alternate_email_rounded),
-                  _buildContactItem(context, 'media@binwazir.com', Icons.alternate_email_rounded),
+                  SectionHeaderWidget(title: AppLocaleKey.emails.tr(), icon: Icons.email_rounded),
+                  const ContactItemWidget(
+                    value: 'info@binwazir.com',
+                    icon: Icons.alternate_email_rounded,
+                  ),
+                  const ContactItemWidget(
+                    value: 'media@binwazir.com',
+                    icon: Icons.alternate_email_rounded,
+                  ),
                   Gap(20.h),
 
                   // MANAGEMENT
-                  _buildSectionHeader(
-                    context,
-                    AppLocaleKey.management.tr(),
-                    Icons.admin_panel_settings_rounded,
+                  SectionHeaderWidget(
+                    title: AppLocaleKey.management.tr(),
+                    icon: Icons.admin_panel_settings_rounded,
                   ),
-                  _buildContactItem(context, '0550266666', Icons.phone_iphone_rounded),
+                  const ContactItemWidget(value: '0550266666', icon: Icons.phone_iphone_rounded),
                   Gap(20.h),
 
                   // INSTALLMENT SALES
-                  _buildSectionHeader(
-                    context,
-                    AppLocaleKey.installmentSales.tr(),
-                    Icons.account_balance_wallet_rounded,
+                  SectionHeaderWidget(
+                    title: AppLocaleKey.installmentSales.tr(),
+                    icon: Icons.account_balance_wallet_rounded,
                   ),
-                  _buildContactItem(context, '0548272279', Icons.phone_iphone_rounded),
-                  _buildContactItem(context, '0564169376', Icons.phone_iphone_rounded),
-                  _buildContactItem(context, '0562012761', Icons.phone_iphone_rounded),
+                  const ContactItemWidget(value: '0548272279', icon: Icons.phone_iphone_rounded),
+                  const ContactItemWidget(value: '0562012761', icon: Icons.phone_iphone_rounded),
+                  const ContactItemWidget(value: '0562012761', icon: Icons.phone_iphone_rounded),
                   Gap(20.h),
 
                   // CASH SALES
-                  _buildSectionHeader(context, AppLocaleKey.cashSales.tr(), Icons.payments_rounded),
-                  _buildContactItem(context, '0501239318', Icons.phone_iphone_rounded),
-                  _buildContactItem(context, '0557955538', Icons.phone_iphone_rounded),
-                  _buildContactItem(context, '0559726744', Icons.phone_iphone_rounded),
-                  _buildContactItem(context, '0564169370', Icons.phone_iphone_rounded),
-                  _buildContactItem(context, '0504335378', Icons.phone_iphone_rounded),
-                  _buildContactItem(context, '0562012761', Icons.phone_iphone_rounded),
+                  SectionHeaderWidget(
+                    title: AppLocaleKey.cashSales.tr(),
+                    icon: Icons.payments_rounded,
+                  ),
+                  const ContactItemWidget(value: '0501239318', icon: Icons.phone_iphone_rounded),
+                  const ContactItemWidget(value: '0557955538', icon: Icons.phone_iphone_rounded),
+                  const ContactItemWidget(value: '0559726744', icon: Icons.phone_iphone_rounded),
+                  const ContactItemWidget(value: '0564169370', icon: Icons.phone_iphone_rounded),
+                  const ContactItemWidget(value: '0504335378', icon: Icons.phone_iphone_rounded),
+                  const ContactItemWidget(value: '0562012761', icon: Icons.phone_iphone_rounded),
 
                   Gap(30.h),
                   FadeInUp(
@@ -187,159 +192,24 @@ class SupportScreen extends StatelessWidget {
                     ),
                   ),
                   Gap(12.h),
-                  _buildFAQItem(AppLocaleKey.faqOrderStatus.tr(), context),
-                  _buildFAQItem(AppLocaleKey.faqPaymentMethods.tr(), context),
-                  _buildFAQItem(AppLocaleKey.faqCancelAppointment.tr(), context),
+                  FqaItemWidget(
+                    question: AppLocaleKey.faqOrderStatus.tr(),
+                    answer: AppLocaleKey.faqA4.tr(),
+                  ),
+                  FqaItemWidget(
+                    question: AppLocaleKey.faqPaymentMethods.tr(),
+                    answer: AppLocaleKey.faqA2.tr(),
+                  ),
+                  FqaItemWidget(
+                    question: AppLocaleKey.faqCancelAppointment.tr(),
+                    answer: AppLocaleKey.faqA4.tr(), // Or another suitable answer
+                  ),
                   Gap(50.h),
                 ],
               ),
             ),
           ),
         ],
-      ),
-    );
-  }
-
-  Widget _buildSectionHeader(BuildContext context, String title, IconData icon) {
-    return FadeInLeft(
-      child: Padding(
-        padding: EdgeInsets.only(bottom: 12.h),
-        child: Row(
-          children: [
-            Icon(icon, color: AppColor.primaryColor(context), size: 18.sp),
-            Gap(8.w),
-            Text(
-              title,
-              style: TextStyle(
-                color: AppColor.blackTextColor(context).withOpacity(0.9),
-                fontSize: 15.sp,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildContactItem(BuildContext context, String value, IconData icon) {
-    return FadeInUp(
-      child: Container(
-        margin: EdgeInsets.only(bottom: 8.h),
-        decoration: BoxDecoration(
-          color: AppColor.secondAppColor(context),
-          borderRadius: BorderRadius.circular(12.r),
-          border: Border.all(color: AppColor.blackTextColor(context).withOpacity(0.05)),
-        ),
-        child: ListTile(
-          dense: true,
-          leading: Icon(
-            icon,
-            color: AppColor.blackTextColor(context).withOpacity(0.6),
-            size: 18.sp,
-          ),
-          title: Text(
-            value,
-            style: TextStyle(
-              color: AppColor.blackTextColor(context),
-              fontWeight: FontWeight.w500,
-              fontSize: 14.sp,
-            ),
-          ),
-          trailing: Icon(
-            Icons.copy_rounded,
-            color: AppColor.blackTextColor(context).withOpacity(0.2),
-            size: 16.sp,
-          ),
-          onTap: () {
-            Clipboard.setData(ClipboardData(text: value));
-            BotToast.showText(
-              text: context.locale.languageCode == 'ar' ? 'تم النسخ' : 'Copied',
-              duration: const Duration(seconds: 2),
-            );
-          },
-        ),
-      ),
-    );
-  }
-
-  Widget _buildFAQItem(String question, BuildContext context) {
-    return FadeInUp(
-      delay: const Duration(milliseconds: 500),
-      child: Container(
-        margin: EdgeInsets.only(bottom: 8.h),
-        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 14.h),
-        decoration: BoxDecoration(
-          color: AppColor.secondAppColor(context),
-          borderRadius: BorderRadius.circular(12.r),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              question,
-              style: TextStyle(
-                color: AppColor.blackTextColor(context).withOpacity(0.70),
-                fontSize: 13,
-              ),
-            ),
-            Icon(Icons.add_rounded, color: AppColor.blackTextColor(context).withOpacity(0.24)),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildActionCard(
-    BuildContext context,
-    String title,
-    IconData icon,
-    Color bgColor,
-    Color iconColor,
-    VoidCallback onTap,
-  ) {
-    final isDark = !AppColor.isLight(context);
-    return InkWell(
-      onTap: onTap,
-      borderRadius: BorderRadius.circular(16.r),
-      child: Container(
-        padding: EdgeInsets.symmetric(vertical: 20.h, horizontal: 12.w),
-        decoration: BoxDecoration(
-          color: isDark ? AppColor.secondAppColor(context) : bgColor,
-          borderRadius: BorderRadius.circular(16.r),
-          border: Border.all(color: isDark ? AppColor.borderColor(context) : Colors.transparent),
-          boxShadow: [
-            BoxShadow(
-              color: AppColor.blackColor(context).withOpacity(0.05),
-              blurRadius: 10,
-              offset: const Offset(0, 4),
-            ),
-          ],
-        ),
-        child: Column(
-          children: [
-            Container(
-              padding: EdgeInsets.all(10.w),
-              decoration: BoxDecoration(
-                color: isDark ? iconColor.withOpacity(0.1) : iconColor.withOpacity(0.2),
-                shape: BoxShape.circle,
-              ),
-              child: Icon(icon, color: iconColor, size: 24.sp),
-            ),
-            Gap(12.h),
-            Text(
-              title,
-              style: TextStyle(
-                color: isDark ? AppColor.blackTextColor(context) : iconColor.withOpacity(0.2),
-                fontSize: 14.sp,
-                fontWeight: FontWeight.bold,
-              ),
-              textAlign: TextAlign.center,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-            ),
-          ],
-        ),
       ),
     );
   }
