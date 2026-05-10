@@ -40,7 +40,7 @@ class PremiumCarCardWidget extends StatelessWidget {
               children: [
                 Hero(
                   tag: heroTag ?? 'car_image_${car['itemCode'] ?? car['name']}',
-                  child: car['image'] != null && car['image'].toString().startsWith('http')
+                  child: car['image'] != null && car['image'].toString().trim().startsWith('http')
                       ? CustomNetworkImage(
                           imageUrl: car['image'],
                           fit: BoxFit.fill,

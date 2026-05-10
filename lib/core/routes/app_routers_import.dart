@@ -46,6 +46,7 @@ import 'package:car/features/services/presentation/screen/support_screen.dart';
 import 'package:car/features/services/presentation/screen/trade_in_screen.dart';
 import 'package:car/features/settings/presentation/screen/change_password_screen.dart';
 import 'package:car/features/settings/presentation/screen/faq_screen.dart';
+import 'package:car/features/settings/presentation/screen/complaints_screen.dart';
 import 'package:car/features/settings/presentation/screen/settings_screen.dart';
 import 'package:car/features/splash/presentation/view/screen/splash_screen.dart';
 import 'package:flutter/material.dart';

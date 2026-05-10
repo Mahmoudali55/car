@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:car/core/custom_widgets/custom_image/custom_network_image.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
@@ -168,7 +169,11 @@ class _FullImageGalleryScreenState extends State<FullImageGalleryScreen> {
                             ),
                             image: DecorationImage(
                               image: isNetwork
-                                  ? NetworkImage(imageUrl) as ImageProvider
+                                  ? CachedNetworkImageProvider(
+                                      imageUrl.contains('1617788131775-ddb49554618a')
+                                          ? 'https://images.unsplash.com/photo-1560958089-b8a1929cea89?q=80&w=800'
+                                          : imageUrl,
+                                    ) as ImageProvider
                                   : AssetImage(
                                       imageUrl.isEmpty ? 'assets/images/placeholder.png' : imageUrl,
                                     ),

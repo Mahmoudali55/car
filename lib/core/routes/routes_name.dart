@@ -36,6 +36,7 @@ class RoutesName {
   static const String bookingAppointmentScreen = 'bookingAppointmentScreen';
   static const String serviceHistoryScreen = 'serviceHistoryScreen';
   static const String supportScreen = 'supportScreen';
+  static const String complaintsScreen = 'complaintsScreen';
   static const String aboutScreen = 'aboutScreen';
   static const String carComparisonScreen = 'carComparisonScreen';
 

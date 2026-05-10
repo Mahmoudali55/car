@@ -25,26 +25,48 @@ class CustomNetworkImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Safety check for a known broken Unsplash URL from dummy data
+    String effectiveUrl = imageUrl;
+    if (imageUrl.contains('1617788131775-ddb49554618a')) {
+      effectiveUrl = 'https://images.unsplash.com/photo-1560958089-b8a1929cea89?q=80&w=800';
+    }
+    
+    // Debug log to verify fix
+    debugPrint('CustomNetworkImage loading: $effectiveUrl');
+
     return GestureDetector(
       onTap: hasZoom
           ? () {
               NavigatorMethods.pushNamed(
                 context,
                 ZoomImageScreen.routeName,
-                arguments: ZoomImageArgs(imageUrl: imageUrl),
+                arguments: ZoomImageArgs(imageUrl: effectiveUrl),
               );
             }
           : null,
       child: ClipRRect(
         borderRadius: BorderRadius.circular(radius),
         child: CachedNetworkImage(
-          imageUrl: imageUrl,
+          imageUrl: effectiveUrl,
           fit: fit,
           width: width,
           height: height,
-          placeholder: (context, url) =>
-              CupertinoActivityIndicator(color: AppColor.primaryColor(context)),
-          errorWidget: (context, url, error) => const Icon(Icons.error),
+          placeholder: (context, url) => Container(
+            color: AppColor.greyColor(context).withOpacity(0.05),
+            child: Center(
+              child: CupertinoActivityIndicator(color: AppColor.primaryColor(context)),
+            ),
+          ),
+          errorWidget: (context, url, error) => Container(
+            color: AppColor.greyColor(context).withOpacity(0.1),
+            child: Center(
+              child: Icon(
+                Icons.image_not_supported_outlined,
+                color: AppColor.primaryColor(context).withOpacity(0.4),
+                size: 24,
+              ),
+            ),
+          ),
         ),
       ),
     );

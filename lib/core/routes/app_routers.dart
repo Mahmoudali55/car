@@ -95,6 +95,8 @@ class AppRouters {
         return MaterialPageRoute(builder: (_) => const ServiceHistoryScreen());
       case RoutesName.supportScreen:
         return MaterialPageRoute(builder: (_) => const SupportScreen());
+      case RoutesName.complaintsScreen:
+        return MaterialPageRoute(builder: (_) => const ComplaintsScreen());
       case RoutesName.aboutScreen:
         return MaterialPageRoute(builder: (_) => const AboutScreen());
 

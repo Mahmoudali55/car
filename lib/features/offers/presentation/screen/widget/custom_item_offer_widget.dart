@@ -1,3 +1,4 @@
+import 'package:car/core/custom_widgets/custom_image/custom_network_image.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/features/favorites/presentation/view/cubit/favorites_cubit.dart';
@@ -29,7 +30,14 @@ class CustomItemOfferWidget extends StatelessWidget {
             child: Hero(
               tag: 'car_offer_${offer['name']}',
               child: Center(
-                child: Image.asset(offer['image'], fit: BoxFit.fill, height: double.infinity),
+                child: offer['image'].toString().startsWith('http')
+                  ? CustomNetworkImage(
+                      imageUrl: offer['image'] as String,
+                      fit: BoxFit.fill,
+                      width: double.infinity,
+                      height: double.infinity,
+                    )
+                  : Image.asset(offer['image'], fit: BoxFit.fill, height: double.infinity),
               ),
             ),
           ),

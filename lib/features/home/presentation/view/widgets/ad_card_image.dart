@@ -50,7 +50,7 @@ class AdCardImage extends StatelessWidget {
   Widget _buildImage() {
     return SizedBox(
       height: 130.h,
-      child: ad.image.startsWith('http')
+      child: ad.image.trim().startsWith('http')
           ? CustomNetworkImage(imageUrl: ad.image, fit: BoxFit.contain)
           : Image.asset(
               ad.image,

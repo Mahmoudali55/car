@@ -45,7 +45,7 @@ class FavoriteItemWidget extends StatelessWidget {
               ),
               child: Hero(
                 tag: 'fav_car_image_${car['itemCode'] ?? car['name'] ?? 'unknown'}',
-                child: car['image'] != null && car['image'].toString().startsWith('http')
+                child: car['image'] != null && car['image'].toString().trim().startsWith('http')
                     ? ClipRRect(
                         borderRadius: BorderRadius.circular(16.r),
                         child: CustomNetworkImage(

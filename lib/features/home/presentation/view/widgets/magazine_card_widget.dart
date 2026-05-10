@@ -149,7 +149,7 @@ class _CardImage extends StatelessWidget {
       width: double.infinity,
       child: Hero(
         tag: actualHeroTag,
-        child: imageUrl.startsWith('http')
+        child: imageUrl.trim().startsWith('http')
             ? CustomNetworkImage(
                 imageUrl: imageUrl,
                 fit: BoxFit.fill,

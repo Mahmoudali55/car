@@ -1,4 +1,5 @@
 import 'package:animate_do/animate_do.dart';
+import 'package:car/core/custom_widgets/custom_image/custom_network_image.dart';
 import 'package:car/core/cache/hive/hive_methods.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
@@ -61,11 +62,12 @@ class _CarComparisonScreenState extends State<CarComparisonScreen> {
     final pdf = pw.Document();
 
     final specs = [
-      {'key': 'Engine', 'field': 'engine'},
-      {'key': 'Horsepower', 'field': 'horsepower'},
-      {'key': 'Transmission', 'field': 'transmission'},
-      {'key': 'Fuel Type', 'field': 'fuel_type'},
-      {'key': 'Drivetrain', 'field': 'drivetrain'},
+      {'key': 'Brand', 'field': 'brand', 'fallback': 'MAKE_NAME'},
+      {'key': 'Model Year', 'field': 'year', 'fallback': 'MAKE_YEAR'},
+      {'key': 'Engine', 'field': 'engine', 'fallback': 'CYLINDER'},
+      {'key': 'Transmission', 'field': 'transmission', 'fallback': 'TRANSMISSION'},
+      {'key': 'Fuel Type', 'field': 'FUEL_TYPE', 'fallback': 'fuel_type'},
+      {'key': 'Color', 'field': 'Color', 'fallback': 'BODY_COLOR'},
     ];
 
     pdf.addPage(
@@ -89,7 +91,11 @@ class _CarComparisonScreenState extends State<CarComparisonScreen> {
           pw.TableHelper.fromTextArray(
             headers: ['Spec', ...list.map((c) => c['name'])],
             data: specs
-                .map((spec) => [spec['key']!, ...list.map((c) => c[spec['field']] ?? 'N/A')])
+                .map((spec) => [
+                      spec['key']!,
+                      ...list.map(
+                          (c) => (c[spec['field']] ?? c[spec['fallback']] ?? 'N/A').toString())
+                    ])
                 .toList(),
             headerStyle: pw.TextStyle(fontWeight: pw.FontWeight.bold),
             headerDecoration: const pw.BoxDecoration(color: PdfColors.grey300),
@@ -191,7 +197,15 @@ class _CarComparisonScreenState extends State<CarComparisonScreen> {
                   ),
                 ],
               ),
-              child: Center(child: Image.asset(car['image'], fit: BoxFit.contain)),
+              child: Center(
+                child: car['image'].toString().startsWith('http')
+                    ? CustomNetworkImage(
+                        imageUrl: car['image'],
+                        fit: BoxFit.contain,
+                        width: double.infinity,
+                      )
+                    : Image.asset(car['image'], fit: BoxFit.contain),
+              ),
             ),
             Positioned(
               top: 4,
@@ -242,11 +256,12 @@ class _CarComparisonScreenState extends State<CarComparisonScreen> {
 
   Widget _buildSpecsTable(List<dynamic> list) {
     final specs = [
-      {'key': 'Engine', 'field': 'engine'},
-      {'key': 'Horsepower', 'field': 'horsepower'},
-      {'key': 'Transmission', 'field': 'transmission'},
-      {'key': 'Fuel Type', 'field': 'fuel_type'},
-      {'key': 'Drivetrain', 'field': 'drivetrain'},
+      {'key': AppLocaleKey.info_tab_brand.tr(), 'field': 'brand', 'fallback': 'MAKE_NAME'},
+      {'key': AppLocaleKey.info_tab_model.tr(), 'field': 'year', 'fallback': 'MAKE_YEAR'},
+      {'key': 'Engine', 'field': 'engine', 'fallback': 'CYLINDER'},
+      {'key': 'Transmission', 'field': 'transmission', 'fallback': 'TRANSMISSION'},
+      {'key': AppLocaleKey.info_tab_fuel_type.tr(), 'field': 'FUEL_TYPE', 'fallback': 'fuel_type'},
+      {'key': AppLocaleKey.info_tab_exterior_color.tr(), 'field': 'Color', 'fallback': 'BODY_COLOR'},
     ];
 
     return Container(
@@ -278,7 +293,10 @@ class _CarComparisonScreenState extends State<CarComparisonScreen> {
                               context,
                             ).copyWith(color: AppColor.greyColor(context), fontSize: 10.sp),
                           ),
-                        Text(car[spec['field']] ?? 'N/A', style: AppTextStyle.bodyMedium(context)),
+                        Text(
+                          (car[spec['field']] ?? car[spec['fallback']] ?? 'N/A').toString(),
+                          style: AppTextStyle.bodyMedium(context),
+                        ),
                       ],
                     ),
                   ),

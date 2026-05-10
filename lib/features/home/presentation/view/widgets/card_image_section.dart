@@ -19,7 +19,7 @@ class CardImageSection extends StatelessWidget {
       children: [
         Hero(
           tag: 'car_image_${car['itemCode'] ?? car['name']}',
-          child: imageUrl.startsWith('http')
+          child: imageUrl.trim().startsWith('http')
               ? CustomNetworkImage(imageUrl: imageUrl, height: 190.h, fit: BoxFit.fill)
               : Image.asset(imageUrl, height: 190.h, fit: BoxFit.fill),
         ),

@@ -1,3 +1,4 @@
+import 'package:car/core/custom_widgets/custom_image/custom_network_image.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/features/cart/presentation/view/cubit/cart_cubit.dart';
@@ -39,7 +40,13 @@ class CartItemWidget extends StatelessWidget {
               borderRadius: BorderRadius.circular(14.r),
             ),
             clipBehavior: Clip.antiAlias,
-            child: Image.asset(car['image'] as String, fit: BoxFit.contain),
+            child: car['image'].toString().startsWith('http')
+                ? CustomNetworkImage(
+                    imageUrl: car['image'] as String,
+                    fit: BoxFit.contain,
+                    width: double.infinity,
+                  )
+                : Image.asset(car['image'] as String, fit: BoxFit.contain),
           ),
           Gap(14.w),
 

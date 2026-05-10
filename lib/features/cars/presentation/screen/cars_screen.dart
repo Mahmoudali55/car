@@ -40,7 +40,7 @@ class _CarsScreenState extends State<CarsScreen> {
       'installments': '1,166',
     },
     {
-      'image': 'https://images.unsplash.com/photo-1617788131775-ddb49554618a?q=80&w=800',
+      'image': 'https://images.unsplash.com/photo-1560958089-b8a1929cea89?q=80&w=800',
       'name': 'Model S Plaid',
       'brand': 'Tesla',
       'price': '480,000',
@@ -83,7 +83,7 @@ class _CarsScreenState extends State<CarsScreen> {
       'installments': '1,166',
     },
     {
-      'image': 'https://images.unsplash.com/photo-1617788131775-ddb49554618a?q=80&w=800',
+      'image': 'https://images.unsplash.com/photo-1560958089-b8a1929cea89?q=80&w=800',
       'name': 'Model S Plaid',
       'brand': 'Tesla',
       'price': '480,000',

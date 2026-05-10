@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
 
@@ -50,7 +51,7 @@ class _ZoomImageScreenState extends State<ZoomImageScreen> {
 
   ImageProvider? _imageProvider() {
     if (widget.args.imageUrl != null) {
-      return NetworkImage(widget.args.imageUrl!);
+      return CachedNetworkImageProvider(widget.args.imageUrl!);
     } else if (widget.args.imageFile != null) {
       return FileImage(widget.args.imageFile!);
     }

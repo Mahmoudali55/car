@@ -58,7 +58,7 @@ class RecentlyViewedWidget extends StatelessWidget {
                         ),
                       ),
                       child: Center(
-                        child: car['image'].toString().startsWith('http')
+                        child: car['image'].toString().trim().startsWith('http')
                             ? ClipRRect(
                                 borderRadius: BorderRadius.only(
                                   topLeft: Radius.circular(16.r),
