@@ -922,5 +922,6 @@
   "validateOtpHint":"Enter the verification code sent to your mobile number",
   "validateOtpResend":"Resend code after",
   "validateOtpResendNow" :"Resend Code",
-  "validateOtpVerify" :"Verify and Continue"
+  "validateOtpVerify" :"Verify and Continue",
+  "explore": "Explore"
 }

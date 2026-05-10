@@ -1179,4 +1179,5 @@ class AppLocaleKey {
   static const String validateOtpResend = 'validateOtpResend';
   static const String validateOtpResendNow = 'validateOtpResendNow';
   static const String validateOtpVerify = 'validateOtpVerify';
+  static const String explore = 'explore';
 }

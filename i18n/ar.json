@@ -1100,6 +1100,7 @@
   "validateOtpHint":"أدخل رمز التحقق المرسل إلى رقم جوالك",
   "validateOtpResend":"إعادة إرسال الرمز بعد",
   "validateOtpResendNow" :"إعادة إرسال الرمز",
-  "validateOtpVerify" :"تحقق ومتابعة"
+  "validateOtpVerify" :"تحقق ومتابعة",
+  "explore":"استكشف"
 
 }
