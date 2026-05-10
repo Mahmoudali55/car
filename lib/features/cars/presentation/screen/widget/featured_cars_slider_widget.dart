@@ -1,4 +1,3 @@
-import 'package:car/core/custom_widgets/custom_image/custom_network_image.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/routes/routes_name.dart';
 import 'package:car/core/theme/app_colors.dart';
@@ -55,111 +54,67 @@ class _FeaturedCarsSliderWidgetState extends State<FeaturedCarsSliderWidget> {
                   decoration: BoxDecoration(
                     color: AppColor.secondAppColor(context),
                     borderRadius: BorderRadius.circular(24.r),
-                    boxShadow: [
-                      BoxShadow(
-                        color: AppColor.blackTextColor(context).withValues(alpha: 0.2),
-                        blurRadius: 15,
-                        offset: const Offset(0, 8),
-                      ),
-                    ],
+                    image: DecorationImage(
+                      image: car['image'].toString().startsWith('http')
+                          ? NetworkImage(car['image']!)
+                          : AssetImage(car['image']!) as ImageProvider,
+                      fit: BoxFit.cover,
+                    ),
                   ),
+
                   clipBehavior: Clip.antiAlias,
-                  child: Stack(
+                  child: Row(
                     children: [
-                      Positioned(
-                        right: -20,
-                        top: -20,
-                        child: Container(
-                          width: 150.w,
-                          height: 150.h,
-                          decoration: BoxDecoration(
-                            color: AppColor.primaryColor(context).withValues(alpha: 0.1),
-                            shape: BoxShape.circle,
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.all(20.w),
-                        child: Row(
+                      FittedBox(
+                        fit: BoxFit.scaleDown,
+                        alignment: Alignment.centerLeft,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Expanded(
-                              flex: 5,
-                              child: FittedBox(
-                                fit: BoxFit.scaleDown,
-                                alignment: Alignment.centerLeft,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Container(
-                                      padding: EdgeInsets.symmetric(
-                                        horizontal: 10.w,
-                                        vertical: 4.h,
-                                      ),
-                                      decoration: BoxDecoration(
-                                        color: AppColor.primaryColor(context),
-                                        borderRadius: BorderRadius.circular(8.r),
-                                      ),
-                                      child: Text(
-                                        AppLocaleKey.specialOffersCars.tr(),
-                                        style: AppTextStyle.bodySmall(context).copyWith(
-                                          color: AppColor.whiteColor(context),
-                                          fontSize: 10.sp,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ),
-                                    Gap(8.h),
-                                    Text(
-                                      car['name']!,
-                                      style: AppTextStyle.titleMedium(context).copyWith(
-                                        color: AppColor.blackTextColor(context),
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                    Gap(4.h),
-                                    Text(
-                                      car['price']!,
-                                      style: AppTextStyle.bodyMedium(context).copyWith(
-                                        color: AppColor.primaryColor(context),
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 14.sp,
-                                      ),
-                                    ),
-                                    if (car['installments'] != null)
-                                      Text(
-                                        car['installments']!,
-                                        style: AppTextStyle.bodySmall(context).copyWith(
-                                          color: AppColor.primaryColor(context).withOpacity(0.8),
-                                          fontSize: 10.sp,
-                                          fontWeight: FontWeight.w600,
-                                        ),
-                                      ),
-                                  ],
+                            Container(
+                              padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
+                              decoration: BoxDecoration(
+                                color: AppColor.primaryColor(context),
+                                borderRadius: BorderRadius.circular(8.r),
+                              ),
+                              child: Text(
+                                AppLocaleKey.specialOffersCars.tr(),
+                                style: AppTextStyle.bodySmall(context).copyWith(
+                                  color: AppColor.whiteColor(context),
+                                  fontSize: 10.sp,
+                                  fontWeight: FontWeight.bold,
                                 ),
                               ),
                             ),
-                            Expanded(
-                              flex: 6,
-                              child: Hero(
-                                tag: 'featured_car_image_${car['itemCode'] ?? car['name']}',
-                                child: Center(
-                                  child: car['image'].toString().startsWith('http')
-                                      ? CustomNetworkImage(
-                                          imageUrl: car['image']!,
-                                          fit: BoxFit.contain,
-                                          height: 120.h,
-                                        )
-                                      : Image.asset(
-                                          car['image']!,
-                                          fit: BoxFit.contain,
-                                          height: 120.h,
-                                        ),
-                                ),
+                            Gap(8.h),
+                            Text(
+                              car['name']!,
+                              style: AppTextStyle.titleMedium(context).copyWith(
+                                color: AppColor.blackTextColor(context),
+                                fontWeight: FontWeight.bold,
+                              ),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            Gap(4.h),
+                            Text(
+                              car['price']!,
+                              style: AppTextStyle.bodyMedium(context).copyWith(
+                                color: AppColor.primaryColor(context),
+                                fontWeight: FontWeight.bold,
+                                fontSize: 14.sp,
                               ),
                             ),
+                            if (car['installments'] != null)
+                              Text(
+                                car['installments']!,
+                                style: AppTextStyle.bodySmall(context).copyWith(
+                                  color: AppColor.primaryColor(context).withOpacity(0.8),
+                                  fontSize: 10.sp,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
                           ],
                         ),
                       ),

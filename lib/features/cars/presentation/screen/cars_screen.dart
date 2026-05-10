@@ -26,21 +26,21 @@ class _CarsScreenState extends State<CarsScreen> {
 
   static const List<Map<String, String>> _featuredCars = [
     {
-      'image': 'assets/images/car.jpeg',
+      'image': 'https://images.unsplash.com/photo-1520031441872-265e4ff70366?q=80&w=800',
       'name': 'G-Class G63',
       'brand': 'Mercedes-Benz',
       'price': '850,000',
       'installments': '1,166',
     },
     {
-      'image': 'assets/images/car.jpeg',
+      'image': 'https://images.unsplash.com/photo-1555215695-3004980ad54e?q=80&w=800',
       'name': 'M5 Competition',
       'brand': 'BMW',
       'price': '520,000',
       'installments': '1,166',
     },
     {
-      'image': 'assets/images/car.jpeg',
+      'image': 'https://images.unsplash.com/photo-1617788131775-ddb49554618a?q=80&w=800',
       'name': 'Model S Plaid',
       'brand': 'Tesla',
       'price': '480,000',
@@ -50,7 +50,7 @@ class _CarsScreenState extends State<CarsScreen> {
 
   static const List<Map<String, dynamic>> _carsList = [
     {
-      'image': 'assets/images/car.jpeg',
+      'image': 'https://images.unsplash.com/photo-1520031441872-265e4ff70366?q=80&w=800',
       'name': 'G-Class G63',
       'brand': 'Mercedes-Benz',
       'price': '850,000',
@@ -61,7 +61,7 @@ class _CarsScreenState extends State<CarsScreen> {
       'installments': '1,166',
     },
     {
-      'image': 'assets/images/car.jpeg',
+      'image': 'https://images.unsplash.com/photo-1555215695-3004980ad54e?q=80&w=800',
       'name': 'M5 Competition',
       'brand': 'BMW',
       'price': '520,000',
@@ -72,7 +72,7 @@ class _CarsScreenState extends State<CarsScreen> {
       'installments': '1,166',
     },
     {
-      'image': 'assets/images/car.jpeg',
+      'image': 'https://images.unsplash.com/photo-1594502184342-2e12f877aa73?q=80&w=800',
       'name': 'Land Cruiser 300',
       'brand': 'Toyota',
       'price': '350,000',
@@ -83,7 +83,7 @@ class _CarsScreenState extends State<CarsScreen> {
       'installments': '1,166',
     },
     {
-      'image': 'assets/images/car.jpeg',
+      'image': 'https://images.unsplash.com/photo-1617788131775-ddb49554618a?q=80&w=800',
       'name': 'Model S Plaid',
       'brand': 'Tesla',
       'price': '480,000',
@@ -94,7 +94,7 @@ class _CarsScreenState extends State<CarsScreen> {
       'installments': '1,166',
     },
     {
-      'image': 'assets/images/car.jpeg',
+      'image': 'https://images.unsplash.com/photo-1614200187524-dc4b892acf16?q=80&w=800',
       'name': 'RS e-tron GT',
       'brand': 'Audi',
       'price': '550,000',
