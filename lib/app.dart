@@ -38,7 +38,7 @@ class _CarAppState extends State<CarApp> {
         // By scaling designSize relative to the actual width/height constraints,
         // we ensure that both .w and .h get identical scaling factors on tablets (e.g. 1.35x).
         // This prevents component distortion (squares turning to rectangles) caused by different aspect ratios.
-        final Size designSize = isTablet
+        final Size designSize = (isTablet && constraints.maxWidth.isFinite && constraints.maxHeight.isFinite)
             ? Size(constraints.maxWidth / 1.35, constraints.maxHeight / 1.35)
             : const Size(360, 690);
 

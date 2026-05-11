@@ -61,7 +61,8 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
     if (price is String) {
       // Remove everything except digits and decimal point
       final cleanPrice = price.replaceAll(RegExp(r'[^0-9.]'), '');
-      return double.tryParse(cleanPrice) ?? 0.0;
+      final parsed = double.tryParse(cleanPrice) ?? 0.0;
+      return parsed.isFinite ? parsed : 0.0;
     }
     return 0.0;
   }

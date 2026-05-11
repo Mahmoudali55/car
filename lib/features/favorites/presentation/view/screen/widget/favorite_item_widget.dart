@@ -16,11 +16,16 @@ class FavoriteItemWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        NavigatorMethods.pushNamed(context, RoutesName.carDetailsScreen,
-            arguments: {'car': car, 'heroTag': 'fav_car_image_${car['itemCode'] ?? car['name'] ?? 'unknown'}'});
+        NavigatorMethods.pushNamed(
+          context,
+          RoutesName.carDetailsScreen,
+          arguments: {
+            'car': car,
+            'heroTag': 'fav_car_image_${car['itemCode'] ?? car['name'] ?? 'unknown'}',
+          },
+        );
       },
       child: Container(
-        padding: EdgeInsets.all(12.w),
         decoration: BoxDecoration(
           color: AppColor.secondAppColor(context),
           borderRadius: BorderRadius.circular(20.r),
@@ -56,7 +61,18 @@ class FavoriteItemWidget extends StatelessWidget {
                         ),
                       )
                     : car['image'] != null
-                    ? Image.asset(car['image'].toString(), fit: BoxFit.contain)
+                    ? ClipRRect(
+                        borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(12.r),
+                          bottomRight: Radius.circular(12.r),
+                        ),
+                        child: Image.asset(
+                          car['image'].toString(),
+                          fit: BoxFit.fill,
+                          height: double.infinity,
+                          width: 100.w,
+                        ),
+                      )
                     : Icon(
                         Icons.directions_car_rounded,
                         size: 40.h,

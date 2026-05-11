@@ -26,7 +26,6 @@ class FavoritesScreen extends StatelessWidget {
               return FavoriteItemWidget(car: car);
             },
           );
-          ;
         }
         return const Center(child: CustomLoading());
       },
