@@ -1180,4 +1180,23 @@ class AppLocaleKey {
   static const String validateOtpResendNow = 'validateOtpResendNow';
   static const String validateOtpVerify = 'validateOtpVerify';
   static const String explore = 'explore';
+  static const String carDeposit = 'carDeposit';
+  static const String refundable = 'refundable';
+  static const String showDetails = 'showDetails';
+  static const String hideDetails = 'hideDetails';
+  static const String carPriceWithTax = 'carPriceWithTax';
+  static const String platesAndRegistrationFees = 'platesAndRegistrationFees';
+  static const String depositDeductionMessage = 'depositDeductionMessage';
+  static const String carValue = 'carValue';
+  static const String carWarranty = 'carWarranty';
+  static const String warrantyDuration = 'warrantyDuration';
+  static const String free = 'free';
+  static const String registrationAndPlates = 'registrationAndPlates';
+  static const String shippingCost = 'shippingCost';
+  static const String serviceVat = 'serviceVat';
+  static const String serviceVatDescription = 'serviceVatDescription';
+  static const String carName = 'carName';
+  static const String addInfo = 'addInfo';
+  static const String contactInfo = 'contactInfo';
+  static const String payment = 'payment';
 }

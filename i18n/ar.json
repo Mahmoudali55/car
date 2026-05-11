@@ -1101,6 +1101,28 @@
   "validateOtpResend":"إعادة إرسال الرمز بعد",
   "validateOtpResendNow" :"إعادة إرسال الرمز",
   "validateOtpVerify" :"تحقق ومتابعة",
-  "explore":"استكشف"
+  "explore":"استكشف",
+  "carDeposit": "عربون من قيمة السيارة",
+  "refundable": "مستردة",
+  "showDetails": "عرض التفاصيل",
+  "hideDetails": "إخفاء التفاصيل",
+  "carPriceWithTax": "سعر السيارة شامل الضريبة",
+  "platesAndRegistrationFees": "رسوم اللوحات والاستمارة",
+  "depositDeductionMessage": "سيتم خصم مبلغ العربون ({amount} SAR) من إجمالي سعر السيارة عند إتمام الشراء.",
+  "carValue": "قيمة السيارة",
+  "carWarranty": "ضمان سيارة",
+  "warrantyDuration": "6 أشهر او 10 ألف كم",
+  "free": "مجاناً",
+  "registrationAndPlates": "التسجيل واللوحات",
+  "shippingCost": "كلفة الشحن",
+  "serviceVat": "الضريبة المضافة على الخدمات",
+  "serviceVatDescription": "تشمل رسوم التسجيل و اللوحات و كلفة الشحن\nنسبة القيمة المضافة خاضعة لتعديل بموجب القانون",
+  "carName": "اسم السيارة",
+  "personalInfo": "المعلومات الشخصية",
+  "addInfo":"أضف معلوماتك",
+  "contactInfo": "التحقق من الرمز",
+  "payment":"الدفع"
+
+
 
 }

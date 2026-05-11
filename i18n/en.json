@@ -923,5 +923,26 @@
   "validateOtpResend":"Resend code after",
   "validateOtpResendNow" :"Resend Code",
   "validateOtpVerify" :"Verify and Continue",
-  "explore": "Explore"
+  "explore": "Explore",
+  "carDeposit": "Car Deposit",
+  "refundable": "Refundable",
+  "showDetails": "Show Details",
+  "hideDetails": "Hide Details",
+  "carPriceWithTax": "Car price including VAT",
+  "platesAndRegistrationFees": "Plates & registration fees",
+  "depositDeductionMessage": "The deposit amount ({amount} SAR) will be deducted from the total car price upon purchase completion.",
+  "carValue": "Car Value",
+  "carWarranty": "Car Warranty",
+  "warrantyDuration": "6 months or 10,000 km",
+  "free": "Free",
+  "registrationAndPlates": "Registration & Plates",
+  "shippingCost": "Shipping Cost",
+  "serviceVat": "Value Added Tax on Services",
+  "serviceVatDescription": "Includes registration fees and plate costs\nVAT rate is subject to change under the law",
+  "carName": "Car Name",
+  "personalInfo": "Personal Information",
+  "addInfo":"Add Your Information",
+  "contactInfo": "Contact Information",
+  "payment":"Payment"
+
 }

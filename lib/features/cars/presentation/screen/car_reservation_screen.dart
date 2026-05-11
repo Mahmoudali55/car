@@ -46,8 +46,25 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
   final ValueNotifier<bool> _whatsappNotifier = ValueNotifier(true);
   final ValueNotifier<String?> _selectedCityNotifier = ValueNotifier('الرياض');
 
-  final double _totalPrice = 44338.75;
+  double _totalPrice = 0.0;
   final double _depositAmount = 500.0;
+
+  @override
+  void initState() {
+    super.initState();
+    _totalPrice = _parsePrice(widget.car['price']);
+  }
+
+  double _parsePrice(dynamic price) {
+    if (price == null) return 0.0;
+    if (price is num) return price.toDouble();
+    if (price is String) {
+      // Remove everything except digits and decimal point
+      final cleanPrice = price.replaceAll(RegExp(r'[^0-9.]'), '');
+      return double.tryParse(cleanPrice) ?? 0.0;
+    }
+    return 0.0;
+  }
 
   bool get _isFinancingFlow => _selectedMethod == 'tamara' || _selectedMethod == 'bank';
 

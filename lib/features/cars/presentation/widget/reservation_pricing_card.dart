@@ -1,5 +1,8 @@
+import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
+import 'package:car/features/cars/presentation/widget/price_row_widget.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -38,13 +41,13 @@ class _ReservationPricingCardState extends State<ReservationPricingCard> {
             padding: EdgeInsets.all(20.w),
             child: Column(
               children: [
-                _buildPriceRow(
-                  "المبلغ الإجمالي",
-                  "${widget.totalPrice.toStringAsFixed(2)} SAR",
+                PriceRowWidget(
+                  label: AppLocaleKey.totalAmount.tr(),
+                  value: "${widget.totalPrice.toStringAsFixed(2)} ${AppLocaleKey.sar.tr()}",
                   isBold: true,
                 ),
                 Gap(16.h),
-                Container(height: 1, color: AppColor.borderColor(context).withOpacity(0.5)),
+                Container(height: 1, color: AppColor.borderColor(context).withValues(alpha: (0.5))),
                 Gap(16.h),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -54,15 +57,15 @@ class _ReservationPricingCardState extends State<ReservationPricingCard> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "عربون من قيمة السيارة",
+                          AppLocaleKey.carDeposit.tr(),
                           style: AppTextStyle.bodySmall(context).copyWith(
-                            color: AppColor.blackTextColor(context).withOpacity(0.6),
+                            color: AppColor.blackTextColor(context).withValues(alpha: 0.6),
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                         Gap(4.h),
                         Text(
-                          "مستردة",
+                          AppLocaleKey.refundable.tr(),
                           style: TextStyle(
                             color: const Color(0xFF2E7D32),
                             fontSize: 10.sp,
@@ -72,7 +75,7 @@ class _ReservationPricingCardState extends State<ReservationPricingCard> {
                       ],
                     ),
                     Text(
-                      "${widget.depositAmount.toInt()} SAR",
+                      "${widget.depositAmount.toInt()} ${AppLocaleKey.sar.tr()}",
                       style: AppTextStyle.bodyMedium(context).copyWith(
                         fontWeight: FontWeight.w900,
                         color: const Color(0xFF2E7D32),
@@ -90,21 +93,30 @@ class _ReservationPricingCardState extends State<ReservationPricingCard> {
               child: Column(
                 children: [
                   Gap(8.h),
-                  _buildDetailRow("سعر السيارة شامل الضريبة", "43,100.00 SAR"),
+                  PriceRowWidget(
+                    label: AppLocaleKey.carPriceWithTax.tr(),
+                    value: "${(widget.totalPrice - 0).toStringAsFixed(2)} ${AppLocaleKey.sar.tr()}",
+                  ),
                   Gap(8.h),
-                  _buildDetailRow("رسوم اللوحات والاستمارة", "1,238.75 SAR"),
+                  PriceRowWidget(
+                    label: AppLocaleKey.platesAndRegistrationFees.tr(),
+                    value: "0 ${AppLocaleKey.sar.tr()}",
+                  ),
                   Gap(12.h),
                   Container(
                     padding: EdgeInsets.all(12.w),
                     decoration: BoxDecoration(
-                      color: AppColor.blackTextColor(context).withOpacity(0.05),
+                      color: AppColor.blackTextColor(context).withValues(alpha: 0.05),
                       borderRadius: BorderRadius.circular(8.r),
                     ),
                     child: Text(
-                      "سيتم خصم مبلغ العربون (500 SAR) من إجمالي سعر السيارة عند إتمام الشراء.",
+                      AppLocaleKey.depositDeductionMessage.tr().replaceAll(
+                        '{amount}',
+                        widget.depositAmount.toInt().toString(),
+                      ),
                       style: AppTextStyle.bodySmall(context).copyWith(
                         fontSize: 10.sp,
-                        color: AppColor.blackTextColor(context).withOpacity(0.5),
+                        color: AppColor.blackTextColor(context).withValues(alpha: 0.5),
                         height: 1.4,
                       ),
                     ),
@@ -118,14 +130,14 @@ class _ReservationPricingCardState extends State<ReservationPricingCard> {
               width: double.infinity,
               padding: EdgeInsets.symmetric(vertical: 12.h),
               decoration: BoxDecoration(
-                color: AppColor.primaryColor(context).withOpacity(0.08),
+                color: AppColor.primaryColor(context).withValues(alpha: 0.08),
                 borderRadius: BorderRadius.vertical(bottom: Radius.circular(16.r)),
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    _isExpanded ? "إخفاء التفاصيل" : "عرض التفاصيل",
+                    _isExpanded ? AppLocaleKey.hideDetails.tr() : AppLocaleKey.showDetails.tr(),
                     style: TextStyle(
                       color: AppColor.primaryColor(context),
                       fontWeight: FontWeight.bold,
@@ -146,48 +158,6 @@ class _ReservationPricingCardState extends State<ReservationPricingCard> {
           ),
         ],
       ),
-    );
-  }
-
-  Widget _buildPriceRow(String label, String value, {bool isBold = false}) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(
-          label,
-          style: AppTextStyle.bodyMedium(context).copyWith(
-            fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
-            color: AppColor.blackTextColor(context).withOpacity(isBold ? 0.8 : 0.6),
-          ),
-        ),
-        Text(
-          value,
-          style: AppTextStyle.bodyMedium(
-            context,
-          ).copyWith(fontWeight: FontWeight.w900, fontSize: isBold ? 16.sp : 14.sp),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildDetailRow(String label, String value) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(
-          label,
-          style: AppTextStyle.bodySmall(
-            context,
-          ).copyWith(color: AppColor.blackTextColor(context).withOpacity(0.4)),
-        ),
-        Text(
-          value,
-          style: AppTextStyle.bodySmall(context).copyWith(
-            fontWeight: FontWeight.bold,
-            color: AppColor.blackTextColor(context).withOpacity(0.6),
-          ),
-        ),
-      ],
     );
   }
 }
