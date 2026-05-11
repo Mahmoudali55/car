@@ -1,7 +1,9 @@
 import 'package:car/core/custom_widgets/buttons/custom_button.dart';
 import 'package:car/core/custom_widgets/custom_form_field/custom_otp_field.dart';
+import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -10,11 +12,7 @@ class OtpBottomSheet extends StatefulWidget {
   final String phoneNumber;
   final VoidCallback onVerified;
 
-  const OtpBottomSheet({
-    super.key,
-    required this.phoneNumber,
-    required this.onVerified,
-  });
+  const OtpBottomSheet({super.key, required this.phoneNumber, required this.onVerified});
 
   @override
   State<OtpBottomSheet> createState() => _OtpBottomSheetState();
@@ -50,18 +48,17 @@ class _OtpBottomSheetState extends State<OtpBottomSheet> {
           ),
           Gap(32.h),
           Text(
-            "التحقق من رقم الجوال",
-            style: AppTextStyle.titleMedium(context).copyWith(
-              fontWeight: FontWeight.w900,
-              fontSize: 20.sp,
-            ),
+            AppLocaleKey.verifyPhoneNumber.tr(),
+            style: AppTextStyle.titleMedium(
+              context,
+            ).copyWith(fontWeight: FontWeight.w900, fontSize: 20.sp),
           ),
           Gap(12.h),
           Text(
-            "أدخل رمز التحقق المرسل إلى الرقم ${widget.phoneNumber}",
+            AppLocaleKey.enterOtpMessage.tr(args: [widget.phoneNumber]),
             textAlign: TextAlign.center,
             style: AppTextStyle.bodySmall(context).copyWith(
-              color: AppColor.blackTextColor(context).withOpacity(0.5),
+              color: AppColor.blackTextColor(context).withValues(alpha: 0.5),
               fontSize: 14.sp,
             ),
           ),
@@ -78,15 +75,15 @@ class _OtpBottomSheetState extends State<OtpBottomSheet> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                "لم يصلك الرمز؟",
-                style: AppTextStyle.bodySmall(context).copyWith(
-                  color: AppColor.blackTextColor(context).withOpacity(0.5),
-                ),
+                AppLocaleKey.didNotReceiveCode.tr(),
+                style: AppTextStyle.bodySmall(
+                  context,
+                ).copyWith(color: AppColor.blackTextColor(context).withValues(alpha: 0.5)),
               ),
               TextButton(
                 onPressed: () {},
                 child: Text(
-                  "إعادة إرسال",
+                  AppLocaleKey.resendOtp.tr(),
                   style: TextStyle(
                     color: AppColor.primaryColor(context),
                     fontWeight: FontWeight.bold,
@@ -101,10 +98,7 @@ class _OtpBottomSheetState extends State<OtpBottomSheet> {
             width: double.infinity,
             radius: 12.r,
             onPressed: widget.onVerified,
-            child: Text(
-              "تأكيد",
-              style: AppTextStyle.buttonStyle(context),
-            ),
+            child: Text(AppLocaleKey.confirm.tr(), style: AppTextStyle.buttonStyle(context)),
           ),
         ],
       ),

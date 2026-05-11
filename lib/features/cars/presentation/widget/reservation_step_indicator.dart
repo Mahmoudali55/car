@@ -63,7 +63,7 @@ class ReservationStepIndicator extends StatelessWidget {
                   fontWeight: isActive || isCompleted ? FontWeight.w900 : FontWeight.bold,
                   color: isActive || isCompleted
                       ? AppColor.primaryColor(context)
-                      : AppColor.blackTextColor(context).withOpacity(0.3),
+                      : AppColor.blackTextColor(context).withValues(alpha: (0.3)),
                   fontSize: 12.sp,
                 ),
               );

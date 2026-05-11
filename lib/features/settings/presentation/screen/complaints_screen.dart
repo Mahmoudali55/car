@@ -39,11 +39,11 @@ class _ComplaintsScreenState extends State<ComplaintsScreen> {
       }
 
       BotToast.showLoading();
-      
+
       // Simulate API call
       Future.delayed(const Duration(seconds: 2), () {
         BotToast.closeAllLoading();
-        
+
         // Show success animation/dialog
         showDialog(
           context: context,
@@ -121,8 +121,6 @@ class _ComplaintsScreenState extends State<ComplaintsScreen> {
                   ),
                 ),
                 Gap(24.h),
-
-                // COMPLAINT TYPE DROPDOWN
                 FadeInLeft(
                   delay: const Duration(milliseconds: 100),
                   child: Column(
@@ -148,7 +146,10 @@ class _ComplaintsScreenState extends State<ComplaintsScreen> {
                               AppLocaleKey.selectComplaintType.tr(),
                               style: AppTextStyle.hintStyle(context),
                             ),
-                            icon: Icon(Icons.keyboard_arrow_down_rounded, color: AppColor.hintColor(context)),
+                            icon: Icon(
+                              Icons.keyboard_arrow_down_rounded,
+                              color: AppColor.hintColor(context),
+                            ),
                             items: complaintTypes.map((String type) {
                               return DropdownMenuItem<String>(
                                 value: type,
@@ -190,10 +191,7 @@ class _ComplaintsScreenState extends State<ComplaintsScreen> {
                 // SUBMIT BUTTON
                 FadeInUp(
                   delay: const Duration(milliseconds: 300),
-                  child: CustomButton(
-                    onPressed: _submit,
-                    text: AppLocaleKey.submitComplaint.tr(),
-                  ),
+                  child: CustomButton(onPressed: _submit, text: AppLocaleKey.submitComplaint.tr()),
                 ),
               ],
             ),

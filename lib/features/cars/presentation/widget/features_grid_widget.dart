@@ -23,22 +23,36 @@ class FeaturesGridWidget extends StatelessWidget {
 
     final cylinder = car['CYLINDER'] ?? car['cylinder'];
     if (cylinder != null && cylinder.toString().isNotEmpty && cylinder.toString() != '0') {
-      features.add({'icon': Icons.settings_applications_rounded, 'label': '$cylinder ${AppLocaleKey.cylinders.tr()}'});
+      features.add({
+        'icon': Icons.settings_applications_rounded,
+        'label': '$cylinder ${AppLocaleKey.cylinders.tr()}',
+      });
     }
 
     final seatNo = car['SEAT_NO'] ?? car['seatNo'];
     if (seatNo != null && seatNo.toString().isNotEmpty && seatNo.toString() != '0') {
-      features.add({'icon': Icons.airline_seat_recline_extra_rounded, 'label': '$seatNo ${AppLocaleKey.seats.tr()}'});
+      features.add({
+        'icon': Icons.airline_seat_recline_extra_rounded,
+        'label': '$seatNo ${AppLocaleKey.seats.tr()}',
+      });
     }
 
     final doorNo = car['DOOR_NO'] ?? car['doorNo'];
     if (doorNo != null && doorNo.toString().isNotEmpty && doorNo.toString() != '0') {
-      features.add({'icon': Icons.meeting_room_rounded, 'label': '$doorNo ${AppLocaleKey.doors.tr()}'});
+      features.add({
+        'icon': Icons.meeting_room_rounded,
+        'label': '$doorNo ${AppLocaleKey.doors.tr()}',
+      });
     }
 
     final fuelCapacity = car['FUEL_CAPACITY'] ?? car['fuelCapacity'];
-    if (fuelCapacity != null && fuelCapacity.toString().isNotEmpty && fuelCapacity.toString() != '0') {
-      features.add({'icon': Icons.local_gas_station_rounded, 'label': '$fuelCapacity ${AppLocaleKey.liter.tr()}'});
+    if (fuelCapacity != null &&
+        fuelCapacity.toString().isNotEmpty &&
+        fuelCapacity.toString() != '0') {
+      features.add({
+        'icon': Icons.local_gas_station_rounded,
+        'label': '$fuelCapacity ${AppLocaleKey.liter.tr()}',
+      });
     }
 
     final powerHourse = car['POWER_HOURSE'] ?? car['powerHourse'];
@@ -70,7 +84,7 @@ class FeaturesGridWidget extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColor.secondAppColor(context),
         borderRadius: BorderRadius.circular(12.r),
-        border: Border.all(color: AppColor.blackTextColor(context).withOpacity(0.05)),
+        border: Border.all(color: AppColor.blackTextColor(context).withValues(alpha: (0.05))),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,

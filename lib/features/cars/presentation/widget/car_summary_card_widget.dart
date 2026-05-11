@@ -18,7 +18,7 @@ class CarSummaryCard extends StatelessWidget {
         border: Border.all(color: AppColor.borderColor(context)),
         boxShadow: [
           BoxShadow(
-            color: AppColor.blackColor(context).withOpacity(0.02),
+            color: AppColor.blackColor(context).withValues(alpha: 0.02),
             blurRadius: 8,
             offset: const Offset(0, 2),
           ),

@@ -29,7 +29,7 @@ class _ReservationPricingCardState extends State<ReservationPricingCard> {
         border: Border.all(color: AppColor.borderColor(context)),
         boxShadow: [
           BoxShadow(
-            color: AppColor.blackColor(context).withOpacity(0.03),
+            color: AppColor.blackColor(context).withValues(alpha: (0.03)),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),

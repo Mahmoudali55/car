@@ -30,31 +30,31 @@ class _BankOffersScreenState extends State<BankOffersScreen> {
       nameKey: AppLocaleKey.bankAlrajhi,
       logoText: 'AR',
       apr: 3.5,
-      brandColor: const Color(0xFF133261), 
+      brandColor: const Color(0xFF133261),
     ),
     BankOffer(
       nameKey: AppLocaleKey.bankSnb,
       logoText: 'SNB',
       apr: 2.9,
-      brandColor: const Color(0xFF00755F), 
+      brandColor: const Color(0xFF00755F),
     ),
     BankOffer(
       nameKey: AppLocaleKey.bankRiyad,
       logoText: 'RB',
       apr: 3.2,
-      brandColor: const Color(0xFFCE1126), 
+      brandColor: const Color(0xFFCE1126),
     ),
     BankOffer(
       nameKey: AppLocaleKey.bankAlinma,
       logoText: 'INM',
       apr: 3.0,
-      brandColor: const Color(0xFF886A34), 
+      brandColor: const Color(0xFF886A34),
     ),
     BankOffer(
       nameKey: AppLocaleKey.bankSab,
       logoText: 'SAB',
       apr: 3.4,
-      brandColor: const Color(0xFFD61A0C), 
+      brandColor: const Color(0xFFD61A0C),
     ),
   ];
 
@@ -97,10 +97,7 @@ class _BankOffersScreenState extends State<BankOffersScreen> {
       appBar: AppBar(
         title: Text(
           AppLocaleKey.bankOffers.tr(),
-          style: TextStyle(
-            color: AppColor.blackTextColor(context),
-            fontWeight: FontWeight.bold,
-          ),
+          style: TextStyle(color: AppColor.blackTextColor(context), fontWeight: FontWeight.bold),
         ),
         backgroundColor: AppColor.appBarColor(context),
         elevation: 0,

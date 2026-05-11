@@ -1,6 +1,8 @@
 import 'package:car/core/custom_widgets/custom_form_field/custom_form_field.dart';
+import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -27,21 +29,21 @@ class FinancingContactForm extends StatefulWidget {
 
 class _FinancingContactFormState extends State<FinancingContactForm> {
   final List<String> _cities = [
-    'الرياض',
-    'جدة',
-    'مكة المكرمة',
-    'المدينة المنورة',
-    'الدمام',
-    'الخبر',
-    'الظهران',
-    'أبها',
-    'تبوك',
-    'بريدة',
-    'حائل',
-    'نجران',
-    'جازان',
-    'الطائف',
-    'الجبيل',
+    AppLocaleKey.riyadh.tr(),
+    AppLocaleKey.jeddah.tr(),
+    AppLocaleKey.makkah.tr(),
+    AppLocaleKey.madinah.tr(),
+    AppLocaleKey.dammam.tr(),
+    AppLocaleKey.khobar.tr(),
+    AppLocaleKey.dhahran.tr(),
+    AppLocaleKey.abha.tr(),
+    AppLocaleKey.tabuk.tr(),
+    AppLocaleKey.buraidah.tr(),
+    AppLocaleKey.hail.tr(),
+    AppLocaleKey.najran.tr(),
+    AppLocaleKey.jazan.tr(),
+    AppLocaleKey.taif.tr(),
+    AppLocaleKey.jubail.tr(),
   ];
 
   final _borderRadius = 12.0;
@@ -53,24 +55,24 @@ class _FinancingContactFormState extends State<FinancingContactForm> {
       children: [
         CustomFormField(
           controller: widget.firstNameController,
-          hintText: 'الاسم الاول',
+          hintText: AppLocaleKey.firstName.tr(),
           radius: _borderRadius,
-          validator: (v) => (v == null || v.isEmpty) ? 'الاسم مطلوب' : null,
+          validator: (v) => (v == null || v.isEmpty) ? AppLocaleKey.firstNameRequired.tr() : null,
         ),
         Gap(16.h),
         CustomFormField(
           controller: widget.lastNameController,
-          hintText: 'اسم العائلة',
+          hintText: AppLocaleKey.lastName.tr(),
           radius: _borderRadius,
-          validator: (v) => (v == null || v.isEmpty) ? 'اسم العائلة مطلوب' : null,
+          validator: (v) => (v == null || v.isEmpty) ? AppLocaleKey.lastNameRequired.tr() : null,
         ),
         Gap(16.h),
         CustomFormField(
           controller: widget.phoneController,
-          hintText: 'رقم الجوال',
+          hintText: AppLocaleKey.phoneNumber.tr(),
           radius: _borderRadius,
           keyboardType: TextInputType.phone,
-          validator: (v) => (v == null || v.isEmpty) ? 'رقم الجوال مطلوب' : null,
+          validator: (v) => (v == null || v.isEmpty) ? AppLocaleKey.phoneNumberRequired.tr() : null,
         ),
         Gap(16.h),
         ValueListenableBuilder<bool>(
@@ -86,10 +88,10 @@ class _FinancingContactFormState extends State<FinancingContactForm> {
                         Icon(Icons.phone, color: const Color(0xff25D366), size: 20.sp),
                         Gap(8.w),
                         Text(
-                          'أود استقبال تحديثات طلبي من خلال واتساب',
+                          AppLocaleKey.whatsappUpdates.tr(),
                           style: AppTextStyle.bodySmall(context).copyWith(
                             fontSize: 12.sp,
-                            color: AppColor.blackTextColor(context).withOpacity(0.7),
+                            color: AppColor.blackTextColor(context).withValues(alpha: (0.7)),
                           ),
                         ),
                       ],
@@ -109,7 +111,11 @@ class _FinancingContactFormState extends State<FinancingContactForm> {
                       ),
                     ),
                     child: val
-                        ? Icon(Icons.check_rounded, color: Colors.white, size: 14.sp)
+                        ? Icon(
+                            Icons.check_rounded,
+                            color: AppColor.whiteColor(context),
+                            size: 14.sp,
+                          )
                         : null,
                   ),
                 ],
@@ -119,11 +125,10 @@ class _FinancingContactFormState extends State<FinancingContactForm> {
         ),
         Gap(24.h),
         Text(
-          'المدينة',
-          style: AppTextStyle.bodyMedium(context).copyWith(
-            fontWeight: FontWeight.w900,
-            fontSize: 16.sp,
-          ),
+          AppLocaleKey.city.tr(),
+          style: AppTextStyle.bodyMedium(
+            context,
+          ).copyWith(fontWeight: FontWeight.w900, fontSize: 16.sp),
         ),
         Gap(12.h),
         ValueListenableBuilder<String?>(
@@ -140,12 +145,22 @@ class _FinancingContactFormState extends State<FinancingContactForm> {
                 child: DropdownButton<String>(
                   value: selectedCity,
                   isExpanded: true,
-                  hint: Text('اختر المدينة', style: AppTextStyle.bodyMedium(context).copyWith(color: Colors.grey)),
-                  icon: Icon(Icons.keyboard_arrow_down_rounded, color: AppColor.blackTextColor(context)),
-                  items: _cities.map((city) => DropdownMenuItem(
-                    value: city,
-                    child: Text(city, style: AppTextStyle.bodyMedium(context)),
-                  )).toList(),
+                  hint: Text(
+                    AppLocaleKey.selectCity.tr(),
+                    style: AppTextStyle.bodyMedium(context).copyWith(color: Colors.grey),
+                  ),
+                  icon: Icon(
+                    Icons.keyboard_arrow_down_rounded,
+                    color: AppColor.blackTextColor(context),
+                  ),
+                  items: _cities
+                      .map(
+                        (city) => DropdownMenuItem(
+                          value: city,
+                          child: Text(city, style: AppTextStyle.bodyMedium(context)),
+                        ),
+                      )
+                      .toList(),
                   onChanged: (v) => widget.selectedCityNotifier.value = v,
                 ),
               ),

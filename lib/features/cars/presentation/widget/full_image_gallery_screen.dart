@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:car/core/custom_widgets/custom_image/custom_network_image.dart';
+import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -103,7 +105,7 @@ class _FullImageGalleryScreenState extends State<FullImageGalleryScreen> {
             top: MediaQuery.of(context).padding.top + 10.h,
             right: 20.w,
             child: IconButton(
-              icon: Icon(Icons.close_rounded, color: Colors.white, size: 30.sp),
+              icon: Icon(Icons.close_rounded, color: AppColor.whiteColor(context), size: 30.sp),
               onPressed: () => Navigator.pop(context),
             ),
           ),
@@ -121,13 +123,16 @@ class _FullImageGalleryScreenState extends State<FullImageGalleryScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "يمكنك تكبير الصورة",
-                      style: TextStyle(color: Colors.white.withOpacity(0.8), fontSize: 14.sp),
+                      AppLocaleKey.uploadImage.tr(),
+                      style: TextStyle(
+                        color: AppColor.whiteColor(context).withValues(alpha: (0.8)),
+                        fontSize: 14.sp,
+                      ),
                     ),
                     Gap(8.w),
                     Icon(
                       Icons.touch_app_outlined,
-                      color: Colors.white.withOpacity(0.8),
+                      color: AppColor.whiteColor(context).withValues(alpha: (0.8)),
                       size: 18.sp,
                     ),
                   ],
@@ -170,10 +175,11 @@ class _FullImageGalleryScreenState extends State<FullImageGalleryScreen> {
                             image: DecorationImage(
                               image: isNetwork
                                   ? CachedNetworkImageProvider(
-                                      imageUrl.contains('1617788131775-ddb49554618a')
-                                          ? 'https://images.unsplash.com/photo-1560958089-b8a1929cea89?q=80&w=800'
-                                          : imageUrl,
-                                    ) as ImageProvider
+                                          imageUrl.contains('1617788131775-ddb49554618a')
+                                              ? 'https://images.unsplash.com/photo-1560958089-b8a1929cea89?q=80&w=800'
+                                              : imageUrl,
+                                        )
+                                        as ImageProvider
                                   : AssetImage(
                                       imageUrl.isEmpty ? 'assets/images/placeholder.png' : imageUrl,
                                     ),
@@ -191,7 +197,7 @@ class _FullImageGalleryScreenState extends State<FullImageGalleryScreen> {
                 Text(
                   '${widget.images.length} / ${_currentIndex + 1}',
                   style: TextStyle(
-                    color: Colors.white,
+                    color: AppColor.whiteColor(context).withValues(alpha: (0.8)),
                     fontSize: 16.sp,
                     fontWeight: FontWeight.bold,
                   ),

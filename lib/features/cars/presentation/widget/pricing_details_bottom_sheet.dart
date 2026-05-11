@@ -170,7 +170,7 @@ class PricingDetailsBottomSheet extends StatelessWidget {
         Text(
           label,
           style: AppTextStyle.bodyMedium(context).copyWith(
-            color: AppColor.blackTextColor(context).withOpacity(0.7),
+            color: AppColor.blackTextColor(context).withValues(alpha: 0.7),
             fontWeight: FontWeight.bold,
           ),
         ),

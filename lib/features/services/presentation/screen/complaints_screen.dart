@@ -1,4 +1,5 @@
 import 'package:animate_do/animate_do.dart';
+import 'package:bot_toast/bot_toast.dart';
 import 'package:car/core/custom_widgets/buttons/custom_button.dart';
 import 'package:car/core/custom_widgets/custom_form_field/custom_form_field.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
@@ -8,7 +9,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
-import 'package:bot_toast/bot_toast.dart';
 
 class ComplaintsScreen extends StatefulWidget {
   const ComplaintsScreen({super.key});
@@ -39,11 +39,11 @@ class _ComplaintsScreenState extends State<ComplaintsScreen> {
       }
 
       BotToast.showLoading();
-      
+
       // Simulate API call
       Future.delayed(const Duration(seconds: 2), () {
         BotToast.closeAllLoading();
-        
+
         // Show success animation/dialog
         showDialog(
           context: context,
@@ -113,11 +113,7 @@ class _ComplaintsScreenState extends State<ComplaintsScreen> {
                 FadeInDown(
                   child: Text(
                     AppLocaleKey.officialInquiriesComplaints.tr(),
-                    style: TextStyle(
-                      color: AppColor.blackTextColor(context),
-                      fontSize: 16.sp,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: AppTextStyle.titleMedium(context).copyWith(fontWeight: FontWeight.bold),
                   ),
                 ),
                 Gap(24.h),
@@ -148,7 +144,10 @@ class _ComplaintsScreenState extends State<ComplaintsScreen> {
                               AppLocaleKey.selectComplaintType.tr(),
                               style: AppTextStyle.hintStyle(context),
                             ),
-                            icon: Icon(Icons.keyboard_arrow_down_rounded, color: AppColor.hintColor(context)),
+                            icon: Icon(
+                              Icons.keyboard_arrow_down_rounded,
+                              color: AppColor.hintColor(context),
+                            ),
                             items: complaintTypes.map((String type) {
                               return DropdownMenuItem<String>(
                                 value: type,
@@ -190,10 +189,7 @@ class _ComplaintsScreenState extends State<ComplaintsScreen> {
                 // SUBMIT BUTTON
                 FadeInUp(
                   delay: const Duration(milliseconds: 300),
-                  child: CustomButton(
-                    onPressed: _submit,
-                    text: AppLocaleKey.submitComplaint.tr(),
-                  ),
+                  child: CustomButton(onPressed: _submit, text: AppLocaleKey.submitComplaint.tr()),
                 ),
               ],
             ),

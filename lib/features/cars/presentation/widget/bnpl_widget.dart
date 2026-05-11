@@ -1,8 +1,8 @@
 import 'package:car/core/custom_widgets/custom_toast/custom_toast.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
+import 'package:car/core/services/bnpl_service.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
-import 'package:car/core/services/bnpl_service.dart';
 import 'package:car/core/utils/common_methods.dart';
 import 'package:car/features/cars/presentation/screen/bnpl_payment_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -48,7 +48,7 @@ class _BnplWidgetState extends State<BnplWidget> {
             padding: EdgeInsets.only(bottom: 12.h),
             child: LinearProgressIndicator(
               color: AppColor.primaryColor(context),
-              backgroundColor: AppColor.primaryColor(context).withOpacity(0.1),
+              backgroundColor: AppColor.primaryColor(context).withValues(alpha: (0.1)),
             ),
           ),
         _buildProviderCard(
@@ -158,7 +158,7 @@ class _BnplWidgetState extends State<BnplWidget> {
         decoration: BoxDecoration(
           color: AppColor.secondAppColor(context),
           borderRadius: BorderRadius.circular(16.r),
-          border: Border.all(color: AppColor.blackTextColor(context).withOpacity(0.05)),
+          border: Border.all(color: AppColor.blackTextColor(context).withValues(alpha: (0.05))),
         ),
         child: Row(
           children: [
@@ -236,7 +236,7 @@ class _BnplWidgetState extends State<BnplWidget> {
               width: 40.w,
               height: 4.h,
               decoration: BoxDecoration(
-                color: Colors.grey.withOpacity(0.3),
+                color: Colors.grey.withValues(alpha: (0.3)),
                 borderRadius: BorderRadius.circular(2.r),
               ),
             ),
@@ -296,7 +296,10 @@ class _BnplWidgetState extends State<BnplWidget> {
                 ),
                 child: Text(
                   AppLocaleKey.payNow.tr(),
-                  style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                    color: AppColor.whiteColor(context),
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ),
@@ -329,12 +332,17 @@ class _BnplWidgetState extends State<BnplWidget> {
                   color: isFirst ? brandColor : Colors.transparent,
                   shape: BoxShape.circle,
                   border: Border.all(
-                    color: isFirst ? brandColor : Colors.grey.withOpacity(0.3),
+                    color: isFirst ? brandColor : Colors.grey.withValues(alpha: (0.3)),
                     width: 2,
                   ),
                 ),
               ),
-              if (!isLast) Container(width: 1.w, height: 30.h, color: Colors.grey.withOpacity(0.2)),
+              if (!isLast)
+                Container(
+                  width: 1.w,
+                  height: 30.h,
+                  color: Colors.grey.withValues(alpha: (0.2)),
+                ),
             ],
           ),
         ),
@@ -345,7 +353,7 @@ class _BnplWidgetState extends State<BnplWidget> {
             children: [
               Text(title, style: AppTextStyle.bodyMedium(context)),
               Text(
-                '$amount SAR',
+                '$amount ${AppLocaleKey.sar.tr()}',
                 style: AppTextStyle.bodyMedium(context).copyWith(fontWeight: FontWeight.bold),
               ),
             ],

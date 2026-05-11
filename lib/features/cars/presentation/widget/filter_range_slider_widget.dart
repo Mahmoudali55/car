@@ -31,19 +31,17 @@ class FilterRangeSlider extends StatelessWidget {
               isPrice
                   ? '${values.start.toInt().toString()} ${AppLocaleKey.sar.tr()}'
                   : values.start.toInt().toString(),
-              style: AppTextStyle.bodySmall(context).copyWith(
-                color: AppColor.primaryColor(context),
-                fontWeight: FontWeight.bold,
-              ),
+              style: AppTextStyle.bodySmall(
+                context,
+              ).copyWith(color: AppColor.primaryColor(context), fontWeight: FontWeight.bold),
             ),
             Text(
               isPrice
                   ? '${values.end.toInt().toString()} ${AppLocaleKey.sar.tr()}'
                   : values.end.toInt().toString(),
-              style: AppTextStyle.bodySmall(context).copyWith(
-                color: AppColor.primaryColor(context),
-                fontWeight: FontWeight.bold,
-              ),
+              style: AppTextStyle.bodySmall(
+                context,
+              ).copyWith(color: AppColor.primaryColor(context), fontWeight: FontWeight.bold),
             ),
           ],
         ),
@@ -53,7 +51,7 @@ class FilterRangeSlider extends StatelessWidget {
           max: max,
           divisions: isPrice ? 100 : (max - min).toInt(),
           activeColor: AppColor.primaryColor(context),
-          inactiveColor: AppColor.blackTextColor(context).withOpacity(0.1),
+          inactiveColor: AppColor.blackTextColor(context).withValues(alpha: (0.1)),
           onChanged: onChanged,
         ),
       ],

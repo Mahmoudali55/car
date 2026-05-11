@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
@@ -23,13 +21,9 @@ class FilterApplyButton extends StatelessWidget {
         style: ElevatedButton.styleFrom(
           backgroundColor: AppColor.primaryColor(context),
           minimumSize: Size(double.infinity, 56.h),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16.r),
-          ),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.r)),
           elevation: 8,
-          shadowColor: AppColor.primaryColor(
-            context,
-          ).withOpacity(0.4),
+          shadowColor: AppColor.primaryColor(context).withValues(alpha: (0.4)),
         ),
         child: Text(
           AppLocaleKey.applyFilter.tr(),

@@ -1,8 +1,8 @@
-import 'dart:ui';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/features/cars/presentation/widget/bank_offers_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 class BankOfferSortChip extends StatelessWidget {
   final String label;
   final SortOption option;
@@ -26,15 +26,15 @@ class BankOfferSortChip extends StatelessWidget {
           color: isSelected ? AppColor.primaryColor(context) : AppColor.secondAppColor(context),
           borderRadius: BorderRadius.circular(20.r),
           border: Border.all(
-            color: isSelected ? Colors.transparent : Colors.grey.withOpacity(0.2),
+            color: isSelected ? Colors.transparent : Colors.grey.withValues(alpha: 0.2),
           ),
           boxShadow: isSelected
               ? [
                   BoxShadow(
-                    color: AppColor.primaryColor(context).withOpacity(0.3),
+                    color: AppColor.primaryColor(context).withValues(alpha: 0.3),
                     blurRadius: 8,
                     offset: const Offset(0, 3),
-                  )
+                  ),
                 ]
               : null,
         ),

@@ -18,7 +18,9 @@ class FilterCheckboxTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Theme(
-      data: ThemeData(unselectedWidgetColor: AppColor.blackTextColor(context).withOpacity(0.24)),
+      data: ThemeData(
+        unselectedWidgetColor: AppColor.blackTextColor(context).withValues(alpha: (0.24)),
+      ),
       child: CheckboxListTile(
         value: value,
         onChanged: onChanged,
@@ -26,15 +28,13 @@ class FilterCheckboxTile extends StatelessWidget {
           title,
           style: AppTextStyle.bodyMedium(
             context,
-          ).copyWith(color: AppColor.blackTextColor(context).withOpacity(0.70)),
+          ).copyWith(color: AppColor.blackTextColor(context).withValues(alpha: (0.70))),
         ),
         activeColor: AppColor.primaryColor(context),
         checkColor: AppColor.whiteColor(context),
         contentPadding: EdgeInsets.zero,
         controlAffinity: ListTileControlAffinity.trailing,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12.r),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.r)),
       ),
     );
   }
