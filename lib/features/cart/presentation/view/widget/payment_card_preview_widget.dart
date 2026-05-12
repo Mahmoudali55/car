@@ -8,14 +8,14 @@ class PaymentCardPreviewWidget extends StatelessWidget {
   final String cardNumber;
   final String cardHolder;
   final String expiry;
-
+  final String brandName;
   const PaymentCardPreviewWidget({
     super.key,
     required this.cardNumber,
     required this.cardHolder,
     required this.expiry,
+    this.brandName = 'VISA',
   });
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -26,12 +26,15 @@ class PaymentCardPreviewWidget extends StatelessWidget {
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: [AppColor.primaryColor(context), AppColor.primaryColor(context).withOpacity(0.6)],
+          colors: [
+            AppColor.primaryColor(context),
+            AppColor.primaryColor(context).withValues(alpha: 0.6),
+          ],
         ),
         borderRadius: BorderRadius.circular(24.r),
         boxShadow: [
           BoxShadow(
-            color: AppColor.primaryColor(context).withOpacity(0.35),
+            color: AppColor.primaryColor(context).withValues(alpha: 0.35),
             blurRadius: 25,
             offset: const Offset(0, 10),
           ),
@@ -45,7 +48,7 @@ class PaymentCardPreviewWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'VISA',
+                brandName,
                 style: TextStyle(
                   color: AppColor.blackTextColor(context),
                   fontSize: 22.sp,
@@ -56,7 +59,7 @@ class PaymentCardPreviewWidget extends StatelessWidget {
               ),
               Icon(
                 Icons.wifi_rounded,
-                color: AppColor.blackTextColor(context).withOpacity(0.8),
+                color: AppColor.blackTextColor(context).withValues(alpha: 0.8),
                 size: 24.sp,
               ),
             ],
@@ -77,10 +80,7 @@ class PaymentCardPreviewWidget extends StatelessWidget {
                 title: AppLocaleKey.paymentCardPreviewHolderTitle.tr(),
                 value: cardHolder,
               ),
-              _PreviewColumn(
-                title: AppLocaleKey.paymentCardPreviewExpiryTitle.tr(),
-                value: expiry,
-              ),
+              _PreviewColumn(title: AppLocaleKey.paymentCardPreviewExpiryTitle.tr(), value: expiry),
             ],
           ),
         ],
@@ -103,7 +103,7 @@ class _PreviewColumn extends StatelessWidget {
         Text(
           title,
           style: TextStyle(
-            color: AppColor.blackTextColor(context).withOpacity(0.6),
+            color: AppColor.blackTextColor(context).withValues(alpha: 0.6),
             fontSize: 9.sp,
           ),
         ),

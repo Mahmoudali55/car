@@ -117,4 +117,13 @@ class HiveMethods {
     }
     _box.put('recentlyViewed', list);
   }
+
+  // ─── Cart ───────────────────────────────────────────────────
+  static List<dynamic> getCartItems() {
+    return _box.get('cartItems', defaultValue: []);
+  }
+
+  static void updateCartItems(List<dynamic> items) {
+    _box.put('cartItems', items);
+  }
 }

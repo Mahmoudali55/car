@@ -8,12 +8,14 @@ class PaymentPayButtonWidget extends StatelessWidget {
   final bool isLoading;
   final VoidCallback? onPressed;
   final String title;
+  final IconData? icon;
 
   const PaymentPayButtonWidget({
     super.key,
     required this.isLoading,
     required this.onPressed,
     required this.title,
+    this.icon = Icons.lock_rounded,
   });
 
   @override
@@ -41,8 +43,10 @@ class PaymentPayButtonWidget extends StatelessWidget {
             : Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.lock_rounded, color: AppColor.whiteColor(context), size: 20.sp),
-                  Gap(10.w),
+                  if (icon != null) ...[
+                    Icon(icon, color: AppColor.whiteColor(context), size: 20.sp),
+                    Gap(10.w),
+                  ],
                   Text(
                     title,
                     style: AppTextStyle.titleMedium(

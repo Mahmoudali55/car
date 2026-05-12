@@ -985,5 +985,9 @@
   "enterOtpMessage": "Enter the verification code sent to {phoneNumber}",
   "didNotReceiveCode": "Didn't receive the code?",
   "resendCode": "Resend",
-  "about": "Hajed Bin Wazir for Trading is a documented company with the Ministry of Commerce and Investment, supported by Al-Iman Company."
+  "about": "Hajed Bin Wazir for Trading is a documented company with the Ministry of Commerce and Investment, supported by Al-Iman Company.",
+  "reservationDuration":"Reservation ends within:",
+  "hours": "Hours",
+  "minutes": "Minutes",
+  "seconds": "Seconds"
 }

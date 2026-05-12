@@ -85,46 +85,49 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 onSelected: (i) => setState(() => _selectedPayment = i),
               ),
               Gap(28.h),
-              PaymentCardPreviewWidget(
-                cardNumber: _cardNumberController.text.isEmpty
-                    ? '•••• •••• •••• ••••'
-                    : _cardNumberController.text.padRight(19, '•'),
-                cardHolder: _cardHolderController.text.isEmpty
-                    ? AppLocaleKey.paymentCardHolderPlaceholder.tr()
-                    : _cardHolderController.text,
-                expiry: _expiryController.text.isEmpty ? 'MM/YY' : _expiryController.text,
-              ),
-              Gap(28.h),
-              PaymentCardDetailsFormWidget(
-                title: AppLocaleKey.paymentCardDetailsTitle.tr(),
-                cardNumberController: _cardNumberController,
-                cardHolderController: _cardHolderController,
-                expiryController: _expiryController,
-                cvvController: _cvvController,
-                onCardNumberChanged: (v) {
-                  final formatted = _formatCardNumber(v);
-                  if (formatted != v) {
-                    _cardNumberController.value = _cardNumberController.value.copyWith(
-                      text: formatted,
-                      selection: TextSelection.collapsed(offset: formatted.length),
-                    );
-                  }
-                  setState(() {});
-                },
-                onCardHolderChanged: (_) => setState(() {}),
-                onExpiryChanged: (v) {
-                  final formatted = _formatExpiry(v);
-                  if (formatted != v) {
-                    _expiryController.value = _expiryController.value.copyWith(
-                      text: formatted,
-                      selection: TextSelection.collapsed(offset: formatted.length),
-                    );
-                  }
-                  setState(() {});
-                },
-                onCvvChanged: (_) => setState(() {}),
-              ),
-              Gap(32.h),
+              if (_selectedPayment != 1) ...[
+                PaymentCardPreviewWidget(
+                  brandName: _selectedPayment == 2 ? 'mada' : 'VISA',
+                  cardNumber: _cardNumberController.text.isEmpty
+                      ? '•••• •••• •••• ••••'
+                      : _cardNumberController.text.padRight(19, '•'),
+                  cardHolder: _cardHolderController.text.isEmpty
+                      ? AppLocaleKey.paymentCardHolderPlaceholder.tr()
+                      : _cardHolderController.text,
+                  expiry: _expiryController.text.isEmpty ? 'MM/YY' : _expiryController.text,
+                ),
+                Gap(28.h),
+                PaymentCardDetailsFormWidget(
+                  title: AppLocaleKey.paymentCardDetailsTitle.tr(),
+                  cardNumberController: _cardNumberController,
+                  cardHolderController: _cardHolderController,
+                  expiryController: _expiryController,
+                  cvvController: _cvvController,
+                  onCardNumberChanged: (v) {
+                    final formatted = _formatCardNumber(v);
+                    if (formatted != v) {
+                      _cardNumberController.value = _cardNumberController.value.copyWith(
+                        text: formatted,
+                        selection: TextSelection.collapsed(offset: formatted.length),
+                      );
+                    }
+                    setState(() {});
+                  },
+                  onCardHolderChanged: (_) => setState(() {}),
+                  onExpiryChanged: (v) {
+                    final formatted = _formatExpiry(v);
+                    if (formatted != v) {
+                      _expiryController.value = _expiryController.value.copyWith(
+                        text: formatted,
+                        selection: TextSelection.collapsed(offset: formatted.length),
+                      );
+                    }
+                    setState(() {});
+                  },
+                  onCvvChanged: (_) => setState(() {}),
+                ),
+                Gap(32.h),
+              ],
               PaymentOrderSummaryWidget(
                 carsTotalLabel: AppLocaleKey.paymentCarsTotalLabel.tr(),
                 serviceFeeLabel: AppLocaleKey.paymentServiceFeeLabel.tr(),
@@ -137,7 +140,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
               PaymentPayButtonWidget(
                 isLoading: _isLoading,
                 onPressed: _processPayment,
-                title: AppLocaleKey.payNow.tr(),
+                title: _selectedPayment == 1 ? 'Apple Pay' : AppLocaleKey.payNow.tr(),
+                icon: _selectedPayment == 1 ? Icons.apple : Icons.lock_rounded,
               ),
               Gap(12.h),
               PaymentSslNoteWidget(text: AppLocaleKey.paymentSslNote.tr()),

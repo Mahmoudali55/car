@@ -1246,4 +1246,8 @@ class AppLocaleKey {
   static const String enterValidOtp = 'enterValidOtp';
   static const String didNotReceiveCode = 'didNotReceiveCode';
   static const String about = 'about';
+  static const String reservationDuration = 'reservationDuration';
+  static const String hours = 'hours';
+  static const String minutes = 'minutes';
+  static const String seconds = 'seconds';
 }
