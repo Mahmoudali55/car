@@ -70,15 +70,8 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
         context,
         appBarColor: AppColor.scaffoldColor(context),
         elevation: 0,
-        leading: Navigator.canPop(context)
-            ? IconButton(
-                onPressed: () => Navigator.pop(context),
-                icon: Icon(
-                  Icons.arrow_back_ios_new_rounded,
-                  color: AppColor.blackTextColor(context),
-                ),
-              )
-            : null,
+        automaticallyImplyLeading: false,
+        leading: SizedBox.shrink(),
         title: Text(
           AppLocaleKey.fleetManagement.tr(),
           style: AppTextStyle.titleMedium(context).copyWith(
