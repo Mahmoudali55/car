@@ -14,12 +14,12 @@ import 'package:car/features/cars/presentation/widget/pricing_details_bottom_she
 import 'package:car/features/cars/presentation/widget/reservation_pricing_card.dart';
 import 'package:car/features/cars/presentation/widget/reservation_step_indicator.dart';
 import 'package:car/features/cars/presentation/widget/reservation_trust_badge.dart';
+import 'package:car/features/cart/presentation/view/cubit/cart_cubit.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:car/features/cart/presentation/view/cubit/cart_cubit.dart';
 
 enum _ReservationScreenStep { methodSelection, informationEntry }
 
@@ -242,6 +242,7 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
                   hintText: AppLocaleKey.agentPhone.tr(),
                   radius: 12,
                   keyboardType: TextInputType.phone,
+                  maxLength: 10,
                 ),
                 Gap(32.h),
                 const ReservationTrustBadge(),

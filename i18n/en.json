@@ -990,5 +990,7 @@
   "hours": "Hours",
   "minutes": "Minutes",
   "seconds": "Seconds",
-  "noCarsAvailable": "No cars available in this category"
+  "noCarsAvailable": "No cars available in this category",
+  "resendOtp"
+: "Resend code"
 }

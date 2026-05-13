@@ -1160,7 +1160,7 @@
   "jubail": "الجبيل",
   "uploadImage":"يمكنك تكبير الصورة",
   "verifyPhoneNumber": "التحقق من رقم الجوال",
-  "enterOtpMessage": "أدخل رمز التحقق المرسل إلى الرقم {phoneNumber}",
+  "enterOtpMessage": "أدخل رمز التحقق المرسل إلى الرقم {}",
   "didNotReceiveCode": "لم يصلك الرمز؟",
   "resendCode": "إعادة إرسال",
   "confirm": "تأكيد",
@@ -1169,8 +1169,9 @@
   "hours": "ساعه",
   "minutes": "دقيقه",
   "seconds": "ثانية",
-  "noCarsAvailable": "لا توجد سيارات في هذه الفئة"
-
+  "noCarsAvailable": "لا توجد سيارات في هذه الفئة",
+  "resendOtp"
+: "إعادة إرسال رمز التحقق"
 
 
 
