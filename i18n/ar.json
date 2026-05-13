@@ -1168,7 +1168,8 @@
   "reservationDuration":"ينتهي الحجز خلال:",
   "hours": "ساعه",
   "minutes": "دقيقه",
-  "seconds": "ثانية"
+  "seconds": "ثانية",
+  "noCarsAvailable": "لا توجد سيارات في هذه الفئة"
 
 
 

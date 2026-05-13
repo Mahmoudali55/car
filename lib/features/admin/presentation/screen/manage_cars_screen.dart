@@ -4,11 +4,15 @@ import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/routes/routes_name.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
-import 'package:car/features/admin/presentation/screen/widgets/car_inventory_card_widget.dart';
+import 'package:car/features/admin/presentation/screen/widgets/car_filter_chips.dart';
+import 'package:car/features/admin/presentation/screen/widgets/car_inventory_card.dart';
+import 'package:car/features/admin/presentation/screen/widgets/fleet_stats_row.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
+
+import 'widgets/empty_state_widget.dart';
 
 class ManageCarsScreen extends StatefulWidget {
   const ManageCarsScreen({super.key});
@@ -18,52 +22,57 @@ class ManageCarsScreen extends StatefulWidget {
 }
 
 class _ManageCarsScreenState extends State<ManageCarsScreen> {
-  String selectedFilterKey = AppLocaleKey.all;
+  String _selectedFilter = 'all';
 
-  final List<Map<String, String>> dummyCars = [
+  final List<Map<String, String>> _cars = [
     {
       'name': 'Mercedes Benz G63',
-      'status': AppLocaleKey.adminCarStatusPublished,
-      'price': '1,200',
+      'status': 'published',
+      'price': '1,200,000',
       'year': '2024',
-      'mileage': '5,000 km',
+      'mileage': '5,000 كم',
+      'image': 'assets/images/gclass.png',
     },
     {
       'name': 'Bentley Continental',
-      'status': AppLocaleKey.adminCarStatusPublished,
-      'price': '2,500',
+      'status': 'published',
+      'price': '2,500,000',
       'year': '2023',
-      'mileage': '1,200 km',
+      'mileage': '1,200 كم',
+      'image': 'assets/images/ferrari.png',
     },
     {
       'name': 'Ferrari F8 Tributo',
-      'status': AppLocaleKey.adminCarStatusPending,
-      'price': '3,500',
+      'status': 'pending',
+      'price': '3,500,000',
       'year': '2024',
-      'mileage': '0 km',
+      'mileage': '0 كم',
+      'image': 'assets/images/ferrari.png',
     },
     {
       'name': 'Range Rover Vogue',
-      'status': AppLocaleKey.adminCarStatusPublished,
-      'price': '900',
+      'status': 'published',
+      'price': '900,000',
       'year': '2022',
-      'mileage': '24,000 km',
+      'mileage': '24,000 كم',
+      'image': 'assets/images/coupon_pattern.png',
     },
     {
       'name': 'Lamborghini Urus',
-      'status': AppLocaleKey.adminCarStatusDeleted,
-      'price': '4,000',
+      'status': 'deleted',
+      'price': '4,000,000',
       'year': '2023',
-      'mileage': '8,500 km',
+      'mileage': '8,500 كم',
+      'image': 'assets/images/yaris.png',
     },
   ];
 
+  List<Map<String, String>> get _filtered => _selectedFilter == 'all'
+      ? _cars
+      : _cars.where((c) => c['status'] == _selectedFilter).toList();
+
   @override
   Widget build(BuildContext context) {
-    final filteredCars = selectedFilterKey == AppLocaleKey.all
-        ? dummyCars
-        : dummyCars.where((car) => car['status'] == selectedFilterKey).toList();
-
     return Scaffold(
       backgroundColor: AppColor.scaffoldColor(context),
       appBar: CustomAppBar(
@@ -71,22 +80,24 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
         appBarColor: AppColor.scaffoldColor(context),
         elevation: 0,
         automaticallyImplyLeading: false,
-        leading: SizedBox.shrink(),
+        leading: const SizedBox.shrink(),
+        centerTitle: false,
         title: Text(
           AppLocaleKey.fleetManagement.tr(),
-          style: AppTextStyle.titleMedium(context).copyWith(
-            color: AppColor.blackTextColor(context),
-            fontWeight: FontWeight.w900,
-            fontSize: 20.sp,
-          ),
+          style: AppTextStyle.titleMedium(
+            context,
+          ).copyWith(fontWeight: FontWeight.w900, fontSize: 20.sp),
         ),
         actions: [
           IconButton(
             onPressed: () => Navigator.pushNamed(context, RoutesName.addCar),
-            icon: Icon(
-              Icons.add_circle_rounded,
-              color: AppColor.primaryColor(context),
-              size: 28.sp,
+            icon: Container(
+              padding: EdgeInsets.all(6.w),
+              decoration: BoxDecoration(
+                color: AppColor.primaryColor(context).withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(10.r),
+              ),
+              child: Icon(Icons.add_rounded, color: AppColor.primaryColor(context), size: 20.sp),
             ),
           ),
           Gap(10.w),
@@ -94,75 +105,38 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
       ),
       body: Column(
         children: [
-          _buildStatusFilters(),
+          FleetStatsRow(cars: _cars),
+          SizedBox(height: 14.h),
+          CarFilterChips(
+            selectedFilter: _selectedFilter,
+            onFilterChanged: (f) => setState(() => _selectedFilter = f),
+          ),
+          SizedBox(height: 4.h),
           Expanded(
-            child: ListView.separated(
-              padding: EdgeInsets.all(20.w),
-              itemCount: filteredCars.length,
-              physics: const BouncingScrollPhysics(),
-              separatorBuilder: (context, index) => Gap(20.h),
-              itemBuilder: (context, index) => FadeInUp(
-                key: ValueKey('${selectedFilterKey}_$index'), // Reset animation on filter change
-                delay: Duration(milliseconds: index * 40),
-                child: CarInventoryCardWidget(car: filteredCars[index]),
-              ),
+            child: AnimatedSwitcher(
+              duration: const Duration(milliseconds: 200),
+              child: _filtered.isEmpty
+                  ? EmptyState(key: const ValueKey('empty'))
+                  : ListView.separated(
+                      key: ValueKey(_selectedFilter),
+                      padding: EdgeInsets.all(16.w),
+                      physics: const BouncingScrollPhysics(),
+                      itemCount: _filtered.length,
+                      separatorBuilder: (_, __) => Gap(10.h),
+                      itemBuilder: (context, i) => FadeInUp(
+                        delay: Duration(milliseconds: i * 40),
+                        duration: const Duration(milliseconds: 300),
+                        child: CarInventoryCard(
+                          car: _filtered[i],
+                          onEdit: () {},
+                          onWhatsApp: () {},
+                          onDelete: () {},
+                        ),
+                      ),
+                    ),
             ),
           ),
         ],
-      ),
-    );
-  }
-
-  Widget _buildStatusFilters() {
-    final filters = [
-      AppLocaleKey.all,
-      AppLocaleKey.adminCarStatusPublished,
-      AppLocaleKey.adminCarStatusPending,
-      AppLocaleKey.adminCarStatusDeleted,
-    ];
-    return Container(
-      height: 45.h,
-      width: double.infinity,
-      margin: EdgeInsets.only(top: 10.h),
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        padding: EdgeInsets.symmetric(horizontal: 20.w),
-        physics: const BouncingScrollPhysics(),
-        itemCount: filters.length,
-        itemBuilder: (context, index) => _buildFilterChip(filters[index]),
-      ),
-    );
-  }
-
-  Widget _buildFilterChip(String labelKey) {
-    final isSelected = selectedFilterKey == labelKey;
-    final label = labelKey.tr();
-
-    return GestureDetector(
-      onTap: () => setState(() => selectedFilterKey = labelKey),
-      child: Container(
-        margin: EdgeInsets.only(left: 12.w),
-        padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 8.h),
-        decoration: BoxDecoration(
-          color: isSelected
-              ? AppColor.primaryColor(context)
-              : AppColor.blackTextColor(context).withValues(alpha: 0.05),
-          borderRadius: BorderRadius.circular(16.r),
-          border: isSelected
-              ? null
-              : Border.all(color: AppColor.blackTextColor(context).withValues(alpha: 0.1)),
-        ),
-        alignment: Alignment.center,
-        child: Text(
-          label,
-          style: TextStyle(
-            color: isSelected
-                ? AppColor.whiteColor(context)
-                : AppColor.blackTextColor(context).withValues(alpha: 0.5),
-            fontWeight: isSelected ? FontWeight.bold : FontWeight.w500,
-            fontSize: 12.sp,
-          ),
-        ),
       ),
     );
   }

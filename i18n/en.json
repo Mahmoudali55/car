@@ -989,5 +989,6 @@
   "reservationDuration":"Reservation ends within:",
   "hours": "Hours",
   "minutes": "Minutes",
-  "seconds": "Seconds"
+  "seconds": "Seconds",
+  "noCarsAvailable": "No cars available in this category"
 }
