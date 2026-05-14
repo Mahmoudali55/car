@@ -52,13 +52,15 @@ class CarsCategoriesRowWidget extends StatelessWidget {
                       ]
                     : null,
               ),
-              child: Text(
-                categories[index],
-                style: AppTextStyle.bodyMedium(context).copyWith(
-                  color: isSelected
-                      ? AppColor.whiteColor(context)
-                      : AppColor.blackTextColor(context).withValues(alpha: 0.60),
-                  fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+              child: Center(
+                child: Text(
+                  categories[index],
+                  style: AppTextStyle.bodyMedium(context).copyWith(
+                    color: isSelected
+                        ? AppColor.whiteColor(context)
+                        : AppColor.blackTextColor(context).withValues(alpha: 0.60),
+                    fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                  ),
                 ),
               ),
             ),

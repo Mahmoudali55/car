@@ -118,7 +118,7 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
             child: AnimatedSwitcher(
               duration: const Duration(milliseconds: 200),
               child: _filtered.isEmpty
-                  ? EmptyState(key: const ValueKey('empty'))
+                  ? const EmptyState(key: ValueKey('empty'))
                   : ListView.separated(
                       key: ValueKey(_selectedFilter),
                       padding: EdgeInsets.all(16.w),

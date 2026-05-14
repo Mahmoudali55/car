@@ -18,7 +18,8 @@ class CarFilterChips extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 45.h,
+      height: 40.h,
+      width: double.infinity,
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
         padding: EdgeInsets.symmetric(horizontal: 16.w),
@@ -37,21 +38,23 @@ class CarFilterChips extends StatelessWidget {
                 color: isActive
                     ? AppColor.blackTextColor(context)
                     : AppColor.blackTextColor(context).withValues(alpha: 0.04),
-                borderRadius: BorderRadius.circular(20.r),
+                borderRadius: BorderRadius.circular(12.r),
                 border: Border.all(
                   color: isActive
                       ? Colors.transparent
                       : AppColor.blackTextColor(context).withValues(alpha: 0.08),
                 ),
               ),
-              child: Text(
-                f['label']!,
-                style: TextStyle(
-                  fontSize: 12.sp,
-                  fontWeight: FontWeight.w500,
-                  color: isActive
-                      ? AppColor.whiteColor(context)
-                      : AppColor.blackTextColor(context).withValues(alpha: 0.5),
+              child: Center(
+                child: Text(
+                  f['label']!,
+                  style: TextStyle(
+                    fontSize: 12.sp,
+                    fontWeight: FontWeight.w500,
+                    color: isActive
+                        ? AppColor.whiteColor(context)
+                        : AppColor.blackTextColor(context).withValues(alpha: 0.5),
+                  ),
                 ),
               ),
             ),

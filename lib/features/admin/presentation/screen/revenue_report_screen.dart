@@ -2,9 +2,9 @@ import 'package:animate_do/animate_do.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart' show AppTextStyle;
+import 'package:car/features/admin/presentation/screen/widgets/market_trends_chart_widget.dart';
 import 'package:car/features/admin/presentation/screen/widgets/transactions_list_widget.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -52,11 +52,11 @@ class RevenueReportScreen extends StatelessWidget {
             Gap(32.h),
             _buildSectionTitle(AppLocaleKey.adminMarketAnalysis.tr(), context),
             Gap(16.h),
-            _buildMarketTrendsChart(context),
+           const MarketTrendsChartWidget(),
             Gap(32.h),
             _buildSectionTitle(AppLocaleKey.recentTransactions.tr(), context),
             Gap(16.h),
-            TransactionsListWidget(),
+            const TransactionsListWidget(),
             Gap(40.h),
           ],
         ),
@@ -225,77 +225,6 @@ class RevenueReportScreen extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-
-  Widget _buildMarketTrendsChart(BuildContext context) {
-    return Container(
-      height: 180.h,
-      padding: EdgeInsets.all(20.w),
-      decoration: BoxDecoration(
-        color: AppColor.blackTextColor(context).withValues(alpha: 0.02),
-        borderRadius: BorderRadius.circular(32.r),
-        border: Border.all(color: AppColor.blackTextColor(context).withValues(alpha: 0.05)),
-      ),
-      child: BarChart(
-        BarChartData(
-          gridData: const FlGridData(show: false),
-          titlesData: FlTitlesData(
-            show: true,
-            rightTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
-            topTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
-            leftTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
-            bottomTitles: AxisTitles(
-              sideTitles: SideTitles(
-                showTitles: true,
-                getTitlesWidget: (value, meta) {
-                  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'];
-                  if (value.toInt() >= 0 && value.toInt() < months.length) {
-                    return Text(
-                      months[value.toInt()],
-                      style: TextStyle(
-                        color: AppColor.blackTextColor(context).withValues(alpha: 0.3),
-                        fontSize: 10.sp,
-                      ),
-                    );
-                  }
-                  return const Text('');
-                },
-              ),
-            ),
-          ),
-          borderData: FlBorderData(show: false),
-          barGroups: [
-            _makeGroupData(0, 5, 2, context),
-            _makeGroupData(1, 4, 3, context),
-            _makeGroupData(2, 6, 1.5, context),
-            _makeGroupData(3, 8, 4, context),
-            _makeGroupData(4, 5, 3.5, context),
-            _makeGroupData(5, 7, 2.5, context),
-          ],
-        ),
-      ),
-    );
-  }
-
-  BarChartGroupData _makeGroupData(int x, double y1, double y2, BuildContext context) {
-    return BarChartGroupData(
-      barsSpace: 4,
-      x: x,
-      barRods: [
-        BarChartRodData(
-          toY: y1,
-          color: AppColor.primaryColor(context),
-          width: 8.w,
-          borderRadius: BorderRadius.circular(4.r),
-        ),
-        BarChartRodData(
-          toY: y2,
-          color: Colors.blueAccent.withOpacity(0.3),
-          width: 8.w,
-          borderRadius: BorderRadius.circular(4.r),
-        ),
-      ],
     );
   }
 
