@@ -49,7 +49,7 @@ class _ContentManagementScreenState extends State<ContentManagementScreen>
           Expanded(
             child: TabBarView(
               controller: _tabController,
-              children: [ReviewsListWidget(), FeaturedAdsListWidget()],
+              children: [const ReviewsListWidget(), const FeaturedAdsListWidget()],
             ),
           ),
         ],

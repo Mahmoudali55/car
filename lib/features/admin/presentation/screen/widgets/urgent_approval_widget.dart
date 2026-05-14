@@ -1,3 +1,4 @@
+import 'package:car/core/custom_widgets/buttons/custom_button.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -48,10 +49,10 @@ class UrgentApprovalWidget extends StatelessWidget {
               decoration: BoxDecoration(
                 color: AppColor.cardColor(context),
                 borderRadius: BorderRadius.circular(16.r),
-                border: Border.all(color: Colors.orangeAccent.withOpacity(0.3)),
+                border: Border.all(color: Colors.orangeAccent.withValues(alpha: (0.3))),
                 boxShadow: [
                   BoxShadow(
-                    color: AppColor.blackColor(context).withOpacity(0.05),
+                    color: AppColor.blackColor(context).withValues(alpha: (0.05)),
                     blurRadius: 10,
                     offset: const Offset(0, 4),
                   ),
@@ -64,12 +65,12 @@ class UrgentApprovalWidget extends StatelessWidget {
                     children: [
                       CircleAvatar(
                         radius: 12.r,
-                        backgroundColor: Colors.orangeAccent.withOpacity(0.2),
+                        backgroundColor: Colors.orangeAccent.withValues(alpha: (0.2)),
                         child: Icon(Icons.warning_rounded, color: Colors.orangeAccent, size: 14.sp),
                       ),
                       Gap(8.w),
                       Text(
-                        'Approval Request',
+                        AppLocaleKey.approvalRequest.tr(),
                         style: TextStyle(
                           color: AppColor.blackTextColor(context),
                           fontWeight: FontWeight.bold,
@@ -80,7 +81,7 @@ class UrgentApprovalWidget extends StatelessWidget {
                   ),
                   const Spacer(),
                   Text(
-                    'Agent requested price update for Mercedes G63.',
+                    AppLocaleKey.agentRequested.tr(),
                     style: TextStyle(color: AppColor.greyColor(context), fontSize: 12.sp),
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
@@ -89,33 +90,25 @@ class UrgentApprovalWidget extends StatelessWidget {
                   Row(
                     children: [
                       Expanded(
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.green,
-                            padding: EdgeInsets.zero,
-                            minimumSize: Size(0, 30.h),
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.r)),
-                          ),
+                        child: CustomButton(
+                          radius: 12.r,
+                          color: AppColor.greenColor(context),
                           onPressed: () {},
                           child: Text(
                             AppLocaleKey.approve.tr(),
-                            style: TextStyle(color: Colors.white, fontSize: 12.sp),
+                            style: TextStyle(color: AppColor.whiteColor(context), fontSize: 12.sp),
                           ),
                         ),
                       ),
                       Gap(8.w),
                       Expanded(
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.red,
-                            padding: EdgeInsets.zero,
-                            minimumSize: Size(0, 30.h),
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.r)),
-                          ),
+                        child: CustomButton(
+                          radius: 12.r,
                           onPressed: () {},
+                          color: AppColor.redColor(context),
                           child: Text(
                             AppLocaleKey.reject.tr(),
-                            style: TextStyle(color: Colors.white, fontSize: 12.sp),
+                            style: TextStyle(color: AppColor.whiteColor(context), fontSize: 12.sp),
                           ),
                         ),
                       ),

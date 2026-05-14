@@ -113,15 +113,14 @@ class AppRouters {
         return MaterialPageRoute(builder: (_) => const ManageCarsScreen());
       case RoutesName.manageBookings:
         return MaterialPageRoute(builder: (_) => const ManageBookingsScreen());
-      case RoutesName.manageUsers:
-        return MaterialPageRoute(builder: (_) => const ManageUsersScreen());
+      // case RoutesName.manageUsers:
+      //   return MaterialPageRoute(builder: (_) => const ManageUsersScreen());
       case RoutesName.revenueReport:
       case RoutesName.revenueReports:
         return MaterialPageRoute(builder: (_) => const RevenueReportScreen());
       case RoutesName.addCar:
         return MaterialPageRoute(builder: (_) => const AddCarScreen());
-      case RoutesName.manageServices:
-        return MaterialPageRoute(builder: (_) => const ManageServicesScreen());
+
       case RoutesName.inspectionReports:
         return MaterialPageRoute(builder: (_) => const InspectionReportsScreen());
       case RoutesName.adminSettings:
@@ -134,8 +133,7 @@ class AppRouters {
         return MaterialPageRoute(builder: (_) => const AdminSecurityScreen());
       case RoutesName.systemAlerts:
         return MaterialPageRoute(builder: (_) => const SystemAlertsScreen());
-      case RoutesName.manageCategories:
-        return MaterialPageRoute(builder: (_) => const ManageCategoriesScreen());
+
       case RoutesName.discountCoupons:
         return MaterialPageRoute(builder: (_) => const DiscountCouponsScreen());
       case RoutesName.termsSettings:

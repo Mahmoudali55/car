@@ -14,15 +14,15 @@ class TabBarWidget extends StatelessWidget {
       margin: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
       padding: EdgeInsets.all(6.w),
       decoration: BoxDecoration(
-        color: AppColor.blackTextColor(context).withOpacity(0.03),
+        color: AppColor.blackTextColor(context).withValues(alpha: (0.03)),
         borderRadius: BorderRadius.circular(20.r),
       ),
       child: TabBar(
         controller: tabController,
         dividerColor: Colors.transparent,
         indicatorSize: TabBarIndicatorSize.tab,
-        labelColor: Colors.white,
-        unselectedLabelColor: AppColor.blackTextColor(context).withOpacity(0.4),
+        labelColor: AppColor.whiteColor(context),
+        unselectedLabelColor: AppColor.blackTextColor(context).withValues(alpha: (0.4)),
         indicator: BoxDecoration(
           color: AppColor.primaryColor(context),
           borderRadius: BorderRadius.circular(16.r),

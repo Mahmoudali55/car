@@ -95,6 +95,7 @@
   "emergency_recovery": "Recovery",
   "fuel_delivery": "Fuel Delivery",
   "battery_jumpstart": "Battery Jumpstart",
+  "day": "Day",
   "management_action_center": "Management Action Center",
   "revenue_reports": "Revenue Reports",
   "maintenance_repair": "Maintenance",
@@ -992,5 +993,7 @@
   "seconds": "Seconds",
   "noCarsAvailable": "No cars available in this category",
   "resendOtp"
-: "Resend code"
+: "Resend code",
+"Approval Request": "Approval Request",
+"AgentRequested": "Agent requested price update for Mercedes G63."
 }

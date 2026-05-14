@@ -1,9 +1,9 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
+import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:car/core/theme/app_colors.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
@@ -19,10 +19,7 @@ class AllActivitiesScreen extends StatelessWidget {
         elevation: 0,
         leading: IconButton(
           onPressed: () => Navigator.pop(context),
-          icon: Icon(
-            Icons.arrow_back_ios_new_rounded,
-            color: AppColor.blackTextColor(context),
-          ),
+          icon: Icon(Icons.arrow_back_ios_new_rounded, color: AppColor.blackTextColor(context)),
         ),
         title: Text(
           AppLocaleKey.fullActivityLog.tr(),
@@ -83,23 +80,19 @@ class AllActivitiesScreen extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(16.w),
       decoration: BoxDecoration(
-        color: AppColor.blackTextColor(context).withOpacity(0.02),
+        color: AppColor.blackTextColor(context).withValues(alpha: (0.02)),
         borderRadius: BorderRadius.circular(24.r),
-        border: Border.all(color: AppColor.blackTextColor(context).withOpacity(0.05)),
+        border: Border.all(color: AppColor.blackTextColor(context).withValues(alpha: 0.05)),
       ),
       child: Row(
         children: [
           Container(
             padding: EdgeInsets.all(12.w),
             decoration: BoxDecoration(
-              color: (act['color'] as Color).withOpacity(0.1),
+              color: (act['color'] as Color).withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(16.r),
             ),
-            child: Icon(
-              act['icon'] as IconData,
-              color: act['color'] as Color,
-              size: 22.sp,
-            ),
+            child: Icon(act['icon'] as IconData, color: act['color'] as Color, size: 22.sp),
           ),
           Gap(16.w),
           Expanded(
@@ -118,7 +111,7 @@ class AllActivitiesScreen extends StatelessWidget {
                 Text(
                   act['desc'] as String,
                   style: TextStyle(
-                    color: AppColor.blackTextColor(context).withOpacity(0.4),
+                    color: AppColor.blackTextColor(context).withValues(alpha: 0.4),
                     fontSize: 11.sp,
                     fontWeight: FontWeight.w500,
                   ),
@@ -129,7 +122,7 @@ class AllActivitiesScreen extends StatelessWidget {
           Text(
             act['time'] as String,
             style: TextStyle(
-              color: AppColor.blackTextColor(context).withOpacity(0.3),
+              color: AppColor.blackTextColor(context).withValues(alpha: 0.3),
               fontSize: 10.sp,
               fontWeight: FontWeight.w600,
             ),

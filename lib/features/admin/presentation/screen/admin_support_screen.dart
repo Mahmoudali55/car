@@ -24,7 +24,7 @@ class AdminSupportScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SupportHeroWidget(),
+            const SupportHeroWidget(),
             Gap(32.h),
             SupportSectionWidget(
               title: AppLocaleKey.adminGuides.tr(),

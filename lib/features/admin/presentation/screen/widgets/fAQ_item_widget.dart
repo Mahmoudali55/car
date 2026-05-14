@@ -16,7 +16,7 @@ class FaqItemWidget extends StatelessWidget {
         margin: EdgeInsets.only(bottom: 12.h),
         padding: EdgeInsets.all(20.w),
         decoration: BoxDecoration(
-          color: baseColor.withOpacity(0.02),
+          color: baseColor.withValues(alpha: (0.02)),
           borderRadius: BorderRadius.circular(24.r),
         ),
         child: Column(

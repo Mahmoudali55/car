@@ -127,6 +127,7 @@
   "emergency_recovery": "ونش انقاذ",
   "fuel_delivery": "توصيل وقود",
   "battery_jumpstart": "اشتراك بطارية",
+  "day": "يوم",
   "management_action_center": "مركز إدارة العمليات",
   "revenue_reports": "تقارير الإيرادات",
   "maintenance_repair": "صيانة وإصلاح",
@@ -1171,7 +1172,9 @@
   "seconds": "ثانية",
   "noCarsAvailable": "لا توجد سيارات في هذه الفئة",
   "resendOtp"
-: "إعادة إرسال رمز التحقق"
+: "إعادة إرسال رمز التحقق",
+"ApprovalRequest": "طلب الموافقة",
+"AgentRequested": "الوكيل قام بطلب تحديث سعر Mercedes G63."
 
 
 

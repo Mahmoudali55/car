@@ -1,4 +1,5 @@
 import 'package:car/core/theme/app_colors.dart';
+import 'package:car/core/theme/app_text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -34,20 +35,20 @@ class _FeaturesSelectionWidgetState extends State<FeaturesSelectionWidget> {
             decoration: BoxDecoration(
               color: isSelected
                   ? AppColor.primaryColor(context)
-                  : AppColor.blackTextColor(context).withOpacity(0.03),
+                  : AppColor.blackTextColor(context).withValues(alpha: (0.03)),
               borderRadius: BorderRadius.circular(14.r),
               border: Border.all(
                 color: isSelected
                     ? Colors.transparent
-                    : AppColor.blackTextColor(context).withOpacity(0.05),
+                    : AppColor.blackTextColor(context).withValues(alpha: (0.05)),
               ),
             ),
             child: Text(
               feature,
-              style: TextStyle(
+              style: AppTextStyle.bodySmall(context).copyWith(
                 color: isSelected
-                    ? Colors.white
-                    : AppColor.blackTextColor(context).withOpacity(0.5),
+                    ? AppColor.whiteColor(context)
+                    : AppColor.blackTextColor(context).withValues(alpha: (0.5)),
                 fontSize: 12.sp,
                 fontWeight: isSelected ? FontWeight.bold : FontWeight.w500,
               ),

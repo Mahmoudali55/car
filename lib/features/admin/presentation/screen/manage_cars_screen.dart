@@ -80,8 +80,8 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
         appBarColor: AppColor.scaffoldColor(context),
         elevation: 0,
         automaticallyImplyLeading: false,
-        leading: const SizedBox.shrink(),
-        centerTitle: false,
+        leading: null,
+        centerTitle: true,
         title: Text(
           AppLocaleKey.fleetManagement.tr(),
           style: AppTextStyle.titleMedium(
@@ -97,7 +97,9 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
                 color: AppColor.primaryColor(context).withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(10.r),
               ),
-              child: Icon(Icons.add_rounded, color: AppColor.primaryColor(context), size: 20.sp),
+              child: Center(
+                child: Icon(Icons.add_rounded, color: AppColor.primaryColor(context), size: 20.sp),
+              ),
             ),
           ),
           Gap(10.w),

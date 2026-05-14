@@ -1,4 +1,5 @@
 import 'package:car/core/theme/app_colors.dart';
+import 'package:car/core/theme/app_text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -11,9 +12,8 @@ class FieldLabelWidget extends StatelessWidget {
       padding: EdgeInsets.only(bottom: 8.h, left: 4.w),
       child: Text(
         label,
-        style: TextStyle(
-          color: AppColor.blackTextColor(context).withOpacity(0.6),
-          fontSize: 12.sp,
+        style: AppTextStyle.bodySmall(context).copyWith(
+          color: AppColor.blackTextColor(context).withValues(alpha: (0.6)),
           fontWeight: FontWeight.bold,
         ),
       ),

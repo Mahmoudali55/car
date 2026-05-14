@@ -1,16 +1,21 @@
 import 'package:animate_do/animate_do.dart';
-import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
-import 'package:car/core/theme/cubit/app_theme_cubit.dart';
-import 'package:car/core/theme/theme_enum.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class ThemeToggleItem extends StatelessWidget {
-  const ThemeToggleItem({super.key, required this.isDark});
-  final bool isDark;
+class AlertToggleWidget extends StatelessWidget {
+  const AlertToggleWidget({
+    super.key,
+    required this.icon,
+    required this.title,
+    required this.subtitle,
+    required this.initialValue,
+  });
+  final IconData icon;
+  final String title;
+  final String subtitle;
+  final bool initialValue;
+
   @override
   Widget build(BuildContext context) {
     final baseColor = AppColor.blackTextColor(context);
@@ -19,43 +24,35 @@ class ThemeToggleItem extends StatelessWidget {
         margin: EdgeInsets.only(bottom: 12.h),
         decoration: BoxDecoration(
           color: baseColor.withValues(alpha: (0.03)),
-          borderRadius: BorderRadius.circular(20.r),
+          borderRadius: BorderRadius.circular(24.r),
           border: Border.all(color: baseColor.withValues(alpha: (0.05))),
         ),
         child: ListTile(
+          contentPadding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 8.h),
           leading: Container(
-            padding: EdgeInsets.all(10.w),
+            padding: EdgeInsets.all(12.w),
             decoration: BoxDecoration(
               color: baseColor.withValues(alpha: (0.05)),
               shape: BoxShape.circle,
             ),
-            child: AnimatedSwitcher(
-              duration: const Duration(milliseconds: 300),
-              child: Icon(
-                isDark ? Icons.dark_mode_rounded : Icons.light_mode_rounded,
-                key: ValueKey(isDark),
-                color: baseColor,
-                size: 20.sp,
-              ),
-            ),
+            child: Icon(icon, color: baseColor, size: 22.sp),
           ),
           title: Text(
-            AppLocaleKey.appearance.tr(),
+            title,
             style: TextStyle(color: baseColor, fontSize: 14.sp, fontWeight: FontWeight.bold),
           ),
           subtitle: Text(
-            isDark ? AppLocaleKey.darkMode.tr() : AppLocaleKey.lightMode.tr(),
+            subtitle,
             style: TextStyle(
               color: baseColor.withValues(alpha: (0.4)),
               fontSize: 11.sp,
             ),
           ),
           trailing: Switch(
-            value: isDark,
+            value: initialValue,
+            onChanged: (val) {},
+            activeTrackColor: AppColor.primaryColor(context).withValues(alpha: (0.3)),
             activeThumbColor: AppColor.primaryColor(context),
-            onChanged: (val) {
-              context.read<AppThemeCubit>().theme = val ? ThemeEnum.dark : ThemeEnum.light;
-            },
           ),
         ),
       ),

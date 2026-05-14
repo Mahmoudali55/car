@@ -32,7 +32,7 @@ class HeaderAdminDashboardWidget extends StatelessWidget {
             Text(
               AppLocaleKey.performanceSummary.tr(),
               style: TextStyle(
-                color: AppColor.blackTextColor(context).withOpacity(0.4),
+                color: AppColor.blackTextColor(context).withValues(alpha: (0.4)),
                 fontSize: 12.sp,
                 fontWeight: FontWeight.w500,
               ),
@@ -49,7 +49,7 @@ class HeaderAdminDashboardWidget extends StatelessWidget {
             Gap(12.w),
             HeaderActionWidget(
               icon: Icons.logout_rounded,
-              color: Colors.redAccent,
+              color: AppColor.redColor(context),
               onTap: () {
                 HiveMethods.deleteToken();
                 HiveMethods.updateRole('user');

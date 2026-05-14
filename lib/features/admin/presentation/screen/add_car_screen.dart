@@ -74,7 +74,7 @@ class _AddCarScreenState extends State<AddCarScreen> {
           children: [
             SectionTitleWidget(title: AppLocaleKey.carImages.tr()),
             Gap(16.h),
-            ImageUploadWidget(),
+            const ImageUploadWidget(),
             Gap(32.h),
             SectionTitleWidget(title: AppLocaleKey.basicInfo.tr()),
             Gap(16.h),

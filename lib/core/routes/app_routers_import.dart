@@ -12,9 +12,6 @@ import 'package:car/features/admin/presentation/screen/discount_coupons_screen.d
 import 'package:car/features/admin/presentation/screen/inspection_reports_screen.dart';
 import 'package:car/features/admin/presentation/screen/manage_bookings_screen.dart';
 import 'package:car/features/admin/presentation/screen/manage_cars_screen.dart';
-import 'package:car/features/admin/presentation/screen/manage_categories_screen.dart';
-import 'package:car/features/admin/presentation/screen/manage_services_screen.dart';
-import 'package:car/features/admin/presentation/screen/manage_users_screen.dart';
 import 'package:car/features/admin/presentation/screen/revenue_report_screen.dart';
 import 'package:car/features/admin/presentation/screen/system_alerts_screen.dart';
 import 'package:car/features/admin/presentation/screen/terms_settings_screen.dart';
@@ -45,8 +42,8 @@ import 'package:car/features/services/presentation/screen/service_history_screen
 import 'package:car/features/services/presentation/screen/support_screen.dart';
 import 'package:car/features/services/presentation/screen/trade_in_screen.dart';
 import 'package:car/features/settings/presentation/screen/change_password_screen.dart';
-import 'package:car/features/settings/presentation/screen/faq_screen.dart';
 import 'package:car/features/settings/presentation/screen/complaints_screen.dart';
+import 'package:car/features/settings/presentation/screen/faq_screen.dart';
 import 'package:car/features/settings/presentation/screen/settings_screen.dart';
 import 'package:car/features/splash/presentation/view/screen/splash_screen.dart';
 import 'package:flutter/material.dart';

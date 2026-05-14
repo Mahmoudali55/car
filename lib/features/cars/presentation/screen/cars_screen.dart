@@ -1,11 +1,10 @@
 import 'package:car/core/localization/app_locale_keys.dart';
-import 'package:car/core/theme/app_colors.dart';
-import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/features/cars/data/model/brand_model.dart';
 import 'package:car/features/cars/presentation/screen/widget/car_search_header_widget.dart';
 import 'package:car/features/cars/presentation/screen/widget/cars_categories_row_widget.dart';
+import 'package:car/features/cars/presentation/screen/widget/cars_list_widget.dart';
 import 'package:car/features/cars/presentation/screen/widget/featured_cars_slider_widget.dart';
-import 'package:car/features/cars/presentation/screen/widget/premium_car_card_widget.dart';
+import 'package:car/features/cars/presentation/screen/widget/section_header_widget.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -21,8 +20,6 @@ class CarsScreen extends StatefulWidget {
 class _CarsScreenState extends State<CarsScreen> {
   int _selectedCategoryIndex = 0;
   BrandModel? _selectedBrand;
-
-  // ─── Dummy Data ───────────────────────────────────
 
   static const List<Map<String, String>> _featuredCars = [
     {
@@ -105,9 +102,6 @@ class _CarsScreenState extends State<CarsScreen> {
       'installments': '1,166',
     },
   ];
-
-  // ─── Helpers ─────────────────────────────────────
-
   List<String> get _categories => [
     AppLocaleKey.all.tr(),
     AppLocaleKey.luxury.tr(),
@@ -115,13 +109,11 @@ class _CarsScreenState extends State<CarsScreen> {
     AppLocaleKey.sports.tr(),
     AppLocaleKey.sedan.tr(),
   ];
-
   List<Map<String, dynamic>> get _filteredCars {
     if (_selectedBrand == null) return _carsList;
     return _carsList.where((car) => car['brand'] == _selectedBrand!.name).toList();
   }
 
-  /// إضافة وحدات السعر والمسافة عند العرض — بدل تلويث الـ data بمسافات زيادة
   Map<String, dynamic> _localizeCarData(Map<String, dynamic> car) {
     return {
       ...car,
@@ -140,8 +132,6 @@ class _CarsScreenState extends State<CarsScreen> {
           '${car['installments']} ${AppLocaleKey.sar.tr()} / ${AppLocaleKey.month.tr()}',
     };
   }
-
-  // ─── Build ────────────────────────────────────────
 
   @override
   Widget build(BuildContext context) {
@@ -163,78 +153,13 @@ class _CarsScreenState extends State<CarsScreen> {
                 onCategorySelected: (index) => setState(() => _selectedCategoryIndex = index),
               ),
               Gap(24.h),
-              _SectionHeader(),
+              SectionHeader(),
               Gap(16.h),
-              _CarsList(cars: _filteredCars, localizeCarData: _localizeCarData),
+              CarsList(cars: _filteredCars, localizeCarData: _localizeCarData),
             ],
           ),
         ),
       ],
-    );
-  }
-}
-
-// ─────────────────────────────────────────────────
-// Sub-widgets
-// ─────────────────────────────────────────────────
-
-class _SectionHeader extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 20.w),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            AppLocaleKey.availableCars.tr(),
-            style: AppTextStyle.titleMedium(context).copyWith(fontWeight: FontWeight.bold),
-          ),
-          Text(
-            AppLocaleKey.showAll.tr(),
-            style: AppTextStyle.bodySmall(context).copyWith(color: AppColor.primaryColor(context)),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _CarsList extends StatelessWidget {
-  const _CarsList({required this.cars, required this.localizeCarData});
-
-  final List<Map<String, dynamic>> cars;
-  final Map<String, dynamic> Function(Map<String, dynamic>) localizeCarData;
-
-  @override
-  Widget build(BuildContext context) {
-    if (cars.isEmpty) {
-      return SizedBox(
-        height: 200.h,
-        child: Center(
-          child: Text(
-            AppLocaleKey.noCarsForBrand.tr(),
-            style: AppTextStyle.bodyMedium(
-              context,
-            ).copyWith(color: AppColor.blackTextColor(context).withOpacity(0.4)),
-          ),
-        ),
-      );
-    }
-
-    return ListView.separated(
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      padding: EdgeInsets.fromLTRB(20.w, 0, 20.w, 100.h),
-      itemCount: cars.length,
-      separatorBuilder: (_, __) => Gap(16.h),
-      itemBuilder: (context, index) {
-        final car = localizeCarData(cars[index]);
-        return PremiumCarCardWidget(
-          car: car,
-          heroTag: 'premium_car_image_${car['itemCode'] ?? car['name']}',
-        );
-      },
     );
   }
 }

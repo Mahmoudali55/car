@@ -23,11 +23,11 @@ class ContactDeveloperScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ContactHeaderWidget(),
+            const ContactHeaderWidget(),
             Gap(32.h),
-            TicketFormWidget(),
+            const TicketFormWidget(),
             Gap(40.h),
-            DirectLiaisonWidget(),
+            const DirectLiaisonWidget(),
           ],
         ),
       ),

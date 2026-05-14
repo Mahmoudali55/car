@@ -2,6 +2,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:car/core/cache/hive/hive_methods.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/routes/routes_name.dart';
+import 'package:car/core/theme/app_colors.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -16,9 +17,9 @@ class LogoutButtonWidget extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.all(4.w),
         decoration: BoxDecoration(
-          color: Colors.redAccent.withOpacity(0.1),
+          color: AppColor.redColor(context).withValues(alpha: (0.1)),
           borderRadius: BorderRadius.circular(16.r),
-          border: Border.all(color: Colors.redAccent.withOpacity(0.1)),
+          border: Border.all(color: AppColor.redColor(context).withValues(alpha: (0.1))),
         ),
         child: ListTile(
           onTap: () {
@@ -26,12 +27,12 @@ class LogoutButtonWidget extends StatelessWidget {
             HiveMethods.updateRole('user');
             Navigator.pushNamedAndRemoveUntil(context, RoutesName.loginScreen, (route) => false);
           },
-          leading: const Icon(Icons.logout_rounded, color: Colors.redAccent),
+          leading: Icon(Icons.logout_rounded, color: AppColor.redColor(context)),
           title: Text(
             AppLocaleKey.logout.tr(),
-            style: const TextStyle(color: Colors.redAccent, fontWeight: FontWeight.bold),
+            style: TextStyle(color: AppColor.redColor(context), fontWeight: FontWeight.bold),
           ),
-          trailing: const Icon(Icons.chevron_left_rounded, color: Colors.redAccent),
+          trailing: Icon(Icons.chevron_left_rounded, color: AppColor.redColor(context)),
         ),
       ),
     );

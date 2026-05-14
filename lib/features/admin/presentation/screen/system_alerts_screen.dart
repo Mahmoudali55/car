@@ -2,6 +2,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:car/core/custom_widgets/custom_app_bar/custom_app_bar.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
+import 'package:car/features/admin/presentation/screen/widgets/alert_toggle_widget.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -24,57 +25,59 @@ class SystemAlertsScreen extends StatelessWidget {
             _buildAlertsPromo(context),
             Gap(32.h),
             _buildAlertSection(context, AppLocaleKey.notificationChannels.tr(), [
-              _buildAlertToggle(
-                context,
-                Icons.mark_email_unread_rounded,
-                AppLocaleKey.emailNotifications.tr(),
-                AppLocaleKey.emailNotificationsDesc.tr(),
-                true,
+              AlertToggleWidget(
+                icon: Icons.mark_email_unread_rounded,
+                title: AppLocaleKey.emailNotifications.tr(),
+                subtitle: AppLocaleKey.emailNotificationsDesc.tr(),
+                initialValue: true,
               ),
-              _buildAlertToggle(
-                context,
-                Icons.app_registration_rounded,
-                AppLocaleKey.pushNotifications.tr(),
-                AppLocaleKey.pushNotificationsDesc.tr(),
-                true,
+              AlertToggleWidget(
+                icon: Icons.app_registration_rounded,
+                title: AppLocaleKey.pushNotifications.tr(),
+                subtitle: AppLocaleKey.pushNotificationsDesc.tr(),
+                initialValue: true,
               ),
-              _buildAlertToggle(
-                context,
-                Icons.webhook_rounded,
-                AppLocaleKey.webhookAlerts.tr(),
-                AppLocaleKey.webhookAlertsDesc.tr(),
-                false,
+              AlertToggleWidget(
+                icon: Icons.webhook_rounded,
+                title: AppLocaleKey.webhookAlerts.tr(),
+                subtitle: AppLocaleKey.webhookAlertsDesc.tr(),
+                initialValue: false,
               ),
             ]),
             Gap(32.h),
             _buildAlertSection(context, AppLocaleKey.alertCategories.tr(), [
-              _buildAlertToggle(
-                context,
-                Icons.admin_panel_settings_rounded,
-                AppLocaleKey.newBookingRequests.tr(),
-                AppLocaleKey.newBookingRequestsDesc.tr(),
-                true,
+              AlertToggleWidget(
+                icon: Icons.webhook_rounded,
+                title: AppLocaleKey.webhookAlerts.tr(),
+                subtitle: AppLocaleKey.webhookAlertsDesc.tr(),
+                initialValue: false,
               ),
-              _buildAlertToggle(
-                context,
-                Icons.payments_rounded,
-                AppLocaleKey.paymentSuccess.tr(),
-                AppLocaleKey.paymentSuccessDesc.tr(),
-                true,
+            ]),
+            Gap(32.h),
+            _buildAlertSection(context, AppLocaleKey.alertCategories.tr(), [
+              AlertToggleWidget(
+                icon: Icons.admin_panel_settings_rounded,
+                title: AppLocaleKey.newBookingRequests.tr(),
+                subtitle: AppLocaleKey.newBookingRequestsDesc.tr(),
+                initialValue: true,
               ),
-              _buildAlertToggle(
-                context,
-                Icons.error_outline_rounded,
-                AppLocaleKey.criticalSystemErrors.tr(),
-                AppLocaleKey.criticalSystemErrorsDesc.tr(),
-                true,
+              AlertToggleWidget(
+                icon: Icons.payments_rounded,
+                title: AppLocaleKey.paymentSuccess.tr(),
+                subtitle: AppLocaleKey.paymentSuccessDesc.tr(),
+                initialValue: true,
               ),
-              _buildAlertToggle(
-                context,
-                Icons.inventory_2_rounded,
-                AppLocaleKey.lowStockWarnings.tr(),
-                AppLocaleKey.lowStockWarningsDesc.tr(),
-                false,
+              AlertToggleWidget(
+                icon: Icons.error_outline_rounded,
+                title: AppLocaleKey.criticalSystemErrors.tr(),
+                subtitle: AppLocaleKey.criticalSystemErrorsDesc.tr(),
+                initialValue: true,
+              ),
+              AlertToggleWidget(
+                icon: Icons.inventory_2_rounded,
+                title: AppLocaleKey.lowStockWarnings.tr(),
+                subtitle: AppLocaleKey.lowStockWarningsDesc.tr(),
+                initialValue: false,
               ),
             ]),
           ],
@@ -89,19 +92,23 @@ class SystemAlertsScreen extends StatelessWidget {
         width: double.infinity,
         padding: EdgeInsets.all(24.w),
         decoration: BoxDecoration(
-          color: AppColor.primaryColor(context).withOpacity(0.05),
+          color: AppColor.primaryColor(context).withValues(alpha: (0.05)),
           borderRadius: BorderRadius.circular(32.r),
-          border: Border.all(color: AppColor.primaryColor(context).withOpacity(0.1)),
+          border: Border.all(color: AppColor.primaryColor(context).withValues(alpha: (0.1))),
         ),
         child: Column(
           children: [
             Container(
               padding: EdgeInsets.all(12.w),
               decoration: BoxDecoration(
-                color: AppColor.primaryColor(context).withOpacity(0.1),
+                color: AppColor.primaryColor(context).withValues(alpha: (0.1)),
                 shape: BoxShape.circle,
               ),
-              child: Icon(Icons.notifications_active_rounded, color: AppColor.primaryColor(context), size: 32.sp),
+              child: Icon(
+                Icons.notifications_active_rounded,
+                color: AppColor.primaryColor(context),
+                size: 32.sp,
+              ),
             ),
             Gap(16.h),
             Text(
@@ -117,7 +124,7 @@ class SystemAlertsScreen extends StatelessWidget {
               AppLocaleKey.intelligenceCenterDesc.tr(),
               textAlign: TextAlign.center,
               style: TextStyle(
-                color: AppColor.blackTextColor(context).withOpacity(0.5),
+                color: AppColor.blackTextColor(context).withValues(alpha: (0.5)),
                 fontSize: 12.sp,
               ),
             ),
@@ -135,7 +142,7 @@ class SystemAlertsScreen extends StatelessWidget {
           child: Text(
             title,
             style: TextStyle(
-              color: AppColor.blackTextColor(context).withOpacity(0.5),
+              color: AppColor.blackTextColor(context).withValues(alpha: (0.5)),
               fontSize: 13.sp,
               fontWeight: FontWeight.bold,
             ),
@@ -144,51 +151,6 @@ class SystemAlertsScreen extends StatelessWidget {
         Gap(16.h),
         ...items,
       ],
-    );
-  }
-
-  Widget _buildAlertToggle(
-    BuildContext context,
-    IconData icon,
-    String title,
-    String subtitle,
-    bool initialValue,
-  ) {
-    final baseColor = AppColor.blackTextColor(context);
-    return FadeInUp(
-      child: Container(
-        margin: EdgeInsets.only(bottom: 12.h),
-        decoration: BoxDecoration(
-          color: baseColor.withOpacity(0.03),
-          borderRadius: BorderRadius.circular(24.r),
-          border: Border.all(color: baseColor.withOpacity(0.05)),
-        ),
-        child: ListTile(
-          contentPadding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 8.h),
-          leading: Container(
-            padding: EdgeInsets.all(12.w),
-            decoration: BoxDecoration(
-              color: baseColor.withOpacity(0.05),
-              shape: BoxShape.circle,
-            ),
-            child: Icon(icon, color: baseColor, size: 22.sp),
-          ),
-          title: Text(
-            title,
-            style: TextStyle(color: baseColor, fontSize: 14.sp, fontWeight: FontWeight.bold),
-          ),
-          subtitle: Text(
-            subtitle,
-            style: TextStyle(color: baseColor.withOpacity(0.4), fontSize: 11.sp),
-          ),
-          trailing: Switch(
-            value: initialValue,
-            onChanged: (val) {},
-            activeTrackColor: AppColor.primaryColor(context).withOpacity(0.3),
-            activeColor: AppColor.primaryColor(context),
-          ),
-        ),
-      ),
     );
   }
 }

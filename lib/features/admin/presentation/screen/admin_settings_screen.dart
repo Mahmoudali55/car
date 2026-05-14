@@ -40,10 +40,10 @@ class AdminSettingsScreen extends StatelessWidget {
               height: 300.h,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: Colors.grey.withOpacity(0.02),
+                color: Colors.grey.withValues(alpha: (0.02)),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.grey.withOpacity(0.02),
+                    color: Colors.grey.withValues(alpha: (0.02)),
                     blurRadius: 100,
                     spreadRadius: 50,
                   ),
@@ -127,7 +127,7 @@ class AdminSettingsScreen extends StatelessWidget {
                       ],
                     ),
                     Gap(40.h),
-                    LogoutButtonWidget(),
+                    const LogoutButtonWidget(),
                   ],
                 );
               },

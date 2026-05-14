@@ -20,7 +20,7 @@ class AdminDashboardScreen extends StatelessWidget {
       backgroundColor: AppColor.scaffoldColor(context),
       body: Stack(
         children: [
-          BackGroundAuraWidget(),
+          const BackGroundAuraWidget(),
           SafeArea(
             child: SingleChildScrollView(
               padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
@@ -28,20 +28,26 @@ class AdminDashboardScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  FadeInDown(child: HeaderAdminDashboardWidget()),
+                  FadeInDown(child: const HeaderAdminDashboardWidget()),
                   Gap(24.h),
-                  FadeInUp(child: StatsGridWidget()),
+                  FadeInUp(child: const StatsGridWidget()),
                   Gap(32.h),
                   FadeInUp(
                     delay: const Duration(milliseconds: 100),
-                    child: PerformanceChartWidget(),
+                    child: const PerformanceChartWidget(),
                   ),
                   Gap(24.h),
-                  FadeInUp(delay: const Duration(milliseconds: 250), child: ManagementHubWidget()),
+                  FadeInUp(
+                    delay: const Duration(milliseconds: 250),
+                    child: const ManagementHubWidget(),
+                  ),
                   Gap(32.h),
-                  FadeInLeft(child: UrgentApprovalWidget()),
+                  FadeInLeft(child: const UrgentApprovalWidget()),
                   Gap(32.h),
-                  FadeInUp(delay: const Duration(milliseconds: 300), child: ActivityFeedWidget()),
+                  FadeInUp(
+                    delay: const Duration(milliseconds: 300),
+                    child: const ActivityFeedWidget(),
+                  ),
                 ],
               ),
             ),

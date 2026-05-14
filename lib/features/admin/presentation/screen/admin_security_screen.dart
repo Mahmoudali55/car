@@ -23,7 +23,7 @@ class AdminSecurityScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SecurityHeaderWidget(),
+            const SecurityHeaderWidget(),
             Gap(32.h),
             SecuritySectionWidget(
               title: AppLocaleKey.managePasswordsPermissions.tr(),
