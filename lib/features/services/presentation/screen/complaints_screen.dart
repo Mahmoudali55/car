@@ -64,8 +64,8 @@ class _ComplaintsScreenState extends State<ComplaintsScreen> {
                   Gap(20.h),
                   CustomButton(
                     onPressed: () {
-                      Navigator.pop(context); // Close dialog
-                      Navigator.pop(context); // Go back to support
+                      Navigator.pop(context);
+                      Navigator.pop(context);
                     },
                     text: AppLocaleKey.ok.tr(),
                   ),

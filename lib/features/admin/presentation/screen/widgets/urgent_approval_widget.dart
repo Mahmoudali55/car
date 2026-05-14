@@ -8,7 +8,6 @@ import 'package:gap/gap.dart';
 
 class UrgentApprovalWidget extends StatelessWidget {
   const UrgentApprovalWidget({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Column(
