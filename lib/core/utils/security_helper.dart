@@ -11,7 +11,6 @@ class SecurityHelper {
       final List<int> plainBytes = utf8.encode(plainText);
       final List<int> keyBytes = utf8.encode(_secKey);
       final List<int> encryptedBytes = [];
-
       for (int i = 0; i < plainBytes.length; i++) {
         // High-performance sliding symmetric key XOR cipher
         encryptedBytes.add(plainBytes[i] ^ keyBytes[i % keyBytes.length]);
@@ -29,7 +28,6 @@ class SecurityHelper {
       final List<int> encryptedBytes = base64Url.decode(encryptedText);
       final List<int> keyBytes = utf8.encode(_secKey);
       final List<int> decryptedBytes = [];
-
       for (int i = 0; i < encryptedBytes.length; i++) {
         decryptedBytes.add(encryptedBytes[i] ^ keyBytes[i % keyBytes.length]);
       }

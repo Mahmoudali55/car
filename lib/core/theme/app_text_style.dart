@@ -5,11 +5,7 @@ import 'app_colors.dart';
 
 class AppTextStyle {
   // --- Headings ---
-  static TextStyle titleLarge(
-    BuildContext context, {
-    bool listen = true,
-    Color? color,
-  }) {
+  static TextStyle titleLarge(BuildContext context, {bool listen = true, Color? color}) {
     return TextStyle(
       fontSize: 24.sp,
       fontWeight: FontWeight.bold,
@@ -17,11 +13,7 @@ class AppTextStyle {
     );
   }
 
-  static TextStyle titleMedium(
-    BuildContext context, {
-    bool listen = true,
-    Color? color,
-  }) {
+  static TextStyle titleMedium(BuildContext context, {bool listen = true, Color? color}) {
     return TextStyle(
       fontSize: 18.sp,
       fontWeight: FontWeight.w600,
@@ -29,11 +21,7 @@ class AppTextStyle {
     );
   }
 
-  static TextStyle titleSmall(
-    BuildContext context, {
-    bool listen = true,
-    Color? color,
-  }) {
+  static TextStyle titleSmall(BuildContext context, {bool listen = true, Color? color}) {
     return TextStyle(
       fontSize: 16.sp,
       fontWeight: FontWeight.w600,
@@ -42,11 +30,7 @@ class AppTextStyle {
   }
 
   // --- Body ---
-  static TextStyle bodyLarge(
-    BuildContext context, {
-    bool listen = true,
-    Color? color,
-  }) {
+  static TextStyle bodyLarge(BuildContext context, {bool listen = true, Color? color}) {
     return TextStyle(
       fontSize: 16.sp,
       fontWeight: FontWeight.normal,
@@ -54,11 +38,7 @@ class AppTextStyle {
     );
   }
 
-  static TextStyle bodyMedium(
-    BuildContext context, {
-    bool listen = true,
-    Color? color,
-  }) {
+  static TextStyle bodyMedium(BuildContext context, {bool listen = true, Color? color}) {
     return TextStyle(
       fontSize: 14.sp,
       fontWeight: FontWeight.normal,
@@ -66,11 +46,7 @@ class AppTextStyle {
     );
   }
 
-  static TextStyle bodySmall(
-    BuildContext context, {
-    bool listen = true,
-    Color? color,
-  }) {
+  static TextStyle bodySmall(BuildContext context, {bool listen = true, Color? color}) {
     return TextStyle(
       fontSize: 12.sp,
       fontWeight: FontWeight.normal,
@@ -86,11 +62,7 @@ class AppTextStyle {
     );
   }
 
-  static TextStyle buttonStyle(
-    BuildContext context, {
-    bool listen = true,
-    Color? color,
-  }) {
+  static TextStyle buttonStyle(BuildContext context, {bool listen = true, Color? color}) {
     return TextStyle(
       fontSize: 16.sp,
       fontWeight: FontWeight.w500,
@@ -98,11 +70,7 @@ class AppTextStyle {
     );
   }
 
-  static TextStyle text16SDark(
-    BuildContext context, {
-    bool listen = true,
-    Color? color,
-  }) {
+  static TextStyle text16SDark(BuildContext context, {bool listen = true, Color? color}) {
     return TextStyle(
       fontSize: 16.sp,
       fontWeight: FontWeight.w600,
@@ -110,11 +78,7 @@ class AppTextStyle {
     );
   }
 
-  static TextStyle text14MPrimary(
-    BuildContext context, {
-    bool listen = true,
-    Color? color,
-  }) {
+  static TextStyle text14MPrimary(BuildContext context, {bool listen = true, Color? color}) {
     return TextStyle(
       fontSize: 14.sp,
       fontWeight: FontWeight.w500,
@@ -122,11 +86,7 @@ class AppTextStyle {
     );
   }
 
-  static TextStyle text16MSecond(
-    BuildContext context, {
-    bool listen = true,
-    Color? color,
-  }) {
+  static TextStyle text16MSecond(BuildContext context, {bool listen = true, Color? color}) {
     return TextStyle(
       fontSize: 16.sp,
       fontWeight: FontWeight.w500,
@@ -134,11 +94,7 @@ class AppTextStyle {
     );
   }
 
-  static TextStyle text14RGrey(
-    BuildContext context, {
-    bool listen = true,
-    Color? color,
-  }) {
+  static TextStyle text14RGrey(BuildContext context, {bool listen = true, Color? color}) {
     return TextStyle(
       fontSize: 14.sp,
       fontWeight: FontWeight.w500,
@@ -146,11 +102,7 @@ class AppTextStyle {
     );
   }
 
-  static TextStyle textFormStyle(
-    BuildContext context, {
-    bool listen = true,
-    Color? color,
-  }) {
+  static TextStyle textFormStyle(BuildContext context, {bool listen = true, Color? color}) {
     return TextStyle(
       fontSize: 16.sp,
       fontWeight: FontWeight.w500,
@@ -158,11 +110,7 @@ class AppTextStyle {
     );
   }
 
-  static TextStyle formTitleStyle(
-    BuildContext context, {
-    bool listen = true,
-    Color? color,
-  }) {
+  static TextStyle formTitleStyle(BuildContext context, {bool listen = true, Color? color}) {
     return TextStyle(
       fontSize: 16.sp,
       fontWeight: FontWeight.w500,
@@ -170,11 +118,7 @@ class AppTextStyle {
     );
   }
 
-  static TextStyle mainAppColor(
-    BuildContext context, {
-    bool listen = true,
-    Color? color,
-  }) {
+  static TextStyle mainAppColor(BuildContext context, {bool listen = true, Color? color}) {
     return TextStyle(
       fontSize: 16.sp,
       fontWeight: FontWeight.w500,
@@ -182,11 +126,7 @@ class AppTextStyle {
     );
   }
 
-  static TextStyle hintStyle(
-    BuildContext context, {
-    bool listen = true,
-    Color? color,
-  }) {
+  static TextStyle hintStyle(BuildContext context, {bool listen = true, Color? color}) {
     return TextStyle(
       fontSize: 16.sp,
       fontWeight: FontWeight.w500,

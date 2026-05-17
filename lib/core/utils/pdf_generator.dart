@@ -14,16 +14,13 @@ import 'package:share_plus/share_plus.dart';
 class QuotePdfGenerator {
   static Future<Uint8List> generatePdfBytes(Map<String, dynamic> car, String languageCode) async {
     final pdf = pw.Document();
-
     // Load Arabic font
     final arabicFont = await PdfGoogleFonts.cairoRegular();
     final arabicFontBold = await PdfGoogleFonts.cairoBold();
-
     // Load logo image
     final ByteData logoData = await rootBundle.load(AppImages.assetsImagesLoge);
     final Uint8List logoBytes = logoData.buffer.asUint8List();
     final logoImage = pw.MemoryImage(logoBytes);
-
     // Car placeholder image if exists / can be handled if it's an asset
     pw.ImageProvider? carImageProvider;
     try {
@@ -34,7 +31,6 @@ class QuotePdfGenerator {
     } catch (e) {
       // Ignored if car image loading fails
     }
-
     final dateStr = DateFormat('yyyy-MM-dd').format(DateTime.now());
     final textCompany = AppLocaleKey.carApp.tr();
     final textDate = '${AppLocaleKey.appointmentDate.tr()}: $dateStr';
@@ -46,7 +42,6 @@ class QuotePdfGenerator {
     final textTotalPrice = '${AppLocaleKey.price.tr()}: $priceStr';
     final refNo =
         "${AppLocaleKey.referenceNumber.tr()}: HBW-${car['name'].hashCode.abs().toString().substring(0, 4)}";
-
     pdf.addPage(
       pw.Page(
         pageFormat: PdfPageFormat.a4,
@@ -102,7 +97,6 @@ class QuotePdfGenerator {
                 ],
               ),
               pw.SizedBox(height: 30),
-
               pw.Container(
                 padding: const pw.EdgeInsets.symmetric(vertical: 12, horizontal: 20),
                 decoration: const pw.BoxDecoration(
@@ -117,7 +111,6 @@ class QuotePdfGenerator {
                 ),
               ),
               pw.SizedBox(height: 40),
-
               // CAR INFO & IMAGE
               pw.Row(
                 crossAxisAlignment: pw.CrossAxisAlignment.start,
@@ -165,11 +158,9 @@ class QuotePdfGenerator {
                     ),
                 ],
               ),
-
               pw.SizedBox(height: 40),
               pw.Divider(color: PdfColors.grey300),
               pw.SizedBox(height: 20),
-
               // PRICE
               pw.Row(
                 mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
@@ -189,9 +180,7 @@ class QuotePdfGenerator {
                   ),
                 ],
               ),
-
               pw.Spacer(),
-
               // FOOTER
               pw.Divider(color: PdfColors.grey300),
               pw.SizedBox(height: 10),
@@ -207,7 +196,6 @@ class QuotePdfGenerator {
         },
       ),
     );
-
     return pdf.save();
   }
 

@@ -1,11 +1,9 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-
 part of 'theme_enum.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
-
 class ThemeEnumAdapter extends TypeAdapter<ThemeEnum> {
   @override
   final int typeId = 3;
@@ -41,11 +39,8 @@ class ThemeEnumAdapter extends TypeAdapter<ThemeEnum> {
 
   @override
   int get hashCode => typeId.hashCode;
-
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is ThemeEnumAdapter &&
-          runtimeType == other.runtimeType &&
-          typeId == other.typeId;
+      other is ThemeEnumAdapter && runtimeType == other.runtimeType && typeId == other.typeId;
 }

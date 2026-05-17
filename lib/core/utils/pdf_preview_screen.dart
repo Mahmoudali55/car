@@ -9,9 +9,7 @@ import 'package:printing/printing.dart';
 class PdfPreviewScreen extends StatelessWidget {
   final pw.Document doc;
   final String fileName;
-
   const PdfPreviewScreen({super.key, required this.doc, required this.fileName});
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -91,7 +91,6 @@ class PdfService {
                   pw.SizedBox(height: 10),
                   pw.Divider(thickness: 1.5, color: PdfColors.blue900),
                   pw.SizedBox(height: 20),
-
                   // ── CAR TITLE ──
                   pw.Text(
                     '${car['name'] ?? car['ITEM_NAME'] ?? 'Vehicle Report'}',
