@@ -1,3 +1,4 @@
+import 'package:car/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -7,7 +8,13 @@ class ActionBtn extends StatelessWidget {
   final IconData icon;
   final Color color;
   final VoidCallback onTap;
-  const ActionBtn({super.key, required this.label, required this.icon, required this.color, required this.onTap});
+  const ActionBtn({
+    super.key,
+    required this.label,
+    required this.icon,
+    required this.color,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +31,7 @@ class ActionBtn extends StatelessWidget {
           borderRadius: BorderRadius.circular(14.r),
           boxShadow: [
             BoxShadow(
-              color: color.withOpacity(0.3),
+              color: color.withValues(alpha: 0.3),
               blurRadius: 10,
               offset: const Offset(0, 4),
             ),
@@ -33,12 +40,12 @@ class ActionBtn extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(icon, color: Colors.white, size: 18.sp),
+            Icon(icon, color: AppColor.whiteColor(context), size: 18.sp),
             Gap(8.w),
             Text(
               label,
               style: TextStyle(
-                color: Colors.white,
+                color: AppColor.whiteColor(context),
                 fontWeight: FontWeight.w900,
                 fontSize: 13.sp,
                 letterSpacing: -0.2,

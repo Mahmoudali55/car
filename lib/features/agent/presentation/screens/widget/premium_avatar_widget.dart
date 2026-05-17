@@ -1,4 +1,5 @@
 import 'package:car/core/theme/app_colors.dart';
+import 'package:car/core/theme/app_text_style.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,11 +8,7 @@ class PremiumAvatar extends StatelessWidget {
   final String? initials;
   final String? localizedInitials;
 
-  const PremiumAvatar({
-    super.key,
-    this.initials,
-    this.localizedInitials,
-  });
+  const PremiumAvatar({super.key, this.initials, this.localizedInitials});
 
   @override
   Widget build(BuildContext context) {
@@ -28,10 +25,10 @@ class PremiumAvatar extends StatelessWidget {
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
-        border: Border.all(color: Colors.white.withOpacity(0.2), width: 2),
+        border: Border.all(color: AppColor.whiteColor(context).withValues(alpha: 0.2), width: 2),
         boxShadow: [
           BoxShadow(
-            color: primaryColor.withOpacity(0.3),
+            color: primaryColor.withValues(alpha: 0.3),
             blurRadius: 20,
             offset: const Offset(0, 6),
           ),
@@ -40,8 +37,8 @@ class PremiumAvatar extends StatelessWidget {
       child: Center(
         child: Text(
           text,
-          style: TextStyle(
-            color: Colors.white,
+          style: AppTextStyle.titleLarge(context)?.copyWith(
+            color: AppColor.whiteColor(context),
             fontWeight: FontWeight.w900,
             fontSize: 18.sp,
             letterSpacing: 0.5,

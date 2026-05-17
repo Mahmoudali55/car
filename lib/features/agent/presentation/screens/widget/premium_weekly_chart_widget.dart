@@ -1,4 +1,5 @@
 import 'package:car/core/theme/app_colors.dart';
+import 'package:car/core/theme/app_text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -19,10 +20,10 @@ class PremiumWeeklyChart extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColor.cardColor(context),
         borderRadius: BorderRadius.circular(24.r),
-        border: Border.all(color: AppColor.borderColor(context).withOpacity(0.5)),
+        border: Border.all(color: AppColor.borderColor(context).withValues(alpha: 0.5)),
         boxShadow: [
           BoxShadow(
-            color: AppColor.blackColor(context).withOpacity(0.02),
+            color: AppColor.blackColor(context).withValues(alpha: 0.02),
             blurRadius: 15,
             offset: const Offset(0, 5),
           ),
@@ -72,7 +73,7 @@ class PremiumWeeklyChart extends StatelessWidget {
                         borderRadius: BorderRadius.circular(8.r),
                         boxShadow: [
                           BoxShadow(
-                            color: AppColor.goldColor(context).withOpacity(0.3),
+                            color: AppColor.goldColor(context).withValues(alpha: 0.3),
                             blurRadius: 10,
                             offset: const Offset(0, 2),
                           ),
@@ -80,10 +81,9 @@ class PremiumWeeklyChart extends StatelessWidget {
                       ),
                       child: Text(
                         '${data[i]}',
-                        style: TextStyle(
-                          color: Colors.white,
+                        style: AppTextStyle.bodySmall(context).copyWith(
+                          color: AppColor.whiteColor(context),
                           fontWeight: FontWeight.w900,
-                          fontSize: 10.sp,
                         ),
                       ),
                     )
@@ -97,17 +97,17 @@ class PremiumWeeklyChart extends StatelessWidget {
                     decoration: BoxDecoration(
                       gradient: isPeak
                           ? LinearGradient(
-                              colors: [blueColor, blueColor.withOpacity(0.7)],
+                              colors: [blueColor, blueColor.withValues(alpha: 0.7)],
                               begin: Alignment.topCenter,
                               end: Alignment.bottomCenter,
                             )
                           : null,
-                      color: isPeak ? null : blueColor.withOpacity(0.1),
+                      color: isPeak ? null : blueColor.withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(10.r),
                       boxShadow: isPeak
                           ? [
                               BoxShadow(
-                                color: blueColor.withOpacity(0.2),
+                                color: blueColor.withValues(alpha: 0.2),
                                 blurRadius: 10,
                                 offset: const Offset(0, 4),
                               ),

@@ -1,5 +1,5 @@
 import 'package:car/core/theme/app_colors.dart';
-import 'package:car/features/agent/data/agent_models.dart';
+import 'package:car/core/theme/app_text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -16,7 +16,7 @@ class CommRow extends StatelessWidget {
       children: [
         Text(
           label,
-          style: TextStyle(
+          style: AppTextStyle.bodyMedium(context).copyWith(
             color: AppColor.hintColor(context),
             fontSize: 14.sp,
             fontWeight: FontWeight.w700,
@@ -25,7 +25,7 @@ class CommRow extends StatelessWidget {
         ),
         Text(
           value,
-          style: TextStyle(
+          style: AppTextStyle.bodyMedium(context).copyWith(
             color: color,
             fontWeight: FontWeight.w900,
             fontSize: 16.sp,

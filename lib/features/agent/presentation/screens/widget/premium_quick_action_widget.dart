@@ -1,3 +1,4 @@
+import 'package:car/core/theme/app_text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -7,7 +8,13 @@ class PremiumQuickAction extends StatefulWidget {
   final String label;
   final Color color;
   final VoidCallback? onTap;
-  const PremiumQuickAction({super.key, required this.icon, required this.label, required this.color, this.onTap});
+  const PremiumQuickAction({
+    super.key,
+    required this.icon,
+    required this.label,
+    required this.color,
+    this.onTap,
+  });
 
   @override
   State<PremiumQuickAction> createState() => PremiumQuickActionState();
@@ -30,20 +37,20 @@ class PremiumQuickActionState extends State<PremiumQuickAction> {
           decoration: BoxDecoration(
             gradient: LinearGradient(
               colors: [
-                widget.color.withOpacity(_isHovered ? 0.15 : 0.08),
-                widget.color.withOpacity(_isHovered ? 0.08 : 0.04),
+                widget.color.withValues(alpha: _isHovered ? 0.15 : 0.08),
+                widget.color.withValues(alpha: _isHovered ? 0.08 : 0.04),
               ],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
             borderRadius: BorderRadius.circular(22.r),
             border: Border.all(
-              color: widget.color.withOpacity(_isHovered ? 0.4 : 0.2),
+              color: widget.color.withValues(alpha: _isHovered ? 0.4 : 0.2),
               width: 1.5,
             ),
             boxShadow: [
               BoxShadow(
-                color: widget.color.withOpacity(_isHovered ? 0.12 : 0.04),
+                color: widget.color.withValues(alpha: _isHovered ? 0.12 : 0.04),
                 blurRadius: _isHovered ? 16 : 8,
                 offset: Offset(0, _isHovered ? 6 : 3),
               ),
@@ -60,12 +67,9 @@ class PremiumQuickActionState extends State<PremiumQuickAction> {
               Gap(10.h),
               Text(
                 widget.label,
-                style: TextStyle(
-                  color: widget.color,
-                  fontSize: 12.sp,
-                  fontWeight: FontWeight.w900,
-                  letterSpacing: -0.2,
-                ),
+                style: AppTextStyle.bodySmall(
+                  context,
+                ).copyWith(color: widget.color, fontWeight: FontWeight.w900, letterSpacing: -0.2),
                 textAlign: TextAlign.center,
               ),
             ],

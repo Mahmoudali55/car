@@ -1,13 +1,11 @@
-import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
-import 'package:easy_localization/easy_localization.dart';
-
+import 'package:car/core/theme/app_colors.dart';
 import 'package:car/features/agent/data/agent_models.dart';
 import 'package:car/features/agent/presentation/screens/widget/status_badge_widget.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
-import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'action_btn.dart';
@@ -25,10 +23,10 @@ class LeadCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColor.cardColor(context),
         borderRadius: BorderRadius.circular(22.r),
-        border: Border.all(color: AppColor.borderColor(context).withOpacity(0.5)),
+        border: Border.all(color: AppColor.borderColor(context).withValues(alpha: 0.5)),
         boxShadow: [
           BoxShadow(
-            color: AppColor.blackColor(context).withOpacity(0.04),
+            color: AppColor.blackColor(context).withValues(alpha: 0.04),
             blurRadius: 15,
             offset: const Offset(0, 8),
           ),
@@ -46,17 +44,24 @@ class LeadCard extends StatelessWidget {
                   height: 52.w,
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
-                      colors: [statusColor.withOpacity(0.15), statusColor.withOpacity(0.05)],
+                      colors: [
+                        statusColor.withValues(alpha: 0.15),
+                        statusColor.withValues(alpha: 0.05),
+                      ],
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
                     ),
                     borderRadius: BorderRadius.circular(16.r),
-                    border: Border.all(color: statusColor.withOpacity(0.2)),
+                    border: Border.all(color: statusColor.withValues(alpha: 0.2)),
                   ),
                   child: Center(
                     child: Text(
                       lead.customerName[0],
-                      style: TextStyle(color: statusColor, fontWeight: FontWeight.w900, fontSize: 22.sp),
+                      style: TextStyle(
+                        color: statusColor,
+                        fontWeight: FontWeight.w900,
+                        fontSize: 22.sp,
+                      ),
                     ),
                   ),
                 ),
@@ -94,7 +99,9 @@ class LeadCard extends StatelessWidget {
                       ),
                       Gap(6.h),
                       Text(
-                        AppLocaleKey.agentBudgetDisplay.tr(namedArgs: {'amount': NumberFormat('#,##0').format(lead.budget)}),
+                        AppLocaleKey.agentBudgetDisplay.tr(
+                          namedArgs: {'amount': NumberFormat('#,##0').format(lead.budget)},
+                        ),
                         style: TextStyle(
                           color: AppColor.blueColor(context),
                           fontSize: 12.sp,
@@ -113,9 +120,9 @@ class LeadCard extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
-              spacing:  5.w,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.center,
+              spacing: 5.w,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.center,
 
               children: [
                 Expanded(
@@ -132,7 +139,8 @@ class LeadCard extends StatelessWidget {
                     icon: Icons.chat_rounded,
                     label: AppLocaleKey.agentWhatsapp.tr(),
                     color: const Color(0xFF25D366),
-                    onTap: () => launchUrl(Uri.parse('https://wa.me/966${lead.phoneNumber.substring(1)}')),
+                    onTap: () =>
+                        launchUrl(Uri.parse('https://wa.me/966${lead.phoneNumber.substring(1)}')),
                   ),
                 ),
 

@@ -1,4 +1,5 @@
 import 'package:car/core/theme/app_colors.dart';
+import 'package:car/core/theme/app_text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -21,11 +22,15 @@ class QuickStat extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 10.h),
       decoration: BoxDecoration(
-        color: color.withOpacity(0.08),
+        color: color.withValues(alpha: 0.08),
         borderRadius: BorderRadius.circular(20.r),
-        border: Border.all(color: color.withOpacity(0.2)),
+        border: Border.all(color: color.withValues(alpha: 0.2)),
         boxShadow: [
-          BoxShadow(color: color.withOpacity(0.05), blurRadius: 10, offset: const Offset(0, 4)),
+          BoxShadow(
+            color: color.withValues(alpha: 0.05),
+            blurRadius: 10,
+            offset: const Offset(0, 4),
+          ),
         ],
       ),
       child: Row(
@@ -33,7 +38,7 @@ class QuickStat extends StatelessWidget {
         children: [
           Container(
             padding: EdgeInsets.all(6.w),
-            decoration: BoxDecoration(color: color.withOpacity(0.12), shape: BoxShape.circle),
+            decoration: BoxDecoration(color: color.withValues(alpha: 0.12), shape: BoxShape.circle),
             child: Icon(icon, size: 14.sp, color: color),
           ),
           Gap(10.w),
@@ -45,7 +50,7 @@ class QuickStat extends StatelessWidget {
                 Text(
                   label,
                   style: TextStyle(
-                    color: AppColor.hintColor(context).withOpacity(0.8),
+                    color: AppColor.hintColor(context).withValues(alpha: 0.8),
                     fontSize: 10.sp,
                     fontWeight: FontWeight.w700,
                     letterSpacing: 0.2,
@@ -54,7 +59,7 @@ class QuickStat extends StatelessWidget {
                 Gap(2.h),
                 Text(
                   value,
-                  style: TextStyle(
+                  style: AppTextStyle.bodyMedium(context).copyWith(
                     color: color,
                     fontSize: 13.sp,
                     fontWeight: FontWeight.w900,

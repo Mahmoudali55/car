@@ -13,7 +13,7 @@ class PremiumThemeToggle extends StatelessWidget {
       builder: (context, state) {
         final cubit = context.read<AppThemeCubit>();
         final isDark = Theme.of(context).brightness == Brightness.dark;
-        
+
         return GestureDetector(
           onTap: () {
             cubit.theme = isDark ? ThemeEnum.light : ThemeEnum.dark;
@@ -24,15 +24,15 @@ class PremiumThemeToggle extends StatelessWidget {
             width: 44.w,
             height: 44.w,
             decoration: BoxDecoration(
-              color: AppColor.cardColor(context).withOpacity(0.4),
+              color: AppColor.cardColor(context).withValues(alpha: 0.4),
               borderRadius: BorderRadius.circular(14.r),
               border: Border.all(
-                color: AppColor.blueColor(context).withOpacity(0.2),
+                color: AppColor.blueColor(context).withValues(alpha: 0.2),
                 width: 1.5,
               ),
               boxShadow: [
                 BoxShadow(
-                  color: AppColor.blueColor(context).withOpacity(0.08),
+                  color: AppColor.blueColor(context).withValues(alpha: 0.08),
                   blurRadius: 15,
                   offset: const Offset(0, 4),
                 ),

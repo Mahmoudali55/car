@@ -2,6 +2,7 @@ import 'package:car/core/custom_widgets/buttons/custom_button.dart';
 import 'package:car/core/custom_widgets/custom_form_field/custom_form_field.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
+import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/features/agent/presentation/screens/widget/icon_btn_widget.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -48,11 +49,9 @@ class _AgentAddAppointmentScreenState extends State<AgentAddAppointmentScreen> {
             children: [
               Text(
                 AppLocaleKey.agentScheduleApptDesc.tr(),
-                style: TextStyle(
-                  color: AppColor.greyColor(context),
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.w500,
-                ),
+                style: AppTextStyle.bodyMedium(
+                  context,
+                ).copyWith(color: AppColor.goldColor(context)),
               ),
               Gap(24.h),
 
@@ -60,7 +59,6 @@ class _AgentAddAppointmentScreenState extends State<AgentAddAppointmentScreen> {
               CustomFormField(
                 radius: 12.r,
                 title: AppLocaleKey.agentSearchCustomer.tr(),
-
                 prefixIcon: const Icon(Icons.search_rounded),
               ),
               Gap(20.h),
@@ -81,7 +79,6 @@ class _AgentAddAppointmentScreenState extends State<AgentAddAppointmentScreen> {
                           firstDate: DateTime.now(),
                           lastDate: DateTime.now().add(const Duration(days: 365)),
                         );
-
                         if (pickedDate != null) {
                           dateController.text =
                               '${pickedDate.year}/${pickedDate.month}/${pickedDate.day}';
@@ -135,11 +132,9 @@ class _AgentAddAppointmentScreenState extends State<AgentAddAppointmentScreen> {
                 radius: 12.r,
                 child: Text(
                   AppLocaleKey.agentConfirmAppointment.tr(),
-                  style: TextStyle(
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.w900,
-                    color: AppColor.whiteColor(context),
-                  ),
+                  style: AppTextStyle.bodyMedium(
+                    context,
+                  ).copyWith(color: AppColor.whiteColor(context)),
                 ),
               ),
             ],

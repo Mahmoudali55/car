@@ -1,14 +1,15 @@
 import 'package:car/core/custom_widgets/buttons/custom_button.dart';
-import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
-import 'package:car/features/agent/presentation/screens/widget/spec_card_widget.dart';
-import 'package:easy_localization/easy_localization.dart';
+import 'package:car/core/theme/app_colors.dart';
 import 'package:car/features/agent/data/agent_models.dart';
 import 'package:car/features/agent/presentation/screens/widget/icon_btn_widget.dart';
 import 'package:car/features/agent/presentation/screens/widget/quote_builder_dialog.dart';
+import 'package:car/features/agent/presentation/screens/widget/spec_card_widget.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
+
 class AgentCarDetailsScreen extends StatelessWidget {
   final AgentCar car;
   const AgentCarDetailsScreen({super.key, required this.car});
@@ -22,16 +23,16 @@ class AgentCarDetailsScreen extends StatelessWidget {
         child: CustomButton(
           onPressed: car.availability == CarAvailability.available ? () {} : null,
           radius: 12.r,
-          color: car.availability == CarAvailability.available 
-              ? AppColor.primaryColor(context) 
-              : AppColor.greyColor(context).withOpacity(0.3),
+          color: car.availability == CarAvailability.available
+              ? AppColor.primaryColor(context)
+              : AppColor.greyColor(context).withValues(alpha: 0.3),
           child: Text(
             AppLocaleKey.agentReserveForCustomer.tr(),
             style: TextStyle(
               fontSize: 16.sp,
               fontWeight: FontWeight.w900,
-              color: car.availability == CarAvailability.available 
-                  ? AppColor.whiteColor(context) 
+              color: car.availability == CarAvailability.available
+                  ? AppColor.whiteColor(context)
                   : AppColor.hintColor(context),
             ),
           ),
@@ -75,10 +76,7 @@ class AgentCarDetailsScreen extends StatelessWidget {
                 ),
               Padding(
                 padding: EdgeInsets.all(8.w),
-                child: IconBtn(
-                  icon: Icons.share_rounded,
-                  onTap: () {},
-                ),
+                child: IconBtn(icon: Icons.share_rounded, onTap: () {}),
               ),
             ],
             flexibleSpace: FlexibleSpaceBar(
@@ -112,8 +110,7 @@ class AgentCarDetailsScreen extends StatelessWidget {
                   Row(
                     children: [
                       Container(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 12.w, vertical: 6.h),
+                        padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
                         decoration: BoxDecoration(
                           color: availabilityColor.withValues(alpha: (0.12)),
                           borderRadius: BorderRadius.circular(12.r),
@@ -178,10 +175,7 @@ class AgentCarDetailsScreen extends StatelessWidget {
                       Gap(6.w),
                       Text(
                         AppLocaleKey.sar.tr(),
-                        style: TextStyle(
-                          color: AppColor.greyColor(context),
-                          fontSize: 16.sp,
-                        ),
+                        style: TextStyle(color: AppColor.greyColor(context), fontSize: 16.sp),
                       ),
                     ],
                   ),
@@ -215,8 +209,7 @@ class AgentCarDetailsScreen extends StatelessWidget {
                       SpecCard(
                         icon: Icons.speed_rounded,
                         label: AppLocaleKey.agentDistance.tr(),
-                        value:
-                            '${car.mileage} ${AppLocaleKey.km.tr()}',
+                        value: '${car.mileage} ${AppLocaleKey.km.tr()}',
                       ),
                       SpecCard(
                         icon: Icons.palette_rounded,
@@ -244,11 +237,9 @@ class AgentCarDetailsScreen extends StatelessWidget {
                   ),
                   Gap(12.h),
                   Text(
-                    AppLocaleKey.agentCarDesc
-                        .tr(namedArgs: {'name': car.name}),
+                    AppLocaleKey.agentCarDesc.tr(namedArgs: {'name': car.name}),
                     style: TextStyle(
-                      color:
-                          AppColor.greyColor(context).withValues(alpha: (0.8)),
+                      color: AppColor.greyColor(context).withValues(alpha: (0.8)),
                       fontSize: 14.sp,
                       height: 1.6,
                     ),

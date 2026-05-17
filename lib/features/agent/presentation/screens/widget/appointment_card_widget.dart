@@ -14,7 +14,8 @@ class AppointmentCard extends StatelessWidget {
   final VoidCallback? onDone;
   final VoidCallback? onCancel;
 
-  const AppointmentCard({super.key,
+  const AppointmentCard({
+    super.key,
     required this.appointment,
     this.onCheckIn,
     this.onDone,
@@ -52,7 +53,9 @@ class AppointmentCard extends StatelessWidget {
     final statusColor = _getStatusColor(context);
     final timeF = DateFormat('hh:mm a');
     final dateF = DateFormat('EEE، d MMM');
-    final isPast = appointment.status == AppointmentStatus.done || appointment.status == AppointmentStatus.cancelled;
+    final isPast =
+        appointment.status == AppointmentStatus.done ||
+        appointment.status == AppointmentStatus.cancelled;
 
     return Opacity(
       opacity: isPast ? 0.6 : 1.0,
@@ -61,10 +64,10 @@ class AppointmentCard extends StatelessWidget {
         decoration: BoxDecoration(
           color: AppColor.cardColor(context),
           borderRadius: BorderRadius.circular(22.r),
-          border: Border.all(color: AppColor.borderColor(context).withOpacity(0.5)),
+          border: Border.all(color: AppColor.borderColor(context).withValues(alpha: 0.5)),
           boxShadow: [
             BoxShadow(
-              color: AppColor.blackColor(context).withOpacity(0.03),
+              color: AppColor.blackColor(context).withValues(alpha: 0.03),
               blurRadius: 15,
               offset: const Offset(0, 8),
             ),
@@ -82,25 +85,32 @@ class AppointmentCard extends StatelessWidget {
                     padding: EdgeInsets.symmetric(vertical: 12.h),
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
-                        colors: [statusColor.withOpacity(0.12), statusColor.withOpacity(0.04)],
+                        colors: [
+                          statusColor.withValues(alpha: 0.12),
+                          statusColor.withValues(alpha: 0.04),
+                        ],
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
                       ),
                       borderRadius: BorderRadius.circular(16.r),
-                      border: Border.all(color: statusColor.withOpacity(0.15)),
+                      border: Border.all(color: statusColor.withValues(alpha: 0.15)),
                     ),
                     child: Column(
                       children: [
                         Text(
                           timeF.format(appointment.dateTime),
-                          style: TextStyle(color: statusColor, fontWeight: FontWeight.w900, fontSize: 13.sp),
+                          style: TextStyle(
+                            color: statusColor,
+                            fontWeight: FontWeight.w900,
+                            fontSize: 13.sp,
+                          ),
                           textAlign: TextAlign.center,
                         ),
                         Gap(2.h),
                         Text(
                           dateF.format(appointment.dateTime),
                           style: TextStyle(
-                            color: statusColor.withOpacity(0.7),
+                            color: statusColor.withValues(alpha: 0.7),
                             fontSize: 9.sp,
                             fontWeight: FontWeight.w700,
                           ),
@@ -132,13 +142,17 @@ class AppointmentCard extends StatelessWidget {
                             Container(
                               padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
                               decoration: BoxDecoration(
-                                color: statusColor.withOpacity(0.08),
+                                color: statusColor.withValues(alpha: 0.08),
                                 borderRadius: BorderRadius.circular(10.r),
-                                border: Border.all(color: statusColor.withOpacity(0.15)),
+                                border: Border.all(color: statusColor.withValues(alpha: 0.15)),
                               ),
                               child: Text(
                                 _statusLabel,
-                                style: TextStyle(color: statusColor, fontSize: 11.sp, fontWeight: FontWeight.w800),
+                                style: TextStyle(
+                                  color: statusColor,
+                                  fontSize: 11.sp,
+                                  fontWeight: FontWeight.w800,
+                                ),
                               ),
                             ),
                           ],
@@ -155,7 +169,11 @@ class AppointmentCard extends StatelessWidget {
                         Gap(6.h),
                         Row(
                           children: [
-                            Icon(Icons.location_on_rounded, size: 13.sp, color: AppColor.hintColor(context)),
+                            Icon(
+                              Icons.location_on_rounded,
+                              size: 13.sp,
+                              color: AppColor.hintColor(context),
+                            ),
                             Gap(4.w),
                             Text(
                               appointment.location,

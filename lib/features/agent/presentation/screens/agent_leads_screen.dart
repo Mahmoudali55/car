@@ -1,25 +1,26 @@
 import 'package:car/core/custom_widgets/custom_form_field/custom_form_field.dart';
-import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
-import 'package:easy_localization/easy_localization.dart';
+import 'package:car/core/theme/app_colors.dart';
 import 'package:car/features/agent/data/agent_models.dart';
 import 'package:car/features/agent/presentation/screens/widget/lead_card_widget.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
+
 class AgentLeadsScreen extends StatefulWidget {
   const AgentLeadsScreen({super.key});
   @override
   State<AgentLeadsScreen> createState() => _AgentLeadsScreenState();
 }
+
 class _AgentLeadsScreenState extends State<AgentLeadsScreen> {
   String _search = '';
   List<AgentLead> _getFiltered(LeadStatus? status) {
     return getAgentLeads().where((l) {
       final matchStatus = status == null || l.status == status;
-      final matchSearch = _search.isEmpty ||
-          l.customerName.contains(_search) ||
-          l.carInterest.contains(_search);
+      final matchSearch =
+          _search.isEmpty || l.customerName.contains(_search) || l.carInterest.contains(_search);
       return matchStatus && matchSearch;
     }).toList();
   }
@@ -57,7 +58,6 @@ class _AgentLeadsScreenState extends State<AgentLeadsScreen> {
                               ),
                             ),
                             const Spacer(),
-                           
                           ],
                         ),
                       ],
@@ -74,7 +74,11 @@ class _AgentLeadsScreenState extends State<AgentLeadsScreen> {
                       child: CustomFormField(
                         hintText: AppLocaleKey.agentSearchByName.tr(),
                         radius: 12.r,
-                        prefixIcon: Icon(Icons.search_rounded, size: 20.sp, color: AppColor.hintColor(context)),
+                        prefixIcon: Icon(
+                          Icons.search_rounded,
+                          size: 20.sp,
+                          color: AppColor.hintColor(context),
+                        ),
                         onChanged: (v) => setState(() => _search = v),
                       ),
                     ),
@@ -86,7 +90,7 @@ class _AgentLeadsScreenState extends State<AgentLeadsScreen> {
                         height: 48.h,
                         padding: EdgeInsets.all(4.w),
                         decoration: BoxDecoration(
-                          color: AppColor.blueColor(context).withOpacity(0.05),
+                          color: AppColor.blueColor(context).withValues(alpha: 0.05),
                           borderRadius: BorderRadius.circular(16.r),
                         ),
                         child: TabBar(
@@ -95,7 +99,7 @@ class _AgentLeadsScreenState extends State<AgentLeadsScreen> {
                             borderRadius: BorderRadius.circular(12.r),
                             boxShadow: [
                               BoxShadow(
-                                color: AppColor.blueColor(context).withOpacity(0.2),
+                                color: AppColor.blueColor(context).withValues(alpha: 0.2),
                                 blurRadius: 8,
                                 offset: const Offset(0, 2),
                               ),
@@ -103,8 +107,15 @@ class _AgentLeadsScreenState extends State<AgentLeadsScreen> {
                           ),
                           labelColor: AppColor.whiteColor(context),
                           unselectedLabelColor: AppColor.hintColor(context),
-                          labelStyle: TextStyle(fontSize: 13.sp, fontWeight: FontWeight.w900, letterSpacing: -0.2),
-                          unselectedLabelStyle: TextStyle(fontSize: 13.sp, fontWeight: FontWeight.w700),
+                          labelStyle: TextStyle(
+                            fontSize: 13.sp,
+                            fontWeight: FontWeight.w900,
+                            letterSpacing: -0.2,
+                          ),
+                          unselectedLabelStyle: TextStyle(
+                            fontSize: 13.sp,
+                            fontWeight: FontWeight.w700,
+                          ),
                           indicatorSize: TabBarIndicatorSize.tab,
                           dividerColor: Colors.transparent,
                           tabs: [
@@ -137,6 +148,7 @@ class _AgentLeadsScreenState extends State<AgentLeadsScreen> {
       ),
     );
   }
+
   Widget _buildList(List<AgentLead> list) {
     if (list.isEmpty) {
       return Center(
@@ -146,15 +158,23 @@ class _AgentLeadsScreenState extends State<AgentLeadsScreen> {
             Container(
               padding: EdgeInsets.all(24.r),
               decoration: BoxDecoration(
-                color: AppColor.hintColor(context).withOpacity(0.05),
+                color: AppColor.hintColor(context).withValues(alpha: 0.05),
                 shape: BoxShape.circle,
               ),
-              child: Icon(Icons.people_outline_rounded, size: 48.sp, color: AppColor.hintColor(context)),
+              child: Icon(
+                Icons.people_outline_rounded,
+                size: 48.sp,
+                color: AppColor.hintColor(context),
+              ),
             ),
             Gap(16.h),
             Text(
               AppLocaleKey.agentNoMatchesFound.tr(),
-              style: TextStyle(color: AppColor.hintColor(context), fontSize: 15.sp, fontWeight: FontWeight.w700),
+              style: TextStyle(
+                color: AppColor.hintColor(context),
+                fontSize: 15.sp,
+                fontWeight: FontWeight.w700,
+              ),
             ),
           ],
         ),
@@ -167,6 +187,3 @@ class _AgentLeadsScreenState extends State<AgentLeadsScreen> {
     );
   }
 }
-
-
-

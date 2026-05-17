@@ -1,5 +1,6 @@
 import 'package:car/core/cache/hive/hive_methods.dart';
 import 'package:car/core/theme/app_colors.dart';
+import 'package:car/core/theme/app_text_style.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -10,7 +11,7 @@ class PremiumLanguageToggle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isArabic = context.locale.languageCode == 'ar';
-    
+
     return GestureDetector(
       onTap: () {
         final newLocale = isArabic ? const Locale('en') : const Locale('ar');
@@ -23,15 +24,12 @@ class PremiumLanguageToggle extends StatelessWidget {
         width: 44.w,
         height: 44.w,
         decoration: BoxDecoration(
-          color: AppColor.cardColor(context).withOpacity(0.4),
+          color: AppColor.cardColor(context).withValues(alpha: 0.4),
           borderRadius: BorderRadius.circular(14.r),
-          border: Border.all(
-            color: AppColor.blueColor(context).withOpacity(0.2),
-            width: 1.5,
-          ),
+          border: Border.all(color: AppColor.blueColor(context).withValues(alpha: 0.2), width: 1.5),
           boxShadow: [
             BoxShadow(
-              color: AppColor.blueColor(context).withOpacity(0.08),
+              color: AppColor.blueColor(context).withValues(alpha: 0.08),
               blurRadius: 15,
               offset: const Offset(0, 4),
             ),
@@ -46,11 +44,9 @@ class PremiumLanguageToggle extends StatelessWidget {
             child: Text(
               isArabic ? 'EN' : 'AR',
               key: ValueKey(isArabic),
-              style: TextStyle(
-                color: AppColor.blueColor(context),
-                fontWeight: FontWeight.w900,
-                fontSize: 14.sp,
-              ),
+              style: AppTextStyle.bodyMedium(
+                context,
+              ).copyWith(color: AppColor.blueColor(context), fontWeight: FontWeight.w900),
             ),
           ),
         ),

@@ -1,4 +1,5 @@
 import 'package:car/core/theme/app_colors.dart';
+import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/features/agent/data/agent_models.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -19,10 +20,10 @@ class PremiumKpiCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColor.cardColor(context),
         borderRadius: BorderRadius.circular(24.r),
-        border: Border.all(color: kpi.color.withOpacity(0.12)),
+        border: Border.all(color: kpi.color.withValues(alpha: 0.12)),
         boxShadow: [
           BoxShadow(
-            color: kpi.color.withOpacity(0.04),
+            color: kpi.color.withValues(alpha: 0.04),
             blurRadius: 16,
             offset: const Offset(0, 4),
           ),
@@ -38,12 +39,12 @@ class PremiumKpiCard extends StatelessWidget {
                 height: 44.w,
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
-                    colors: [kpi.color.withOpacity(0.15), kpi.color.withOpacity(0.05)],
+                    colors: [kpi.color.withValues(alpha: 0.15), kpi.color.withValues(alpha: 0.05)],
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                   ),
                   borderRadius: BorderRadius.circular(14.r),
-                  border: Border.all(color: kpi.color.withOpacity(0.2)),
+                  border: Border.all(color: kpi.color.withValues(alpha: 0.2)),
                 ),
                 child: Icon(kpi.icon, color: kpi.color, size: 20.sp),
               ),
@@ -52,17 +53,16 @@ class PremiumKpiCard extends StatelessWidget {
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
                   decoration: BoxDecoration(
-                    color: (isUp ? successColor : errorColor).withOpacity(0.1),
+                    color: (isUp ? successColor : errorColor).withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(10.r),
                     border: Border.all(
-                      color: (isUp ? successColor : errorColor).withOpacity(0.15),
+                      color: (isUp ? successColor : errorColor).withValues(alpha: 0.15),
                     ),
                   ),
                   child: Text(
                     '${isUp ? '↑' : '↓'} ${kpi.change!.abs().toStringAsFixed(0)}%',
-                    style: TextStyle(
+                    style: AppTextStyle.bodySmall(context).copyWith(
                       color: isUp ? successColor : errorColor,
-                      fontSize: 11.sp,
                       fontWeight: FontWeight.w900,
                     ),
                   ),
@@ -83,9 +83,8 @@ class PremiumKpiCard extends StatelessWidget {
           Gap(4.h),
           Text(
             kpi.label,
-            style: TextStyle(
+            style: AppTextStyle.bodySmall(context).copyWith(
               color: AppColor.greyColor(context),
-              fontSize: 12.sp,
               fontWeight: FontWeight.w700,
               letterSpacing: -0.2,
             ),

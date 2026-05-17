@@ -14,7 +14,8 @@ class BottomNav extends StatelessWidget {
   final List<NavMeta> items;
   final ValueChanged<int> onTap;
 
-  const BottomNav({super.key, 
+  const BottomNav({
+    super.key,
     required this.currentIndex,
     required this.items,
     required this.onTap,
@@ -25,12 +26,10 @@ class BottomNav extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: AppColor.appBarColor(context),
-        border: Border(
-          top: BorderSide(color: AppColor.borderColor(context), width: 1),
-        ),
+        border: Border(top: BorderSide(color: AppColor.borderColor(context), width: 1)),
         boxShadow: [
           BoxShadow(
-            color: AppColor.blueColor(context).withOpacity(0.08),
+            color: AppColor.blueColor(context).withValues(alpha: 0.08),
             blurRadius: 20,
             offset: const Offset(0, -4),
           ),
@@ -55,18 +54,14 @@ class BottomNav extends StatelessWidget {
                   padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 8.h),
                   decoration: BoxDecoration(
                     color: selected
-                        ? AppColor.blueColor(context).withOpacity(0.08)
+                        ? AppColor.blueColor(context).withValues(alpha: 0.08)
                         : Colors.transparent,
                     borderRadius: BorderRadius.circular(16.r),
                   ),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Icon(
-                        items[i].icon,
-                        size: 24.sp,
-                        color: color,
-                      ),
+                      Icon(items[i].icon, size: 24.sp, color: color),
                       Gap(4.h),
                       Text(
                         items[i].label,

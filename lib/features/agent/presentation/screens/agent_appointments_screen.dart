@@ -82,7 +82,7 @@ class _AgentAppointmentsScreenState extends State<AgentAppointmentsScreen> {
                     Icon(
                       Icons.calendar_today_outlined,
                       size: 60.sp,
-                      color: AppColor.hintColor(context).withOpacity(0.3),
+                      color: AppColor.hintColor(context).withValues(alpha: 0.3),
                     ),
                     Gap(16.h),
                     Text(

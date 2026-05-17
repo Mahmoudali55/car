@@ -1,5 +1,4 @@
 import 'package:car/core/theme/app_colors.dart';
-import 'package:car/features/agent/data/agent_models.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -25,10 +24,10 @@ class FunnelRow extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColor.cardColor(context),
         borderRadius: BorderRadius.circular(20.r),
-        border: Border.all(color: AppColor.borderColor(context).withOpacity(0.5)),
+        border: Border.all(color: AppColor.borderColor(context).withValues(alpha: 0.5)),
         boxShadow: [
           BoxShadow(
-            color: AppColor.blackColor(context).withOpacity(0.04),
+            color: AppColor.blackColor(context).withValues(alpha: 0.04),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),
@@ -52,16 +51,12 @@ class FunnelRow extends StatelessWidget {
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 3.h),
                 decoration: BoxDecoration(
-                  color: color.withOpacity(0.08),
+                  color: color.withValues(alpha: 0.08),
                   borderRadius: BorderRadius.circular(8.r),
                 ),
                 child: Text(
                   '$count / $total',
-                  style: TextStyle(
-                    fontWeight: FontWeight.w900,
-                    color: color,
-                    fontSize: 13.sp,
-                  ),
+                  style: TextStyle(fontWeight: FontWeight.w900, color: color, fontSize: 13.sp),
                 ),
               ),
             ],
@@ -72,7 +67,7 @@ class FunnelRow extends StatelessWidget {
               Container(
                 height: 10.h,
                 decoration: BoxDecoration(
-                  color: color.withOpacity(0.1),
+                  color: color.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(6.r),
                 ),
               ),
@@ -85,7 +80,7 @@ class FunnelRow extends StatelessWidget {
                     borderRadius: BorderRadius.circular(6.r),
                     boxShadow: [
                       BoxShadow(
-                        color: color.withOpacity(0.3),
+                        color: color.withValues(alpha: 0.3),
                         blurRadius: 6,
                         offset: const Offset(0, 2),
                       ),

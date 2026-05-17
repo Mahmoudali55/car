@@ -102,7 +102,7 @@ class _QuoteBuilderDialogState extends State<QuoteBuilderDialog> {
               width: 40.w,
               height: 4.h,
               decoration: BoxDecoration(
-                color: AppColor.greyColor(context).withOpacity(0.2),
+                color: AppColor.greyColor(context).withValues(alpha: 0.2),
                 borderRadius: BorderRadius.circular(2.r),
               ),
             ),
@@ -139,7 +139,7 @@ class _QuoteBuilderDialogState extends State<QuoteBuilderDialog> {
                     onPressed: () => Navigator.pop(context),
                     icon: Icon(Icons.close_rounded, color: AppColor.hintColor(context)),
                     style: IconButton.styleFrom(
-                      backgroundColor: AppColor.greyColor(context).withOpacity(0.05),
+                      backgroundColor: AppColor.greyColor(context).withValues(alpha: 0.05),
                     ),
                   ),
                 ],
@@ -358,7 +358,7 @@ class _QuoteBuilderDialogState extends State<QuoteBuilderDialog> {
         suffixText: suffix,
         suffixStyle: TextStyle(color: AppColor.primaryColor(context), fontWeight: FontWeight.bold),
         filled: true,
-        fillColor: AppColor.greyColor(context).withOpacity(0.05),
+        fillColor: AppColor.greyColor(context).withValues(alpha: 0.05),
         contentPadding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 18.h),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(20.r),

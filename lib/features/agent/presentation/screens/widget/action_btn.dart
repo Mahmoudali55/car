@@ -7,11 +7,13 @@ class ActionBtn extends StatelessWidget {
   final String label;
   final Color color;
   final VoidCallback onTap;
-  const ActionBtn(
-      {super.key, required this.icon,
-      required this.label,
-      required this.color,
-      required this.onTap});
+  const ActionBtn({
+    super.key,
+    required this.icon,
+    required this.label,
+    required this.color,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -20,9 +22,9 @@ class ActionBtn extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 10.h),
         decoration: BoxDecoration(
-          color: color.withOpacity(0.08),
+          color: color.withValues(alpha: 0.08),
           borderRadius: BorderRadius.circular(12.r),
-          border: Border.all(color: color.withOpacity(0.2)),
+          border: Border.all(color: color.withValues(alpha: 0.2)),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -30,11 +32,10 @@ class ActionBtn extends StatelessWidget {
             Icon(icon, color: color, size: 15.sp),
             Gap(4.w),
             Flexible(
-              child: Text(label,
-                  style: TextStyle(
-                      color: color,
-                      fontSize: 11.sp,
-                      fontWeight: FontWeight.bold)),
+              child: Text(
+                label,
+                style: TextStyle(color: color, fontSize: 11.sp, fontWeight: FontWeight.bold),
+              ),
             ),
           ],
         ),
