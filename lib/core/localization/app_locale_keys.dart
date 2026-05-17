@@ -1,5 +1,8 @@
 class AppLocaleKey {
   static const String pleaseCheckYourConnectionAndTryAgain = 'PleaseCheckYourConnectionAndTryAgain';
+  static const String noInternetConnection = 'no_internet_connection';
+  static const String pleaseCheckYourInternet = 'please_check_your_internet';
+  static const String tryAgain = 'try_again';
   static const String carApp = 'car_app';
   static const String qualityReliability = 'quality_reliability';
   static const String findDreamCar = 'find_dream_car';

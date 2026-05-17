@@ -1,4 +1,5 @@
 import 'package:bot_toast/bot_toast.dart';
+import 'package:car/core/custom_widgets/internet_connectivity_wrapper.dart';
 import 'package:car/core/services/services_locator.dart';
 import 'package:car/core/theme/cubit/app_theme_cubit.dart';
 import 'package:car/core/theme/theme_enum.dart';
@@ -77,7 +78,13 @@ class _CarAppState extends State<CarApp> {
                     initialRoute: RoutesName.splashScreen,
                     onGenerateRoute: AppRouters.onGenerateRoute,
                     navigatorKey: AppRouters.navigatorKey,
-                    builder: BotToastInit(),
+                    builder: (context, child) {
+                      final botToastBuilder = BotToastInit();
+                      return botToastBuilder(
+                        context,
+                        InternetConnectivityWrapper(child: child!),
+                      );
+                    },
                     navigatorObservers: [BotToastNavigatorObserver()],
                   );
                 },
