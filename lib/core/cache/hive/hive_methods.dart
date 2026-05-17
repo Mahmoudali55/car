@@ -1,3 +1,4 @@
+import 'package:car/core/utils/security_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 
@@ -15,11 +16,14 @@ class HiveMethods {
   }
 
   static String? getToken() {
-    return _box.get('token');
+    final String? encryptedToken = _box.get('token');
+    if (encryptedToken == null) return null;
+    return SecurityHelper.decrypt(encryptedToken);
   }
 
   static void updateToken(String token) {
-    _box.put('token', token);
+    final String encryptedToken = SecurityHelper.encrypt(token);
+    _box.put('token', encryptedToken);
   }
 
   static void deleteToken() {

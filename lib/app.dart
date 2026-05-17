@@ -1,5 +1,6 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:car/core/custom_widgets/internet_connectivity_wrapper.dart';
+import 'package:car/core/custom_widgets/security_lock_wrapper.dart';
 import 'package:car/core/services/services_locator.dart';
 import 'package:car/core/theme/cubit/app_theme_cubit.dart';
 import 'package:car/core/theme/theme_enum.dart';
@@ -39,7 +40,8 @@ class _CarAppState extends State<CarApp> {
         // By scaling designSize relative to the actual width/height constraints,
         // we ensure that both .w and .h get identical scaling factors on tablets (e.g. 1.35x).
         // This prevents component distortion (squares turning to rectangles) caused by different aspect ratios.
-        final Size designSize = (isTablet && constraints.maxWidth.isFinite && constraints.maxHeight.isFinite)
+        final Size designSize =
+            (isTablet && constraints.maxWidth.isFinite && constraints.maxHeight.isFinite)
             ? Size(constraints.maxWidth / 1.35, constraints.maxHeight / 1.35)
             : const Size(360, 690);
 
@@ -82,7 +84,7 @@ class _CarAppState extends State<CarApp> {
                       final botToastBuilder = BotToastInit();
                       return botToastBuilder(
                         context,
-                        InternetConnectivityWrapper(child: child!),
+                        SecurityLockWrapper(child: InternetConnectivityWrapper(child: child!)),
                       );
                     },
                     navigatorObservers: [BotToastNavigatorObserver()],

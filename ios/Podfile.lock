@@ -21,6 +21,9 @@ PODS:
   - flutter_inappwebview_ios/Core (0.0.1):
     - Flutter
     - OrderedSet (~> 6.0.3)
+  - flutter_jailbreak_detection (1.0.0):
+    - Flutter
+    - IOSSecuritySuite
   - fluttertoast (0.0.2):
     - Flutter
   - GoogleUtilities/Environment (8.1.0):
@@ -33,6 +36,7 @@ PODS:
   - GoogleUtilities/Privacy (8.1.0)
   - image_picker_ios (0.0.1):
     - Flutter
+  - IOSSecuritySuite (2.2.0)
   - Moya (15.0.0):
     - Moya/Core (= 15.0.0)
   - Moya/Core (15.0.0):
@@ -69,6 +73,7 @@ DEPENDENCIES:
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
   - Flutter (from `Flutter`)
   - flutter_inappwebview_ios (from `.symlinks/plugins/flutter_inappwebview_ios/ios`)
+  - flutter_jailbreak_detection (from `.symlinks/plugins/flutter_jailbreak_detection/ios`)
   - fluttertoast (from `.symlinks/plugins/fluttertoast/ios`)
   - image_picker_ios (from `.symlinks/plugins/image_picker_ios/ios`)
   - open_filex (from `.symlinks/plugins/open_filex/ios`)
@@ -89,6 +94,7 @@ SPEC REPOS:
     - FirebaseCore
     - FirebaseCoreInternal
     - GoogleUtilities
+    - IOSSecuritySuite
     - Moya
     - OrderedSet
 
@@ -101,6 +107,8 @@ EXTERNAL SOURCES:
     :path: Flutter
   flutter_inappwebview_ios:
     :path: ".symlinks/plugins/flutter_inappwebview_ios/ios"
+  flutter_jailbreak_detection:
+    :path: ".symlinks/plugins/flutter_jailbreak_detection/ios"
   fluttertoast:
     :path: ".symlinks/plugins/fluttertoast/ios"
   image_picker_ios:
@@ -135,9 +143,11 @@ SPEC CHECKSUMS:
   FirebaseCoreInternal: b321eafae5362113bc182956fafc9922cfc77b72
   Flutter: cabc95a1d2626b1b06e7179b784ebcf0c0cde467
   flutter_inappwebview_ios: b89ba3482b96fb25e00c967aae065701b66e9b99
+  flutter_jailbreak_detection: a74360daaf5cbc80639959463b4b1395873c90b5
   fluttertoast: 2c67e14dce98bbdb200df9e1acf610d7a6264ea1
   GoogleUtilities: 00c88b9a86066ef77f0da2fab05f65d7768ed8e1
   image_picker_ios: e0ece4aa2a75771a7de3fa735d26d90817041326
+  IOSSecuritySuite: ba76f34cb367b9230934ac37904e26a40d033e3d
   Moya: 138f0573e53411fb3dc17016add0b748dfbd78ee
   open_filex: 432f3cd11432da3e39f47fcc0df2b1603854eff1
   OrderedSet: e539b66b644ff081c73a262d24ad552a69be3a94
