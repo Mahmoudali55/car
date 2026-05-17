@@ -97,104 +97,81 @@ class _FilterScreenState extends State<FilterScreen> {
             onPressed: () => setState(() => _selectedItems.clear()),
             child: Text(
               AppLocaleKey.clearAll.tr(),
-              style: AppTextStyle.bodySmall(context).copyWith(
-                color: AppColor.primaryColor(context),
-                fontWeight: FontWeight.bold,
-              ),
+              style: AppTextStyle.bodySmall(
+                context,
+              ).copyWith(color: AppColor.primaryColor(context), fontWeight: FontWeight.bold),
             ),
           ),
           Gap(10.w),
         ],
       ),
-      body: Stack(
-        children: [
-          ListView(
-            padding: EdgeInsets.fromLTRB(20.w, 10.h, 20.w, 120.h),
-            physics: const BouncingScrollPhysics(),
-            children: [
-              FilterSection(
-                title: AppLocaleKey.brands.tr(),
-                child: _buildChipsGroup(AppLocaleKey.brands),
+      body: SingleChildScrollView(
+        padding: EdgeInsets.symmetric(horizontal: 20.w),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          spacing: 24.h,
+          children: [
+            FilterSection(
+              title: AppLocaleKey.brands.tr(),
+              child: _buildChipsGroup(AppLocaleKey.brands),
+            ),
+            FilterSection(
+              title: AppLocaleKey.manufacturingYear.tr(),
+              child: FilterRangeSlider(
+                values: _yearRange,
+                min: 1990,
+                max: 2025,
+                onChanged: (values) => setState(() => _yearRange = values),
               ),
-
-              Gap(24.h),
-              FilterSection(
-                title: AppLocaleKey.manufacturingYear.tr(),
-                child: FilterRangeSlider(
-                  values: _yearRange,
-                  min: 1990,
-                  max: 2025,
-                  onChanged: (values) => setState(() => _yearRange = values),
-                ),
+            ),
+            FilterCheckboxTile(
+              title: AppLocaleKey.testDrive.tr(),
+              value: _isTestDriveAvailable,
+              onChanged: (v) => setState(() => _isTestDriveAvailable = v!),
+            ),
+            FilterSection(
+              title: AppLocaleKey.status.tr(),
+              child: _buildChipsGroup(AppLocaleKey.status),
+            ),
+            FilterSection(
+              title: AppLocaleKey.price.tr(),
+              child: FilterRangeSlider(
+                values: _priceRange,
+                min: 0,
+                max: 2000000,
+                onChanged: (values) => setState(() => _priceRange = values),
+                isPrice: true,
               ),
-
-              Gap(24.h),
-              FilterCheckboxTile(
-                title: AppLocaleKey.testDrive.tr(),
-                value: _isTestDriveAvailable,
-                onChanged: (v) => setState(() => _isTestDriveAvailable = v!),
-              ),
-
-              Gap(24.h),
-              FilterSection(
-                title: AppLocaleKey.status.tr(),
-                child: _buildChipsGroup(AppLocaleKey.status),
-              ),
-
-              Gap(24.h),
-              FilterSection(
-                title: AppLocaleKey.price.tr(),
-                child: FilterRangeSlider(
-                  values: _priceRange,
-                  min: 0,
-                  max: 2000000,
-                  onChanged: (values) => setState(() => _priceRange = values),
-                  isPrice: true,
-                ),
-              ),
-
-              Gap(24.h),
-              FilterCheckboxTile(
-                title: AppLocaleKey.taxInclusive.tr(),
-                value: _isTaxInclusive,
-                onChanged: (v) => setState(() => _isTaxInclusive = v!),
-              ),
-              FilterCheckboxTile(
-                title: AppLocaleKey.discount.tr(),
-                value: _isDiscountApplied,
-                onChanged: (v) => setState(() => _isDiscountApplied = v!),
-              ),
-
-              Gap(24.h),
-              FilterSection(
-                title: AppLocaleKey.engineSystem.tr(),
-                child: _buildChipsGroup(AppLocaleKey.engineSystem),
-              ),
-
-              Gap(24.h),
-              FilterSection(
-                title: AppLocaleKey.driveType.tr(),
-                child: _buildChipsGroup(AppLocaleKey.driveType),
-              ),
-
-              Gap(24.h),
-              FilterSection(
-                title: AppLocaleKey.bodyType.tr(),
-                child: _buildChipsGroup(AppLocaleKey.bodyType),
-              ),
-
-              Gap(24.h),
-              FilterSection(
-                title: AppLocaleKey.countryOfOrigin.tr(),
-                child: _buildChipsGroup(AppLocaleKey.countryOfOrigin),
-              ),
-            ],
-          ),
-
-          FilterApplyButton(
-            onPressed: () => Navigator.pop(context),
-          ),
-        ],
+            ),
+            FilterCheckboxTile(
+              title: AppLocaleKey.taxInclusive.tr(),
+              value: _isTaxInclusive,
+              onChanged: (v) => setState(() => _isTaxInclusive = v!),
+            ),
+            FilterCheckboxTile(
+              title: AppLocaleKey.discount.tr(),
+              value: _isDiscountApplied,
+              onChanged: (v) => setState(() => _isDiscountApplied = v!),
+            ),
+            FilterSection(
+              title: AppLocaleKey.engineSystem.tr(),
+              child: _buildChipsGroup(AppLocaleKey.engineSystem),
+            ),
+            FilterSection(
+              title: AppLocaleKey.driveType.tr(),
+              child: _buildChipsGroup(AppLocaleKey.driveType),
+            ),
+            FilterSection(
+              title: AppLocaleKey.bodyType.tr(),
+              child: _buildChipsGroup(AppLocaleKey.bodyType),
+            ),
+            FilterSection(
+              title: AppLocaleKey.countryOfOrigin.tr(),
+              child: _buildChipsGroup(AppLocaleKey.countryOfOrigin),
+            ),
+            FilterApplyButton(onPressed: () => Navigator.pop(context)),
+          ],
+        ),
       ),
     );
   }

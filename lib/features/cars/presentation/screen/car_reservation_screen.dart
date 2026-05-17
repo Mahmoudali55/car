@@ -289,7 +289,11 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
               ),
               child: Text(
                 AppLocaleKey.agentTamara.tr(),
-                style: TextStyle(color: Colors.white, fontWeight: FontWeight.w900, fontSize: 12.sp),
+                style: TextStyle(
+                  color: AppColor.whiteColor(context),
+                  fontWeight: FontWeight.w900,
+                  fontSize: 12.sp,
+                ),
               ),
             ),
           ),
@@ -308,7 +312,11 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
                   color: Colors.green,
                   borderRadius: BorderRadius.circular(6.r),
                 ),
-                child: Icon(Icons.account_balance, color: Colors.white, size: 14.sp),
+                child: Icon(
+                  Icons.account_balance,
+                  color: AppColor.whiteColor(context),
+                  size: 14.sp,
+                ),
               ),
               Gap(8.w),
               Container(
@@ -317,7 +325,11 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
                   color: const Color(0xFF003366),
                   borderRadius: BorderRadius.circular(6.r),
                 ),
-                child: Icon(Icons.account_balance_wallet, color: Colors.white, size: 14.sp),
+                child: Icon(
+                  Icons.account_balance_wallet,
+                  color: AppColor.whiteColor(context),
+                  size: 14.sp,
+                ),
               ),
             ],
           ),
@@ -345,7 +357,7 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
                 Text(
                   AppLocaleKey.agentTotalPrice.tr(),
                   style: AppTextStyle.bodyMedium(context).copyWith(
-                    color: AppColor.blackTextColor(context).withOpacity(0.7),
+                    color: AppColor.blackTextColor(context).withValues(alpha: 0.7),
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -421,7 +433,7 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
         color: AppColor.scaffoldColor(context),
         boxShadow: [
           BoxShadow(
-            color: AppColor.blackColor(context).withOpacity(0.06),
+            color: AppColor.blackColor(context).withValues(alpha: 0.06),
             blurRadius: 12,
             offset: const Offset(0, -4),
           ),
@@ -445,13 +457,13 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
               Gap(16.w),
             ],
             if (_isFinancingFlow && !isMethodSelection) ...[
-              Icon(Icons.arrow_back_rounded, color: Colors.white, size: 18.sp),
+              Icon(Icons.arrow_back_rounded, color: AppColor.whiteColor(context), size: 18.sp),
               Gap(12.w),
             ],
             Text(
               buttonLabel,
               style: AppTextStyle.buttonStyle(context).copyWith(
-                color: canContinue ? Colors.white : Colors.grey[600],
+                color: canContinue ? AppColor.whiteColor(context) : Colors.grey[600],
                 fontWeight: FontWeight.bold,
                 fontSize: 16.sp,
               ),

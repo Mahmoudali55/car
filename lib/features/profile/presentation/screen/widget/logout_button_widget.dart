@@ -1,4 +1,5 @@
 import 'package:car/core/localization/app_locale_keys.dart';
+import 'package:car/core/theme/app_colors.dart';
 import 'package:car/features/auth/presentation/view/cubit/auth_cubit.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
 class LogoutButtonWidget extends StatelessWidget {
-  const LogoutButtonWidget ({super.key});
+  const LogoutButtonWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,8 +17,8 @@ class LogoutButtonWidget extends StatelessWidget {
       child: ElevatedButton(
         onPressed: () => context.read<AuthCubit>().logout(),
         style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.red.withOpacity(0.1),
-          foregroundColor: Colors.red,
+          backgroundColor: AppColor.redColor(context).withValues(alpha: 0.1),
+          foregroundColor: AppColor.redColor(context),
           elevation: 0,
           padding: EdgeInsets.symmetric(vertical: 16.h),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.r)),

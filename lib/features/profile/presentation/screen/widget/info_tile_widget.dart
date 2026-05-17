@@ -1,11 +1,14 @@
 import 'package:car/core/theme/app_colors.dart';
+import 'package:car/core/theme/app_text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
 class InfoTileWidget extends StatelessWidget {
   const InfoTileWidget({super.key, required this.icon, required this.label, required this.value});
- final IconData icon;final String label ; final String value;
+  final IconData icon;
+  final String label;
+  final String value;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -20,15 +23,15 @@ class InfoTileWidget extends StatelessWidget {
               children: [
                 Text(
                   label,
-                  style: TextStyle(color: AppColor.greyColor(context), fontSize: 12.sp),
+                  style: AppTextStyle.bodySmall(
+                    context,
+                  ).copyWith(color: AppColor.greyColor(context)),
                 ),
                 Text(
                   value,
-                  style: TextStyle(
-                    color: AppColor.blackTextColor(context),
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.w600,
-                  ),
+                  style: AppTextStyle.bodyMedium(
+                    context,
+                  ).copyWith(color: AppColor.blackTextColor(context)),
                 ),
               ],
             ),

@@ -46,6 +46,9 @@ import 'package:car/features/settings/presentation/screen/complaints_screen.dart
 import 'package:car/features/settings/presentation/screen/faq_screen.dart';
 import 'package:car/features/settings/presentation/screen/settings_screen.dart';
 import 'package:car/features/splash/presentation/view/screen/splash_screen.dart';
+import 'package:car/core/custom_widgets/coming_soon_screen.dart';
+import 'package:car/core/localization/app_locale_keys.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

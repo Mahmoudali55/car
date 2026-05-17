@@ -17,24 +17,39 @@ class FilterCheckboxTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Theme(
-      data: ThemeData(
-        unselectedWidgetColor: AppColor.blackTextColor(context).withValues(alpha: (0.24)),
-      ),
-      child: CheckboxListTile(
-        value: value,
-        onChanged: onChanged,
-        title: Text(
-          title,
-          style: AppTextStyle.bodyMedium(
-            context,
-          ).copyWith(color: AppColor.blackTextColor(context).withValues(alpha: (0.70))),
+    return InkWell(
+      onTap: () => onChanged(!value),
+      borderRadius: BorderRadius.circular(12.r),
+      child: Padding(
+        padding: EdgeInsets.symmetric(vertical: 4.h),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Expanded(
+              child: Text(
+                title,
+                style: AppTextStyle.bodyMedium(context).copyWith(
+                  color: AppColor.blackTextColor(context).withValues(alpha: (0.70)),
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16.sp,
+                ),
+              ),
+            ),
+            Theme(
+              data: ThemeData(
+                unselectedWidgetColor: AppColor.blackTextColor(context).withValues(alpha: (0.24)),
+              ),
+              child: Checkbox(
+                value: value,
+                onChanged: onChanged,
+                activeColor: AppColor.primaryColor(context),
+                checkColor: AppColor.whiteColor(context),
+                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.r)),
+              ),
+            ),
+          ],
         ),
-        activeColor: AppColor.primaryColor(context),
-        checkColor: AppColor.whiteColor(context),
-        contentPadding: EdgeInsets.zero,
-        controlAffinity: ListTileControlAffinity.trailing,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.r)),
       ),
     );
   }

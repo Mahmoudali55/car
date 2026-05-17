@@ -36,11 +36,7 @@ class FinancingScreen extends StatefulWidget {
 }
 
 class _FinancingScreenState extends State<FinancingScreen> with SingleTickerProviderStateMixin {
-  // ─── Controllers ─────────────────────────────────────────────────
-
   late TabController _tabController;
-
-  // ─── Form Keys ───────────────────────────────────────────────────
 
   final _formKey1 = GlobalKey<FormState>();
   final _formKey2 = GlobalKey<FormState>();

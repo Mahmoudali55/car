@@ -5,7 +5,9 @@ import 'package:gap/gap.dart';
 
 class ActionTileWidget extends StatelessWidget {
   const ActionTileWidget({super.key, required this.icon, required this.label, required this.onTap});
-final IconData icon;final String label;final VoidCallback onTap;
+  final IconData icon;
+  final String label;
+  final VoidCallback onTap;
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -15,7 +17,7 @@ final IconData icon;final String label;final VoidCallback onTap;
         padding: EdgeInsets.all(16.w),
         child: Row(
           children: [
-            Icon(icon, color: AppColor.blackTextColor(context).withOpacity(0.7), size: 22.sp),
+            Icon(icon, color: AppColor.blackTextColor(context).withValues(alpha: 0.7), size: 22.sp),
             Gap(16.w),
             Text(
               label,
@@ -28,12 +30,12 @@ final IconData icon;final String label;final VoidCallback onTap;
             const Spacer(),
             Icon(
               Icons.arrow_forward_ios_rounded,
-              color: AppColor.greyColor(context).withOpacity(0.5),
+              color: AppColor.greyColor(context).withValues(alpha: 0.5),
               size: 14.sp,
             ),
           ],
         ),
       ),
-    ) ;
+    );
   }
 }

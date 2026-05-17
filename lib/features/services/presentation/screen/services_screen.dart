@@ -344,11 +344,7 @@ class ServicesScreen extends StatelessWidget {
         'label': AppLocaleKey.importOnDemand.tr(),
         'color': const Color(0xFF10B981),
       },
-      {
-        'icon': Icons.account_balance_wallet_rounded,
-        'label': AppLocaleKey.financingSolutions.tr(),
-        'color': const Color(0xFFF59E0B),
-      },
+
       {
         'icon': Icons.auto_awesome_rounded,
         'label': AppLocaleKey.showroomShine.tr(),
@@ -389,9 +385,7 @@ class ServicesScreen extends StatelessWidget {
     if (label == AppLocaleKey.importOnDemand.tr()) {
       return AppLocaleKey.importOnDemandDesc.tr();
     }
-    if (label == AppLocaleKey.financingSolutions.tr()) {
-      return AppLocaleKey.financingSolutionsDesc.tr();
-    }
+
     if (label == AppLocaleKey.showroomShine.tr()) {
       return AppLocaleKey.showroomShineDesc.tr();
     }
@@ -409,8 +403,6 @@ class ServicesScreen extends StatelessWidget {
       Navigator.pushNamed(context, RoutesName.requestCarScreen);
     } else if (label == AppLocaleKey.importOnDemand.tr()) {
       Navigator.pushNamed(context, RoutesName.importOnDemandScreen);
-    } else if (label == AppLocaleKey.financingSolutions.tr()) {
-      Navigator.pushNamed(context, RoutesName.financingScreen);
     } else if (label == AppLocaleKey.showroomShine.tr()) {
       Navigator.pushNamed(context, RoutesName.carDetailingScreen);
     } else if (label == AppLocaleKey.vipShipping.tr()) {

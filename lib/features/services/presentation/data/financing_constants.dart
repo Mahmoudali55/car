@@ -2,15 +2,7 @@ import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/features/services/presentation/models/financing_models.dart';
 import 'package:flutter/material.dart';
 
-final kBrands = [
-  'Mercedes',
-  'BMW',
-  'Toyota',
-  'Tesla',
-  'Audi',
-  'Lexus',
-  'Porsche',
-];
+final kBrands = ['Mercedes', 'BMW', 'Toyota', 'Tesla', 'Audi', 'Lexus', 'Porsche'];
 
 final kModels = <String, List<String>>{
   'Mercedes': ['S-Class', 'G-Wagon', 'E-Class', 'GLE'],

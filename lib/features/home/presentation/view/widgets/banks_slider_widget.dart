@@ -29,7 +29,7 @@ class _BanksSliderWidgetState extends State<BanksSliderWidget> {
       if (_scrollController.hasClients) {
         final double maxScroll = _scrollController.position.maxScrollExtent;
         final double currentScroll = _scrollController.offset;
-        
+
         if (currentScroll >= maxScroll) {
           _scrollController.jumpTo(0);
         } else {

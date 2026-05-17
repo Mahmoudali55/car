@@ -12,10 +12,8 @@ class FilterApplyButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Positioned(
-      left: 20.w,
-      right: 20.w,
-      bottom: 30.h,
+    return Padding(
+      padding: EdgeInsets.only(bottom: 30.h, top: 10.h),
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(

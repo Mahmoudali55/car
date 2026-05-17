@@ -1,5 +1,6 @@
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
+import 'package:car/core/theme/app_text_style.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -18,7 +19,7 @@ class ProfileHeaderWidget extends StatelessWidget {
         borderRadius: BorderRadius.vertical(bottom: Radius.circular(32.r)),
         boxShadow: [
           BoxShadow(
-            color: AppColor.blackTextColor(context).withOpacity(0.05),
+            color: AppColor.blackTextColor(context).withValues(alpha: 0.05),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),
@@ -37,7 +38,7 @@ class ProfileHeaderWidget extends StatelessWidget {
                 ),
                 child: CircleAvatar(
                   radius: 50.r,
-                  backgroundColor: AppColor.greyColor(context).withOpacity(0.1),
+                  backgroundColor: AppColor.greyColor(context).withValues(alpha: 0.1),
                   child: Icon(
                     Icons.person_rounded,
                     size: 60.sp,
@@ -52,7 +53,11 @@ class ProfileHeaderWidget extends StatelessWidget {
                   shape: BoxShape.circle,
                   border: Border.all(color: AppColor.whiteColor(context), width: 2),
                 ),
-                child: Icon(Icons.camera_alt_rounded, color: Colors.white, size: 16.sp),
+                child: Icon(
+                  Icons.camera_alt_rounded,
+                  color: AppColor.whiteColor(context),
+                  size: 16.sp,
+                ),
               ),
             ],
           ),
@@ -68,23 +73,21 @@ class ProfileHeaderWidget extends StatelessWidget {
           Gap(4.h),
           Text(
             user?.email ?? '---',
-            style: TextStyle(color: AppColor.greyColor(context), fontSize: 14.sp),
+            style: AppTextStyle.bodyMedium(context).copyWith(color: AppColor.greyColor(context)),
           ),
           if (user != null) ...[
             Gap(12.h),
             Container(
               padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 6.h),
               decoration: BoxDecoration(
-                color: AppColor.primaryColor(context).withOpacity(0.1),
+                color: AppColor.primaryColor(context).withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(20.r),
               ),
               child: Text(
                 '${AppLocaleKey.memberSince.tr()} ${"---"}',
-                style: TextStyle(
-                  color: AppColor.primaryColor(context),
-                  fontSize: 12.sp,
-                  fontWeight: FontWeight.w600,
-                ),
+                style: AppTextStyle.bodySmall(
+                  context,
+                ).copyWith(color: AppColor.primaryColor(context)),
               ),
             ),
           ],
