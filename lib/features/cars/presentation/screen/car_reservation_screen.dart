@@ -1,5 +1,6 @@
 import 'package:car/core/custom_widgets/buttons/custom_button.dart';
 import 'package:car/core/custom_widgets/custom_form_field/custom_form_field.dart';
+import 'package:car/core/images/app_images.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
@@ -279,7 +280,7 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
           title: AppLocaleKey.agentTamara.tr(),
           description: AppLocaleKey.agentNoFees.tr(),
           logo: Image.asset(
-            'assets/images/tamara_logo.png',
+            AppImages.assetsImagesTamaraLogo,
             height: 24.h,
             errorBuilder: (c, e, s) => Container(
               padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),

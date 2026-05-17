@@ -1,4 +1,5 @@
 import 'package:car/core/custom_widgets/custom_image/custom_network_image.dart';
+import 'package:car/core/images/app_images.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
@@ -68,7 +69,7 @@ class PricingDetailsBottomSheet extends StatelessWidget {
                         fit: BoxFit.cover,
                       )
                     : Image.asset(
-                        car['image'] ?? 'assets/images/placeholder.png',
+                        car['image'] ?? AppImages.assetsImagesPlaceholder,
                         height: 80.h,
                         width: 120.w,
                         fit: BoxFit.cover,

@@ -1,3 +1,4 @@
+import 'package:car/core/images/app_images.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 
 class BrandModel {
@@ -15,12 +16,12 @@ class BrandModel {
     ),
     const BrandModel(
       name: 'Mercedes-Benz',
-      logo: 'assets/images/car.jpeg',
+      logo: AppImages.assetsImagesCar,
       localeKey: AppLocaleKey.mercedes,
     ),
-    const BrandModel(name: 'BMW', logo: 'assets/images/car.jpeg', localeKey: AppLocaleKey.bmw),
+    const BrandModel(name: 'BMW', logo: AppImages.assetsImagesCar, localeKey: AppLocaleKey.bmw),
     const BrandModel(name: 'Toyota', logo: '', localeKey: AppLocaleKey.toyota),
-    const BrandModel(name: 'Tesla', logo: 'assets/images/car.jpeg', localeKey: AppLocaleKey.tesla),
-    const BrandModel(name: 'Audi', logo: 'assets/images/car.jpeg', localeKey: AppLocaleKey.audi),
+    const BrandModel(name: 'Tesla', logo: AppImages.assetsImagesCar, localeKey: AppLocaleKey.tesla),
+    const BrandModel(name: 'Audi', logo: AppImages.assetsImagesCar, localeKey: AppLocaleKey.audi),
   ];
 }

@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:car/core/custom_widgets/custom_image/custom_network_image.dart';
+import 'package:car/core/images/app_images.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -90,7 +91,7 @@ class _FullImageGalleryScreenState extends State<FullImageGalleryScreen> {
                               width: double.infinity,
                             )
                           : Image.asset(
-                              imageUrl.isEmpty ? 'assets/images/placeholder.png' : imageUrl,
+                              imageUrl.isEmpty ? AppImages.assetsImagesPlaceholder : imageUrl,
                               fit: BoxFit.contain,
                             ),
                     ),
@@ -181,7 +182,7 @@ class _FullImageGalleryScreenState extends State<FullImageGalleryScreen> {
                                         )
                                         as ImageProvider
                                   : AssetImage(
-                                      imageUrl.isEmpty ? 'assets/images/placeholder.png' : imageUrl,
+                                      imageUrl.isEmpty ? AppImages.assetsImagesPlaceholder : imageUrl,
                                     ),
                               fit: BoxFit.cover,
                             ),

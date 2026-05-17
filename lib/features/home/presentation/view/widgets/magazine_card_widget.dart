@@ -1,4 +1,5 @@
 import 'package:car/core/custom_widgets/custom_image/custom_network_image.dart';
+import 'package:car/core/images/app_images.dart';
 import 'package:car/core/routes/routes_name.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
@@ -157,7 +158,7 @@ class _CardImage extends StatelessWidget {
                 height: 200.h,
               )
             : Image.asset(
-                imageUrl.isNotEmpty ? imageUrl : 'assets/images/placeholder.png',
+                imageUrl.isNotEmpty ? imageUrl : AppImages.assetsImagesPlaceholder,
                 fit: BoxFit.contain,
               ),
       ),

@@ -1,5 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:car/core/cache/hive/hive_methods.dart';
+import 'package:car/core/images/app_images.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/routes/routes_name.dart';
 import 'package:car/core/theme/app_colors.dart';
@@ -25,13 +26,13 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     OnboardingModel(
       title: AppLocaleKey.exploreLuxuryCars.tr(),
       description: AppLocaleKey.exploreLuxuryCars.tr(),
-      image: 'assets/images/onboarding_car_selection.png',
+      image: AppImages.assetsImagesOnboardingCarSelection,
       isImage: true,
     ),
     OnboardingModel(
       title: AppLocaleKey.expertMaintenance.tr(),
       description: AppLocaleKey.expertMaintenance.tr(),
-      image: 'assets/images/onboarding_car_service.png',
+      image: AppImages.assetsImagesOnboardingCarService,
       isImage: true,
     ),
     OnboardingModel(

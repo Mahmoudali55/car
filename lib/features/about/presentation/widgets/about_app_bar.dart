@@ -1,3 +1,4 @@
+import 'package:car/core/images/app_images.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -35,7 +36,7 @@ class AboutAppBar extends StatelessWidget {
         background: Stack(
           fit: StackFit.expand,
           children: [
-            Image.asset('assets/images/profile.jpeg', fit: BoxFit.cover, height: 180.h),
+            Image.asset(AppImages.assetsImagesProfile, fit: BoxFit.cover, height: 180.h),
             Container(
               decoration: BoxDecoration(
                 gradient: LinearGradient(

@@ -1,5 +1,6 @@
 import 'package:car/core/cache/hive/hive_methods.dart';
 import 'package:car/core/custom_widgets/custom_image/custom_network_image.dart';
+import 'package:car/core/images/app_images.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/features/cars/presentation/widget/bnpl_widget.dart';
@@ -37,7 +38,7 @@ class _CarDetailsScreenState extends State<CarDetailsScreen> {
   void initState() {
     super.initState();
     HiveMethods.addToRecentlyViewed(widget.car);
-    final mainImage = widget.car['image'] ?? 'assets/images/placeholder.png';
+    final mainImage = widget.car['image'] ?? AppImages.assetsImagesPlaceholder;
     _carImages = [mainImage];
     _controller = YoutubePlayerController(
       initialVideoId: widget.car['video_id'] ?? 'D7O8J5vVf-M',
@@ -76,7 +77,7 @@ class _CarDetailsScreenState extends State<CarDetailsScreen> {
         thumbnail: widget.car['image'] != null && widget.car['image'].toString().startsWith('http')
             ? CustomNetworkImage(imageUrl: widget.car['image'], fit: BoxFit.cover)
             : Image.asset(
-                widget.car['image'] ?? 'assets/images/placeholder.png',
+                widget.car['image'] ?? AppImages.assetsImagesPlaceholder,
                 fit: BoxFit.cover,
               ),
       ),

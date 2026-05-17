@@ -2,6 +2,7 @@
 
 import 'dart:async';
 
+import 'package:car/core/images/app_images.dart';
 import 'package:car/features/home/data/model/ad_item_model.dart';
 import 'package:car/features/home/presentation/view/widgets/ads_dot_indicator.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +29,7 @@ class _AdsSliderWidgetState extends State<AdsSliderWidget> {
       subtitle: 'The Ultimate Off-Road Icon',
       tag: 'SPECIAL OFFER',
       price: '\$185,000',
-      image: 'assets/images/g63.png',
+      image: AppImages.assetsImagesG63,
       accentColor: Color(0xFFFFD700),
       bgColors: [Color(0xFF1A1A1A), Color(0xFF3A3A3A)],
     ),
@@ -37,7 +38,7 @@ class _AdsSliderWidgetState extends State<AdsSliderWidget> {
       subtitle: 'Pure Performance Unleashed',
       tag: 'FEATURED',
       price: '\$145,000',
-      image: 'assets/images/bmw_m5.png',
+      image: AppImages.assetsImagesBmwM5,
       accentColor: Color(0xFF4FC3F7),
       bgColors: [Color(0xFF0D1B2A), Color(0xFF1A3550)],
     ),
@@ -46,7 +47,7 @@ class _AdsSliderWidgetState extends State<AdsSliderWidget> {
       subtitle: 'Born for the Racetrack',
       tag: 'LIMITED TIME',
       price: '\$230,000',
-      image: 'assets/images/porsche.png',
+      image: AppImages.assetsImagesPorsche,
       accentColor: Color(0xFFFF6B6B),
       bgColors: [Color(0xFF1A0A0A), Color(0xFF3A1515)],
     ),

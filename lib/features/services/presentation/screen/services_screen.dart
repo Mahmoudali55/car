@@ -1,5 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:car/core/cache/hive/hive_methods.dart';
+import 'package:car/core/images/app_images.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/routes/routes_name.dart';
 import 'package:car/core/theme/app_colors.dart';
@@ -185,7 +186,7 @@ class ServicesScreen extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(24.r),
-            child: Image.asset('assets/images/car.jpeg', height: 160.h, fit: BoxFit.contain),
+            child: Image.asset(AppImages.assetsImagesCar, height: 160.h, fit: BoxFit.contain),
           ),
         ),
       ),

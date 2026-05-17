@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:car/core/images/app_images.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/services.dart';
@@ -19,7 +20,7 @@ class QuotePdfGenerator {
     final arabicFontBold = await PdfGoogleFonts.cairoBold();
 
     // Load logo image
-    final ByteData logoData = await rootBundle.load('assets/images/loge.png');
+    final ByteData logoData = await rootBundle.load(AppImages.assetsImagesLoge);
     final Uint8List logoBytes = logoData.buffer.asUint8List();
     final logoImage = pw.MemoryImage(logoBytes);
 

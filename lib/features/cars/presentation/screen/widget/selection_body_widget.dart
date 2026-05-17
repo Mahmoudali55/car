@@ -1,3 +1,4 @@
+import 'package:car/core/images/app_images.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/features/cars/presentation/widget/payment_method_selection_card.dart';
@@ -40,7 +41,7 @@ class _SelectionBodyWidgetState extends State<SelectionBodyWidget> {
           title: AppLocaleKey.agentTamara.tr(),
           description: AppLocaleKey.agentNoFees.tr(),
           logo: Image.asset(
-            'assets/images/tamara_logo.png',
+            AppImages.assetsImagesTamaraLogo,
             height: 24.h,
             errorBuilder: (c, e, s) => Container(
               padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),

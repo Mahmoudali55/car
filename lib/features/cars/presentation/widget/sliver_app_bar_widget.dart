@@ -1,6 +1,7 @@
 import 'package:car/core/cache/hive/hive_methods.dart';
 import 'package:car/core/custom_widgets/custom_image/custom_network_image.dart';
 import 'package:car/core/custom_widgets/custom_toast/custom_toast.dart';
+import 'package:car/core/images/app_images.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
@@ -148,7 +149,7 @@ class _SliverAppBarWidgetState extends State<SliverAppBarWidget> {
       flexibleSpace: FlexibleSpaceBar(
         background: BlocBuilder<HomeCubit, HomeState>(
           builder: (context, state) {
-            List<String> displayedImages = [widget.car['image'] ?? 'assets/images/placeholder.png'];
+            List<String> displayedImages = [widget.car['image'] ?? AppImages.assetsImagesPlaceholder];
 
             if (widget.car['extraImages'] != null &&
                 (widget.car['extraImages'] as List).isNotEmpty) {
@@ -200,7 +201,7 @@ class _SliverAppBarWidgetState extends State<SliverAppBarWidget> {
                           child: isNetwork
                               ? CustomNetworkImage(imageUrl: imageUrl, fit: BoxFit.cover)
                               : Image.asset(
-                                  imageUrl.isEmpty ? 'assets/images/placeholder.png' : imageUrl,
+                                  imageUrl.isEmpty ? AppImages.assetsImagesPlaceholder : imageUrl,
                                   fit: BoxFit.cover,
                                 ),
                         ),

@@ -1,5 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:car/core/custom_widgets/custom_app_bar/custom_app_bar.dart';
+import 'package:car/core/images/app_images.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/routes/routes_name.dart';
 import 'package:car/core/theme/app_colors.dart';
@@ -31,7 +32,7 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
       'price': '1,200,000',
       'year': '2024',
       'mileage': '5,000 كم',
-      'image': 'assets/images/gclass.png',
+      'image': AppImages.assetsImagesGclass,
     },
     {
       'name': 'Bentley Continental',
@@ -39,7 +40,7 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
       'price': '2,500,000',
       'year': '2023',
       'mileage': '1,200 كم',
-      'image': 'assets/images/ferrari.png',
+      'image': AppImages.assetsImagesFerrari,
     },
     {
       'name': 'Ferrari F8 Tributo',
@@ -47,7 +48,7 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
       'price': '3,500,000',
       'year': '2024',
       'mileage': '0 كم',
-      'image': 'assets/images/ferrari.png',
+      'image': AppImages.assetsImagesFerrari,
     },
     {
       'name': 'Range Rover Vogue',
@@ -55,7 +56,7 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
       'price': '900,000',
       'year': '2022',
       'mileage': '24,000 كم',
-      'image': 'assets/images/coupon_pattern.png',
+      'image': AppImages.assetsImagesCouponPattern,
     },
     {
       'name': 'Lamborghini Urus',
@@ -63,7 +64,7 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
       'price': '4,000,000',
       'year': '2023',
       'mileage': '8,500 كم',
-      'image': 'assets/images/yaris.png',
+      'image': AppImages.assetsImagesYaris,
     },
   ];
 

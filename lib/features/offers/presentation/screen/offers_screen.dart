@@ -1,3 +1,4 @@
+import 'package:car/core/images/app_images.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/features/offers/presentation/screen/widget/custom_special_offers_widget.dart';
 import 'package:car/features/offers/presentation/screen/widget/header_widget.dart';
@@ -26,7 +27,7 @@ class _OffersScreenState extends State<OffersScreen> {
       'oldPrice': '850,000  ر.س       ',
       'price': '765,000  ر.س       ',
       'expiresIn': 'ينتهي غداً',
-      'image': 'assets/images/camry.png',
+      'image': AppImages.assetsImagesCamry,
       'year': '2024',
       'mileage': '0 كم',
       'engine': '4.0L V8',
@@ -42,7 +43,7 @@ class _OffersScreenState extends State<OffersScreen> {
       'oldPrice': '520,000  ر.س       ',
       'price': '442,000  ر.س       ',
       'expiresIn': '3 أيام',
-      'image': 'assets/images/gclass.png',
+      'image': AppImages.assetsImagesGclass,
       'year': '2023',
       'mileage': '5,000 كم',
       'engine': '4.4L V8',
@@ -58,7 +59,7 @@ class _OffersScreenState extends State<OffersScreen> {
       'oldPrice': '350,000  ر.س       ',
       'price': '332,500  ر.س       ',
       'expiresIn': '5 أيام',
-      'image': 'assets/images/ferrari.png',
+      'image': AppImages.assetsImagesFerrari,
       'year': '2024',
       'mileage': '0 كم',
       'engine': '3.5L V6',

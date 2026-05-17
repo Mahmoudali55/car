@@ -1,6 +1,7 @@
 import 'package:car/core/cache/hive/hive_methods.dart';
 import 'package:car/core/custom_widgets/custom_image/custom_network_image.dart';
 import 'package:car/core/custom_widgets/custom_toast/custom_toast.dart';
+import 'package:car/core/images/app_images.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/routes/routes_name.dart';
 import 'package:car/core/theme/app_colors.dart';
@@ -48,7 +49,7 @@ class PremiumCarCardWidget extends StatelessWidget {
                           height: 150.h,
                         )
                       : Image.asset(
-                          car['image'] ?? 'assets/images/car.jpeg',
+                          car['image'] ?? AppImages.assetsImagesCar,
                           fit: BoxFit.fill,
                           height: 150.h,
                           width: double.infinity,

@@ -1,3 +1,4 @@
+import 'package:car/core/images/app_images.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:easy_localization/easy_localization.dart' as el;
 import 'package:flutter/material.dart';
@@ -41,7 +42,7 @@ class PdfService {
     // Load Logo
     pw.ImageProvider? logoImage;
     try {
-      final logoBytes = await rootBundle.load('assets/images/loge.png');
+      final logoBytes = await rootBundle.load(AppImages.assetsImagesLoge);
       logoImage = pw.MemoryImage(logoBytes.buffer.asUint8List());
     } catch (e) {
       debugPrint('Error loading logo for PDF: $e');

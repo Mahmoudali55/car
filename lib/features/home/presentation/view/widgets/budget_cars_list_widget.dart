@@ -1,3 +1,4 @@
+import 'package:car/core/images/app_images.dart';
 import 'package:car/features/home/presentation/view/widgets/horizontal_car_card_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -13,7 +14,7 @@ class BudgetCarsListWidget extends StatelessWidget {
     [
       {
         'name': 'Toyota Yaris 2024',
-        'image': 'assets/images/yaris.png',
+        'image': AppImages.assetsImagesYaris,
         'cashPrice': '65,000 SAR',
         'installmentPrice': '950 SAR/mo',
         'installments': '950 ر.س / شهر',
@@ -21,7 +22,7 @@ class BudgetCarsListWidget extends StatelessWidget {
       },
       {
         'name': 'Hyundai Accent 2024',
-        'image': 'assets/images/yaris.png',
+        'image': AppImages.assetsImagesYaris,
         'cashPrice': '68,500 SAR',
         'installmentPrice': '990 SAR/mo',
         'installments': '990 ر.س / شهر',
@@ -32,7 +33,7 @@ class BudgetCarsListWidget extends StatelessWidget {
     [
       {
         'name': 'Toyota Camry 2024',
-        'image': 'assets/images/camry.png',
+        'image': AppImages.assetsImagesCamry,
         'cashPrice': '115,000 SAR',
         'installmentPrice': '1,450 SAR/mo',
         'installments': '1,450 ر.س / شهر',
@@ -40,7 +41,7 @@ class BudgetCarsListWidget extends StatelessWidget {
       },
       {
         'name': 'Nissan Altima 2024',
-        'image': 'assets/images/camry.png',
+        'image': AppImages.assetsImagesCamry,
         'cashPrice': '110,000 SAR',
         'installmentPrice': '1,380 SAR/mo',
         'installments': '1,380 ر.س / شهر',
@@ -51,7 +52,7 @@ class BudgetCarsListWidget extends StatelessWidget {
     [
       {
         'name': 'Mazda CX-5 2024',
-        'image': 'assets/images/camry.png',
+        'image': AppImages.assetsImagesCamry,
         'cashPrice': '145,000 SAR',
         'installmentPrice': '1,850 SAR/mo',
         'installments': '1,850 ر.س / شهر',
@@ -59,7 +60,7 @@ class BudgetCarsListWidget extends StatelessWidget {
       },
       {
         'name': 'Honda CR-V 2024',
-        'image': 'assets/images/camry.png',
+        'image': AppImages.assetsImagesCamry,
         'cashPrice': '155,000 SAR',
         'installmentPrice': '1,950 SAR/mo',
         'installments': '1,950 ر.س / شهر',
@@ -70,7 +71,7 @@ class BudgetCarsListWidget extends StatelessWidget {
     [
       {
         'name': 'Mercedes G-Class 2024',
-        'image': 'assets/images/gclass.png',
+        'image': AppImages.assetsImagesGclass,
         'cashPrice': '850,000 SAR',
         'installmentPrice': '12,500 SAR/mo',
         'installments': '12,500 ر.س / شهر',
@@ -78,7 +79,7 @@ class BudgetCarsListWidget extends StatelessWidget {
       },
       {
         'name': 'Ferrari SF90 Stradale',
-        'image': 'assets/images/ferrari.png',
+        'image': AppImages.assetsImagesFerrari,
         'cashPrice': '1,800,000 SAR',
         'installmentPrice': '24,500 SAR/mo',
         'installments': '24,500 ر.س / شهر',

@@ -1,4 +1,5 @@
 import 'package:car/core/custom_widgets/custom_image/custom_network_image.dart';
+import 'package:car/core/images/app_images.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/routes/routes_name.dart';
 import 'package:car/core/theme/app_colors.dart';
@@ -67,7 +68,7 @@ class HorizontalCarCardWidget extends StatelessWidget {
                           width: double.infinity,
                         )
                       : Image.asset(
-                          car['image'] ?? 'assets/images/car.jpeg',
+                          car['image'] ?? AppImages.assetsImagesCar,
                           fit: BoxFit.fill,
                           width: double.infinity,
                         ),
@@ -128,7 +129,7 @@ class HorizontalCarCardWidget extends StatelessWidget {
                       Align(
                         alignment: Alignment.bottomLeft,
                         child: Image.asset(
-                          'assets/images/tamara.jpeg',
+                          AppImages.assetsImagesTamara,
                           width: 60.w,
                           height: 20.h,
                           fit: BoxFit.contain,

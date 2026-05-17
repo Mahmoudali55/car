@@ -1,3 +1,4 @@
+import 'package:car/core/images/app_images.dart';
 import 'package:car/core/utils/responsive_helper.dart';
 import 'package:car/features/home/presentation/view/widgets/offer_card_widget.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +11,7 @@ class OffersGridWidget extends StatelessWidget {
     {
       'name': 'G63 AMG 2024',
       'brand': 'Mercedes-Benz',
-      'image': 'assets/images/gclass.png',
+      'image': AppImages.assetsImagesGclass,
       'price': '850,000',
       'oldPrice': '1,000,000',
       'installments': '12,500',
@@ -55,7 +56,7 @@ class OffersGridWidget extends StatelessWidget {
     {
       'name': 'Ferrari SF90',
       'brand': 'Ferrari',
-      'image': 'assets/images/ferrari.png',
+      'image': AppImages.assetsImagesFerrari,
       'price': '1,800,000',
       'oldPrice': '2,100,000',
       'installments': '28,500',

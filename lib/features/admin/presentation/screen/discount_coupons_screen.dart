@@ -1,5 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:car/core/custom_widgets/custom_app_bar/custom_app_bar.dart';
+import 'package:car/core/images/app_images.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -136,7 +137,7 @@ class DiscountCouponsScreen extends StatelessWidget {
           border: Border.all(color: baseColor.withOpacity(0.05)),
           image: DecorationImage(
             image: const AssetImage(
-              'assets/images/coupon_pattern.png',
+              AppImages.assetsImagesCouponPattern,
             ), // Placeholder or subtle pattern
             opacity: 0.02,
             repeat: ImageRepeat.repeat,
