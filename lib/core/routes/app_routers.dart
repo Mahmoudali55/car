@@ -123,8 +123,8 @@ class AppRouters {
         return MaterialPageRoute(builder: (_) => const ManageCarsScreen());
       case RoutesName.manageBookings:
         return MaterialPageRoute(builder: (_) => const ManageBookingsScreen());
-      // case RoutesName.manageUsers:
-      //   return MaterialPageRoute(builder: (_) => const ManageUsersScreen());
+      case RoutesName.manageUsers:
+        return MaterialPageRoute(builder: (_) => const ManageUsersScreen());
       case RoutesName.revenueReport:
       case RoutesName.revenueReports:
         return MaterialPageRoute(builder: (_) => const RevenueReportScreen());

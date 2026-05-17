@@ -1180,9 +1180,11 @@
   "resendOtp"
 : "إعادة إرسال رمز التحقق",
 "ApprovalRequest": "طلب الموافقة",
-"AgentRequested": "الوكيل قام بطلب تحديث سعر Mercedes G63."
-
-
-
-
+"AgentRequested": "الوكيل قام بطلب تحديث سعر Mercedes G63.",
+  "totalUsers": "إجمالي المستخدمين",
+  "activeAgents": "الوكلاء النشطين",
+  "customers": "العملاء",
+  "agents": "الوكلاء",
+  "admins": "المدراء",
+  "userName": "اسم المستخدم"
 }

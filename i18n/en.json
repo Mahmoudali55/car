@@ -1001,5 +1001,11 @@
   "resendOtp"
 : "Resend code",
 "Approval Request": "Approval Request",
-"AgentRequested": "Agent requested price update for Mercedes G63."
+"AgentRequested": "Agent requested price update for Mercedes G63.",
+  "totalUsers": "Total Users",
+  "activeAgents": "Active Agents",
+  "customers": "Customers",
+  "agents": "Agents",
+  "admins": "Admins",
+  "userName": "User Name"
 }

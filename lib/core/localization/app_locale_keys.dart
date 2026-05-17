@@ -1258,5 +1258,11 @@ class AppLocaleKey {
   static const String seconds = 'seconds';
   static const String noCarsAvailable = 'noCarsAvailable';
   static const String approvalRequest = 'ApprovalRequest';
-  static const String agentRequested = 'AgentRequested';
+  static const String agentRequested = 'agentRequested';
+  static const String totalUsers = 'totalUsers';
+  static const String activeAgents = 'activeAgents';
+  static const String customers = 'customers';
+  static const String agents = 'agents';
+  static const String admins = 'admins';
+  static const String userName = 'userName';
 }

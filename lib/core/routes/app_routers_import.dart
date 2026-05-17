@@ -12,6 +12,7 @@ import 'package:car/features/admin/presentation/screen/discount_coupons_screen.d
 import 'package:car/features/admin/presentation/screen/inspection_reports_screen.dart';
 import 'package:car/features/admin/presentation/screen/manage_bookings_screen.dart';
 import 'package:car/features/admin/presentation/screen/manage_cars_screen.dart';
+import 'package:car/features/admin/presentation/screen/manage_users_screen.dart';
 import 'package:car/features/admin/presentation/screen/revenue_report_screen.dart';
 import 'package:car/features/admin/presentation/screen/system_alerts_screen.dart';
 import 'package:car/features/admin/presentation/screen/terms_settings_screen.dart';
