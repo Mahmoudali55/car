@@ -13,8 +13,7 @@ class ManageUsersScreen extends StatefulWidget {
   State<ManageUsersScreen> createState() => _ManageUsersScreenState();
 }
 
-class _ManageUsersScreenState extends State<ManageUsersScreen>
-    with SingleTickerProviderStateMixin {
+class _ManageUsersScreenState extends State<ManageUsersScreen> with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
   @override
@@ -169,11 +168,7 @@ class _ManageUsersScreenState extends State<ManageUsersScreen>
                   CircleAvatar(
                     radius: 20.r,
                     backgroundColor: roleColor.withValues(alpha: 0.1),
-                    child: Icon(
-                      Icons.person_rounded,
-                      size: 20.sp,
-                      color: roleColor,
-                    ),
+                    child: Icon(Icons.person_rounded, size: 20.sp, color: roleColor),
                   ),
                   Gap(12.w),
                   Column(
@@ -208,11 +203,7 @@ class _ManageUsersScreenState extends State<ManageUsersScreen>
                   role == 'Admin'
                       ? AppLocaleKey.admins.tr()
                       : (role == 'Agent' ? AppLocaleKey.agents.tr() : AppLocaleKey.customers.tr()),
-                  style: TextStyle(
-                    color: roleColor,
-                    fontSize: 10.sp,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: TextStyle(color: roleColor, fontSize: 10.sp, fontWeight: FontWeight.bold),
                 ),
               ),
             ],
@@ -224,7 +215,7 @@ class _ManageUsersScreenState extends State<ManageUsersScreen>
                 child: _buildActionButton(
                   Icons.edit_rounded,
                   AppLocaleKey.edit.tr(),
-                  Colors.blueAccent,
+                  AppColor.blueColor(context),
                 ),
               ),
               Gap(12.w),
@@ -232,7 +223,7 @@ class _ManageUsersScreenState extends State<ManageUsersScreen>
                 child: _buildActionButton(
                   Icons.block_rounded,
                   AppLocaleKey.cancel.tr(),
-                  Colors.redAccent,
+                  AppColor.redColor(context),
                 ),
               ),
             ],

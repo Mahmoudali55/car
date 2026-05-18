@@ -68,9 +68,19 @@ class _CustomerInquiriesScreenState extends State<CustomerInquiriesScreen>
       padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
       child: Row(
         children: [
-          _buildStatItem(context, AppLocaleKey.adminConversionRate.tr(), '24%', Colors.greenAccent),
+          _buildStatItem(
+            context,
+            AppLocaleKey.adminConversionRate.tr(),
+            '24%',
+            AppColor.greenColor(context),
+          ),
           Gap(12.w),
-          _buildStatItem(context, AppLocaleKey.adminInquiryStatusNew.tr(), '14', Colors.blueAccent),
+          _buildStatItem(
+            context,
+            AppLocaleKey.adminInquiryStatusNew.tr(),
+            '14',
+            AppColor.blueColor(context),
+          ),
         ],
       ),
     );
@@ -148,7 +158,7 @@ class _CustomerInquiriesScreenState extends State<CustomerInquiriesScreen>
 
   Widget _buildInquiryCard(BuildContext context, int index, String statusKey) {
     final statusColor = statusKey == AppLocaleKey.adminInquiryStatusNew
-        ? Colors.blueAccent
+        ? AppColor.blueColor(context)
         : (statusKey == AppLocaleKey.adminInquiryStatusReview ? Colors.orangeAccent : Colors.grey);
 
     return Container(
@@ -230,7 +240,7 @@ class _CustomerInquiriesScreenState extends State<CustomerInquiriesScreen>
                 child: _buildActionButton(
                   Icons.chat_bubble_outline_rounded,
                   AppLocaleKey.quickReply.tr(),
-                  Colors.blueAccent,
+                  AppColor.blueColor(context),
                 ),
               ),
               Gap(12.w),
@@ -238,7 +248,7 @@ class _CustomerInquiriesScreenState extends State<CustomerInquiriesScreen>
                 child: _buildActionButton(
                   Icons.phone_in_talk_rounded,
                   AppLocaleKey.callLabel.tr(),
-                  Colors.greenAccent,
+                  AppColor.greenColor(context),
                 ),
               ),
             ],

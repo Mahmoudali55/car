@@ -365,7 +365,7 @@ class _BookingAppointmentScreenState extends State<BookingAppointmentScreen> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(Icons.check_circle_rounded, color: Colors.greenAccent, size: 70.sp),
+            Icon(Icons.check_circle_rounded, color: AppColor.greenColor(context), size: 70.sp),
             Gap(20.h),
             Text(
               AppLocaleKey.bookingReceivedSuccess.tr(),

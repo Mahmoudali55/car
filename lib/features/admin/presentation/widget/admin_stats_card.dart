@@ -54,7 +54,7 @@ class AdminStatsCard extends StatelessWidget {
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [_buildIconBox(), _buildTrendIndicator()],
+                  children: [_buildIconBox(), _buildTrendIndicator(context)],
                 ),
                 _buildTextContent(context),
               ],
@@ -76,22 +76,22 @@ class AdminStatsCard extends StatelessWidget {
     );
   }
 
-  Widget _buildTrendIndicator() {
+  Widget _buildTrendIndicator(BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
       decoration: BoxDecoration(
-        color: Colors.greenAccent.withValues(alpha: (0.1)),
+        color: AppColor.greenColor(context).withValues(alpha: (0.1)),
         borderRadius: BorderRadius.circular(20.r),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(Icons.trending_up_rounded, color: Colors.greenAccent, size: 12.sp),
+          Icon(Icons.trending_up_rounded, color: AppColor.greenColor(context), size: 12.sp),
           Gap(4.w),
           Text(
             '+8%',
             style: TextStyle(
-              color: Colors.greenAccent,
+              color: AppColor.greenColor(context),
               fontSize: 10.sp,
               fontWeight: FontWeight.w900,
             ),

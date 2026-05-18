@@ -16,7 +16,6 @@ import 'package:gap/gap.dart';
 
 class AddCarScreen extends StatefulWidget {
   const AddCarScreen({super.key});
-
   @override
   State<AddCarScreen> createState() => _AddCarScreenState();
 }
@@ -27,7 +26,6 @@ class _AddCarScreenState extends State<AddCarScreen> {
   String? selectedCategory;
   final List<String> selectedOptions = [];
   final List<Color> selectedColors = [];
-
   final List<String> brands = ['Mercedes', 'BMW', 'Audi', 'Ferrari', 'Bentley', 'Toyota'];
   final List<String> categories = ['SUV', 'Sedan', 'Coupe', 'Sport', 'Luxury'];
   final List<String> features = [
@@ -46,7 +44,6 @@ class _AddCarScreenState extends State<AddCarScreen> {
     Colors.blue,
     Colors.brown,
   ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

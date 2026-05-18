@@ -23,7 +23,7 @@ class InspectionReportWidget extends StatelessWidget {
               AppLocaleKey.excellentRating.tr(),
               style: AppTextStyle.bodyMedium(
                 context,
-              ).copyWith(color: Colors.greenAccent, fontWeight: FontWeight.bold),
+              ).copyWith(color: AppColor.greenColor(context), fontWeight: FontWeight.bold),
             ),
           ],
         ),
@@ -72,7 +72,7 @@ class InspectionReportWidget extends StatelessWidget {
       children: [
         Icon(
           isHealthy ? Icons.check_circle_rounded : Icons.warning_rounded,
-          color: isHealthy ? Colors.greenAccent : Colors.orangeAccent,
+          color: isHealthy ? AppColor.greenColor(context) : Colors.orangeAccent,
           size: 20.sp,
         ),
         Gap(12.w),

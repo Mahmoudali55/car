@@ -29,7 +29,7 @@ class StatsGridWidget extends StatelessWidget {
                 title: AppLocaleKey.adminSoldCars.tr(),
                 value: '86',
                 icon: Icons.shopping_bag_rounded,
-                color: Colors.greenAccent,
+                color: AppColor.greenColor(context),
               ),
             ),
           ],

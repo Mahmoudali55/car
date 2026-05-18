@@ -56,13 +56,13 @@ class PerformanceChartWidget extends StatelessWidget {
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
                 decoration: BoxDecoration(
-                  color: Colors.greenAccent.withValues(alpha: (0.1)),
+                  color: AppColor.greenColor(context).withValues(alpha: (0.1)),
                   borderRadius: BorderRadius.circular(12.r),
                 ),
                 child: Text(
                   '+14.2%',
                   style: TextStyle(
-                    color: Colors.greenAccent,
+                    color: AppColor.greenColor(context),
                     fontSize: 11.sp,
                     fontWeight: FontWeight.bold,
                   ),

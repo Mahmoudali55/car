@@ -20,7 +20,7 @@ class ServiceHistoryScreen extends StatelessWidget {
         'car': AppLocaleKey.mercedesSClass.tr(),
         'cost': '1,200 ${AppLocaleKey.currencyRiyal.tr()}',
         'icon': Icons.build_rounded,
-        'color': Colors.greenAccent,
+        'color': AppColor.greenColor(context),
       },
       {
         'service': AppLocaleKey.oilAndFilterChange.tr(),
@@ -29,7 +29,7 @@ class ServiceHistoryScreen extends StatelessWidget {
         'car': AppLocaleKey.mercedesSClass.tr(),
         'cost': '450 ${AppLocaleKey.currencyRiyal.tr()}',
         'icon': Icons.oil_barrel_rounded,
-        'color': Colors.blueAccent,
+        'color': AppColor.blueColor(context),
       },
       {
         'service': AppLocaleKey.nanoCeramicPolishing.tr(),
@@ -141,7 +141,7 @@ class ServiceHistoryScreen extends StatelessWidget {
                             style: TextStyle(
                               color: item['status'] == AppLocaleKey.cancelledStatus.tr()
                                   ? Colors.redAccent
-                                  : Colors.greenAccent,
+                                  : AppColor.greenColor(context),
                               fontSize: 10.sp,
                               fontWeight: FontWeight.bold,
                             ),

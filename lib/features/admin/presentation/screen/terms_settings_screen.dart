@@ -96,10 +96,14 @@ class TermsSettingsScreen extends StatelessWidget {
             Container(
               padding: EdgeInsets.all(12.w),
               decoration: BoxDecoration(
-                color: Colors.greenAccent.withValues(alpha: (0.1)),
+                color: AppColor.greenColor(context).withValues(alpha: (0.1)),
                 shape: BoxShape.circle,
               ),
-              child: Icon(Icons.verified_user_rounded, color: Colors.greenAccent, size: 28.sp),
+              child: Icon(
+                Icons.verified_user_rounded,
+                color: AppColor.greenColor(context),
+                size: 28.sp,
+              ),
             ),
             Gap(20.w),
             Expanded(

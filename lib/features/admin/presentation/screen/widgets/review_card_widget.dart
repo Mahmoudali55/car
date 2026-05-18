@@ -72,7 +72,7 @@ class ReviewCardWidget extends StatelessWidget {
               Expanded(
                 child: ActionBtnWidget(
                   label: AppLocaleKey.adminApprove.tr(),
-                  color: Colors.greenAccent,
+                  color: AppColor.greenColor(context),
                 ),
               ),
             ],

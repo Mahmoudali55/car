@@ -124,9 +124,8 @@ class CarInventoryCardWidget extends StatelessWidget {
                                 Gap(4.w),
                                 Text(
                                   car['mileage']!,
-                                  style: TextStyle(
+                                  style: AppTextStyle.bodySmall(context).copyWith(
                                     color: AppColor.blackTextColor(context).withValues(alpha: 0.4),
-                                    fontSize: 11.sp,
                                   ),
                                 ),
                               ],
@@ -139,17 +138,15 @@ class CarInventoryCardWidget extends StatelessWidget {
                         children: [
                           Text(
                             car['price']!,
-                            style: TextStyle(
+                            style: AppTextStyle.bodyMedium(context).copyWith(
                               color: AppColor.primaryColor(context),
-                              fontSize: 18.sp,
                               fontWeight: FontWeight.w900,
                             ),
                           ),
                           Text(
                             AppLocaleKey.aed.tr(),
-                            style: TextStyle(
+                            style: AppTextStyle.bodySmall(context).copyWith(
                               color: AppColor.blackTextColor(context).withValues(alpha: 0.4),
-                              fontSize: 10.sp,
                               fontWeight: FontWeight.bold,
                             ),
                           ),

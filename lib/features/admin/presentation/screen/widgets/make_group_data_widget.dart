@@ -16,7 +16,7 @@ BarChartGroupData makeGroupData(int x, double y1, double y2, BuildContext contex
       ),
       BarChartRodData(
         toY: y2,
-        color: Colors.blueAccent.withValues(alpha: (0.3)),
+        color: AppColor.blueColor(context).withValues(alpha: (0.3)),
         width: 8.w,
         borderRadius: BorderRadius.circular(4.r),
       ),

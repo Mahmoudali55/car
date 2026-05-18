@@ -135,7 +135,7 @@ class ManageBookingsScreen extends StatelessWidget {
                   Text(
                     '2,400 ${AppLocaleKey.sarAmount.tr()}       ',
                     style: TextStyle(
-                      color: Colors.greenAccent,
+                      color: AppColor.greenColor(context),
                       fontSize: 14.sp,
                       fontWeight: FontWeight.bold,
                     ),
@@ -143,7 +143,7 @@ class ManageBookingsScreen extends StatelessWidget {
                   Text(
                     AppLocaleKey.paymentSuccessful.tr(),
                     style: TextStyle(
-                      color: Colors.greenAccent.withValues(alpha: 0.5),
+                      color: AppColor.greenColor(context).withValues(alpha: 0.5),
                       fontSize: 9.sp,
                     ),
                   ),
@@ -165,11 +165,11 @@ class ManageBookingsScreen extends StatelessWidget {
                   children: [
                     _buildQuickAction(Icons.close_rounded, AppColor.redColor(context)),
                     Gap(8.w),
-                    _buildQuickAction(Icons.check_rounded, Colors.greenAccent),
+                    _buildQuickAction(Icons.check_rounded, AppColor.greenColor(context)),
                   ],
                 ),
               ] else
-                _buildTypeBadge(type),
+                _buildTypeBadge(type, context),
             ],
           ),
         ],
@@ -204,18 +204,18 @@ class ManageBookingsScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildTypeBadge(String type) {
+  Widget _buildTypeBadge(String type, BuildContext context) {
     final isDone = type == 'completed';
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
       decoration: BoxDecoration(
-        color: (isDone ? Colors.blueAccent : Colors.orangeAccent).withValues(alpha: 0.1),
+        color: (isDone ? AppColor.blueColor(context) : Colors.orangeAccent).withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(12.r),
       ),
       child: Text(
         isDone ? AppLocaleKey.completed.tr() : AppLocaleKey.activeNow.tr(),
         style: TextStyle(
-          color: isDone ? Colors.blueAccent : Colors.orangeAccent,
+          color: isDone ? AppColor.blueColor(context) : Colors.orangeAccent,
           fontSize: 10.sp,
           fontWeight: FontWeight.bold,
         ),

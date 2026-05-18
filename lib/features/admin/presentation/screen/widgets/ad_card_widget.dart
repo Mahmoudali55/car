@@ -1,3 +1,4 @@
+import 'package:car/core/images/app_images.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -5,9 +6,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
-class AdCardWidget extends StatelessWidget {
+class AdCardWidget extends StatefulWidget {
   const AdCardWidget({super.key, required this.index});
   final int index;
+
+  @override
+  State<AdCardWidget> createState() => _AdCardWidgetState();
+}
+
+class _AdCardWidgetState extends State<AdCardWidget> {
+  bool _isActive = true;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -24,11 +33,10 @@ class AdCardWidget extends StatelessWidget {
             decoration: BoxDecoration(
               color: AppColor.blackTextColor(context).withValues(alpha: (0.1)),
               borderRadius: BorderRadius.horizontal(right: Radius.circular(24.r)),
-            ),
-            child: Icon(
-              Icons.image_outlined,
-              color: AppColor.blackTextColor(context).withValues(alpha: (0.2)),
-              size: 30.sp,
+              image: const DecorationImage(
+                image: AssetImage(AppImages.assetsImagesGclass),
+                fit: BoxFit.cover,
+              ),
             ),
           ),
           Gap(16.w),
@@ -57,14 +65,26 @@ class AdCardWidget extends StatelessWidget {
                   Row(
                     children: [
                       Switch.adaptive(
-                        value: true,
-                        onChanged: (v) {},
+                        value: _isActive,
+                        inactiveTrackColor: AppColor.blackTextColor(
+                          context,
+                        ).withValues(alpha: (0.1)),
+                        splashRadius: 20.r,
+                        activeTrackColor: AppColor.primaryColor(context).withValues(alpha: (0.3)),
+                        onChanged: (v) {
+                          setState(() {
+                            _isActive = v;
+                          });
+                        },
                         activeThumbColor: AppColor.primaryColor(context),
                       ),
+                      Gap(8.w),
                       Text(
-                        AppLocaleKey.activeLabel.tr(),
+                        _isActive ? AppLocaleKey.activeLabel.tr() : AppLocaleKey.inactiveLabel.tr(),
                         style: TextStyle(
-                          color: AppColor.primaryColor(context),
+                          color: _isActive
+                              ? AppColor.primaryColor(context)
+                              : AppColor.blackTextColor(context).withValues(alpha: 0.4),
                           fontSize: 10.sp,
                           fontWeight: FontWeight.bold,
                         ),

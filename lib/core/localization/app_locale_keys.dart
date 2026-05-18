@@ -788,6 +788,7 @@ class AppLocaleKey {
   static const String luxuryConciergeContact = 'luxury_concierge_contact';
   static const String elite = 'elite';
   static const String activeLabel = 'active_label';
+  static const String inactiveLabel = 'inactive_label';
   static const String sarAmount = 'sar_amount';
   static const String sat = 'sat';
   static const String sun = 'sun';

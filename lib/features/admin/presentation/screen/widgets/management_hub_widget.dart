@@ -37,13 +37,13 @@ class ManagementHubWidget extends StatelessWidget {
             HubItemWidget(
               label: AppLocaleKey.adminUserManagement.tr(),
               icon: Icons.people_alt_rounded,
-              color: Colors.blueAccent,
+              color: AppColor.blueColor(context),
               onTap: () => Navigator.pushNamed(context, RoutesName.manageUsers),
             ),
             HubItemWidget(
               label: AppLocaleKey.adminCustomerInquiries.tr(),
               icon: Icons.question_answer_rounded,
-              color: Colors.orangeAccent,
+              color: AppColor.orangeColor(context),
               onTap: () => Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => const CustomerInquiriesScreen()),
@@ -52,7 +52,7 @@ class ManagementHubWidget extends StatelessWidget {
             HubItemWidget(
               label: AppLocaleKey.adminContentModeration.tr(),
               icon: Icons.fact_check_rounded,
-              color: Colors.greenAccent,
+              color: AppColor.greenColor(context),
               onTap: () => Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => const ContentManagementScreen()),
