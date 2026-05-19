@@ -39,7 +39,7 @@ class StatsGridWidget extends StatelessWidget {
           title: AppLocaleKey.adminPendingApprovals.tr(),
           value: '12',
           icon: Icons.pending_actions_rounded,
-          color: Colors.orangeAccent,
+          color: AppColor.orangeColor(context),
         ),
       ],
     );

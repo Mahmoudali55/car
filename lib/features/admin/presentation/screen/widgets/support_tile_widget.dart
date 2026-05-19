@@ -1,5 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:car/core/theme/app_colors.dart';
+import 'package:car/core/theme/app_text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -39,14 +40,15 @@ class SupportTileWidget extends StatelessWidget {
           ),
           title: Text(
             title,
-            style: TextStyle(color: baseColor, fontSize: 14.sp, fontWeight: FontWeight.bold),
+            style: AppTextStyle.bodyMedium(
+              context,
+            ).copyWith(color: baseColor, fontWeight: FontWeight.bold),
           ),
           subtitle: Text(
             subtitle,
-            style: TextStyle(
-              color: baseColor.withValues(alpha: (0.4)),
-              fontSize: 11.sp,
-            ),
+            style: AppTextStyle.bodySmall(
+              context,
+            ).copyWith(color: baseColor.withValues(alpha: (0.4))),
           ),
           trailing: Icon(
             Icons.arrow_forward_rounded,

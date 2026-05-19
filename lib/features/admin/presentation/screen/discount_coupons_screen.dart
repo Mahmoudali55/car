@@ -3,6 +3,7 @@ import 'package:car/core/custom_widgets/custom_app_bar/custom_app_bar.dart';
 import 'package:car/core/images/app_images.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
+import 'package:car/core/theme/app_text_style.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -22,11 +23,9 @@ class DiscountCouponsScreen extends StatelessWidget {
         icon: Icon(Icons.add_rounded, color: AppColor.whiteColor(context)),
         label: Text(
           AppLocaleKey.createCoupon.tr(),
-          style: TextStyle(
-            color: AppColor.whiteColor(context),
-            fontSize: 13.sp,
-            fontWeight: FontWeight.bold,
-          ),
+          style: AppTextStyle.bodyMedium(
+            context,
+          ).copyWith(color: AppColor.whiteColor(context), fontWeight: FontWeight.bold),
         ),
       ),
       body: SingleChildScrollView(
@@ -59,14 +58,14 @@ class DiscountCouponsScreen extends StatelessWidget {
         padding: EdgeInsets.all(24.w),
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [Colors.orangeAccent, Colors.deepOrangeAccent],
+            colors: [AppColor.orangeColor(context), Colors.deepOrangeAccent],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
           borderRadius: BorderRadius.circular(32.r),
           boxShadow: [
             BoxShadow(
-              color: Colors.orangeAccent.withValues(alpha: (0.3)),
+              color: AppColor.orangeColor(context).withValues(alpha: (0.3)),
               blurRadius: 20,
               offset: const Offset(0, 10),
             ),
@@ -149,8 +148,8 @@ class DiscountCouponsScreen extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 20.h),
               decoration: BoxDecoration(
                 color: isActive
-                    ? Colors.orangeAccent.withValues(alpha: (0.1))
-                    : Colors.grey.withValues(alpha: (0.1)),
+                    ? AppColor.orangeColor(context).withValues(alpha: (0.1))
+                    : AppColor.blackTextColor(context).withValues(alpha: (0.1)),
                 borderRadius: BorderRadius.circular(16.r),
               ),
               child: RotatedBox(
@@ -158,7 +157,9 @@ class DiscountCouponsScreen extends StatelessWidget {
                 child: Text(
                   discount,
                   style: TextStyle(
-                    color: isActive ? Colors.orangeAccent : Colors.grey,
+                    color: isActive
+                        ? AppColor.orangeColor(context)
+                        : AppColor.blackTextColor(context),
                     fontSize: 16.sp,
                     fontWeight: FontWeight.w900,
                   ),
@@ -172,12 +173,9 @@ class DiscountCouponsScreen extends StatelessWidget {
                 children: [
                   Text(
                     code,
-                    style: TextStyle(
-                      color: baseColor,
-                      fontSize: 18.sp,
-                      fontWeight: FontWeight.bold,
-                      letterSpacing: 2,
-                    ),
+                    style: AppTextStyle.bodyLarge(
+                      context,
+                    ).copyWith(color: baseColor, fontWeight: FontWeight.bold, letterSpacing: 2),
                   ),
                   Gap(4.h),
                   Text(

@@ -1,4 +1,5 @@
 import 'package:animate_do/animate_do.dart';
+import 'package:car/core/custom_widgets/buttons/custom_button.dart';
 import 'package:car/core/custom_widgets/custom_form_field/custom_form_field.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
@@ -37,14 +38,8 @@ class TicketFormWidget extends StatelessWidget {
             FieldLabelWidget(label: AppLocaleKey.description.tr()),
             const CustomFormField(hintText: "Provide detailed information...", maxLines: 5),
             Gap(24.h),
-            ElevatedButton(
+            CustomButton(
               onPressed: () {},
-              style: ElevatedButton.styleFrom(
-                backgroundColor: AppColor.primaryColor(context),
-                minimumSize: Size(double.infinity, 56.h),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.r)),
-                elevation: 0,
-              ),
               child: Text(
                 AppLocaleKey.submitTicket.tr(),
                 style: AppTextStyle.titleMedium(

@@ -174,7 +174,7 @@ class RevenueReportScreen extends StatelessWidget {
             AppLocaleKey.adminTimeToSell.tr(),
             '12 ${AppLocaleKey.day.tr()}',
             Icons.timer_rounded,
-            Colors.orangeAccent,
+            AppColor.orangeColor(context),
           ),
         ),
       ],
@@ -209,17 +209,14 @@ class RevenueReportScreen extends StatelessWidget {
           Gap(12.h),
           Text(
             value,
-            style: TextStyle(
-              color: AppColor.blackTextColor(context),
-              fontSize: 18.sp,
-              fontWeight: FontWeight.w900,
-            ),
+            style: AppTextStyle.bodyLarge(
+              context,
+            ).copyWith(color: AppColor.blackTextColor(context), fontWeight: FontWeight.w900),
           ),
           Text(
             label,
-            style: TextStyle(
+            style: AppTextStyle.bodySmall(context).copyWith(
               color: AppColor.blackTextColor(context).withValues(alpha: 0.4),
-              fontSize: 10.sp,
               fontWeight: FontWeight.bold,
             ),
           ),

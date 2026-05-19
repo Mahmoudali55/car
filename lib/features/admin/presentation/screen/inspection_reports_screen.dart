@@ -82,7 +82,7 @@ class InspectionReportsScreen extends StatelessWidget {
               Gap(8.w),
               Text(
                 '${AppLocaleKey.result.tr()}: 95/100 (${AppLocaleKey.excellent.tr()})',
-                style: TextStyle(color: Colors.green, fontSize: 12.sp),
+                style: TextStyle(color: AppColor.greenColor(context), fontSize: 12.sp),
               ),
               const Spacer(),
               TextButton(onPressed: () {}, child: Text(AppLocaleKey.viewFullReport.tr())),

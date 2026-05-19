@@ -1,6 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
+import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/core/theme/cubit/app_theme_cubit.dart';
 import 'package:car/core/theme/theme_enum.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -45,10 +46,9 @@ class ThemeToggleItem extends StatelessWidget {
           ),
           subtitle: Text(
             isDark ? AppLocaleKey.darkMode.tr() : AppLocaleKey.lightMode.tr(),
-            style: TextStyle(
-              color: baseColor.withValues(alpha: (0.4)),
-              fontSize: 11.sp,
-            ),
+            style: AppTextStyle.bodySmall(
+              context,
+            ).copyWith(color: baseColor.withValues(alpha: (0.4))),
           ),
           trailing: Switch(
             value: isDark,

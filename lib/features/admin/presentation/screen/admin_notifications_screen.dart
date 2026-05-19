@@ -80,24 +80,21 @@ class AdminNotificationsScreen extends StatelessWidget {
               children: [
                 Text(
                   notif['title'] as String,
-                  style: TextStyle(
-                    color: AppColor.blackTextColor(context),
-                    fontSize: 13.sp,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: AppTextStyle.bodyMedium(
+                    context,
+                  ).copyWith(color: AppColor.blackTextColor(context), fontWeight: FontWeight.w700),
                 ),
                 Gap(4.h),
                 Text(
                   notif['desc'] as String,
-                  style: TextStyle(
-                    color: AppColor.blackTextColor(context).withValues(alpha: (0.4)),
-                    fontSize: 11.sp,
-                  ),
+                  style: AppTextStyle.bodySmall(
+                    context,
+                  ).copyWith(color: AppColor.blackTextColor(context).withValues(alpha: (0.4))),
                 ),
                 Gap(8.h),
                 Text(
                   notif['time'] as String,
-                  style: TextStyle(
+                  style: AppTextStyle.titleSmall(context).copyWith(
                     color: AppColor.primaryColor(context),
                     fontSize: 9.sp,
                     fontWeight: FontWeight.w600,

@@ -29,7 +29,7 @@ class FaqItemWidget extends StatelessWidget {
             Gap(8.h),
             Text(
               answer,
-              style: TextStyle(color: baseColor.withOpacity(0.5), fontSize: 11.sp),
+              style: TextStyle(color: baseColor.withValues(alpha: 0.5), fontSize: 11.sp),
             ),
           ],
         ),

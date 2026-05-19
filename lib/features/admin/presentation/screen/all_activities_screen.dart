@@ -101,18 +101,15 @@ class AllActivitiesScreen extends StatelessWidget {
               children: [
                 Text(
                   act['title'] as String,
-                  style: TextStyle(
-                    color: AppColor.blackTextColor(context),
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.w700,
-                  ),
+                  style: AppTextStyle.bodyMedium(
+                    context,
+                  ).copyWith(color: AppColor.blackTextColor(context), fontWeight: FontWeight.w700),
                 ),
                 Gap(2.h),
                 Text(
                   act['desc'] as String,
-                  style: TextStyle(
+                  style: AppTextStyle.bodySmall(context).copyWith(
                     color: AppColor.blackTextColor(context).withValues(alpha: 0.4),
-                    fontSize: 11.sp,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
@@ -121,9 +118,8 @@ class AllActivitiesScreen extends StatelessWidget {
           ),
           Text(
             act['time'] as String,
-            style: TextStyle(
+            style: AppTextStyle.titleSmall(context).copyWith(
               color: AppColor.blackTextColor(context).withValues(alpha: 0.3),
-              fontSize: 10.sp,
               fontWeight: FontWeight.w600,
             ),
           ),

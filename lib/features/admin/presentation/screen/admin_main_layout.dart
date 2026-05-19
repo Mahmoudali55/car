@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
+import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/features/admin/presentation/screen/admin_dashboard_screen.dart';
 import 'package:car/features/admin/presentation/screen/admin_settings_screen.dart';
 import 'package:car/features/admin/presentation/screen/manage_bookings_screen.dart';
@@ -101,9 +102,8 @@ class _AdminMainLayoutState extends State<AdminMainLayout> {
                 fit: BoxFit.scaleDown,
                 child: Text(
                   label,
-                  style: TextStyle(
+                  style: AppTextStyle.bodySmall(context).copyWith(
                     color: color,
-                    fontSize: 10.sp,
                     fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
                   ),
                 ),

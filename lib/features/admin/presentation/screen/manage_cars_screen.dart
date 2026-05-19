@@ -109,12 +109,12 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
       body: Column(
         children: [
           FleetStatsRow(cars: _cars),
-          SizedBox(height: 14.h),
+          Gap(14.h),
           CarFilterChips(
             selectedFilter: _selectedFilter,
             onFilterChanged: (f) => setState(() => _selectedFilter = f),
           ),
-          SizedBox(height: 4.h),
+          Gap(4.h),
           Expanded(
             child: AnimatedSwitcher(
               duration: const Duration(milliseconds: 200),

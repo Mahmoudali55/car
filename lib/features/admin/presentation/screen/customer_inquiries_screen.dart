@@ -1,6 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
+import 'package:car/core/theme/app_text_style.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -191,18 +192,16 @@ class _CustomerInquiriesScreenState extends State<CustomerInquiriesScreen>
                     children: [
                       Text(
                         AppLocaleKey.salemAlOtaibi.tr(),
-                        style: TextStyle(
+                        style: AppTextStyle.bodyMedium(context).copyWith(
                           color: AppColor.blackTextColor(context),
-                          fontSize: 13.sp,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       Text(
                         AppLocaleKey.threeHoursAgo.tr(),
-                        style: TextStyle(
-                          color: AppColor.blackTextColor(context).withValues(alpha: 0.3),
-                          fontSize: 10.sp,
-                        ),
+                        style: AppTextStyle.bodySmall(
+                          context,
+                        ).copyWith(color: AppColor.blackTextColor(context).withValues(alpha: 0.3)),
                       ),
                     ],
                   ),
@@ -228,10 +227,9 @@ class _CustomerInquiriesScreenState extends State<CustomerInquiriesScreen>
           Gap(12.h),
           Text(
             AppLocaleKey.carG63Inquiry.tr(),
-            style: TextStyle(
-              color: AppColor.blackTextColor(context).withValues(alpha: 0.7),
-              fontSize: 12.sp,
-            ),
+            style: AppTextStyle.bodyMedium(
+              context,
+            ).copyWith(color: AppColor.blackTextColor(context).withValues(alpha: 0.7)),
           ),
           Gap(16.h),
           Row(

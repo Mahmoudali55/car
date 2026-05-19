@@ -209,14 +209,15 @@ class ManageBookingsScreen extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
       decoration: BoxDecoration(
-        color: (isDone ? AppColor.blueColor(context) : Colors.orangeAccent).withValues(alpha: 0.1),
+        color: (isDone ? AppColor.blueColor(context) : AppColor.orangeColor(context)).withValues(
+          alpha: 0.1,
+        ),
         borderRadius: BorderRadius.circular(12.r),
       ),
       child: Text(
         isDone ? AppLocaleKey.completed.tr() : AppLocaleKey.activeNow.tr(),
-        style: TextStyle(
-          color: isDone ? AppColor.blueColor(context) : Colors.orangeAccent,
-          fontSize: 10.sp,
+        style: AppTextStyle.bodySmall(context).copyWith(
+          color: isDone ? AppColor.blueColor(context) : AppColor.orangeColor(context),
           fontWeight: FontWeight.bold,
         ),
       ),

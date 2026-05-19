@@ -1,4 +1,5 @@
 import 'package:car/core/theme/app_colors.dart';
+import 'package:car/core/theme/app_text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -39,11 +40,9 @@ class HubItemWidget extends StatelessWidget {
             ),
             Text(
               label,
-              style: TextStyle(
-                color: AppColor.blackTextColor(context),
-                fontSize: 13.sp,
-                fontWeight: FontWeight.bold,
-              ),
+              style: AppTextStyle.bodyMedium(
+                context,
+              ).copyWith(color: AppColor.blackTextColor(context), fontWeight: FontWeight.bold),
             ),
           ],
         ),

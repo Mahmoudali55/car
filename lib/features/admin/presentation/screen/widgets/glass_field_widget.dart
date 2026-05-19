@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:car/core/theme/app_colors.dart';
+import 'package:car/core/theme/app_text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -29,13 +30,14 @@ class GlassFieldWidget extends StatelessWidget {
           child: TextField(
             maxLines: maxLines,
             keyboardType: keyboardType,
-            style: TextStyle(color: AppColor.blackTextColor(context)),
+            style: AppTextStyle.bodyMedium(
+              context,
+            ).copyWith(color: AppColor.blackTextColor(context)),
             decoration: InputDecoration(
               hintText: hint,
-              hintStyle: TextStyle(
-                color: AppColor.blackTextColor(context).withValues(alpha: (0.2)),
-                fontSize: 13.sp,
-              ),
+              hintStyle: AppTextStyle.bodyMedium(
+                context,
+              ).copyWith(color: AppColor.blackTextColor(context).withValues(alpha: (0.2))),
               contentPadding: EdgeInsets.all(20.w),
               border: InputBorder.none,
             ),

@@ -1,5 +1,7 @@
+import 'package:car/core/custom_widgets/custom_app_bar/custom_app_bar.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
+import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/features/admin/presentation/screen/widgets/featured_ads_List_widget.dart';
 import 'package:car/features/admin/presentation/screen/widgets/reviews_list_widget.dart';
 import 'package:car/features/admin/presentation/screen/widgets/tab_bar_widget.dart';
@@ -26,8 +28,8 @@ class _ContentManagementScreenState extends State<ContentManagementScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.scaffoldColor(context),
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
+      appBar: CustomAppBar(
+        context,
         elevation: 0,
         centerTitle: true,
         leading: IconButton(
@@ -36,7 +38,7 @@ class _ContentManagementScreenState extends State<ContentManagementScreen>
         ),
         title: Text(
           AppLocaleKey.adminContentModeration.tr(),
-          style: TextStyle(
+          style: AppTextStyle.titleMedium(context).copyWith(
             color: AppColor.blackTextColor(context),
             fontWeight: FontWeight.w900,
             fontSize: 18.sp,

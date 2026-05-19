@@ -31,9 +31,8 @@ class HeaderAdminDashboardWidget extends StatelessWidget {
             Gap(4.h),
             Text(
               AppLocaleKey.performanceSummary.tr(),
-              style: TextStyle(
+              style: AppTextStyle.bodySmall(context).copyWith(
                 color: AppColor.blackTextColor(context).withValues(alpha: (0.4)),
-                fontSize: 12.sp,
                 fontWeight: FontWeight.w500,
               ),
             ),
