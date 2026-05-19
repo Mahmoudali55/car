@@ -7,6 +7,8 @@ import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/features/cars/data/model/brand_model.dart';
 import 'package:car/features/cars/presentation/screen/financing_info_screen.dart';
 import 'package:car/features/cars/presentation/screen/reservation_success_screen.dart';
+import 'package:car/features/cars/presentation/screen/widget/card_expiry_formatter_widget.dart';
+import 'package:car/features/cars/presentation/screen/widget/card_number_formatter_widget.dart';
 import 'package:car/features/cars/presentation/widget/buying_faq_section_widget.dart';
 import 'package:car/features/cars/presentation/widget/car_summary_card_widget.dart';
 import 'package:car/features/cars/presentation/widget/financing_contact_form.dart';
@@ -19,9 +21,9 @@ import 'package:car/features/cars/presentation/widget/reservation_trust_badge.da
 import 'package:car/features/cart/presentation/view/cubit/cart_cubit.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter/services.dart';
 import 'package:gap/gap.dart';
 
 enum _ReservationScreenStep { methodSelection, informationEntry, payment }
@@ -693,11 +695,7 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
                         },
                       ),
                     ),
-                    Container(
-                      width: 1,
-                      height: 40.h,
-                      color: AppColor.borderColor(context),
-                    ),
+                    Container(width: 1, height: 40.h, color: AppColor.borderColor(context)),
                     Expanded(
                       child: TextFormField(
                         controller: _cardCvcController,
@@ -965,63 +963,5 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
       setState(() => _isLoading = false);
       _navigateToSuccess();
     });
-  }
-}
-
-class CardNumberFormatter extends TextInputFormatter {
-  @override
-  TextEditingValue formatEditUpdate(
-    TextEditingValue oldValue,
-    TextEditingValue newValue,
-  ) {
-    var text = newValue.text;
-    if (newValue.selection.baseOffset == 0) {
-      return newValue;
-    }
-    text = text.replaceAll(RegExp(r'\D'), '');
-    var buffer = StringBuffer();
-    for (int i = 0; i < text.length; i++) {
-      buffer.write(text[i]);
-      var nonZeroIndex = i + 1;
-      if (nonZeroIndex % 4 == 0 && nonZeroIndex != text.length) {
-        buffer.write(' ');
-      }
-    }
-    var string = buffer.toString();
-    return newValue.copyWith(
-      text: string,
-      selection: TextSelection.collapsed(offset: string.length),
-    );
-  }
-}
-
-class CardExpiryFormatter extends TextInputFormatter {
-  @override
-  TextEditingValue formatEditUpdate(
-    TextEditingValue oldValue,
-    TextEditingValue newValue,
-  ) {
-    var newText = newValue.text;
-    if (newValue.selection.baseOffset == 0) {
-      return newValue;
-    }
-    newText = newText.replaceAll(RegExp(r'[^0-9/]'), '');
-    
-    if (oldValue.text.endsWith('/') && newText.length < oldValue.text.length) {
-      newText = newText.substring(0, newText.length - 1);
-    } else if (newText.length == 2 && !newText.contains('/')) {
-      newText += '/';
-    } else if (newText.length > 2 && !newText.contains('/')) {
-      newText = '${newText.substring(0, 2)}/${newText.substring(2)}';
-    }
-    
-    if (newText.length > 5) {
-      newText = newText.substring(0, 5);
-    }
-    
-    return newValue.copyWith(
-      text: newText,
-      selection: TextSelection.collapsed(offset: newText.length),
-    );
   }
 }
