@@ -4,6 +4,7 @@ import 'package:car/core/images/app_images.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
+import 'package:car/features/cars/data/model/brand_model.dart';
 import 'package:car/features/cars/presentation/screen/financing_info_screen.dart';
 import 'package:car/features/cars/presentation/screen/reservation_success_screen.dart';
 import 'package:car/features/cars/presentation/widget/buying_faq_section_widget.dart';
@@ -20,9 +21,10 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter/services.dart';
 import 'package:gap/gap.dart';
 
-enum _ReservationScreenStep { methodSelection, informationEntry }
+enum _ReservationScreenStep { methodSelection, informationEntry, payment }
 
 class CarReservationScreen extends StatefulWidget {
   final Map<String, dynamic> car;
@@ -37,10 +39,19 @@ class CarReservationScreen extends StatefulWidget {
 class _CarReservationScreenState extends State<CarReservationScreen> {
   _ReservationScreenStep _currentStep = _ReservationScreenStep.methodSelection;
   String? _selectedMethod;
+  bool _isLoading = false;
 
   // Cash flow controllers
+  final _infoFormKey = GlobalKey<FormState>();
   final TextEditingController _cashNameController = TextEditingController();
   final TextEditingController _cashPhoneController = TextEditingController();
+
+  // Cash payment form controllers
+  final _paymentFormKey = GlobalKey<FormState>();
+  final TextEditingController _cardNameController = TextEditingController();
+  final TextEditingController _cardNumberController = TextEditingController();
+  final TextEditingController _cardExpiryController = TextEditingController();
+  final TextEditingController _cardCvcController = TextEditingController();
 
   // Financing flow controllers
   final TextEditingController _firstNameController = TextEditingController();
@@ -76,6 +87,10 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
   void dispose() {
     _cashNameController.dispose();
     _cashPhoneController.dispose();
+    _cardNameController.dispose();
+    _cardNumberController.dispose();
+    _cardExpiryController.dispose();
+    _cardCvcController.dispose();
     _firstNameController.dispose();
     _lastNameController.dispose();
     _financePhoneController.dispose();
@@ -104,6 +119,7 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
       if (_currentStep == _ReservationScreenStep.methodSelection) {
         setState(() => _currentStep = _ReservationScreenStep.informationEntry);
       } else {
+        if (!_infoFormKey.currentState!.validate()) return;
         _showOtpSheet();
       }
     }
@@ -148,7 +164,9 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
           phoneNumber: _cashPhoneController.text,
           onVerified: () {
             Navigator.pop(context);
-            _navigateToSuccess();
+            setState(() {
+              _currentStep = _ReservationScreenStep.payment;
+            });
           },
         ),
       ),
@@ -190,8 +208,13 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
             ? const SizedBox.shrink()
             : IconButton(
                 icon: Icon(Icons.chevron_right_rounded, color: AppColor.blackTextColor(context)),
-                onPressed: () =>
-                    setState(() => _currentStep = _ReservationScreenStep.methodSelection),
+                onPressed: () {
+                  if (_currentStep == _ReservationScreenStep.payment) {
+                    setState(() => _currentStep = _ReservationScreenStep.informationEntry);
+                  } else {
+                    setState(() => _currentStep = _ReservationScreenStep.methodSelection);
+                  }
+                },
               ),
       ),
       body: SingleChildScrollView(
@@ -206,6 +229,8 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
               _buildSelectionBody(),
               Gap(40.h),
               const BuyingFaqSection(),
+            ] else if (_currentStep == _ReservationScreenStep.payment) ...[
+              _buildPaymentBody(),
             ] else ...[
               ReservationStepIndicator(currentStep: 0, isFinancingFlow: _isFinancingFlow),
               Gap(8.h),
@@ -232,18 +257,38 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
                   selectedCityNotifier: _selectedCityNotifier,
                 )
               else ...[
-                CustomFormField(
-                  controller: _cashNameController,
-                  hintText: AppLocaleKey.agentFullName.tr(),
-                  radius: 12,
-                ),
-                Gap(16.h),
-                CustomFormField(
-                  controller: _cashPhoneController,
-                  hintText: AppLocaleKey.agentPhone.tr(),
-                  radius: 12,
-                  keyboardType: TextInputType.phone,
-                  maxLength: 10,
+                Form(
+                  key: _infoFormKey,
+                  child: Column(
+                    children: [
+                      CustomFormField(
+                        controller: _cashNameController,
+                        hintText: AppLocaleKey.agentFullName.tr(),
+                        radius: 12,
+                        validator: (value) =>
+                            value == null || value.isEmpty ? AppLocaleKey.validateEmpty.tr() : null,
+                      ),
+                      Gap(16.h),
+                      CustomFormField(
+                        controller: _cashPhoneController,
+                        hintText: AppLocaleKey.agentPhone.tr(),
+                        radius: 12,
+                        keyboardType: TextInputType.phone,
+                        maxLength: 10,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return AppLocaleKey.validateEmpty.tr();
+                          }
+                          if (value.length < 10) {
+                            return context.locale.languageCode == 'ar'
+                                ? 'رقم الجوال يجب أن يكون 10 أرقام'
+                                : 'Phone number must be 10 digits';
+                          }
+                          return null;
+                        },
+                      ),
+                    ],
+                  ),
                 ),
                 Gap(32.h),
                 const ReservationTrustBadge(),
@@ -407,7 +452,10 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
     );
   }
 
-  Widget _buildStickyFooter() {
+  Widget? _buildStickyFooter() {
+    if (_currentStep == _ReservationScreenStep.payment) {
+      return null;
+    }
     final bool isMethodSelection = _currentStep == _ReservationScreenStep.methodSelection;
     final bool canContinue = _selectedMethod != null;
 
@@ -472,6 +520,508 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildPaymentBody() {
+    final isArabic = context.locale.languageCode == 'ar';
+    return Form(
+      key: _paymentFormKey,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // 1. Step Indicator tabs
+          _buildPaymentStepIndicator(),
+          Gap(24.h),
+
+          // 2. Custom Car summary card
+          _buildBespokeCarSummaryCard(),
+          Gap(32.h),
+
+          // 3. Name on Card Field
+          Text(
+            isArabic ? 'الاسم على البطاقة' : 'Cardholder Name',
+            style: TextStyle(
+              fontSize: 14.sp,
+              fontWeight: FontWeight.bold,
+              color: AppColor.blackTextColor(context).withValues(alpha: 0.8),
+            ),
+          ),
+          Gap(8.h),
+          CustomFormField(
+            controller: _cardNameController,
+            hintText: isArabic ? 'الاسم على البطاقة' : 'Cardholder Name',
+            radius: 12,
+            validator: (value) => value == null || value.isEmpty
+                ? AppLocaleKey.paymentCardHolderInvalidMessage.tr()
+                : null,
+          ),
+          Gap(20.h),
+
+          // 4. Card Details Merged Input Field
+          Text(
+            isArabic ? 'معلومات البطاقة' : 'Card Information',
+            style: TextStyle(
+              fontSize: 14.sp,
+              fontWeight: FontWeight.bold,
+              color: AppColor.blackTextColor(context).withValues(alpha: 0.8),
+            ),
+          ),
+          Gap(8.h),
+          Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12.r),
+              border: Border.all(color: AppColor.borderColor(context)),
+              color: AppColor.secondAppColor(context),
+            ),
+            child: Column(
+              children: [
+                TextFormField(
+                  controller: _cardNumberController,
+                  keyboardType: TextInputType.number,
+                  inputFormatters: [
+                    FilteringTextInputFormatter.digitsOnly,
+                    LengthLimitingTextInputFormatter(19),
+                    CardNumberFormatter(),
+                  ],
+                  decoration: InputDecoration(
+                    hintText: '1234 5678 9101 1121',
+                    hintStyle: TextStyle(color: AppColor.hintColor(context), fontSize: 13.sp),
+                    border: InputBorder.none,
+                    contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+                    suffixIcon: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Container(
+                          padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 2.h),
+                          decoration: BoxDecoration(
+                            color: Colors.blue.shade100,
+                            borderRadius: BorderRadius.circular(4.r),
+                          ),
+                          child: Text(
+                            'mada',
+                            style: TextStyle(
+                              color: Colors.blue.shade900,
+                              fontSize: 8.sp,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                        Gap(4.w),
+                        Container(
+                          padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 2.h),
+                          decoration: BoxDecoration(
+                            color: const Color(0xFF0D47A1),
+                            borderRadius: BorderRadius.circular(4.r),
+                          ),
+                          child: Text(
+                            'VISA',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 8.sp,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                        Gap(4.w),
+                        Container(
+                          padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 2.h),
+                          decoration: BoxDecoration(
+                            color: Colors.red.shade100,
+                            borderRadius: BorderRadius.circular(4.r),
+                          ),
+                          child: Text(
+                            'mc',
+                            style: TextStyle(
+                              color: Colors.red.shade900,
+                              fontSize: 8.sp,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                        Gap(8.w),
+                      ],
+                    ),
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return AppLocaleKey.paymentCardNumberInvalidMessage.tr();
+                    }
+                    final cleanValue = value.replaceAll(RegExp(r'\s+|-'), '');
+                    if (cleanValue.length < 15 || cleanValue.length > 19) {
+                      return AppLocaleKey.paymentCardNumberInvalidMessage.tr();
+                    }
+                    return null;
+                  },
+                ),
+                const Divider(height: 1),
+                Row(
+                  children: [
+                    Expanded(
+                      child: TextFormField(
+                        controller: _cardExpiryController,
+                        keyboardType: TextInputType.number,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.allow(RegExp(r'[0-9/]')),
+                          LengthLimitingTextInputFormatter(5),
+                          CardExpiryFormatter(),
+                        ],
+                        decoration: InputDecoration(
+                          hintText: 'MM / YY',
+                          hintStyle: TextStyle(color: AppColor.hintColor(context), fontSize: 13.sp),
+                          border: InputBorder.none,
+                          contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+                        ),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return AppLocaleKey.paymentExpiryInvalidMessage.tr();
+                          }
+                          final cleanValue = value.replaceAll(RegExp(r'\s+'), '');
+                          final parts = cleanValue.split('/');
+                          if (parts.length != 2) {
+                            return AppLocaleKey.paymentExpiryInvalidMessage.tr();
+                          }
+                          final month = int.tryParse(parts[0]);
+                          final year = int.tryParse(parts[1]);
+                          if (month == null || month < 1 || month > 12) {
+                            return AppLocaleKey.paymentExpiryInvalidMessage.tr();
+                          }
+                          if (year == null || year < 24 || year > 50) {
+                            return AppLocaleKey.paymentExpiryInvalidMessage.tr();
+                          }
+                          return null;
+                        },
+                      ),
+                    ),
+                    Container(
+                      width: 1,
+                      height: 40.h,
+                      color: AppColor.borderColor(context),
+                    ),
+                    Expanded(
+                      child: TextFormField(
+                        controller: _cardCvcController,
+                        keyboardType: TextInputType.number,
+                        obscureText: true,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.digitsOnly,
+                          LengthLimitingTextInputFormatter(4),
+                        ],
+                        decoration: InputDecoration(
+                          hintText: 'CVC',
+                          hintStyle: TextStyle(color: AppColor.hintColor(context), fontSize: 13.sp),
+                          border: InputBorder.none,
+                          contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+                        ),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return AppLocaleKey.paymentCvvInvalidMessage.tr();
+                          }
+                          final cleanValue = value.trim();
+                          if (cleanValue.length < 3 || cleanValue.length > 4) {
+                            return AppLocaleKey.paymentCvvInvalidMessage.tr();
+                          }
+                          return null;
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          Gap(40.h),
+
+          // 5. Green Pay Button
+          CustomButton(
+            height: 56.h,
+            width: double.infinity,
+            radius: 12.r,
+            color: const Color(0xff00c853),
+            onPressed: _isLoading ? null : _submitPayment,
+            child: _isLoading
+                ? const CircularProgressIndicator(color: Colors.white)
+                : Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        '${_depositAmount.toInt()} ﷼',
+                        style: AppTextStyle.buttonStyle(
+                          context,
+                        ).copyWith(fontWeight: FontWeight.bold),
+                      ),
+                      Gap(16.w),
+                      Text(
+                        isArabic ? 'أتمم لدفع العربون' : 'Complete Deposit Payment',
+                        style: AppTextStyle.buttonStyle(
+                          context,
+                        ).copyWith(fontWeight: FontWeight.bold, fontSize: 16.sp),
+                      ),
+                    ],
+                  ),
+          ),
+          Gap(24.h),
+
+          // 6. Guarantee Banner
+          Container(
+            padding: EdgeInsets.all(16.w),
+            decoration: BoxDecoration(
+              color: const Color(0xFFE8F5E9),
+              borderRadius: BorderRadius.circular(12.r),
+              border: Border.all(color: const Color(0xFFC8E6C9)),
+            ),
+            child: Row(
+              children: [
+                Icon(Icons.verified_user_rounded, color: const Color(0xFF2E7D32), size: 24.sp),
+                Gap(12.w),
+                Expanded(
+                  child: Text(
+                    AppLocaleKey.about.tr(),
+                    style: AppTextStyle.bodySmall(context).copyWith(
+                      color: const Color(0xFF2E7D32),
+                      fontWeight: FontWeight.w600,
+                      height: 1.4,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Gap(60.h),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildPaymentStepIndicator() {
+    return Row(
+      children: [
+        Expanded(
+          child: Column(
+            children: [
+              Text(
+                AppLocaleKey.payment.tr(),
+                style: TextStyle(
+                  color: const Color(0xFF0D47A1),
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16.sp,
+                ),
+              ),
+              Gap(8.h),
+              Container(
+                height: 3.h,
+                decoration: BoxDecoration(
+                  color: const Color(0xFF0D47A1),
+                  borderRadius: BorderRadius.circular(2.r),
+                ),
+              ),
+            ],
+          ),
+        ),
+        Expanded(
+          child: Column(
+            children: [
+              Text(
+                AppLocaleKey.addInfo.tr(),
+                style: TextStyle(
+                  color: const Color(0xFF2E7D32),
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16.sp,
+                ),
+              ),
+              Gap(8.h),
+              Container(
+                height: 3.h,
+                decoration: BoxDecoration(
+                  color: const Color(0xFF2E7D32),
+                  borderRadius: BorderRadius.circular(2.r),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildBespokeCarSummaryCard() {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+      decoration: BoxDecoration(
+        color: AppColor.cardColor(context),
+        borderRadius: BorderRadius.circular(16.r),
+        border: Border.all(color: AppColor.borderColor(context).withValues(alpha: 0.8)),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.03),
+            blurRadius: 8,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
+            children: [
+              Icon(Icons.keyboard_arrow_down_rounded, color: const Color(0xFF0D47A1), size: 24.sp),
+              Gap(8.w),
+              Text(
+                '${_totalPrice.toStringAsFixed(2)} ﷼',
+                style: TextStyle(
+                  color: const Color(0xFF0D47A1),
+                  fontWeight: FontWeight.w900,
+                  fontSize: 16.sp,
+                ),
+              ),
+            ],
+          ),
+          Gap(12.w),
+          Expanded(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        widget.car['name'] ?? 'Car Name',
+                        style: TextStyle(
+                          color: AppColor.blackTextColor(context),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 13.sp,
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                      ),
+                      Text(
+                        widget.car['year']?.toString() ?? '2023',
+                        style: TextStyle(color: AppColor.greyColor(context), fontSize: 11.sp),
+                      ),
+                    ],
+                  ),
+                ),
+                Gap(12.w),
+                Container(
+                  width: 40.w,
+                  height: 40.w,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: AppColor.scaffoldColor(context),
+                    border: Border.all(color: AppColor.borderColor(context).withValues(alpha: 0.5)),
+                  ),
+                  padding: EdgeInsets.all(4.w),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(20.r),
+                    child: _buildBrandLogo(),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildBrandLogo() {
+    final brandName = widget.car['brand']?.toString().toLowerCase() ?? '';
+    String? logoPath;
+
+    for (final b in BrandModel.brands) {
+      if (b.name.toLowerCase() == brandName && b.logo.isNotEmpty) {
+        logoPath = b.logo;
+        break;
+      }
+    }
+
+    if (logoPath != null && logoPath.isNotEmpty) {
+      return Image.asset(
+        logoPath,
+        fit: BoxFit.contain,
+        errorBuilder: (c, e, s) => Icon(
+          Icons.directions_car_filled_rounded,
+          color: AppColor.primaryColor(context),
+          size: 20.sp,
+        ),
+      );
+    }
+
+    return Icon(
+      Icons.directions_car_filled_rounded,
+      color: AppColor.primaryColor(context),
+      size: 20.sp,
+    );
+  }
+
+  void _submitPayment() {
+    if (!_paymentFormKey.currentState!.validate()) return;
+
+    setState(() => _isLoading = true);
+    Future.delayed(const Duration(seconds: 2), () {
+      if (!mounted) return;
+      setState(() => _isLoading = false);
+      _navigateToSuccess();
+    });
+  }
+}
+
+class CardNumberFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(
+    TextEditingValue oldValue,
+    TextEditingValue newValue,
+  ) {
+    var text = newValue.text;
+    if (newValue.selection.baseOffset == 0) {
+      return newValue;
+    }
+    text = text.replaceAll(RegExp(r'\D'), '');
+    var buffer = StringBuffer();
+    for (int i = 0; i < text.length; i++) {
+      buffer.write(text[i]);
+      var nonZeroIndex = i + 1;
+      if (nonZeroIndex % 4 == 0 && nonZeroIndex != text.length) {
+        buffer.write(' ');
+      }
+    }
+    var string = buffer.toString();
+    return newValue.copyWith(
+      text: string,
+      selection: TextSelection.collapsed(offset: string.length),
+    );
+  }
+}
+
+class CardExpiryFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(
+    TextEditingValue oldValue,
+    TextEditingValue newValue,
+  ) {
+    var newText = newValue.text;
+    if (newValue.selection.baseOffset == 0) {
+      return newValue;
+    }
+    newText = newText.replaceAll(RegExp(r'[^0-9/]'), '');
+    
+    if (oldValue.text.endsWith('/') && newText.length < oldValue.text.length) {
+      newText = newText.substring(0, newText.length - 1);
+    } else if (newText.length == 2 && !newText.contains('/')) {
+      newText += '/';
+    } else if (newText.length > 2 && !newText.contains('/')) {
+      newText = '${newText.substring(0, 2)}/${newText.substring(2)}';
+    }
+    
+    if (newText.length > 5) {
+      newText = newText.substring(0, 5);
+    }
+    
+    return newValue.copyWith(
+      text: newText,
+      selection: TextSelection.collapsed(offset: newText.length),
     );
   }
 }

@@ -12,7 +12,6 @@ class AppRouters {
         return MaterialPageRoute(builder: (_) => const MainLayout());
       case RoutesName.allBrandsScreen:
         return MaterialPageRoute(builder: (_) => const AllBrandsScreen());
-
       case RoutesName.homeScreen:
         return MaterialPageRoute(builder: (_) => const HomeGuestScreen());
       case RoutesName.onboardingScreen:
@@ -84,7 +83,6 @@ class AppRouters {
         return MaterialPageRoute(builder: (_) => const TradeInScreen());
       case RoutesName.requestCarScreen:
         return MaterialPageRoute(builder: (_) => const RequestCarScreen());
-
       case RoutesName.financingScreen:
         return MaterialPageRoute(
           builder: (_) => FinancingScreen(car: args as Map<String, dynamic>?),
@@ -99,7 +97,6 @@ class AppRouters {
         return MaterialPageRoute(builder: (_) => const ComplaintsScreen());
       case RoutesName.aboutScreen:
         return MaterialPageRoute(builder: (_) => const AboutScreen());
-
       case RoutesName.carComparisonScreen:
         return MaterialPageRoute(builder: (_) => const CarComparisonScreen());
       case RoutesName.carDetailingScreen:
@@ -112,13 +109,10 @@ class AppRouters {
         return MaterialPageRoute(builder: (_) => const CarValuationScreen());
       case RoutesName.importOnDemandScreen:
         return MaterialPageRoute(builder: (_) => const ImportOnDemandScreen());
-
       case RoutesName.adminDashboard:
         return MaterialPageRoute(builder: (_) => const AdminMainLayout());
       case RoutesName.agentDashboard:
         return MaterialPageRoute(builder: (_) => const AgentShell());
-
-      // Admin Management Routes
       case RoutesName.manageCars:
         return MaterialPageRoute(builder: (_) => const ManageCarsScreen());
       case RoutesName.manageBookings:
@@ -130,7 +124,6 @@ class AppRouters {
         return MaterialPageRoute(builder: (_) => const RevenueReportScreen());
       case RoutesName.addCar:
         return MaterialPageRoute(builder: (_) => const AddCarScreen());
-
       case RoutesName.inspectionReports:
         return MaterialPageRoute(builder: (_) => const InspectionReportsScreen());
       case RoutesName.adminSettings:
@@ -143,7 +136,6 @@ class AppRouters {
         return MaterialPageRoute(builder: (_) => const AdminSecurityScreen());
       case RoutesName.systemAlerts:
         return MaterialPageRoute(builder: (_) => const SystemAlertsScreen());
-
       case RoutesName.discountCoupons:
         return MaterialPageRoute(builder: (_) => const DiscountCouponsScreen());
       case RoutesName.termsSettings:
@@ -152,7 +144,6 @@ class AppRouters {
         return MaterialPageRoute(builder: (_) => const AdminSupportScreen());
       case RoutesName.contactDeveloper:
         return MaterialPageRoute(builder: (_) => const ContactDeveloperScreen());
-
       default:
         return null;
     }

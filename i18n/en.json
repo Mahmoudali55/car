@@ -1119,5 +1119,8 @@
   "pleaseSelectRating": "Please select a rating",
   "color": "Color",
   "car_comparison_report": "Car Comparison Report",
-  "spec": "Spec"
+  "spec": "Spec",
+  "rolePermissions": "Role Permissions",
+  "rolePermissionsDesc": "Customize access permissions based on roles to ensure security and efficiency in system management.",
+  "discountCodes":"Increase sales by managing administrative discount codes and seasonal offers."
 }

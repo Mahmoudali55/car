@@ -31,7 +31,7 @@ class AdminSecurityScreen extends StatelessWidget {
                 SecurityItemWidget(
                   icon: Icons.lock_outline_rounded,
                   title: AppLocaleKey.password.tr(),
-                  subtitle: AppLocaleKey.forgotPassword.tr(), // Placeholder description
+                  subtitle: AppLocaleKey.forgotPassword.tr(),
                   onTap: () {},
                 ),
                 SecurityItemWidget(
@@ -42,8 +42,8 @@ class AdminSecurityScreen extends StatelessWidget {
                 ),
                 SecurityItemWidget(
                   icon: Icons.admin_panel_settings_rounded,
-                  title: "Role Permissions",
-                  subtitle: "Configure administrative access levels",
+                  title: AppLocaleKey.rolePermissions.tr(),
+                  subtitle: AppLocaleKey.rolePermissionsDesc.tr(),
                   onTap: () {},
                 ),
               ],

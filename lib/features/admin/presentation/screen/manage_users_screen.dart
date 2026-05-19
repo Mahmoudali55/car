@@ -90,15 +90,15 @@ class _ManageUsersScreenState extends State<ManageUsersScreen> with SingleTicker
           children: [
             Text(
               label,
-              style: TextStyle(color: color, fontSize: 10.sp, fontWeight: FontWeight.bold),
+              style: AppTextStyle.bodySmall(
+                context,
+              ).copyWith(color: color, fontWeight: FontWeight.bold),
             ),
             Text(
               value,
-              style: TextStyle(
-                color: AppColor.blackTextColor(context),
-                fontSize: 18.sp,
-                fontWeight: FontWeight.w900,
-              ),
+              style: AppTextStyle.bodySmall(
+                context,
+              ).copyWith(color: AppColor.blackTextColor(context), fontWeight: FontWeight.w900),
             ),
           ],
         ),
@@ -177,9 +177,8 @@ class _ManageUsersScreenState extends State<ManageUsersScreen> with SingleTicker
                     children: [
                       Text(
                         '${AppLocaleKey.userName.tr()} $index',
-                        style: TextStyle(
+                        style: AppTextStyle.bodyMedium(context).copyWith(
                           color: AppColor.blackTextColor(context),
-                          fontSize: 14.sp,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -247,7 +246,9 @@ class _ManageUsersScreenState extends State<ManageUsersScreen> with SingleTicker
           Gap(8.w),
           Text(
             label,
-            style: TextStyle(color: color, fontSize: 11.sp, fontWeight: FontWeight.bold),
+            style: AppTextStyle.bodySmall(
+              context,
+            ).copyWith(color: color, fontWeight: FontWeight.bold),
           ),
         ],
       ),

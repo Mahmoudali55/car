@@ -142,14 +142,16 @@ class RevenueReportScreen extends StatelessWidget {
             Gap(4.w),
             Text(
               label,
-              style: TextStyle(color: AppColor.whiteColor(context), fontSize: 11.sp),
+              style: AppTextStyle.bodySmall(context).copyWith(color: AppColor.whiteColor(context)),
             ),
           ],
         ),
         Gap(4.h),
         Text(
           value,
-          style: TextStyle(color: AppColor.whiteColor(context), fontWeight: FontWeight.bold),
+          style: AppTextStyle.bodyMedium(
+            context,
+          ).copyWith(color: AppColor.whiteColor(context), fontWeight: FontWeight.bold),
         ),
       ],
     );
@@ -229,9 +231,8 @@ class RevenueReportScreen extends StatelessWidget {
     return Text(
       title,
       style: AppTextStyle.titleMedium(context).copyWith(
-        color: AppColor.blackTextColor(context),
+        color: AppColor.blackTextColor(context).withValues(alpha: (0.5)),
         fontWeight: FontWeight.bold,
-        fontSize: 18.sp,
       ),
     );
   }

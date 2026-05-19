@@ -1365,4 +1365,7 @@ class AppLocaleKey {
   static const String color = 'color';
   static const String carComparisonReport = 'carComparisonReport';
   static const String spec = 'spec';
+  static const String rolePermissions = 'rolePermissions';
+  static const String rolePermissionsDesc = 'rolePermissionsDesc';
+  static const String discountCodes = 'discountCodes';
 }

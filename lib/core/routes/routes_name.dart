@@ -20,7 +20,6 @@ class RoutesName {
   static const String settingsScreen = 'settingsScreen';
   static const String changePasswordScreen = 'changePasswordScreen';
   static const String profileScreen = 'profileScreen';
-
   // Service Screens
   static const String tradeInScreen = 'tradeInScreen';
   static const String requestCarScreen = 'requestCarScreen';
@@ -39,7 +38,6 @@ class RoutesName {
   static const String complaintsScreen = 'complaintsScreen';
   static const String aboutScreen = 'aboutScreen';
   static const String carComparisonScreen = 'carComparisonScreen';
-
   // Admin Screens
   static const String adminDashboard = 'adminDashboard';
   static const String agentDashboard = 'agentDashboard';

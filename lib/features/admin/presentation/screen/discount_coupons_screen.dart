@@ -85,12 +85,11 @@ class DiscountCouponsScreen extends StatelessWidget {
             ),
             Gap(8.h),
             Text(
-              "Drive sales by managing your administrative discount codes and seasonal offers.",
+              AppLocaleKey.discountCodes.tr(),
               textAlign: TextAlign.center,
-              style: TextStyle(
-                color: AppColor.whiteColor(context).withValues(alpha: 0.8),
-                fontSize: 12.sp,
-              ),
+              style: AppTextStyle.bodySmall(
+                context,
+              ).copyWith(color: AppColor.whiteColor(context).withValues(alpha: 0.8)),
             ),
           ],
         ),
@@ -131,13 +130,11 @@ class DiscountCouponsScreen extends StatelessWidget {
         margin: EdgeInsets.only(bottom: 16.h),
         padding: EdgeInsets.all(20.w),
         decoration: BoxDecoration(
-          color: baseColor.withOpacity(0.03),
+          color: baseColor.withValues(alpha: 0.03),
           borderRadius: BorderRadius.circular(28.r),
-          border: Border.all(color: baseColor.withOpacity(0.05)),
-          image: DecorationImage(
-            image: const AssetImage(
-              AppImages.assetsImagesCouponPattern,
-            ), // Placeholder or subtle pattern
+          border: Border.all(color: baseColor.withValues(alpha: 0.05)),
+          image: const DecorationImage(
+            image: AssetImage(AppImages.assetsImagesCouponPattern), // Placeholder or subtle pattern
             opacity: 0.02,
             repeat: ImageRepeat.repeat,
           ),

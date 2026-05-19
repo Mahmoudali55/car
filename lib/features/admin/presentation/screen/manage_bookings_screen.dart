@@ -133,19 +133,16 @@ class ManageBookingsScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Text(
-                    '2,400 ${AppLocaleKey.sarAmount.tr()}       ',
-                    style: TextStyle(
-                      color: AppColor.greenColor(context),
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    '2,400 ${AppLocaleKey.sarAmount.tr()}',
+                    style: AppTextStyle.bodyMedium(
+                      context,
+                    ).copyWith(color: AppColor.greenColor(context), fontWeight: FontWeight.bold),
                   ),
                   Text(
                     AppLocaleKey.paymentSuccessful.tr(),
-                    style: TextStyle(
-                      color: AppColor.greenColor(context).withValues(alpha: 0.5),
-                      fontSize: 9.sp,
-                    ),
+                    style: AppTextStyle.bodySmall(
+                      context,
+                    ).copyWith(color: AppColor.greenColor(context).withValues(alpha: 0.5)),
                   ),
                 ],
               ),
@@ -184,10 +181,9 @@ class ManageBookingsScreen extends StatelessWidget {
         Gap(6.w),
         Text(
           label,
-          style: TextStyle(
-            color: AppColor.blackTextColor(context).withValues(alpha: (0.5)),
-            fontSize: 11.sp,
-          ),
+          style: AppTextStyle.bodySmall(
+            context,
+          ).copyWith(color: AppColor.blackTextColor(context).withValues(alpha: (0.5))),
         ),
       ],
     );
