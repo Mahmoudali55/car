@@ -54,7 +54,11 @@ class _ComplaintsScreenState extends State<ComplaintsScreen> {
               content: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Icon(Icons.check_circle_rounded, color: Colors.green, size: 60.sp),
+                  Icon(
+                    Icons.check_circle_rounded,
+                    color: AppColor.greenColor(context),
+                    size: 60.sp,
+                  ),
                   Gap(16.h),
                   Text(
                     AppLocaleKey.thankYouSupport.tr(),

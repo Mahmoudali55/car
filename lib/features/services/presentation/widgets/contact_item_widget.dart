@@ -1,5 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:bot_toast/bot_toast.dart';
+import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -42,10 +43,7 @@ class ContactItemWidget extends StatelessWidget {
           ),
           onTap: () {
             Clipboard.setData(ClipboardData(text: value));
-            BotToast.showText(
-              text: context.locale.languageCode == 'ar' ? 'تم النسخ' : 'Copied',
-              duration: const Duration(seconds: 2),
-            );
+            BotToast.showText(text: AppLocaleKey.copied.tr(), duration: const Duration(seconds: 2));
           },
         ),
       ),

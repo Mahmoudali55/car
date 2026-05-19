@@ -103,15 +103,15 @@ class AppRouters {
       case RoutesName.carComparisonScreen:
         return MaterialPageRoute(builder: (_) => const CarComparisonScreen());
       case RoutesName.carDetailingScreen:
-        return MaterialPageRoute(builder: (_) => ComingSoonScreen(title: AppLocaleKey.showroomShine.tr()));
+        return MaterialPageRoute(builder: (_) => const CarDetailingScreen());
       case RoutesName.shippingScreen:
-        return MaterialPageRoute(builder: (_) => ComingSoonScreen(title: AppLocaleKey.vipShipping.tr()));
+        return MaterialPageRoute(builder: (_) => const ShippingScreen());
       case RoutesName.bespokeSelectionScreen:
-        return MaterialPageRoute(builder: (_) => ComingSoonScreen(title: AppLocaleKey.bespokeSelection.tr()));
+        return MaterialPageRoute(builder: (_) => const BespokeSelectionScreen());
       case RoutesName.carValuationScreen:
-        return MaterialPageRoute(builder: (_) => ComingSoonScreen(title: AppLocaleKey.carValuation.tr()));
+        return MaterialPageRoute(builder: (_) => const CarValuationScreen());
       case RoutesName.importOnDemandScreen:
-        return MaterialPageRoute(builder: (_) => ComingSoonScreen(title: AppLocaleKey.importOnDemand.tr()));
+        return MaterialPageRoute(builder: (_) => const ImportOnDemandScreen());
 
       case RoutesName.adminDashboard:
         return MaterialPageRoute(builder: (_) => const AdminMainLayout());

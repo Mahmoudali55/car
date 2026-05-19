@@ -28,9 +28,7 @@ class BrandSelectorWidget extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 20.w),
           child: Text(
             'search_for_brand'.tr(), // Locale key from app_locale_keys
-            style: AppTextStyle.titleMedium(context).copyWith(
-              fontWeight: FontWeight.bold,
-            ),
+            style: AppTextStyle.titleMedium(context).copyWith(fontWeight: FontWeight.bold),
           ),
         ),
         Gap(16.h),
@@ -45,7 +43,8 @@ class BrandSelectorWidget extends StatelessWidget {
             itemBuilder: (context, index) {
               final brand = list[index];
               final isAll = brand.name == 'All';
-              final isSelected = selectedBrand?.name == brand.name || (selectedBrand == null && isAll);
+              final isSelected =
+                  selectedBrand?.name == brand.name || (selectedBrand == null && isAll);
 
               return FadeInRight(
                 duration: Duration(milliseconds: 200 + (index * 100)),
@@ -75,7 +74,7 @@ class BrandSelectorWidget extends StatelessWidget {
                           border: Border.all(
                             color: isSelected
                                 ? Colors.transparent
-                                : AppColor.blackTextColor(context).withOpacity(0.1),
+                                : AppColor.blackTextColor(context).withValues(alpha: 0.1),
                           ),
                         ),
                         child: Center(

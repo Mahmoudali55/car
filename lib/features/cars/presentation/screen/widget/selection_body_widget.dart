@@ -1,5 +1,6 @@
 import 'package:car/core/images/app_images.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
+import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/features/cars/presentation/widget/payment_method_selection_card.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -67,10 +68,14 @@ class _SelectionBodyWidgetState extends State<SelectionBodyWidget> {
               Container(
                 padding: EdgeInsets.all(4.w),
                 decoration: BoxDecoration(
-                  color: Colors.green,
+                  color: AppColor.greenColor(context),
                   borderRadius: BorderRadius.circular(6.r),
                 ),
-                child: Icon(Icons.account_balance, color: Colors.white, size: 14.sp),
+                child: Icon(
+                  Icons.account_balance,
+                  color: AppColor.whiteColor(context),
+                  size: 14.sp,
+                ),
               ),
               Gap(8.w),
               Container(
@@ -79,7 +84,11 @@ class _SelectionBodyWidgetState extends State<SelectionBodyWidget> {
                   color: const Color(0xFF003366),
                   borderRadius: BorderRadius.circular(6.r),
                 ),
-                child: Icon(Icons.account_balance_wallet, color: Colors.white, size: 14.sp),
+                child: Icon(
+                  Icons.account_balance_wallet,
+                  color: AppColor.whiteColor(context),
+                  size: 14.sp,
+                ),
               ),
             ],
           ),

@@ -30,7 +30,7 @@ class _EvaluationScreenState extends State<EvaluationScreen> {
   void _submit() {
     if (_rating == 0) {
       BotToast.showText(
-        text: context.locale.languageCode == 'ar' ? 'يرجى اختيار التقييم' : 'Please select a rating',
+        text: AppLocaleKey.pleaseSelectRating.tr(),
         duration: const Duration(seconds: 2),
       );
       return;

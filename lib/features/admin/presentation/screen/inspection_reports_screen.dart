@@ -78,7 +78,7 @@ class InspectionReportsScreen extends StatelessWidget {
           Gap(12.h),
           Row(
             children: [
-              const Icon(Icons.check_circle_rounded, color: Colors.green, size: 16),
+              Icon(Icons.check_circle_rounded, color: AppColor.greenColor(context), size: 16),
               Gap(8.w),
               Text(
                 '${AppLocaleKey.result.tr()}: 95/100 (${AppLocaleKey.excellent.tr()})',

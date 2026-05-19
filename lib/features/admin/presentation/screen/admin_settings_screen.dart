@@ -24,6 +24,8 @@ class AdminSettingsScreen extends StatelessWidget {
       backgroundColor: AppColor.scaffoldColor(context),
       appBar: CustomAppBar(
         context,
+        elevation: 0,
+        appBarColor: AppColor.scaffoldColor(context),
         automaticallyImplyLeading: false,
         title: Text(AppLocaleKey.adminSettings.tr()),
         centerTitle: true,

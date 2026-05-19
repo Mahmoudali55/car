@@ -66,7 +66,7 @@ class PremiumCarCardWidget extends StatelessWidget {
                     margin: EdgeInsets.only(left: 15.w),
                     padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
                     decoration: BoxDecoration(
-                      color: AppColor.blackColor(context).withOpacity(0.1),
+                      color: AppColor.blackColor(context).withValues(alpha: 0.1),
                       shape: BoxShape.rectangle,
                       borderRadius: BorderRadius.circular(8.r),
                     ),

@@ -10,7 +10,7 @@ class CardHeader extends StatelessWidget {
   final CarStatusConfig cfg;
   final bool showBadge;
 
-  const CardHeader({required this.car, required this.cfg, this.showBadge = true});
+  const CardHeader({super.key, required this.car, required this.cfg, this.showBadge = true});
 
   @override
   Widget build(BuildContext context) {

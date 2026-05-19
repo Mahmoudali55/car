@@ -310,7 +310,7 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
               Container(
                 padding: EdgeInsets.all(4.w),
                 decoration: BoxDecoration(
-                  color: Colors.green,
+                  color: AppColor.greenColor(context),
                   borderRadius: BorderRadius.circular(6.r),
                 ),
                 child: Icon(

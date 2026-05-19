@@ -32,7 +32,7 @@ void showLanguageDialog(BuildContext context) {
               ),
               Gap(20.h),
               LanguageOptionWidget(
-                title: 'العربية',
+                title: AppLocaleKey.arabic.tr(),
                 isSelected: context.locale.languageCode == 'ar',
                 onTap: () async {
                   await context.setLocale(const Locale('ar'));
@@ -42,7 +42,7 @@ void showLanguageDialog(BuildContext context) {
               ),
               Gap(12.h),
               LanguageOptionWidget(
-                title: 'English',
+                title: AppLocaleKey.english.tr(),
                 isSelected: context.locale.languageCode == 'en',
                 onTap: () async {
                   await context.setLocale(const Locale('en'));

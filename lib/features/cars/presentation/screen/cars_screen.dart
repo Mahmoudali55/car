@@ -153,7 +153,7 @@ class _CarsScreenState extends State<CarsScreen> {
                 onCategorySelected: (index) => setState(() => _selectedCategoryIndex = index),
               ),
               Gap(24.h),
-              SectionHeader(),
+              const SectionHeader(),
               Gap(16.h),
               CarsList(cars: _filteredCars, localizeCarData: _localizeCarData),
             ],

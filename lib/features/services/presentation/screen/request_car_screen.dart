@@ -68,9 +68,7 @@ class RequestCarScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  FadeInUp(
-                    child: _buildSectionHeader(AppLocaleKey.carDetails.tr(), context),
-                  ),
+                  FadeInUp(child: _buildSectionHeader(AppLocaleKey.carDetails.tr(), context)),
                   Gap(16.h),
                   FadeInUp(
                     delay: const Duration(milliseconds: 100),
@@ -87,13 +85,15 @@ class RequestCarScreen extends StatelessWidget {
                     child: _buildTextField(AppLocaleKey.approximateBudget.tr(), context),
                   ),
                   Gap(32.h),
-                  FadeInUp(
-                    child: _buildSectionHeader(AppLocaleKey.additionalNotes.tr(), context),
-                  ),
+                  FadeInUp(child: _buildSectionHeader(AppLocaleKey.additionalNotes.tr(), context)),
                   Gap(16.h),
                   FadeInUp(
                     delay: const Duration(milliseconds: 400),
-                    child: _buildTextField(AppLocaleKey.specialNotesHint.tr(), context, maxLines: 3),
+                    child: _buildTextField(
+                      AppLocaleKey.specialNotesHint.tr(),
+                      context,
+                      maxLines: 3,
+                    ),
                   ),
                   Gap(40.h),
                   FadeInUp(
@@ -116,7 +116,11 @@ class RequestCarScreen extends StatelessWidget {
       builder: (context) => AlertDialog(
         backgroundColor: AppColor.secondAppColor(context),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.r)),
-        title: Icon(Icons.check_circle_outline_rounded, color: Colors.green, size: 60.sp),
+        title: Icon(
+          Icons.check_circle_outline_rounded,
+          color: AppColor.greenColor(context),
+          size: 60.sp,
+        ),
         content: Text(
           AppLocaleKey.requestSubmittedSuccess.tr(),
           textAlign: TextAlign.center,
@@ -128,7 +132,10 @@ class RequestCarScreen extends StatelessWidget {
               Navigator.pop(context); // close dialog
               Navigator.pop(context); // go back
             },
-            child: Text(AppLocaleKey.ok.tr(), style: TextStyle(color: AppColor.primaryColor(context))),
+            child: Text(
+              AppLocaleKey.ok.tr(),
+              style: TextStyle(color: AppColor.primaryColor(context)),
+            ),
           ),
         ],
       ),
@@ -153,9 +160,9 @@ class RequestCarScreen extends StatelessWidget {
         borderRadius: BorderRadius.circular(12.r),
         border: Border.all(color: AppColor.blackTextColor(context).withOpacity(0.05)),
       ),
-      // Using TextField instead of CustomFormField for maxLines support if needed, 
+      // Using TextField instead of CustomFormField for maxLines support if needed,
       // but CustomFormField may not support maxLines easily without modifying it.
-      // We will just use CustomFormField and ignore maxLines if it doesn't support it, 
+      // We will just use CustomFormField and ignore maxLines if it doesn't support it,
       // or implement a standard TextField if we really want multi-line.
       // Based on usual CustomFormField implementation, we'll just try CustomFormField first.
       child: CustomFormField(hintText: hint, maxLines: maxLines),

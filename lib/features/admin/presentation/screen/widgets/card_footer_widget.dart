@@ -14,6 +14,7 @@ class CardFooter extends StatelessWidget {
   final VoidCallback? onWhatsApp;
   final VoidCallback? onDelete;
   const CardFooter({
+    super.key,
     required this.car,
     required this.context,
     this.onEdit,

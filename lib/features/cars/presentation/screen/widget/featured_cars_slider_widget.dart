@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:ui';
+
 import 'package:car/core/custom_widgets/custom_image/custom_network_image.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/routes/routes_name.dart';
@@ -73,7 +74,7 @@ class _FeaturedCarsSliderWidgetState extends State<FeaturedCarsSliderWidget> {
             itemBuilder: (context, index) {
               final car = widget.featuredCars[index];
               final isSelected = _currentSliderIndex == index;
-              
+
               return AnimatedScale(
                 scale: isSelected ? 1.0 : 0.94,
                 duration: const Duration(milliseconds: 400),
@@ -110,18 +111,16 @@ class _FeaturedCarsSliderWidgetState extends State<FeaturedCarsSliderWidget> {
                           child: Hero(
                             tag: 'featured_car_image_${car['itemCode'] ?? car['name']}',
                             child: car['image'].toString().trim().startsWith('http')
-                                ? CustomNetworkImage(
-                                    imageUrl: car['image']!,
-                                    fit: BoxFit.cover,
-                                  )
+                                ? CustomNetworkImage(imageUrl: car['image']!, fit: BoxFit.cover)
                                 : Image.asset(
                                     car['image']!,
                                     fit: BoxFit.cover,
-                                    errorBuilder: (context, error, stackTrace) => _buildErrorImage(context),
+                                    errorBuilder: (context, error, stackTrace) =>
+                                        _buildErrorImage(context),
                                   ),
                           ),
                         ),
-                        
+
                         // Gradient Overlay for readability
                         Positioned.fill(
                           child: DecoratedBox(
@@ -131,8 +130,8 @@ class _FeaturedCarsSliderWidgetState extends State<FeaturedCarsSliderWidget> {
                                 end: Alignment.bottomCenter,
                                 colors: [
                                   Colors.transparent,
-                                  Colors.black.withOpacity(0.05),
-                                  Colors.black.withOpacity(0.7),
+                                  AppColor.blackColor(context).withValues(alpha: 0.05),
+                                  AppColor.blackColor(context).withValues(alpha: 0.7),
                                 ],
                                 stops: const [0.0, 0.4, 1.0],
                               ),
@@ -153,7 +152,7 @@ class _FeaturedCarsSliderWidgetState extends State<FeaturedCarsSliderWidget> {
                             child: Text(
                               AppLocaleKey.specialOffersCars.tr(),
                               style: AppTextStyle.bodySmall(context).copyWith(
-                                color: Colors.white,
+                                color: AppColor.whiteColor(context),
                                 fontSize: 10.sp,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -172,10 +171,10 @@ class _FeaturedCarsSliderWidgetState extends State<FeaturedCarsSliderWidget> {
                               child: Container(
                                 padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 14.h),
                                 decoration: BoxDecoration(
-                                  color: Colors.black.withOpacity(0.2),
+                                  color: AppColor.blackColor(context).withOpacity(0.2),
                                   border: Border(
                                     top: BorderSide(
-                                      color: Colors.white.withOpacity(0.1),
+                                      color: AppColor.whiteColor(context).withOpacity(0.1),
                                       width: 0.5,
                                     ),
                                   ),
@@ -190,7 +189,7 @@ class _FeaturedCarsSliderWidgetState extends State<FeaturedCarsSliderWidget> {
                                           Text(
                                             car['name'] ?? '',
                                             style: AppTextStyle.titleMedium(context).copyWith(
-                                              color: Colors.white,
+                                              color: AppColor.whiteColor(context),
                                               fontWeight: FontWeight.bold,
                                               fontSize: 16.sp,
                                             ),
@@ -201,7 +200,9 @@ class _FeaturedCarsSliderWidgetState extends State<FeaturedCarsSliderWidget> {
                                             Text(
                                               car['installments']!,
                                               style: TextStyle(
-                                                color: Colors.white.withOpacity(0.8),
+                                                color: AppColor.whiteColor(
+                                                  context,
+                                                ).withValues(alpha: 0.8),
                                                 fontSize: 10.sp,
                                                 fontWeight: FontWeight.w400,
                                               ),
@@ -224,7 +225,9 @@ class _FeaturedCarsSliderWidgetState extends State<FeaturedCarsSliderWidget> {
                                         Text(
                                           AppLocaleKey.taxIncluded.tr(),
                                           style: TextStyle(
-                                            color: Colors.white.withOpacity(0.5),
+                                            color: AppColor.whiteColor(
+                                              context,
+                                            ).withValues(alpha: 0.5),
                                             fontSize: 8.sp,
                                           ),
                                         ),
@@ -248,24 +251,21 @@ class _FeaturedCarsSliderWidgetState extends State<FeaturedCarsSliderWidget> {
         // Indicator
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: List.generate(
-            widget.featuredCars.length,
-            (index) {
-              final isActive = _currentSliderIndex == index;
-              return AnimatedContainer(
-                duration: const Duration(milliseconds: 300),
-                margin: EdgeInsets.symmetric(horizontal: 3.w),
-                height: 6.h,
-                width: isActive ? 24.w : 6.w,
-                decoration: BoxDecoration(
-                  color: isActive
-                      ? AppColor.primaryColor(context)
-                      : AppColor.greyColor(context).withOpacity(0.3),
-                  borderRadius: BorderRadius.circular(12.r),
-                ),
-              );
-            },
-          ),
+          children: List.generate(widget.featuredCars.length, (index) {
+            final isActive = _currentSliderIndex == index;
+            return AnimatedContainer(
+              duration: const Duration(milliseconds: 300),
+              margin: EdgeInsets.symmetric(horizontal: 3.w),
+              height: 6.h,
+              width: isActive ? 24.w : 6.w,
+              decoration: BoxDecoration(
+                color: isActive
+                    ? AppColor.primaryColor(context)
+                    : AppColor.greyColor(context).withValues(alpha: 0.3),
+                borderRadius: BorderRadius.circular(12.r),
+              ),
+            );
+          }),
         ),
       ],
     );
@@ -273,28 +273,21 @@ class _FeaturedCarsSliderWidgetState extends State<FeaturedCarsSliderWidget> {
 
   Widget _buildErrorImage(BuildContext context) {
     return Container(
-      color: AppColor.greyColor(context).withOpacity(0.1),
+      color: AppColor.greyColor(context).withValues(alpha: 0.1),
       child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(
               Icons.image_not_supported_outlined,
-              color: AppColor.primaryColor(context).withOpacity(0.5),
+              color: AppColor.primaryColor(context).withValues(alpha: 0.5),
               size: 40.sp,
             ),
             Gap(8.h),
-            Text(
-              'Image Not Available',
-              style: TextStyle(
-                color: AppColor.greyColor(context).withOpacity(0.5),
-                fontSize: 10.sp,
-              ),
-            ),
+            Text('Image Not Available', style: TextStyle(fontSize: 10.sp)),
           ],
         ),
       ),
     );
   }
 }
-

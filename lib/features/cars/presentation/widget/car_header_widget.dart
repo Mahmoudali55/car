@@ -22,7 +22,7 @@ class _CarHeaderWidgetState extends State<CarHeaderWidget> {
   Color _getStatusColor(int status) {
     switch (status) {
       case 1:
-        return Colors.green;
+        return AppColor.greenColor(context);
       case 2:
         return Colors.orange;
       case 3:

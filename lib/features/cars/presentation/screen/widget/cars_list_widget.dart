@@ -23,7 +23,7 @@ class CarsList extends StatelessWidget {
             AppLocaleKey.noCarsForBrand.tr(),
             style: AppTextStyle.bodyMedium(
               context,
-            ).copyWith(color: AppColor.blackTextColor(context).withOpacity(0.4)),
+            ).copyWith(color: AppColor.blackTextColor(context).withValues(alpha: 0.4)),
           ),
         ),
       );

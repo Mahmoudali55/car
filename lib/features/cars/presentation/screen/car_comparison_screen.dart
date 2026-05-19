@@ -65,17 +65,17 @@ class _CarComparisonScreenState extends State<CarComparisonScreen> {
     final regularFont = await PdfGoogleFonts.robotoRegular();
 
     final specs = [
-      {'key': isArabic ? 'السعر' : 'Price', 'field': 'price', 'fallback': 'PRICE'},
-      {'key': isArabic ? 'الماركة' : 'Brand', 'field': 'brand', 'fallback': 'MAKE_NAME'},
-      {'key': isArabic ? 'سنة الصنع' : 'Model Year', 'field': 'year', 'fallback': 'MAKE_YEAR'},
-      {'key': isArabic ? 'المحرك' : 'Engine', 'field': 'engine', 'fallback': 'CYLINDER'},
+      {'key': AppLocaleKey.price.tr(), 'field': 'price', 'fallback': 'PRICE'},
+      {'key': AppLocaleKey.brand.tr(), 'field': 'brand', 'fallback': 'MAKE_NAME'},
+      {'key': AppLocaleKey.modelYear.tr(), 'field': 'year', 'fallback': 'MAKE_YEAR'},
+      {'key': AppLocaleKey.engine.tr(), 'field': 'engine', 'fallback': 'CYLINDER'},
       {
-        'key': isArabic ? 'ناقل الحركة' : 'Transmission',
+        'key': AppLocaleKey.transmission.tr(),
         'field': 'transmission',
         'fallback': 'TRANSMISSION'
       },
-      {'key': isArabic ? 'نوع الوقود' : 'Fuel Type', 'field': 'FUEL_TYPE', 'fallback': 'fuel_type'},
-      {'key': isArabic ? 'اللون' : 'Color', 'field': 'Color', 'fallback': 'BODY_COLOR'},
+      {'key': AppLocaleKey.fuelTypeLabel.tr(), 'field': 'FUEL_TYPE', 'fallback': 'fuel_type'},
+      {'key': AppLocaleKey.color.tr(), 'field': 'Color', 'fallback': 'BODY_COLOR'},
     ];
 
     pdf.addPage(
@@ -96,7 +96,7 @@ class _CarComparisonScreenState extends State<CarComparisonScreen> {
                     mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                     children: [
                       pw.Text(
-                        isArabic ? 'تقرير مقارنة السيارات' : 'Car Comparison Report',
+                        AppLocaleKey.carComparisonReport.tr(),
                         style: pw.TextStyle(fontSize: 24, fontWeight: pw.FontWeight.bold),
                       ),
                       pw.Text(DateFormat('yyyy-MM-dd').format(DateTime.now())),
@@ -105,7 +105,7 @@ class _CarComparisonScreenState extends State<CarComparisonScreen> {
                 ),
                 pw.SizedBox(height: 20),
                 pw.TableHelper.fromTextArray(
-                  headers: [isArabic ? 'المواصفات' : 'Spec', ...list.map((c) => c['name'])],
+                  headers: [AppLocaleKey.spec.tr(), ...list.map((c) => c['name'])],
                   data: specs
                       .map((spec) => [
                             spec['key']!,

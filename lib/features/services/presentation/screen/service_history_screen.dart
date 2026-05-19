@@ -133,7 +133,7 @@ class ServiceHistoryScreen extends StatelessWidget {
                           decoration: BoxDecoration(
                             color: item['status'] == AppLocaleKey.cancelledStatus.tr()
                                 ? Colors.red.withOpacity((0.1))
-                                : Colors.green.withOpacity((0.1)),
+                                : AppColor.greenColor(context).withOpacity((0.1)),
                             borderRadius: BorderRadius.circular(6.r),
                           ),
                           child: Text(

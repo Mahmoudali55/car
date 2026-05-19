@@ -8,11 +8,7 @@ class NotificationItemWidget extends StatelessWidget {
   final Map<String, dynamic> notification;
   final VoidCallback onTap;
 
-  const NotificationItemWidget({
-    super.key,
-    required this.notification,
-    required this.onTap,
-  });
+  const NotificationItemWidget({super.key, required this.notification, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +25,7 @@ class NotificationItemWidget extends StatelessWidget {
         break;
       case 'order':
         icon = Icons.shopping_bag_rounded;
-        iconColor = Colors.green;
+        iconColor = AppColor.greenColor(context);
         break;
       case 'system':
         icon = Icons.settings_rounded;
@@ -51,9 +47,7 @@ class NotificationItemWidget extends StatelessWidget {
               : AppColor.secondAppColor(context),
           borderRadius: BorderRadius.circular(16.r),
           border: Border.all(
-            color: isRead
-                ? Colors.transparent
-                : AppColor.primaryColor(context).withOpacity(0.3),
+            color: isRead ? Colors.transparent : AppColor.primaryColor(context).withOpacity(0.3),
             width: 1,
           ),
           boxShadow: [
@@ -71,10 +65,7 @@ class NotificationItemWidget extends StatelessWidget {
             // Icon
             Container(
               padding: EdgeInsets.all(10.w),
-              decoration: BoxDecoration(
-                color: iconColor.withOpacity(0.1),
-                shape: BoxShape.circle,
-              ),
+              decoration: BoxDecoration(color: iconColor.withOpacity(0.1), shape: BoxShape.circle),
               child: Icon(icon, color: iconColor, size: 24.sp),
             ),
             Gap(16.w),
@@ -92,9 +83,7 @@ class NotificationItemWidget extends StatelessWidget {
                           notification['title'] as String,
                           style: AppTextStyle.bodyMedium(context).copyWith(
                             color: AppColor.blackTextColor(context),
-                            fontWeight: isRead
-                                ? FontWeight.w500
-                                : FontWeight.bold,
+                            fontWeight: isRead ? FontWeight.w500 : FontWeight.bold,
                           ),
                         ),
                       ),

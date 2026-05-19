@@ -31,6 +31,7 @@ class _ContentManagementScreenState extends State<ContentManagementScreen>
       appBar: CustomAppBar(
         context,
         elevation: 0,
+        appBarColor: AppColor.scaffoldColor(context),
         centerTitle: true,
         leading: IconButton(
           onPressed: () => Navigator.pop(context),
