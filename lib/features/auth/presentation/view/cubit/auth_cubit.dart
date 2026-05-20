@@ -5,6 +5,7 @@ import 'package:car/features/auth/data/model/login_request_model.dart';
 import 'package:car/features/auth/data/model/login_response_model.dart';
 import 'package:car/features/auth/data/model/register_request_model.dart';
 import 'package:car/features/auth/data/model/register_response_model.dart';
+import 'package:car/features/auth/data/model/change_password_request_model.dart';
 import 'package:car/features/auth/data/repository/auth_repo.dart';
 import 'package:car/core/services/notification_service.dart';
 import 'package:equatable/equatable.dart';
@@ -120,22 +121,44 @@ class AuthCubit extends Cubit<AuthState> {
   Future<void> changePassword() async {
     emit(state.copyWith(changePasswordStatus: const StatusState.loading()));
 
-    // For now, simulate API call
-    await Future.delayed(const Duration(seconds: 2));
-
     // Check if new password matches confirm password
     if (newPasswordController.text != confirmPasswordController.text) {
-      emit(state.copyWith(changePasswordStatus: StatusState.failure('Passwords do not match')));
+      emit(state.copyWith(changePasswordStatus: StatusState.failure(
+        const Locale('ar').languageCode == 'ar' 
+            ? 'كلمة المرور الجديدة وتأكيدها غير متطابقتين' 
+            : 'Passwords do not match'
+      )));
       return;
     }
 
-    // Simulate success
-    emit(state.copyWith(changePasswordStatus: const StatusState.success(true)));
+    final request = ChangePasswordRequestModel(
+      oldPassword: currentPasswordController.text,
+      newPassword: newPasswordController.text,
+      confirmPassword: confirmPasswordController.text,
+    );
 
-    // Clear controllers
-    currentPasswordController.clear();
-    newPasswordController.clear();
-    confirmPasswordController.clear();
+    final result = await authRepo.changePassword(request: request);
+
+    result.fold(
+      (failure) {
+        emit(state.copyWith(changePasswordStatus: StatusState.failure(failure.errMessage)));
+      },
+      (success) {
+        if (success) {
+          // Clear controllers
+          currentPasswordController.clear();
+          newPasswordController.clear();
+          confirmPasswordController.clear();
+          emit(state.copyWith(changePasswordStatus: const StatusState.success(true)));
+        } else {
+          emit(state.copyWith(changePasswordStatus: StatusState.failure(
+            const Locale('ar').languageCode == 'ar' 
+                ? 'فشل تعديل كلمة المرور' 
+                : 'Failed to change password'
+          )));
+        }
+      },
+    );
   }
 
   Future<void> logout() async {

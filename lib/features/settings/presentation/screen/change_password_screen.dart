@@ -2,6 +2,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:car/core/custom_widgets/buttons/custom_button.dart';
 import 'package:car/core/custom_widgets/custom_app_bar/custom_app_bar.dart';
 import 'package:car/core/custom_widgets/custom_form_field/custom_form_field.dart';
+import 'package:car/core/custom_widgets/custom_loading/custom_loading.dart';
 import 'package:car/core/custom_widgets/custom_toast/custom_toast.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
@@ -173,14 +174,7 @@ class ChangePasswordScreen extends StatelessWidget {
                                 }
                               },
                         child: state.changePasswordStatus.isLoading
-                            ? SizedBox(
-                                height: 20.h,
-                                width: 20.w,
-                                child: CircularProgressIndicator(
-                                  color: AppColor.whiteColor(context),
-                                  strokeWidth: 2,
-                                ),
-                              )
+                            ? CustomLoading(color: AppColor.whiteColor(context))
                             : Text(
                                 AppLocaleKey.changePassword.tr(),
                                 style: AppTextStyle.bodyLarge(context).copyWith(
