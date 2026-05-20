@@ -6,4 +6,5 @@ class EndPoints {
   static const String carDetails = 'DeltagroupService/Cars/GetCarDetailsData';
   static const String addbooking = 'DeltagroupService/Cars/AddBookingpermission';
   static const String register = 'DeltagroupService/Cars/registration';
+  static const String editFCM = 'DeltagroupService/Cars/EditFCM';
 }

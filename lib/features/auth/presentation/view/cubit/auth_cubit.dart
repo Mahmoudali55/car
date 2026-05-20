@@ -56,6 +56,26 @@ class AuthCubit extends Cubit<AuthState> {
         HiveMethods.updateToken(response.accessToken);
         HiveMethods.updateRole(response.type);
         HiveMethods.updateUserName(response.userName);
+
+        // Update FCM Token for push notifications
+        String fcmToken = await NotificationService.getFCMToken() ?? '';
+        
+        // If empty (e.g. on iOS simulator), send a placeholder so the API still runs for testing
+        if (fcmToken.isEmpty) {
+          fcmToken = 'dummy_token_for_simulator';
+        }
+
+        if (response.userId.isNotEmpty) {
+          try {
+            await authRepo.editFCM(userId: response.userId, fcmToken: fcmToken);
+            debugPrint('EditFCM called successfully for user: ${response.userId}');
+          } catch (e) {
+            debugPrint('EditFCM failed: $e');
+          }
+        } else {
+          debugPrint('EditFCM skipped: userId is empty');
+        }
+
         emit(state.copyWith(loginStatus: StatusState.success(response)));
       },
     );

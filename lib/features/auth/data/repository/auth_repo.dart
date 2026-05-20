@@ -13,6 +13,7 @@ import '../../../../core/error/failures.dart' hide handleDioRequest;
 abstract interface class AuthRepo {
   Future<Either<Failure, LoginResponse>> login({required LoginRequest request});
   Future<Either<Failure, RegisterResponseModel>> register({required RegisterRequestModel request});
+  Future<Either<Failure, bool>> editFCM({required String userId, required String fcmToken});
   Future<void> logout();
 }
 
@@ -42,6 +43,22 @@ class AuthRepoImpl implements AuthRepo {
       request: () async {
         final response = await apiConsumer.post(EndPoints.register, body: request.toJson());
         return RegisterResponseModel.fromJson(response);
+      },
+    );
+  }
+
+  @override
+  Future<Either<Failure, bool>> editFCM({required String userId, required String fcmToken}) {
+    return handleDioRequest(
+      request: () async {
+        final response = await apiConsumer.put(
+          EndPoints.editFCM,
+          body: {
+            "userid": userId,
+            "FCM": fcmToken,
+          },
+        );
+        return response['success'] ?? false;
       },
     );
   }
