@@ -1123,5 +1123,6 @@
   "rolePermissions": "Role Permissions",
   "rolePermissionsDesc": "Customize access permissions based on roles to ensure security and efficiency in system management.",
   "discountCodes":"Increase sales by managing administrative discount codes and seasonal offers.",
-  "agent_500": "500 SAR"
+  "agent_500": "500 SAR",
+  "registerSuccess": "Registration successful! You can now log in to your account."
 }

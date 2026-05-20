@@ -5,6 +5,9 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 import 'core/services/services_locator.dart';
 import 'core/theme/theme_enum.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
+import 'core/services/notification_service.dart';
 
 class ServiceInitialize {
   ServiceInitialize._();
@@ -16,6 +19,10 @@ class ServiceInitialize {
     await Hive.openBox('app');
     await ScreenUtil.ensureScreenSize();
     await EasyLocalization.ensureInitialized();
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+    await NotificationService.initialize();
     await initDependencies();
   }
 }

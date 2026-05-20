@@ -45,9 +45,19 @@ class _MainLayoutState extends State<MainLayout> {
               centerTitle: false,
               automaticallyImplyLeading: false,
               leading: const ProfileIconWidget(),
-              title: Text(
-                AppLocaleKey.welcomeToCarGroup.tr(),
-                style: AppTextStyle.titleMedium(context),
+              title: ValueListenableBuilder(
+                valueListenable: Hive.box('app').listenable(keys: ['userName', 'isGuest']),
+                builder: (context, box, _) {
+                  final isGuest = box.get('isGuest', defaultValue: false);
+                  final userName = box.get('userName', defaultValue: '');
+
+                  return Text(
+                    isGuest || userName.isEmpty
+                        ? AppLocaleKey.welcomeToCarGroup.tr()
+                        : '${AppLocaleKey.welcomeToCarGroup.tr()}، $userName',
+                    style: AppTextStyle.titleSmall(context),
+                  );
+                },
               ),
               actions: [
                 const SearchIconWidget(),

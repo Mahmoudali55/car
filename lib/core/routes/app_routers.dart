@@ -18,12 +18,11 @@ class AppRouters {
         return MaterialPageRoute(builder: (_) => const OnboardingScreen());
       case RoutesName.loginScreen:
         return MaterialPageRoute(
-          builder: (_) => BlocProvider(create: (context) => sl<AuthCubit>(), child: LoginScreen()),
+          builder: (_) => LoginScreen(),
         );
       case RoutesName.registerScreen:
         return MaterialPageRoute(
-          builder: (_) =>
-              BlocProvider(create: (context) => sl<AuthCubit>(), child: const RegisterScreen()),
+          builder: (_) => const RegisterScreen(),
         );
       case RoutesName.carDetailsScreen:
         final carArgs = args as Map<String, dynamic>;
@@ -64,20 +63,15 @@ class AppRouters {
         return MaterialPageRoute(builder: (_) => const TrackOrderScreen());
       case RoutesName.settingsScreen:
         return MaterialPageRoute(
-          builder: (_) =>
-              BlocProvider(create: (context) => sl<AuthCubit>(), child: const SettingsScreen()),
+          builder: (_) => const SettingsScreen(),
         );
       case RoutesName.changePasswordScreen:
         return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (context) => sl<AuthCubit>(),
-            child: const ChangePasswordScreen(),
-          ),
+          builder: (_) => const ChangePasswordScreen(),
         );
       case RoutesName.profileScreen:
         return MaterialPageRoute(
-          builder: (_) =>
-              BlocProvider(create: (context) => sl<AuthCubit>(), child: const UserProfileScreen()),
+          builder: (_) => const UserProfileScreen(),
         );
       case RoutesName.tradeInScreen:
         return MaterialPageRoute(builder: (_) => const TradeInScreen());

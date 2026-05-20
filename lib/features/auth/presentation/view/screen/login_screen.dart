@@ -128,11 +128,8 @@ class LoginScreen extends StatelessWidget {
                           duration: const Duration(milliseconds: 1000),
                           child: CustomFormField(
                             controller: cubit.mobileController,
-                            hintText: AppLocaleKey.mobileNumber.tr(),
-                            prefixIcon: Icon(
-                              Icons.phone_iphone_rounded,
-                              color: AppColor.primaryColor(context),
-                            ),
+                            hintText: AppLocaleKey.userName.tr(),
+                            prefixIcon: Icon(Icons.person, color: AppColor.primaryColor(context)),
                             fillColor: AppColor.textFormFillColor(context),
                             textStyle: TextStyle(color: AppColor.blackTextColor(context)),
                             hintStyle: TextStyle(
@@ -306,7 +303,7 @@ class LoginScreen extends StatelessWidget {
                             ],
                           ),
                         ),
-                        Gap(40.h),
+                        Gap(20.h),
                         FadeInUp(
                           delay: const Duration(milliseconds: 800),
                           duration: const Duration(milliseconds: 1000),

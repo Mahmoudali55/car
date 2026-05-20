@@ -70,6 +70,14 @@ class HiveMethods {
     _box.put('role', role);
   }
 
+  static String? getUserName() {
+    return _box.get('userName');
+  }
+
+  static void updateUserName(String userName) {
+    _box.put('userName', userName);
+  }
+
   // ─── Comparison List ────────────────────────────────────────
   static List<dynamic> getComparisonList() {
     return _box.get('comparisonList', defaultValue: []);

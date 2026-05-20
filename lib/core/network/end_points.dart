@@ -5,4 +5,5 @@ class EndPoints {
   static const String carsimage = 'DeltagroupService/Cars/GetcarsimageData';
   static const String carDetails = 'DeltagroupService/Cars/GetCarDetailsData';
   static const String addbooking = 'DeltagroupService/Cars/AddBookingpermission';
+  static const String register = 'DeltagroupService/Cars/registration';
 }

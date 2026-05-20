@@ -15,6 +15,7 @@ class AddBookingPermissionModel extends Equatable {
   final String payCond;
   final int guarFinal;
   final String notes;
+  final String userName;
   final List<SubLpoModel> subLpo;
 
   const AddBookingPermissionModel({
@@ -33,6 +34,7 @@ class AddBookingPermissionModel extends Equatable {
     required this.guarFinal,
     required this.notes,
     required this.subLpo,
+    required this.userName,
   });
 
   factory AddBookingPermissionModel.fromJson(Map<String, dynamic> json) {
@@ -51,6 +53,7 @@ class AddBookingPermissionModel extends Equatable {
       payCond: json['PAYCOND'] ?? '',
       guarFinal: json['GUARFINAL'] ?? 0,
       notes: json['NOTES'] ?? '',
+      userName: json['username'] ?? '',
       subLpo:
           (json['sub_lpo'] as List<dynamic>?)?.map((e) => SubLpoModel.fromJson(e)).toList() ?? [],
     );
@@ -73,6 +76,7 @@ class AddBookingPermissionModel extends Equatable {
       "GUARFINAL": guarFinal,
       "NOTES": notes,
       "sub_lpo": subLpo.map((e) => e.toJson()).toList(),
+      "username": userName,
     };
   }
 
@@ -92,6 +96,7 @@ class AddBookingPermissionModel extends Equatable {
     int? guarFinal,
     String? notes,
     List<SubLpoModel>? subLpo,
+    String? userName,
   }) {
     return AddBookingPermissionModel(
       lpoNos: lpoNos ?? this.lpoNos,
@@ -109,6 +114,7 @@ class AddBookingPermissionModel extends Equatable {
       guarFinal: guarFinal ?? this.guarFinal,
       notes: notes ?? this.notes,
       subLpo: subLpo ?? this.subLpo,
+      userName: userName ?? this.userName,
     );
   }
 
@@ -129,6 +135,7 @@ class AddBookingPermissionModel extends Equatable {
     guarFinal,
     notes,
     subLpo,
+    userName,
   ];
 }
 
@@ -144,7 +151,7 @@ class SubLpoModel extends Equatable {
   final String transDate;
   final String fDate;
   final String lDate;
-
+  final String userName;
   const SubLpoModel({
     required this.itemCode,
     required this.itemName,
@@ -157,6 +164,7 @@ class SubLpoModel extends Equatable {
     required this.transDate,
     required this.fDate,
     required this.lDate,
+    this.userName = '',
   });
 
   factory SubLpoModel.fromJson(Map<String, dynamic> json) {
@@ -172,6 +180,7 @@ class SubLpoModel extends Equatable {
       transDate: json['TRANSDATE'] ?? '',
       fDate: json['FDATE'] ?? '',
       lDate: json['LDATE'] ?? '',
+      userName: json['username'] ?? '',
     );
   }
 
@@ -188,6 +197,7 @@ class SubLpoModel extends Equatable {
       "TRANSDATE": transDate,
       "FDATE": fDate,
       "LDATE": lDate,
+      "username": userName,
     };
   }
 
@@ -203,6 +213,7 @@ class SubLpoModel extends Equatable {
     String? transDate,
     String? fDate,
     String? lDate,
+    String? userName,
   }) {
     return SubLpoModel(
       itemCode: itemCode ?? this.itemCode,
@@ -216,6 +227,7 @@ class SubLpoModel extends Equatable {
       transDate: transDate ?? this.transDate,
       fDate: fDate ?? this.fDate,
       lDate: lDate ?? this.lDate,
+      userName: userName ?? this.userName,
     );
   }
 
@@ -232,5 +244,6 @@ class SubLpoModel extends Equatable {
     transDate,
     fDate,
     lDate,
+    userName,
   ];
 }

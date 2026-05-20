@@ -1368,4 +1368,5 @@ class AppLocaleKey {
   static const String rolePermissions = 'rolePermissions';
   static const String rolePermissionsDesc = 'rolePermissionsDesc';
   static const String discountCodes = 'discountCodes';
+  static const String registerSuccess = 'registerSuccess';
 }

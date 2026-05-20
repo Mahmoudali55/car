@@ -6,6 +6,7 @@ import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/core/utils/common_methods.dart';
+import 'package:car/core/cache/hive/hive_methods.dart';
 import 'package:car/features/cars/data/model/brand_model.dart';
 import 'package:car/features/cars/presentation/screen/financing_info_screen.dart';
 import 'package:car/features/cars/presentation/screen/reservation_success_screen.dart';
@@ -1020,6 +1021,7 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
       payCond: '',
       guarFinal: 0,
       notes: 'حجز سيارة كاش - ${_cashNameController.text} (${_cashPhoneController.text})',
+      userName: HiveMethods.getUserName() ?? '',
       subLpo: [
         SubLpoModel(
           itemCode: itemCode,
@@ -1033,6 +1035,7 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
           transDate: todayStr,
           fDate: todayStr,
           lDate: futureDateStr,
+          userName: HiveMethods.getUserName() ?? '',
         ),
       ],
     );
