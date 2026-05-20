@@ -25,8 +25,13 @@ class AuthRepoImpl implements AuthRepo {
 
   @override
   Future<void> logout() async {
+    try {
+      await apiConsumer.post(EndPoints.logout);
+    } catch (e) {
+      // Log the error but continue to clear local token so user is always logged out locally
+      print('Logout API error: $e');
+    }
     HiveMethods.deleteToken();
-    // Clear other session data if necessary
   }
 
   @override

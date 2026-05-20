@@ -15,7 +15,18 @@ part 'auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
   final AuthRepo authRepo;
-  AuthCubit(this.authRepo) : super(const AuthState());
+  AuthCubit(this.authRepo) : super(const AuthState()) {
+    _loadSavedCredentials();
+  }
+
+  void _loadSavedCredentials() {
+    final savedRememberMe = HiveMethods.getRememberMe();
+    emit(state.copyWith(rememberMe: savedRememberMe));
+    if (savedRememberMe) {
+      mobileController.text = HiveMethods.getSavedMobile();
+      passwordController.text = HiveMethods.getSavedPassword();
+    }
+  }
 
   final TextEditingController mobileController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
@@ -30,11 +41,15 @@ class AuthCubit extends Cubit<AuthState> {
   final TextEditingController newPasswordController = TextEditingController();
   final TextEditingController confirmPasswordController = TextEditingController();
 
-  bool rememberMe = false;
+  bool get rememberMe => state.rememberMe;
 
   void changeRememberMe() {
-    rememberMe = !rememberMe;
-    emit(state.copyWith());
+    final newRememberMe = !state.rememberMe;
+    HiveMethods.updateRememberMe(newRememberMe);
+    if (!newRememberMe) {
+      HiveMethods.clearSavedCredentials();
+    }
+    emit(state.copyWith(rememberMe: newRememberMe));
   }
 
   Future<void> login() async {
@@ -75,6 +90,15 @@ class AuthCubit extends Cubit<AuthState> {
           }
         } else {
           debugPrint('EditFCM skipped: userId is empty');
+        }
+
+        // Save credentials if rememberMe is enabled
+        HiveMethods.updateRememberMe(rememberMe);
+        if (rememberMe) {
+          HiveMethods.updateSavedMobile(mobileController.text.trim());
+          HiveMethods.updateSavedPassword(passwordController.text.trim());
+        } else {
+          HiveMethods.clearSavedCredentials();
         }
 
         emit(state.copyWith(loginStatus: StatusState.success(response)));
@@ -163,10 +187,27 @@ class AuthCubit extends Cubit<AuthState> {
 
   Future<void> logout() async {
     await authRepo.logout();
-    HiveMethods.updateIsGuest(true);
+    HiveMethods.updateIsGuest(false);
     HiveMethods.deleteToken();
     HiveMethods.updateRole('user');
     HiveMethods.updateUserName('');
+    
+    // Clear registration and change password controllers
+    fullNameController.clear();
+    emailController.clear();
+    idNoController.clear();
+    currentPasswordController.clear();
+    newPasswordController.clear();
+    confirmPasswordController.clear();
+
+    // If rememberMe is checked, keep the credentials in the controllers;
+    // otherwise, clear them completely!
+    if (!rememberMe) {
+      mobileController.clear();
+      passwordController.clear();
+      HiveMethods.clearSavedCredentials();
+    }
+
     emit(const AuthState()); // reset state
   }
 }

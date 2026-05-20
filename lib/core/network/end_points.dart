@@ -8,4 +8,5 @@ class EndPoints {
   static const String register = 'DeltagroupService/Cars/registration';
   static const String editFCM = 'DeltagroupService/Cars/EditFCM';
   static const String changePassword = 'DeltagroupService/Cars/ChangePassword';
+  static const String logout = 'api/Account/Logout';
 }

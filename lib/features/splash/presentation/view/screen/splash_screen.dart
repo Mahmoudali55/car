@@ -31,7 +31,7 @@ class _SplashScreenState extends State<SplashScreen> {
       if (mounted) {
         if (HiveMethods.isFirstTime()) {
           NavigatorMethods.pushReplacementNamed(context, RoutesName.onboardingScreen);
-        } else if (HiveMethods.getToken() != null || HiveMethods.isGuest()) {
+        } else if (HiveMethods.getToken() != null) {
           if (HiveMethods.getRole() == 'admin') {
             NavigatorMethods.pushReplacementNamed(context, RoutesName.adminDashboard);
           } else if (HiveMethods.getRole() == 'agent') {

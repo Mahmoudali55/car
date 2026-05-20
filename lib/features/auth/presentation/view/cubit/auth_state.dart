@@ -4,25 +4,29 @@ class AuthState extends Equatable {
   final StatusState<LoginResponse> loginStatus;
   final StatusState<RegisterResponseModel> registerStatus;
   final StatusState<bool> changePasswordStatus;
+  final bool rememberMe;
 
   const AuthState({
     this.loginStatus = const StatusState.initial(),
     this.registerStatus = const StatusState.initial(),
     this.changePasswordStatus = const StatusState.initial(),
+    this.rememberMe = false,
   });
 
   AuthState copyWith({
     StatusState<LoginResponse>? loginStatus,
     StatusState<RegisterResponseModel>? registerStatus,
     StatusState<bool>? changePasswordStatus,
+    bool? rememberMe,
   }) {
     return AuthState(
       loginStatus: loginStatus ?? this.loginStatus,
       registerStatus: registerStatus ?? this.registerStatus,
       changePasswordStatus: changePasswordStatus ?? this.changePasswordStatus,
+      rememberMe: rememberMe ?? this.rememberMe,
     );
   }
 
   @override
-  List<Object?> get props => [loginStatus, registerStatus, changePasswordStatus];
+  List<Object?> get props => [loginStatus, registerStatus, changePasswordStatus, rememberMe];
 }

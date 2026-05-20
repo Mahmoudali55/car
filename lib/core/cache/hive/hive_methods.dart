@@ -138,4 +138,45 @@ class HiveMethods {
   static void updateCartItems(List<dynamic> items) {
     _box.put('cartItems', items);
   }
+
+  // ─── Remember Me ────────────────────────────────────────────
+  static bool getRememberMe() {
+    return _box.get('rememberMe', defaultValue: false);
+  }
+
+  static void updateRememberMe(bool rememberMe) {
+    _box.put('rememberMe', rememberMe);
+  }
+
+  static String getSavedMobile() {
+    return _box.get('savedMobile', defaultValue: '');
+  }
+
+  static void updateSavedMobile(String mobile) {
+    _box.put('savedMobile', mobile);
+  }
+
+  static String getSavedPassword() {
+    final String? encrypted = _box.get('savedPassword');
+    if (encrypted == null) return '';
+    try {
+      return SecurityHelper.decrypt(encrypted);
+    } catch (_) {
+      return '';
+    }
+  }
+
+  static void updateSavedPassword(String password) {
+    if (password.isEmpty) {
+      _box.delete('savedPassword');
+      return;
+    }
+    final String encrypted = SecurityHelper.encrypt(password);
+    _box.put('savedPassword', encrypted);
+  }
+
+  static void clearSavedCredentials() {
+    _box.delete('savedMobile');
+    _box.delete('savedPassword');
+  }
 }
