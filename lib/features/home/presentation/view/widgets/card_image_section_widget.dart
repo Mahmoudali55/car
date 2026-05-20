@@ -20,7 +20,7 @@ class CardImageSection extends StatelessWidget {
           color: AppColor.blackTextColor(context).withValues(alpha: 0.05),
           child: AnimatedScale(
             duration: const Duration(milliseconds: 400),
-            scale: 1.05,
+            scale: 1,
             child: Hero(
               tag: heroTag ?? 'car_image_${car['itemCode'] ?? car['name']}',
               child: Center(

@@ -149,7 +149,9 @@ class _SliverAppBarWidgetState extends State<SliverAppBarWidget> {
       flexibleSpace: FlexibleSpaceBar(
         background: BlocBuilder<HomeCubit, HomeState>(
           builder: (context, state) {
-            List<String> displayedImages = [widget.car['image'] ?? AppImages.assetsImagesPlaceholder];
+            List<String> displayedImages = [
+              widget.car['image'] ?? AppImages.assetsImagesPlaceholder,
+            ];
 
             if (widget.car['extraImages'] != null &&
                 (widget.car['extraImages'] as List).isNotEmpty) {
@@ -199,10 +201,10 @@ class _SliverAppBarWidgetState extends State<SliverAppBarWidget> {
                           width: 50.w,
                           decoration: BoxDecoration(color: AppColor.scaffoldColor(context)),
                           child: isNetwork
-                              ? CustomNetworkImage(imageUrl: imageUrl, fit: BoxFit.cover)
+                              ? CustomNetworkImage(imageUrl: imageUrl, fit: BoxFit.fill)
                               : Image.asset(
                                   imageUrl.isEmpty ? AppImages.assetsImagesPlaceholder : imageUrl,
-                                  fit: BoxFit.cover,
+                                  fit: BoxFit.fill,
                                 ),
                         ),
                       );

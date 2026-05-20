@@ -81,7 +81,7 @@ class OffersGridWidget extends StatelessWidget {
       itemCount: _offers.length,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: isTablet ? 3 : 2,
-        childAspectRatio: isTablet ? 0.75 : 0.63,
+        childAspectRatio: isTablet ? 0.75 : 0.58,
         crossAxisSpacing: 16.w,
         mainAxisSpacing: 16.h,
       ),

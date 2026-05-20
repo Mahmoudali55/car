@@ -29,19 +29,19 @@ class HorizontalCarCardWidget extends StatelessWidget {
       },
       child: Container(
         width: 320.w,
-        height: 150.h,
+        height: MediaQuery.of(context).size.height * 0.15,
         margin: EdgeInsets.only(right: 16.w),
         decoration: BoxDecoration(
           color: AppColor.secondAppColor(context),
           borderRadius: BorderRadius.circular(20.r),
           boxShadow: [
             BoxShadow(
-              color: AppColor.blackColor(context).withOpacity(0.05),
+              color: AppColor.blackColor(context).withValues(alpha: (0.05)),
               blurRadius: 10,
               offset: const Offset(0, 4),
             ),
           ],
-          border: Border.all(color: AppColor.blackTextColor(context).withOpacity(0.05)),
+          border: Border.all(color: AppColor.blackTextColor(context).withValues(alpha: 0.05)),
         ),
         child: Column(
           children: [
@@ -104,7 +104,7 @@ class HorizontalCarCardWidget extends StatelessWidget {
                         Container(
                           width: 3.w,
                           height: 30.h,
-                          color: AppColor.blackTextColor(context),
+                          color: AppColor.blackTextColor(context).withValues(alpha: 0.5),
                         ),
                         Gap(4.h),
                         GestureDetector(
