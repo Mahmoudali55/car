@@ -8,6 +8,7 @@ class HomeState extends Equatable {
   final int selectedIndex;
   final List<CarModel> brands;
   final String searchQuery;
+  final StatusState<AddBookingPermissionResponseModel> addBookingPermissionResponseModel;
 
   const HomeState({
     this.carsModelsStatus = const StatusState.initial(),
@@ -18,6 +19,7 @@ class HomeState extends Equatable {
 
     this.searchQuery = '',
     this.brands = const [],
+    this.addBookingPermissionResponseModel = const StatusState.initial(),
   });
 
   HomeState copyWith({
@@ -28,6 +30,7 @@ class HomeState extends Equatable {
     int? selectedIndex,
     List<CarModel>? brands,
     String? searchQuery,
+    StatusState<AddBookingPermissionResponseModel>? addBookingPermissionResponseModel,
   }) {
     return HomeState(
       carsModelsStatus: carsModelsStatus ?? this.carsModelsStatus,
@@ -37,6 +40,8 @@ class HomeState extends Equatable {
       selectedIndex: selectedIndex ?? this.selectedIndex,
       brands: brands ?? this.brands,
       searchQuery: searchQuery ?? this.searchQuery,
+      addBookingPermissionResponseModel:
+          addBookingPermissionResponseModel ?? this.addBookingPermissionResponseModel,
     );
   }
 
@@ -49,5 +54,6 @@ class HomeState extends Equatable {
     selectedIndex,
     brands,
     searchQuery,
+    addBookingPermissionResponseModel,
   ];
 }

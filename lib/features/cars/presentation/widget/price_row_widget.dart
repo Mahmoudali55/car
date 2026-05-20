@@ -13,16 +13,21 @@ class PriceRowWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          label,
-          style: AppTextStyle.bodyMedium(context).copyWith(
-            fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
-            color: AppColor.blackTextColor(context).withOpacity(isBold ? 0.8 : 0.6),
+        Expanded(
+          child: Text(
+            label,
+            style: AppTextStyle.bodyMedium(context).copyWith(
+              fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
+              color: AppColor.blackTextColor(context).withOpacity(isBold ? 0.8 : 0.6),
+            ),
           ),
         ),
+        SizedBox(width: 12.w),
         Text(
           value,
+          textAlign: TextAlign.end,
           style: AppTextStyle.bodyMedium(
             context,
           ).copyWith(fontWeight: FontWeight.w900, fontSize: isBold ? 16.sp : 14.sp),

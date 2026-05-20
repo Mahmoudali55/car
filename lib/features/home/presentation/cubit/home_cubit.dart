@@ -3,6 +3,8 @@ import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
 import 'package:car/core/network/status.state.dart';
+import 'package:car/features/home/data/model/add_booking_permission_model.dart';
+import 'package:car/features/home/data/model/add_booking_permission_response_model.dart';
 import 'package:car/features/home/data/model/brand_cars_data_model.dart';
 import 'package:car/features/home/data/model/cars_models_response.dart';
 import 'package:car/features/home/data/repository/home_repo.dart';
@@ -121,5 +123,24 @@ class HomeCubit extends Cubit<HomeState> {
 
   void updateSearchQuery(String value) {
     emit(state.copyWith(searchQuery: value));
+  }
+
+  Future<void> getAddBookingPermission(AddBookingPermissionModel model) async {
+    emit(state.copyWith(addBookingPermissionResponseModel: const StatusState.loading()));
+
+    final result = await homeRepo.addBookingPermission(model);
+
+    result.fold(
+      (failure) {
+        emit(
+          state.copyWith(
+            addBookingPermissionResponseModel: StatusState.failure(failure.errMessage),
+          ),
+        );
+      },
+      (response) {
+        emit(state.copyWith(addBookingPermissionResponseModel: StatusState.success(response)));
+      },
+    );
   }
 }

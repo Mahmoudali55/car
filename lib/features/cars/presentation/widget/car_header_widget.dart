@@ -166,25 +166,29 @@ class _CarHeaderWidgetState extends State<CarHeaderWidget> {
                         ),
                       ),
                       Gap(6.h),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          Text(
-                            widget.car['price']?.toString().replaceAll(RegExp(r'[^0-9,]'), '') ??
-                                '---',
-                            style: AppTextStyle.titleMedium(context).copyWith(
-                              color: AppColor.greenColor(context),
-                              fontWeight: FontWeight.w900,
+                      FittedBox(
+                        fit: BoxFit.scaleDown,
+                        alignment: AlignmentDirectional.centerStart,
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Text(
+                              widget.car['price']?.toString().replaceAll(RegExp(r'[^0-9,]'), '') ??
+                                  '---',
+                              style: AppTextStyle.titleMedium(context).copyWith(
+                                color: AppColor.greenColor(context),
+                                fontWeight: FontWeight.w900,
+                              ),
                             ),
-                          ),
-                          Gap(4.w),
-                          Text(
-                            AppLocaleKey.aed.tr(),
-                            style: AppTextStyle.bodySmall(
-                              context,
-                            ).copyWith(color: AppColor.greenColor(context), fontSize: 10.sp),
-                          ),
-                        ],
+                            Gap(4.w),
+                            Text(
+                              AppLocaleKey.aed.tr(),
+                              style: AppTextStyle.bodySmall(
+                                context,
+                              ).copyWith(color: AppColor.greenColor(context), fontSize: 10.sp),
+                            ),
+                          ],
+                        ),
                       ),
                       const Spacer(),
                       Text(

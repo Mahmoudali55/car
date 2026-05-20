@@ -1,9 +1,11 @@
 import 'package:car/core/custom_widgets/buttons/custom_button.dart';
 import 'package:car/core/custom_widgets/custom_form_field/custom_form_field.dart';
+import 'package:car/core/custom_widgets/custom_toast/custom_toast.dart';
 import 'package:car/core/images/app_images.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
+import 'package:car/core/utils/common_methods.dart';
 import 'package:car/features/cars/data/model/brand_model.dart';
 import 'package:car/features/cars/presentation/screen/financing_info_screen.dart';
 import 'package:car/features/cars/presentation/screen/reservation_success_screen.dart';
@@ -19,6 +21,8 @@ import 'package:car/features/cars/presentation/widget/reservation_pricing_card.d
 import 'package:car/features/cars/presentation/widget/reservation_step_indicator.dart';
 import 'package:car/features/cars/presentation/widget/reservation_trust_badge.dart';
 import 'package:car/features/cart/presentation/view/cubit/cart_cubit.dart';
+import 'package:car/features/home/data/model/add_booking_permission_model.dart';
+import 'package:car/features/home/presentation/cubit/home_cubit.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -177,130 +181,152 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final bool isArabic = context.locale.languageCode == 'ar';
     final bool isMethodSelection = _currentStep == _ReservationScreenStep.methodSelection;
 
-    return Scaffold(
-      backgroundColor: AppColor.scaffoldColor(context),
-      appBar: AppBar(
-        title: Text(
-          isMethodSelection
-              ? AppLocaleKey.agentSelectPaymentMethod.tr()
-              : widget.car['name'] ?? 'Car',
-          style: AppTextStyle.titleMedium(context).copyWith(
-            fontWeight: FontWeight.w900,
-            fontSize: 16.sp,
-            color: isMethodSelection
-                ? AppColor.blackTextColor(context)
-                : AppColor.primaryColor(context),
-          ),
-        ),
-        backgroundColor: AppColor.appBarColor(context),
-        elevation: 0,
-        centerTitle: true,
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: Text(
-              AppLocaleKey.agentCancel.tr(),
-              style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold, fontSize: 13.sp),
+    return BlocListener<HomeCubit, HomeState>(
+      listener: (context, state) {
+        final status = state.addBookingPermissionResponseModel;
+        if (status.isSuccess) {
+          setState(() => _isLoading = false);
+          final msg = status.data?.msg ?? (isArabic ? 'تم الحفظ بنجاح' : 'Saved successfully');
+          CommonMethods.showToast(message: msg, type: ToastType.success);
+          _navigateToSuccess();
+        } else if (status.isFailure) {
+          setState(() => _isLoading = false);
+
+          CommonMethods.showToast(
+            message:
+                status.error ??
+                (isArabic ? 'حدث خطأ أثناء حفظ الحجز' : 'Error occurred while saving reservation'),
+            type: ToastType.error,
+          );
+        }
+      },
+      child: Scaffold(
+        backgroundColor: AppColor.scaffoldColor(context),
+        appBar: AppBar(
+          title: Text(
+            isMethodSelection
+                ? AppLocaleKey.agentSelectPaymentMethod.tr()
+                : widget.car['name'] ?? 'Car',
+            style: AppTextStyle.titleMedium(context).copyWith(
+              fontWeight: FontWeight.w900,
+              fontSize: 16.sp,
+              color: isMethodSelection
+                  ? AppColor.blackTextColor(context)
+                  : AppColor.primaryColor(context),
             ),
           ),
-        ],
-        leading: isMethodSelection
-            ? const SizedBox.shrink()
-            : IconButton(
-                icon: Icon(Icons.chevron_right_rounded, color: AppColor.blackTextColor(context)),
-                onPressed: () {
-                  if (_currentStep == _ReservationScreenStep.payment) {
-                    setState(() => _currentStep = _ReservationScreenStep.informationEntry);
-                  } else {
-                    setState(() => _currentStep = _ReservationScreenStep.methodSelection);
-                  }
-                },
+          backgroundColor: AppColor.appBarColor(context),
+          elevation: 0,
+          centerTitle: true,
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: Text(
+                AppLocaleKey.agentCancel.tr(),
+                style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold, fontSize: 13.sp),
               ),
-      ),
-      body: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
-        padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 16.h),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            if (isMethodSelection) ...[
-              CarSummaryCard(car: widget.car),
-              Gap(24.h),
-              _buildSelectionBody(),
-              Gap(40.h),
-              const BuyingFaqSection(),
-            ] else if (_currentStep == _ReservationScreenStep.payment) ...[
-              _buildPaymentBody(),
-            ] else ...[
-              ReservationStepIndicator(currentStep: 0, isFinancingFlow: _isFinancingFlow),
-              Gap(8.h),
-              if (_isFinancingFlow)
-                _buildFinancingPricingCard()
-              else
-                ReservationPricingCard(totalPrice: _totalPrice, depositAmount: _depositAmount),
-              Gap(32.h),
-              Text(
-                _isFinancingFlow
-                    ? AppLocaleKey.agentEnterDetails.tr()
-                    : AppLocaleKey.agentContactInfo.tr(),
-                style: AppTextStyle.titleMedium(
-                  context,
-                ).copyWith(fontWeight: FontWeight.w900, fontSize: 20.sp),
-              ),
-              Gap(16.h),
-              if (_isFinancingFlow)
-                FinancingContactForm(
-                  firstNameController: _firstNameController,
-                  lastNameController: _lastNameController,
-                  phoneController: _financePhoneController,
-                  whatsappNotifier: _whatsappNotifier,
-                  selectedCityNotifier: _selectedCityNotifier,
-                )
-              else ...[
-                Form(
-                  key: _infoFormKey,
-                  child: Column(
-                    children: [
-                      CustomFormField(
-                        controller: _cashNameController,
-                        hintText: AppLocaleKey.agentFullName.tr(),
-                        radius: 12,
-                        validator: (value) =>
-                            value == null || value.isEmpty ? AppLocaleKey.validateEmpty.tr() : null,
-                      ),
-                      Gap(16.h),
-                      CustomFormField(
-                        controller: _cashPhoneController,
-                        hintText: AppLocaleKey.agentPhone.tr(),
-                        radius: 12,
-                        keyboardType: TextInputType.phone,
-                        maxLength: 10,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return AppLocaleKey.validateEmpty.tr();
-                          }
-                          if (value.length < 10) {
-                            return context.locale.languageCode == 'ar'
-                                ? 'رقم الجوال يجب أن يكون 10 أرقام'
-                                : 'Phone number must be 10 digits';
-                          }
-                          return null;
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-                Gap(32.h),
-                const ReservationTrustBadge(),
-              ],
-            ],
-            Gap(100.h),
+            ),
           ],
+          leading: isMethodSelection
+              ? const SizedBox.shrink()
+              : IconButton(
+                  icon: Icon(Icons.chevron_right_rounded, color: AppColor.blackTextColor(context)),
+                  onPressed: () {
+                    if (_currentStep == _ReservationScreenStep.payment) {
+                      setState(() => _currentStep = _ReservationScreenStep.informationEntry);
+                    } else {
+                      setState(() => _currentStep = _ReservationScreenStep.methodSelection);
+                    }
+                  },
+                ),
         ),
+        body: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
+          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 16.h),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              if (isMethodSelection) ...[
+                CarSummaryCard(car: widget.car),
+                Gap(24.h),
+                _buildSelectionBody(),
+                Gap(40.h),
+                const BuyingFaqSection(),
+              ] else if (_currentStep == _ReservationScreenStep.payment) ...[
+                _buildPaymentBody(),
+              ] else ...[
+                ReservationStepIndicator(currentStep: 0, isFinancingFlow: _isFinancingFlow),
+                Gap(8.h),
+                if (_isFinancingFlow)
+                  _buildFinancingPricingCard()
+                else
+                  ReservationPricingCard(totalPrice: _totalPrice, depositAmount: _depositAmount),
+                Gap(32.h),
+                Text(
+                  _isFinancingFlow
+                      ? AppLocaleKey.agentEnterDetails.tr()
+                      : AppLocaleKey.agentContactInfo.tr(),
+                  style: AppTextStyle.titleMedium(
+                    context,
+                  ).copyWith(fontWeight: FontWeight.w900, fontSize: 20.sp),
+                ),
+                Gap(16.h),
+                if (_isFinancingFlow)
+                  FinancingContactForm(
+                    firstNameController: _firstNameController,
+                    lastNameController: _lastNameController,
+                    phoneController: _financePhoneController,
+                    whatsappNotifier: _whatsappNotifier,
+                    selectedCityNotifier: _selectedCityNotifier,
+                  )
+                else ...[
+                  Form(
+                    key: _infoFormKey,
+                    child: Column(
+                      children: [
+                        CustomFormField(
+                          controller: _cashNameController,
+                          hintText: AppLocaleKey.agentFullName.tr(),
+                          radius: 12,
+                          validator: (value) => value == null || value.isEmpty
+                              ? AppLocaleKey.validateEmpty.tr()
+                              : null,
+                        ),
+                        Gap(16.h),
+                        CustomFormField(
+                          controller: _cashPhoneController,
+                          hintText: AppLocaleKey.agentPhone.tr(),
+                          radius: 12,
+                          keyboardType: TextInputType.phone,
+                          maxLength: 10,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return AppLocaleKey.validateEmpty.tr();
+                            }
+                            if (value.length < 10) {
+                              return context.locale.languageCode == 'ar'
+                                  ? 'رقم الجوال يجب أن يكون 10 أرقام'
+                                  : 'Phone number must be 10 digits';
+                            }
+                            return null;
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                  Gap(32.h),
+                  const ReservationTrustBadge(),
+                ],
+              ],
+              Gap(100.h),
+            ],
+          ),
+        ),
+        bottomNavigationBar: _buildStickyFooter(),
       ),
-      bottomNavigationBar: _buildStickyFooter(),
     );
   }
 
@@ -958,10 +984,59 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
     if (!_paymentFormKey.currentState!.validate()) return;
 
     setState(() => _isLoading = true);
-    Future.delayed(const Duration(seconds: 2), () {
-      if (!mounted) return;
-      setState(() => _isLoading = false);
-      _navigateToSuccess();
-    });
+
+    final todayStr = DateFormat('yyyy-MM-dd').format(DateTime.now());
+    final futureDateStr = DateFormat(
+      'yyyy-MM-dd',
+    ).format(DateTime.now().add(const Duration(days: 1)));
+
+    final itemCode =
+        widget.car['itemCode']?.toString() ?? widget.car['ITEM_CODE']?.toString() ?? '';
+    final itemName =
+        widget.car['itemName']?.toString() ??
+        widget.car['ITEM_NAME']?.toString() ??
+        widget.car['name']?.toString() ??
+        '';
+    final chassisNo =
+        widget.car['chassisNo']?.toString() ?? widget.car['CHASSIS_NO']?.toString() ?? '';
+    final storeCodeVal =
+        int.tryParse(
+          widget.car['storeCode']?.toString() ?? widget.car['STORE_CODE']?.toString() ?? '1',
+        ) ??
+        1;
+
+    final model = AddBookingPermissionModel(
+      lpoNos: '',
+      lpono: '',
+      listNo: 0,
+      analytical: '',
+      customerNo: 5,
+      represCode: 1,
+      fDate: todayStr,
+      lDate: futureDateStr,
+      lpoDate: todayStr,
+      storeCode: storeCodeVal,
+      taamedNo: '',
+      payCond: '',
+      guarFinal: 0,
+      notes: 'حجز سيارة كاش - ${_cashNameController.text} (${_cashPhoneController.text})',
+      subLpo: [
+        SubLpoModel(
+          itemCode: itemCode,
+          itemName: itemName,
+          chassisNo: chassisNo,
+          price: _totalPrice.toDouble(),
+          advancedAmount: _depositAmount.toDouble(),
+          lpoNo: '',
+          lpoType: 3,
+          storeCode: storeCodeVal,
+          transDate: todayStr,
+          fDate: todayStr,
+          lDate: futureDateStr,
+        ),
+      ],
+    );
+
+    context.read<HomeCubit>().getAddBookingPermission(model);
   }
 }
