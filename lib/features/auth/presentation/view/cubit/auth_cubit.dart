@@ -208,6 +208,6 @@ class AuthCubit extends Cubit<AuthState> {
       HiveMethods.clearSavedCredentials();
     }
 
-    emit(const AuthState()); // reset state
+    emit(AuthState(rememberMe: rememberMe)); // reset state, keeping rememberMe value
   }
 }

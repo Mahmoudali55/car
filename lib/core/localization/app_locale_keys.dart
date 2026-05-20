@@ -1369,4 +1369,10 @@ class AppLocaleKey {
   static const String rolePermissionsDesc = 'rolePermissionsDesc';
   static const String discountCodes = 'discountCodes';
   static const String registerSuccess = 'registerSuccess';
+  static const String idNumber = 'idNumber';
+  static const String adminLoginSuccess = 'adminLoginSuccess';
+  static const String managerLoginSuccess = 'managerLoginSuccess';
+  static const String loginAsAdmin = 'loginAsAdmin';
+  static const String agentLoginSuccess = 'agentLoginSuccess';
+  static const String loginAsAgent = 'loginAsAgent';
 }
