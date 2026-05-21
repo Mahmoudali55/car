@@ -59,7 +59,7 @@ class _SplashScreenState extends State<SplashScreen> {
             colors: [
               AppColor.secondAppColor(context),
               AppColor.gradientSecondaryColor(context),
-              AppColor.primaryColor(context).withOpacity(0.3),
+              AppColor.primaryColor(context).withValues(alpha: 0.3),
             ],
           ),
         ),
@@ -78,12 +78,12 @@ class _SplashScreenState extends State<SplashScreen> {
                         shape: BoxShape.circle,
                         boxShadow: [
                           BoxShadow(
-                            color: AppColor.primaryColor(context).withOpacity(0.4),
+                            color: AppColor.primaryColor(context).withValues(alpha: 0.4),
                             blurRadius: 40,
                             spreadRadius: 5,
                           ),
                           BoxShadow(
-                            color: AppColor.blackTextColor(context).withOpacity(0.2),
+                            color: AppColor.blackTextColor(context).withValues(alpha: 0.2),
                             blurRadius: 20,
                             offset: const Offset(0, 10),
                           ),
@@ -115,7 +115,7 @@ class _SplashScreenState extends State<SplashScreen> {
                     child: Text(
                       AppLocaleKey.qualityReliability.tr(),
                       style: AppTextStyle.text14RGrey(context).copyWith(
-                        color: AppColor.blackTextColor(context).withOpacity(0.8),
+                        color: AppColor.blackTextColor(context).withValues(alpha: 0.8),
                         letterSpacing: 1.0,
                       ),
                     ),
@@ -139,14 +139,14 @@ class _SplashScreenState extends State<SplashScreen> {
                           AppLocaleKey.brandsLine1.tr(),
                           style: TextStyle(
                             fontSize: 13.sp,
-                            color: AppColor.blackTextColor(context).withOpacity(0.9),
+                            color: AppColor.blackTextColor(context).withValues(alpha: 0.9),
                           ),
                         ),
                         Text(
                           AppLocaleKey.brandsLine2.tr(),
                           style: TextStyle(
                             fontSize: 13.sp,
-                            color: AppColor.blackTextColor(context).withOpacity(0.9),
+                            color: AppColor.blackTextColor(context).withValues(alpha: 0.9),
                           ),
                         ),
                         Gap(12.h),
@@ -155,7 +155,7 @@ class _SplashScreenState extends State<SplashScreen> {
                           style: TextStyle(
                             fontSize: 14.sp,
                             fontWeight: FontWeight.w600,
-                            color: AppColor.blackTextColor(context).withOpacity(0.8),
+                            color: AppColor.blackTextColor(context).withValues(alpha: 0.8),
                           ),
                         ),
                       ],

@@ -21,6 +21,7 @@
   "fast_secure_delivery": "Fast & Secure Delivery",
   "experience_seamless_delivery": "Experience seamless delivery of your vehicle straight to your doorstep.",
   "next": "Next",
+  "skip": "Skip",
   "get_started": "Get Started",
   "welcome_back": "Welcome Back",
   "login_continue_premium": "Login to continue your premium experience",
@@ -1130,5 +1131,9 @@
   "managerLoginSuccess": "Logged in as Manager successfully",
   "loginAsAdmin": "Login as Admin",
   "agentLoginSuccess": "Logged in as Agent successfully",
-  "loginAsAgent": "Login as Agent"
+  "loginAsAgent": "Login as Agent",
+  "fullNameRequired": "Full name is required",
+  "emailRequired": "Email is required",
+  "passwordRequired": "Password is required",
+  "idNumberRequired": "ID number is required"
 }

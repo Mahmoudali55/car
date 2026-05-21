@@ -89,6 +89,14 @@ class CustomFormLoginWidget extends StatelessWidget {
               textStyle: TextStyle(color: AppColor.blackTextColor(context)),
               hintStyle: TextStyle(color: AppColor.blackTextColor(context).withValues(alpha: 0.3)),
               radius: 16,
+              keyboardType: TextInputType.name,
+
+              validator: (p0) {
+                if (p0 == null || p0.trim().isEmpty) {
+                  return AppLocaleKey.fullNameRequired.tr();
+                }
+                return null;
+              },
             ),
           ),
           Gap(20.h),
@@ -104,6 +112,13 @@ class CustomFormLoginWidget extends StatelessWidget {
               textStyle: TextStyle(color: AppColor.blackTextColor(context)),
               hintStyle: TextStyle(color: AppColor.blackTextColor(context).withValues(alpha: 0.3)),
               radius: 16,
+              keyboardType: TextInputType.visiblePassword,
+              validator: (p0) {
+                if (p0 == null || p0.trim().isEmpty) {
+                  return AppLocaleKey.passwordRequired.tr();
+                }
+                return null;
+              },
             ),
           ),
           Gap(10.h),
@@ -151,7 +166,7 @@ class CustomFormLoginWidget extends StatelessWidget {
             duration: const Duration(milliseconds: 1000),
             child: Column(
               children: [
-                 CustomButton(
+                CustomButton(
                   radius: 12.r,
                   text: AppLocaleKey.login.tr(),
                   cubitState: cubit.state.loginStatus,

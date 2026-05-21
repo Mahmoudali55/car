@@ -60,6 +60,39 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         ),
         child: Column(
           children: [
+            SafeArea(
+              bottom: false,
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+                child: Align(
+                  alignment: AlignmentDirectional.centerEnd,
+                  child: AnimatedOpacity(
+                    duration: const Duration(milliseconds: 300),
+                    opacity: _currentPage == _pages.length - 1 ? 0.0 : 1.0,
+                    child: IgnorePointer(
+                      ignoring: _currentPage == _pages.length - 1,
+                      child: TextButton(
+                        onPressed: () {
+                          HiveMethods.updateFirstTime();
+                          NavigatorMethods.pushReplacementNamed(
+                            context,
+                            RoutesName.loginScreen,
+                          );
+                        },
+                        child: Text(
+                          AppLocaleKey.skip.tr(),
+                          style: TextStyle(
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.bold,
+                            color: AppColor.primaryColor(context),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
             Expanded(
               child: PageView.builder(
                 controller: _pageController,

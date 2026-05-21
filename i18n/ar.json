@@ -21,6 +21,7 @@
   "fast_secure_delivery": "توصيل سريع وآمن",
   "experience_seamless_delivery": "استمتع بتجربة توصيل سلسة لسيارتك مباشرة إلى باب منزلك.",
   "next": "التالي",
+  "skip": "تخطي",
   "get_started": "ابدأ الآن",
   "welcome_back": "مرحباً بك مجدداً",
   "login_continue_premium": "سجل دخولك للاستمتاع بتجربتك المميزة",
@@ -1308,5 +1309,9 @@
   "managerLoginSuccess": "تم تسجيل الدخول كمدير",
   "loginAsAdmin": "دخول كمسؤول",
   "agentLoginSuccess": "تم تسجيل الدخول كمندوب",
-  "loginAsAgent": "دخول كمندوب (Agent)"
+  "loginAsAgent": "دخول كمندوب (Agent)",
+  "fullNameRequired": "الاسم الكامل مطلوب",
+  "emailRequired": "البريد الإلكتروني مطلوب",
+  "passwordRequired": "كلمة المرور مطلوبة",
+  "idNumberRequired": "رقم الهوية مطلوب"
 }

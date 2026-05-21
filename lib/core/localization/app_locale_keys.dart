@@ -15,6 +15,7 @@ class AppLocaleKey {
   static const String fastSecureDelivery = 'fast_secure_delivery';
   static const String experienceSeamlessDelivery = 'experience_seamless_delivery';
   static const String next = 'next';
+  static const String skip = 'skip';
   static const String getStarted = 'get_started';
   static const String welcomeBack = 'welcome_back';
   static const String loginContinuePremium = 'login_continue_premium';
@@ -1375,4 +1376,8 @@ class AppLocaleKey {
   static const String loginAsAdmin = 'loginAsAdmin';
   static const String agentLoginSuccess = 'agentLoginSuccess';
   static const String loginAsAgent = 'loginAsAgent';
+  static const String fullNameRequired = 'fullNameRequired';
+  static const String emailRequired = 'emailRequired';
+  static const String passwordRequired = 'passwordRequired';
+  static const String idNumberRequired = 'idNumberRequired';
 }
