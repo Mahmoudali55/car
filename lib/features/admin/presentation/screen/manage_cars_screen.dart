@@ -1,3 +1,4 @@
+import 'package:car/features/admin/presentation/screen/car_quotation_preview_screen.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:car/core/custom_widgets/custom_app_bar/custom_app_bar.dart';
 import 'package:car/core/images/app_images.dart';
@@ -33,6 +34,7 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
       'year': '2024',
       'mileage': '5,000 كم',
       'image': AppImages.assetsImagesGclass,
+      'bank': 'مصرف الراجحي',
     },
     {
       'name': 'Bentley Continental',
@@ -41,6 +43,7 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
       'year': '2023',
       'mileage': '1,200 كم',
       'image': AppImages.assetsImagesFerrari,
+      'bank': 'البنك الأهلي السعودي',
     },
     {
       'name': 'Ferrari F8 Tributo',
@@ -49,6 +52,7 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
       'year': '2024',
       'mileage': '0 كم',
       'image': AppImages.assetsImagesFerrari,
+      'bank': 'بنك الرياض',
     },
     {
       'name': 'Range Rover Vogue',
@@ -57,6 +61,7 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
       'year': '2022',
       'mileage': '24,000 كم',
       'image': AppImages.assetsImagesCouponPattern,
+      'bank': 'مصرف الراجحي',
     },
     {
       'name': 'Lamborghini Urus',
@@ -65,12 +70,24 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
       'year': '2023',
       'mileage': '8,500 كم',
       'image': AppImages.assetsImagesYaris,
+      'bank': 'البنك السعودي الفرنسي',
     },
   ];
 
   List<Map<String, String>> get _filtered => _selectedFilter == 'all'
       ? _cars
       : _cars.where((c) => c['status'] == _selectedFilter).toList();
+
+  void _showPrintDialog(Map<String, String> car) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => CarQuotationPreviewScreen(
+          car: car,
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -134,6 +151,7 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
                           onEdit: () {},
                           onWhatsApp: () {},
                           onDelete: () {},
+                          onPrint: () => _showPrintDialog(_filtered[i]),
                         ),
                       ),
                     ),

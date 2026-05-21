@@ -13,6 +13,7 @@ class CardFooter extends StatelessWidget {
   final VoidCallback? onEdit;
   final VoidCallback? onWhatsApp;
   final VoidCallback? onDelete;
+  final VoidCallback? onPrint;
   const CardFooter({
     super.key,
     required this.car,
@@ -20,6 +21,7 @@ class CardFooter extends StatelessWidget {
     this.onEdit,
     this.onWhatsApp,
     this.onDelete,
+    this.onPrint,
   });
 
   @override
@@ -33,6 +35,8 @@ class CardFooter extends StatelessWidget {
           ).copyWith(fontWeight: FontWeight.w600, color: AppColor.blackTextColor(context)),
         ),
         const Spacer(),
+        ActionBtn(icon: Icons.print_rounded, onTap: onPrint),
+        Gap(6.w),
         ActionBtn(icon: Icons.edit_rounded, onTap: onEdit),
         Gap(6.w),
         ActionBtn(icon: Icons.phone, onTap: onWhatsApp),

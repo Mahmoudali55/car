@@ -45,6 +45,7 @@ class CarInventoryCard extends StatelessWidget {
   final VoidCallback? onEdit;
   final VoidCallback? onWhatsApp;
   final VoidCallback? onDelete;
+  final VoidCallback? onPrint;
 
   const CarInventoryCard({
     super.key,
@@ -52,6 +53,7 @@ class CarInventoryCard extends StatelessWidget {
     this.onEdit,
     this.onWhatsApp,
     this.onDelete,
+    this.onPrint,
   });
 
   @override
@@ -121,6 +123,7 @@ class CarInventoryCard extends StatelessWidget {
                           onEdit: onEdit,
                           onWhatsApp: onWhatsApp,
                           onDelete: onDelete,
+                          onPrint: onPrint,
                         ),
                       ],
                     ),
