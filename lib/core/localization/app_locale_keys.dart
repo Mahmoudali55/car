@@ -1380,4 +1380,18 @@ class AppLocaleKey {
   static const String emailRequired = 'emailRequired';
   static const String passwordRequired = 'passwordRequired';
   static const String idNumberRequired = 'idNumberRequired';
+  static const String quotation_validity = 'quotation_validity';
+  static const String quotation_price_includes = 'quotation_price_includes';
+  static const String quotation_warranty = 'quotation_warranty';
+  static const String quotation_delivery_location = 'quotation_delivery_location';
+  static const String quotation_delivery_time = 'quotation_delivery_time';
+  static const String quotation_delivery_time_2 = 'quotation_delivery_time_2';
+  static const String quotation_delivery_time_3 = 'quotation_delivery_time_3';
+  static const String quotation_delivery_time_4 = 'quotation_delivery_time_4';
+  static const String quotation_delivery_time_5 = 'quotation_delivery_time_5';
+  static const String quotation_delivery_time_6 = 'quotation_delivery_time_6';
+  static const String quotation_delivery_time_7 = 'quotation_delivery_time_7';
+  static const String quotation_delivery_time_8 = 'quotation_delivery_time_8';
+  static const String quotation_delivery_time_9 = 'quotation_delivery_time_9';
+  static const String quotation_delivery_time_10 = 'quotation_delivery_time_10';
 }
