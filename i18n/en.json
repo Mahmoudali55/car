@@ -1157,5 +1157,7 @@
   "quotation_unit_price": "Unit Price",
   "quotation_vat": "15% VAT",
   "quotation_plate_price": "Plate Fees",
-  "quotation_total_price": "Total"
+  "quotation_total_price": "Total",
+  "selectImage":"Select Image",
+  "selectPDF":"Select PDF"
 }

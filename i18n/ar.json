@@ -1335,5 +1335,8 @@
   "quotation_unit_price": "سعر الوحدة",
   "quotation_vat": "قيمة مضافة 15%",
   "quotation_plate_price": "قيمة اللوحات",
-  "quotation_total_price": "إجمالي"
+  "quotation_total_price": "إجمالي",
+  "selectImage":"اختيار صورة",
+  "selectPDF":"اختيار ملف PDF"
+
 }
