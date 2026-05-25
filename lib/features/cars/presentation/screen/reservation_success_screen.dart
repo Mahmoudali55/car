@@ -1,6 +1,8 @@
 import 'package:car/core/custom_widgets/buttons/custom_button.dart';
+import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -34,7 +36,7 @@ class ReservationSuccessScreen extends StatelessWidget {
               Navigator.of(context).popUntil((r) => r.isFirst);
             },
             child: Text(
-              'إلغاء',
+              AppLocaleKey.cancel.tr(),
               style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold, fontSize: 13.sp),
             ),
           ),
@@ -52,13 +54,13 @@ class ReservationSuccessScreen extends StatelessWidget {
               height: 100.w,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: const Color(0xff00c853).withOpacity(0.1),
+                color: const Color(0xff00c853).withValues(alpha: 0.1),
               ),
               child: Icon(Icons.check_circle_rounded, color: const Color(0xff00c853), size: 64.sp),
             ),
             Gap(32.h),
             Text(
-              'تم تقديم طلبك بنجاح! 🎉',
+              AppLocaleKey.request_submitted.tr(),
               style: AppTextStyle.titleMedium(
                 context,
               ).copyWith(fontWeight: FontWeight.w900, fontSize: 24.sp),
@@ -66,9 +68,9 @@ class ReservationSuccessScreen extends StatelessWidget {
             ),
             Gap(12.h),
             Text(
-              'سيقوم فريقنا بمراجعة طلبك والتواصل معك في أقرب وقت ممكن.',
+              AppLocaleKey.request_submitted_desc.tr(),
               style: AppTextStyle.bodySmall(context).copyWith(
-                color: AppColor.blackTextColor(context).withOpacity(0.5),
+                color: AppColor.blackTextColor(context).withValues(alpha: 0.5),
                 height: 1.6,
                 fontSize: 14.sp,
               ),
@@ -81,27 +83,27 @@ class ReservationSuccessScreen extends StatelessWidget {
               _InfoRow(
                 icon: Icons.directions_car_filled_rounded,
                 iconColor: AppColor.primaryColor(context),
-                label: 'السيارة',
+                label: AppLocaleKey.car.tr(),
                 value: car['name'] ?? '—',
               ),
               _InfoRow(
                 icon: Icons.payment_rounded,
                 iconColor: const Color(0xFF3F51B5),
-                label: 'طريقة الدفع',
+                label: AppLocaleKey.paymentMethod.tr(),
                 value: methodLabel,
               ),
               if (!isFinancingFlow)
-                const _InfoRow(
+                _InfoRow(
                   icon: Icons.lock_clock_rounded,
                   iconColor: Colors.orange,
-                  label: 'مبلغ العربون',
+                  label: AppLocaleKey.deposit_amount.tr(),
                   value: '500 ر.س (مسترد)',
                 ),
-              const _InfoRow(
+              _InfoRow(
                 icon: Icons.info_outline_rounded,
                 iconColor: Colors.grey,
-                label: 'حالة الطلب',
-                value: 'قيد المراجعة',
+                label: AppLocaleKey.status.tr(),
+                value: AppLocaleKey.under_review.tr(),
               ),
             ]),
 
@@ -121,7 +123,7 @@ class ReservationSuccessScreen extends StatelessWidget {
                   Gap(16.w),
                   Expanded(
                     child: Text(
-                      'ستصلك رسالة تأكيد على واتساب خلال لحظات.',
+                      AppLocaleKey.whatsapp_confirmation.tr(),
                       style: AppTextStyle.bodySmall(context).copyWith(
                         color: const Color(0xFF2E7D32),
                         fontWeight: FontWeight.bold,
@@ -143,7 +145,7 @@ class ReservationSuccessScreen extends StatelessWidget {
               radius: 14.r,
               onPressed: () => Navigator.of(context).popUntil((r) => r.isFirst),
               child: Text(
-                'العودة للرئيسية',
+                AppLocaleKey.backToHome.tr(),
                 style: AppTextStyle.buttonStyle(
                   context,
                 ).copyWith(fontWeight: FontWeight.bold, fontSize: 16.sp),
@@ -153,7 +155,7 @@ class ReservationSuccessScreen extends StatelessWidget {
             TextButton(
               onPressed: () => Navigator.of(context).popUntil((r) => r.isFirst),
               child: Text(
-                'تصفح سيارات أخرى',
+                AppLocaleKey.browse_other_cars.tr(),
                 style: TextStyle(
                   color: AppColor.primaryColor(context),
                   fontWeight: FontWeight.bold,
@@ -176,7 +178,7 @@ class ReservationSuccessScreen extends StatelessWidget {
         border: Border.all(color: AppColor.borderColor(context)),
         boxShadow: [
           BoxShadow(
-            color: AppColor.blackColor(context).withOpacity(0.03),
+            color: AppColor.blackColor(context).withValues(alpha: 0.03),
             blurRadius: 12,
             offset: const Offset(0, 4),
           ),
@@ -196,7 +198,7 @@ class ReservationSuccessScreen extends StatelessWidget {
                       width: 38.w,
                       height: 38.w,
                       decoration: BoxDecoration(
-                        color: row.iconColor.withOpacity(0.1),
+                        color: row.iconColor.withValues(alpha: 0.1),
                         borderRadius: BorderRadius.circular(10.r),
                       ),
                       child: Icon(row.icon, color: row.iconColor, size: 18.sp),
@@ -205,7 +207,7 @@ class ReservationSuccessScreen extends StatelessWidget {
                     Text(
                       row.label,
                       style: AppTextStyle.bodyMedium(context).copyWith(
-                        color: AppColor.blackTextColor(context).withOpacity(0.5),
+                        color: AppColor.blackTextColor(context).withValues(alpha: 0.5),
                         fontSize: 13.sp,
                       ),
                     ),
@@ -226,7 +228,7 @@ class ReservationSuccessScreen extends StatelessWidget {
                 Container(
                   height: 1,
                   margin: EdgeInsets.symmetric(horizontal: 16.w),
-                  color: AppColor.borderColor(context).withOpacity(0.5),
+                  color: AppColor.borderColor(context).withValues(alpha: 0.5),
                 ),
             ],
           );

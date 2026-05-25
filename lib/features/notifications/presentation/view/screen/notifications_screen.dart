@@ -84,23 +84,23 @@ class NotificationsScreen extends StatelessWidget {
             ),
             child: Icon(
               Icons.notifications_off_outlined,
-              color: AppColor.blackTextColor(context).withOpacity(0.2),
+              color: AppColor.blackTextColor(context).withValues(alpha: 0.2),
               size: 60.sp,
             ),
           ),
           Gap(24.h),
           Text(
-            'لا توجد تنبيهات حالياً',
+            AppLocaleKey.no_alert.tr(),
             style: AppTextStyle.titleMedium(
               context,
             ).copyWith(color: AppColor.blackTextColor(context), fontWeight: FontWeight.bold),
           ),
           Gap(12.h),
           Text(
-            'سنقوم بتنبيهك عند وجود عروض جديدة\nأو تحديثات على طلباتك.',
+            AppLocaleKey.no_alert_desc.tr(),
             style: AppTextStyle.bodyMedium(
               context,
-            ).copyWith(color: AppColor.blackTextColor(context).withOpacity(0.4), height: 1.5),
+            ).copyWith(color: AppColor.blackTextColor(context).withValues(alpha: 0.4), height: 1.5),
             textAlign: TextAlign.center,
           ),
         ],

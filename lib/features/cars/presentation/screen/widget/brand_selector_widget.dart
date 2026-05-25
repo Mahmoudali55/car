@@ -64,7 +64,7 @@ class BrandSelectorWidget extends StatelessWidget {
                           boxShadow: isSelected
                               ? [
                                   BoxShadow(
-                                    color: AppColor.primaryColor(context).withOpacity(0.3),
+                                    color: AppColor.primaryColor(context).withValues(alpha: 0.3),
                                     blurRadius: 10,
                                     spreadRadius: 2,
                                     offset: const Offset(0, 4),
@@ -90,9 +90,7 @@ class BrandSelectorWidget extends StatelessWidget {
                                   width: 40.w,
                                   height: 40.w,
                                   fit: BoxFit.contain,
-                                  // Apply white filter if selected and logo is dark
-                                  // Most brand logos are dark so they look good on white/secondAppColor
-                                  // but need to be visible on primaryColor
+
                                   color: isSelected ? AppColor.whiteColor(context) : null,
                                 ),
                         ),
@@ -104,7 +102,7 @@ class BrandSelectorWidget extends StatelessWidget {
                           fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
                           color: isSelected
                               ? AppColor.primaryColor(context)
-                              : AppColor.blackTextColor(context).withOpacity(0.6),
+                              : AppColor.blackTextColor(context).withValues(alpha: 0.6),
                           fontSize: 10.sp,
                         ),
                       ),

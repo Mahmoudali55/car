@@ -1337,6 +1337,20 @@
   "quotation_plate_price": "قيمة اللوحات",
   "quotation_total_price": "إجمالي",
   "selectImage":"اختيار صورة",
-  "selectPDF":"اختيار ملف PDF"
+  "selectPDF":"اختيار ملف PDF",
+  "no_alert":"لا توجد تنبيهات حالياً",
+  "no_alert_desc":"سنقوم بتنبيهك عند وجود عروض جديدة\nأو تحديثات على طلباتك.",
+  "request_submitted":"تم تقديم طلبك بنجاح! 🎉",
+  "request_submitted_desc":"سيقوم فريقنا بمراجعة طلبك والتواصل معك في أقرب وقت ممكن.",
+  "car": "السيارة",
+  "deposit_amount": "مبلغ العربون",
+  "request_status": "حالة الطلب",
+  "under_review": "قيد المراجعة",
+  "whatsapp_confirmation": "ستصلك رسالة تأكيد على واتساب خلال لحظات.",
+  "browse_other_cars": "تصفح سيارات أخرى",
+  "cash": "الكاش",
+  "tamara": "تمارا",
+  "bank_card": "بطاقة الراجحي / الأهلي",
+  "refundable_deposit": "500 ر.س (مسترد)"
 
 }

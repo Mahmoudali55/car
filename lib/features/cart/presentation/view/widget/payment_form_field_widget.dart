@@ -39,7 +39,7 @@ class PaymentFormFieldWidget extends StatelessWidget {
         Text(
           label,
           style: AppTextStyle.bodySmall(context).copyWith(
-            color: AppColor.blackTextColor(context).withOpacity(0.6),
+            color: AppColor.blackTextColor(context).withValues(alpha: 0.6),
             fontSize: 12.sp,
           ),
         ),
@@ -52,20 +52,15 @@ class PaymentFormFieldWidget extends StatelessWidget {
           textCapitalization: textCapitalization,
           onChanged: onChanged,
           validator: validator,
-          style: AppTextStyle.bodyMedium(context).copyWith(
-            color: AppColor.blackTextColor(context),
-            fontWeight: FontWeight.w600,
-          ),
+          style: AppTextStyle.bodyMedium(
+            context,
+          ).copyWith(color: AppColor.blackTextColor(context), fontWeight: FontWeight.w600),
           decoration: InputDecoration(
             hintText: hint,
-            hintStyle: AppTextStyle.bodyMedium(context).copyWith(
-              color: AppColor.blackTextColor(context).withOpacity(0.25),
-            ),
-            prefixIcon: Icon(
-              icon,
-              color: AppColor.primaryColor(context),
-              size: 20.sp,
-            ),
+            hintStyle: AppTextStyle.bodyMedium(
+              context,
+            ).copyWith(color: AppColor.blackTextColor(context).withValues(alpha: 0.25)),
+            prefixIcon: Icon(icon, color: AppColor.primaryColor(context), size: 20.sp),
             filled: true,
             fillColor: AppColor.secondAppColor(context),
             border: OutlineInputBorder(
@@ -75,23 +70,20 @@ class PaymentFormFieldWidget extends StatelessWidget {
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(14.r),
               borderSide: BorderSide(
-                color: AppColor.blackTextColor(context).withOpacity(0.06),
+                color: AppColor.blackTextColor(context).withValues(alpha: (0.06)),
               ),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(14.r),
-              borderSide: BorderSide(
-                color: AppColor.primaryColor(context),
-                width: 1.5,
-              ),
+              borderSide: BorderSide(color: AppColor.primaryColor(context), width: 1.5),
             ),
             errorBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(14.r),
-              borderSide: const BorderSide(color: Colors.redAccent, width: 1),
+              borderSide: BorderSide(color: AppColor.redColor(context), width: 1),
             ),
             focusedErrorBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(14.r),
-              borderSide: const BorderSide(color: Colors.redAccent, width: 1.5),
+              borderSide: BorderSide(color: AppColor.redColor(context), width: 1.5),
             ),
             contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
           ),
@@ -100,4 +92,3 @@ class PaymentFormFieldWidget extends StatelessWidget {
     );
   }
 }
-

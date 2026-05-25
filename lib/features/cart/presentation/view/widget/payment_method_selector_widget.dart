@@ -82,13 +82,13 @@ class _PaymentMethodChip extends StatelessWidget {
           padding: EdgeInsets.symmetric(vertical: 12.h),
           decoration: BoxDecoration(
             color: isSelected
-                ? AppColor.primaryColor(context).withOpacity(0.15)
+                ? AppColor.primaryColor(context).withValues(alpha: 0.15)
                 : AppColor.secondAppColor(context),
             borderRadius: BorderRadius.circular(14.r),
             border: Border.all(
               color: isSelected
                   ? AppColor.primaryColor(context)
-                  : AppColor.blackTextColor(context).withOpacity(0.06),
+                  : AppColor.blackTextColor(context).withValues(alpha: 0.06),
               width: isSelected ? 1.5 : 1,
             ),
           ),
@@ -98,7 +98,7 @@ class _PaymentMethodChip extends StatelessWidget {
                 icon,
                 color: isSelected
                     ? AppColor.primaryColor(context)
-                    : AppColor.blackTextColor(context).withOpacity(0.5),
+                    : AppColor.blackTextColor(context).withValues(alpha: 0.5),
                 size: 22.sp,
               ),
               Gap(4.h),
@@ -107,7 +107,7 @@ class _PaymentMethodChip extends StatelessWidget {
                 style: AppTextStyle.bodySmall(context).copyWith(
                   color: isSelected
                       ? AppColor.primaryColor(context)
-                      : AppColor.blackTextColor(context).withOpacity(0.5),
+                      : AppColor.blackTextColor(context).withValues(alpha: 0.5),
                   fontSize: 10.sp,
                   fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
                 ),

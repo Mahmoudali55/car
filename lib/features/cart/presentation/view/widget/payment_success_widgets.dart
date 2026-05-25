@@ -24,13 +24,13 @@ class SuccessCircleWidget extends StatelessWidget {
           shape: BoxShape.circle,
           gradient: RadialGradient(
             colors: [
-              AppColor.primaryColor(context).withOpacity(0.3),
-              AppColor.primaryColor(context).withOpacity(0.05),
+              AppColor.primaryColor(context).withValues(alpha: 0.3),
+              AppColor.primaryColor(context).withValues(alpha: 0.05),
             ],
           ),
           boxShadow: [
             BoxShadow(
-              color: AppColor.primaryColor(context).withOpacity(0.4),
+              color: AppColor.primaryColor(context).withValues(alpha: 0.4),
               blurRadius: 40,
               spreadRadius: 5,
             ),
@@ -63,7 +63,7 @@ class PaymentSuccessHeader extends StatelessWidget {
           AppLocaleKey.paymentSuccessSubtitle.tr(),
           style: AppTextStyle.bodyMedium(
             context,
-          ).copyWith(color: AppColor.blackTextColor(context).withOpacity(0.6), height: 1.6),
+          ).copyWith(color: AppColor.blackTextColor(context).withValues(alpha: 0.6), height: 1.6),
           textAlign: TextAlign.center,
         ),
       ],
@@ -83,7 +83,7 @@ class OrderNumberWidget extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColor.secondAppColor(context),
         borderRadius: BorderRadius.circular(16.r),
-        border: Border.all(color: AppColor.blackTextColor(context).withOpacity(0.08)),
+        border: Border.all(color: AppColor.blackTextColor(context).withValues(alpha: 0.08)),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,

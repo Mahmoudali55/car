@@ -23,8 +23,6 @@ class UserProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<AuthCubit, AuthState>(
       builder: (context, state) {
-
-
         return Scaffold(
           backgroundColor: AppColor.scaffoldColor(context),
           appBar: CustomAppBar(
@@ -50,65 +48,66 @@ class UserProfileScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       FadeInUp(
-                        child: SectionWidget(title: AppLocaleKey.personalDetails.tr(),children:  [
-                          InfoTileWidget(
-
-                           icon:  Icons.person_outline_rounded,
-                          label:  AppLocaleKey.fullName.tr(),
-                          value:  ''
-                          ),
-                          InfoTileWidget(
-                            icon:
-                            Icons.email_outlined,
-                           label:  AppLocaleKey.email.tr(),
-                           value: '---',
-                          ),
-                          InfoTileWidget(
-                            icon:
-                            Icons.phone_android_rounded,
-                           label:  AppLocaleKey.mobileNumber.tr(),
-                          value:  '---',
-                          ),
-                        ]),
+                        child: SectionWidget(
+                          title: AppLocaleKey.personalDetails.tr(),
+                          children: [
+                            InfoTileWidget(
+                              icon: Icons.person_outline_rounded,
+                              label: AppLocaleKey.fullName.tr(),
+                              value: '',
+                            ),
+                            InfoTileWidget(
+                              icon: Icons.email_outlined,
+                              label: AppLocaleKey.email.tr(),
+                              value: '---',
+                            ),
+                            InfoTileWidget(
+                              icon: Icons.phone_android_rounded,
+                              label: AppLocaleKey.mobileNumber.tr(),
+                              value: '---',
+                            ),
+                          ],
+                        ),
                       ),
                       Gap(24.h),
                       FadeInUp(
                         delay: const Duration(milliseconds: 100),
-                        child: SectionWidget(title:  AppLocaleKey.accountSettings.tr(),children:  [
-                          ActionTileWidget(
-                           icon: Icons.edit_note_rounded,
-                          label: AppLocaleKey.editProfile.tr(),
-                          onTap:  () {},
-                          ),
-                          ActionTileWidget(
-                          icon:
-                            Icons.lock_outline_rounded,
-                          label:   AppLocaleKey.changePassword.tr(),
-                           onTap: () {},
-                          ),
-                          ActionTileWidget(
-                           icon:
-                            Icons.local_shipping_outlined,
-                           label:  AppLocaleKey.trackOrder.tr(),
-                          onTap:  () => Navigator.pushNamed(context, RoutesName.trackOrderScreen),
-                          ),
-                          ActionTileWidget(
-                              icon:
-                            Icons.history_rounded,
-                          label:   AppLocaleKey.myHistory.tr(),
-                           onTap:  () {},
-                          ),
-                          ActionTileWidget(
-                           icon: Icons.admin_panel_settings_rounded,
-                           label: 'لوحة المناديب',
-                           onTap: () {
-                             Navigator.push(
-                               context,
-                               MaterialPageRoute(builder: (_) => const car_agent.AgentShell()),
-                             );
-                           },
-                          ),
-                        ]),
+                        child: SectionWidget(
+                          title: AppLocaleKey.accountSettings.tr(),
+                          children: [
+                            ActionTileWidget(
+                              icon: Icons.edit_note_rounded,
+                              label: AppLocaleKey.editProfile.tr(),
+                              onTap: () {},
+                            ),
+                            ActionTileWidget(
+                              icon: Icons.lock_outline_rounded,
+                              label: AppLocaleKey.changePassword.tr(),
+                              onTap: () {},
+                            ),
+                            ActionTileWidget(
+                              icon: Icons.local_shipping_outlined,
+                              label: AppLocaleKey.trackOrder.tr(),
+                              onTap: () =>
+                                  Navigator.pushNamed(context, RoutesName.trackOrderScreen),
+                            ),
+                            ActionTileWidget(
+                              icon: Icons.history_rounded,
+                              label: AppLocaleKey.myHistory.tr(),
+                              onTap: () {},
+                            ),
+                            ActionTileWidget(
+                              icon: Icons.admin_panel_settings_rounded,
+                              label: 'لوحة المناديب',
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (_) => const car_agent.AgentShell()),
+                                );
+                              },
+                            ),
+                          ],
+                        ),
                       ),
                       Gap(40.h),
                       FadeInUp(
@@ -126,14 +125,4 @@ class UserProfileScreen extends StatelessWidget {
       },
     );
   }
-
-
-
-
-
-
-
-
-
-
 }

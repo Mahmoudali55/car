@@ -10,10 +10,7 @@ import 'package:gap/gap.dart';
 class CartItemsListWidget extends StatelessWidget {
   final List<Map<String, dynamic>> items;
 
-  const CartItemsListWidget({
-    super.key,
-    required this.items,
-  });
+  const CartItemsListWidget({super.key, required this.items});
 
   @override
   Widget build(BuildContext context) {
@@ -26,11 +23,9 @@ class CartItemsListWidget extends StatelessWidget {
             margin: EdgeInsets.only(bottom: 20.h),
             padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
             decoration: BoxDecoration(
-              color: AppColor.primaryColor(context).withOpacity(0.1),
+              color: AppColor.primaryColor(context).withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(12.r),
-              border: Border.all(
-                color: AppColor.primaryColor(context).withOpacity(0.3),
-              ),
+              border: Border.all(color: AppColor.primaryColor(context).withValues(alpha: 0.3)),
             ),
             child: Row(
               children: [
@@ -42,10 +37,9 @@ class CartItemsListWidget extends StatelessWidget {
                 Gap(10.w),
                 Text(
                   '${items.length} ${items.length == 1 ? AppLocaleKey.cartCarSingular.tr() : AppLocaleKey.cartCarPlural.tr()} ${AppLocaleKey.inYourCart.tr()}',
-                  style: AppTextStyle.bodyMedium(context).copyWith(
-                    color: AppColor.primaryColor(context),
-                    fontWeight: FontWeight.w600,
-                  ),
+                  style: AppTextStyle.bodyMedium(
+                    context,
+                  ).copyWith(color: AppColor.primaryColor(context), fontWeight: FontWeight.w600),
                 ),
               ],
             ),
@@ -58,4 +52,3 @@ class CartItemsListWidget extends StatelessWidget {
     );
   }
 }
-

@@ -237,7 +237,7 @@ class PremiumCarCardWidget extends StatelessWidget {
     return Container(
       height: 30.h,
       decoration: BoxDecoration(
-        color: AppColor.blackTextColor(context).withOpacity(0.1),
+        color: AppColor.blackTextColor(context).withValues(alpha: 0.1),
         shape: BoxShape.circle,
       ),
       child: IconButton(

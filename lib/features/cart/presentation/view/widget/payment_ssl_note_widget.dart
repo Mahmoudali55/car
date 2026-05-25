@@ -17,15 +17,16 @@ class PaymentSslNoteWidget extends StatelessWidget {
         children: [
           Icon(
             Icons.shield_outlined,
-            color: AppColor.blackTextColor(context).withOpacity(0.4),
+            color: AppColor.blackTextColor(context).withValues(alpha: 0.4),
             size: 14.sp,
           ),
           Gap(6.w),
           Text(
             text,
-            style: AppTextStyle.bodySmall(
-              context,
-            ).copyWith(color: AppColor.blackTextColor(context).withOpacity(0.4), fontSize: 11.sp),
+            style: AppTextStyle.bodySmall(context).copyWith(
+              color: AppColor.blackTextColor(context).withValues(alpha: 0.4),
+              fontSize: 11.sp,
+            ),
           ),
         ],
       ),

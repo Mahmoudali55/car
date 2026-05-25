@@ -26,10 +26,12 @@ class CartSummaryWidget extends StatelessWidget {
       padding: EdgeInsets.fromLTRB(20.w, 16.h, 20.w, 32.h),
       decoration: BoxDecoration(
         color: AppColor.scaffoldColor(context),
-        border: Border(top: BorderSide(color: AppColor.blackTextColor(context).withOpacity(0.06))),
+        border: Border(
+          top: BorderSide(color: AppColor.blackTextColor(context).withValues(alpha: 0.06)),
+        ),
         boxShadow: [
           BoxShadow(
-            color: AppColor.blackColor(context).withOpacity(0.3),
+            color: AppColor.blackColor(context).withValues(alpha: 0.3),
             blurRadius: 20,
             offset: const Offset(0, -5),
           ),
@@ -44,7 +46,7 @@ class CartSummaryWidget extends StatelessWidget {
                 AppLocaleKey.total.tr(),
                 style: AppTextStyle.titleMedium(
                   context,
-                ).copyWith(color: AppColor.blackTextColor(context).withOpacity(0.7)),
+                ).copyWith(color: AppColor.blackTextColor(context).withValues(alpha: 0.7)),
               ),
               Text(
                 _formatTotalPrice(context),

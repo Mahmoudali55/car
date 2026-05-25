@@ -29,7 +29,7 @@ class PaymentOrderSummaryWidget extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColor.secondAppColor(context),
         borderRadius: BorderRadius.circular(20.r),
-        border: Border.all(color: AppColor.blackTextColor(context).withOpacity(0.06)),
+        border: Border.all(color: AppColor.blackTextColor(context).withValues(alpha: 0.06)),
       ),
       child: Column(
         children: [
@@ -37,7 +37,7 @@ class PaymentOrderSummaryWidget extends StatelessWidget {
           Gap(10.h),
           _SummaryRow(label: serviceFeeLabel, value: serviceFeeValue),
           Gap(10.h),
-          Divider(color: AppColor.blackTextColor(context).withOpacity(0.1)),
+          Divider(color: AppColor.blackTextColor(context).withValues(alpha: 0.1)),
           Gap(10.h),
           _SummaryRow(label: totalLabel, value: totalValue, isTotal: true),
         ],
@@ -63,7 +63,7 @@ class _SummaryRow extends StatelessWidget {
           style: AppTextStyle.bodyMedium(context).copyWith(
             color: isTotal
                 ? AppColor.blackTextColor(context)
-                : AppColor.blackTextColor(context).withOpacity(0.6),
+                : AppColor.blackTextColor(context).withValues(alpha: 0.6),
             fontWeight: isTotal ? FontWeight.bold : FontWeight.normal,
           ),
         ),

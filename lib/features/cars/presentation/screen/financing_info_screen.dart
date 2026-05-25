@@ -5,12 +5,12 @@ import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/features/cars/presentation/screen/reservation_success_screen.dart';
 import 'package:car/features/cars/presentation/widget/financing_contact_form.dart';
 import 'package:car/features/cars/presentation/widget/pricing_details_bottom_sheet.dart';
+import 'package:car/features/cart/presentation/view/cubit/cart_cubit.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:car/features/cart/presentation/view/cubit/cart_cubit.dart';
 
 class FinancingInfoScreen extends StatefulWidget {
   final Map<String, dynamic> car;
@@ -137,7 +137,7 @@ class _FinancingInfoScreenState extends State<FinancingInfoScreen> {
                           Text(
                             AppLocaleKey.agentTotalPrice.tr(),
                             style: AppTextStyle.bodyMedium(context).copyWith(
-                              color: AppColor.blackTextColor(context).withOpacity(0.7),
+                              color: AppColor.blackTextColor(context).withValues(alpha: 0.7),
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -172,10 +172,9 @@ class _FinancingInfoScreenState extends State<FinancingInfoScreen> {
                         child: Center(
                           child: Text(
                             AppLocaleKey.agentShowDetails.tr(),
-                            style: TextStyle(
+                            style: AppTextStyle.bodyMedium(context).copyWith(
                               color: AppColor.primaryColor(context),
                               fontWeight: FontWeight.bold,
-                              fontSize: 14.sp,
                             ),
                           ),
                         ),

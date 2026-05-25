@@ -1159,5 +1159,19 @@
   "quotation_plate_price": "Plate Fees",
   "quotation_total_price": "Total",
   "selectImage":"Select Image",
-  "selectPDF":"Select PDF"
+  "selectPDF":"Select PDF",
+  "no_alert":"No alerts currently",
+  "no_alert_desc":"We will notify you when there are new offers\nor updates on your requests.",
+  "request_submitted":"Your request has been submitted successfully! 🎉",
+  "request_submitted_desc":"Our team will review your request and contact you as soon as possible.",
+   "car": "Car",
+  "deposit_amount": "Deposit Amount",
+  "request_status": "Request Status",
+  "under_review": "Under Review",
+  "whatsapp_confirmation": "You will receive a confirmation message on WhatsApp shortly.",
+  "browse_other_cars": "Browse Other Cars",
+  "cash": "Cash",
+  "tamara": "Tamara",
+  "bank_card": "Al Rajhi / NCB Card",
+  "refundable_deposit": "SAR 500 (Refundable)"
 }

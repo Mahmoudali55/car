@@ -171,10 +171,10 @@ class _FeaturedCarsSliderWidgetState extends State<FeaturedCarsSliderWidget> {
                               child: Container(
                                 padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 14.h),
                                 decoration: BoxDecoration(
-                                  color: AppColor.blackColor(context).withOpacity(0.2),
+                                  color: AppColor.blackColor(context).withValues(alpha: 0.2),
                                   border: Border(
                                     top: BorderSide(
-                                      color: AppColor.whiteColor(context).withOpacity(0.1),
+                                      color: AppColor.whiteColor(context).withValues(alpha: 0.1),
                                       width: 0.5,
                                     ),
                                   ),

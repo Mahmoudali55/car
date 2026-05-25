@@ -30,11 +30,7 @@ class LogoutButtonWidget extends StatelessWidget {
                     color: AppColor.redColor(context).withValues(alpha: 0.1),
                     shape: BoxShape.circle,
                   ),
-                  child: Icon(
-                    Icons.logout_rounded,
-                    color: AppColor.redColor(context),
-                    size: 32.sp,
-                  ),
+                  child: Icon(Icons.logout_rounded, color: AppColor.redColor(context), size: 32.sp),
                 ),
                 Gap(16.h),
                 Text(
@@ -82,13 +78,13 @@ class LogoutButtonWidget extends StatelessWidget {
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           backgroundColor: AppColor.redColor(context),
-                          foregroundColor: Colors.white,
+                          foregroundColor: AppColor.whiteColor(context),
                           padding: EdgeInsets.symmetric(vertical: 14.h),
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14.r)),
                           elevation: 0,
                         ),
                         onPressed: () {
-                          Navigator.pop(context); // Close dialog
+                          Navigator.pop(context);
                           context.read<AuthCubit>().logout();
                           Navigator.pushNamedAndRemoveUntil(
                             context,

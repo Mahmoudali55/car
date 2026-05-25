@@ -1,6 +1,6 @@
 import 'package:animate_do/animate_do.dart';
-import 'package:car/core/custom_widgets/custom_image/custom_network_image.dart';
 import 'package:car/core/cache/hive/hive_methods.dart';
+import 'package:car/core/custom_widgets/custom_image/custom_network_image.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
@@ -69,11 +69,7 @@ class _CarComparisonScreenState extends State<CarComparisonScreen> {
       {'key': AppLocaleKey.brand.tr(), 'field': 'brand', 'fallback': 'MAKE_NAME'},
       {'key': AppLocaleKey.modelYear.tr(), 'field': 'year', 'fallback': 'MAKE_YEAR'},
       {'key': AppLocaleKey.engine.tr(), 'field': 'engine', 'fallback': 'CYLINDER'},
-      {
-        'key': AppLocaleKey.transmission.tr(),
-        'field': 'transmission',
-        'fallback': 'TRANSMISSION'
-      },
+      {'key': AppLocaleKey.transmission.tr(), 'field': 'transmission', 'fallback': 'TRANSMISSION'},
       {'key': AppLocaleKey.fuelTypeLabel.tr(), 'field': 'FUEL_TYPE', 'fallback': 'fuel_type'},
       {'key': AppLocaleKey.color.tr(), 'field': 'Color', 'fallback': 'BODY_COLOR'},
     ];
@@ -81,10 +77,7 @@ class _CarComparisonScreenState extends State<CarComparisonScreen> {
     pdf.addPage(
       pw.MultiPage(
         pageFormat: PdfPageFormat.a4,
-        theme: pw.ThemeData.withFont(
-          base: isArabic ? arabicFont : regularFont,
-          bold: arabicFont,
-        ),
+        theme: pw.ThemeData.withFont(base: isArabic ? arabicFont : regularFont, bold: arabicFont),
         build: (pw.Context context) => [
           pw.Directionality(
             textDirection: isArabic ? pw.TextDirection.rtl : pw.TextDirection.ltr,
@@ -107,11 +100,14 @@ class _CarComparisonScreenState extends State<CarComparisonScreen> {
                 pw.TableHelper.fromTextArray(
                   headers: [AppLocaleKey.spec.tr(), ...list.map((c) => c['name'])],
                   data: specs
-                      .map((spec) => [
-                            spec['key']!,
-                            ...list.map(
-                                (c) => (c[spec['field']] ?? c[spec['fallback']] ?? 'N/A').toString())
-                          ])
+                      .map(
+                        (spec) => [
+                          spec['key']!,
+                          ...list.map(
+                            (c) => (c[spec['field']] ?? c[spec['fallback']] ?? 'N/A').toString(),
+                          ),
+                        ],
+                      )
                       .toList(),
                   headerStyle: pw.TextStyle(fontWeight: pw.FontWeight.bold),
                   headerDecoration: const pw.BoxDecoration(color: PdfColors.grey300),
@@ -208,7 +204,7 @@ class _CarComparisonScreenState extends State<CarComparisonScreen> {
                 ),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppColor.primaryColor(context),
-                  foregroundColor: Colors.white,
+                  foregroundColor: AppColor.whiteColor(context),
                   minimumSize: Size(double.infinity, 56.h),
                   elevation: 0,
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.r)),
@@ -266,7 +262,7 @@ class _CarComparisonScreenState extends State<CarComparisonScreen> {
                     shape: BoxShape.circle,
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withOpacity(0.1),
+                        color: AppColor.blackColor(context).withValues(alpha: 0.1),
                         blurRadius: 4,
                         offset: const Offset(0, 2),
                       ),
@@ -314,43 +310,43 @@ class _CarComparisonScreenState extends State<CarComparisonScreen> {
         'key': AppLocaleKey.carValue.tr(),
         'field': 'price',
         'fallback': 'PRICE',
-        'icon': Icons.payments_rounded
+        'icon': Icons.payments_rounded,
       },
       {
         'key': AppLocaleKey.info_tab_brand.tr(),
         'field': 'brand',
         'fallback': 'MAKE_NAME',
-        'icon': Icons.stars_rounded
+        'icon': Icons.stars_rounded,
       },
       {
         'key': AppLocaleKey.info_tab_model.tr(),
         'field': 'year',
         'fallback': 'MAKE_YEAR',
-        'icon': Icons.calendar_today_rounded
+        'icon': Icons.calendar_today_rounded,
       },
       {
         'key': 'Engine',
         'field': 'engine',
         'fallback': 'CYLINDER',
-        'icon': Icons.settings_input_component_rounded
+        'icon': Icons.settings_input_component_rounded,
       },
       {
         'key': 'Transmission',
         'field': 'transmission',
         'fallback': 'TRANSMISSION',
-        'icon': Icons.settings_suggest_rounded
+        'icon': Icons.settings_suggest_rounded,
       },
       {
         'key': AppLocaleKey.info_tab_fuel_type.tr(),
         'field': 'FUEL_TYPE',
         'fallback': 'fuel_type',
-        'icon': Icons.local_gas_station_rounded
+        'icon': Icons.local_gas_station_rounded,
       },
       {
         'key': AppLocaleKey.info_tab_exterior_color.tr(),
         'field': 'Color',
         'fallback': 'BODY_COLOR',
-        'icon': Icons.palette_rounded
+        'icon': Icons.palette_rounded,
       },
     ];
 
@@ -377,7 +373,9 @@ class _CarComparisonScreenState extends State<CarComparisonScreen> {
               border: isLast
                   ? null
                   : Border(
-                      bottom: BorderSide(color: AppColor.dividerColor(context).withValues(alpha: 0.3)),
+                      bottom: BorderSide(
+                        color: AppColor.dividerColor(context).withValues(alpha: 0.3),
+                      ),
                     ),
             ),
             child: Column(

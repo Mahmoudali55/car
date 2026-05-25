@@ -52,7 +52,9 @@ class _SelectionBodyWidgetState extends State<SelectionBodyWidget> {
               ),
               child: Text(
                 AppLocaleKey.agentTamara.tr(),
-                style: TextStyle(color: Colors.white, fontWeight: FontWeight.w900, fontSize: 12.sp),
+                style: AppTextStyle.bodySmall(
+                  context,
+                ).copyWith(color: AppColor.whiteColor(context), fontWeight: FontWeight.w900),
               ),
             ),
           ),

@@ -1,3 +1,4 @@
+import 'package:car/core/cache/hive/hive_methods.dart';
 import 'package:car/core/custom_widgets/buttons/custom_button.dart';
 import 'package:car/core/custom_widgets/custom_form_field/custom_form_field.dart';
 import 'package:car/core/custom_widgets/custom_toast/custom_toast.dart';
@@ -6,7 +7,6 @@ import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/core/utils/common_methods.dart';
-import 'package:car/core/cache/hive/hive_methods.dart';
 import 'package:car/features/cars/data/model/brand_model.dart';
 import 'package:car/features/cars/presentation/screen/financing_info_screen.dart';
 import 'package:car/features/cars/presentation/screen/reservation_success_screen.dart';
@@ -570,8 +570,7 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
           // 3. Name on Card Field
           Text(
             isArabic ? 'الاسم على البطاقة' : 'Cardholder Name',
-            style: TextStyle(
-              fontSize: 14.sp,
+            style: AppTextStyle.bodyMedium(context).copyWith(
               fontWeight: FontWeight.bold,
               color: AppColor.blackTextColor(context).withValues(alpha: 0.8),
             ),
@@ -590,8 +589,7 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
           // 4. Card Details Merged Input Field
           Text(
             isArabic ? 'معلومات البطاقة' : 'Card Information',
-            style: TextStyle(
-              fontSize: 14.sp,
+            style: AppTextStyle.bodyMedium(context).copyWith(
               fontWeight: FontWeight.bold,
               color: AppColor.blackTextColor(context).withValues(alpha: 0.8),
             ),
@@ -615,7 +613,10 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
                   ],
                   decoration: InputDecoration(
                     hintText: '1234 5678 9101 1121',
-                    hintStyle: TextStyle(color: AppColor.hintColor(context), fontSize: 13.sp),
+                    hintStyle: AppTextStyle.hintStyle(
+                      context,
+                      listen: false,
+                    ).copyWith(color: AppColor.hintColor(context)),
                     border: InputBorder.none,
                     contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
                     suffixIcon: Row(
@@ -646,7 +647,7 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
                           child: Text(
                             'VISA',
                             style: TextStyle(
-                              color: Colors.white,
+                              color: AppColor.whiteColor(context),
                               fontSize: 8.sp,
                               fontWeight: FontWeight.bold,
                             ),
@@ -765,7 +766,7 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
             color: const Color(0xff00c853),
             onPressed: _isLoading ? null : _submitPayment,
             child: _isLoading
-                ? const CircularProgressIndicator(color: Colors.white)
+                ? CircularProgressIndicator(color: AppColor.whiteColor(context))
                 : Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -913,10 +914,9 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
                     children: [
                       Text(
                         widget.car['name'] ?? 'Car Name',
-                        style: TextStyle(
+                        style: AppTextStyle.bodyMedium(context).copyWith(
                           color: AppColor.blackTextColor(context),
                           fontWeight: FontWeight.bold,
-                          fontSize: 13.sp,
                         ),
                         overflow: TextOverflow.ellipsis,
                         maxLines: 1,

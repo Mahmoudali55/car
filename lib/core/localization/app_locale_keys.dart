@@ -1382,4 +1382,17 @@ class AppLocaleKey {
   static const String idNumberRequired = 'idNumberRequired';
   static const String selectImage = 'selectImage';
   static const String selectPDF = 'selectPDF';
+  static const String no_alert = 'no_alert';
+  static const String no_alert_desc = 'no_alert_desc';
+  static const String request_submitted = 'request_submitted';
+  static const String request_submitted_desc = 'request_submitted_desc';
+  static const String car = 'car';
+  static const String deposit_amount = 'deposit_amount';
+  static const String request_status = 'request_status';
+  static const String under_review = 'under_review';
+  static const String whatsapp_confirmation = 'whatsapp_confirmation';
+  static const String browse_other_cars = 'browse_other_cars';
+  static const String tamara = 'tamara';
+  static const String bank_card = 'bank_card';
+  static const String refundable_deposit = 'refundable_deposit';
 }
