@@ -283,10 +283,9 @@ class _ShippingScreenState extends State<ShippingScreen> {
                                   children: [
                                     Text(
                                       type['base'] as String,
-                                      style: TextStyle(
+                                      style: AppTextStyle.bodyLarge(context).copyWith(
                                         fontWeight: FontWeight.bold,
                                         color: AppColor.primaryColor(context),
-                                        fontSize: 16.sp,
                                       ),
                                     ),
                                     Gap(2.w),
@@ -350,8 +349,6 @@ class _ShippingScreenState extends State<ShippingScreen> {
                       ],
                     ),
                     Gap(16.h),
-
-                    // Car Details & Date Selector
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
@@ -395,8 +392,7 @@ class _ShippingScreenState extends State<ShippingScreen> {
                                         _selectedDate == null
                                             ? '2026-05-20'
                                             : DateFormat('yyyy-MM-dd').format(_selectedDate!),
-                                        style: TextStyle(
-                                          fontSize: 13.sp,
+                                        style: AppTextStyle.bodyMedium(context).copyWith(
                                           color: _selectedDate == null
                                               ? AppColor.hintColor(context)
                                               : AppColor.blackTextColor(context),
@@ -542,7 +538,9 @@ class _ShippingScreenState extends State<ShippingScreen> {
                         isAr
                             ? '* التكلفة نهائية وشاملة للتأمين والضرائب'
                             : '* Price includes transit insurance & taxes',
-                        style: TextStyle(fontSize: 9.sp, color: AppColor.greyColor(context)),
+                        style: AppTextStyle.bodySmall(
+                          context,
+                        ).copyWith(fontSize: 9.sp, color: AppColor.greyColor(context)),
                       ),
                     ],
                   ),

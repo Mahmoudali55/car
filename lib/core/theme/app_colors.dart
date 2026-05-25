@@ -229,5 +229,10 @@ class AppColor {
     );
   }
 
+  /// Icon color
+  static Color iconColoramber(BuildContext context, {bool listen = true}) {
+    return AppTheme.getByTheme(context, light: Colors.amber, dark: Colors.amber, listen: listen);
+  }
+
   /// Secondary color for backgrounds/gradients
 }

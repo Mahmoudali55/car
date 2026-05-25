@@ -500,22 +500,25 @@ class _CarValuationScreenState extends State<CarValuationScreen> {
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
                       colors: [
-                        Colors.amber.withValues(alpha: 0.12),
-                        Colors.amber.withValues(alpha: 0.04),
+                        AppColor.iconColoramber(context).withValues(alpha: 0.12),
+                        AppColor.iconColoramber(context).withValues(alpha: 0.04),
                       ],
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
                     ),
                     borderRadius: BorderRadius.circular(20.r),
-                    border: Border.all(color: Colors.amber.withValues(alpha: 0.3)),
+                    border: Border.all(
+                      color: AppColor.iconColoramber(context).withValues(alpha: 0.3),
+                    ),
                   ),
                   child: Column(
                     children: [
                       Text(
                         AppLocaleKey.instantEstimatedValuation.tr(),
-                        style: AppTextStyle.bodyMedium(
-                          context,
-                        ).copyWith(color: Colors.amber.shade700, fontWeight: FontWeight.bold),
+                        style: AppTextStyle.bodyMedium(context).copyWith(
+                          color: AppColor.iconColoramber(context).withValues(alpha: 0.7),
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                       Gap(8.h),
                       Row(

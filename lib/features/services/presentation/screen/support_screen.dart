@@ -71,9 +71,8 @@ class SupportScreen extends StatelessWidget {
                   FadeInUp(
                     child: Text(
                       AppLocaleKey.howCanWeHelp.tr(),
-                      style: TextStyle(
+                      style: AppTextStyle.titleLarge(context).copyWith(
                         color: AppColor.blackTextColor(context),
-                        fontSize: 18.sp,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -83,15 +82,13 @@ class SupportScreen extends StatelessWidget {
                     delay: const Duration(milliseconds: 100),
                     child: Text(
                       AppLocaleKey.slogan.tr(),
-                      style: TextStyle(
+                      style: AppTextStyle.bodyMedium(context).copyWith(
                         color: AppColor.primaryColor(context),
-                        fontSize: 14.sp,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
                   ),
                   Gap(24.h),
-
                   // COMPLAINTS & EVALUATION CARDS
                   Row(
                     children: [
@@ -129,7 +126,6 @@ class SupportScreen extends StatelessWidget {
                     ],
                   ),
                   Gap(24.h),
-
                   // GENERAL CONTACT
                   SectionHeaderWidget(
                     title: AppLocaleKey.landlineAndWhatsapp.tr(),
@@ -137,7 +133,6 @@ class SupportScreen extends StatelessWidget {
                   ),
                   const ContactItemWidget(value: '0112311114', icon: Icons.headset_mic_rounded),
                   Gap(20.h),
-
                   SectionHeaderWidget(title: AppLocaleKey.emails.tr(), icon: Icons.email_rounded),
                   const ContactItemWidget(
                     value: 'info@binwazir.com',
@@ -148,7 +143,6 @@ class SupportScreen extends StatelessWidget {
                     icon: Icons.alternate_email_rounded,
                   ),
                   Gap(20.h),
-
                   // MANAGEMENT
                   SectionHeaderWidget(
                     title: AppLocaleKey.management.tr(),
@@ -156,8 +150,6 @@ class SupportScreen extends StatelessWidget {
                   ),
                   const ContactItemWidget(value: '0550266666', icon: Icons.phone_iphone_rounded),
                   Gap(20.h),
-
-                  // INSTALLMENT SALES
                   SectionHeaderWidget(
                     title: AppLocaleKey.installmentSales.tr(),
                     icon: Icons.account_balance_wallet_rounded,
@@ -166,8 +158,6 @@ class SupportScreen extends StatelessWidget {
                   const ContactItemWidget(value: '0562012761', icon: Icons.phone_iphone_rounded),
                   const ContactItemWidget(value: '0562012761', icon: Icons.phone_iphone_rounded),
                   Gap(20.h),
-
-                  // CASH SALES
                   SectionHeaderWidget(
                     title: AppLocaleKey.cashSales.tr(),
                     icon: Icons.payments_rounded,
@@ -178,7 +168,6 @@ class SupportScreen extends StatelessWidget {
                   const ContactItemWidget(value: '0564169370', icon: Icons.phone_iphone_rounded),
                   const ContactItemWidget(value: '0504335378', icon: Icons.phone_iphone_rounded),
                   const ContactItemWidget(value: '0562012761', icon: Icons.phone_iphone_rounded),
-
                   Gap(30.h),
                   FadeInUp(
                     delay: const Duration(milliseconds: 400),
@@ -202,7 +191,7 @@ class SupportScreen extends StatelessWidget {
                   ),
                   FqaItemWidget(
                     question: AppLocaleKey.faqCancelAppointment.tr(),
-                    answer: AppLocaleKey.faqA4.tr(), // Or another suitable answer
+                    answer: AppLocaleKey.faqA4.tr(),
                   ),
                   Gap(50.h),
                 ],

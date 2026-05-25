@@ -273,11 +273,9 @@ class _FinancingScreenState extends State<FinancingScreen> with SingleTickerProv
           onPressed: _showCancelDialog,
           child: Text(
             AppLocaleKey.cancel.tr(),
-            style: TextStyle(
-              color: AppColor.greyColor(context),
-              fontWeight: FontWeight.bold,
-              fontSize: 14.sp,
-            ),
+            style: AppTextStyle.bodyMedium(
+              context,
+            ).copyWith(color: AppColor.greyColor(context), fontWeight: FontWeight.bold),
           ),
         ),
       ],

@@ -1,13 +1,11 @@
 import 'package:car/core/cache/hive/hive_methods.dart';
 import 'package:car/core/custom_widgets/custom_image/custom_network_image.dart';
-import 'package:car/core/custom_widgets/custom_toast/custom_toast.dart';
 import 'package:car/core/images/app_images.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/core/utils/common_methods.dart';
-import 'package:car/core/utils/pdf_preview_screen.dart';
-import 'package:car/core/utils/pdf_service.dart';
+import 'package:car/features/admin/presentation/screen/car_quotation_preview_screen.dart';
 import 'package:car/features/cars/presentation/widget/full_image_gallery_screen.dart';
 import 'package:car/features/favorites/presentation/view/cubit/favorites_cubit.dart';
 import 'package:car/features/home/presentation/cubit/home_cubit.dart';
@@ -98,23 +96,34 @@ class _SliverAppBarWidgetState extends State<SliverAppBarWidget> {
                 color: AppColor.blackColor(context),
                 size: 20,
               ),
-              onPressed: () async {
-                CommonMethods.showToast(
-                  message: AppLocaleKey.generatingPdf.tr(),
-                  type: ToastType.help,
-                  seconds: 3,
+              onPressed: () {
+                final Map<String, String> stringCar = widget.car.map(
+                  (key, value) => MapEntry(key, value?.toString() ?? ''),
                 );
 
-                final doc = await PdfService.generateDocument(context: context, car: widget.car);
-                if (context.mounted) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) =>
-                          PdfPreviewScreen(doc: doc, fileName: '${widget.car['name']}_Report.pdf'),
-                    ),
-                  );
+                // Map API keys to the keys expected by CarQuotationPdfGenerator
+                stringCar['price'] ??= stringCar['PRICE'] ?? '0';
+                stringCar['name'] ??= stringCar['ITEM_NAME'] ?? '';
+                stringCar['year'] ??= stringCar['MAKE_YEAR'] ?? '';
+                stringCar['color'] ??= stringCar['Color'] ?? stringCar['BODY_COLOR'] ?? '';
+                stringCar['chassis'] ??= stringCar['chassisNo'] ?? stringCar['CHASSIS_NO'] ?? '';
+
+                String specsStr = '';
+                if (widget.car['instantSpecs'] != null &&
+                    (widget.car['instantSpecs'] is List) &&
+                    (widget.car['instantSpecs'] as List).isNotEmpty) {
+                  specsStr = (widget.car['instantSpecs'] as List).join(' - ');
                 }
+                if (specsStr.isNotEmpty) {
+                  stringCar['specs'] = specsStr;
+                }
+
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => CarQuotationPreviewScreen(car: stringCar),
+                  ),
+                );
               },
             ),
           ),
@@ -223,9 +232,9 @@ class _SliverAppBarWidgetState extends State<SliverAppBarWidget> {
                       ),
                       child: Text(
                         '${safeIndex + 1} / ${displayedImages.length}',
-                        style: TextStyle(
+                        style: AppTextStyle.bodySmall(context).copyWith(
                           color: AppColor.whiteColor(context),
-                          fontSize: 14.sp,
+
                           fontWeight: FontWeight.bold,
                         ),
                       ),

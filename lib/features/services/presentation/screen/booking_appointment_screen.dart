@@ -120,7 +120,7 @@ class _BookingAppointmentScreenState extends State<BookingAppointmentScreen> {
                                   Gap(8.h),
                                   Text(
                                     services[index],
-                                    style: TextStyle(
+                                    style: AppTextStyle.bodySmall(context).copyWith(
                                       color: isSelected
                                           ? AppColor.whiteColor(context)
                                           : AppColor.blackTextColor(
@@ -302,10 +302,9 @@ class _BookingAppointmentScreenState extends State<BookingAppointmentScreen> {
         style: TextStyle(color: AppColor.blackTextColor(context)),
         decoration: InputDecoration(
           hintText: hint,
-          hintStyle: TextStyle(
-            color: AppColor.blackTextColor(context).withValues(alpha: 0.38),
-            fontSize: 14.sp,
-          ),
+          hintStyle: AppTextStyle.bodyMedium(
+            context,
+          ).copyWith(color: AppColor.blackTextColor(context).withValues(alpha: 0.38)),
           contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
           border: InputBorder.none,
         ),

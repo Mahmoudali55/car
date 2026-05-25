@@ -145,11 +145,9 @@ class RequestCarScreen extends StatelessWidget {
   Widget _buildSectionHeader(String title, BuildContext context) {
     return Text(
       title,
-      style: TextStyle(
-        color: AppColor.blackTextColor(context),
-        fontSize: 18.sp,
-        fontWeight: FontWeight.bold,
-      ),
+      style: AppTextStyle.titleMedium(
+        context,
+      ).copyWith(color: AppColor.blackTextColor(context), fontWeight: FontWeight.bold),
     );
   }
 
@@ -158,13 +156,8 @@ class RequestCarScreen extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColor.secondAppColor(context),
         borderRadius: BorderRadius.circular(12.r),
-        border: Border.all(color: AppColor.blackTextColor(context).withOpacity(0.05)),
+        border: Border.all(color: AppColor.blackTextColor(context).withValues(alpha: 0.05)),
       ),
-      // Using TextField instead of CustomFormField for maxLines support if needed,
-      // but CustomFormField may not support maxLines easily without modifying it.
-      // We will just use CustomFormField and ignore maxLines if it doesn't support it,
-      // or implement a standard TextField if we really want multi-line.
-      // Based on usual CustomFormField implementation, we'll just try CustomFormField first.
       child: CustomFormField(hintText: hint, maxLines: maxLines),
     );
   }
@@ -178,7 +171,7 @@ class RequestCarScreen extends StatelessWidget {
         borderRadius: BorderRadius.circular(16.r),
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFF1E3A8A).withOpacity(0.3),
+            color: const Color(0xFF1E3A8A).withValues(alpha: 0.3),
             blurRadius: 10,
             offset: const Offset(0, 5),
           ),
@@ -193,11 +186,9 @@ class RequestCarScreen extends StatelessWidget {
         ),
         child: Text(
           text,
-          style: TextStyle(
-            color: AppColor.whiteColor(context),
-            fontSize: 16.sp,
-            fontWeight: FontWeight.bold,
-          ),
+          style: AppTextStyle.titleLarge(
+            context,
+          ).copyWith(color: AppColor.whiteColor(context), fontWeight: FontWeight.bold),
         ),
       ),
     );

@@ -128,7 +128,7 @@ class _ImportOnDemandScreenState extends State<ImportOnDemandScreen> {
                     borderRadius: BorderRadius.circular(20.r),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withValues(alpha: 0.1),
+                        color: AppColor.blackColor(context).withValues(alpha: 0.1),
                         blurRadius: 10,
                         offset: const Offset(0, 5),
                       ),

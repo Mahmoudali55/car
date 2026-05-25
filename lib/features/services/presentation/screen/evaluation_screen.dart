@@ -37,11 +37,11 @@ class _EvaluationScreenState extends State<EvaluationScreen> {
     }
 
     BotToast.showLoading();
-    
+
     // Simulate API call
     Future.delayed(const Duration(seconds: 2), () {
       BotToast.closeAllLoading();
-      
+
       showDialog(
         context: context,
         builder: (context) => FadeInUp(
@@ -51,7 +51,7 @@ class _EvaluationScreenState extends State<EvaluationScreen> {
             content: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Icon(Icons.stars_rounded, color: Colors.amber, size: 60.sp),
+                Icon(Icons.stars_rounded, color: AppColor.iconColoramber(context), size: 60.sp),
                 Gap(16.h),
                 Text(
                   AppLocaleKey.evaluationSuccess.tr(),
@@ -131,7 +131,9 @@ class _EvaluationScreenState extends State<EvaluationScreen> {
                             padding: EdgeInsets.all(6.w),
                             child: Icon(
                               index < _rating ? Icons.star_rounded : Icons.star_outline_rounded,
-                              color: index < _rating ? Colors.amber : AppColor.hintColor(context),
+                              color: index < _rating
+                                  ? AppColor.iconColoramber(context)
+                                  : AppColor.hintColor(context),
                               size: 40.sp,
                             ),
                           ),
@@ -159,10 +161,7 @@ class _EvaluationScreenState extends State<EvaluationScreen> {
               // SUBMIT BUTTON
               FadeInUp(
                 delay: const Duration(milliseconds: 300),
-                child: CustomButton(
-                  onPressed: _submit,
-                  text: AppLocaleKey.submitEvaluation.tr(),
-                ),
+                child: CustomButton(onPressed: _submit, text: AppLocaleKey.submitEvaluation.tr()),
               ),
             ],
           ),
