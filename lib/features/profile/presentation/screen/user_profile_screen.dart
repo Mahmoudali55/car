@@ -4,7 +4,6 @@ import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/routes/routes_name.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/features/admin/presentation/screen/widgets/logout_button_widget.dart';
-import 'package:car/features/agent/presentation/agent_shell.dart' as car_agent;
 import 'package:car/features/auth/presentation/view/cubit/auth_cubit.dart';
 import 'package:car/features/profile/presentation/screen/widget/action_tile_widget.dart';
 import 'package:car/features/profile/presentation/screen/widget/info_tile_widget.dart';
@@ -95,16 +94,6 @@ class UserProfileScreen extends StatelessWidget {
                               icon: Icons.history_rounded,
                               label: AppLocaleKey.myHistory.tr(),
                               onTap: () {},
-                            ),
-                            ActionTileWidget(
-                              icon: Icons.admin_panel_settings_rounded,
-                              label: 'لوحة المناديب',
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(builder: (_) => const car_agent.AgentShell()),
-                                );
-                              },
                             ),
                           ],
                         ),

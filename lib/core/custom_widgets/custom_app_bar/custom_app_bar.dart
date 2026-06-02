@@ -49,20 +49,32 @@ class CustomAppBar extends PreferredSize {
             shadowColor: shadowColor,
             centerTitle: centerTitle,
             title: title,
-            leading: automaticallyImplyLeading || leading != null
-                ? InkWell(
-                    onTap: leadingOnTap ?? () => Navigator.pop(context),
-                    child: Padding(
-                      padding: const EdgeInsets.all(12.0),
-                      child: leading ??
-                          Icon(
+            leading: leading != null
+                ? (leadingOnTap != null
+                    ? InkWell(
+                        onTap: leadingOnTap,
+                        child: Padding(
+                          padding: const EdgeInsets.all(12.0),
+                          child: leading,
+                        ),
+                      )
+                    : Padding(
+                        padding: const EdgeInsets.all(12.0),
+                        child: leading,
+                      ))
+                : (automaticallyImplyLeading
+                    ? InkWell(
+                        onTap: leadingOnTap ?? () => Navigator.pop(context),
+                        child: Padding(
+                          padding: const EdgeInsets.all(12.0),
+                          child: Icon(
                             Icons.arrow_back_ios,
                             size: 20,
                             color: AppColor.appBarTextColor(context),
                           ),
-                    ),
-                  )
-                : null,
+                        ),
+                      )
+                    : null),
             actions: actions,
             leadingWidth: leadingWidth,
             shape: RoundedRectangleBorder(
