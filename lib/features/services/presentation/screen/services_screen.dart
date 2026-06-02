@@ -108,7 +108,7 @@ class ServicesScreen extends StatelessWidget {
             child: SizedBox(
               height: 100.h,
               child: ListView.builder(
-                padding: EdgeInsets.symmetric(horizontal: 16.w),
+                padding: EdgeInsets.symmetric(horizontal: 24.w),
                 scrollDirection: Axis.horizontal,
                 physics: const BouncingScrollPhysics(),
                 itemCount: _getQuickActions().length,

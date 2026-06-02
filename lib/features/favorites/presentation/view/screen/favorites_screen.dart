@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:car/core/custom_widgets/custom_loading/custom_loading.dart';
 import 'package:car/features/favorites/presentation/view/cubit/favorites_cubit.dart';
 import 'package:car/features/favorites/presentation/view/screen/widget/empty_state_widget.dart';
@@ -15,15 +16,20 @@ class FavoritesScreen extends StatelessWidget {
       builder: (context, state) {
         if (state is FavoritesLoaded) {
           if (state.favorites.isEmpty) {
-            return const EmptyStateWidget();
+            return FadeInUp(duration: Duration(milliseconds: 500), child: EmptyStateWidget());
           }
           return ListView.separated(
             padding: EdgeInsets.fromLTRB(20.w, 20.h, 20.w, 100.h),
+            physics: const BouncingScrollPhysics(),
             itemCount: state.favorites.length,
             separatorBuilder: (context, index) => Gap(16.h),
             itemBuilder: (context, index) {
               final car = state.favorites[index];
-              return FavoriteItemWidget(car: car);
+              return FadeInUp(
+                duration: const Duration(milliseconds: 400),
+                delay: Duration(milliseconds: (index * 50).clamp(0, 500)),
+                child: FavoriteItemWidget(car: car),
+              );
             },
           );
         }

@@ -1,7 +1,5 @@
 import 'package:car/core/custom_widgets/custom_app_bar/custom_app_bar.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
-import 'package:car/core/routes/routes_name.dart';
-import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/features/favorites/presentation/view/screen/favorites_screen.dart';
 import 'package:car/features/home/presentation/view/widgets/main_layout_actions.dart';
@@ -76,27 +74,27 @@ class _MainLayoutState extends State<MainLayout> {
           Positioned(bottom: 20.h, left: 20.w, child: const SupportIconWidget()),
         ],
       ),
-      floatingActionButton: ValueListenableBuilder(
-        valueListenable: Hive.box('app').listenable(keys: ['comparisonList']),
-        builder: (context, box, _) {
-          final list = box.get('comparisonList', defaultValue: []);
-          if (list.isEmpty) return const SizedBox.shrink();
+      // floatingActionButton: ValueListenableBuilder(
+      //   valueListenable: Hive.box('app').listenable(keys: ['comparisonList']),
+      //   builder: (context, box, _) {
+      //     final list = box.get('comparisonList', defaultValue: []);
+      //     if (list.isEmpty) return const SizedBox.shrink();
 
-          return FloatingActionButton.extended(
-            onPressed: () => Navigator.pushNamed(context, RoutesName.carComparisonScreen),
-            backgroundColor: AppColor.primaryColor(context),
-            icon: Icon(
-              Icons.compare_arrows_rounded,
-              color: AppColor.whiteColor(context),
-              size: 20.sp,
-            ),
-            label: Text(
-              '${list.length}',
-              style: TextStyle(color: AppColor.whiteColor(context), fontWeight: FontWeight.bold),
-            ),
-          );
-        },
-      ),
+      //     return FloatingActionButton.extended(
+      //       onPressed: () => Navigator.pushNamed(context, RoutesName.carComparisonScreen),
+      //       backgroundColor: AppColor.primaryColor(context),
+      //       icon: Icon(
+      //         Icons.compare_arrows_rounded,
+      //         color: AppColor.whiteColor(context),
+      //         size: 20.sp,
+      //       ),
+      //       label: Text(
+      //         '${list.length}',
+      //         style: TextStyle(color: AppColor.whiteColor(context), fontWeight: FontWeight.bold),
+      //       ),
+      //     );
+      //   },
+      // ),
       bottomNavigationBar: MainBottomNavBar(
         currentIndex: _currentIndex,
         onItemSelected: (index) => setState(() => _currentIndex = index),

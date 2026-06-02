@@ -27,7 +27,10 @@ class SettingsScreen extends StatelessWidget {
         context,
         centerTitle: true,
         automaticallyImplyLeading: false,
-        leading: const SizedBox.shrink(),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_ios_new_rounded, color: AppColor.appBarTextColor(context)),
+          onPressed: () => Navigator.pop(context),
+        ),
         title: Text(
           AppLocaleKey.settings.tr(),
           style: AppTextStyle.titleMedium(
