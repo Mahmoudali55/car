@@ -54,6 +54,24 @@ class _CarInfoTabsWidgetState extends State<CarInfoTabsWidget> with SingleTicker
   @override
   Widget build(BuildContext context) {
     final c = widget.car;
+
+    final grName = c['GR_NAME'] ?? c['grName'];
+    final groupName = c['GROUP_NAME'] ?? c['groupName'];
+
+    String brandVal = c['brand'] ?? c['MAKE_NAME'] ?? "N/A";
+    String typeVal = c['name'] ?? c['MODEL_NAME'] ?? "N/A";
+    String categoryVal = groupName ?? c['CATEGORY'] ?? c['category'] ?? "N/A";
+
+    if (grName != null && grName.toString().trim().isNotEmpty) {
+      final parts = grName.toString().split('-').map((e) => e.trim()).toList();
+      if (parts.isNotEmpty) {
+        brandVal = parts.first;
+        if (parts.length > 1) {
+          typeVal = parts[1];
+        }
+      }
+    }
+
     return Column(
       children: [
         TabBar(
@@ -99,12 +117,12 @@ class _CarInfoTabsWidgetState extends State<CarInfoTabsWidget> with SingleTicker
                       children: [
                         CarDetailRow(
                           label: AppLocaleKey.info_tab_brand.tr(),
-                          value: '${c['brand'] ?? c['MAKE_NAME'] ?? "N/A"}',
+                          value: brandVal,
                           icon: Icons.vpn_key_rounded,
                         ),
                         CarDetailRow(
                           label: AppLocaleKey.info_tab_type.tr(),
-                          value: '${c['name'] ?? c['MODEL_NAME'] ?? "N/A"}',
+                          value: typeVal,
                           icon: Icons.directions_car_rounded,
                         ),
                         CarDetailRow(
@@ -114,7 +132,7 @@ class _CarInfoTabsWidgetState extends State<CarInfoTabsWidget> with SingleTicker
                         ),
                         CarDetailRow(
                           label: AppLocaleKey.info_tab_category.tr(),
-                          value: '${c['category'] ?? c['CATEGORY'] ?? "N/A"}',
+                          value: categoryVal,
                           icon: Icons.drag_handle_rounded,
                         ),
                         CarDetailRow(

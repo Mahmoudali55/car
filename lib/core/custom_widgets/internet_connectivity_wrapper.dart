@@ -23,21 +23,85 @@ class InternetConnectivityWrapper extends StatefulWidget {
   State<InternetConnectivityWrapper> createState() => _InternetConnectivityWrapperState();
 }
 
-class _InternetConnectivityWrapperState extends State<InternetConnectivityWrapper> {
+class _InternetConnectivityWrapperState extends State<InternetConnectivityWrapper>
+    with WidgetsBindingObserver {
   bool _isConnected = true;
   bool _isChecking = false;
   late final InternetConnection _connection;
   StreamSubscription<InternetStatus>? _subscription;
+  Timer? _offlineTimer;
+  AppLifecycleState _lastLifecycleState = AppLifecycleState.resumed;
 
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     // Bulletproof: check if registered in GetIt, fallback to new instance
     _connection = sl.isRegistered<InternetConnection>()
         ? sl<InternetConnection>()
         : InternetConnection();
     _checkInitialConnection();
     _subscribeToConnectionChanges();
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    _subscription?.cancel();
+    _offlineTimer?.cancel();
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    _lastLifecycleState = state;
+    if (state == AppLifecycleState.resumed) {
+      _checkConnectionOnResume();
+    } else if (state == AppLifecycleState.paused) {
+      _offlineTimer?.cancel();
+      _offlineTimer = null;
+    }
+  }
+
+  Future<void> _checkConnectionOnResume() async {
+    _offlineTimer?.cancel();
+    _offlineTimer = null;
+
+    try {
+      final hasAccess = await _connection.hasInternetAccess;
+      if (mounted && _lastLifecycleState == AppLifecycleState.resumed) {
+        if (hasAccess) {
+          final wasOffline = !_isConnected;
+          setState(() {
+            _isConnected = true;
+          });
+          if (wasOffline) {
+            _refreshData();
+          }
+        } else {
+          // If offline immediately after resume, give OS network stack 1.5s to initialize
+          await Future.delayed(const Duration(milliseconds: 1500));
+          if (mounted && _lastLifecycleState == AppLifecycleState.resumed) {
+            final recheckAccess = await _connection.hasInternetAccess;
+            if (recheckAccess) {
+              final wasOffline = !_isConnected;
+              setState(() {
+                _isConnected = true;
+              });
+              if (wasOffline) {
+                _refreshData();
+              }
+            } else {
+              setState(() {
+                _isConnected = false;
+              });
+            }
+          }
+        }
+      }
+    } catch (_) {
+      // Fallback
+    }
   }
 
   Future<void> _checkInitialConnection() async {
@@ -55,17 +119,40 @@ class _InternetConnectivityWrapperState extends State<InternetConnectivityWrappe
 
   void _subscribeToConnectionChanges() {
     _subscription = _connection.onStatusChange.listen((status) {
-      if (mounted) {
-        final newConnected = (status == InternetStatus.connected);
-        final wasOffline = !_isConnected;
-        setState(() {
-          _isConnected = newConnected;
-        });
-        if (newConnected && wasOffline) {
-          _refreshData();
-        }
+      if (!mounted) return;
+
+      // Ignore background events
+      if (_lastLifecycleState != AppLifecycleState.resumed) {
+        return;
       }
+
+      final newConnected = (status == InternetStatus.connected);
+      _handleConnectionChange(newConnected);
     });
+  }
+
+  void _handleConnectionChange(bool newConnected) {
+    if (newConnected) {
+      _offlineTimer?.cancel();
+      _offlineTimer = null;
+      if (!_isConnected) {
+        setState(() {
+          _isConnected = true;
+        });
+        _refreshData();
+      }
+    } else {
+      // Delay showing offline screen to handle brief disconnects
+      if (_isConnected && _offlineTimer == null) {
+        _offlineTimer = Timer(const Duration(seconds: 3), () {
+          if (mounted && _lastLifecycleState == AppLifecycleState.resumed) {
+            setState(() {
+              _isConnected = false;
+            });
+          }
+        });
+      }
+    }
   }
 
   void _refreshData() {
@@ -110,12 +197,6 @@ class _InternetConnectivityWrapperState extends State<InternetConnectivityWrappe
         });
       }
     }
-  }
-
-  @override
-  void dispose() {
-    _subscription?.cancel();
-    super.dispose();
   }
 
   @override

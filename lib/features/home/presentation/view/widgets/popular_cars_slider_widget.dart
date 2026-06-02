@@ -124,6 +124,8 @@ class _PopularCarsSliderState extends State<PopularCarsSlider> {
       'Color': car.color,
       'TRANSMISSION': car.transmission,
       'MAKE_YEAR': car.makeYear,
+      'GR_NAME': car.grName,
+      'GROUP_NAME': car.groupName,
     };
   }
 
