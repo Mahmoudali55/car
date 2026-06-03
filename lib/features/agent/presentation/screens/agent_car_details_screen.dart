@@ -1,6 +1,7 @@
 import 'package:car/core/custom_widgets/buttons/custom_button.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
+import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/features/agent/data/agent_models.dart';
 import 'package:car/features/agent/presentation/screens/widget/icon_btn_widget.dart';
 import 'package:car/features/agent/presentation/screens/widget/quote_builder_dialog.dart';
@@ -141,16 +142,14 @@ class AgentCarDetailsScreen extends StatelessWidget {
                   /// Brand & Name
                   Text(
                     car.brand,
-                    style: TextStyle(
-                      color: AppColor.blueColor(context),
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w800,
-                    ),
+                    style: AppTextStyle.bodyMedium(
+                      context,
+                    ).copyWith(color: AppColor.blueColor(context), fontWeight: FontWeight.w800),
                   ),
                   Gap(4.h),
                   Text(
                     car.name,
-                    style: TextStyle(
+                    style: AppTextStyle.bodyMedium(context).copyWith(
                       color: AppColor.blackTextColor(context),
                       fontSize: 28.sp,
                       fontWeight: FontWeight.w900,
@@ -166,7 +165,7 @@ class AgentCarDetailsScreen extends StatelessWidget {
                     children: [
                       Text(
                         NumberFormat('#,##0').format(car.price),
-                        style: TextStyle(
+                        style: AppTextStyle.bodyLarge(context).copyWith(
                           color: AppColor.blackTextColor(context),
                           fontSize: 32.sp,
                           fontWeight: FontWeight.w900,
@@ -175,7 +174,9 @@ class AgentCarDetailsScreen extends StatelessWidget {
                       Gap(6.w),
                       Text(
                         AppLocaleKey.sar.tr(),
-                        style: TextStyle(color: AppColor.greyColor(context), fontSize: 16.sp),
+                        style: AppTextStyle.bodyLarge(
+                          context,
+                        ).copyWith(color: AppColor.greyColor(context)),
                       ),
                     ],
                   ),
@@ -185,7 +186,7 @@ class AgentCarDetailsScreen extends StatelessWidget {
                   /// Specs
                   Text(
                     AppLocaleKey.agentMainSpecs.tr(),
-                    style: TextStyle(
+                    style: AppTextStyle.bodyLarge(context).copyWith(
                       color: AppColor.blackTextColor(context),
                       fontSize: 18.sp,
                       fontWeight: FontWeight.w900,
@@ -229,7 +230,7 @@ class AgentCarDetailsScreen extends StatelessWidget {
                   /// Description
                   Text(
                     AppLocaleKey.agentAboutCar.tr(),
-                    style: TextStyle(
+                    style: AppTextStyle.titleMedium(context).copyWith(
                       color: AppColor.blackTextColor(context),
                       fontSize: 18.sp,
                       fontWeight: FontWeight.w900,
@@ -238,9 +239,8 @@ class AgentCarDetailsScreen extends StatelessWidget {
                   Gap(12.h),
                   Text(
                     AppLocaleKey.agentCarDesc.tr(namedArgs: {'name': car.name}),
-                    style: TextStyle(
+                    style: AppTextStyle.bodyMedium(context).copyWith(
                       color: AppColor.greyColor(context).withValues(alpha: (0.8)),
-                      fontSize: 14.sp,
                       height: 1.6,
                     ),
                   ),

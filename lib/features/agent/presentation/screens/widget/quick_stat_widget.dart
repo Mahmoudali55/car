@@ -49,7 +49,7 @@ class QuickStat extends StatelessWidget {
               children: [
                 Text(
                   label,
-                  style: TextStyle(
+                  style: AppTextStyle.bodySmall(context).copyWith(
                     color: AppColor.hintColor(context).withValues(alpha: 0.8),
                     fontSize: 10.sp,
                     fontWeight: FontWeight.w700,

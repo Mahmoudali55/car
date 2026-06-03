@@ -15,7 +15,6 @@ class AgentAppointmentsScreen extends StatefulWidget {
   @override
   State<AgentAppointmentsScreen> createState() => _AgentAppointmentsScreenState();
 }
-
 class _AgentAppointmentsScreenState extends State<AgentAppointmentsScreen> {
   @override
   Widget build(BuildContext context) {
@@ -35,7 +34,7 @@ class _AgentAppointmentsScreenState extends State<AgentAppointmentsScreen> {
         elevation: 0,
         title: Text(
           AppLocaleKey.agentAppointment.tr(),
-          style: TextStyle(
+          style: AppTextStyle.titleLarge(context).copyWith(
             color: AppColor.blackTextColor(context),
             fontWeight: FontWeight.w900,
             fontSize: 24.sp,

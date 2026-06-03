@@ -1,5 +1,6 @@
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
+import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/features/agent/data/agent_models.dart';
 import 'package:car/features/agent/presentation/screens/widget/status_badge_widget.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -57,11 +58,9 @@ class LeadCard extends StatelessWidget {
                   child: Center(
                     child: Text(
                       lead.customerName[0],
-                      style: TextStyle(
-                        color: statusColor,
-                        fontWeight: FontWeight.w900,
-                        fontSize: 22.sp,
-                      ),
+                      style: AppTextStyle.bodyLarge(
+                        context,
+                      ).copyWith(color: statusColor, fontWeight: FontWeight.w900, fontSize: 22.sp),
                     ),
                   ),
                 ),
@@ -77,7 +76,7 @@ class LeadCard extends StatelessWidget {
                           Expanded(
                             child: Text(
                               lead.customerName,
-                              style: TextStyle(
+                              style: AppTextStyle.bodyLarge(context).copyWith(
                                 color: AppColor.blackTextColor(context),
                                 fontWeight: FontWeight.w900,
                                 fontSize: 16.sp,
@@ -91,7 +90,7 @@ class LeadCard extends StatelessWidget {
                       Gap(4.h),
                       Text(
                         lead.carInterest,
-                        style: TextStyle(
+                        style: AppTextStyle.bodyMedium(context).copyWith(
                           color: AppColor.greyColor(context),
                           fontSize: 13.sp,
                           fontWeight: FontWeight.w600,
@@ -102,7 +101,7 @@ class LeadCard extends StatelessWidget {
                         AppLocaleKey.agentBudgetDisplay.tr(
                           namedArgs: {'amount': NumberFormat('#,##0').format(lead.budget)},
                         ),
-                        style: TextStyle(
+                        style: AppTextStyle.bodySmall(context).copyWith(
                           color: AppColor.blueColor(context),
                           fontSize: 12.sp,
                           fontWeight: FontWeight.w800,

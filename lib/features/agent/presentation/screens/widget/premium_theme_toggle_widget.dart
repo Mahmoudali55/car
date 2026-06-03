@@ -13,7 +13,6 @@ class PremiumThemeToggle extends StatelessWidget {
       builder: (context, state) {
         final cubit = context.read<AppThemeCubit>();
         final isDark = Theme.of(context).brightness == Brightness.dark;
-
         return GestureDetector(
           onTap: () {
             cubit.theme = isDark ? ThemeEnum.light : ThemeEnum.dark;

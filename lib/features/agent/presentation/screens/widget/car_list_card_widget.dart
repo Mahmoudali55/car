@@ -60,11 +60,9 @@ class CarListCard extends StatelessWidget {
                     children: [
                       Text(
                         car.brand,
-                        style: TextStyle(
-                          color: AppColor.greyColor(context),
-                          fontSize: 11.sp,
-                          fontWeight: FontWeight.w600,
-                        ),
+                        style: AppTextStyle.bodySmall(
+                          context,
+                        ).copyWith(color: AppColor.greyColor(context), fontWeight: FontWeight.w600),
                       ),
                       Container(
                         padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
@@ -74,11 +72,9 @@ class CarListCard extends StatelessWidget {
                         ),
                         child: Text(
                           car.availabilityLabel,
-                          style: TextStyle(
-                            color: availabilityColor,
-                            fontSize: 10.sp,
-                            fontWeight: FontWeight.w900,
-                          ),
+                          style: AppTextStyle.bodySmall(
+                            context,
+                          ).copyWith(color: availabilityColor, fontWeight: FontWeight.w900),
                         ),
                       ),
                     ],
@@ -88,10 +84,9 @@ class CarListCard extends StatelessWidget {
                   /// Name
                   Text(
                     car.name,
-                    style: TextStyle(
+                    style: AppTextStyle.bodyLarge(context).copyWith(
                       color: AppColor.blackTextColor(context),
                       fontWeight: FontWeight.w900,
-                      fontSize: 18.sp,
                       letterSpacing: -0.5,
                     ),
                   ),
@@ -100,11 +95,9 @@ class CarListCard extends StatelessWidget {
                   /// Price
                   Text(
                     '${NumberFormat('#,##0').format(car.price)} ر.س',
-                    style: TextStyle(
-                      color: AppColor.blueColor(context),
-                      fontWeight: FontWeight.w900,
-                      fontSize: 16.sp,
-                    ),
+                    style: AppTextStyle.bodyLarge(
+                      context,
+                    ).copyWith(color: AppColor.blueColor(context), fontWeight: FontWeight.w900),
                   ),
                   Gap(14.h),
 
@@ -123,8 +116,6 @@ class CarListCard extends StatelessWidget {
             ),
 
             Gap(16.w),
-
-            /// ── Image Area ──
           ],
         ),
       ),

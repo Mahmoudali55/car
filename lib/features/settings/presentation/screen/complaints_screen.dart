@@ -16,7 +16,6 @@ class ComplaintsScreen extends StatefulWidget {
   @override
   State<ComplaintsScreen> createState() => _ComplaintsScreenState();
 }
-
 class _ComplaintsScreenState extends State<ComplaintsScreen> {
   final _formKey = GlobalKey<FormState>();
   final _complaintController = TextEditingController();

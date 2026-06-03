@@ -60,7 +60,7 @@ class PremiumLeadTile extends StatelessWidget {
               children: [
                 Text(
                   lead.customerName,
-                  style: TextStyle(
+                  style: AppTextStyle.bodyMedium(context).copyWith(
                     color: AppColor.blackTextColor(context),
                     fontWeight: FontWeight.w900,
                     fontSize: 15.sp,
@@ -70,7 +70,7 @@ class PremiumLeadTile extends StatelessWidget {
                 Gap(4.h),
                 Text(
                   lead.carInterest,
-                  style: TextStyle(
+                  style: AppTextStyle.bodySmall(context).copyWith(
                     color: AppColor.greyColor(context),
                     fontSize: 13.sp,
                     fontWeight: FontWeight.w600,

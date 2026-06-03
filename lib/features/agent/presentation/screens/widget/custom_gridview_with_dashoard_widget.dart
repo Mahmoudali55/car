@@ -1,5 +1,6 @@
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
+import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/features/agent/data/agent_models.dart';
 import 'package:car/features/agent/presentation/screens/agent_add_appointment_screen.dart';
 import 'package:car/features/agent/presentation/screens/agent_add_lead_screen.dart';
@@ -107,11 +108,9 @@ class CustomGridviewWithDashoardWidget extends StatelessWidget {
                 padding: EdgeInsets.only(top: 40.h),
                 child: Text(
                   AppLocaleKey.agentNoCustomersFound.tr(),
-                  style: TextStyle(
-                    color: AppColor.greyColor(context),
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.w500,
-                  ),
+                  style: AppTextStyle.bodyMedium(
+                    context,
+                  ).copyWith(color: AppColor.greyColor(context), fontWeight: FontWeight.w500),
                 ),
               ),
             )

@@ -34,7 +34,7 @@ class _AgentAddAppointmentScreenState extends State<AgentAddAppointmentScreen> {
         ),
         title: Text(
           AppLocaleKey.agentScheduleNewAppointment.tr(),
-          style: TextStyle(
+          style: AppTextStyle.titleLarge(context).copyWith(
             color: AppColor.blackTextColor(context),
             fontWeight: FontWeight.w900,
             fontSize: 18.sp,

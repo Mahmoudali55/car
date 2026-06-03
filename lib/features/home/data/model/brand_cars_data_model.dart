@@ -48,8 +48,16 @@ class GetBrandCarsDataModel extends Equatable {
   final String? mobileShow;
   final String color;
   final List<String> extraImages;
-
   final String? carImage;
+
+  // Mock/Extra fields for UI consistency
+  final String? discount;
+  final String? oldPrice;
+  final String? installments;
+  final String? cashPrice;
+  final bool isFavorite;
+  final bool isTamaraAvailable;
+  final String videoId;
 
   const GetBrandCarsDataModel({
     required this.groupCode,
@@ -96,7 +104,101 @@ class GetBrandCarsDataModel extends Equatable {
     required this.carImage,
     required this.color,
     this.extraImages = const [],
+    this.discount,
+    this.oldPrice,
+    this.installments,
+    this.cashPrice,
+    this.isFavorite = false,
+    this.isTamaraAvailable = true,
+    this.videoId = 'D7O8J5vVf-M',
   });
+
+  String get fullCarImage {
+    if (carImage == null || carImage!.isEmpty) return '';
+    if (carImage!.startsWith('http')) return carImage!;
+    return 'https://hbwinternational.com/Img/Emp/${carImage!.replaceAll('../../Img/Emp/', '')}';
+  }
+
+  List<String> get allImages {
+    final List<String> images = [];
+    if (fullCarImage.isNotEmpty) images.add(fullCarImage);
+    for (var img in extraImages) {
+      if (img.isEmpty) continue;
+      final full = img.startsWith('http')
+          ? img
+          : 'https://hbwinternational.com/Img/Emp/${img.replaceAll('../../Img/Emp/', '')}';
+      if (!images.contains(full)) images.add(full);
+    }
+    return images;
+  }
+
+  String get formattedPrice {
+    if (price == null || price!.isEmpty) return '---';
+    return price!.replaceAll(RegExp(r'[^0-9,]'), '');
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'GROUP_CODE': groupCode,
+      'GROUP_NAME': groupName,
+      'GR_NAME': grName,
+      'GROUP_PARENT': groupParent,
+      'GROUP_LEVEL': groupLevel,
+      'PRICE': price,
+      'ITEM_CODE': itemCode,
+      'ITEM_TYPE': itemType,
+      'ITEM_NAME': itemName,
+      'ITEM_ENAME': itemEName,
+      'ITEM_SUB': itemSub,
+      'NOTES': notes,
+      'GROUP_CODE1': groupCode1,
+      'STORE_CODE': storeCode,
+      'CAR_STATUS': carStatus,
+      'CAR_TYPE': carType,
+      'CAR_SPECIFICATION': carSpecification,
+      'CHASSIS_NO': chassisNo,
+      'MOTOR_NO': motorNo,
+      'BODY_COLOR': bodyColor,
+      'KILOMETER_READING': kilometerReading,
+      'TRANSMISSION': transmission,
+      'CYLINDER': cylinder,
+      'POWER_HOURSE': powerHourse,
+      'FUEL_CAPACITY': fuelCapacity,
+      'FUEL_TYPE': fuelType,
+      'SEAT_NO': seatNo,
+      'DOOR_NO': doorNo,
+      'USED_CLIENT': usedClient,
+      'ADD_TYPE': addType,
+      'COLOR_CODE': colorCode,
+      'BOARD_NO': boardNo,
+      'MAKE_YEAR': makeYear,
+      'NOTIFY_TYPE': notifyType,
+      'NOTIFY_DATE': notifyDate,
+      'SUPPLIER_CD': supplierCd,
+      'BUY_DATE': buyDate,
+      'TR_NO': trNo,
+      'CUSTOMS_CARD_NO': customsCardNo,
+      'REASON_ID': reasonId,
+      'MobileShow': mobileShow,
+      'carimage': carImage,
+      'Color': color,
+      // For backward compatibility and UI usage
+      'name': itemName,
+      'image': fullCarImage,
+      'price': price,
+      'brand': groupName,
+      'year': makeYear.toString(),
+      'mileage': kilometerReading ?? '0',
+      'engine': cylinder,
+      'discount': discount,
+      'oldPrice': oldPrice,
+      'installments': installments,
+      'cashPrice': cashPrice ?? price,
+      'isFavorite': isFavorite,
+      'isTamaraAvailable': isTamaraAvailable,
+      'video_id': videoId,
+    };
+  }
 
   String get carStatusText {
     switch (carStatus) {
@@ -111,7 +213,10 @@ class GetBrandCarsDataModel extends Equatable {
     }
   }
 
-  GetBrandCarsDataModel copyWith({List<String>? extraImages}) {
+  GetBrandCarsDataModel copyWith({
+    List<String>? extraImages,
+    bool? isFavorite,
+  }) {
     return GetBrandCarsDataModel(
       groupCode: groupCode,
       groupName: groupName,
@@ -157,54 +262,68 @@ class GetBrandCarsDataModel extends Equatable {
       carImage: carImage,
       color: color,
       extraImages: extraImages ?? this.extraImages,
+      discount: discount,
+      oldPrice: oldPrice,
+      installments: installments,
+      cashPrice: cashPrice,
+      isFavorite: isFavorite ?? this.isFavorite,
+      isTamaraAvailable: isTamaraAvailable,
+      videoId: videoId,
     );
   }
 
   factory GetBrandCarsDataModel.fromJson(Map<String, dynamic> json) {
     return GetBrandCarsDataModel(
-      groupCode: json['GROUP_CODE'] ?? 0,
-      groupName: json['GROUP_NAME'] ?? '',
-      grName: json['GR_NAME'] ?? '',
-      groupParent: json['GROUP_PARENT'] ?? 0,
-      groupLevel: json['GROUP_LEVEL'] ?? 0,
-      price: json['PRICE']?.toString(),
-      itemCode: json['ITEM_CODE'] ?? '',
-      itemType: json['ITEM_TYPE'] ?? 0,
-      itemName: json['ITEM_NAME'] ?? '',
-      itemEName: json['ITEM_ENAME'],
-      itemSub: json['ITEM_SUB'],
-      notes: json['NOTES'],
-      groupCode1: json['GROUP_CODE1'] ?? 0,
-      storeCode: json['STORE_CODE'] ?? '',
-      carStatus: json['CAR_STATUS'] ?? 0,
-      carType: json['CAR_TYPE'] ?? 0,
-      carSpecification: json['CAR_SPECIFICATION']?.toString(),
-      chassisNo: json['CHASSIS_NO']?.toString() ?? '',
-      motorNo: json['MOTOR_NO']?.toString(),
-      bodyColor: json['BODY_COLOR']?.toString() ?? '',
-      kilometerReading: json['KILOMETER_READING']?.toString(),
-      transmission: json['TRANSMISSION'] ?? 0,
-      cylinder: json['CYLINDER']?.toString() ?? '',
-      powerHourse: json['POWER_HOURSE']?.toString() ?? '',
-      fuelCapacity: json['FUEL_CAPACITY']?.toString() ?? '',
-      fuelType: json['FUEL_TYPE']?.toString() ?? '',
-      seatNo: json['SEAT_NO'] ?? 0,
-      doorNo: json['DOOR_NO'] ?? 0,
-      usedClient: json['USED_CLIENT']?.toString(),
-      addType: json['ADD_TYPE'] ?? 0,
-      colorCode: json['COLOR_CODE'] ?? 0,
-      boardNo: json['BOARD_NO']?.toString(),
-      makeYear: json['MAKE_YEAR'] ?? 0,
-      notifyType: json['NOTIFY_TYPE'] ?? 0,
-      notifyDate: json['NOTIFY_DATE']?.toString(),
-      supplierCd: json['SUPPLIER_CD'] ?? 0,
-      buyDate: json['BUY_DATE']?.toString() ?? '',
-      trNo: json['TR_NO'] ?? 0,
-      customsCardNo: json['CUSTOMS_CARD_NO']?.toString(),
-      reasonId: json['REASON_ID'] ?? 0,
-      mobileShow: json['MobileShow']?.toString(),
-      carImage: json['carimage']?.toString() ?? '',
-      color: json['Color']?.toString() ?? '',
+      groupCode: json['GROUP_CODE'] ?? json['groupCode'] ?? 0,
+      groupName: json['GROUP_NAME'] ?? json['brand'] ?? json['groupName'] ?? '',
+      grName: json['GR_NAME'] ?? json['grName'] ?? '',
+      groupParent: json['GROUP_PARENT'] ?? json['groupParent'] ?? 0,
+      groupLevel: json['GROUP_LEVEL'] ?? json['groupLevel'] ?? 0,
+      price: json['PRICE']?.toString() ?? json['price']?.toString(),
+      itemCode: json['ITEM_CODE']?.toString() ?? json['itemCode']?.toString() ?? '',
+      itemType: json['ITEM_TYPE'] ?? json['itemType'] ?? 0,
+      itemName: json['ITEM_NAME'] ?? json['name'] ?? json['itemName'] ?? '',
+      itemEName: json['ITEM_ENAME'] ?? json['itemEName'],
+      itemSub: json['ITEM_SUB'] ?? json['itemSub'],
+      notes: json['NOTES'] ?? json['notes'],
+      groupCode1: json['GROUP_CODE1'] ?? json['groupCode1'] ?? 0,
+      storeCode: json['STORE_CODE']?.toString() ?? json['storeCode']?.toString() ?? '',
+      carStatus: json['CAR_STATUS'] ?? json['carStatus'] ?? 0,
+      carType: json['CAR_TYPE'] ?? json['carType'] ?? 0,
+      carSpecification: json['CAR_SPECIFICATION']?.toString() ?? json['carSpecification']?.toString(),
+      chassisNo: json['CHASSIS_NO']?.toString() ?? json['chassisNo']?.toString() ?? '',
+      motorNo: json['MOTOR_NO']?.toString() ?? json['motorNo']?.toString(),
+      bodyColor: json['BODY_COLOR']?.toString() ?? json['bodyColor'] ?? json['interiorColor']?.toString() ?? '',
+      kilometerReading: json['KILOMETER_READING']?.toString() ?? json['kilometerReading'] ?? json['mileage']?.toString(),
+      transmission: json['TRANSMISSION'] ?? json['transmission'] ?? 0,
+      cylinder: json['CYLINDER']?.toString() ?? json['cylinder'] ?? json['engine']?.toString() ?? '',
+      powerHourse: json['POWER_HOURSE']?.toString() ?? json['powerHourse']?.toString() ?? '',
+      fuelCapacity: json['FUEL_CAPACITY']?.toString() ?? json['fuelCapacity']?.toString() ?? '',
+      fuelType: json['FUEL_TYPE']?.toString() ?? json['fuelType']?.toString() ?? '',
+      seatNo: json['SEAT_NO'] ?? json['seatNo'] ?? 0,
+      doorNo: json['DOOR_NO'] ?? json['doorNo'] ?? 0,
+      usedClient: json['USED_CLIENT']?.toString() ?? json['usedClient']?.toString(),
+      addType: json['ADD_TYPE'] ?? json['addType'] ?? 0,
+      colorCode: json['COLOR_CODE'] ?? json['colorCode'] ?? 0,
+      boardNo: json['BOARD_NO']?.toString() ?? json['boardNo']?.toString(),
+      makeYear: int.tryParse(json['MAKE_YEAR']?.toString() ?? json['makeYear']?.toString() ?? json['year']?.toString() ?? '') ?? 0,
+      notifyType: json['NOTIFY_TYPE'] ?? json['notifyType'] ?? 0,
+      notifyDate: json['NOTIFY_DATE']?.toString() ?? json['notifyDate']?.toString(),
+      supplierCd: json['SUPPLIER_CD'] ?? json['supplierCd'] ?? 0,
+      buyDate: json['BUY_DATE']?.toString() ?? json['buyDate']?.toString() ?? '',
+      trNo: json['TR_NO'] ?? json['trNo'] ?? 0,
+      customsCardNo: json['CUSTOMS_CARD_NO']?.toString() ?? json['customsCardNo']?.toString(),
+      reasonId: json['REASON_ID'] ?? json['reasonId'] ?? 0,
+      mobileShow: json['MobileShow']?.toString() ?? json['mobileShow']?.toString(),
+      carImage: json['carimage']?.toString() ?? json['image']?.toString() ?? '',
+      color: json['Color']?.toString() ?? json['color'] ?? json['exteriorColor']?.toString() ?? '',
+      discount: json['discount']?.toString(),
+      oldPrice: json['oldPrice']?.toString(),
+      installments: json['installments']?.toString() ?? json['installmentPrice']?.toString(),
+      cashPrice: json['cashPrice']?.toString(),
+      isFavorite: json['isFavorite'] ?? false,
+      isTamaraAvailable: json['isTamaraAvailable'] ?? true,
+      videoId: json['video_id']?.toString() ?? 'D7O8J5vVf-M',
     );
   }
 
@@ -279,5 +398,14 @@ class GetBrandCarsDataModel extends Equatable {
     mobileShow,
     carImage,
     color,
+    extraImages,
+    discount,
+    oldPrice,
+    installments,
+    cashPrice,
+    isFavorite,
+    isTamaraAvailable,
+    videoId,
+
   ];
 }

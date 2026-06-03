@@ -1,5 +1,6 @@
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
+import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/features/agent/data/agent_models.dart';
 import 'package:car/features/agent/presentation/screens/widget/action_btn_widget.dart';
 import 'package:car/features/agent/presentation/screens/widget/cancel_btn_widget.dart';
@@ -99,7 +100,7 @@ class AppointmentCard extends StatelessWidget {
                       children: [
                         Text(
                           timeF.format(appointment.dateTime),
-                          style: TextStyle(
+                          style: AppTextStyle.bodyMedium(context).copyWith(
                             color: statusColor,
                             fontWeight: FontWeight.w900,
                             fontSize: 13.sp,
@@ -109,7 +110,7 @@ class AppointmentCard extends StatelessWidget {
                         Gap(2.h),
                         Text(
                           dateF.format(appointment.dateTime),
-                          style: TextStyle(
+                          style: AppTextStyle.bodySmall(context).copyWith(
                             color: statusColor.withValues(alpha: 0.7),
                             fontSize: 9.sp,
                             fontWeight: FontWeight.w700,
@@ -131,7 +132,7 @@ class AppointmentCard extends StatelessWidget {
                             Expanded(
                               child: Text(
                                 appointment.customerName,
-                                style: TextStyle(
+                                style: AppTextStyle.bodyLarge(context).copyWith(
                                   color: AppColor.blackTextColor(context),
                                   fontWeight: FontWeight.w900,
                                   fontSize: 16.sp,
@@ -148,7 +149,7 @@ class AppointmentCard extends StatelessWidget {
                               ),
                               child: Text(
                                 _statusLabel,
-                                style: TextStyle(
+                                style: AppTextStyle.bodySmall(context).copyWith(
                                   color: statusColor,
                                   fontSize: 11.sp,
                                   fontWeight: FontWeight.w800,
@@ -160,7 +161,7 @@ class AppointmentCard extends StatelessWidget {
                         Gap(6.h),
                         Text(
                           appointment.carModel,
-                          style: TextStyle(
+                          style: AppTextStyle.bodySmall(context).copyWith(
                             color: AppColor.greyColor(context),
                             fontSize: 13.sp,
                             fontWeight: FontWeight.w600,
@@ -177,9 +178,9 @@ class AppointmentCard extends StatelessWidget {
                             Gap(4.w),
                             Text(
                               appointment.location,
-                              style: TextStyle(
+                              style: AppTextStyle.bodySmall(context).copyWith(
                                 color: AppColor.hintColor(context),
-                                fontSize: 12.sp,
+
                                 fontWeight: FontWeight.w600,
                               ),
                             ),

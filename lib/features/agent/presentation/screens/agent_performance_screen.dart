@@ -34,7 +34,7 @@ class AgentPerformanceScreen extends StatelessWidget {
         centerTitle: false,
         title: Text(
           AppLocaleKey.agentPerformanceStats.tr(),
-          style: TextStyle(
+          style: AppTextStyle.titleMedium(context).copyWith(
             color: AppColor.blackTextColor(context),
             fontWeight: FontWeight.w900,
             fontSize: 20.sp,
@@ -102,7 +102,7 @@ class AgentPerformanceScreen extends StatelessWidget {
                       children: [
                         Text(
                           AppLocaleKey.agentTierGold.tr(),
-                          style: TextStyle(
+                          style: AppTextStyle.titleMedium(context).copyWith(
                             color: AppColor.whiteColor(context),
                             fontWeight: FontWeight.w900,
                             fontSize: 20.sp,
@@ -110,9 +110,8 @@ class AgentPerformanceScreen extends StatelessWidget {
                         ),
                         Text(
                           AppLocaleKey.agentRankCount.tr(namedArgs: {'rank': '3', 'total': '24'}),
-                          style: TextStyle(
+                          style: AppTextStyle.bodySmall(context).copyWith(
                             color: AppColor.whiteColor(context).withValues(alpha: 0.8),
-                            fontSize: 12.sp,
                             fontWeight: FontWeight.w600,
                           ),
                         ),
@@ -129,7 +128,7 @@ class AgentPerformanceScreen extends StatelessWidget {
                         Gap(6.h),
                         Text(
                           AppLocaleKey.agentToPlatinum.tr(namedArgs: {'percent': '72'}),
-                          style: TextStyle(
+                          style: AppTextStyle.bodySmall(context).copyWith(
                             color: AppColor.whiteColor(context).withValues(alpha: 0.6),
                             fontSize: 10.sp,
                             fontWeight: FontWeight.w600,
@@ -181,7 +180,7 @@ class AgentPerformanceScreen extends StatelessWidget {
                           ),
                           child: Text(
                             '${_weeklyData[i]}',
-                            style: TextStyle(
+                            style: AppTextStyle.bodySmall(context).copyWith(
                               fontSize: 10.sp,
                               fontWeight: FontWeight.w900,
                               color: AppColor.whiteColor(context),
@@ -215,11 +214,9 @@ class AgentPerformanceScreen extends StatelessWidget {
                       Gap(10.h),
                       Text(
                         weekDays[i],
-                        style: TextStyle(
-                          fontSize: 12.sp,
-                          color: AppColor.hintColor(context),
-                          fontWeight: FontWeight.w700,
-                        ),
+                        style: AppTextStyle.bodySmall(
+                          context,
+                        ).copyWith(color: AppColor.hintColor(context), fontWeight: FontWeight.w700),
                       ),
                     ],
                   );
@@ -229,11 +226,9 @@ class AgentPerformanceScreen extends StatelessWidget {
             Gap(32.h),
             Text(
               AppLocaleKey.agentConversionFunnel.tr(),
-              style: TextStyle(
-                fontWeight: FontWeight.w900,
-                fontSize: 18.sp,
-                color: AppColor.blackTextColor(context),
-              ),
+              style: AppTextStyle.titleLarge(
+                context,
+              ).copyWith(fontWeight: FontWeight.w900, color: AppColor.blackTextColor(context)),
             ),
             Gap(16.h),
             FunnelRow(
@@ -259,11 +254,9 @@ class AgentPerformanceScreen extends StatelessWidget {
             Gap(32.h),
             Text(
               AppLocaleKey.agentCommissionsSales.tr(),
-              style: TextStyle(
-                fontWeight: FontWeight.w900,
-                fontSize: 18.sp,
-                color: AppColor.blackTextColor(context),
-              ),
+              style: AppTextStyle.titleLarge(
+                context,
+              ).copyWith(fontWeight: FontWeight.w900, color: AppColor.blackTextColor(context)),
             ),
             Gap(16.h),
             Container(

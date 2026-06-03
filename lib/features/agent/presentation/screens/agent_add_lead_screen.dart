@@ -40,11 +40,9 @@ class AgentAddLeadScreen extends StatelessWidget {
             children: [
               Text(
                 AppLocaleKey.agentAddLeadDesc.tr(),
-                style: TextStyle(
-                  color: AppColor.greyColor(context),
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.w500,
-                ),
+                style: AppTextStyle.bodyMedium(
+                  context,
+                ).copyWith(color: AppColor.greyColor(context), fontWeight: FontWeight.w500),
               ),
               Gap(24.h),
 

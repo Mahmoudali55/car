@@ -1,17 +1,20 @@
-import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
-import 'package:easy_localization/easy_localization.dart';
+import 'package:car/core/theme/app_colors.dart';
+import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/features/agent/data/agent_models.dart';
 import 'package:car/features/agent/presentation/screens/agent_car_details_screen.dart';
 import 'package:car/features/agent/presentation/screens/widget/car_list_card_widget.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
+
 class AgentInventoryScreen extends StatefulWidget {
   const AgentInventoryScreen({super.key});
   @override
   State<AgentInventoryScreen> createState() => _AgentInventoryScreenState();
 }
+
 class _AgentInventoryScreenState extends State<AgentInventoryScreen> {
   List<AgentCar> _getByFilter(CarAvailability? filter) {
     if (filter == null) return getAgentCars();
@@ -28,7 +31,7 @@ class _AgentInventoryScreenState extends State<AgentInventoryScreen> {
             SliverAppBar(
               pinned: true,
               backgroundColor: AppColor.appBarColor(context),
-              expandedHeight: 80.h, 
+              expandedHeight: 80.h,
               elevation: 0,
               flexibleSpace: FlexibleSpaceBar(
                 background: SafeArea(
@@ -83,11 +86,17 @@ class _AgentInventoryScreenState extends State<AgentInventoryScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.directions_car_filled_outlined, size: 48.sp, color: AppColor.hintColor(context)),
+            Icon(
+              Icons.directions_car_filled_outlined,
+              size: 48.sp,
+              color: AppColor.hintColor(context),
+            ),
             Gap(12.h),
             Text(
               AppLocaleKey.agentNoDataAvailable.tr(),
-              style: TextStyle(color: AppColor.hintColor(context), fontSize: 14.sp, fontWeight: FontWeight.w600),
+              style: AppTextStyle.bodyMedium(
+                context,
+              ).copyWith(color: AppColor.hintColor(context), fontWeight: FontWeight.w600),
             ),
           ],
         ),
@@ -100,9 +109,7 @@ class _AgentInventoryScreenState extends State<AgentInventoryScreen> {
         car: list[i],
         onTap: () => Navigator.push(
           context,
-          MaterialPageRoute(
-            builder: (_) => AgentCarDetailsScreen(car: list[i]),
-          ),
+          MaterialPageRoute(builder: (_) => AgentCarDetailsScreen(car: list[i])),
         ),
       ),
     );

@@ -1,6 +1,7 @@
 import 'package:car/core/custom_widgets/custom_form_field/custom_form_field.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
+import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/features/agent/data/agent_models.dart';
 import 'package:car/features/agent/presentation/screens/widget/lead_card_widget.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -107,15 +108,12 @@ class _AgentLeadsScreenState extends State<AgentLeadsScreen> {
                           ),
                           labelColor: AppColor.whiteColor(context),
                           unselectedLabelColor: AppColor.hintColor(context),
-                          labelStyle: TextStyle(
-                            fontSize: 13.sp,
-                            fontWeight: FontWeight.w900,
-                            letterSpacing: -0.2,
-                          ),
-                          unselectedLabelStyle: TextStyle(
-                            fontSize: 13.sp,
-                            fontWeight: FontWeight.w700,
-                          ),
+                          labelStyle: AppTextStyle.bodyMedium(
+                            context,
+                          ).copyWith(fontWeight: FontWeight.w900, letterSpacing: -0.2),
+                          unselectedLabelStyle: AppTextStyle.bodyMedium(
+                            context,
+                          ).copyWith(fontWeight: FontWeight.w700),
                           indicatorSize: TabBarIndicatorSize.tab,
                           dividerColor: Colors.transparent,
                           tabs: [
@@ -170,11 +168,9 @@ class _AgentLeadsScreenState extends State<AgentLeadsScreen> {
             Gap(16.h),
             Text(
               AppLocaleKey.agentNoMatchesFound.tr(),
-              style: TextStyle(
-                color: AppColor.hintColor(context),
-                fontSize: 15.sp,
-                fontWeight: FontWeight.w700,
-              ),
+              style: AppTextStyle.bodyMedium(
+                context,
+              ).copyWith(color: AppColor.hintColor(context), fontWeight: FontWeight.w700),
             ),
           ],
         ),

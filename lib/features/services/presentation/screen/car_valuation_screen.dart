@@ -12,7 +12,6 @@ import 'package:gap/gap.dart';
 
 class CarValuationScreen extends StatefulWidget {
   const CarValuationScreen({super.key});
-
   @override
   State<CarValuationScreen> createState() => _CarValuationScreenState();
 }
@@ -23,11 +22,9 @@ class _CarValuationScreenState extends State<CarValuationScreen> {
   final _yearController = TextEditingController();
   final _mileageController = TextEditingController();
   final _colorController = TextEditingController();
-
-  int _selectedConditionIndex = 0; // Default to Excellent
-  int _selectedAccidentIndex = 0; // Default to No Accidents
-  int _selectedHistoryIndex = 0; // Default to Agency
-
+  int _selectedConditionIndex = 0;
+  int _selectedAccidentIndex = 0;
+  int _selectedHistoryIndex = 0;                                                                            
   int _uploadedPhotoCount = 0;
 
   @override

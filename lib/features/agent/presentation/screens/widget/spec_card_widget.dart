@@ -38,7 +38,7 @@ class SpecCard extends StatelessWidget {
               children: [
                 Text(
                   label,
-                  style: TextStyle(
+                  style: AppTextStyle.bodySmall(context).copyWith(
                     color: AppColor.greyColor(context),
                     fontSize: 10.sp,
                     fontWeight: FontWeight.w600,

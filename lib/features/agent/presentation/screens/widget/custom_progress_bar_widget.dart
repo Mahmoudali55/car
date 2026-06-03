@@ -28,11 +28,9 @@ class CustomProgressBarWidget extends StatelessWidget {
               AppLocaleKey.agentGoalProgressValue.tr(
                 namedArgs: {'percent': '78', 'total': '20,000'},
               ),
-              style: AppTextStyle.bodyMedium(context).copyWith(
-                color: AppColor.whiteColor(context),
-                fontSize: 12.sp,
-                fontWeight: FontWeight.w900,
-              ),
+              style: AppTextStyle.bodySmall(
+                context,
+              ).copyWith(color: AppColor.whiteColor(context), fontWeight: FontWeight.w900),
             ),
           ],
         ),

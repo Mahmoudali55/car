@@ -1,6 +1,7 @@
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/routes/routes_name.dart';
 import 'package:car/core/theme/app_colors.dart';
+import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/features/agent/data/agent_models.dart';
 import 'package:car/features/agent/presentation/screens/widget/custom_gridview_with_dashoard_widget.dart';
 import 'package:car/features/agent/presentation/screens/widget/icon_btn_widget.dart';
@@ -55,7 +56,7 @@ class AgentDashboardScreen extends StatelessWidget {
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     colors: [
-                      AppColor.blueColor(context).withOpacity(0.15),
+                      AppColor.blueColor(context).withValues(alpha: 0.15),
                       AppColor.appBarColor(context),
                     ],
                     begin: Alignment.topRight,
@@ -86,7 +87,7 @@ class AgentDashboardScreen extends StatelessWidget {
                                     ),
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
+                                    style: AppTextStyle.titleMedium(context).copyWith(
                                       color: AppColor.blackTextColor(context),
                                       fontWeight: FontWeight.w900,
                                       fontSize: 20.sp,
@@ -94,9 +95,9 @@ class AgentDashboardScreen extends StatelessWidget {
                                   ),
                                   Text(
                                     AppLocaleKey.agentSalesConsultant.tr(),
-                                    style: TextStyle(
+                                    style: AppTextStyle.bodySmall(context).copyWith(
                                       color: AppColor.greyColor(context),
-                                      fontSize: 12.sp,
+
                                       fontWeight: FontWeight.w600,
                                     ),
                                   ),

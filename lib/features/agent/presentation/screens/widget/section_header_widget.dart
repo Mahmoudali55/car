@@ -1,4 +1,5 @@
 import 'package:car/core/theme/app_colors.dart';
+import 'package:car/core/theme/app_text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -32,10 +33,9 @@ class SectionHeader extends StatelessWidget {
         Gap(12.w),
         Text(
           title,
-          style: TextStyle(
+          style: AppTextStyle.bodyLarge(context).copyWith(
             color: AppColor.blackTextColor(context),
             fontWeight: FontWeight.w900,
-            fontSize: 18.sp,
             letterSpacing: -0.4,
           ),
         ),
@@ -50,7 +50,9 @@ class SectionHeader extends StatelessWidget {
             ),
             child: Text(
               '$count',
-              style: TextStyle(color: themeColor, fontSize: 12.sp, fontWeight: FontWeight.w900),
+              style: AppTextStyle.bodySmall(
+                context,
+              ).copyWith(color: themeColor, fontWeight: FontWeight.w900),
             ),
           ),
         ],

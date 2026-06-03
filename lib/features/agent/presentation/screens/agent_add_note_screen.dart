@@ -43,11 +43,9 @@ class AgentAddNoteScreen extends StatelessWidget {
             children: [
               Text(
                 AppLocaleKey.agentAddNoteDesc.tr(),
-                style: AppTextStyle.bodyMedium(context).copyWith(
-                  color: AppColor.greyColor(context),
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.w500,
-                ),
+                style: AppTextStyle.bodyMedium(
+                  context,
+                ).copyWith(color: AppColor.greyColor(context), fontWeight: FontWeight.w500),
               ),
               Gap(24.h),
 
@@ -71,7 +69,7 @@ class AgentAddNoteScreen extends StatelessWidget {
               /// Category Selection Mock
               Text(
                 AppLocaleKey.agentNoteClassification.tr(),
-                style: TextStyle(
+                style: AppTextStyle.bodySmall(context).copyWith(
                   color: AppColor.blackTextColor(context),
                   fontSize: 13.sp,
                   fontWeight: FontWeight.w900,

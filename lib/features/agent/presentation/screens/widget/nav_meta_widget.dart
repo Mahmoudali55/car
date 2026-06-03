@@ -1,4 +1,5 @@
 import 'package:car/core/theme/app_colors.dart';
+import 'package:car/core/theme/app_text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -65,7 +66,7 @@ class BottomNav extends StatelessWidget {
                       Gap(4.h),
                       Text(
                         items[i].label,
-                        style: TextStyle(
+                        style: AppTextStyle.bodySmall(context).copyWith(
                           fontSize: 11.sp,
                           letterSpacing: -0.2,
                           fontWeight: selected ? FontWeight.w900 : FontWeight.w600,

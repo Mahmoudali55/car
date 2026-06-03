@@ -428,7 +428,7 @@ class _CarDetailingScreenState extends State<CarDetailingScreen> {
                                   Text(
                                     _selectedDate == null
                                         ? AppLocaleKey.appointmentDate.tr()
-                                        : DateFormat('yyyy-MM-dd').format(_selectedDate!),
+                                        : DateFormat('yyyy-MM-dd', 'en').format(_selectedDate!),
                                     style: AppTextStyle.bodyMedium(context).copyWith(
                                       color: _selectedDate == null
                                           ? AppColor.hintColor(context)

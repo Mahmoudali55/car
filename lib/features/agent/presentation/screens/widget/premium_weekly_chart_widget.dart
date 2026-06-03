@@ -118,11 +118,9 @@ class PremiumWeeklyChart extends StatelessWidget {
                   Gap(12.h),
                   Text(
                     days[i],
-                    style: TextStyle(
-                      color: AppColor.hintColor(context),
-                      fontSize: 12.sp,
-                      fontWeight: FontWeight.w800,
-                    ),
+                    style: AppTextStyle.bodySmall(
+                      context,
+                    ).copyWith(color: AppColor.hintColor(context), fontWeight: FontWeight.w800),
                   ),
                 ],
               );

@@ -1,3 +1,4 @@
+import 'package:car/core/theme/app_text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -34,7 +35,9 @@ class ActionBtn extends StatelessWidget {
             Flexible(
               child: Text(
                 label,
-                style: TextStyle(color: color, fontSize: 11.sp, fontWeight: FontWeight.bold),
+                style: AppTextStyle.bodySmall(
+                  context,
+                ).copyWith(color: color, fontSize: 11.sp, fontWeight: FontWeight.bold),
               ),
             ),
           ],
