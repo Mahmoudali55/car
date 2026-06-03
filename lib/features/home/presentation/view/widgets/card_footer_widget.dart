@@ -14,6 +14,12 @@ class CardFooter extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final String? priceRaw = car['price']?.toString();
+    final bool hasPrice =
+        priceRaw != null && priceRaw != '0' && priceRaw.isNotEmpty && priceRaw != 'null';
+
+    final String priceText = hasPrice ? '$priceRaw ${AppLocaleKey.sar.tr()}' : '0';
+
     return Container(
       width: double.infinity,
       padding: EdgeInsets.fromLTRB(20.w, 16.h, 20.w, 20.h),
@@ -26,7 +32,7 @@ class CardFooter extends StatelessWidget {
         children: [
           Gap(8.h),
           Text(
-            car['name'],
+            car['name'] ?? '',
             style: AppTextStyle.titleMedium(context).copyWith(
               color: AppColor.blackTextColor(context),
               fontWeight: FontWeight.w900,
@@ -37,9 +43,9 @@ class CardFooter extends StatelessWidget {
           ),
           Gap(12.h),
           Text(
-            '${car['price']} ${AppLocaleKey.sar.tr()}',
+            priceText,
             style: AppTextStyle.titleMedium(context).copyWith(
-              color: AppColor.primaryColor(context),
+              color: hasPrice ? AppColor.primaryColor(context) : AppColor.greyColor(context),
               fontWeight: FontWeight.bold,
               fontSize: 17.sp,
             ),
@@ -48,9 +54,12 @@ class CardFooter extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              SpecBadgeWidget(icon: Icons.calendar_today_rounded, text: car['year']),
-              SpecBadgeWidget(icon: Icons.speed_rounded, text: car['mileage']),
-              SpecBadgeWidget(icon: Icons.electric_bolt_rounded, text: car['engine']),
+              SpecBadgeWidget(
+                icon: Icons.calendar_today_rounded,
+                text: car['year']?.toString() ?? 'N/A',
+              ),
+              SpecBadgeWidget(icon: Icons.speed_rounded, text: car['mileage'] ?? '0 كم'),
+              SpecBadgeWidget(icon: Icons.electric_bolt_rounded, text: car['engine'] ?? 'N/A'),
             ],
           ),
         ],

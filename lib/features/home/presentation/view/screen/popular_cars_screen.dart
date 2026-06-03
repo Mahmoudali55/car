@@ -1,18 +1,18 @@
-import 'package:car/core/custom_widgets/custom_loading/custom_loading.dart';
-import 'package:car/core/localization/app_locale_keys.dart';
-import 'package:car/core/network/contants.dart';
-import 'package:car/core/theme/app_colors.dart';
-import 'package:car/features/home/data/model/brand_cars_data_model.dart';
-import 'package:car/features/home/data/model/cars_models_response.dart';
-import 'package:car/features/home/presentation/cubit/home_cubit.dart';
-import 'package:car/features/home/presentation/view/widgets/app_header_popular_widget.dart';
-import 'package:car/features/home/presentation/view/widgets/empty_state_widget.dart';
-import 'package:car/features/home/presentation/view/widgets/magazine_card_widget.dart';
-import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:gap/gap.dart';
+import "package:car/core/custom_widgets/custom_loading/custom_loading.dart";
+import "package:car/core/localization/app_locale_keys.dart";
+import "package:car/core/network/contants.dart";
+import "package:car/core/theme/app_colors.dart";
+import "package:car/features/home/data/model/brand_cars_data_model.dart";
+import "package:car/features/home/data/model/cars_models_response.dart";
+import "package:car/features/home/presentation/cubit/home_cubit.dart";
+import "package:car/features/home/presentation/view/widgets/app_header_popular_widget.dart";
+import "package:car/features/home/presentation/view/widgets/empty_state_widget.dart";
+import "package:car/features/home/presentation/view/widgets/magazine_card_widget.dart";
+import "package:easy_localization/easy_localization.dart";
+import "package:flutter/material.dart";
+import "package:flutter_bloc/flutter_bloc.dart";
+import "package:flutter_screenutil/flutter_screenutil.dart";
+import "package:gap/gap.dart";
 
 class PopularCarsScreen extends StatefulWidget {
   const PopularCarsScreen({super.key});
@@ -30,20 +30,14 @@ class _PopularCarsScreenState extends State<PopularCarsScreen> {
     });
   }
 
-  /// فلترة السيارات بناءً على البراند المختار
   Map<String, List<GetBrandCarsDataModel>> _filteredCarsMap(HomeState state) {
-    final allCarsMap = Map<String, List<GetBrandCarsDataModel>>.from(
-      state.allPopularCarsStatus.data ?? {},
-    );
+    if (state.selectedBrandId == null) {
+      return Map<String, List<GetBrandCarsDataModel>>.from(
+        state.allPopularCarsStatus.data ?? {},
+      );
+    }
 
-    if (state.selectedBrandId == null) return allCarsMap;
-
-    final brands = state.carsModelsStatus.data ?? [];
-
-    // Handle empty brands list
-    if (brands.isEmpty) return {};
-
-    // Find brand manually (firstOrNull not available in all Dart versions)
+    final brands = state.brands;
     CarModel? selectedBrand;
     for (final b in brands) {
       if (b.groupCode == state.selectedBrandId) {
@@ -52,47 +46,54 @@ class _PopularCarsScreenState extends State<PopularCarsScreen> {
       }
     }
 
-    // Handle brand not found
     if (selectedBrand == null) return {};
 
     final brandName = selectedBrand.groupName;
+
+    if (state.brandCarsStatus.isSuccess && state.brandCarsStatus.data != null) {
+      final List<GetBrandCarsDataModel> brandCars = List<GetBrandCarsDataModel>.from(state.brandCarsStatus.data!);
+      return {brandName: brandCars};
+    }
+
+    final allCarsMap = state.allPopularCarsStatus.data ?? {};
     return {brandName: allCarsMap[brandName] ?? []};
   }
 
-  /// تحويل موديل السيارة إلى Map
-  Map<String, dynamic> _carToMap(GetBrandCarsDataModel car) {
+  Map<String, dynamic> _carToMap(GetBrandCarsDataModel car, String? selectedBrandName) {
     String imageUrl(String path) =>
-        '${Constants.baseImage}${path.replaceAll('../../Img/Emp/', '')}';
+        "${Constants.baseImage}${path.replaceAll("../../Img/Emp/", "")}";
+
+    final brand = selectedBrandName ?? car.groupName;
 
     return {
-      'name': car.itemName,
-      'groupCode': car.groupCode.toString(),
-      'itemCode': car.itemCode.toString(),
-      'chassisNo': car.chassisNo,
-      'image': '${Constants.baseImage}${car.carImage}',
-      'extraImages': car.extraImages.map(imageUrl).toList(),
-      'brand': car.groupName,
-      'price': '${car.price ?? "0"}',
-      'year': car.makeYear.toString(),
-      'mileage': '${car.kilometerReading ?? "0"} كم',
-      'engine': '${car.cylinder} Cyl',
-      'video_id': 'D7O8J5vVf-M',
-      'isFavorite': false,
-      'carStatus': car.carStatus,
-      'carStatusText': car.carStatusText,
-      'CHASSIS_NO': car.chassisNo,
-      'MOTOR_NO': car.motorNo,
-      'KILOMETER_READING': car.kilometerReading,
-      'CYLINDER': car.cylinder,
-      'POWER_HOURSE': car.powerHourse,
-      'FUEL_CAPACITY': car.fuelCapacity,
-      'SEAT_NO': car.seatNo,
-      'DOOR_NO': car.doorNo,
-      'Color': car.color,
-      'TRANSMISSION': car.transmission,
-      'MAKE_YEAR': car.makeYear,
-      'GR_NAME': car.grName,
-      'GROUP_NAME': car.groupName,
+      "name": car.itemName,
+      "groupCode": car.groupCode.toString(),
+      "itemCode": car.itemCode.toString(),
+      "chassisNo": car.chassisNo,
+      "image": car.fullCarImage,
+      "extraImages": car.extraImages.map(imageUrl).toList(),
+      "brand": brand,
+      "price": car.price, 
+      "year": car.makeYear.toString(),
+      "mileage": car.kilometerReading != null ? "${car.kilometerReading} كم" : "0 كم",
+      "engine": car.cylinder != null ? "${car.cylinder} Cyl" : "N/A",
+      "video_id": "D7O8J5vVf-M",
+      "isFavorite": false,
+      "carStatus": car.carStatus,
+      "carStatusText": car.carStatusText,
+      "CHASSIS_NO": car.chassisNo,
+      "MOTOR_NO": car.motorNo,
+      "KILOMETER_READING": car.kilometerReading,
+      "CYLINDER": car.cylinder,
+      "POWER_HOURSE": car.powerHourse,
+      "FUEL_CAPACITY": car.fuelCapacity,
+      "SEAT_NO": car.seatNo,
+      "DOOR_NO": car.doorNo,
+      "Color": car.color,
+      "TRANSMISSION": car.transmission,
+      "MAKE_YEAR": car.makeYear,
+      "GR_NAME": car.grName,
+      "GROUP_NAME": car.groupName,
     };
   }
 
@@ -104,11 +105,22 @@ class _PopularCarsScreenState extends State<PopularCarsScreen> {
   Widget build(BuildContext context) {
     return BlocBuilder<HomeCubit, HomeState>(
       builder: (context, state) {
-        final status = state.allPopularCarsStatus;
         final isBrandSelected = state.selectedBrandId != null;
+        final status = isBrandSelected ? state.brandCarsStatus : state.allPopularCarsStatus;
         final carsMap = _filteredCarsMap(state);
-        final screenTitle = isBrandSelected && carsMap.isNotEmpty
-            ? carsMap.keys.first
+        
+        CarModel? selectedBrand;
+        if (isBrandSelected) {
+          for (final b in state.brands) {
+            if (b.groupCode == state.selectedBrandId) {
+              selectedBrand = b;
+              break;
+            }
+          }
+        }
+        
+        final screenTitle = selectedBrand != null
+            ? selectedBrand.groupName
             : AppLocaleKey.popularCars.tr();
 
         return Scaffold(
@@ -117,7 +129,13 @@ class _PopularCarsScreenState extends State<PopularCarsScreen> {
             child: ConstrainedBox(
               constraints: const BoxConstraints(maxWidth: 1000),
               child: RefreshIndicator(
-                onRefresh: () => context.read<HomeCubit>().getCarsModels(),
+                onRefresh: () async {
+                  if (isBrandSelected) {
+                    await context.read<HomeCubit>().getBrandCars(state.selectedBrandId.toString());
+                  } else {
+                    await context.read<HomeCubit>().getCarsModels();
+                  }
+                },
                 color: AppColor.primaryColor(context),
                 child: CustomScrollView(
                   physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
@@ -128,7 +146,7 @@ class _PopularCarsScreenState extends State<PopularCarsScreen> {
                     else if (_isCarsMapEmpty(carsMap))
                       EmptyState(isBrandSelected: isBrandSelected)
                     else
-                      ..._buildCarsSlivers(carsMap, isBrandSelected),
+                      ..._buildCarsSlivers(carsMap, isBrandSelected, selectedBrand?.groupName),
                     SliverToBoxAdapter(child: Gap(100.h)),
                   ],
                 ),
@@ -143,6 +161,7 @@ class _PopularCarsScreenState extends State<PopularCarsScreen> {
   List<Widget> _buildCarsSlivers(
     Map<String, List<GetBrandCarsDataModel>> carsMap,
     bool isBrandSelected,
+    String? selectedBrandName,
   ) {
     return carsMap.entries
         .where((e) => e.value.isNotEmpty)
@@ -157,12 +176,12 @@ class _PopularCarsScreenState extends State<PopularCarsScreen> {
               sliver: SliverList(
                 delegate: SliverChildBuilderDelegate(
                   (context, index) {
-                    final car = _carToMap(entry.value[index]);
+                    final car = _carToMap(entry.value[index], selectedBrandName);
                     return Padding(
                       padding: EdgeInsets.only(bottom: 24.h),
                       child: MagazineCardWidget(
                         car: car,
-                        heroTag: 'popular_screen_car_image_${car['itemCode'] ?? car['name']}',
+                        heroTag: "popular_screen_car_image_${car["itemCode"] ?? car["name"]}",
                       ),
                     );
                   },

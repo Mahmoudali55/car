@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:car/core/localization/app_locale_keys.dart';
+import 'package:car/core/network/contants.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:equatable/equatable.dart';
 
@@ -113,21 +114,24 @@ class GetBrandCarsDataModel extends Equatable {
     this.videoId = 'D7O8J5vVf-M',
   });
 
-  String get fullCarImage {
-    if (carImage == null || carImage!.isEmpty) return '';
-    if (carImage!.startsWith('http')) return carImage!;
-    return 'https://hbwinternational.com/Img/Emp/${carImage!.replaceAll('../../Img/Emp/', '')}';
+  String _sanitizeImageUrl(String path) {
+    if (path.isEmpty) return '';
+    if (path.startsWith('http')) return path;
+    final cleaned = path.replaceAll('../../Img/Emp/', '');
+    // Ensure special characters and spaces are encoded for URL
+    return Uri.parse('${Constants.baseImage}$cleaned').toString();
   }
+
+  String get fullCarImage => _sanitizeImageUrl(carImage ?? '');
 
   List<String> get allImages {
     final List<String> images = [];
     if (fullCarImage.isNotEmpty) images.add(fullCarImage);
     for (var img in extraImages) {
-      if (img.isEmpty) continue;
-      final full = img.startsWith('http')
-          ? img
-          : 'https://hbwinternational.com/Img/Emp/${img.replaceAll('../../Img/Emp/', '')}';
-      if (!images.contains(full)) images.add(full);
+      final full = _sanitizeImageUrl(img);
+      if (full.isNotEmpty && !images.contains(full)) {
+        images.add(full);
+      }
     }
     return images;
   }
