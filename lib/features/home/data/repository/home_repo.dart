@@ -90,8 +90,8 @@ class HomeRepoImpl implements HomeRepo {
         queryParams['id'] = brandId ?? "null";
         if (frommakeyear != null) queryParams['frommakeyear'] = frommakeyear ?? 'null';
         if (tomakeyear != null) queryParams['tomakeyear'] = tomakeyear ?? 'null';
-        if (fromprice != null) queryParams['fromprice'] = 'null';
-        if (toprice != null) queryParams['toprice'] = 'null';
+        if (fromprice != null) queryParams['fromprice'] = fromprice.toString() ?? 'null';
+        if (toprice != null) queryParams['toprice'] = toprice.toString() ?? 'null';
         if (fuelType != null) queryParams['FUEL_TYPE'] = fuelType ?? 'null';
         final queryString = queryParams.entries.map((e) => '${e.key}=${e.value}').join('&');
         final fullPath = '${EndPoints.getprandcars}?$queryString';
