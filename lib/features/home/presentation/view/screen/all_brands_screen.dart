@@ -60,7 +60,6 @@ class AllBrandsScreen extends StatelessWidget {
                       if (brands.isEmpty) {
                         return bulidCarModelEmpty(context);
                       }
-
                       return GridView.builder(
                         padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
                         physics: const BouncingScrollPhysics(),
@@ -73,7 +72,6 @@ class AllBrandsScreen extends StatelessWidget {
                         ),
                         itemBuilder: (context, index) {
                           final brand = brands[index];
-
                           return CustomItemBrandWidget(brand: brand);
                         },
                       );

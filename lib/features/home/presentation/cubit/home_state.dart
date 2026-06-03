@@ -11,15 +11,12 @@ class HomeState extends Equatable {
   final List<CarModel> brands;
   final String searchQuery;
   final StatusState<AddBookingPermissionResponseModel> addBookingPermissionResponseModel;
-
-  // Filter params
   final String? brandId;
   final String? fromMakeYear;
   final String? toMakeYear;
   final int? fromPrice;
   final int? toPrice;
   final String? fuelType;
-
   const HomeState({
     this.carsModelsStatus = const StatusState.initial(),
     this.brandCarsStatus = const StatusState.initial(),
@@ -38,7 +35,6 @@ class HomeState extends Equatable {
     this.toPrice,
     this.fuelType,
   });
-
   HomeState copyWith({
     StatusState? carsModelsStatus,
     StatusState? brandCarsStatus,

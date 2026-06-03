@@ -89,6 +89,10 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   Future<void> getBrandCars(String brandId) async {
+    if (brandId == 'null' || brandId.isEmpty) {
+      emit(state.copyWith(brandCarsStatus: const StatusState.success([]), selectedBrandId: null));
+      return;
+    }
     emit(
       state.copyWith(
         brandCarsStatus: const StatusState.loading(),
@@ -116,16 +120,17 @@ class HomeCubit extends Cubit<HomeState> {
     int? toPrice,
     String? fuelType,
   }) async {
-    emit(state.copyWith(
-      allCarsStatus: const StatusState.loading(),
-      brandId: brandId,
-      fromMakeYear: fromMakeYear,
-      toMakeYear: toMakeYear,
-      fromPrice: fromPrice,
-      toPrice: toPrice,
-      fuelType: fuelType,
-    ));
-
+    emit(
+      state.copyWith(
+        allCarsStatus: const StatusState.loading(),
+        brandId: brandId,
+        fromMakeYear: fromMakeYear,
+        toMakeYear: toMakeYear,
+        fromPrice: fromPrice,
+        toPrice: toPrice,
+        fuelType: fuelType,
+      ),
+    );
     final result = await homeRepo.fetchAllCars(
       brandId,
       fromMakeYear,
@@ -134,7 +139,6 @@ class HomeCubit extends Cubit<HomeState> {
       toPrice,
       fuelType,
     );
-
     result.fold(
       (failure) {
         emit(state.copyWith(allCarsStatus: StatusState.failure(failure.errMessage)));
@@ -145,17 +149,13 @@ class HomeCubit extends Cubit<HomeState> {
     );
   }
 
-
   void selectBrand(int index, String brandId) {
     emit(state.copyWith(selectedIndex: index, selectedBrandId: int.tryParse(brandId)));
-
-    // بدون await عشان الأداء
     unawaited(getBrandCars(brandId));
   }
 
   List<CarModel> getFilteredBrands(List<CarModel> brands, String query) {
     if (query.isEmpty) return brands;
-
     return brands.where((b) => b.groupName.toLowerCase().contains(query.toLowerCase())).toList();
   }
 
@@ -165,9 +165,7 @@ class HomeCubit extends Cubit<HomeState> {
 
   Future<void> getAddBookingPermission(AddBookingPermissionModel model) async {
     emit(state.copyWith(addBookingPermissionResponseModel: const StatusState.loading()));
-
     final result = await homeRepo.addBookingPermission(model);
-
     result.fold(
       (failure) {
         emit(

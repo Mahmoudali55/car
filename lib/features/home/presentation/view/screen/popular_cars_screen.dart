@@ -32,9 +32,7 @@ class _PopularCarsScreenState extends State<PopularCarsScreen> {
 
   Map<String, List<GetBrandCarsDataModel>> _filteredCarsMap(HomeState state) {
     if (state.selectedBrandId == null) {
-      return Map<String, List<GetBrandCarsDataModel>>.from(
-        state.allPopularCarsStatus.data ?? {},
-      );
+      return Map<String, List<GetBrandCarsDataModel>>.from(state.allPopularCarsStatus.data ?? {});
     }
 
     final brands = state.brands;
@@ -51,7 +49,9 @@ class _PopularCarsScreenState extends State<PopularCarsScreen> {
     final brandName = selectedBrand.groupName;
 
     if (state.brandCarsStatus.isSuccess && state.brandCarsStatus.data != null) {
-      final List<GetBrandCarsDataModel> brandCars = List<GetBrandCarsDataModel>.from(state.brandCarsStatus.data!);
+      final List<GetBrandCarsDataModel> brandCars = List<GetBrandCarsDataModel>.from(
+        state.brandCarsStatus.data!,
+      );
       return {brandName: brandCars};
     }
 
@@ -73,7 +73,7 @@ class _PopularCarsScreenState extends State<PopularCarsScreen> {
       "image": car.fullCarImage,
       "extraImages": car.extraImages.map(imageUrl).toList(),
       "brand": brand,
-      "price": car.price, 
+      "price": car.price,
       "year": car.makeYear.toString(),
       "mileage": car.kilometerReading != null ? "${car.kilometerReading} كم" : "0 كم",
       "engine": car.cylinder != null ? "${car.cylinder} Cyl" : "N/A",
@@ -108,7 +108,6 @@ class _PopularCarsScreenState extends State<PopularCarsScreen> {
         final isBrandSelected = state.selectedBrandId != null;
         final status = isBrandSelected ? state.brandCarsStatus : state.allPopularCarsStatus;
         final carsMap = _filteredCarsMap(state);
-        
         CarModel? selectedBrand;
         if (isBrandSelected) {
           for (final b in state.brands) {
@@ -118,7 +117,6 @@ class _PopularCarsScreenState extends State<PopularCarsScreen> {
             }
           }
         }
-        
         final screenTitle = selectedBrand != null
             ? selectedBrand.groupName
             : AppLocaleKey.popularCars.tr();
@@ -174,19 +172,16 @@ class _PopularCarsScreenState extends State<PopularCarsScreen> {
             SliverPadding(
               padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: isBrandSelected ? 20.h : 0),
               sliver: SliverList(
-                delegate: SliverChildBuilderDelegate(
-                  (context, index) {
-                    final car = _carToMap(entry.value[index], selectedBrandName);
-                    return Padding(
-                      padding: EdgeInsets.only(bottom: 24.h),
-                      child: MagazineCardWidget(
-                        car: car,
-                        heroTag: "popular_screen_car_image_${car["itemCode"] ?? car["name"]}",
-                      ),
-                    );
-                  },
-                  childCount: entry.value.length,
-                ),
+                delegate: SliverChildBuilderDelegate((context, index) {
+                  final car = _carToMap(entry.value[index], selectedBrandName);
+                  return Padding(
+                    padding: EdgeInsets.only(bottom: 24.h),
+                    child: MagazineCardWidget(
+                      car: car,
+                      heroTag: "popular_screen_car_image_${car["itemCode"] ?? car["name"]}",
+                    ),
+                  );
+                }, childCount: entry.value.length),
               ),
             ),
           ],
