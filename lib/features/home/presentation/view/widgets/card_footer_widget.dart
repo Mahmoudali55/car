@@ -17,15 +17,15 @@ class CardFooter extends StatelessWidget {
     final String? priceRaw = car['price']?.toString();
     final bool hasPrice =
         priceRaw != null && priceRaw != '0' && priceRaw.isNotEmpty && priceRaw != 'null';
-
     final String priceText = hasPrice ? '$priceRaw ${AppLocaleKey.sar.tr()}' : '0';
-
     return Container(
       width: double.infinity,
       padding: EdgeInsets.fromLTRB(20.w, 16.h, 20.w, 20.h),
       decoration: BoxDecoration(
         color: AppColor.secondAppColor(context),
-        border: Border(top: BorderSide(color: AppColor.blackTextColor(context).withOpacity(0.06))),
+        border: Border(
+          top: BorderSide(color: AppColor.blackTextColor(context).withValues(alpha: 0.06)),
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
