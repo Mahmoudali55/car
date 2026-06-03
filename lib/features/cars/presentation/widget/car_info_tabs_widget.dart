@@ -3,12 +3,13 @@ import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/features/cars/presentation/widget/car_detail_row.dart';
 import 'package:car/features/cars/presentation/widget/inspection_badge_widget.dart';
+import 'package:car/features/home/data/model/brand_cars_data_model.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CarInfoTabsWidget extends StatefulWidget {
-  final Map<String, dynamic> car;
+  final GetBrandCarsDataModel car;
 
   const CarInfoTabsWidget({super.key, required this.car});
 
@@ -55,15 +56,15 @@ class _CarInfoTabsWidgetState extends State<CarInfoTabsWidget> with SingleTicker
   Widget build(BuildContext context) {
     final c = widget.car;
 
-    final grName = c['GR_NAME'] ?? c['grName'];
-    final groupName = c['GROUP_NAME'] ?? c['groupName'];
+    final grName = c.grName;
+    final groupName = c.groupName;
 
-    String brandVal = c['brand'] ?? c['MAKE_NAME'] ?? "N/A";
-    String typeVal = c['name'] ?? c['MODEL_NAME'] ?? "N/A";
-    String categoryVal = groupName ?? c['CATEGORY'] ?? c['category'] ?? "N/A";
+    String brandVal = c.groupName;
+    String typeVal = c.itemName;
+    String categoryVal = groupName;
 
-    if (grName != null && grName.toString().trim().isNotEmpty) {
-      final parts = grName.toString().split('-').map((e) => e.trim()).toList();
+    if (grName.trim().isNotEmpty) {
+      final parts = grName.split('-').map((e) => e.trim()).toList();
       if (parts.isNotEmpty) {
         brandVal = parts.first;
         if (parts.length > 1) {
@@ -127,7 +128,7 @@ class _CarInfoTabsWidgetState extends State<CarInfoTabsWidget> with SingleTicker
                         ),
                         CarDetailRow(
                           label: AppLocaleKey.info_tab_model.tr(),
-                          value: '${c['year'] ?? c['MAKE_YEAR'] ?? "N/A"}',
+                          value: '${c.makeYear}',
                           icon: Icons.calendar_today_rounded, // Alternative to mirror
                         ),
                         CarDetailRow(
@@ -137,26 +138,24 @@ class _CarInfoTabsWidgetState extends State<CarInfoTabsWidget> with SingleTicker
                         ),
                         CarDetailRow(
                           label: AppLocaleKey.info_tab_interior_color.tr(),
-                          value: '${c['interior_color'] ?? c['INTERIOR_COLOR'] ?? "N/A"}',
+                          value: c.bodyColor.isNotEmpty ? c.bodyColor : "N/A",
                           icon: Icons.event_seat_rounded,
-                          colorBox: _parseArabicColor(
-                            '${c['interior_color'] ?? c['INTERIOR_COLOR']}',
-                          ),
+                          colorBox: _parseArabicColor(c.bodyColor),
                         ),
                         CarDetailRow(
                           label: AppLocaleKey.info_tab_exterior_color.tr(),
-                          value: '${c['Color'] ?? c['BODY_COLOR'] ?? "N/A"}',
+                          value: c.color.isNotEmpty ? c.color : "N/A",
                           icon: Icons.color_lens_rounded,
-                          colorBox: _parseArabicColor('${c['Color'] ?? c['BODY_COLOR']}'),
+                          colorBox: _parseArabicColor(c.color),
                         ),
                         CarDetailRow(
                           label: AppLocaleKey.info_tab_import.tr(),
-                          value: '${c['import'] ?? AppLocaleKey.info_tab_saudi.tr()}',
+                          value: AppLocaleKey.info_tab_saudi.tr(),
                           icon: Icons.reply_all_rounded,
                         ),
                         CarDetailRow(
                           label: AppLocaleKey.info_tab_fuel_type.tr(),
-                          value: '${c['FUEL_TYPE'] ?? AppLocaleKey.info_tab_gasoline.tr()}',
+                          value: c.fuelType.isNotEmpty ? c.fuelType : AppLocaleKey.info_tab_gasoline.tr(),
                           icon: Icons.local_gas_station_rounded,
                           isLast: true,
                         ),

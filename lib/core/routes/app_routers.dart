@@ -17,30 +17,55 @@ class AppRouters {
       case RoutesName.onboardingScreen:
         return MaterialPageRoute(builder: (_) => const OnboardingScreen());
       case RoutesName.loginScreen:
-        return MaterialPageRoute(
-          builder: (_) => LoginScreen(),
-        );
+        return MaterialPageRoute(builder: (_) => LoginScreen());
       case RoutesName.registerScreen:
-        return MaterialPageRoute(
-          builder: (_) => const RegisterScreen(),
-        );
+        return MaterialPageRoute(builder: (_) => const RegisterScreen());
       case RoutesName.carDetailsScreen:
-        final carArgs = args as Map<String, dynamic>;
-        return MaterialPageRoute(
-          builder: (_) => CarDetailsScreen(
-            car: carArgs.containsKey('car') ? carArgs['car'] : carArgs,
-            heroTag: carArgs.containsKey('heroTag') ? carArgs['heroTag'] : null,
-          ),
-        );
-      case RoutesName.bankOffersScreen:
-        return MaterialPageRoute(
-          builder: (_) => BankOffersScreen(car: args as Map<String, dynamic>),
-        );
-      case RoutesName.carReservationScreen:
-        final argsMap = args as Map<String, dynamic>;
+        GetBrandCarsDataModel? car;
+        String? heroTag;
+
+        if (args is GetBrandCarsDataModel) {
+          car = args;
+        } else if (args is Map<String, dynamic>) {
+          if (args['car'] is GetBrandCarsDataModel) {
+            car = args['car'];
+          } else if (args['car'] is Map<String, dynamic>) {
+            car = GetBrandCarsDataModel.fromJson(args['car']);
+          }
+          heroTag = args['heroTag'];
+        }
+
         return MaterialPageRoute(
           builder: (_) =>
-              CarReservationScreen(car: argsMap['car'], isFromLink: argsMap['isFromLink'] ?? false),
+              CarDetailsScreen(car: car ?? GetBrandCarsDataModel.fromJson(args), heroTag: heroTag),
+        );
+      case RoutesName.bankOffersScreen:
+        GetBrandCarsDataModel? car;
+        if (args is GetBrandCarsDataModel) {
+          car = args;
+        } else if (args is Map<String, dynamic>) {
+          if (args['car'] is GetBrandCarsDataModel) {
+            car = args['car'];
+          } else if (args['car'] is Map<String, dynamic>) {
+            car = GetBrandCarsDataModel.fromJson(args['car']);
+          } else {
+            car = GetBrandCarsDataModel.fromJson(args);
+          }
+        }
+        return MaterialPageRoute(builder: (_) => BankOffersScreen(car: car!));
+      case RoutesName.carReservationScreen:
+        GetBrandCarsDataModel? car;
+        bool isFromLink = false;
+        if (args is Map<String, dynamic>) {
+          if (args['car'] is GetBrandCarsDataModel) {
+            car = args['car'];
+          } else if (args['car'] is Map<String, dynamic>) {
+            car = GetBrandCarsDataModel.fromJson(args['car']);
+          }
+          isFromLink = args['isFromLink'] ?? false;
+        }
+        return MaterialPageRoute(
+          builder: (_) => CarReservationScreen(car: car!, isFromLink: isFromLink),
         );
       case RoutesName.popularCarsScreen:
         return MaterialPageRoute(builder: (_) => const PopularCarsScreen());
@@ -62,25 +87,27 @@ class AppRouters {
       case RoutesName.trackOrderScreen:
         return MaterialPageRoute(builder: (_) => const TrackOrderScreen());
       case RoutesName.settingsScreen:
-        return MaterialPageRoute(
-          builder: (_) => const SettingsScreen(),
-        );
+        return MaterialPageRoute(builder: (_) => const SettingsScreen());
       case RoutesName.changePasswordScreen:
-        return MaterialPageRoute(
-          builder: (_) => const ChangePasswordScreen(),
-        );
+        return MaterialPageRoute(builder: (_) => const ChangePasswordScreen());
       case RoutesName.profileScreen:
-        return MaterialPageRoute(
-          builder: (_) => const UserProfileScreen(),
-        );
+        return MaterialPageRoute(builder: (_) => const UserProfileScreen());
       case RoutesName.tradeInScreen:
         return MaterialPageRoute(builder: (_) => const TradeInScreen());
       case RoutesName.requestCarScreen:
         return MaterialPageRoute(builder: (_) => const RequestCarScreen());
       case RoutesName.financingScreen:
-        return MaterialPageRoute(
-          builder: (_) => FinancingScreen(car: args as Map<String, dynamic>?),
-        );
+        GetBrandCarsDataModel? car;
+        if (args is GetBrandCarsDataModel) {
+          car = args;
+        } else if (args is Map<String, dynamic>) {
+          if (args['car'] is GetBrandCarsDataModel) {
+            car = args['car'];
+          } else if (args['car'] is Map<String, dynamic>) {
+            car = GetBrandCarsDataModel.fromJson(args['car']);
+          }
+        }
+        return MaterialPageRoute(builder: (_) => FinancingScreen(car: car));
       case RoutesName.bookingAppointmentScreen:
         return MaterialPageRoute(builder: (_) => const BookingAppointmentScreen());
       case RoutesName.serviceHistoryScreen:

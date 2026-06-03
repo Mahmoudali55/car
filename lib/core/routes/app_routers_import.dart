@@ -29,6 +29,7 @@ import 'package:car/features/cart/presentation/view/screen/cart_screen.dart';
 import 'package:car/features/cart/presentation/view/screen/payment_screen.dart';
 import 'package:car/features/cart/presentation/view/screen/payment_success_screen.dart';
 import 'package:car/features/cart/presentation/view/screen/track_order_screen.dart';
+import 'package:car/features/home/data/model/brand_cars_data_model.dart';
 import 'package:car/features/home/presentation/view/screen/all_brands_screen.dart';
 import 'package:car/features/home/presentation/view/screen/guest_home_screen.dart';
 import 'package:car/features/home/presentation/view/screen/main_layout.dart';

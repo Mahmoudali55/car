@@ -4,12 +4,13 @@ import 'package:car/features/cars/presentation/widget/bank_offer_card_widget.dar
 import 'package:car/features/cars/presentation/widget/bank_offer_fliter_section_widget.dart';
 import 'package:car/features/cars/presentation/widget/bank_offers_list_widget.dart';
 import 'package:car/features/cars/presentation/widget/bank_offers_widgets.dart';
+import 'package:car/features/home/data/model/brand_cars_data_model.dart';
 import 'package:car/features/services/presentation/screen/financing_screen.dart' as car_services;
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class BankOffersScreen extends StatefulWidget {
-  final Map<String, dynamic> car;
+  final GetBrandCarsDataModel car;
 
   const BankOffersScreen({super.key, required this.car});
 
@@ -62,7 +63,7 @@ class _BankOffersScreenState extends State<BankOffersScreen> {
   void initState() {
     super.initState();
     // Use the car price or fallback to generic big number if null
-    _carPrice = num.tryParse(widget.car['price'].toString().replaceAll(',', '')) ?? 150000;
+    _carPrice = num.tryParse(widget.car.price?.toString().replaceAll(',', '') ?? '150000') ?? 150000;
   }
 
   @override

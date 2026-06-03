@@ -2,6 +2,7 @@ import 'package:car/core/custom_widgets/custom_image/custom_network_image.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/features/cars/presentation/widget/section_title_widget.dart';
+import 'package:car/features/home/data/model/brand_cars_data_model.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -9,7 +10,7 @@ import 'package:gap/gap.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class VideoReviewWidget extends StatefulWidget {
-  final Map<String, dynamic> car;
+  final GetBrandCarsDataModel car;
   final YoutubePlayerController controller;
   final Widget player;
 

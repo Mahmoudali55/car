@@ -1,10 +1,11 @@
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
+import 'package:car/features/home/data/model/brand_cars_data_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CarSummaryCard extends StatelessWidget {
-  final Map<String, dynamic> car;
+  final GetBrandCarsDataModel car;
 
   const CarSummaryCard({super.key, required this.car});
 
@@ -29,7 +30,7 @@ class CarSummaryCard extends StatelessWidget {
         children: [
           Expanded(
             child: Text(
-              car['name'] ?? 'Car Name',
+              car.itemName,
               style: AppTextStyle.bodyMedium(
                 context,
               ).copyWith(fontWeight: FontWeight.bold, fontSize: 14.sp),
@@ -37,7 +38,7 @@ class CarSummaryCard extends StatelessWidget {
             ),
           ),
           Text(
-            '${car['price'] ?? '0'} SAR',
+            '${car.price ?? '0'} SAR',
             style: AppTextStyle.bodyMedium(
               context,
             ).copyWith(fontWeight: FontWeight.w900, fontSize: 14.sp),

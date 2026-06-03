@@ -23,6 +23,7 @@ import 'package:car/features/cars/presentation/widget/reservation_step_indicator
 import 'package:car/features/cars/presentation/widget/reservation_trust_badge.dart';
 import 'package:car/features/cart/presentation/view/cubit/cart_cubit.dart';
 import 'package:car/features/home/data/model/add_booking_permission_model.dart';
+import 'package:car/features/home/data/model/brand_cars_data_model.dart';
 import 'package:car/features/home/presentation/cubit/home_cubit.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -34,7 +35,7 @@ import 'package:gap/gap.dart';
 enum _ReservationScreenStep { methodSelection, informationEntry, payment }
 
 class CarReservationScreen extends StatefulWidget {
-  final Map<String, dynamic> car;
+  final GetBrandCarsDataModel car;
   final bool isFromLink;
 
   const CarReservationScreen({super.key, required this.car, this.isFromLink = false});
@@ -73,7 +74,7 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
   @override
   void initState() {
     super.initState();
-    _totalPrice = _parsePrice(widget.car['price']);
+    _totalPrice = _parsePrice(widget.car.price);
   }
 
   double _parsePrice(dynamic price) {
@@ -133,7 +134,7 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
   }
 
   void _navigateToSuccess() {
-    context.read<CartCubit>().addToCart(widget.car);
+    context.read<CartCubit>().addToCart(widget.car.toMap());
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -210,7 +211,7 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
           title: Text(
             isMethodSelection
                 ? AppLocaleKey.agentSelectPaymentMethod.tr()
-                : widget.car['name'] ?? 'Car',
+                : widget.car.itemName,
             style: AppTextStyle.titleMedium(context).copyWith(
               fontWeight: FontWeight.w900,
               fontSize: 16.sp,
@@ -434,7 +435,7 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
                   style: AppTextStyle.bodyMedium(context).copyWith(
                     color: AppColor.blackTextColor(context).withValues(alpha: 0.7),
                     fontWeight: FontWeight.bold,
-                  ),
+                    ),
                 ),
                 Row(
                   children: [
@@ -913,7 +914,7 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Text(
-                        widget.car['name'] ?? 'Car Name',
+                        widget.car.itemName,
                         style: AppTextStyle.bodyMedium(context).copyWith(
                           color: AppColor.blackTextColor(context),
                           fontWeight: FontWeight.bold,
@@ -922,7 +923,7 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
                         maxLines: 1,
                       ),
                       Text(
-                        widget.car['year']?.toString() ?? '2023',
+                        widget.car.makeYear.toString(),
                         style: TextStyle(color: AppColor.greyColor(context), fontSize: 11.sp),
                       ),
                     ],
@@ -952,7 +953,7 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
   }
 
   Widget _buildBrandLogo() {
-    final brandName = widget.car['brand']?.toString().toLowerCase() ?? '';
+    final brandName = widget.car.groupName.toLowerCase();
     String? logoPath;
 
     for (final b in BrandModel.brands) {
@@ -991,20 +992,10 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
       'yyyy-MM-dd',
     ).format(DateTime.now().add(const Duration(days: 1)));
 
-    final itemCode =
-        widget.car['itemCode']?.toString() ?? widget.car['ITEM_CODE']?.toString() ?? '';
-    final itemName =
-        widget.car['itemName']?.toString() ??
-        widget.car['ITEM_NAME']?.toString() ??
-        widget.car['name']?.toString() ??
-        '';
-    final chassisNo =
-        widget.car['chassisNo']?.toString() ?? widget.car['CHASSIS_NO']?.toString() ?? '';
-    final storeCodeVal =
-        int.tryParse(
-          widget.car['storeCode']?.toString() ?? widget.car['STORE_CODE']?.toString() ?? '1',
-        ) ??
-        1;
+    final itemCode = widget.car.itemCode;
+    final itemName = widget.car.itemName;
+    final chassisNo = widget.car.chassisNo;
+    final storeCodeVal = int.tryParse(widget.car.storeCode) ?? 1;
 
     final model = AddBookingPermissionModel(
       lpoNos: '',

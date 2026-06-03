@@ -2,6 +2,7 @@ import 'package:car/core/custom_widgets/custom_app_bar/custom_app_bar.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
+import 'package:car/features/home/data/model/brand_cars_data_model.dart';
 import 'package:car/features/services/presentation/widgets/financing_bottom_bar.dart';
 import 'package:car/features/services/presentation/widgets/financing_calculator_bottom_sheet.dart';
 import 'package:car/features/services/presentation/widgets/financing_cancel_dialog.dart';
@@ -16,7 +17,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class FinancingScreen extends StatefulWidget {
-  final Map<String, dynamic>? car;
+  final GetBrandCarsDataModel? car;
   final double? initialCarPrice;
   final double? initialDownPayment;
   final int? initialDuration;
@@ -78,7 +79,7 @@ class _FinancingScreenState extends State<FinancingScreen> with SingleTickerProv
         if (mounted) setState(() {});
       });
 
-    final raw = widget.car?['price']?.toString() ?? '150000';
+    final raw = widget.car?.price?.toString() ?? '150000';
     _carPrice =
         widget.initialCarPrice ??
         (double.tryParse(raw.replaceAll(RegExp(r'[^0-9.]'), '')) ?? 150000);
@@ -231,7 +232,7 @@ class _FinancingScreenState extends State<FinancingScreen> with SingleTickerProv
             children: [
               FinancingPersonalInfoTab(
                 formKey: _formKey1,
-                car: widget.car,
+                car: widget.car?.toMap(),
                 monthlyInstallment: _monthlyInstallment,
                 durationYears: _durationYears,
                 downPayment: _downPayment,

@@ -25,9 +25,7 @@ class CarDetailRow extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(vertical: 14.h, horizontal: 16.w),
       decoration: BoxDecoration(
-        border: isLast ? null : Border(
-          bottom: BorderSide(color: Colors.grey.shade200, width: 1),
-        ),
+        border: isLast ? null : Border(bottom: BorderSide(color: Colors.grey.shade200, width: 1)),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -44,10 +42,9 @@ class CarDetailRow extends StatelessWidget {
                 Flexible(
                   child: Text(
                     label,
-                    style: AppTextStyle.bodyMedium(context).copyWith(
-                      fontWeight: FontWeight.w500,
-                      color: AppColor.greyColor(context),
-                    ),
+                    style: AppTextStyle.bodyMedium(
+                      context,
+                    ).copyWith(fontWeight: FontWeight.w500, color: AppColor.greyColor(context)),
                   ),
                 ),
               ],
@@ -64,10 +61,9 @@ class CarDetailRow extends StatelessWidget {
                 Flexible(
                   child: Text(
                     value,
-                    style: AppTextStyle.bodyMedium(context).copyWith(
-                      fontWeight: FontWeight.w700,
-                      color: AppColor.blackTextColor(context),
-                    ),
+                    style: AppTextStyle.bodyMedium(
+                      context,
+                    ).copyWith(fontWeight: FontWeight.w700, color: AppColor.blackColor(context)),
                     textAlign: TextAlign.end,
                   ),
                 ),

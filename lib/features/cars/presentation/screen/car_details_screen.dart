@@ -5,12 +5,13 @@ import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/features/cars/presentation/widget/bnpl_widget.dart';
 import 'package:car/features/cars/presentation/widget/car_header_widget.dart';
+import 'package:car/features/cars/presentation/widget/car_info_tabs_widget.dart';
 import 'package:car/features/cars/presentation/widget/cash_packages_widget.dart';
 import 'package:car/features/cars/presentation/widget/features_grid_widget.dart';
 import 'package:car/features/cars/presentation/widget/section_title_widget.dart';
 import 'package:car/features/cars/presentation/widget/sliver_app_bar_widget.dart';
-import 'package:car/features/cars/presentation/widget/car_info_tabs_widget.dart';
 import 'package:car/features/cars/presentation/widget/sticky_action_bar_widget.dart';
+import 'package:car/features/home/data/model/brand_cars_data_model.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -18,7 +19,7 @@ import 'package:gap/gap.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class CarDetailsScreen extends StatefulWidget {
-  final Map<String, dynamic> car;
+  final GetBrandCarsDataModel car;
   final String? heroTag;
 
   const CarDetailsScreen({super.key, required this.car, this.heroTag});
@@ -31,17 +32,17 @@ class _CarDetailsScreenState extends State<CarDetailsScreen> {
   late YoutubePlayerController _controller;
   final PageController _imagePageController = PageController();
   final int _currentImageIndex = 0;
-
   late List<String> _carImages;
-
   @override
   void initState() {
     super.initState();
-    HiveMethods.addToRecentlyViewed(widget.car);
-    final mainImage = widget.car['image'] ?? AppImages.assetsImagesPlaceholder;
+    HiveMethods.addToRecentlyViewed(widget.car.toMap());
+    final mainImage = widget.car.fullCarImage.isNotEmpty
+        ? widget.car.fullCarImage
+        : AppImages.assetsImagesPlaceholder;
     _carImages = [mainImage];
     _controller = YoutubePlayerController(
-      initialVideoId: widget.car['video_id'] ?? 'D7O8J5vVf-M',
+      initialVideoId: widget.car.videoId,
       flags: const YoutubePlayerFlags(
         autoPlay: false,
         mute: false,
@@ -74,10 +75,12 @@ class _CarDetailsScreenState extends State<CarDetailsScreen> {
         controller: _controller,
         showVideoProgressIndicator: true,
         progressIndicatorColor: AppColor.primaryColor(context),
-        thumbnail: widget.car['image'] != null && widget.car['image'].toString().startsWith('http')
-            ? CustomNetworkImage(imageUrl: widget.car['image'], fit: BoxFit.cover)
+        thumbnail: widget.car.fullCarImage.isNotEmpty && widget.car.fullCarImage.startsWith('http')
+            ? CustomNetworkImage(imageUrl: widget.car.fullCarImage, fit: BoxFit.cover)
             : Image.asset(
-                widget.car['image'] ?? AppImages.assetsImagesPlaceholder,
+                widget.car.fullCarImage.isNotEmpty
+                    ? widget.car.fullCarImage
+                    : AppImages.assetsImagesPlaceholder,
                 fit: BoxFit.cover,
               ),
       ),
@@ -107,7 +110,7 @@ class _CarDetailsScreenState extends State<CarDetailsScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               CarHeaderWidget(car: widget.car),
-                              if (widget.car['is_financing_available'] ?? true) ...[
+                              if (widget.car.isTamaraAvailable) ...[
                                 Gap(16.h),
                                 BnplWidget(car: widget.car),
                                 // Gap(16.h),

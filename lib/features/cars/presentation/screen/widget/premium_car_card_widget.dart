@@ -10,6 +10,7 @@ import 'package:car/core/utils/common_methods.dart';
 import 'package:car/core/utils/navigator_methods.dart';
 import 'package:car/features/cars/presentation/widget/bank_installments_banner_widget.dart';
 import 'package:car/features/favorites/presentation/view/cubit/favorites_cubit.dart';
+import 'package:car/features/home/data/model/brand_cars_data_model.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,7 +18,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
 class PremiumCarCardWidget extends StatelessWidget {
-  final Map<String, dynamic> car;
+  final GetBrandCarsDataModel car;
   final String? heroTag;
   const PremiumCarCardWidget({super.key, required this.car, this.heroTag});
 
@@ -40,16 +41,18 @@ class PremiumCarCardWidget extends StatelessWidget {
             Stack(
               children: [
                 Hero(
-                  tag: heroTag ?? 'car_image_${car['itemCode'] ?? car['name']}',
-                  child: car['image'] != null && car['image'].toString().trim().startsWith('http')
+                  tag: heroTag ?? 'car_image_${car.itemCode}',
+                  child: car.fullCarImage.isNotEmpty && car.fullCarImage.startsWith('http')
                       ? CustomNetworkImage(
-                          imageUrl: car['image'],
+                          imageUrl: car.fullCarImage,
                           fit: BoxFit.fill,
                           width: double.infinity,
                           height: 150.h,
                         )
                       : Image.asset(
-                          car['image'] ?? AppImages.assetsImagesCar,
+                          car.fullCarImage.isNotEmpty
+                              ? car.fullCarImage
+                              : AppImages.assetsImagesCar,
                           fit: BoxFit.fill,
                           height: 150.h,
                           width: double.infinity,
@@ -71,7 +74,7 @@ class PremiumCarCardWidget extends StatelessWidget {
                       borderRadius: BorderRadius.circular(8.r),
                     ),
                     child: Text(
-                      car['year']?.toString() ?? '',
+                      car.makeYear.toString(),
                       style: AppTextStyle.bodySmall(context).copyWith(
                         color: AppColor.blackTextColor(context),
                         fontSize: 10.sp,
@@ -87,9 +90,7 @@ class PremiumCarCardWidget extends StatelessWidget {
                     children: [
                       BlocBuilder<FavoritesCubit, FavoritesState>(
                         builder: (context, state) {
-                          final isFav = context.read<FavoritesCubit>().isFavorite(
-                            car['name']?.toString() ?? '',
-                          );
+                          final isFav = context.read<FavoritesCubit>().isFavorite(car.itemName);
                           return Container(
                             height: 30.h,
                             decoration: BoxDecoration(
@@ -98,7 +99,7 @@ class PremiumCarCardWidget extends StatelessWidget {
                             ),
                             child: IconButton(
                               onPressed: () {
-                                context.read<FavoritesCubit>().toggleFavorite(car);
+                                context.read<FavoritesCubit>().toggleFavorite(car.toMap());
                               },
                               icon: Icon(
                                 isFav ? Icons.favorite_rounded : Icons.favorite_border_rounded,
@@ -125,7 +126,7 @@ class PremiumCarCardWidget extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        car['name']?.toString() ?? '',
+                        car.itemName,
                         style: AppTextStyle.bodyMedium(context).copyWith(
                           color: AppColor.blackTextColor(context),
                           fontWeight: FontWeight.bold,
@@ -158,8 +159,7 @@ class PremiumCarCardWidget extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.end,
                                   children: [
                                     Text(
-                                      car['price']?.toString().replaceAll(RegExp(r'[^0-9,]'), '') ??
-                                          '---',
+                                      car.formattedPrice,
                                       style: AppTextStyle.titleMedium(context).copyWith(
                                         color: AppColor.greenColor(context),
                                         fontWeight: FontWeight.w900,
@@ -184,7 +184,7 @@ class PremiumCarCardWidget extends StatelessWidget {
                             ),
                           ),
                           VerticalDivider(color: AppColor.greyColor(context), width: 32.w),
-                          car['installments'] == null
+                          car.installments == null
                               ? Expanded(
                                   child: GestureDetector(
                                     onTap: () {
@@ -207,11 +207,7 @@ class PremiumCarCardWidget extends StatelessWidget {
                   Gap(12.h),
                   Row(
                     children: [
-                      _buildSpecIcon(
-                        context,
-                        Icons.speed_rounded,
-                        car['mileage']?.toString() ?? '',
-                      ),
+                      _buildSpecIcon(context, Icons.speed_rounded, car.kilometerReading ?? '0'),
                       Gap(16.w),
                       _buildSpecIcon(context, Icons.settings_rounded, AppLocaleKey.normal.tr()),
                       Gap(16.w),
@@ -243,19 +239,15 @@ class PremiumCarCardWidget extends StatelessWidget {
       child: IconButton(
         padding: EdgeInsets.zero,
         onPressed: () {
-          // Note: Since this is a StatelessWidget, we rely on the parent or global state
-          // to refresh if needed, but the button itself uses Hive directly.
-          final carName = car['name']?.toString() ?? '';
+          final carName = car.itemName;
           if (carName.isEmpty) return;
 
           if (HiveMethods.isInComparison(carName)) {
             HiveMethods.removeFromComparison(carName);
-            // Forces immediate UI update in the widget tree for this card
             (context as Element).markNeedsBuild();
           } else {
-            bool added = HiveMethods.addToComparison(car);
+            bool added = HiveMethods.addToComparison(car.toMap());
             if (added) {
-              // Forces immediate UI update in the widget tree for this card
               (context as Element).markNeedsBuild();
             } else {
               CommonMethods.showToast(
@@ -266,10 +258,10 @@ class PremiumCarCardWidget extends StatelessWidget {
           }
         },
         icon: Icon(
-          HiveMethods.isInComparison(car['name']?.toString() ?? '')
+          HiveMethods.isInComparison(car.itemName)
               ? Icons.compare_arrows_rounded
               : Icons.add_chart_rounded,
-          color: HiveMethods.isInComparison(car['name']?.toString() ?? '')
+          color: HiveMethods.isInComparison(car.itemName)
               ? AppColor.primaryColor(context)
               : AppColor.blackTextColor(context),
           size: 18.sp,

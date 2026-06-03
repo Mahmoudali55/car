@@ -8,6 +8,7 @@ import 'package:car/core/utils/common_methods.dart';
 import 'package:car/features/admin/presentation/screen/car_quotation_preview_screen.dart';
 import 'package:car/features/cars/presentation/widget/full_image_gallery_screen.dart';
 import 'package:car/features/favorites/presentation/view/cubit/favorites_cubit.dart';
+import 'package:car/features/home/data/model/brand_cars_data_model.dart';
 import 'package:car/features/home/presentation/cubit/home_cubit.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +26,7 @@ class SliverAppBarWidget extends StatefulWidget {
     required this.carImages,
     this.heroTag,
   });
-  final Map<String, dynamic> car;
+  final GetBrandCarsDataModel car;
   final PageController imagePageController;
   final int currentImageIndex;
   final List<String> carImages;
@@ -76,8 +77,8 @@ class _SliverAppBarWidgetState extends State<SliverAppBarWidget> {
                 if (HiveMethods.getToken() == null) {
                   CommonMethods.showLoginRequiredDialog(context);
                 } else {
-                  final String carName = widget.car['name'] ?? '';
-                  final String carPrice = widget.car['price'] ?? '';
+                  final String carName = widget.car.itemName;
+                  final String carPrice = widget.car.price ?? '';
                   final String message =
                       '${AppLocaleKey.checkOutThisCar.tr()} $carName ${AppLocaleKey.atPrice.tr()} $carPrice\n\n${AppLocaleKey.downloadApp.tr()}: https://hbwinternational.com';
                   SharePlus.instance.share(ShareParams(text: message));
@@ -97,26 +98,16 @@ class _SliverAppBarWidgetState extends State<SliverAppBarWidget> {
                 size: 20,
               ),
               onPressed: () {
-                final Map<String, String> stringCar = widget.car.map(
+                final Map<String, String> stringCar = widget.car.toMap().map(
                   (key, value) => MapEntry(key, value?.toString() ?? ''),
                 );
 
-                // Map API keys to the keys expected by CarQuotationPdfGenerator
-                stringCar['price'] ??= stringCar['PRICE'] ?? '0';
-                stringCar['name'] ??= stringCar['ITEM_NAME'] ?? '';
-                stringCar['year'] ??= stringCar['MAKE_YEAR'] ?? '';
-                stringCar['color'] ??= stringCar['Color'] ?? stringCar['BODY_COLOR'] ?? '';
-                stringCar['chassis'] ??= stringCar['chassisNo'] ?? stringCar['CHASSIS_NO'] ?? '';
-
-                String specsStr = '';
-                if (widget.car['instantSpecs'] != null &&
-                    (widget.car['instantSpecs'] is List) &&
-                    (widget.car['instantSpecs'] as List).isNotEmpty) {
-                  specsStr = (widget.car['instantSpecs'] as List).join(' - ');
-                }
-                if (specsStr.isNotEmpty) {
-                  stringCar['specs'] = specsStr;
-                }
+                // Ensure specific keys are present for CarQuotationPdfGenerator
+                stringCar['price'] = widget.car.price ?? '0';
+                stringCar['name'] = widget.car.itemName;
+                stringCar['year'] = widget.car.makeYear.toString();
+                stringCar['color'] = widget.car.color;
+                stringCar['chassis'] = widget.car.chassisNo;
 
                 Navigator.push(
                   context,
@@ -130,7 +121,7 @@ class _SliverAppBarWidgetState extends State<SliverAppBarWidget> {
         ),
         BlocBuilder<FavoritesCubit, FavoritesState>(
           builder: (context, state) {
-            final isFav = context.read<FavoritesCubit>().isFavorite(widget.car['name'] ?? '');
+            final isFav = context.read<FavoritesCubit>().isFavorite(widget.car.itemName);
             return Padding(
               padding: EdgeInsets.all(8.w),
               child: CircleAvatar(
@@ -145,7 +136,7 @@ class _SliverAppBarWidgetState extends State<SliverAppBarWidget> {
                     if (HiveMethods.getToken() == null) {
                       CommonMethods.showLoginRequiredDialog(context);
                     } else {
-                      context.read<FavoritesCubit>().toggleFavorite(widget.car);
+                      context.read<FavoritesCubit>().toggleFavorite(widget.car.toMap());
                     }
                   },
                 ),
@@ -158,18 +149,9 @@ class _SliverAppBarWidgetState extends State<SliverAppBarWidget> {
       flexibleSpace: FlexibleSpaceBar(
         background: BlocBuilder<HomeCubit, HomeState>(
           builder: (context, state) {
-            List<String> displayedImages = [
-              widget.car['image'] ?? AppImages.assetsImagesPlaceholder,
-            ];
-
-            if (widget.car['extraImages'] != null &&
-                (widget.car['extraImages'] as List).isNotEmpty) {
-              final extraImages = widget.car['extraImages'] as List<String>;
-              for (var img in extraImages) {
-                if (!displayedImages.contains(img)) {
-                  displayedImages.add(img);
-                }
-              }
+            List<String> displayedImages = widget.car.allImages;
+            if (displayedImages.isEmpty) {
+              displayedImages = [AppImages.assetsImagesPlaceholder];
             }
 
             final safeIndex = _currentImageIndex < displayedImages.length ? _currentImageIndex : 0;
@@ -202,9 +184,8 @@ class _SliverAppBarWidgetState extends State<SliverAppBarWidget> {
 
                       return Hero(
                         tag: index == 0
-                            ? (widget.heroTag ??
-                                  'car_image_${widget.car['itemCode'] ?? widget.car['name']}')
-                            : 'car_image_full_${widget.car['itemCode'] ?? widget.car['name']}_$index',
+                            ? (widget.heroTag ?? 'car_image_${widget.car.itemCode}')
+                            : 'car_image_full_${widget.car.itemCode}_$index',
                         child: Container(
                           height: 100.h,
                           width: 50.w,
@@ -234,7 +215,6 @@ class _SliverAppBarWidgetState extends State<SliverAppBarWidget> {
                         '${safeIndex + 1} / ${displayedImages.length}',
                         style: AppTextStyle.bodySmall(context).copyWith(
                           color: AppColor.whiteColor(context),
-
                           fontWeight: FontWeight.bold,
                         ),
                       ),

@@ -2,16 +2,17 @@ import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/features/cars/presentation/screen/widget/premium_car_card_widget.dart';
+import 'package:car/features/home/data/model/brand_cars_data_model.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
 class CarsList extends StatelessWidget {
-  const CarsList({required this.cars, required this.localizeCarData});
+  const CarsList({required this.cars, this.localizeCarData});
 
-  final List<Map<String, dynamic>> cars;
-  final Map<String, dynamic> Function(Map<String, dynamic>) localizeCarData;
+  final List<GetBrandCarsDataModel> cars;
+  final GetBrandCarsDataModel Function(GetBrandCarsDataModel)? localizeCarData;
 
   @override
   Widget build(BuildContext context) {
@@ -36,10 +37,10 @@ class CarsList extends StatelessWidget {
       itemCount: cars.length,
       separatorBuilder: (_, __) => Gap(16.h),
       itemBuilder: (context, index) {
-        final car = localizeCarData(cars[index]);
+        final car = localizeCarData != null ? localizeCarData!(cars[index]) : cars[index];
         return PremiumCarCardWidget(
           car: car,
-          heroTag: 'premium_car_image_${car['itemCode'] ?? car['name']}',
+          heroTag: 'premium_car_image_${car.itemCode}',
         );
       },
     );

@@ -3,6 +3,7 @@ import 'package:car/core/custom_widgets/custom_image/custom_network_image.dart';
 import 'package:car/core/images/app_images.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
+import 'package:car/features/home/data/model/brand_cars_data_model.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -11,7 +12,7 @@ import 'package:gap/gap.dart';
 class FullImageGalleryScreen extends StatefulWidget {
   final List<String> images;
   final int initialIndex;
-  final Map<String, dynamic> car;
+  final GetBrandCarsDataModel car;
 
   const FullImageGalleryScreen({
     super.key,
@@ -82,7 +83,7 @@ class _FullImageGalleryScreenState extends State<FullImageGalleryScreen> {
                   minScale: 0.5,
                   maxScale: 4.0,
                   child: Hero(
-                    tag: 'car_image_full_${widget.car['itemCode'] ?? widget.car['name']}_$index',
+                    tag: 'car_image_full_${widget.car.itemCode}_$index',
                     child: Center(
                       child: isNetwork
                           ? CustomNetworkImage(

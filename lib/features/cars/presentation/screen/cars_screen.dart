@@ -5,6 +5,7 @@ import 'package:car/features/cars/presentation/screen/widget/cars_categories_row
 import 'package:car/features/cars/presentation/screen/widget/cars_list_widget.dart';
 import 'package:car/features/cars/presentation/screen/widget/featured_cars_slider_widget.dart';
 import 'package:car/features/cars/presentation/screen/widget/section_header_widget.dart';
+import 'package:car/features/home/data/model/brand_cars_data_model.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -45,8 +46,8 @@ class _CarsScreenState extends State<CarsScreen> {
     },
   ];
 
-  static const List<Map<String, dynamic>> _carsList = [
-    {
+  static final List<GetBrandCarsDataModel> _carsList = [
+    GetBrandCarsDataModel.fromJson({
       'image': 'https://images.unsplash.com/photo-1520031441872-265e4ff70366?q=80&w=800',
       'name': 'G-Class G63',
       'brand': 'Mercedes-Benz',
@@ -56,8 +57,8 @@ class _CarsScreenState extends State<CarsScreen> {
       'isFavorite': true,
       'video_id': 'D7O8J5vVf-M',
       'installments': '1,166',
-    },
-    {
+    }),
+    GetBrandCarsDataModel.fromJson({
       'image': 'https://images.unsplash.com/photo-1555215695-3004980ad54e?q=80&w=800',
       'name': 'M5 Competition',
       'brand': 'BMW',
@@ -67,8 +68,8 @@ class _CarsScreenState extends State<CarsScreen> {
       'isFavorite': false,
       'video_id': 'D7O8J5vVf-M',
       'installments': '1,166',
-    },
-    {
+    }),
+    GetBrandCarsDataModel.fromJson({
       'image': 'https://images.unsplash.com/photo-1594502184342-2e12f877aa73?q=80&w=800',
       'name': 'Land Cruiser 300',
       'brand': 'Toyota',
@@ -78,8 +79,8 @@ class _CarsScreenState extends State<CarsScreen> {
       'isFavorite': false,
       'video_id': 'D7O8J5vVf-M',
       'installments': '1,166',
-    },
-    {
+    }),
+    GetBrandCarsDataModel.fromJson({
       'image': 'https://images.unsplash.com/photo-1560958089-b8a1929cea89?q=80&w=800',
       'name': 'Model S Plaid',
       'brand': 'Tesla',
@@ -89,8 +90,8 @@ class _CarsScreenState extends State<CarsScreen> {
       'isFavorite': false,
       'video_id': 'D7O8J5vVf-M',
       'installments': '1,166',
-    },
-    {
+    }),
+    GetBrandCarsDataModel.fromJson({
       'image': 'https://images.unsplash.com/photo-1614200187524-dc4b892acf16?q=80&w=800',
       'name': 'RS e-tron GT',
       'brand': 'Audi',
@@ -100,7 +101,7 @@ class _CarsScreenState extends State<CarsScreen> {
       'isFavorite': true,
       'video_id': 'D7O8J5vVf-M',
       'installments': '1,166',
-    },
+    }),
   ];
   List<String> get _categories => [
     AppLocaleKey.all.tr(),
@@ -109,19 +110,15 @@ class _CarsScreenState extends State<CarsScreen> {
     AppLocaleKey.sports.tr(),
     AppLocaleKey.sedan.tr(),
   ];
-  List<Map<String, dynamic>> get _filteredCars {
+  List<GetBrandCarsDataModel> get _filteredCars {
     if (_selectedBrand == null) return _carsList;
-    return _carsList.where((car) => car['brand'] == _selectedBrand!.name).toList();
+    return _carsList.where((car) => car.groupName == _selectedBrand!.name).toList();
   }
 
-  Map<String, dynamic> _localizeCarData(Map<String, dynamic> car) {
-    return {
-      ...car,
-      'price': '${car['price']} ${AppLocaleKey.sar.tr()}',
-      'mileage': '${car['mileage']} ${AppLocaleKey.km.tr()}',
-      'installments':
-          '${car['installments']} ${AppLocaleKey.sar.tr()} / ${AppLocaleKey.month.tr()}',
-    };
+  GetBrandCarsDataModel _localizeCarData(GetBrandCarsDataModel car) {
+    // Note: Since GetBrandCarsDataModel uses getters for formatted data in PremiumCarCardWidget,
+    // we don't strictly need to modify the model here unless we want to change its core price field.
+    return car;
   }
 
   Map<String, String> _localizeFeaturedCar(Map<String, String> car) {

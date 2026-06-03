@@ -2,27 +2,28 @@ import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/routes/routes_name.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
+import 'package:car/features/home/data/model/brand_cars_data_model.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
 class BankInstallmentsBannerWidget extends StatelessWidget {
-  final Map<String, dynamic> car;
+  final GetBrandCarsDataModel car;
 
   const BankInstallmentsBannerWidget({super.key, required this.car});
 
   String _getInstallmentPrice() {
-    // Check multiple potential keys for installment price
-    final price = car['installments'] ?? "1,999";
-    return price.toString();
+    // Use model property for installments, fallback to default mock value
+    final price = car.installments ?? "1,999";
+    return price;
   }
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, RoutesName.financingScreen, arguments: car);
+        Navigator.pushNamed(context, RoutesName.financingScreen, arguments: car.toMap());
       },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
