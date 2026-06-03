@@ -9,7 +9,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
 class CarSearchHeaderWidget extends StatelessWidget {
-  const CarSearchHeaderWidget({super.key});
+  final TextEditingController? controller;
+  final void Function(String)? onChanged;
+
+  const CarSearchHeaderWidget({
+    super.key,
+    this.controller,
+    this.onChanged,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +26,8 @@ class CarSearchHeaderWidget extends StatelessWidget {
         children: [
           Expanded(
             child: CustomFormField(
+              controller: controller,
+              onChanged: onChanged,
               hintText: AppLocaleKey.searchForYourDreamCar.tr(),
               prefixIcon: const Icon(Icons.search_rounded),
             ),

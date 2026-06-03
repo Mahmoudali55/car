@@ -20,11 +20,23 @@ class CarsList extends StatelessWidget {
       return SizedBox(
         height: 200.h,
         child: Center(
-          child: Text(
-            AppLocaleKey.noCarsForBrand.tr(),
-            style: AppTextStyle.bodyMedium(
-              context,
-            ).copyWith(color: AppColor.blackTextColor(context).withValues(alpha: 0.4)),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Gap(20),
+              Icon(
+                Icons.directions_car_outlined,
+                size: 80.sp,
+                color: AppColor.hintColor(context).withValues(alpha: 0.4),
+              ),
+              const Gap(12),
+              Text(
+                AppLocaleKey.noCars.tr(),
+                style: AppTextStyle.bodyLarge(
+                  context,
+                ).copyWith(color: AppColor.blackTextColor(context).withValues(alpha: 0.4)),
+              ),
+            ],
           ),
         ),
       );
@@ -38,10 +50,7 @@ class CarsList extends StatelessWidget {
       separatorBuilder: (_, __) => Gap(16.h),
       itemBuilder: (context, index) {
         final car = localizeCarData != null ? localizeCarData!(cars[index]) : cars[index];
-        return PremiumCarCardWidget(
-          car: car,
-          heroTag: 'premium_car_image_${car.itemCode}',
-        );
+        return PremiumCarCardWidget(car: car, heroTag: 'premium_car_image_${car.itemCode}');
       },
     );
   }

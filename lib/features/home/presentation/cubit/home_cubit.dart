@@ -108,6 +108,44 @@ class HomeCubit extends Cubit<HomeState> {
     );
   }
 
+  Future<void> fetchAllCars({
+    String? brandId,
+    String? fromMakeYear,
+    String? toMakeYear,
+    int? fromPrice,
+    int? toPrice,
+    String? fuelType,
+  }) async {
+    emit(state.copyWith(
+      allCarsStatus: const StatusState.loading(),
+      brandId: brandId,
+      fromMakeYear: fromMakeYear,
+      toMakeYear: toMakeYear,
+      fromPrice: fromPrice,
+      toPrice: toPrice,
+      fuelType: fuelType,
+    ));
+
+    final result = await homeRepo.fetchAllCars(
+      brandId,
+      fromMakeYear,
+      toMakeYear,
+      fromPrice,
+      toPrice,
+      fuelType,
+    );
+
+    result.fold(
+      (failure) {
+        emit(state.copyWith(allCarsStatus: StatusState.failure(failure.errMessage)));
+      },
+      (response) {
+        emit(state.copyWith(allCarsStatus: StatusState.success(response)));
+      },
+    );
+  }
+
+
   void selectBrand(int index, String brandId) {
     emit(state.copyWith(selectedIndex: index, selectedBrandId: int.tryParse(brandId)));
 

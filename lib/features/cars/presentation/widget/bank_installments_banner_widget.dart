@@ -32,7 +32,7 @@ class BankInstallmentsBannerWidget extends StatelessWidget {
             AppLocaleKey.agentInstallments.tr(),
             style: AppTextStyle.bodySmall(
               context,
-            ).copyWith(color: AppColor.blackColor(context), fontWeight: FontWeight.bold),
+            ).copyWith(color: AppColor.blueColor(context), fontWeight: FontWeight.bold),
           ),
           Gap(6.h),
           Row(

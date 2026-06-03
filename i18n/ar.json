@@ -1351,7 +1351,8 @@
   "cash": "الكاش",
   "tamara": "تمارا",
   "bank_card": "بطاقة الراجحي / الأهلي",
-  "refundable_deposit": "500 ر.س (مسترد)"
+  "refundable_deposit": "500 ر.س (مسترد)",
+  "no_cars":"لاتوجد سيارات"
 
 
 }

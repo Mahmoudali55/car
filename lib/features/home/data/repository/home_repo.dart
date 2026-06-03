@@ -6,6 +6,8 @@ import 'package:car/features/home/data/model/add_booking_permission_response_mod
 import 'package:car/features/home/data/model/brand_cars_data_model.dart';
 import 'package:car/features/home/data/model/cars_models_response.dart';
 import 'package:dartz/dartz.dart';
+import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 
 abstract interface class HomeRepo {
   Future<Either<Failure, CarsModelsResponse>> getCarsModels();
@@ -13,6 +15,15 @@ abstract interface class HomeRepo {
 
   Future<Either<Failure, AddBookingPermissionResponseModel>> addBookingPermission(
     AddBookingPermissionModel model,
+  );
+
+  Future<Either<Failure, List<GetBrandCarsDataModel>>> fetchAllCars(
+    String? brandId,
+    String? frommakeyear,
+    String? tomakeyear,
+    int? fromprice,
+    int? toprice,
+    String? fuelType,
   );
 }
 
@@ -62,6 +73,62 @@ class HomeRepoImpl implements HomeRepo {
           );
         }
         return [];
+      },
+    );
+  }
+
+  @override
+  Future<Either<Failure, List<GetBrandCarsDataModel>>> fetchAllCars(
+    String? brandId,
+    String? frommakeyear,
+    String? tomakeyear,
+    int? fromprice,
+    int? toprice,
+    String? fuelType,
+  ) async {
+    return handleDioRequest(
+      request: () async {
+        final queryParams = <String, String>{};
+        // دايماً ابعت id — لو مفيش فلتر ابعت "null" زي ما السيرفر بيتوقع
+        queryParams['id'] = brandId ?? 'null';
+        if (frommakeyear != null) queryParams['frommakeyear'] = frommakeyear ?? 'null';
+        if (tomakeyear != null) queryParams['tomakeyear'] = tomakeyear ?? 'null';
+        if (fromprice != null) queryParams['fromprice'] = fromprice.toString() ?? 'null';
+        if (toprice != null) queryParams['toprice'] = toprice.toString() ?? 'null';
+        if (fuelType != null) queryParams['FUEL_TYPE'] = fuelType ?? 'null';
+
+        // ابني الـ URL يدويًا بدون URL encoding عشان العربي يتبعت صح
+        final queryString = queryParams.entries.map((e) => '${e.key}=${e.value}').join('&');
+        final fullPath = '${EndPoints.getprandcars}?$queryString';
+
+        if (kDebugMode) {
+          print('Requested Decoded URL: $fullPath');
+        }
+
+        try {
+          final response = await apiConsumer.get(fullPath);
+          final data = response['Data'];
+          if (data is String) {
+            return GetBrandCarsDataModel.listFromResponse(data);
+          } else if (data is List) {
+            return List<GetBrandCarsDataModel>.from(
+              data.map((e) => GetBrandCarsDataModel.fromJson(e)),
+            );
+          }
+          return [];
+        } on DioException catch (e) {
+          // السيرفر أحياناً بيرجع 500 مع بيانات حقيقية في الـ body
+          // نحاول نستخدمها قبل ما نرمي الخطأ
+          if (e.response?.statusCode == 500 && e.response?.data != null) {
+            final rawData = e.response!.data;
+            final data = rawData is Map ? rawData['Data'] : null;
+            if (data is String && data != 'null' && data.isNotEmpty && data != '[]') {
+              if (kDebugMode) print('[fetchAllCars] Got 500 but found valid Data, parsing...');
+              return GetBrandCarsDataModel.listFromResponse(data);
+            }
+          }
+          rethrow; // مفيش data → اترك الـ error handling الطبيعي يشتغل
+        }
       },
     );
   }

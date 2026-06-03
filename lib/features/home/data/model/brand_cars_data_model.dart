@@ -333,6 +333,10 @@ class GetBrandCarsDataModel extends Equatable {
 
   static List<GetBrandCarsDataModel> listFromResponse(String data) {
     final decoded = jsonDecode(data);
+
+    // لو السيرفر رجع "null" أو قائمة فاضية → ارجع list فاضية بدون crash
+    if (decoded == null || decoded is! List) return [];
+
     final allCars = List<GetBrandCarsDataModel>.from(
       decoded.map((e) => GetBrandCarsDataModel.fromJson(e)),
     );
