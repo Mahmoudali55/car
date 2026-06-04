@@ -26,7 +26,14 @@ class _PopularCarsScreenState extends State<PopularCarsScreen> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<HomeCubit>().getCarsModels();
+      final state = context.read<HomeCubit>().state;
+      if (state.selectedBrandId != null) {
+        // If a brand is selected, only fetch that brand's cars
+        context.read<HomeCubit>().getBrandCars(state.selectedBrandId.toString());
+      } else if (state.brands.isEmpty) {
+        // Only fetch all models if brands are empty and no specific brand is selected
+        context.read<HomeCubit>().getCarsModels();
+      }
     });
   }
 

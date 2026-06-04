@@ -38,18 +38,15 @@ class AllBrandsScreen extends StatelessWidget {
             child: Column(
               children: [
                 const CustomHeaderAllBrandWidget(),
-
                 Expanded(
                   child: BlocBuilder<HomeCubit, HomeState>(
                     builder: (context, state) {
                       if (state.carsModelsStatus.isLoading) {
                         return const Center(child: CustomLoading());
                       }
-
                       if (state.carsModelsStatus.isFailure) {
                         return bluidCarModelFailure(state, context);
                       }
-
                       final brands = state.brands
                           .where(
                             (b) =>

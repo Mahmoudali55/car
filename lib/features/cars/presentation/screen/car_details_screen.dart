@@ -37,10 +37,9 @@ class _CarDetailsScreenState extends State<CarDetailsScreen> {
   void initState() {
     super.initState();
     HiveMethods.addToRecentlyViewed(widget.car.toMap());
-    final mainImage = widget.car.fullCarImage.isNotEmpty
-        ? widget.car.fullCarImage
-        : AppImages.assetsImagesPlaceholder;
-    _carImages = [mainImage];
+    _carImages = widget.car.allImages.isNotEmpty
+        ? widget.car.allImages
+        : [AppImages.assetsImagesPlaceholder];
     _controller = YoutubePlayerController(
       initialVideoId: widget.car.videoId,
       flags: const YoutubePlayerFlags(
