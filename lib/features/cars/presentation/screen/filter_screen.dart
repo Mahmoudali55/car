@@ -1,8 +1,8 @@
 import 'package:car/core/custom_widgets/custom_toast/custom_toast.dart';
-import 'package:car/core/utils/common_methods.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
+import 'package:car/core/utils/common_methods.dart';
 import 'package:car/features/cars/presentation/widget/filter_apply_button_widget.dart';
 import 'package:car/features/cars/presentation/widget/filter_check_box_tile_widget.dart';
 import 'package:car/features/cars/presentation/widget/filter_chips_group_widget.dart';
@@ -29,7 +29,7 @@ class _FilterScreenState extends State<FilterScreen> {
   bool _isDiscountApplied = false;
   bool _isTestDriveAvailable = false;
 
-  String? _selectedBrandId;
+  int? _selectedBrandId;
   String? _selectedBrandName;
   bool _showAllBrands = false;
 
@@ -78,10 +78,7 @@ class _FilterScreenState extends State<FilterScreen> {
       );
     }
     if (state.fromPrice != null && state.toPrice != null) {
-      _priceRange = RangeValues(
-        state.fromPrice!.toDouble(),
-        state.toPrice!.toDouble(),
-      );
+      _priceRange = RangeValues(state.fromPrice!.toDouble(), state.toPrice!.toDouble());
     }
   }
 
@@ -196,7 +193,9 @@ class _FilterScreenState extends State<FilterScreen> {
 
                 if (_selectedBrandId != null && _selectedBrandName == null) {
                   try {
-                    final matched = state.brands.firstWhere((b) => b.groupCode.toString() == _selectedBrandId);
+                    final matched = state.brands.firstWhere(
+                      (b) => b.groupCode.toString() == _selectedBrandId,
+                    );
                     _selectedBrandName = matched.groupName;
                   } catch (_) {}
                 }
@@ -219,8 +218,10 @@ class _FilterScreenState extends State<FilterScreen> {
                             if (itemName == null) {
                               _selectedBrandId = null;
                             } else {
-                              final matched = state.brands.firstWhere((b) => b.groupName == itemName);
-                              _selectedBrandId = matched.groupCode.toString();
+                              final matched = state.brands.firstWhere(
+                                (b) => b.groupName == itemName,
+                              );
+                              _selectedBrandId = matched.groupCode;
                             }
                           });
                         },
@@ -303,7 +304,7 @@ class _FilterScreenState extends State<FilterScreen> {
             FilterApplyButton(
               onPressed: () {
                 final fuelKey = _selectedItems[AppLocaleKey.engineSystem];
-                
+
                 final hasBrand = _selectedBrandId != null;
                 final hasFuel = fuelKey != null;
                 final hasTestDrive = _isTestDriveAvailable;
@@ -311,7 +312,12 @@ class _FilterScreenState extends State<FilterScreen> {
                 final hasDiscount = _isDiscountApplied;
                 final hasOtherSelections = _selectedItems.isNotEmpty;
 
-                if (!hasBrand && !hasFuel && !hasTestDrive && !hasTax && !hasDiscount && !hasOtherSelections) {
+                if (!hasBrand &&
+                    !hasFuel &&
+                    !hasTestDrive &&
+                    !hasTax &&
+                    !hasDiscount &&
+                    !hasOtherSelections) {
                   CommonMethods.showToast(
                     message: 'يرجى اختيار الفلاتر المطلوبة أولاً',
                     type: ToastType.warning,

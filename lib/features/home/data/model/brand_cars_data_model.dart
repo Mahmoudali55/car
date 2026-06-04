@@ -331,15 +331,24 @@ class GetBrandCarsDataModel extends Equatable {
     );
   }
 
-  static List<GetBrandCarsDataModel> listFromResponse(String data) {
-    final decoded = jsonDecode(data);
+  static List<GetBrandCarsDataModel> listFromResponse(dynamic data) {
+    if (data == null) return [];
 
-    // لو السيرفر رجع "null" أو قائمة فاضية → ارجع list فاضية بدون crash
-    if (decoded == null || decoded is! List) return [];
+    final List<dynamic> decoded;
+    if (data is String) {
+      final parsed = jsonDecode(data);
+      if (parsed is List) {
+        decoded = parsed;
+      } else {
+        return [];
+      }
+    } else if (data is List) {
+      decoded = data;
+    } else {
+      return [];
+    }
 
-    final allCars = List<GetBrandCarsDataModel>.from(
-      decoded.map((e) => GetBrandCarsDataModel.fromJson(e)),
-    );
+    final allCars = decoded.map((e) => GetBrandCarsDataModel.fromJson(e)).toList();
 
     final Map<int, GetBrandCarsDataModel> uniqueCarsMap = {};
     final Map<int, List<String>> imagesMap = {};

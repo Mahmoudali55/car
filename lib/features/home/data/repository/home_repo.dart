@@ -16,7 +16,7 @@ abstract interface class HomeRepo {
     AddBookingPermissionModel model,
   );
   Future<Either<Failure, List<GetBrandCarsDataModel>>> fetchAllCars(
-    String? brandId,
+    int? brandId,
     String? frommakeyear,
     String? tomakeyear,
     int? fromprice,
@@ -62,22 +62,14 @@ class HomeRepoImpl implements HomeRepo {
           EndPoints.getprandcars,
           queryParameters: {'id': brandId},
         );
-        final data = response['Data'];
-        if (data is String) {
-          return GetBrandCarsDataModel.listFromResponse(data);
-        } else if (data is List) {
-          return List<GetBrandCarsDataModel>.from(
-            data.map((e) => GetBrandCarsDataModel.fromJson(e)),
-          );
-        }
-        return [];
+        return GetBrandCarsDataModel.listFromResponse(response['Data']);
       },
     );
   }
 
   @override
   Future<Either<Failure, List<GetBrandCarsDataModel>>> fetchAllCars(
-    String? brandId,
+    int? brandId,
     String? frommakeyear,
     String? tomakeyear,
     int? fromprice,
@@ -86,36 +78,28 @@ class HomeRepoImpl implements HomeRepo {
   ) async {
     return handleDioRequest(
       request: () async {
-        final queryParams = <String, String>{};
-        queryParams['id'] = brandId ?? "null";
-        if (frommakeyear != null) queryParams['frommakeyear'] = frommakeyear ?? 'null';
-        if (tomakeyear != null) queryParams['tomakeyear'] = tomakeyear ?? 'null';
-        if (fromprice != null) queryParams['fromprice'] = fromprice.toString() ?? 'null';
-        if (toprice != null) queryParams['toprice'] = toprice.toString() ?? 'null';
-        if (fuelType != null) queryParams['FUEL_TYPE'] = fuelType ?? 'null';
-        final queryString = queryParams.entries.map((e) => '${e.key}=${e.value}').join('&');
-        final fullPath = '${EndPoints.getprandcars}?$queryString';
-        if (kDebugMode) {
-          print('Requested Decoded URL: $fullPath');
-        }
+        final queryParams = {
+          'id': brandId.toString() ?? null,
+          'frommakeyear': frommakeyear ?? "",
+          'tomakeyear': tomakeyear ?? "",
+          'fromprice': fromprice.toString() ?? null,
+          'toprice': toprice.toString() ?? null,
+          'FUEL_TYPE': fuelType ?? "",
+        };
+
         try {
-          final response = await apiConsumer.get(fullPath);
-          final data = response['Data'];
-          if (data is String) {
-            return GetBrandCarsDataModel.listFromResponse(data);
-          } else if (data is List) {
-            return List<GetBrandCarsDataModel>.from(
-              data.map((e) => GetBrandCarsDataModel.fromJson(e)),
-            );
-          }
-          return [];
+          final response = await apiConsumer.get(
+            EndPoints.getprandcars,
+            queryParameters: queryParams,
+          );
+          return GetBrandCarsDataModel.listFromResponse(response['Data']);
         } on DioException catch (e) {
-          if (e.response?.statusCode == 500 && e.response?.data != null) {
-            final rawData = e.response!.data;
-            final data = rawData is Map ? rawData['Data'] : null;
-            if (data is String && data != 'null' && data.isNotEmpty && data != '[]') {
+          if (e.response?.statusCode == 500) {
+            final data = e.response?.data;
+            final carsData = data is Map ? data['Data'] : null;
+            if (carsData != null && carsData != 'null' && carsData != '[]') {
               if (kDebugMode) print('[fetchAllCars] Got 500 but found valid Data, parsing...');
-              return GetBrandCarsDataModel.listFromResponse(data);
+              return GetBrandCarsDataModel.listFromResponse(carsData);
             }
           }
           rethrow;

@@ -11,7 +11,7 @@ class HomeState extends Equatable {
   final List<CarModel> brands;
   final String searchQuery;
   final StatusState<AddBookingPermissionResponseModel> addBookingPermissionResponseModel;
-  final String? brandId;
+  final int? brandId;
   final String? fromMakeYear;
   final String? toMakeYear;
   final int? fromPrice;
@@ -46,7 +46,7 @@ class HomeState extends Equatable {
     List<CarModel>? brands,
     String? searchQuery,
     StatusState<AddBookingPermissionResponseModel>? addBookingPermissionResponseModel,
-    String? brandId,
+    int? brandId,
     String? fromMakeYear,
     String? toMakeYear,
     int? fromPrice,

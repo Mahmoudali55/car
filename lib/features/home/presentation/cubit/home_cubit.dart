@@ -113,7 +113,7 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   Future<void> fetchAllCars({
-    String? brandId,
+    int? brandId,
     String? fromMakeYear,
     String? toMakeYear,
     int? fromPrice,

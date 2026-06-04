@@ -158,11 +158,16 @@ class PremiumCarCardWidget extends StatelessWidget {
                                 Row(
                                   crossAxisAlignment: CrossAxisAlignment.end,
                                   children: [
-                                    Text(
-                                      car.formattedPrice,
-                                      style: AppTextStyle.titleMedium(context).copyWith(
-                                        color: AppColor.greenColor(context),
-                                        fontWeight: FontWeight.w900,
+                                    Flexible(
+                                      child: FittedBox(
+                                        fit: BoxFit.scaleDown,
+                                        child: Text(
+                                          car.formattedPrice,
+                                          style: AppTextStyle.titleMedium(context).copyWith(
+                                            color: AppColor.greenColor(context),
+                                            fontWeight: FontWeight.w900,
+                                          ),
+                                        ),
                                       ),
                                     ),
                                     Gap(4.w),
