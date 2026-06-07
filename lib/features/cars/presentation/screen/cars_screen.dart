@@ -83,14 +83,30 @@ class _CarsScreenState extends State<CarsScreen> {
                       return name.contains(_searchQuery) || brand.contains(_searchQuery);
                     }).toList();
 
-              return ListView(
-                padding: EdgeInsets.zero,
-                physics: const BouncingScrollPhysics(),
-                children: [
-                  const SectionHeader(),
-                  Gap(16.h),
-                  CarsList(cars: availableCars, localizeCarData: _localizeCarData),
-                ],
+              return RefreshIndicator(
+                onRefresh: () async {
+                  _searchController.clear();
+                  setState(() {
+                    _searchQuery = '';
+                  });
+                  await Future.wait([
+                    context.read<HomeCubit>().getCarsModels(),
+                    context.read<HomeCubit>().fetchAllCars(),
+                  ]);
+                },
+                color: AppColor.primaryColor(context),
+                backgroundColor: AppColor.secondAppColor(context),
+                child: ListView(
+                  padding: EdgeInsets.zero,
+                  physics: const AlwaysScrollableScrollPhysics(
+                    parent: BouncingScrollPhysics(),
+                  ),
+                  children: [
+                    const SectionHeader(),
+                    Gap(16.h),
+                    CarsList(cars: availableCars, localizeCarData: _localizeCarData),
+                  ],
+                ),
               );
             },
           ),
