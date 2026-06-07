@@ -1,5 +1,7 @@
 import 'dart:async';
+
 import 'package:car/core/theme/app_colors.dart';
+import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/features/services/presentation/data/financing_constants.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -73,7 +75,7 @@ class _BanksSliderWidgetState extends State<BanksSliderWidget> {
                     shape: BoxShape.circle,
                     boxShadow: [
                       BoxShadow(
-                        color: bank.brandColor.withOpacity(0.3),
+                        color: bank.brandColor.withValues(alpha: 0.3),
                         blurRadius: 5,
                         offset: const Offset(0, 2),
                       ),
@@ -82,8 +84,8 @@ class _BanksSliderWidgetState extends State<BanksSliderWidget> {
                   alignment: Alignment.center,
                   child: Text(
                     bank.logoText,
-                    style: TextStyle(
-                      color: Colors.white,
+                    style: AppTextStyle.bodySmall(context).copyWith(
+                      color: AppColor.whiteColor(context),
                       fontSize: 10.sp,
                       fontWeight: FontWeight.w900,
                     ),
@@ -92,9 +94,8 @@ class _BanksSliderWidgetState extends State<BanksSliderWidget> {
                 Gap(8.w),
                 Text(
                   bank.nameKey.tr(),
-                  style: TextStyle(
-                    color: AppColor.blackTextColor(context).withOpacity(0.7),
-                    fontSize: 13.sp,
+                  style: AppTextStyle.bodySmall(context).copyWith(
+                    color: AppColor.blackTextColor(context).withValues(alpha: 0.7),
                     fontWeight: FontWeight.w700,
                   ),
                 ),

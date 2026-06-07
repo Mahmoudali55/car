@@ -8,7 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'card_image_section.dart';
 
 class OfferCard extends StatelessWidget {
-  const OfferCard({required this.car});
+  const OfferCard({super.key, required this.car});
 
   final Map<String, dynamic> car;
 

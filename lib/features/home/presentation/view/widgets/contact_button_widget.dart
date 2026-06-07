@@ -5,12 +5,19 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
 class ContactButtonWidget extends StatelessWidget {
-  const ContactButtonWidget({super.key, required this.icon, required this.title, required this.subtitle, required this.color, required this.onTap,});
-    final IconData icon;
-    final String title;
-    final String subtitle;
-    final Color color;
-    final VoidCallback onTap;
+  const ContactButtonWidget({
+    super.key,
+    required this.icon,
+    required this.title,
+    required this.subtitle,
+    required this.color,
+    required this.onTap,
+  });
+  final IconData icon;
+  final String title;
+  final String subtitle;
+  final Color color;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -19,19 +26,16 @@ class ContactButtonWidget extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.all(16.w),
         decoration: BoxDecoration(
-          color: color.withOpacity(0.1),
+          color: color.withValues(alpha: 0.1),
           borderRadius: BorderRadius.circular(20.r),
-          border: Border.all(color: color.withOpacity(0.2)),
+          border: Border.all(color: color.withValues(alpha: 0.2)),
         ),
         child: Row(
           children: [
             Container(
               padding: EdgeInsets.all(12.w),
-              decoration: BoxDecoration(
-                color: color,
-                shape: BoxShape.circle,
-              ),
-              child: Icon(icon, color: Colors.white, size: 24.sp),
+              decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+              child: Icon(icon, color: AppColor.whiteColor(context), size: 24.sp),
             ),
             Gap(15.w),
             Expanded(
@@ -47,18 +51,14 @@ class ContactButtonWidget extends StatelessWidget {
                   ),
                   Text(
                     subtitle,
-                    style: AppTextStyle.bodySmall(context).copyWith(
-                      color: AppColor.greyColor(context),
-                    ),
+                    style: AppTextStyle.bodySmall(
+                      context,
+                    ).copyWith(color: AppColor.greyColor(context)),
                   ),
                 ],
               ),
             ),
-            Icon(
-              Icons.arrow_forward_ios_rounded,
-              size: 16.sp,
-              color: AppColor.greyColor(context),
-            ),
+            Icon(Icons.arrow_forward_ios_rounded, size: 16.sp, color: AppColor.greyColor(context)),
           ],
         ),
       ),

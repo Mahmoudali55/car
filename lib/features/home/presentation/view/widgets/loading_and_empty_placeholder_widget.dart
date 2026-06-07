@@ -8,7 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
 class LoadingPlaceholder extends StatelessWidget {
-  const LoadingPlaceholder({Key? key}) : super(key: key);
+  const LoadingPlaceholder({super.key});
   @override
   Widget build(BuildContext context) {
     return SizedBox(

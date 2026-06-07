@@ -1,5 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:car/core/theme/app_colors.dart';
+import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/features/onboarding/data/model/on_boarding_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -24,7 +25,7 @@ class OnboardingPageItem extends StatelessWidget {
               width: 300.h,
               margin: EdgeInsets.all(20.w),
               decoration: BoxDecoration(
-                color: AppColor.primaryColor(context).withOpacity(0.15),
+                color: AppColor.primaryColor(context).withValues(alpha: 0.15),
                 shape: BoxShape.circle,
               ),
               child: Center(
@@ -56,8 +57,7 @@ class OnboardingPageItem extends StatelessWidget {
                   Text(
                     model.title,
                     textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 26.sp,
+                    style: AppTextStyle.titleLarge(context).copyWith(
                       fontWeight: FontWeight.bold,
                       color: AppColor.blackTextColor(context),
                     ),
@@ -66,9 +66,8 @@ class OnboardingPageItem extends StatelessWidget {
                   Text(
                     model.description,
                     textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 16.sp,
-                      color: AppColor.blackTextColor(context).withOpacity(0.8),
+                    style: AppTextStyle.bodyLarge(context).copyWith(
+                      color: AppColor.blackTextColor(context).withValues(alpha: 0.8),
                       height: 1.5,
                     ),
                   ),

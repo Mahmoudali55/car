@@ -1,11 +1,10 @@
-import 'package:car/core/custom_widgets/custom_image/custom_network_image.dart';
-import 'package:car/core/images/app_images.dart';
 import 'package:car/core/routes/routes_name.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/core/utils/navigator_methods.dart';
 import 'package:car/features/favorites/presentation/view/cubit/favorites_cubit.dart';
 import 'package:car/features/home/presentation/view/widgets/card_footer_widget.dart';
+import 'package:car/features/home/presentation/view/widgets/card_image_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -17,8 +16,11 @@ class MagazineCardWidget extends StatelessWidget {
   final String? heroTag;
 
   void _navigateToDetails(BuildContext context) {
-    NavigatorMethods.pushNamed(context, RoutesName.carDetailsScreen,
-        arguments: {'car': car, 'heroTag': heroTag});
+    NavigatorMethods.pushNamed(
+      context,
+      RoutesName.carDetailsScreen,
+      arguments: {'car': car, 'heroTag': heroTag},
+    );
   }
 
   @override
@@ -45,7 +47,7 @@ class MagazineCardWidget extends StatelessWidget {
           children: [
             Stack(
               children: [
-                _CardImage(car: car, heroTag: heroTag),
+                CardImage(car: car, heroTag: heroTag),
                 _CardTopBar(car: car),
               ],
             ),
@@ -130,38 +132,6 @@ class _FavoriteButton extends StatelessWidget {
           ),
         );
       },
-    );
-  }
-}
-
-class _CardImage extends StatelessWidget {
-  const _CardImage({required this.car, this.heroTag});
-
-  final Map<String, dynamic> car;
-  final String? heroTag;
-
-  @override
-  Widget build(BuildContext context) {
-    final imageUrl = car['image'].toString();
-    final actualHeroTag = heroTag ?? 'car_image_${car['itemCode'] ?? car['name']}';
-
-    return SizedBox(
-      height: 200.h,
-      width: double.infinity,
-      child: Hero(
-        tag: actualHeroTag,
-        child: imageUrl.trim().startsWith('http')
-            ? CustomNetworkImage(
-                imageUrl: imageUrl,
-                fit: BoxFit.fill,
-                width: double.infinity,
-                height: 200.h,
-              )
-            : Image.asset(
-                imageUrl.isNotEmpty ? imageUrl : AppImages.assetsImagesPlaceholder,
-                fit: BoxFit.contain,
-              ),
-      ),
     );
   }
 }

@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class FavoriteButton extends StatelessWidget {
-  const FavoriteButton({required this.car});
+  const FavoriteButton({super.key, required this.car});
 
   final Map<String, dynamic> car;
 

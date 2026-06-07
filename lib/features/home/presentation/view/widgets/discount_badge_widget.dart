@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class DiscountBadge extends StatelessWidget {
-  const DiscountBadge({required this.discount});
+  const DiscountBadge({super.key, required this.discount});
 
   final String discount;
 

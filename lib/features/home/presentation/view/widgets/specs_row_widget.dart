@@ -1,4 +1,5 @@
 import 'package:car/core/theme/app_colors.dart';
+import 'package:car/core/theme/app_text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -20,7 +21,7 @@ class SpecsRow extends StatelessWidget {
         Expanded(
           child: Text(
             '${car['mileage']} كم',
-            style: TextStyle(color: mutedColor, fontSize: 9.sp),
+            style: AppTextStyle.bodySmall(context).copyWith(color: mutedColor, fontSize: 9.sp),
             maxLines: 1,
           ),
         ),
@@ -28,7 +29,7 @@ class SpecsRow extends StatelessWidget {
         Gap(2.w),
         Text(
           engine,
-          style: TextStyle(color: mutedColor, fontSize: 9.sp),
+          style: AppTextStyle.bodySmall(context).copyWith(color: mutedColor, fontSize: 9.sp),
         ),
       ],
     );

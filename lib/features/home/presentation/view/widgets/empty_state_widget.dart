@@ -23,7 +23,7 @@ class EmptyState extends StatelessWidget {
               Icon(
                 Icons.car_rental_rounded,
                 size: 80.sp,
-                color: AppColor.greyColor(context).withOpacity(0.3),
+                color: AppColor.greyColor(context).withValues(alpha: 0.3),
               ),
               Gap(20.h),
               Text(

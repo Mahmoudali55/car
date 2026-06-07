@@ -4,6 +4,7 @@ import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/features/favorites/presentation/view/screen/favorites_screen.dart';
 import 'package:car/features/home/presentation/view/widgets/main_layout_actions.dart';
 import 'package:car/features/home/presentation/view/widgets/support_icon_widget.dart';
+import 'package:car/features/home/presentation/view/widgets/translate_icon_widget.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

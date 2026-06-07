@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CardImageSection extends StatelessWidget {
-  const CardImageSection({required this.car, required this.isSelected, this.heroTag});
+  const CardImageSection({super.key, required this.car, required this.isSelected, this.heroTag});
 
   final Map<String, dynamic> car;
   final bool isSelected;

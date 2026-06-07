@@ -26,7 +26,7 @@ class ContactBottomSheetWidget extends StatelessWidget {
         borderRadius: BorderRadius.vertical(top: Radius.circular(30.r)),
         boxShadow: [
           BoxShadow(
-            color: AppColor.blackColor(context).withOpacity(0.1),
+            color: AppColor.blackColor(context).withValues(alpha: 0.1),
             blurRadius: 10,
             offset: const Offset(0, -5),
           ),
@@ -39,7 +39,7 @@ class ContactBottomSheetWidget extends StatelessWidget {
             width: 40.w,
             height: 4.h,
             decoration: BoxDecoration(
-              color: AppColor.greyColor(context).withOpacity(0.3),
+              color: AppColor.greyColor(context).withValues(alpha: 0.3),
               borderRadius: BorderRadius.circular(10.r),
             ),
           ),

@@ -43,17 +43,19 @@ class NotificationItemWidget extends StatelessWidget {
         padding: EdgeInsets.all(16.w),
         decoration: BoxDecoration(
           color: isRead
-              ? AppColor.secondAppColor(context).withOpacity(0.5)
+              ? AppColor.secondAppColor(context).withValues(alpha: 0.5)
               : AppColor.secondAppColor(context),
           borderRadius: BorderRadius.circular(16.r),
           border: Border.all(
-            color: isRead ? Colors.transparent : AppColor.primaryColor(context).withOpacity(0.3),
+            color: isRead
+                ? Colors.transparent
+                : AppColor.primaryColor(context).withValues(alpha: 0.3),
             width: 1,
           ),
           boxShadow: [
             if (!isRead)
               BoxShadow(
-                color: AppColor.primaryColor(context).withOpacity(0.1),
+                color: AppColor.primaryColor(context).withValues(alpha: 0.1),
                 blurRadius: 10,
                 offset: const Offset(0, 4),
               ),
@@ -65,7 +67,10 @@ class NotificationItemWidget extends StatelessWidget {
             // Icon
             Container(
               padding: EdgeInsets.all(10.w),
-              decoration: BoxDecoration(color: iconColor.withOpacity(0.1), shape: BoxShape.circle),
+              decoration: BoxDecoration(
+                color: iconColor.withValues(alpha: 0.1),
+                shape: BoxShape.circle,
+              ),
               child: Icon(icon, color: iconColor, size: 24.sp),
             ),
             Gap(16.w),
@@ -102,7 +107,7 @@ class NotificationItemWidget extends StatelessWidget {
                   Text(
                     notification['body'] as String,
                     style: AppTextStyle.bodySmall(context).copyWith(
-                      color: AppColor.blackTextColor(context).withOpacity(0.6),
+                      color: AppColor.blackTextColor(context).withValues(alpha: 0.6),
                       height: 1.4,
                     ),
                   ),
@@ -110,7 +115,7 @@ class NotificationItemWidget extends StatelessWidget {
                   Text(
                     notification['time'] as String,
                     style: AppTextStyle.bodySmall(context).copyWith(
-                      color: AppColor.blackTextColor(context).withOpacity(0.3),
+                      color: AppColor.blackTextColor(context).withValues(alpha: 0.3),
                       fontSize: 10.sp,
                     ),
                   ),

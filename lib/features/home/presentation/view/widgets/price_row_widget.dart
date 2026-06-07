@@ -46,7 +46,7 @@ class PriceRow extends StatelessWidget {
           ),
         ),
         Gap(8.w),
-        ArrowButton(),
+        const ArrowButton(),
       ],
     );
   }

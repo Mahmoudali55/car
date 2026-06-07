@@ -8,7 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
 class CardFooter extends StatelessWidget {
-  const CardFooter({required this.car});
+  const CardFooter({super.key, required this.car});
 
   final Map<String, dynamic> car;
 

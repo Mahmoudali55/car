@@ -6,7 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'favorite_button.dart';
 
 class CardImageSection extends StatelessWidget {
-  const CardImageSection({required this.car});
+  const CardImageSection({super.key, required this.car});
 
   final Map<String, dynamic> car;
 

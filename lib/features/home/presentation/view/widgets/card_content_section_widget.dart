@@ -9,7 +9,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
 class CardContentSection extends StatelessWidget {
-  const CardContentSection({required this.car, required this.onTap});
+  const CardContentSection({super.key, required this.car, required this.onTap});
 
   final Map<String, dynamic> car;
   final VoidCallback onTap;
@@ -78,7 +78,7 @@ class CardContentSection extends StatelessWidget {
                     onPressed: onTap,
                     color: AppColor.whiteColor(context),
                     radius: 12.r,
-                    borderColor: AppColor.blackTextColor(context).withOpacity(0.1),
+                    borderColor: AppColor.blackTextColor(context).withValues(alpha: 0.1),
                     child: Text(
                       AppLocaleKey.details.tr(),
                       style: AppTextStyle.bodySmall(

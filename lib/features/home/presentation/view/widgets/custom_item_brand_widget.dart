@@ -11,9 +11,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomItemBrandWidget extends StatelessWidget {
   const CustomItemBrandWidget({super.key, required this.brand});
-
   final CarModel brand;
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -26,7 +24,6 @@ class CustomItemBrandWidget extends StatelessWidget {
         color: AppColor.whiteColor(context),
         child: Column(
           children: [
-            // Image
             Expanded(
               child: Padding(
                 padding: EdgeInsets.all(12.w),

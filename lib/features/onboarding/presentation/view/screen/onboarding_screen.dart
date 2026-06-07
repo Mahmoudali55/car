@@ -1,9 +1,9 @@
-import 'package:animate_do/animate_do.dart';
 import 'package:car/core/cache/hive/hive_methods.dart';
 import 'package:car/core/images/app_images.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/routes/routes_name.dart';
 import 'package:car/core/theme/app_colors.dart';
+import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/core/utils/navigator_methods.dart';
 import 'package:car/features/onboarding/data/model/on_boarding_model.dart';
 import 'package:car/features/onboarding/presentation/view/screen/widget/onboarding_page_item_widget.dart';
@@ -54,7 +54,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             colors: [
               AppColor.secondAppColor(context),
               AppColor.gradientSecondaryColor(context),
-              AppColor.primaryColor(context).withOpacity(0.2),
+              AppColor.primaryColor(context).withValues(alpha: (0.2)),
             ],
           ),
         ),
@@ -74,15 +74,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       child: TextButton(
                         onPressed: () {
                           HiveMethods.updateFirstTime();
-                          NavigatorMethods.pushReplacementNamed(
-                            context,
-                            RoutesName.loginScreen,
-                          );
+                          NavigatorMethods.pushReplacementNamed(context, RoutesName.loginScreen);
                         },
                         child: Text(
                           AppLocaleKey.skip.tr(),
-                          style: TextStyle(
-                            fontSize: 16.sp,
+                          style: AppTextStyle.bodyLarge(context).copyWith(
                             fontWeight: FontWeight.bold,
                             color: AppColor.primaryColor(context),
                           ),
@@ -124,14 +120,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         decoration: BoxDecoration(
                           color: _currentPage == index
                               ? AppColor.primaryColor(context)
-                              : AppColor.blackTextColor(context).withOpacity(0.2),
+                              : AppColor.blackTextColor(context).withValues(alpha: 0.2),
                           borderRadius: BorderRadius.circular(4),
                           boxShadow: _currentPage == index
                               ? [
                                   BoxShadow(
-                                    color: AppColor.primaryColor(
-                                      context,
-                                    ).withOpacity(0.4),
+                                    color: AppColor.primaryColor(context).withValues(alpha: 0.4),
                                     blurRadius: 10,
                                     spreadRadius: 1,
                                   ),
@@ -147,9 +141,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       borderRadius: BorderRadius.circular(16),
                       boxShadow: [
                         BoxShadow(
-                          color: AppColor.primaryColor(
-                            context,
-                          ).withOpacity(0.3),
+                          color: AppColor.primaryColor(context).withValues(alpha: 0.3),
                           blurRadius: 15,
                           offset: const Offset(0, 8),
                         ),
@@ -159,10 +151,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       onPressed: () {
                         if (_currentPage == _pages.length - 1) {
                           HiveMethods.updateFirstTime();
-                          NavigatorMethods.pushReplacementNamed(
-                            context,
-                            RoutesName.loginScreen,
-                          );
+                          NavigatorMethods.pushReplacementNamed(context, RoutesName.loginScreen);
                         } else {
                           _pageController.nextPage(
                             duration: const Duration(milliseconds: 500),
@@ -173,24 +162,17 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppColor.primaryColor(context),
                         foregroundColor: AppColor.whiteColor(context),
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 32.w,
-                          vertical: 16.h,
-                        ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16),
-                        ),
+                        padding: EdgeInsets.symmetric(horizontal: 32.w, vertical: 16.h),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
                         elevation: 0,
                       ),
                       child: Text(
                         _currentPage == _pages.length - 1
                             ? AppLocaleKey.getStarted.tr()
                             : AppLocaleKey.next.tr(),
-                        style: TextStyle(
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.bold,
-                          letterSpacing: 1.0,
-                        ),
+                        style: AppTextStyle.bodyLarge(
+                          context,
+                        ).copyWith(fontWeight: FontWeight.bold, letterSpacing: 1.0),
                       ),
                     ),
                   ),
@@ -203,6 +185,3 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     );
   }
 }
-
-
-

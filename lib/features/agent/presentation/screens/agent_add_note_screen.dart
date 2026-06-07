@@ -28,11 +28,9 @@ class AgentAddNoteScreen extends StatelessWidget {
         ),
         title: Text(
           AppLocaleKey.agentAddProfessionalNote.tr(),
-          style: TextStyle(
-            color: AppColor.blackTextColor(context),
-            fontWeight: FontWeight.w900,
-            fontSize: 18.sp,
-          ),
+          style: AppTextStyle.bodyLarge(
+            context,
+          ).copyWith(color: AppColor.blackTextColor(context), fontWeight: FontWeight.w900),
         ),
         centerTitle: true,
       ),
@@ -48,8 +46,6 @@ class AgentAddNoteScreen extends StatelessWidget {
                 ).copyWith(color: AppColor.greyColor(context), fontWeight: FontWeight.w500),
               ),
               Gap(24.h),
-
-              /// Form Fields
               CustomFormField(
                 radius: 12.r,
                 title: AppLocaleKey.agentTargetCustomer.tr(),
@@ -65,8 +61,6 @@ class AgentAddNoteScreen extends StatelessWidget {
                 maxLines: 6,
               ),
               Gap(24.h),
-
-              /// Category Selection Mock
               Text(
                 AppLocaleKey.agentNoteClassification.tr(),
                 style: AppTextStyle.bodySmall(context).copyWith(

@@ -30,7 +30,7 @@ class SupportIconWidget extends StatelessWidget {
               builder: (context) => const ContactBottomSheetWidget(),
             );
           },
-          icon: Icon(Icons.headset_mic_rounded, color: Colors.white, size: 24.sp),
+          icon: Icon(Icons.headset_mic_rounded, color: AppColor.whiteColor(context), size: 24.sp),
         ),
       ),
     );

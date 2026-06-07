@@ -79,8 +79,10 @@ class _CarInfoTabsWidgetState extends State<CarInfoTabsWidget> with SingleTicker
           controller: _tabController,
           labelColor: AppColor.primaryColor(context),
           unselectedLabelColor: AppColor.greyColor(context),
-          labelStyle: TextStyle(fontWeight: FontWeight.w700, fontSize: 14.sp),
-          unselectedLabelStyle: TextStyle(fontWeight: FontWeight.w500, fontSize: 13.sp),
+          labelStyle: AppTextStyle.bodyMedium(context).copyWith(fontWeight: FontWeight.w700),
+          unselectedLabelStyle: AppTextStyle.bodyMedium(
+            context,
+          ).copyWith(fontWeight: FontWeight.w500),
           indicatorColor: AppColor.primaryColor(context),
           indicatorWeight: 3,
           tabs: [

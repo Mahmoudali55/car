@@ -13,7 +13,6 @@ class CustomPriceWidget extends StatelessWidget {
     this.fontWeight,
     this.color,
   });
-
   final Map<String, dynamic> car;
   final String title;
   final String price;

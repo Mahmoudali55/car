@@ -9,10 +9,8 @@ import 'package:gap/gap.dart';
 
 class CustomItemCategoriesWidget extends StatelessWidget {
   const CustomItemCategoriesWidget({super.key, required this.isSelected, required this.item});
-
   final bool isSelected;
   final CarModel item;
-
   @override
   Widget build(BuildContext context) {
     return AnimatedScale(

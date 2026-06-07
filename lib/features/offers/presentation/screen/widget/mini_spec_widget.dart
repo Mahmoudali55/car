@@ -1,4 +1,5 @@
 import 'package:car/core/theme/app_colors.dart';
+import 'package:car/core/theme/app_text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -15,7 +16,7 @@ class MiniSpecWidget extends StatelessWidget {
         Gap(4.w),
         Text(
           value,
-          style: TextStyle(
+          style: AppTextStyle.bodySmall(context).copyWith(
             color: AppColor.blackTextColor(context).withValues(alpha: 0.38),
             fontSize: 10.sp,
             fontWeight: FontWeight.w500,

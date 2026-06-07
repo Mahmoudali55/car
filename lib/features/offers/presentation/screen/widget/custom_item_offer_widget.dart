@@ -31,13 +31,13 @@ class CustomItemOfferWidget extends StatelessWidget {
               tag: 'car_offer_${offer['name']}',
               child: Center(
                 child: offer['image'].toString().startsWith('http')
-                  ? CustomNetworkImage(
-                      imageUrl: offer['image'] as String,
-                      fit: BoxFit.fill,
-                      width: double.infinity,
-                      height: double.infinity,
-                    )
-                  : Image.asset(offer['image'], fit: BoxFit.fill, height: double.infinity),
+                    ? CustomNetworkImage(
+                        imageUrl: offer['image'] as String,
+                        fit: BoxFit.fill,
+                        width: double.infinity,
+                        height: double.infinity,
+                      )
+                    : Image.asset(offer['image'], fit: BoxFit.fill, height: double.infinity),
               ),
             ),
           ),
@@ -62,7 +62,7 @@ class CustomItemOfferWidget extends StatelessWidget {
                       ),
                       child: Text(
                         offer['category'],
-                        style: TextStyle(
+                        style: AppTextStyle.bodySmall(context).copyWith(
                           color: AppColor.primaryColor(context),
                           fontSize: 10.sp,
                           fontWeight: FontWeight.bold,
@@ -92,7 +92,7 @@ class CustomItemOfferWidget extends StatelessWidget {
                 Gap(6.h),
                 Text(
                   offer['brand'] ?? '',
-                  style: TextStyle(
+                  style: AppTextStyle.bodySmall(context).copyWith(
                     color: AppColor.primaryColor(context),
                     fontSize: 11.sp,
                     fontWeight: FontWeight.w600,
@@ -114,7 +114,7 @@ class CustomItemOfferWidget extends StatelessWidget {
                     Gap(4.w),
                     Text(
                       offer['expiresIn'],
-                      style: TextStyle(
+                      style: AppTextStyle.bodySmall(context).copyWith(
                         color: Colors.orangeAccent,
                         fontSize: 10.sp,
                         fontWeight: FontWeight.bold,

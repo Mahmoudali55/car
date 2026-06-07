@@ -6,6 +6,7 @@ import "package:car/features/home/data/model/brand_cars_data_model.dart";
 import "package:car/features/home/data/model/cars_models_response.dart";
 import "package:car/features/home/presentation/cubit/home_cubit.dart";
 import "package:car/features/home/presentation/view/widgets/app_header_popular_widget.dart";
+import 'package:car/features/home/presentation/view/widgets/brand_header_widget.dart';
 import "package:car/features/home/presentation/view/widgets/empty_state_widget.dart";
 import "package:car/features/home/presentation/view/widgets/magazine_card_widget.dart";
 import "package:easy_localization/easy_localization.dart";
