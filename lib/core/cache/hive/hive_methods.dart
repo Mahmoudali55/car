@@ -130,6 +130,12 @@ class HiveMethods {
     _box.put('recentlyViewed', list);
   }
 
+  static void removeFromRecentlyViewed(String carName) {
+    final List<dynamic> list = List.from(getRecentlyViewed());
+    list.removeWhere((c) => c['name'] == carName);
+    _box.put('recentlyViewed', list);
+  }
+
   // ─── Cart ───────────────────────────────────────────────────
   static List<dynamic> getCartItems() {
     return _box.get('cartItems', defaultValue: []);

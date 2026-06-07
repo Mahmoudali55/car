@@ -115,10 +115,10 @@ class _FeatureCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColor.whiteColor(context),
         borderRadius: BorderRadius.circular(18.r),
-        border: Border.all(color: AppColor.primaryColor(context).withOpacity(0.08)),
+        border: Border.all(color: AppColor.primaryColor(context).withValues(alpha: (0.08))),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.04),
+            color: AppColor.blackColor(context).withValues(alpha: (0.04)),
             blurRadius: 12,
             offset: const Offset(0, 4),
           ),
@@ -132,12 +132,11 @@ class _FeatureCard extends StatelessWidget {
             width: 42.w,
             height: 42.w,
             decoration: BoxDecoration(
-              color: AppColor.primaryColor(context).withOpacity(.12),
+              color: AppColor.primaryColor(context).withValues(alpha: .12),
               borderRadius: BorderRadius.circular(12.r),
             ),
             child: Icon(icon, size: 22.sp, color: AppColor.primaryColor(context)),
           ),
-
           Text(
             value,
             maxLines: 1,

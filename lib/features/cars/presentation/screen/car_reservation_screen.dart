@@ -135,6 +135,7 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
 
   void _navigateToSuccess() {
     context.read<CartCubit>().addToCart(widget.car.toMap());
+    HiveMethods.removeFromRecentlyViewed(widget.car.itemName);
     Navigator.push(
       context,
       MaterialPageRoute(

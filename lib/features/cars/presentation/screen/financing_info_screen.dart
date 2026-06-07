@@ -1,3 +1,4 @@
+import 'package:car/core/cache/hive/hive_methods.dart';
 import 'package:car/core/custom_widgets/buttons/custom_button.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
@@ -71,6 +72,7 @@ class _FinancingInfoScreenState extends State<FinancingInfoScreen> {
   void _handleSubmit() {
     if (_formKey.currentState!.validate()) {
       context.read<CartCubit>().addToCart(widget.car.toMap());
+      HiveMethods.removeFromRecentlyViewed(widget.car.itemName);
       Navigator.push(
         context,
         MaterialPageRoute(
