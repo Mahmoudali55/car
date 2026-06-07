@@ -50,11 +50,14 @@ class HomeCubit extends Cubit<HomeState> {
             brands: fetchedBrands,
           ),
         );
-        if (state.selectedIndex >= fetchedBrands.length) {
-          emit(state.copyWith(selectedIndex: 0));
-        }
-
+        
         if (fetchedBrands.isNotEmpty) {
+          if (state.selectedBrandId == null) {
+            selectBrand(0, fetchedBrands.first.groupCode.toString());
+          } else if (state.selectedIndex >= fetchedBrands.length) {
+            selectBrand(0, fetchedBrands.first.groupCode.toString());
+          }
+          
           fetchAllBrandsCars(fetchedBrands);
         }
       },
