@@ -88,7 +88,7 @@ class _QuoteBuilderDialogState extends State<QuoteBuilderDialog> {
           borderRadius: BorderRadius.vertical(top: Radius.circular(32.r)),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.1),
+              color: AppColor.blackColor(context).withValues(alpha: 0.1),
               blurRadius: 40,
               offset: const Offset(0, -10),
             ),
@@ -119,7 +119,7 @@ class _QuoteBuilderDialogState extends State<QuoteBuilderDialog> {
                       children: [
                         Text(
                           AppLocaleKey.generateQuote.tr(),
-                          style: TextStyle(
+                          style: AppTextStyle.titleLarge(context).copyWith(
                             color: AppColor.blackTextColor(context),
                             fontSize: 22.sp,
                             fontWeight: FontWeight.w900,
@@ -196,9 +196,8 @@ class _QuoteBuilderDialogState extends State<QuoteBuilderDialog> {
                             deleteIcon: Icon(Icons.close_rounded, size: 14.sp),
                             onDeleted: () => _removeSpec(entry.key),
                             backgroundColor: AppColor.blueColor(context).withValues(alpha: 0.1),
-                            labelStyle: TextStyle(
+                            labelStyle: AppTextStyle.bodySmall(context).copyWith(
                               color: AppColor.blueColor(context),
-                              fontSize: 12.sp,
                               fontWeight: FontWeight.bold,
                             ),
                             shape: RoundedRectangleBorder(
@@ -243,7 +242,6 @@ class _QuoteBuilderDialogState extends State<QuoteBuilderDialog> {
                               key,
                               style: AppTextStyle.bodySmall(context).copyWith(
                                 color: AppColor.hintColor(context),
-
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -347,16 +345,20 @@ class _QuoteBuilderDialogState extends State<QuoteBuilderDialog> {
       controller: controller,
       keyboardType: keyboardType,
       onSubmitted: onSubmitted,
-      style: TextStyle(
+      style: AppTextStyle.bodyMedium(context).copyWith(
         color: AppColor.blackTextColor(context),
         fontWeight: FontWeight.bold,
         fontSize: 15.sp,
       ),
       decoration: InputDecoration(
         hintText: hint,
-        hintStyle: TextStyle(color: AppColor.hintColor(context), fontSize: 14.sp),
+        hintStyle: AppTextStyle.bodySmall(
+          context,
+        ).copyWith(color: AppColor.hintColor(context), fontSize: 14.sp),
         suffixText: suffix,
-        suffixStyle: TextStyle(color: AppColor.primaryColor(context), fontWeight: FontWeight.bold),
+        suffixStyle: AppTextStyle.bodySmall(
+          context,
+        ).copyWith(color: AppColor.primaryColor(context), fontWeight: FontWeight.bold),
         filled: true,
         fillColor: AppColor.greyColor(context).withValues(alpha: 0.05),
         contentPadding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 18.h),

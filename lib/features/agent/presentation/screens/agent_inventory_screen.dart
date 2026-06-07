@@ -20,6 +20,7 @@ class _AgentInventoryScreenState extends State<AgentInventoryScreen> {
     if (filter == null) return getAgentCars();
     return getAgentCars().where((c) => c.availability == filter).toList();
   }
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -39,10 +40,10 @@ class _AgentInventoryScreenState extends State<AgentInventoryScreen> {
                     padding: EdgeInsets.fromLTRB(16.w, 16.h, 16.w, 0),
                     child: Text(
                       AppLocaleKey.agentInventory.tr(),
-                      style: TextStyle(
+                      style: AppTextStyle.titleLarge(context).copyWith(
                         color: AppColor.blackTextColor(context),
                         fontWeight: FontWeight.w900,
-                        fontSize: 24.sp,
+
                         letterSpacing: -0.5,
                       ),
                     ),
@@ -55,8 +56,10 @@ class _AgentInventoryScreenState extends State<AgentInventoryScreen> {
                 indicatorSize: TabBarIndicatorSize.label,
                 labelColor: AppColor.blackTextColor(context),
                 unselectedLabelColor: AppColor.hintColor(context),
-                labelStyle: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w900),
-                unselectedLabelStyle: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w600),
+                labelStyle: AppTextStyle.bodyMedium(context).copyWith(fontWeight: FontWeight.w900),
+                unselectedLabelStyle: AppTextStyle.bodyMedium(
+                  context,
+                ).copyWith(fontWeight: FontWeight.w600),
                 indicatorPadding: EdgeInsets.symmetric(horizontal: 4.w),
                 tabs: [
                   Tab(text: AppLocaleKey.agentAll.tr()),

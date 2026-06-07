@@ -45,7 +45,6 @@ class AgentDashboardScreen extends StatelessWidget {
       backgroundColor: AppColor.scaffoldColor(context),
       body: CustomScrollView(
         slivers: [
-          // ───────────────── HEADER ─────────────────
           SliverAppBar(
             expandedHeight: 200.h,
             pinned: true,
@@ -69,7 +68,6 @@ class AgentDashboardScreen extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        /// TOP
                         Row(
                           children: [
                             const PremiumAvatar(

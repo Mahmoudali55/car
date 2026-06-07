@@ -76,12 +76,8 @@ class PremiumCommissionBanner extends StatelessWidget {
             ],
           ),
           Gap(20.h),
-
-          /// ── Progress bar ──
           const CustomProgressBarWidget(),
           Gap(24.h),
-
-          /// ── Stats row ──
           Row(
             children: [
               CommissionStat(

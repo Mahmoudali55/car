@@ -46,15 +46,13 @@ class _AgentLeadsScreenState extends State<AgentLeadsScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        /// ── Title ──
                         Row(
                           children: [
                             Text(
                               AppLocaleKey.agentLeadsPotential.tr(),
-                              style: TextStyle(
+                              style: AppTextStyle.titleLarge(context).copyWith(
                                 color: AppColor.blackTextColor(context),
                                 fontWeight: FontWeight.w900,
-                                fontSize: 24.sp,
                                 letterSpacing: -0.5,
                               ),
                             ),

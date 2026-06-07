@@ -47,7 +47,9 @@ class PremiumLeadTile extends StatelessWidget {
             child: Center(
               child: Text(
                 lead.customerName[0],
-                style: TextStyle(color: statusColor, fontWeight: FontWeight.w900, fontSize: 20.sp),
+                style: AppTextStyle.bodyMedium(
+                  context,
+                ).copyWith(color: statusColor, fontWeight: FontWeight.w900, fontSize: 20.sp),
               ),
             ),
           ),

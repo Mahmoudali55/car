@@ -29,8 +29,7 @@ class AgentCarDetailsScreen extends StatelessWidget {
               : AppColor.greyColor(context).withValues(alpha: 0.3),
           child: Text(
             AppLocaleKey.agentReserveForCustomer.tr(),
-            style: TextStyle(
-              fontSize: 16.sp,
+            style: AppTextStyle.bodyLarge(context).copyWith(
               fontWeight: FontWeight.w900,
               color: car.availability == CarAvailability.available
                   ? AppColor.whiteColor(context)
@@ -118,21 +117,17 @@ class AgentCarDetailsScreen extends StatelessWidget {
                         ),
                         child: Text(
                           car.availabilityLabel,
-                          style: TextStyle(
-                            color: availabilityColor,
-                            fontWeight: FontWeight.w900,
-                            fontSize: 12.sp,
-                          ),
+                          style: AppTextStyle.bodySmall(
+                            context,
+                          ).copyWith(color: availabilityColor, fontWeight: FontWeight.w900),
                         ),
                       ),
                       const Spacer(),
                       Text(
                         'ID: #${car.id.padLeft(6, '0')}',
-                        style: TextStyle(
-                          color: AppColor.greyColor(context),
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.w600,
-                        ),
+                        style: AppTextStyle.bodySmall(
+                          context,
+                        ).copyWith(color: AppColor.greyColor(context), fontWeight: FontWeight.w600),
                       ),
                     ],
                   ),

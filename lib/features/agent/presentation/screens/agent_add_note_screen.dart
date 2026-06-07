@@ -97,8 +97,6 @@ class AgentAddNoteScreen extends StatelessWidget {
                 ],
               ),
               Gap(30.h),
-
-              /// Bottom Action Bar
               CustomButton(
                 radius: 12.r,
                 onPressed: () => Navigator.pop(context),

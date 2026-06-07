@@ -25,7 +25,7 @@ class AgentAddLeadScreen extends StatelessWidget {
         ),
         title: Text(
           AppLocaleKey.agentAddNewCustomer.tr(),
-          style: TextStyle(
+          style: AppTextStyle.titleLarge(context).copyWith(
             color: AppColor.blackTextColor(context),
             fontWeight: FontWeight.w900,
             fontSize: 18.sp,

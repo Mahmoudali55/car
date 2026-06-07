@@ -14,7 +14,6 @@ class PremiumKpiCard extends StatelessWidget {
     final isUp = (kpi.change ?? 0) > 0;
     final successColor = AppColor.greenColor(context);
     final errorColor = AppColor.redColor(context);
-
     return Container(
       padding: EdgeInsets.all(18.w),
       decoration: BoxDecoration(
@@ -72,10 +71,9 @@ class PremiumKpiCard extends StatelessWidget {
           const Spacer(),
           Text(
             kpi.value,
-            style: TextStyle(
+            style: AppTextStyle.titleLarge(context).copyWith(
               color: AppColor.blackTextColor(context),
               fontWeight: FontWeight.w900,
-              fontSize: 26.sp,
               height: 1.1,
               letterSpacing: -0.5,
             ),

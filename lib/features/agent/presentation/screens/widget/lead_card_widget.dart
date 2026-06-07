@@ -79,7 +79,7 @@ class LeadCard extends StatelessWidget {
                               style: AppTextStyle.bodyLarge(context).copyWith(
                                 color: AppColor.blackTextColor(context),
                                 fontWeight: FontWeight.w900,
-                                fontSize: 16.sp,
+
                                 letterSpacing: -0.3,
                               ),
                             ),
@@ -103,7 +103,6 @@ class LeadCard extends StatelessWidget {
                         ),
                         style: AppTextStyle.bodySmall(context).copyWith(
                           color: AppColor.blueColor(context),
-                          fontSize: 12.sp,
                           fontWeight: FontWeight.w800,
                           letterSpacing: -0.2,
                         ),
