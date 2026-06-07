@@ -19,44 +19,55 @@ class FeaturesGridWidget extends StatelessWidget {
 
     final mileage = car.kilometerReading;
     if (mileage != null && mileage.isNotEmpty && mileage != '0') {
-      features.add({'icon': Icons.speed_rounded, 'label': '$mileage ${AppLocaleKey.km.tr()}'});
+      features.add({'icon': Icons.speed_rounded, 'title': AppLocaleKey.km.tr(), 'value': mileage});
     }
 
-    final cylinder = car.cylinder;
-    if (cylinder.isNotEmpty && cylinder != '0') {
+    if (car.cylinder.isNotEmpty && car.cylinder != '0') {
       features.add({
-        'icon': Icons.settings_applications_rounded,
-        'label': '$cylinder ${AppLocaleKey.cylinders.tr()}',
+        'icon': Icons.settings_rounded,
+        'title': AppLocaleKey.cylinders.tr(),
+        'value': car.cylinder,
       });
     }
 
-    final seatNo = car.seatNo;
-    if (seatNo != 0) {
+    if (car.seatNo != 0) {
       features.add({
-        'icon': Icons.airline_seat_recline_extra_rounded,
-        'label': '$seatNo ${AppLocaleKey.seats.tr()}',
+        'icon': Icons.event_seat_rounded,
+        'title': AppLocaleKey.seats.tr(),
+        'value': '${car.seatNo}',
       });
     }
 
-    final doorNo = car.doorNo;
-    if (doorNo != 0) {
+    if (car.doorNo != 0) {
       features.add({
         'icon': Icons.meeting_room_rounded,
-        'label': '$doorNo ${AppLocaleKey.doors.tr()}',
+        'title': AppLocaleKey.doors.tr(),
+        'value': '${car.doorNo}',
       });
     }
 
-    final fuelCapacity = car.fuelCapacity;
-    if (fuelCapacity.isNotEmpty && fuelCapacity != '0') {
+    if (car.fuelCapacity.isNotEmpty && car.fuelCapacity != '0') {
       features.add({
         'icon': Icons.local_gas_station_rounded,
-        'label': '$fuelCapacity ${AppLocaleKey.liter.tr()}',
+        'title': AppLocaleKey.liter.tr(),
+        'value': car.fuelCapacity,
       });
     }
 
-    final powerHourse = car.powerHourse;
-    if (powerHourse.isNotEmpty && powerHourse != '0') {
-      features.add({'icon': Icons.bolt_rounded, 'label': '$powerHourse ${AppLocaleKey.hp.tr()}'});
+    if (car.powerHourse.isNotEmpty && car.powerHourse != '0') {
+      features.add({
+        'icon': Icons.bolt_rounded,
+        'title': AppLocaleKey.hp.tr(),
+        'value': car.powerHourse,
+      });
+    }
+
+    if (car.customsCardNo != null && car.customsCardNo!.isNotEmpty) {
+      features.add({
+        'icon': Icons.card_membership_rounded,
+        'title': AppLocaleKey.customsCard.tr(),
+        'value': car.customsCardNo!,
+      });
     }
 
     if (features.isEmpty) {
@@ -68,33 +79,81 @@ class FeaturesGridWidget extends StatelessWidget {
       children: [
         SectionTitleWidget(title: AppLocaleKey.additionalFeatures.tr()),
         Gap(16.h),
-        Wrap(
-          spacing: 12.w,
-          runSpacing: 12.h,
-          children: features.map((f) => _buildFeatureItem(context, f['icon'], f['label'])).toList(),
+
+        GridView.builder(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          itemCount: features.length,
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            crossAxisSpacing: 12.w,
+            mainAxisSpacing: 12.h,
+            childAspectRatio: 1.3,
+          ),
+          itemBuilder: (context, index) {
+            final item = features[index];
+
+            return _FeatureCard(icon: item['icon'], title: item['title'], value: item['value']);
+          },
         ),
       ],
     );
   }
+}
 
-  Widget _buildFeatureItem(BuildContext context, IconData icon, String label) {
+class _FeatureCard extends StatelessWidget {
+  final IconData icon;
+  final String title;
+  final String value;
+
+  const _FeatureCard({required this.icon, required this.title, required this.value});
+
+  @override
+  Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+      padding: EdgeInsets.all(14.w),
       decoration: BoxDecoration(
-        color: AppColor.secondAppColor(context),
-        borderRadius: BorderRadius.circular(12.r),
-        border: Border.all(color: AppColor.blackTextColor(context).withValues(alpha: (0.05))),
+        color: AppColor.whiteColor(context),
+        borderRadius: BorderRadius.circular(18.r),
+        border: Border.all(color: AppColor.primaryColor(context).withOpacity(0.08)),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.04),
+            blurRadius: 12,
+            offset: const Offset(0, 4),
+          ),
+        ],
       ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Icon(icon, color: AppColor.primaryColor(context), size: 18.sp),
-          Gap(10.w),
+          Container(
+            width: 42.w,
+            height: 42.w,
+            decoration: BoxDecoration(
+              color: AppColor.primaryColor(context).withOpacity(.12),
+              borderRadius: BorderRadius.circular(12.r),
+            ),
+            child: Icon(icon, size: 22.sp, color: AppColor.primaryColor(context)),
+          ),
+
           Text(
-            label,
+            value,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: AppTextStyle.bodyLarge(
+              context,
+            ).copyWith(fontWeight: FontWeight.w800, color: AppColor.blackTextColor(context)),
+          ),
+
+          Text(
+            title,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
             style: AppTextStyle.bodySmall(
               context,
-            ).copyWith(color: AppColor.blackTextColor(context), fontWeight: FontWeight.bold),
+            ).copyWith(color: Colors.grey.shade600, fontWeight: FontWeight.w500),
           ),
         ],
       ),
