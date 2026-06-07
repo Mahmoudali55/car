@@ -155,7 +155,9 @@ class _CarInfoTabsWidgetState extends State<CarInfoTabsWidget> with SingleTicker
                         ),
                         CarDetailRow(
                           label: AppLocaleKey.info_tab_fuel_type.tr(),
-                          value: c.fuelType.isNotEmpty ? c.fuelType : AppLocaleKey.info_tab_gasoline.tr(),
+                          value: c.fuelType.isNotEmpty
+                              ? c.fuelType
+                              : AppLocaleKey.info_tab_gasoline.tr(),
                           icon: Icons.local_gas_station_rounded,
                           isLast: true,
                         ),

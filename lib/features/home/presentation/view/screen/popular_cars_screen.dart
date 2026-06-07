@@ -97,6 +97,8 @@ class _PopularCarsScreenState extends State<PopularCarsScreen> {
       "SEAT_NO": car.seatNo,
       "DOOR_NO": car.doorNo,
       "Color": car.color,
+      "BODY_COLOR": car.bodyColor,
+      "FUEL_TYPE": car.fuelType,
       "TRANSMISSION": car.transmission,
       "MAKE_YEAR": car.makeYear,
       "GR_NAME": car.grName,

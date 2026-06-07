@@ -46,7 +46,7 @@ class GetBrandCarsDataModel extends Equatable {
   final int trNo;
   final String? customsCardNo;
   final int reasonId;
-  final String? mobileShow;
+  final bool mobileShow;
   final String color;
   final List<String> extraImages;
   final String? carImage;
@@ -101,7 +101,7 @@ class GetBrandCarsDataModel extends Equatable {
     required this.trNo,
     this.customsCardNo,
     required this.reasonId,
-    this.mobileShow,
+    required this.mobileShow,
     required this.carImage,
     required this.color,
     this.extraImages = const [],
@@ -118,7 +118,6 @@ class GetBrandCarsDataModel extends Equatable {
     if (path.isEmpty) return '';
     if (path.startsWith('http')) return path;
     final cleaned = path.replaceAll('../../Img/Emp/', '');
-    // Ensure special characters and spaces are encoded for URL
     return Uri.parse('${Constants.baseImage}$cleaned').toString();
   }
 
@@ -186,7 +185,7 @@ class GetBrandCarsDataModel extends Equatable {
       'MobileShow': mobileShow,
       'carimage': carImage,
       'Color': color,
-      // For backward compatibility and UI usage
+      'extraImages': extraImages,
       'name': itemName,
       'image': fullCarImage,
       'price': price,
@@ -217,10 +216,63 @@ class GetBrandCarsDataModel extends Equatable {
     }
   }
 
-  GetBrandCarsDataModel copyWith({
-    List<String>? extraImages,
-    bool? isFavorite,
-  }) {
+  GetBrandCarsDataModel merge(GetBrandCarsDataModel other) {
+    return GetBrandCarsDataModel(
+      groupCode: groupCode,
+      groupName: groupName,
+      grName: grName,
+      groupParent: groupParent,
+      groupLevel: groupLevel,
+      price: price ?? other.price,
+      itemCode: itemCode,
+      itemType: itemType,
+      itemName: itemName,
+      itemEName: itemEName ?? other.itemEName,
+      itemSub: itemSub ?? other.itemSub,
+      notes: notes ?? other.notes,
+      groupCode1: groupCode1,
+      storeCode: storeCode,
+      carStatus: carStatus != 0 ? carStatus : other.carStatus,
+      carType: carType != 0 ? carType : other.carType,
+      carSpecification: carSpecification ?? other.carSpecification,
+      chassisNo: chassisNo,
+      motorNo: motorNo ?? other.motorNo,
+      bodyColor: bodyColor.isNotEmpty ? bodyColor : other.bodyColor,
+      kilometerReading: kilometerReading ?? other.kilometerReading,
+      transmission: transmission != 0 ? transmission : other.transmission,
+      cylinder: cylinder.isNotEmpty ? cylinder : other.cylinder,
+      powerHourse: powerHourse.isNotEmpty ? powerHourse : other.powerHourse,
+      fuelCapacity: fuelCapacity.isNotEmpty ? fuelCapacity : other.fuelCapacity,
+      fuelType: fuelType.isNotEmpty ? fuelType : other.fuelType,
+      seatNo: seatNo != 0 ? seatNo : other.seatNo,
+      doorNo: doorNo != 0 ? doorNo : other.doorNo,
+      usedClient: usedClient ?? other.usedClient,
+      addType: addType != 0 ? addType : other.addType,
+      colorCode: colorCode != 0 ? colorCode : other.colorCode,
+      boardNo: boardNo ?? other.boardNo,
+      makeYear: makeYear != 0 ? makeYear : other.makeYear,
+      notifyType: notifyType != 0 ? notifyType : other.notifyType,
+      notifyDate: notifyDate ?? other.notifyDate,
+      supplierCd: supplierCd != 0 ? supplierCd : other.supplierCd,
+      buyDate: buyDate.isNotEmpty ? buyDate : other.buyDate,
+      trNo: trNo != 0 ? trNo : other.trNo,
+      customsCardNo: customsCardNo ?? other.customsCardNo,
+      reasonId: reasonId != 0 ? reasonId : other.reasonId,
+      mobileShow: mobileShow || other.mobileShow,
+      carImage: carImage ?? other.carImage,
+      color: color.isNotEmpty ? color : other.color,
+      extraImages: {...extraImages, ...other.extraImages}.toList(),
+      discount: discount ?? other.discount,
+      oldPrice: oldPrice ?? other.oldPrice,
+      installments: installments ?? other.installments,
+      cashPrice: cashPrice ?? other.cashPrice,
+      isFavorite: isFavorite || other.isFavorite,
+      isTamaraAvailable: isTamaraAvailable,
+      videoId: videoId,
+    );
+  }
+
+  GetBrandCarsDataModel copyWith({List<String>? extraImages, bool? isFavorite, bool? mobileShow}) {
     return GetBrandCarsDataModel(
       groupCode: groupCode,
       groupName: groupName,
@@ -262,7 +314,7 @@ class GetBrandCarsDataModel extends Equatable {
       trNo: trNo,
       customsCardNo: customsCardNo,
       reasonId: reasonId,
-      mobileShow: mobileShow,
+      mobileShow: mobileShow ?? this.mobileShow,
       carImage: carImage,
       color: color,
       extraImages: extraImages ?? this.extraImages,
@@ -277,50 +329,79 @@ class GetBrandCarsDataModel extends Equatable {
   }
 
   factory GetBrandCarsDataModel.fromJson(Map<String, dynamic> json) {
+    String getString(String key1, [String? key2, String? key3]) {
+      dynamic val;
+      
+      dynamic findInJson(String k) {
+        if (json.containsKey(k)) return json[k];
+        final lowerK = k.toLowerCase().trim();
+        for (var entry in json.entries) {
+          if (entry.key.toLowerCase().trim() == lowerK) return entry.value;
+        }
+        return null;
+      }
+
+      val = findInJson(key1);
+      if (val == null && key2 != null) val = findInJson(key2);
+      if (val == null && key3 != null) val = findInJson(key3);
+      
+      if (val == null || val.toString().toLowerCase().trim() == 'null') return '';
+      return val.toString().trim();
+    }
+
+    final List<String> extraFromMap = (json['extraImages'] as List?)?.map((e) => e.toString()).toList() ?? [];
+    final String rawImages = getString('carimage', 'image');
+    final List<String> splitImages =
+        rawImages.isNotEmpty ? rawImages.split(',').map((s) => s.trim()).where((s) => s.isNotEmpty).toList() : [];
+    
+    final Set<String> allUniqueImages = {...extraFromMap, ...splitImages};
+    final List<String> finalImagesList = allUniqueImages.toList();
+
     return GetBrandCarsDataModel(
-      groupCode: int.tryParse(json['GROUP_CODE']?.toString() ?? json['groupCode']?.toString() ?? '0') ?? 0,
-      groupName: json['GROUP_NAME'] ?? json['brand'] ?? json['groupName'] ?? '',
-      grName: json['GR_NAME'] ?? json['grName'] ?? '',
-      groupParent: int.tryParse(json['GROUP_PARENT']?.toString() ?? json['groupParent']?.toString() ?? '0') ?? 0,
-      groupLevel: int.tryParse(json['GROUP_LEVEL']?.toString() ?? json['groupLevel']?.toString() ?? '0') ?? 0,
+      groupCode: int.tryParse(getString('GROUP_CODE', 'groupCode')) ?? 0,
+      groupName: getString('GROUP_NAME', 'brand', 'groupName'),
+      grName: getString('GR_NAME', 'grName'),
+      groupParent: int.tryParse(getString('GROUP_PARENT', 'groupParent')) ?? 0,
+      groupLevel: int.tryParse(getString('GROUP_LEVEL', 'groupLevel')) ?? 0,
       price: json['PRICE']?.toString() ?? json['price']?.toString(),
-      itemCode: json['ITEM_CODE']?.toString() ?? json['itemCode']?.toString() ?? '',
-      itemType: int.tryParse(json['ITEM_TYPE']?.toString() ?? json['itemType']?.toString() ?? '0') ?? 0,
-      itemName: json['ITEM_NAME'] ?? json['name'] ?? json['itemName'] ?? '',
+      itemCode: getString('ITEM_CODE', 'itemCode'),
+      itemType: int.tryParse(getString('ITEM_TYPE', 'itemType')) ?? 0,
+      itemName: getString('ITEM_NAME', 'name', 'itemName'),
       itemEName: json['ITEM_ENAME'] ?? json['itemEName'],
       itemSub: json['ITEM_SUB'] ?? json['itemSub'],
       notes: json['NOTES'] ?? json['notes'],
-      groupCode1: int.tryParse(json['GROUP_CODE1']?.toString() ?? json['groupCode1']?.toString() ?? '0') ?? 0,
-      storeCode: json['STORE_CODE']?.toString() ?? json['storeCode']?.toString() ?? '',
-      carStatus: int.tryParse(json['CAR_STATUS']?.toString() ?? json['carStatus']?.toString() ?? '0') ?? 0,
-      carType: int.tryParse(json['CAR_TYPE']?.toString() ?? json['carType']?.toString() ?? '0') ?? 0,
+      groupCode1: int.tryParse(getString('GROUP_CODE1', 'groupCode1')) ?? 0,
+      storeCode: getString('STORE_CODE', 'storeCode'),
+      carStatus: int.tryParse(getString('CAR_STATUS', 'carStatus')) ?? 0,
+      carType: int.tryParse(getString('CAR_TYPE', 'carType')) ?? 0,
       carSpecification: json['CAR_SPECIFICATION']?.toString() ?? json['carSpecification']?.toString(),
-      chassisNo: json['CHASSIS_NO']?.toString() ?? json['chassisNo']?.toString() ?? '',
+      chassisNo: getString('CHASSIS_NO', 'chassisNo'),
       motorNo: json['MOTOR_NO']?.toString() ?? json['motorNo']?.toString(),
-      bodyColor: json['BODY_COLOR']?.toString() ?? json['bodyColor'] ?? json['interiorColor']?.toString() ?? '',
+      bodyColor: getString('BODY_COLOR', 'bodyColor', 'interiorColor'),
       kilometerReading: json['KILOMETER_READING']?.toString() ?? json['kilometerReading'] ?? json['mileage']?.toString(),
-      transmission: int.tryParse(json['TRANSMISSION']?.toString() ?? json['transmission']?.toString() ?? '0') ?? 0,
-      cylinder: json['CYLINDER']?.toString() ?? json['cylinder'] ?? json['engine']?.toString() ?? '',
-      powerHourse: json['POWER_HOURSE']?.toString() ?? json['powerHourse']?.toString() ?? '',
-      fuelCapacity: json['FUEL_CAPACITY']?.toString() ?? json['fuelCapacity']?.toString() ?? '',
-      fuelType: json['FUEL_TYPE']?.toString() ?? json['fuelType']?.toString() ?? '',
-      seatNo: int.tryParse(json['SEAT_NO']?.toString() ?? json['seatNo']?.toString() ?? '0') ?? 0,
-      doorNo: int.tryParse(json['DOOR_NO']?.toString() ?? json['doorNo']?.toString() ?? '0') ?? 0,
+      transmission: int.tryParse(getString('TRANSMISSION', 'transmission')) ?? 0,
+      cylinder: getString('CYLINDER', 'cylinder', 'engine'),
+      powerHourse: getString('POWER_HOURSE', 'powerHourse'),
+      fuelCapacity: getString('FUEL_CAPACITY', 'fuelCapacity'),
+      fuelType: getString('FUEL_TYPE', 'fuelType'),
+      seatNo: int.tryParse(getString('SEAT_NO', 'seatNo')) ?? 0,
+      doorNo: int.tryParse(getString('DOOR_NO', 'doorNo')) ?? 0,
       usedClient: json['USED_CLIENT']?.toString() ?? json['usedClient']?.toString(),
-      addType: int.tryParse(json['ADD_TYPE']?.toString() ?? json['addType']?.toString() ?? '0') ?? 0,
-      colorCode: int.tryParse(json['COLOR_CODE']?.toString() ?? json['colorCode']?.toString() ?? '0') ?? 0,
+      addType: int.tryParse(getString('ADD_TYPE', 'addType')) ?? 0,
+      colorCode: int.tryParse(getString('COLOR_CODE', 'colorCode')) ?? 0,
       boardNo: json['BOARD_NO']?.toString() ?? json['boardNo']?.toString(),
-      makeYear: int.tryParse(json['MAKE_YEAR']?.toString() ?? json['makeYear']?.toString() ?? json['year']?.toString() ?? '') ?? 0,
-      notifyType: int.tryParse(json['NOTIFY_TYPE']?.toString() ?? json['notifyType']?.toString() ?? '0') ?? 0,
+      makeYear: int.tryParse(getString('MAKE_YEAR', 'makeYear', 'year')) ?? 0,
+      notifyType: int.tryParse(getString('NOTIFY_TYPE', 'notifyType')) ?? 0,
       notifyDate: json['NOTIFY_DATE']?.toString() ?? json['notifyDate']?.toString(),
-      supplierCd: int.tryParse(json['SUPPLIER_CD']?.toString() ?? json['supplierCd']?.toString() ?? '0') ?? 0,
-      buyDate: json['BUY_DATE']?.toString() ?? json['buyDate']?.toString() ?? '',
-      trNo: int.tryParse(json['TR_NO']?.toString() ?? json['trNo']?.toString() ?? '0') ?? 0,
+      supplierCd: int.tryParse(getString('SUPPLIER_CD', 'supplierCd')) ?? 0,
+      buyDate: getString('BUY_DATE', 'buyDate'),
+      trNo: int.tryParse(getString('TR_NO', 'trNo')) ?? 0,
       customsCardNo: json['CUSTOMS_CARD_NO']?.toString() ?? json['customsCardNo']?.toString(),
-      reasonId: int.tryParse(json['REASON_ID']?.toString() ?? json['reasonId']?.toString() ?? '0') ?? 0,
-      mobileShow: json['MobileShow']?.toString() ?? json['mobileShow']?.toString(),
-      carImage: json['carimage']?.toString() ?? json['image']?.toString() ?? '',
-      color: json['Color']?.toString() ?? json['color'] ?? json['exteriorColor']?.toString() ?? '',
+      reasonId: int.tryParse(getString('REASON_ID', 'reasonId')) ?? 0,
+      mobileShow: json['MobileShow'] == true || json['mobileShow'] == true || json['MobileShow']?.toString().toLowerCase() == 'true',
+      carImage: finalImagesList.isNotEmpty ? finalImagesList.first : '',
+      color: getString('Color', 'color', 'exteriorColor'),
+      extraImages: finalImagesList,
       discount: json['discount']?.toString(),
       oldPrice: json['oldPrice']?.toString(),
       installments: json['installments']?.toString() ?? json['installmentPrice']?.toString(),
@@ -334,40 +415,41 @@ class GetBrandCarsDataModel extends Equatable {
   static List<GetBrandCarsDataModel> listFromResponse(dynamic data) {
     if (data == null) return [];
 
+    dynamic parsedData = data;
+    if (parsedData is Map<String, dynamic> && parsedData.containsKey('Data')) {
+      parsedData = parsedData['Data'];
+    }
+
     final List<dynamic> decoded;
-    if (data is String) {
-      final parsed = jsonDecode(data);
-      if (parsed is List) {
-        decoded = parsed;
+    if (parsedData is String) {
+      final result = jsonDecode(parsedData);
+      if (result is List) {
+        decoded = result;
       } else {
         return [];
       }
-    } else if (data is List) {
-      decoded = data;
+    } else if (parsedData is List) {
+      decoded = parsedData;
     } else {
       return [];
     }
 
     final allCars = decoded.map((e) => GetBrandCarsDataModel.fromJson(e)).toList();
 
-    final Map<int, GetBrandCarsDataModel> uniqueCarsMap = {};
-    final Map<int, List<String>> imagesMap = {};
+    final Map<String, GetBrandCarsDataModel> uniqueCars = {};
 
-    for (var car in allCars) {
-      if (!uniqueCarsMap.containsKey(car.groupCode)) {
-        uniqueCarsMap[car.groupCode] = car;
-      }
-      if (!imagesMap.containsKey(car.groupCode)) {
-        imagesMap[car.groupCode] = [];
-      }
-      if (car.carImage?.isNotEmpty == true && !imagesMap[car.groupCode]!.contains(car.carImage)) {
-        imagesMap[car.groupCode]!.add(car.carImage!);
+    for (final car in allCars) {
+      final key = '${car.itemCode}_${car.chassisNo}';
+
+      if (!uniqueCars.containsKey(key)) {
+        uniqueCars[key] = car;
+      } else {
+        // Use the merge method to combine data from duplicate entries
+        uniqueCars[key] = uniqueCars[key]!.merge(car);
       }
     }
 
-    return uniqueCarsMap.values.map((car) {
-      return car.copyWith(extraImages: imagesMap[car.groupCode]);
-    }).toList();
+    return uniqueCars.values.toList();
   }
 
   @override
@@ -423,6 +505,5 @@ class GetBrandCarsDataModel extends Equatable {
     isFavorite,
     isTamaraAvailable,
     videoId,
-
   ];
 }
