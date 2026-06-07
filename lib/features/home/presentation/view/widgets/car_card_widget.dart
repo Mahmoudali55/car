@@ -5,7 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CarCard extends StatelessWidget {
-  const CarCard({required this.car, required this.isSelected, required this.onTap, this.heroTag});
+  const CarCard({
+    super.key,
+    required this.car,
+    required this.isSelected,
+    required this.onTap,
+    this.heroTag,
+  });
 
   final Map<String, dynamic> car;
   final bool isSelected;

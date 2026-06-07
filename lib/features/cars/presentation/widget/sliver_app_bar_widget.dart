@@ -187,14 +187,14 @@ class _SliverAppBarWidgetState extends State<SliverAppBarWidget> {
                             ? (widget.heroTag ?? 'car_image_${widget.car.itemCode}')
                             : 'car_image_full_${widget.car.itemCode}_$index',
                         child: Container(
-                          height: 100.h,
+                          height: 50.h,
                           width: 50.w,
                           decoration: BoxDecoration(color: AppColor.scaffoldColor(context)),
                           child: isNetwork
-                              ? CustomNetworkImage(imageUrl: imageUrl, fit: BoxFit.fill)
+                              ? CustomNetworkImage(imageUrl: imageUrl, fit: BoxFit.contain)
                               : Image.asset(
                                   imageUrl.isEmpty ? AppImages.assetsImagesPlaceholder : imageUrl,
-                                  fit: BoxFit.fill,
+                                  fit: BoxFit.contain,
                                 ),
                         ),
                       );
