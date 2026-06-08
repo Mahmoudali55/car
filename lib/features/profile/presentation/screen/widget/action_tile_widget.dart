@@ -1,4 +1,5 @@
 import 'package:car/core/theme/app_colors.dart';
+import 'package:car/core/theme/app_text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -21,7 +22,7 @@ class ActionTileWidget extends StatelessWidget {
             Gap(16.w),
             Text(
               label,
-              style: TextStyle(
+              style: AppTextStyle.bodyMedium(context).copyWith(
                 color: AppColor.blackTextColor(context),
                 fontSize: 15.sp,
                 fontWeight: FontWeight.w500,

@@ -3,6 +3,7 @@ import 'package:car/core/custom_widgets/custom_app_bar/custom_app_bar.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/routes/routes_name.dart';
 import 'package:car/core/theme/app_colors.dart';
+import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/features/admin/presentation/screen/widgets/logout_button_widget.dart';
 import 'package:car/features/auth/presentation/view/cubit/auth_cubit.dart';
 import 'package:car/features/profile/presentation/screen/widget/action_tile_widget.dart';
@@ -28,7 +29,7 @@ class UserProfileScreen extends StatelessWidget {
             context,
             title: Text(
               AppLocaleKey.profile.tr(),
-              style: TextStyle(
+              style: AppTextStyle.bodyLarge(context).copyWith(
                 color: AppColor.appBarTextColor(context),
                 fontWeight: FontWeight.bold,
                 fontSize: 18.sp,

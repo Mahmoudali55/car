@@ -25,7 +25,7 @@ class _CarHeaderWidgetState extends State<CarHeaderWidget> {
       case 1:
         return AppColor.greenColor(context);
       case 2:
-        return Colors.orange;
+        return AppColor.iconColor(context);
       case 3:
         return Colors.red;
       default:

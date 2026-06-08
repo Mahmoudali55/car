@@ -25,7 +25,7 @@ class CartEmptyStateWidget extends StatelessWidget {
             ),
             child: Icon(
               Icons.shopping_cart_outlined,
-              color: AppColor.blackTextColor(context).withOpacity(0.3),
+              color: AppColor.blackTextColor(context).withValues(alpha: 0.3),
               size: 55.sp,
             ),
           ),
@@ -41,9 +41,9 @@ class CartEmptyStateWidget extends StatelessWidget {
           Gap(12.h),
           Text(
             AppLocaleKey.cartEmptySubtitle.tr(),
-            style: AppTextStyle.bodyMedium(context).copyWith(
-              color: AppColor.blackTextColor(context).withOpacity(0.5),
-            ),
+            style: AppTextStyle.bodyMedium(
+              context,
+            ).copyWith(color: AppColor.blackTextColor(context).withValues(alpha: 0.5)),
             textAlign: TextAlign.center,
           ),
           Gap(32.h),
@@ -51,10 +51,9 @@ class CartEmptyStateWidget extends StatelessWidget {
             radius: 12.r,
             height: 50.h,
             width: 180.w,
-            text:  AppLocaleKey.browseCars.tr(),
+            text: AppLocaleKey.browseCars.tr(),
             onPressed: () {
-               Navigator.pop( context);
-              // Navigate to the shopping screen or home screen
+              Navigator.pop(context);
             },
           ),
         ],
@@ -62,4 +61,3 @@ class CartEmptyStateWidget extends StatelessWidget {
     );
   }
 }
-

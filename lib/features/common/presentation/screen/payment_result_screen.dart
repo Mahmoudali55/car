@@ -1,5 +1,6 @@
 import 'package:car/core/custom_widgets/buttons/custom_button.dart';
 import 'package:car/core/theme/app_colors.dart';
+import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/features/common/presentation/screen/widgets/bulid_icon_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -27,11 +28,9 @@ class PaymentResultScreen extends StatelessWidget {
               Text(
                 isSuccess ? 'Payment Successful!' : 'Payment Failed',
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 24.sp,
-                  fontWeight: FontWeight.bold,
-                  color: AppColor.blackTextColor(context),
-                ),
+                style: AppTextStyle.titleLarge(
+                  context,
+                ).copyWith(color: AppColor.blackTextColor(context), fontWeight: FontWeight.bold),
               ),
               Gap(12.h),
               Text(
@@ -39,7 +38,9 @@ class PaymentResultScreen extends StatelessWidget {
                     ? 'Your transaction with $providerName has been completed successfully.'
                     : 'Something went wrong with your $providerName transaction. Please try again or contact support.',
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 14.sp, color: AppColor.greyColor(context), height: 1.5),
+                style: AppTextStyle.bodyMedium(
+                  context,
+                ).copyWith(color: AppColor.greyColor(context), height: 1.5),
               ),
               const Spacer(),
               SizedBox(
@@ -52,7 +53,7 @@ class PaymentResultScreen extends StatelessWidget {
                   },
                   child: Text(
                     isSuccess ? 'Continue Browsing' : 'Back to Home',
-                    style: TextStyle(
+                    style: AppTextStyle.bodyLarge(context).copyWith(
                       color: AppColor.whiteColor(context),
                       fontWeight: FontWeight.bold,
                       fontSize: 16.sp,

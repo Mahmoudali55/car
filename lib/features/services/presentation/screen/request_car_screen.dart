@@ -40,7 +40,7 @@ class RequestCarScreen extends StatelessWidget {
                   Container(
                     decoration: const BoxDecoration(
                       gradient: LinearGradient(
-                        colors: [Color(0xFF1E3A8A), Color(0xFF3B82F6)], // Premium blue gradient
+                        colors: [Color(0xFF1E3A8A), Color(0xFF3B82F6)],
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
                       ),
@@ -129,8 +129,8 @@ class RequestCarScreen extends StatelessWidget {
         actions: [
           TextButton(
             onPressed: () {
-              Navigator.pop(context); // close dialog
-              Navigator.pop(context); // go back
+              Navigator.pop(context);
+              Navigator.pop(context);
             },
             child: Text(
               AppLocaleKey.ok.tr(),

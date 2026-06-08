@@ -65,7 +65,6 @@ class FinancingRequirementsBottomSheet extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Financing requirements section
                   Text(
                     AppLocaleKey.agentFinancingRequirements.tr(),
                     style: AppTextStyle.titleSmall(context).copyWith(

@@ -22,7 +22,7 @@ class TermsSettingsScreen extends StatelessWidget {
         icon: Icon(Icons.edit_rounded, color: AppColor.whiteColor(context)),
         label: Text(
           AppLocaleKey.editPolicies.tr(),
-          style: TextStyle(
+          style: AppTextStyle.bodyMedium(context).copyWith(
             color: AppColor.whiteColor(context),
             fontSize: 13.sp,
             fontWeight: FontWeight.bold,
@@ -113,7 +113,7 @@ class TermsSettingsScreen extends StatelessWidget {
                 children: [
                   Text(
                     AppLocaleKey.legalCompliance.tr(),
-                    style: TextStyle(
+                    style: AppTextStyle.bodyLarge(context).copyWith(
                       color: AppColor.blackTextColor(context),
                       fontSize: 16.sp,
                       fontWeight: FontWeight.bold,
@@ -121,7 +121,7 @@ class TermsSettingsScreen extends StatelessWidget {
                   ),
                   Text(
                     "All policies are up to date with regional regulations.",
-                    style: TextStyle(
+                    style: AppTextStyle.bodySmall(context).copyWith(
                       color: AppColor.blackTextColor(context).withValues(alpha: (0.5)),
                       fontSize: 11.sp,
                     ),
@@ -142,7 +142,7 @@ class TermsSettingsScreen extends StatelessWidget {
         FadeInRight(
           child: Text(
             title,
-            style: TextStyle(
+            style: AppTextStyle.bodyLarge(context).copyWith(
               color: AppColor.blackTextColor(context).withValues(alpha: (0.5)),
               fontSize: 13.sp,
               fontWeight: FontWeight.bold,

@@ -21,7 +21,6 @@ class ServicesScreen extends StatelessWidget {
       body: CustomScrollView(
         physics: const BouncingScrollPhysics(),
         slivers: [
-          // Minimalist Elite Header
           SliverToBoxAdapter(
             child: Padding(
               padding: EdgeInsets.fromLTRB(20.w, 40.h, 20.w, 20.h),
@@ -54,7 +53,7 @@ class ServicesScreen extends StatelessWidget {
                           ),
                           child: Text(
                             'ELITE HUB',
-                            style: TextStyle(
+                            style: AppTextStyle.bodySmall(context).copyWith(
                               color: AppColor.primaryColor(context),
                               fontSize: 10.sp,
                               fontWeight: FontWeight.bold,
@@ -140,7 +139,6 @@ class ServicesScreen extends StatelessWidget {
             ),
           ),
 
-          // Vertical Immersive Service Cards
           SliverPadding(
             padding: EdgeInsets.symmetric(horizontal: 20.w),
             sliver: SliverList(
@@ -154,7 +152,6 @@ class ServicesScreen extends StatelessWidget {
             ),
           ),
 
-          // Extra Space for overlap with bottom nav
           SliverToBoxAdapter(child: Gap(120.h)),
         ],
       ),
@@ -224,9 +221,8 @@ class ServicesScreen extends StatelessWidget {
             Text(
               action['label'],
               textAlign: TextAlign.center,
-              style: TextStyle(
+              style: AppTextStyle.bodyMedium(context).copyWith(
                 color: AppColor.blackTextColor(context).withValues(alpha: 0.70),
-                fontSize: 14.sp,
                 fontWeight: FontWeight.w600,
               ),
               maxLines: 1,
@@ -288,7 +284,7 @@ class ServicesScreen extends StatelessWidget {
                       Gap(4.h),
                       Text(
                         _getServiceDescription(service['label']),
-                        style: TextStyle(
+                        style: AppTextStyle.bodySmall(context).copyWith(
                           color: AppColor.blackTextColor(context).withValues(alpha: 0.38),
                           fontSize: 11.sp,
                         ),

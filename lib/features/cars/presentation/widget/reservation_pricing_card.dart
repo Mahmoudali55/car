@@ -66,7 +66,7 @@ class _ReservationPricingCardState extends State<ReservationPricingCard> {
                         Gap(4.h),
                         Text(
                           AppLocaleKey.refundable.tr(),
-                          style: TextStyle(
+                          style: AppTextStyle.bodySmall(context).copyWith(
                             color: const Color(0xFF2E7D32),
                             fontSize: 10.sp,
                             fontWeight: FontWeight.bold,
@@ -138,7 +138,7 @@ class _ReservationPricingCardState extends State<ReservationPricingCard> {
                 children: [
                   Text(
                     _isExpanded ? AppLocaleKey.hideDetails.tr() : AppLocaleKey.showDetails.tr(),
-                    style: TextStyle(
+                    style: AppTextStyle.bodyMedium(context).copyWith(
                       color: AppColor.primaryColor(context),
                       fontWeight: FontWeight.bold,
                       fontSize: 13.sp,

@@ -90,7 +90,6 @@ class _FinancingContactFormState extends State<FinancingContactForm> {
                         Text(
                           AppLocaleKey.whatsappUpdates.tr(),
                           style: AppTextStyle.bodySmall(context).copyWith(
-                            fontSize: 12.sp,
                             color: AppColor.blackTextColor(context).withValues(alpha: (0.7)),
                           ),
                         ),

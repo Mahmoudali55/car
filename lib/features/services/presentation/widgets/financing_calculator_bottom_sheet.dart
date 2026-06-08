@@ -173,12 +173,11 @@ class _FinancingCalculatorBottomSheetState extends State<FinancingCalculatorBott
                               children: [
                                 Text(
                                   '$year',
-                                  style: TextStyle(
+                                  style: AppTextStyle.bodyLarge(context).copyWith(
                                     color: isSelected
                                         ? AppColor.whiteColor(context)
                                         : AppColor.blackTextColor(context),
                                     fontWeight: FontWeight.w900,
-                                    fontSize: 16.sp,
                                   ),
                                 ),
                                 Text(
@@ -187,7 +186,7 @@ class _FinancingCalculatorBottomSheetState extends State<FinancingCalculatorBott
                                       : year == 2
                                       ? 'سنتين'
                                       : 'سنوات',
-                                  style: TextStyle(
+                                  style: AppTextStyle.bodySmall(context).copyWith(
                                     color: isSelected
                                         ? AppColor.whiteColor(context)
                                         : AppColor.greyColor(context),
@@ -220,7 +219,7 @@ class _FinancingCalculatorBottomSheetState extends State<FinancingCalculatorBott
                           padding: const EdgeInsets.only(top: 8.0),
                           child: Text(
                             AppLocaleKey.agentYearly.tr(),
-                            style: TextStyle(
+                            style: AppTextStyle.bodyLarge(context).copyWith(
                               color: AppColor.greyColor(context),
                               fontSize: 18.sp,
                               fontWeight: FontWeight.w900,
@@ -251,7 +250,7 @@ class _FinancingCalculatorBottomSheetState extends State<FinancingCalculatorBott
                       padding: const EdgeInsets.only(top: 8.0),
                       child: Text(
                         AppLocaleKey.agentYearly.tr(),
-                        style: TextStyle(
+                        style: AppTextStyle.bodyLarge(context).copyWith(
                           color: AppColor.greyColor(context),
                           fontSize: 18.sp,
                           fontWeight: FontWeight.w900,

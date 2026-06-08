@@ -48,7 +48,7 @@ class _CarInfoTabsWidgetState extends State<CarInfoTabsWidget> with SingleTicker
     if (name.contains('بني')) return Colors.brown;
     if (name.contains('أخضر') || name.contains('اخضر')) return AppColor.greenColor(context);
     if (name.contains('أصفر') || name.contains('اصفر')) return Colors.yellow;
-    if (name.contains('برتقالي')) return Colors.orange;
+    if (name.contains('برتقالي')) return AppColor.iconColor(context);
     return null;
   }
 

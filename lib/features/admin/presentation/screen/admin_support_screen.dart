@@ -12,7 +12,6 @@ import 'package:gap/gap.dart';
 
 class AdminSupportScreen extends StatelessWidget {
   const AdminSupportScreen({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

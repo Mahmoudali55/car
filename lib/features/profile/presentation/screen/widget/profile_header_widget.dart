@@ -64,7 +64,7 @@ class ProfileHeaderWidget extends StatelessWidget {
           Gap(16.h),
           Text(
             '---',
-            style: TextStyle(
+            style: AppTextStyle.bodyLarge(context).copyWith(
               color: AppColor.blackTextColor(context),
               fontSize: 22.sp,
               fontWeight: FontWeight.bold,

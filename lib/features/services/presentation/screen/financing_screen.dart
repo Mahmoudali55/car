@@ -42,11 +42,7 @@ class _FinancingScreenState extends State<FinancingScreen> with SingleTickerProv
   final _formKey1 = GlobalKey<FormState>();
   final _formKey2 = GlobalKey<FormState>();
 
-  // ─── State ───────────────────────────────────────────────────────
-
   bool _isCalculatorCompleted = false;
-
-  // ─── Calculator State ────────────────────────────────────────────
 
   static const double _apr = 4.5;
 
@@ -54,8 +50,6 @@ class _FinancingScreenState extends State<FinancingScreen> with SingleTickerProv
   int _durationYears = 5;
   double _downPayment = 0;
   double _lastPayment = 0;
-
-  // ─── Computed Properties ─────────────────────────────────────────
 
   double get _totalFinancing {
     final financed = _carPrice - _downPayment;
@@ -68,8 +62,6 @@ class _FinancingScreenState extends State<FinancingScreen> with SingleTickerProv
     if (total <= 0) return 0;
     return (total - _lastPayment) / (_durationYears * 12);
   }
-
-  // ─── Lifecycle ───────────────────────────────────────────────────
 
   @override
   void initState() {
@@ -95,8 +87,6 @@ class _FinancingScreenState extends State<FinancingScreen> with SingleTickerProv
     _tabController.dispose();
     super.dispose();
   }
-
-  // ─── Bottom Sheets ───────────────────────────────────────────────
 
   void _showRequirementsSheet() {
     showModalBottomSheet(
@@ -151,8 +141,6 @@ class _FinancingScreenState extends State<FinancingScreen> with SingleTickerProv
     }
   }
 
-  // ─── Step Navigation ─────────────────────────────────────────────
-
   Future<void> _onNextStep() async {
     final current = _tabController.index;
 
@@ -177,8 +165,6 @@ class _FinancingScreenState extends State<FinancingScreen> with SingleTickerProv
 
     if (current < 2) _tabController.animateTo(current + 1);
   }
-
-  // ─── Helpers ─────────────────────────────────────────────────────
 
   void _showSnack(String msg) {
     ScaffoldMessenger.of(context).showSnackBar(
@@ -241,7 +227,7 @@ class _FinancingScreenState extends State<FinancingScreen> with SingleTickerProv
                 onShowRequirements: _showRequirementsSheet,
               ),
               FinancingWorkInfoTab(formKey: _formKey2, onShowCalculator: _showCalculatorSheet),
-              FinancingDocumentsTab(),
+              const FinancingDocumentsTab(),
             ],
           ),
         ),

@@ -24,7 +24,7 @@ class _CarValuationScreenState extends State<CarValuationScreen> {
   final _colorController = TextEditingController();
   int _selectedConditionIndex = 0;
   int _selectedAccidentIndex = 0;
-  int _selectedHistoryIndex = 0;                                                                            
+  int _selectedHistoryIndex = 0;
   int _uploadedPhotoCount = 0;
 
   @override
@@ -480,7 +480,9 @@ class _CarValuationScreenState extends State<CarValuationScreen> {
                     Center(
                       child: Text(
                         AppLocaleKey.pressToAddPhotos.tr(),
-                        style: TextStyle(fontSize: 10.sp, color: AppColor.greyColor(context)),
+                        style: AppTextStyle.bodySmall(
+                          context,
+                        ).copyWith(fontSize: 10.sp, color: AppColor.greyColor(context)),
                       ),
                     ),
                   ],
@@ -525,7 +527,7 @@ class _CarValuationScreenState extends State<CarValuationScreen> {
                         children: [
                           Text(
                             '${estimates['low']!.toStringAsFixed(0)} - ${estimates['high']!.toStringAsFixed(0)}',
-                            style: TextStyle(
+                            style: AppTextStyle.titleLarge(context).copyWith(
                               fontSize: 24.sp,
                               fontWeight: FontWeight.w900,
                               color: AppColor.blackTextColor(context),

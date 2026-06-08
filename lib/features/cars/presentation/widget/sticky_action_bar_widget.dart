@@ -16,9 +16,7 @@ import 'package:gap/gap.dart';
 
 class StickyActionBarWidget extends StatelessWidget {
   final GetBrandCarsDataModel car;
-
   const StickyActionBarWidget({super.key, required this.car});
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -35,7 +33,6 @@ class StickyActionBarWidget extends StatelessWidget {
             ),
             child: Row(
               children: [
-                // Call Button (Secondary)
                 Expanded(
                   flex: 1,
                   child: OutlinedButton.icon(
@@ -62,7 +59,6 @@ class StickyActionBarWidget extends StatelessWidget {
                   ),
                 ),
                 Gap(16.w),
-                // Book Now Button (Primary)
                 Expanded(
                   flex: 1,
                   child: CustomButton(

@@ -1,4 +1,5 @@
 import 'package:animate_do/animate_do.dart';
+import 'package:car/core/custom_widgets/custom_app_bar/custom_app_bar.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart' show AppTextStyle;
@@ -16,8 +17,9 @@ class RevenueReportScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.scaffoldColor(context),
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
+      appBar: CustomAppBar(
+        context,
+        appBarColor: Colors.transparent,
         elevation: 0,
         leading: Navigator.canPop(context)
             ? IconButton(
@@ -88,7 +90,7 @@ class RevenueReportScreen extends StatelessWidget {
         children: [
           Text(
             AppLocaleKey.totalNetProfit.tr(),
-            style: TextStyle(
+            style: AppTextStyle.bodySmall(context).copyWith(
               color: AppColor.whiteColor(context),
               fontSize: 13.sp,
               fontWeight: FontWeight.w500,
@@ -97,7 +99,7 @@ class RevenueReportScreen extends StatelessWidget {
           Gap(8.h),
           Text(
             '154,300.50 ${AppLocaleKey.aed.tr()}',
-            style: TextStyle(
+            style: AppTextStyle.titleLarge(context).copyWith(
               color: AppColor.whiteColor(context),
               fontSize: 28.sp,
               fontWeight: FontWeight.w900,

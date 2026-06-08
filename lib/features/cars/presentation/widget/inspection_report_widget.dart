@@ -1,6 +1,8 @@
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
+import 'package:car/features/cars/presentation/widget/report_divider_widget.dart';
+import 'package:car/features/cars/presentation/widget/report_row_widget.dart';
 import 'package:car/features/cars/presentation/widget/section_title_widget.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -36,13 +38,16 @@ class InspectionReportWidget extends StatelessWidget {
           ),
           child: Column(
             children: [
-              _buildReportRow(context, AppLocaleKey.engineTransmissionCondition.tr(), true),
-              _buildReportDivider(context),
-              _buildReportRow(context, AppLocaleKey.chassisPaintCondition.tr(), true),
-              _buildReportDivider(context),
-              _buildReportRow(context, AppLocaleKey.interiorCleanliness.tr(), true),
-              _buildReportDivider(context),
-              _buildReportRow(context, AppLocaleKey.tiresBrakes.tr(), true),
+              ReportRowWidget(
+                title: AppLocaleKey.engineTransmissionCondition.tr(),
+                isHealthy: true,
+              ),
+              const ReportDividerWidget(),
+              ReportRowWidget(title: AppLocaleKey.chassisPaintCondition.tr(), isHealthy: true),
+              const ReportDividerWidget(),
+              ReportRowWidget(title: AppLocaleKey.interiorCleanliness.tr(), isHealthy: true),
+              const ReportDividerWidget(),
+              ReportRowWidget(title: AppLocaleKey.tiresBrakes.tr(), isHealthy: true),
               Gap(20.h),
               SizedBox(
                 width: double.infinity,
@@ -64,37 +69,6 @@ class InspectionReportWidget extends StatelessWidget {
           ),
         ),
       ],
-    );
-  }
-
-  Widget _buildReportRow(BuildContext context, String title, bool isHealthy) {
-    return Row(
-      children: [
-        Icon(
-          isHealthy ? Icons.check_circle_rounded : Icons.warning_rounded,
-          color: isHealthy ? AppColor.greenColor(context) : Colors.orangeAccent,
-          size: 20.sp,
-        ),
-        Gap(12.w),
-        Text(
-          title,
-          style: AppTextStyle.bodyMedium(context).copyWith(color: AppColor.blackTextColor(context)),
-        ),
-        const Spacer(),
-        Text(
-          isHealthy ? AppLocaleKey.salem.tr() : AppLocaleKey.attention.tr(),
-          style: AppTextStyle.bodySmall(
-            context,
-          ).copyWith(color: AppColor.blackTextColor(context).withValues(alpha: 0.9)),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildReportDivider(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: 12.h),
-      child: Divider(color: AppColor.blackTextColor(context).withValues(alpha: 0.05), height: 1),
     );
   }
 }

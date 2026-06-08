@@ -77,7 +77,7 @@ class DiscountCouponsScreen extends StatelessWidget {
             Gap(16.h),
             Text(
               AppLocaleKey.promotionalHub.tr(),
-              style: TextStyle(
+              style: AppTextStyle.bodyMedium(context).copyWith(
                 color: AppColor.whiteColor(context),
                 fontSize: 20.sp,
                 fontWeight: FontWeight.bold,
@@ -104,7 +104,7 @@ class DiscountCouponsScreen extends StatelessWidget {
         FadeInRight(
           child: Text(
             title,
-            style: TextStyle(
+            style: AppTextStyle.bodyMedium(context).copyWith(
               color: AppColor.blackTextColor(context).withValues(alpha: (0.5)),
               fontSize: 13.sp,
               fontWeight: FontWeight.bold,
@@ -153,7 +153,7 @@ class DiscountCouponsScreen extends StatelessWidget {
                 quarterTurns: 3,
                 child: Text(
                   discount,
-                  style: TextStyle(
+                  style: AppTextStyle.bodyLarge(context).copyWith(
                     color: isActive
                         ? AppColor.orangeColor(context)
                         : AppColor.blackTextColor(context),
@@ -177,7 +177,9 @@ class DiscountCouponsScreen extends StatelessWidget {
                   Gap(4.h),
                   Text(
                     expiry,
-                    style: TextStyle(color: baseColor.withValues(alpha: 0.4), fontSize: 11.sp),
+                    style: AppTextStyle.bodySmall(
+                      context,
+                    ).copyWith(color: baseColor.withValues(alpha: 0.4), fontSize: 11.sp),
                   ),
                 ],
               ),

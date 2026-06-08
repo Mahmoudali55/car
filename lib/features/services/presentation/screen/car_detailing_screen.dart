@@ -21,10 +21,8 @@ class _CarDetailingScreenState extends State<CarDetailingScreen> {
   final _formKey = GlobalKey<FormState>();
   final _carModelController = TextEditingController();
   final _notesController = TextEditingController();
-
-  int _selectedPackageIndex = 2; // Default to Nano Ceramic
-  int _selectedCarSizeIndex = 1; // Default to Sedan
-
+  int _selectedPackageIndex = 2;
+  int _selectedCarSizeIndex = 1;
   DateTime? _selectedDate;
   TimeOfDay? _selectedTime;
 
@@ -129,8 +127,8 @@ class _CarDetailingScreenState extends State<CarDetailingScreen> {
                 Gap(20.h),
                 CustomButton(
                   onPressed: () {
-                    Navigator.pop(context); // Close dialog
-                    Navigator.pop(context); // Go back
+                    Navigator.pop(context);
+                    Navigator.pop(context);
                   },
                   text: AppLocaleKey.ok.tr(),
                 ),

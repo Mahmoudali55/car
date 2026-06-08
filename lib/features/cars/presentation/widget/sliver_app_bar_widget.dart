@@ -158,7 +158,6 @@ class _SliverAppBarWidgetState extends State<SliverAppBarWidget> {
 
             return GestureDetector(
               onTap: () {
-                // Open full screen gallery
                 Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -173,7 +172,6 @@ class _SliverAppBarWidgetState extends State<SliverAppBarWidget> {
               child: Stack(
                 fit: StackFit.expand,
                 children: [
-                  // Main Image Slider
                   PageView.builder(
                     controller: widget.imagePageController,
                     onPageChanged: (index) => setState(() => _currentImageIndex = index),
@@ -181,7 +179,6 @@ class _SliverAppBarWidgetState extends State<SliverAppBarWidget> {
                     itemBuilder: (context, index) {
                       final imageUrl = displayedImages[index];
                       final isNetwork = imageUrl.startsWith('http');
-
                       return Hero(
                         tag: index == 0
                             ? (widget.heroTag ?? 'car_image_${widget.car.itemCode}')
@@ -200,8 +197,6 @@ class _SliverAppBarWidgetState extends State<SliverAppBarWidget> {
                       );
                     },
                   ),
-
-                  // Top Left Counter (e.g. 1 / 38)
                   Positioned(
                     top: 100.h,
                     left: 20.w,
@@ -221,7 +216,6 @@ class _SliverAppBarWidgetState extends State<SliverAppBarWidget> {
                     ),
                   ),
 
-                  // Click to enlarge overlay
                   Positioned(
                     bottom: 80.h,
                     left: 0,
@@ -253,8 +247,6 @@ class _SliverAppBarWidgetState extends State<SliverAppBarWidget> {
                       ),
                     ),
                   ),
-
-                  // Dash Indicators
                   if (displayedImages.length > 1)
                     Positioned(
                       bottom: 50.h,
@@ -279,8 +271,6 @@ class _SliverAppBarWidgetState extends State<SliverAppBarWidget> {
                         }),
                       ),
                     ),
-
-                  // Bottom Fade Overlay
                   Positioned(
                     bottom: -1,
                     left: 0,

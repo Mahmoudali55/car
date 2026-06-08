@@ -112,16 +112,16 @@ class ManageBookingsScreen extends StatelessWidget {
                   children: [
                     Text(
                       AppLocaleKey.bentleyContinental.tr(),
-                      style: TextStyle(
+                      style: AppTextStyle.bodyMedium(context).copyWith(
                         color: AppColor.blackTextColor(context),
-                        fontSize: 14.sp,
+
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     Gap(4.h),
                     Text(
                       '${AppLocaleKey.luxury.tr()}: ${AppLocaleKey.customerName.tr()}',
-                      style: TextStyle(
+                      style: AppTextStyle.bodySmall(context).copyWith(
                         color: AppColor.blackTextColor(context).withValues(alpha: 0.4),
                         fontSize: 11.sp,
                       ),

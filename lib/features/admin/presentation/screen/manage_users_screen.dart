@@ -1,4 +1,5 @@
 import 'package:animate_do/animate_do.dart';
+import 'package:car/core/custom_widgets/custom_app_bar/custom_app_bar.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
@@ -27,8 +28,9 @@ class _ManageUsersScreenState extends State<ManageUsersScreen> with SingleTicker
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.scaffoldColor(context),
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
+      appBar: CustomAppBar(
+        context,
+        appBarColor: Colors.transparent,
         elevation: 0,
         centerTitle: true,
         leading: IconButton(
@@ -37,7 +39,7 @@ class _ManageUsersScreenState extends State<ManageUsersScreen> with SingleTicker
         ),
         title: Text(
           AppLocaleKey.adminUserManagement.tr(),
-          style: TextStyle(
+          style: AppTextStyle.titleMedium(context).copyWith(
             color: AppColor.blackTextColor(context),
             fontWeight: FontWeight.w900,
             fontSize: 18.sp,

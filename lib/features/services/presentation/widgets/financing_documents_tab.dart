@@ -43,10 +43,6 @@ class _FinancingDocumentsTabState extends State<FinancingDocumentsTab> {
     }
   }
 
-  // ─────────────────────────────────────────────────────────────
-  // Upload Options
-  // ─────────────────────────────────────────────────────────────
-
   void showUploadOptions(String key) {
     showModalBottomSheet(
       isScrollControlled: true,
@@ -91,10 +87,6 @@ class _FinancingDocumentsTabState extends State<FinancingDocumentsTab> {
     );
   }
 
-  // ─────────────────────────────────────────────────────────────
-  // Build
-  // ─────────────────────────────────────────────────────────────
-
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -118,10 +110,6 @@ class _FinancingDocumentsTabState extends State<FinancingDocumentsTab> {
       ),
     );
   }
-
-  // ─────────────────────────────────────────────────────────────
-  // Requirements
-  // ─────────────────────────────────────────────────────────────
 
   Widget _buildRequirementsSection(BuildContext context) {
     return Column(
@@ -223,10 +211,6 @@ class _FinancingDocumentsTabState extends State<FinancingDocumentsTab> {
     );
   }
 
-  // ─────────────────────────────────────────────────────────────
-  // Documents Section
-  // ─────────────────────────────────────────────────────────────
-
   Widget _buildDocumentsSection(BuildContext context) {
     final docs = [
       AppLocaleKey.agentMinSalaryDoc.tr(),
@@ -278,10 +262,6 @@ class _FinancingDocumentsTabState extends State<FinancingDocumentsTab> {
       ],
     );
   }
-
-  // ─────────────────────────────────────────────────────────────
-  // Upload Section
-  // ─────────────────────────────────────────────────────────────
 
   Widget _buildUploadSection(BuildContext context) {
     final uploadItems = [

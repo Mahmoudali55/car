@@ -28,7 +28,7 @@ class FilterCheckboxTile extends StatelessWidget {
             Expanded(
               child: Text(
                 title,
-                style: AppTextStyle.bodyMedium(context).copyWith(
+                style: AppTextStyle.bodyLarge(context).copyWith(
                   color: AppColor.blackTextColor(context).withValues(alpha: (0.70)),
                   fontWeight: FontWeight.bold,
                   fontSize: 16.sp,

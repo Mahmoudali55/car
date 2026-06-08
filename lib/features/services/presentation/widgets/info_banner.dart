@@ -33,10 +33,10 @@ class InfoBanner extends StatelessWidget {
               ),
               child: Text(
                 AppLocaleKey.agentKnowMore.tr(),
-                style: TextStyle(
+                style: AppTextStyle.bodySmall(context).copyWith(
                   color: AppColor.primaryColor(context),
                   fontWeight: FontWeight.w700,
-                  fontSize: 12.sp,
+
                   decoration: TextDecoration.underline,
                 ),
               ),
@@ -45,7 +45,7 @@ class InfoBanner extends StatelessWidget {
             Text(
               AppLocaleKey.agentRequiredDocuments.tr(),
               style: AppTextStyle.bodySmall(context).copyWith(
-                color: AppColor.blackTextColor(context).withOpacity(0.75),
+                color: AppColor.blackTextColor(context).withValues(alpha: 0.75),
                 fontSize: 12.sp,
               ),
               textAlign: TextAlign.end,

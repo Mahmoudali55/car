@@ -63,13 +63,7 @@ class _OtpBottomSheetState extends State<OtpBottomSheet> {
             ),
           ),
           Gap(32.h),
-          CustomOtpField(
-            length: 4,
-            controller: _otpController,
-            onCompleted: (pin) {
-              // Auto-confirm logic can go here
-            },
-          ),
+          CustomOtpField(length: 4, controller: _otpController, onCompleted: (pin) {}),
           Gap(32.h),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -84,10 +78,9 @@ class _OtpBottomSheetState extends State<OtpBottomSheet> {
                 onPressed: () {},
                 child: Text(
                   AppLocaleKey.resendOtp.tr(),
-                  style: TextStyle(
-                    color: AppColor.primaryColor(context),
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: AppTextStyle.bodySmall(
+                    context,
+                  ).copyWith(color: AppColor.primaryColor(context), fontWeight: FontWeight.bold),
                 ),
               ),
             ],

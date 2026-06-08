@@ -1,4 +1,5 @@
 import 'package:animate_do/animate_do.dart';
+import 'package:bot_toast/bot_toast.dart';
 import 'package:car/core/custom_widgets/buttons/custom_button.dart';
 import 'package:car/core/custom_widgets/custom_form_field/custom_form_field.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
@@ -8,7 +9,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
-import 'package:bot_toast/bot_toast.dart';
 
 class EvaluationScreen extends StatefulWidget {
   const EvaluationScreen({super.key});
@@ -100,7 +100,7 @@ class _EvaluationScreenState extends State<EvaluationScreen> {
               FadeInDown(
                 child: Text(
                   AppLocaleKey.ratingTitle.tr(),
-                  style: TextStyle(
+                  style: AppTextStyle.titleLarge(context).copyWith(
                     color: AppColor.blackTextColor(context),
                     fontSize: 20.sp,
                     fontWeight: FontWeight.bold,

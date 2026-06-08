@@ -93,10 +93,12 @@ class ChangePasswordScreen extends StatelessWidget {
                           color: AppColor.primaryColor(context),
                         ),
                         fillColor: AppColor.textFormFillColor(context),
-                        textStyle: TextStyle(color: AppColor.blackTextColor(context)),
-                        hintStyle: TextStyle(
-                          color: AppColor.blackTextColor(context).withValues(alpha: 0.3),
-                        ),
+                        textStyle: AppTextStyle.bodyMedium(
+                          context,
+                        ).copyWith(color: AppColor.blackTextColor(context)),
+                        hintStyle: AppTextStyle.bodySmall(
+                          context,
+                        ).copyWith(color: AppColor.blackTextColor(context).withValues(alpha: 0.3)),
                         radius: 16,
                         validator: (value) {
                           if (value?.isEmpty ?? true) {
@@ -116,10 +118,12 @@ class ChangePasswordScreen extends StatelessWidget {
                         isPassword: true,
                         prefixIcon: Icon(Icons.lock_rounded, color: AppColor.primaryColor(context)),
                         fillColor: AppColor.textFormFillColor(context),
-                        textStyle: TextStyle(color: AppColor.blackTextColor(context)),
-                        hintStyle: TextStyle(
-                          color: AppColor.blackTextColor(context).withValues(alpha: 0.3),
-                        ),
+                        textStyle: AppTextStyle.bodyMedium(
+                          context,
+                        ).copyWith(color: AppColor.blackTextColor(context)),
+                        hintStyle: AppTextStyle.bodySmall(
+                          context,
+                        ).copyWith(color: AppColor.blackTextColor(context).withValues(alpha: 0.3)),
                         radius: 16,
                         validator: (value) {
                           if (value?.isEmpty ?? true) {
@@ -145,10 +149,12 @@ class ChangePasswordScreen extends StatelessWidget {
                           color: AppColor.primaryColor(context),
                         ),
                         fillColor: AppColor.textFormFillColor(context),
-                        textStyle: TextStyle(color: AppColor.blackTextColor(context)),
-                        hintStyle: TextStyle(
-                          color: AppColor.blackTextColor(context).withValues(alpha: 0.3),
-                        ),
+                        textStyle: AppTextStyle.bodyMedium(
+                          context,
+                        ).copyWith(color: AppColor.blackTextColor(context)),
+                        hintStyle: AppTextStyle.bodySmall(
+                          context,
+                        ).copyWith(color: AppColor.blackTextColor(context).withValues(alpha: 0.3)),
                         radius: 16,
                         validator: (value) {
                           if (value?.isEmpty ?? true) {

@@ -27,7 +27,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
   final _expiryController = TextEditingController();
   final _cvvController = TextEditingController();
   bool _isLoading = false;
-  int _selectedPayment = 0; // 0: Card, 1: Apple Pay, 2: Mada
+  int _selectedPayment = 0;
 
   @override
   void dispose() {
@@ -157,6 +157,6 @@ class _PaymentScreenState extends State<PaymentScreen> {
     final formatted = price
         .toStringAsFixed(0)
         .replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (m) => '${m[1]},');
-    return '$formatted ${AppLocaleKey.sar.tr()}       ';
+    return '$formatted ${AppLocaleKey.sar.tr()}';
   }
 }

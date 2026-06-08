@@ -20,7 +20,7 @@ class PriceRowWidget extends StatelessWidget {
             label,
             style: AppTextStyle.bodyMedium(context).copyWith(
               fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
-              color: AppColor.blackTextColor(context).withOpacity(isBold ? 0.8 : 0.6),
+              color: AppColor.blackTextColor(context).withValues(alpha: (isBold ? 0.8 : 0.6)),
             ),
           ),
         ),

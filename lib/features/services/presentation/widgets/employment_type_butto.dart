@@ -26,7 +26,7 @@ class EmploymentTypeButton extends StatelessWidget {
         padding: EdgeInsets.symmetric(vertical: 11.h),
         decoration: BoxDecoration(
           color: isSelected
-              ? AppColor.primaryColor(context).withOpacity(0.08)
+              ? AppColor.primaryColor(context).withValues(alpha: 0.08)
               : AppColor.cardColor(context),
           borderRadius: BorderRadius.circular(10.r),
           border: Border.all(

@@ -32,7 +32,6 @@ class PremiumOfferCardWidget extends StatelessWidget {
         clipBehavior: Clip.antiAlias,
         child: Stack(
           children: [
-            // Background Brand Name - Subtle
             Positioned(
               left: -10,
               bottom: -10,

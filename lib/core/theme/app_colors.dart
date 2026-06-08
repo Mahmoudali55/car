@@ -234,5 +234,9 @@ class AppColor {
     return AppTheme.getByTheme(context, light: Colors.amber, dark: Colors.amber, listen: listen);
   }
 
+  static Color iconColor(BuildContext context, {bool listen = true}) {
+    return AppTheme.getByTheme(context, light: Colors.orange, dark: Colors.orange, listen: listen);
+  }
+
   /// Secondary color for backgrounds/gradients
 }

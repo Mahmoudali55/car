@@ -3,6 +3,7 @@ import 'package:car/core/custom_widgets/custom_image/custom_network_image.dart';
 import 'package:car/core/images/app_images.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
+import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/features/home/data/model/brand_cars_data_model.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -36,8 +37,6 @@ class _FullImageGalleryScreenState extends State<FullImageGalleryScreen> {
     _currentIndex = widget.initialIndex;
     _pageController = PageController(initialPage: widget.initialIndex);
     _thumbnailController = ScrollController();
-
-    // Auto scroll thumbnails to initial index
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _scrollToThumbnail(widget.initialIndex);
     });
@@ -66,7 +65,6 @@ class _FullImageGalleryScreenState extends State<FullImageGalleryScreen> {
       backgroundColor: AppColor.blackColor(context),
       body: Stack(
         children: [
-          // Main Interactive Viewer
           Positioned.fill(
             child: PageView.builder(
               controller: _pageController,
@@ -101,8 +99,6 @@ class _FullImageGalleryScreenState extends State<FullImageGalleryScreen> {
               },
             ),
           ),
-
-          // Close Button
           Positioned(
             top: MediaQuery.of(context).padding.top + 10.h,
             right: 20.w,
@@ -111,8 +107,6 @@ class _FullImageGalleryScreenState extends State<FullImageGalleryScreen> {
               onPressed: () => Navigator.pop(context),
             ),
           ),
-
-          // Bottom UI
           Positioned(
             bottom: 40.h,
             left: 0,
@@ -120,7 +114,6 @@ class _FullImageGalleryScreenState extends State<FullImageGalleryScreen> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                // Zoom Hint
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -141,7 +134,6 @@ class _FullImageGalleryScreenState extends State<FullImageGalleryScreen> {
                 ),
                 Gap(24.h),
 
-                // Thumbnails
                 SizedBox(
                   height: 60.h,
                   child: ListView.builder(
@@ -183,7 +175,9 @@ class _FullImageGalleryScreenState extends State<FullImageGalleryScreen> {
                                         )
                                         as ImageProvider
                                   : AssetImage(
-                                      imageUrl.isEmpty ? AppImages.assetsImagesPlaceholder : imageUrl,
+                                      imageUrl.isEmpty
+                                          ? AppImages.assetsImagesPlaceholder
+                                          : imageUrl,
                                     ),
                               fit: BoxFit.cover,
                             ),
@@ -194,13 +188,10 @@ class _FullImageGalleryScreenState extends State<FullImageGalleryScreen> {
                   ),
                 ),
                 Gap(20.h),
-
-                // Index Text
                 Text(
                   '${widget.images.length} / ${_currentIndex + 1}',
-                  style: TextStyle(
+                  style: AppTextStyle.bodyLarge(context).copyWith(
                     color: AppColor.whiteColor(context).withValues(alpha: (0.8)),
-                    fontSize: 16.sp,
                     fontWeight: FontWeight.bold,
                   ),
                 ),

@@ -35,8 +35,7 @@ class FinancingPersonalInfoTab extends StatefulWidget {
   });
 
   @override
-  State<FinancingPersonalInfoTab> createState() =>
-      _FinancingPersonalInfoTabState();
+  State<FinancingPersonalInfoTab> createState() => _FinancingPersonalInfoTabState();
 }
 
 class _FinancingPersonalInfoTabState extends State<FinancingPersonalInfoTab> {
@@ -83,28 +82,23 @@ class _FinancingPersonalInfoTabState extends State<FinancingPersonalInfoTab> {
             Gap(20.h),
             Text(
               AppLocaleKey.agentEnterDetails.tr(),
-              style: AppTextStyle.bodyMedium(context)
-                  .copyWith(fontWeight: FontWeight.w700),
+              style: AppTextStyle.bodyMedium(context).copyWith(fontWeight: FontWeight.w700),
             ),
             Gap(10.h),
             CustomFormField(
               controller: _fullNameCtrl,
               hintText: AppLocaleKey.agentFullName.tr(),
               radius: 12,
-              validator: (v) =>
-                  (v == null || v.isEmpty)
-                      ? AppLocaleKey.agentFullName.tr()
-                      : null,
+              validator: (v) => (v == null || v.isEmpty) ? AppLocaleKey.agentFullName.tr() : null,
             ),
             Gap(20.h),
             Align(
               alignment: Alignment.centerRight,
               child: Text(
                 AppLocaleKey.agentGender.tr(),
-                style: AppTextStyle.bodyMedium(context).copyWith(
-                  fontWeight: FontWeight.w700,
-                  color: AppColor.blackTextColor(context),
-                ),
+                style: AppTextStyle.bodyMedium(
+                  context,
+                ).copyWith(fontWeight: FontWeight.w700, color: AppColor.blackTextColor(context)),
               ),
             ),
             Gap(10.h),
@@ -197,9 +191,7 @@ class _FinancingPersonalInfoTabState extends State<FinancingPersonalInfoTab> {
             width: 22.w,
             height: 22.w,
             decoration: BoxDecoration(
-              color: _whatsappConsent
-                  ? AppColor.primaryColor(context)
-                  : Colors.transparent,
+              color: _whatsappConsent ? AppColor.primaryColor(context) : Colors.transparent,
               borderRadius: BorderRadius.circular(5.r),
               border: Border.all(
                 color: _whatsappConsent
@@ -220,7 +212,7 @@ class _FinancingPersonalInfoTabState extends State<FinancingPersonalInfoTab> {
               AppLocaleKey.agentWhatsAppNotification.tr(),
               style: AppTextStyle.bodySmall(context).copyWith(
                 fontSize: 12.sp,
-                color: AppColor.blackTextColor(context).withOpacity(0.75),
+                color: AppColor.blackTextColor(context).withValues(alpha: 0.75),
               ),
               textAlign: TextAlign.end,
             ),

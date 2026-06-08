@@ -27,7 +27,6 @@ class ReservationTrustBadge extends StatelessWidget {
             child: Text(
               AppLocaleKey.about.tr(),
               style: AppTextStyle.bodySmall(context).copyWith(
-                fontSize: 11.sp,
                 color: AppColor.blackTextColor(context).withValues(alpha: 0.6),
                 height: 1.5,
               ),

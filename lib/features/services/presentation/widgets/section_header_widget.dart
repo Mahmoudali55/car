@@ -1,5 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:car/core/theme/app_colors.dart';
+import 'package:car/core/theme/app_text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -19,7 +20,7 @@ class SectionHeaderWidget extends StatelessWidget {
             Gap(8.w),
             Text(
               title,
-              style: TextStyle(
+              style: AppTextStyle.bodyMedium(context).copyWith(
                 color: AppColor.blackTextColor(context).withValues(alpha: 0.9),
                 fontSize: 15.sp,
                 fontWeight: FontWeight.bold,

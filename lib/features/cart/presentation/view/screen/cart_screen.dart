@@ -9,14 +9,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CartScreen extends StatelessWidget {
   const CartScreen({super.key});
-
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<CartCubit, CartState>(
       builder: (context, state) {
         final items = state.items;
         final totalPrice = state.totalPrice;
-
         return Scaffold(
           backgroundColor: AppColor.scaffoldColor(context),
           appBar: CartAppBarWidget(itemsCount: items.length),

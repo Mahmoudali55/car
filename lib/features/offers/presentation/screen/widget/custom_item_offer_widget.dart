@@ -19,7 +19,6 @@ class CustomItemOfferWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        // Car Image with Gradient Background
         Expanded(
           flex: 4,
           child: ClipRRect(
@@ -42,12 +41,10 @@ class CustomItemOfferWidget extends StatelessWidget {
             ),
           ),
         ),
-
-        // Details
         Expanded(
           flex: 6,
           child: Padding(
-            padding: EdgeInsets.fromLTRB(0, 14.h, 20.w, 14.h), // Reduced vertical padding
+            padding: EdgeInsets.fromLTRB(0, 14.h, 20.w, 14.h),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -146,7 +143,7 @@ class CustomItemOfferWidget extends StatelessWidget {
                         children: [
                           Text(
                             offer['oldPrice'],
-                            style: TextStyle(
+                            style: AppTextStyle.bodySmall(context).copyWith(
                               color: AppColor.blackTextColor(context).withValues(alpha: 0.38),
                               fontSize: 11.sp,
                               decoration: TextDecoration.lineThrough,

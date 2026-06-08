@@ -21,7 +21,7 @@ class NotificationItemWidget extends StatelessWidget {
     switch (type) {
       case 'offer':
         icon = Icons.local_offer_rounded;
-        iconColor = Colors.orange;
+        iconColor = AppColor.iconColor(context);
         break;
       case 'order':
         icon = Icons.shopping_bag_rounded;

@@ -215,11 +215,9 @@ class _CustomerInquiriesScreenState extends State<CustomerInquiriesScreen>
                 ),
                 child: Text(
                   statusKey.tr(),
-                  style: TextStyle(
-                    color: statusColor,
-                    fontSize: 10.sp,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: AppTextStyle.bodySmall(
+                    context,
+                  ).copyWith(color: statusColor, fontSize: 10.sp, fontWeight: FontWeight.bold),
                 ),
               ),
             ],
@@ -270,7 +268,9 @@ class _CustomerInquiriesScreenState extends State<CustomerInquiriesScreen>
           Gap(8.w),
           Text(
             label,
-            style: TextStyle(color: color, fontSize: 11.sp, fontWeight: FontWeight.bold),
+            style: AppTextStyle.bodySmall(
+              context,
+            ).copyWith(color: color, fontSize: 11.sp, fontWeight: FontWeight.bold),
           ),
         ],
       ),

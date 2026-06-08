@@ -1,5 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:car/core/theme/app_colors.dart';
+import 'package:car/core/theme/app_text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -34,8 +35,8 @@ class _FqaItemWidgetState extends State<FqaItemWidget> {
             color: AppColor.secondAppColor(context),
             borderRadius: BorderRadius.circular(12.r),
             border: Border.all(
-              color: _isExpanded 
-                  ? AppColor.primaryColor(context).withOpacity(0.3) 
+              color: _isExpanded
+                  ? AppColor.primaryColor(context).withValues(alpha: 0.3)
                   : Colors.transparent,
               width: 1,
             ),
@@ -49,18 +50,18 @@ class _FqaItemWidgetState extends State<FqaItemWidget> {
                   Expanded(
                     child: Text(
                       widget.question,
-                      style: TextStyle(
-                        color: AppColor.blackTextColor(context).withOpacity(0.8),
-                        fontSize: 14.sp,
+                      style: AppTextStyle.bodyMedium(context).copyWith(
+                        color: AppColor.blackTextColor(context).withValues(alpha: 0.8),
+
                         fontWeight: _isExpanded ? FontWeight.bold : FontWeight.normal,
                       ),
                     ),
                   ),
                   Icon(
                     _isExpanded ? Icons.remove_rounded : Icons.add_rounded,
-                    color: _isExpanded 
-                        ? AppColor.primaryColor(context) 
-                        : AppColor.blackTextColor(context).withOpacity(0.24),
+                    color: _isExpanded
+                        ? AppColor.primaryColor(context)
+                        : AppColor.blackTextColor(context).withValues(alpha: 0.24),
                   ),
                 ],
               ),
@@ -68,9 +69,8 @@ class _FqaItemWidgetState extends State<FqaItemWidget> {
                 Gap(12.h),
                 Text(
                   widget.answer,
-                  style: TextStyle(
-                    color: AppColor.blackTextColor(context).withOpacity(0.6),
-                    fontSize: 12.sp,
+                  style: AppTextStyle.bodySmall(context).copyWith(
+                    color: AppColor.blackTextColor(context).withValues(alpha: 0.6),
                     height: 1.5,
                   ),
                 ),

@@ -18,7 +18,6 @@ class SectionWidget extends StatelessWidget {
             title,
             style: AppTextStyle.bodyMedium(context).copyWith(
               color: AppColor.blackTextColor(context).withValues(alpha: 0.6),
-              fontSize: 14.sp,
               fontWeight: FontWeight.bold,
               letterSpacing: 0.5,
             ),

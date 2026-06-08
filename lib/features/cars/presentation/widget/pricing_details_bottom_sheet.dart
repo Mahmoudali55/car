@@ -48,7 +48,7 @@ class PricingDetailsBottomSheet extends StatelessWidget {
             ],
           ),
           Gap(24.h),
-          Container(height: 1, color: AppColor.borderColor(context).withOpacity(0.5)),
+          Container(height: 1, color: AppColor.borderColor(context).withValues(alpha: 0.5)),
           Gap(24.h),
           Row(
             children: [
@@ -70,7 +70,9 @@ class PricingDetailsBottomSheet extends StatelessWidget {
                         fit: BoxFit.cover,
                       )
                     : Image.asset(
-                        car.fullCarImage.isEmpty ? AppImages.assetsImagesPlaceholder : car.fullCarImage,
+                        car.fullCarImage.isEmpty
+                            ? AppImages.assetsImagesPlaceholder
+                            : car.fullCarImage,
                         height: 80.h,
                         width: 120.w,
                         fit: BoxFit.cover,
@@ -96,7 +98,7 @@ class PricingDetailsBottomSheet extends StatelessWidget {
                   Text(
                     AppLocaleKey.carWarranty.tr(),
                     style: AppTextStyle.bodyMedium(context).copyWith(
-                      color: AppColor.blackTextColor(context).withOpacity(0.7),
+                      color: AppColor.blackTextColor(context).withValues(alpha: 0.7),
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -110,7 +112,7 @@ class PricingDetailsBottomSheet extends StatelessWidget {
               ),
               Text(
                 AppLocaleKey.free.tr(),
-                style: TextStyle(
+                style: AppTextStyle.bodyLarge(context).copyWith(
                   color: const Color(0xff00c853),
                   fontWeight: FontWeight.w900,
                   fontSize: 16.sp,
@@ -135,12 +137,13 @@ class PricingDetailsBottomSheet extends StatelessWidget {
               Text(
                 AppLocaleKey.serviceVatDescription.tr(),
 
-                style: TextStyle(fontSize: 9.sp, color: Colors.grey, height: 1.5),
+                style: AppTextStyle.bodySmall(
+                  context,
+                ).copyWith(color: Colors.grey, fontSize: 9.sp, height: 1.5),
               ),
             ],
           ),
           Gap(32.h),
-          Container(height: 1, color: AppColor.borderColor(context).withOpacity(0.5)),
           Gap(32.h),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

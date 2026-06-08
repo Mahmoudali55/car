@@ -63,10 +63,10 @@ class _CartItemWidgetState extends State<CartItemWidget> {
       decoration: BoxDecoration(
         color: AppColor.secondAppColor(context),
         borderRadius: BorderRadius.circular(20.r),
-        border: Border.all(color: AppColor.blackTextColor(context).withOpacity(0.05)),
+        border: Border.all(color: AppColor.blackTextColor(context).withValues(alpha: 0.05)),
         boxShadow: [
           BoxShadow(
-            color: AppColor.blackColor(context).withOpacity(0.15),
+            color: AppColor.blackColor(context).withValues(alpha: 0.15),
             blurRadius: 12,
             offset: const Offset(0, 4),
           ),
@@ -80,20 +80,21 @@ class _CartItemWidgetState extends State<CartItemWidget> {
               padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
               margin: EdgeInsets.only(bottom: 12.h),
               decoration: BoxDecoration(
-                color: Colors.orange.withValues(alpha: 0.1),
+                color: AppColor.secondAppColor(context).withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(8.r),
-                border: Border.all(color: Colors.orange.withValues(alpha: 0.5)),
+                border: Border.all(color: AppColor.iconColor(context).withValues(alpha: 0.5)),
               ),
               child: Row(
                 children: [
-                  Icon(Icons.timer_outlined, color: Colors.orange, size: 16.sp),
+                  Icon(Icons.timer_outlined, color: AppColor.iconColor(context), size: 16.sp),
                   Gap(8.w),
                   Expanded(
                     child: Text(
                       ' ${AppLocaleKey.reservationDuration.tr()}  ${_remainingTime.inHours.toString().padLeft(2, '0')}${AppLocaleKey.hours.tr()}:${(_remainingTime.inMinutes % 60).toString().padLeft(2, '0')} ${AppLocaleKey.minutes.tr()}:${(_remainingTime.inSeconds % 60).toString().padLeft(2, '0')} ${AppLocaleKey.seconds.tr()}',
-                      style: AppTextStyle.bodySmall(
-                        context,
-                      ).copyWith(color: Colors.orange[800], fontWeight: FontWeight.bold),
+                      style: AppTextStyle.bodySmall(context).copyWith(
+                        color: AppColor.iconColor(context).withValues(alpha: 0.08),
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ],

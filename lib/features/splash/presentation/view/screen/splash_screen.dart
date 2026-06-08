@@ -100,7 +100,7 @@ class _SplashScreenState extends State<SplashScreen> {
                     duration: const Duration(milliseconds: 1500),
                     child: Text(
                       AppLocaleKey.carApp.tr(),
-                      style: TextStyle(
+                      style: AppTextStyle.titleLarge(context).copyWith(
                         fontSize: 28.sp,
                         fontWeight: FontWeight.bold,
                         color: AppColor.blackTextColor(context),
@@ -128,7 +128,7 @@ class _SplashScreenState extends State<SplashScreen> {
                       children: [
                         Text(
                           AppLocaleKey.authorizedDistributor.tr(),
-                          style: TextStyle(
+                          style: AppTextStyle.bodyLarge(context).copyWith(
                             fontSize: 16.sp,
                             fontWeight: FontWeight.bold,
                             color: AppColor.primaryColor(context),
@@ -137,14 +137,14 @@ class _SplashScreenState extends State<SplashScreen> {
                         Gap(8.h),
                         Text(
                           AppLocaleKey.brandsLine1.tr(),
-                          style: TextStyle(
+                          style: AppTextStyle.bodySmall(context).copyWith(
                             fontSize: 13.sp,
                             color: AppColor.blackTextColor(context).withValues(alpha: 0.9),
                           ),
                         ),
                         Text(
                           AppLocaleKey.brandsLine2.tr(),
-                          style: TextStyle(
+                          style: AppTextStyle.bodySmall(context).copyWith(
                             fontSize: 13.sp,
                             color: AppColor.blackTextColor(context).withValues(alpha: 0.9),
                           ),
@@ -152,7 +152,7 @@ class _SplashScreenState extends State<SplashScreen> {
                         Gap(12.h),
                         Text(
                           AppLocaleKey.financingAvailable.tr(),
-                          style: TextStyle(
+                          style: AppTextStyle.bodyMedium(context).copyWith(
                             fontSize: 14.sp,
                             fontWeight: FontWeight.w600,
                             color: AppColor.blackTextColor(context).withValues(alpha: 0.8),

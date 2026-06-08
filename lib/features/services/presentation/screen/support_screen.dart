@@ -173,9 +173,9 @@ class SupportScreen extends StatelessWidget {
                     delay: const Duration(milliseconds: 400),
                     child: Text(
                       AppLocaleKey.faqs.tr(),
-                      style: TextStyle(
+                      style: AppTextStyle.titleLarge(context).copyWith(
                         color: AppColor.blackTextColor(context),
-                        fontSize: 16.sp,
+
                         fontWeight: FontWeight.bold,
                       ),
                     ),

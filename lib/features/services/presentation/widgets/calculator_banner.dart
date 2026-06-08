@@ -1,5 +1,6 @@
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
+import 'package:car/core/theme/app_text_style.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -19,7 +20,7 @@ class CalculatorBanner extends StatelessWidget {
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              AppColor.primaryColor(context).withOpacity(0.9),
+              AppColor.primaryColor(context).withValues(alpha: 0.9),
               AppColor.primaryColor(context),
             ],
           ),
@@ -27,7 +28,7 @@ class CalculatorBanner extends StatelessWidget {
         ),
         child: Row(
           children: [
-            Icon(Icons.calculate_outlined, color: Colors.white, size: 24.sp),
+            Icon(Icons.calculate_outlined, color: AppColor.whiteColor(context), size: 24.sp),
             Gap(12.w),
             Expanded(
               child: Column(
@@ -35,8 +36,8 @@ class CalculatorBanner extends StatelessWidget {
                 children: [
                   Text(
                     AppLocaleKey.agentCalculateFinancingAmount.tr(),
-                    style: TextStyle(
-                      color: Colors.white,
+                    style: AppTextStyle.bodyLarge(context).copyWith(
+                      color: AppColor.whiteColor(context),
                       fontWeight: FontWeight.w900,
                       fontSize: 14.sp,
                     ),
@@ -44,7 +45,10 @@ class CalculatorBanner extends StatelessWidget {
                   Gap(2.h),
                   Text(
                     AppLocaleKey.agentKnowMonthlyInstallment.tr(),
-                    style: TextStyle(color: Colors.white70, fontSize: 11.sp),
+                    style: AppTextStyle.bodySmall(context).copyWith(
+                      color: AppColor.whiteColor(context).withValues(alpha: 0.7),
+                      fontSize: 11.sp,
+                    ),
                   ),
                 ],
               ),

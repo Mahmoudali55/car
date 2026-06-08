@@ -1,6 +1,7 @@
 import 'package:car/core/custom_widgets/custom_image/custom_network_image.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
+import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/features/cars/presentation/widget/section_title_widget.dart';
 import 'package:car/features/home/data/model/brand_cars_data_model.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -89,7 +90,9 @@ class _VideoReviewWidgetState extends State<VideoReviewWidget> {
                         ),
                         child: Text(
                           '4:25',
-                          style: TextStyle(color: AppColor.blackTextColor(context), fontSize: 10),
+                          style: AppTextStyle.bodySmall(
+                            context,
+                          ).copyWith(color: AppColor.blackTextColor(context), fontSize: 10),
                         ),
                       ),
                     ),

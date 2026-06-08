@@ -1,7 +1,5 @@
-
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -20,11 +18,9 @@ class FilterSection extends StatelessWidget {
           padding: EdgeInsets.only(bottom: 16.h),
           child: Text(
             title,
-            style: AppTextStyle.bodyMedium(context).copyWith(
-              color: AppColor.blackTextColor(context),
-              fontWeight: FontWeight.bold,
-              fontSize: 16.sp,
-            ),
+            style: AppTextStyle.bodyLarge(
+              context,
+            ).copyWith(color: AppColor.blackTextColor(context), fontWeight: FontWeight.bold),
           ),
         ),
         child,
@@ -32,4 +28,3 @@ class FilterSection extends StatelessWidget {
     );
   }
 }
-

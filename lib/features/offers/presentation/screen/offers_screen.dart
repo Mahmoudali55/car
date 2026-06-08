@@ -9,7 +9,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class OffersScreen extends StatefulWidget {
   const OffersScreen({super.key});
-
   @override
   State<OffersScreen> createState() => _OffersScreenState();
 }
@@ -83,8 +82,6 @@ class _OffersScreenState extends State<OffersScreen> {
               offers: _offers,
             ),
           ),
-
-          // Offers Grid/List
           SliverList(
             delegate: SliverChildBuilderDelegate(
               (context, index) => Padding(

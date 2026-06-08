@@ -10,7 +10,7 @@ import 'package:gap/gap.dart';
 class CancelDialog extends StatelessWidget {
   final BuildContext context;
 
-  const CancelDialog({required this.context});
+  const CancelDialog({super.key, required this.context});
 
   @override
   Widget build(BuildContext context) {

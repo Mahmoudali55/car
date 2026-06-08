@@ -1,6 +1,5 @@
 import 'package:car/core/localization/app_locale_keys.dart';
-import 'package:car/core/theme/app_colors.dart';
-import 'package:car/core/theme/app_text_style.dart';
+import 'package:car/features/cars/presentation/widget/feature_card_widget.dart';
 import 'package:car/features/cars/presentation/widget/section_title_widget.dart';
 import 'package:car/features/home/data/model/brand_cars_data_model.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -79,7 +78,6 @@ class FeaturesGridWidget extends StatelessWidget {
       children: [
         SectionTitleWidget(title: AppLocaleKey.additionalFeatures.tr()),
         Gap(16.h),
-
         GridView.builder(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
@@ -93,69 +91,10 @@ class FeaturesGridWidget extends StatelessWidget {
           itemBuilder: (context, index) {
             final item = features[index];
 
-            return _FeatureCard(icon: item['icon'], title: item['title'], value: item['value']);
+            return FeatureCard(icon: item['icon'], title: item['title'], value: item['value']);
           },
         ),
       ],
-    );
-  }
-}
-
-class _FeatureCard extends StatelessWidget {
-  final IconData icon;
-  final String title;
-  final String value;
-
-  const _FeatureCard({required this.icon, required this.title, required this.value});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(14.w),
-      decoration: BoxDecoration(
-        color: AppColor.whiteColor(context),
-        borderRadius: BorderRadius.circular(18.r),
-        border: Border.all(color: AppColor.primaryColor(context).withValues(alpha: (0.08))),
-        boxShadow: [
-          BoxShadow(
-            color: AppColor.blackColor(context).withValues(alpha: (0.04)),
-            blurRadius: 12,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Container(
-            width: 42.w,
-            height: 42.w,
-            decoration: BoxDecoration(
-              color: AppColor.primaryColor(context).withValues(alpha: .12),
-              borderRadius: BorderRadius.circular(12.r),
-            ),
-            child: Icon(icon, size: 22.sp, color: AppColor.primaryColor(context)),
-          ),
-          Text(
-            value,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: AppTextStyle.bodyLarge(
-              context,
-            ).copyWith(fontWeight: FontWeight.w800, color: AppColor.blackTextColor(context)),
-          ),
-
-          Text(
-            title,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: AppTextStyle.bodySmall(
-              context,
-            ).copyWith(color: Colors.grey.shade600, fontWeight: FontWeight.w500),
-          ),
-        ],
-      ),
     );
   }
 }

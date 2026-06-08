@@ -282,7 +282,7 @@ class _BookingAppointmentScreenState extends State<BookingAppointmentScreen> {
   Widget _buildSectionTitle(String title) {
     return Text(
       title,
-      style: TextStyle(
+      style: AppTextStyle.titleMedium(context).copyWith(
         color: AppColor.blackTextColor(context),
         fontSize: 18.sp,
         fontWeight: FontWeight.bold,
@@ -339,7 +339,7 @@ class _BookingAppointmentScreenState extends State<BookingAppointmentScreen> {
         ),
         child: Text(
           AppLocaleKey.confirmBooking.tr(),
-          style: TextStyle(
+          style: AppTextStyle.titleLarge(context).copyWith(
             color: AppColor.whiteColor(context),
             fontSize: 16.sp,
             fontWeight: FontWeight.bold,
@@ -368,7 +368,7 @@ class _BookingAppointmentScreenState extends State<BookingAppointmentScreen> {
             Gap(20.h),
             Text(
               AppLocaleKey.bookingReceivedSuccess.tr(),
-              style: TextStyle(
+              style: AppTextStyle.titleLarge(context).copyWith(
                 color: AppColor.blackTextColor(context),
                 fontSize: 20.sp,
                 fontWeight: FontWeight.bold,
@@ -377,7 +377,9 @@ class _BookingAppointmentScreenState extends State<BookingAppointmentScreen> {
             Gap(10.h),
             Text(
               AppLocaleKey.teamWillContactSoon.tr(),
-              style: TextStyle(color: AppColor.blackTextColor(context).withValues(alpha: 0.70)),
+              style: AppTextStyle.bodyMedium(
+                context,
+              ).copyWith(color: AppColor.blackTextColor(context).withValues(alpha: 0.70)),
               textAlign: TextAlign.center,
             ),
             Gap(30.h),
@@ -394,7 +396,9 @@ class _BookingAppointmentScreenState extends State<BookingAppointmentScreen> {
                 ),
                 child: Text(
                   AppLocaleKey.ok.tr(),
-                  style: TextStyle(color: AppColor.whiteColor(context)),
+                  style: AppTextStyle.titleLarge(
+                    context,
+                  ).copyWith(color: AppColor.whiteColor(context)),
                 ),
               ),
             ),

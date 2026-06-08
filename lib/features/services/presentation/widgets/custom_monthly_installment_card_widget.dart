@@ -44,28 +44,22 @@ class CustomMonthlyInstallmentCardWidget extends StatelessWidget {
             children: [
               Text(
                 fmt.format(monthly.round()),
-                style: TextStyle(
-                  color: AppColor.blackTextColor(context),
-                  fontWeight: FontWeight.w900,
-                  fontSize: 24.sp,
-                ),
+                style: AppTextStyle.titleLarge(
+                  context,
+                ).copyWith(color: AppColor.blackTextColor(context), fontWeight: FontWeight.w900),
               ),
               Gap(8.w),
               Text(
                 AppLocaleKey.agentYearly.tr(),
-                style: TextStyle(
-                  color: AppColor.blackTextColor(context),
-                  fontWeight: FontWeight.w900,
-                  fontSize: 24.sp,
-                ),
+                style: AppTextStyle.titleLarge(
+                  context,
+                ).copyWith(color: AppColor.blackTextColor(context), fontWeight: FontWeight.w900),
               ),
               Text(
                 AppLocaleKey.agentMonthly.tr(),
-                style: AppTextStyle.bodyMedium(context).copyWith(
-                  color: AppColor.primaryColor(context),
-                  fontWeight: FontWeight.w700,
-                  fontSize: 24.sp,
-                ),
+                style: AppTextStyle.titleLarge(
+                  context,
+                ).copyWith(color: AppColor.primaryColor(context), fontWeight: FontWeight.w700),
               ),
             ],
           ),
@@ -91,20 +85,16 @@ class CustomMonthlyInstallmentCardWidget extends StatelessWidget {
               Spacer(),
               Text(
                 fmt.format(total.round()),
-                style: AppTextStyle.bodyMedium(context).copyWith(
-                  color: AppColor.primaryColor(context),
-                  fontWeight: FontWeight.w900,
-                  fontSize: 16.sp,
-                ),
+                style: AppTextStyle.bodyLarge(
+                  context,
+                ).copyWith(color: AppColor.primaryColor(context), fontWeight: FontWeight.w900),
               ),
               Gap(4.w),
               Text(
                 AppLocaleKey.agentYearly.tr(),
-                style: TextStyle(
-                  color: AppColor.primaryColor(context),
-                  fontWeight: FontWeight.w900,
-                  fontSize: 14.sp,
-                ),
+                style: AppTextStyle.bodyLarge(
+                  context,
+                ).copyWith(color: AppColor.primaryColor(context), fontWeight: FontWeight.w900),
               ),
             ],
           ),

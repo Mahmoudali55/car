@@ -274,10 +274,9 @@ class _ShippingScreenState extends State<ShippingScreen> {
                               children: [
                                 Text(
                                   isAr ? 'يبدأ من' : 'Starts from',
-                                  style: TextStyle(
-                                    fontSize: 8.sp,
-                                    color: AppColor.greyColor(context),
-                                  ),
+                                  style: AppTextStyle.bodySmall(
+                                    context,
+                                  ).copyWith(fontSize: 8.sp, color: AppColor.greyColor(context)),
                                 ),
                                 Row(
                                   children: [
@@ -291,7 +290,7 @@ class _ShippingScreenState extends State<ShippingScreen> {
                                     Gap(2.w),
                                     Text(
                                       AppLocaleKey.sar.tr(),
-                                      style: TextStyle(
+                                      style: AppTextStyle.bodySmall(context).copyWith(
                                         fontSize: 8.sp,
                                         color: AppColor.greyColor(context),
                                       ),
@@ -447,7 +446,9 @@ class _ShippingScreenState extends State<ShippingScreen> {
                           isAr
                               ? 'أولوية قصوى وجدول زمني أسرع (+250 ر.س)'
                               : 'Top priority dispatch & transport (+250 SAR)',
-                          style: TextStyle(fontSize: 10.sp, color: AppColor.greyColor(context)),
+                          style: AppTextStyle.bodySmall(
+                            context,
+                          ).copyWith(fontSize: 10.sp, color: AppColor.greyColor(context)),
                         ),
                         activeThumbColor: AppColor.primaryColor(context),
                       ),
@@ -469,7 +470,9 @@ class _ShippingScreenState extends State<ShippingScreen> {
                           isAr
                               ? 'تغطية مالية كاملة لسلامة سيارتك (+150 ر.س)'
                               : 'Full protection coverage for transit (+150 SAR)',
-                          style: TextStyle(fontSize: 10.sp, color: AppColor.greyColor(context)),
+                          style: AppTextStyle.bodySmall(
+                            context,
+                          ).copyWith(fontSize: 10.sp, color: AppColor.greyColor(context)),
                         ),
                         activeThumbColor: AppColor.primaryColor(context),
                       ),

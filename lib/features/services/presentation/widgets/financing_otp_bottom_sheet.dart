@@ -70,7 +70,7 @@ class _FinancingOtpBottomSheetState extends State<FinancingOtpBottomSheet> {
     final defaultPinTheme = PinTheme(
       width: 56.w,
       height: 56.h,
-      textStyle: TextStyle(
+      textStyle: AppTextStyle.titleLarge(context).copyWith(
         fontSize: 22.sp,
         color: AppColor.blackTextColor(context),
         fontWeight: FontWeight.w700,

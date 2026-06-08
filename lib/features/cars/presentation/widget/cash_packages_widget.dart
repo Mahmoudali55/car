@@ -56,7 +56,7 @@ class _CashPackagesWidgetState extends State<CashPackagesWidget> {
       titleKey: AppLocaleKey.packageGold,
       descKey: AppLocaleKey.packageGoldDesc,
       extraPrice: 2000,
-      themeColor: const Color(0xFFD4AF37), // Gold
+      themeColor: const Color(0xFFD4AF37),
       featuresKeys: [
         AppLocaleKey.featureComprehensiveCheck,
         AppLocaleKey.featureAgencyWarranty,
@@ -69,7 +69,7 @@ class _CashPackagesWidgetState extends State<CashPackagesWidget> {
       titleKey: AppLocaleKey.packagePlatinum,
       descKey: AppLocaleKey.packagePlatinumDesc,
       extraPrice: 5000,
-      themeColor: const Color(0xFF2B2D42), // Premium Dark
+      themeColor: const Color(0xFF2B2D42),
       featuresKeys: [
         AppLocaleKey.featureComprehensiveCheck,
         AppLocaleKey.featureAgencyWarranty,
@@ -96,7 +96,7 @@ class _CashPackagesWidgetState extends State<CashPackagesWidget> {
         children: [
           Text(
             AppLocaleKey.cashPackagesTitle.tr(),
-            style: TextStyle(
+            style: AppTextStyle.titleLarge(context).copyWith(
               fontSize: 18.sp,
               fontWeight: FontWeight.bold,
               color: AppColor.blackTextColor(context),
@@ -105,7 +105,9 @@ class _CashPackagesWidgetState extends State<CashPackagesWidget> {
           Gap(4.h),
           Text(
             AppLocaleKey.cashPackagesSubtitle.tr(),
-            style: TextStyle(fontSize: 13.sp, color: Colors.grey[600]),
+            style: AppTextStyle.bodyMedium(
+              context,
+            ).copyWith(fontSize: 13.sp, color: Colors.grey[600]),
           ),
           Gap(16.h),
           SizedBox(
@@ -156,7 +158,7 @@ class _CashPackagesWidgetState extends State<CashPackagesWidget> {
                           children: [
                             Text(
                               package.titleKey.tr(),
-                              style: TextStyle(
+                              style: AppTextStyle.bodyLarge(context).copyWith(
                                 fontSize: 18.sp,
                                 fontWeight: FontWeight.bold,
                                 color: isSelected
@@ -231,7 +233,9 @@ class _CashPackagesWidgetState extends State<CashPackagesWidget> {
                                   Expanded(
                                     child: Text(
                                       package.featuresKeys[featureIndex].tr(),
-                                      style: TextStyle(fontSize: 11.sp, color: Colors.grey[700]),
+                                      style: AppTextStyle.bodySmall(
+                                        context,
+                                      ).copyWith(fontSize: 11.sp, color: Colors.grey[700]),
                                     ),
                                   ),
                                 ],

@@ -64,7 +64,6 @@ class ReservationStepIndicator extends StatelessWidget {
                   color: isActive || isCompleted
                       ? AppColor.primaryColor(context)
                       : AppColor.blackTextColor(context).withValues(alpha: (0.3)),
-                  fontSize: 12.sp,
                 ),
               );
             }).toList(),

@@ -96,7 +96,7 @@ class ReservationSuccessScreen extends StatelessWidget {
               if (!isFinancingFlow)
                 _InfoRow(
                   icon: Icons.lock_clock_rounded,
-                  iconColor: Colors.orange,
+                  iconColor: AppColor.iconColor(context),
                   label: AppLocaleKey.deposit_amount.tr(),
                   value: '500 ر.س (مسترد)',
                 ),

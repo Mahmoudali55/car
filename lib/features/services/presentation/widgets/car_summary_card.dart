@@ -80,16 +80,14 @@ class CarSummaryCard extends StatelessWidget {
           children: [
             Text(
               AppLocaleKey.agentYearly.tr(),
-              style: TextStyle(
-                color: AppColor.primaryColor(context),
-                fontWeight: FontWeight.w900,
-                fontSize: 14.sp,
-              ),
+              style: AppTextStyle.bodyMedium(
+                context,
+              ).copyWith(color: AppColor.primaryColor(context), fontWeight: FontWeight.w900),
             ),
             Gap(4.w),
             Text(
               fmt.format(monthlyInstallment.round()),
-              style: TextStyle(
+              style: AppTextStyle.bodyLarge(context).copyWith(
                 color: AppColor.primaryColor(context),
                 fontWeight: FontWeight.w900,
                 fontSize: 20.sp,
@@ -99,11 +97,9 @@ class CarSummaryCard extends StatelessWidget {
         ),
         Text(
           AppLocaleKey.agentMonthly.tr(),
-          style: TextStyle(
-            color: AppColor.primaryColor(context),
-            fontWeight: FontWeight.w700,
-            fontSize: 12.sp,
-          ),
+          style: AppTextStyle.bodySmall(
+            context,
+          ).copyWith(color: AppColor.primaryColor(context), fontWeight: FontWeight.w700),
         ),
       ],
     );
