@@ -48,7 +48,6 @@ class _HomeGuestScreenState extends State<HomeGuestScreen> {
                 Gap(20.h),
                 const AdsSliderWidget(),
                 Gap(15.h),
-
                 SectionTitleWidget(
                   title: AppLocaleKey.categories.tr(),
                   onSeeAll: () {
