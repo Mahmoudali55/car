@@ -72,10 +72,11 @@ class _PopularCarsSliderState extends State<PopularCarsSlider> {
   }
 
   void _goToDetails(BuildContext context, Map<String, dynamic> car) {
-    NavigatorMethods.pushNamed(context, RoutesName.carDetailsScreen, arguments: {
-      'car': car,
-      'heroTag': 'popular_car_image_${car['itemCode'] ?? car['name']}',
-    });
+    NavigatorMethods.pushNamed(
+      context,
+      RoutesName.carDetailsScreen,
+      arguments: {'car': car, 'heroTag': 'popular_car_image_${car['itemCode'] ?? car['name']}'},
+    );
   }
 
   List<Map<String, dynamic>> _buildDisplayedCars(HomeState state) {
@@ -156,6 +157,7 @@ class _PopularCarsSliderState extends State<PopularCarsSlider> {
           width: double.infinity,
           child: PageView.builder(
             controller: _pageController,
+
             itemCount: displayCount,
             onPageChanged: (page) => setState(() => _currentPage = page),
             itemBuilder: (context, index) {

@@ -26,9 +26,9 @@ class CardImageSection extends StatelessWidget {
               child: Center(
                 child: CustomNetworkImage(
                   imageUrl: car['image']!,
-                  fit: BoxFit.fitHeight,
+                  fit: BoxFit.fill,
                   width: double.infinity,
-                  height: 110.h,
+                  height: 120.h,
                 ),
               ),
             ),

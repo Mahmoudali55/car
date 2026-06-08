@@ -25,7 +25,7 @@ class CarCard extends StatelessWidget {
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 400),
         curve: Curves.easeOutQuint,
-        margin: EdgeInsets.symmetric(horizontal: 8.w, vertical: isSelected ? 10.h : 20.h),
+        margin: EdgeInsets.symmetric(vertical: isSelected ? 10.h : 20.h),
         decoration: BoxDecoration(
           color: AppColor.secondAppColor(context),
           borderRadius: BorderRadius.circular(28.r),

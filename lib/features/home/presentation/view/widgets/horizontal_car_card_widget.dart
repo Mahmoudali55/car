@@ -16,7 +16,6 @@ class HorizontalCarCardWidget extends StatelessWidget {
   final VoidCallback? onTap;
   final String? heroTag;
   const HorizontalCarCardWidget({super.key, required this.car, this.onTap, this.heroTag});
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
