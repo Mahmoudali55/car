@@ -15,7 +15,7 @@ class CardTopBar extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          BrandBadge(brand: car['brand']),
+          BrandBadge(brand: car['GROUP_NAME']),
           FavoritesButton(car: car),
         ],
       ),

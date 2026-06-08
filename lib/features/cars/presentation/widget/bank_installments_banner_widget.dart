@@ -64,12 +64,14 @@ class BankInstallmentsBannerWidget extends StatelessWidget {
             children: [
               Icon(Icons.calculate_outlined, color: AppColor.blueColor(context), size: 14.sp),
               Gap(4.w),
-              Text(
-                AppLocaleKey.agentCalculateFinancing.tr(),
-                style: AppTextStyle.bodySmall(context).copyWith(
-                  color: AppColor.blueColor(context),
-                  decoration: TextDecoration.underline,
-                  fontWeight: FontWeight.bold,
+              Expanded(
+                child: Text(
+                  AppLocaleKey.agentCalculateFinancing.tr(),
+                  style: AppTextStyle.bodySmall(context).copyWith(
+                    color: AppColor.blueColor(context),
+                    decoration: TextDecoration.underline,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ],
