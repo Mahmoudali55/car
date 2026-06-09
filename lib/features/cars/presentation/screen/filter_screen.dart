@@ -1,4 +1,5 @@
 import 'package:car/core/custom_widgets/custom_toast/custom_toast.dart';
+import 'package:car/core/extension/context_extension.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
@@ -55,7 +56,10 @@ class _FilterScreenState extends State<FilterScreen> {
     if (_selectedBrandId != null && state.brands.isNotEmpty) {
       try {
         final matched = state.brands.firstWhere((b) => b.groupCode.toString() == _selectedBrandId);
-        _selectedBrandName = matched.groupName;
+        _selectedBrandName = context.apiTr(
+          ar: matched.groupName,
+          en: matched.groupEName ?? matched.groupName,
+        );
       } catch (_) {}
     }
     if (state.fuelType != null) {
@@ -194,9 +198,12 @@ class _FilterScreenState extends State<FilterScreen> {
                 if (_selectedBrandId != null && _selectedBrandName == null) {
                   try {
                     final matched = state.brands.firstWhere(
-                      (b) => b.groupCode.toString() == _selectedBrandId,
+                      (b) => b.groupCode.toString() == _selectedBrandId.toString(),
                     );
-                    _selectedBrandName = matched.groupName;
+                    _selectedBrandName = context.apiTr(
+                      ar: matched.groupName,
+                      en: matched.groupEName ?? matched.groupName,
+                    );
                   } catch (_) {}
                 }
 
@@ -210,7 +217,18 @@ class _FilterScreenState extends State<FilterScreen> {
                     children: [
                       FilterChipsGroup(
                         groupKey: AppLocaleKey.brands,
-                        items: displayedBrands.map((b) => b.groupName).toList(),
+                        items: allBrands
+                            .map(
+                              (b) =>
+                                  context.apiTr(ar: b.groupName, en: b.groupEName ?? b.groupName),
+                            )
+                            .toList(),
+                        displayedItems: displayedBrands
+                            .map(
+                              (b) =>
+                                  context.apiTr(ar: b.groupName, en: b.groupEName ?? b.groupName),
+                            )
+                            .toList(),
                         selectedItem: _selectedBrandName,
                         onSelected: (itemName) {
                           setState(() {
@@ -219,7 +237,12 @@ class _FilterScreenState extends State<FilterScreen> {
                               _selectedBrandId = null;
                             } else {
                               final matched = state.brands.firstWhere(
-                                (b) => b.groupName == itemName,
+                                (b) =>
+                                    context.apiTr(
+                                      ar: b.groupName,
+                                      en: b.groupEName ?? b.groupName,
+                                    ) ==
+                                    itemName,
                               );
                               _selectedBrandId = matched.groupCode;
                             }
@@ -235,7 +258,9 @@ class _FilterScreenState extends State<FilterScreen> {
                             tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                           ),
                           child: Text(
-                            _showAllBrands ? 'عرض أقل' : 'عرض المزيد',
+                            _showAllBrands
+                                ? AppLocaleKey.showLess.tr()
+                                : AppLocaleKey.showMore.tr(),
                             style: AppTextStyle.bodySmall(context).copyWith(
                               color: AppColor.primaryColor(context),
                               fontWeight: FontWeight.bold,
@@ -319,7 +344,7 @@ class _FilterScreenState extends State<FilterScreen> {
                     !hasDiscount &&
                     !hasOtherSelections) {
                   CommonMethods.showToast(
-                    message: 'يرجى اختيار الفلاتر المطلوبة أولاً',
+                    message: AppLocaleKey.selectionRequired.tr(),
                     type: ToastType.warning,
                   );
                   return;

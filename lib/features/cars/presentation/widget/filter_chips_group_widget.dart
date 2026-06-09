@@ -7,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class FilterChipsGroup extends StatelessWidget {
   final String groupKey;
   final List<String> items;
+  final List<String>? displayedItems;
   final String? selectedItem;
   final ValueChanged<String?> onSelected;
 
@@ -14,16 +15,19 @@ class FilterChipsGroup extends StatelessWidget {
     super.key,
     required this.groupKey,
     required this.items,
+    this.displayedItems,
     this.selectedItem,
     required this.onSelected,
   });
 
   @override
   Widget build(BuildContext context) {
+    final listToDisplay = displayedItems ?? items;
+
     return Wrap(
       spacing: 10.w,
       runSpacing: 10.h,
-      children: items.map((item) {
+      children: listToDisplay.map((item) {
         final isSelected = selectedItem == item;
         return GestureDetector(
           onTap: () {

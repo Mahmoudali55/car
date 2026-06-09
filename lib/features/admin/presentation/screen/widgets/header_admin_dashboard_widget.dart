@@ -17,27 +17,34 @@ class HeaderAdminDashboardWidget extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              AppLocaleKey.centralDashboard.tr(),
-              style: AppTextStyle.titleMedium(context).copyWith(
-                color: AppColor.blackTextColor(context),
-                fontWeight: FontWeight.w900,
-                fontSize: 22.sp,
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                AppLocaleKey.centralDashboard.tr(),
+                style: AppTextStyle.titleMedium(context).copyWith(
+                  color: AppColor.blackTextColor(context),
+                  fontWeight: FontWeight.w900,
+                  fontSize: 22.sp,
+                ),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
               ),
-            ),
-            Gap(4.h),
-            Text(
-              AppLocaleKey.performanceSummary.tr(),
-              style: AppTextStyle.bodySmall(context).copyWith(
-                color: AppColor.blackTextColor(context).withValues(alpha: (0.4)),
-                fontWeight: FontWeight.w500,
+              Gap(4.h),
+              Text(
+                AppLocaleKey.performanceSummary.tr(),
+                style: AppTextStyle.bodySmall(context).copyWith(
+                  color: AppColor.blackTextColor(context).withValues(alpha: (0.4)),
+                  fontWeight: FontWeight.w500,
+                ),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
               ),
-            ),
-          ],
+            ],
+          ),
         ),
+        Gap(16.w),
         Row(
           children: [
             HeaderActionWidget(

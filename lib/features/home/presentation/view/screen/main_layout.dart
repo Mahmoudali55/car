@@ -52,12 +52,18 @@ class _MainLayoutState extends State<MainLayout> {
                 builder: (context, box, _) {
                   final isGuest = box.get('isGuest', defaultValue: false);
                   final userName = box.get('userName', defaultValue: '');
+                  final welcomeText = AppLocaleKey.welcomeToCarGroup.tr();
+                  final separator = context.locale.languageCode == 'ar' ? '،' : ',';
 
-                  return Text(
-                    isGuest || userName.isEmpty
-                        ? AppLocaleKey.welcomeToCarGroup.tr()
-                        : '${AppLocaleKey.welcomeToCarGroup.tr()}، $userName',
-                    style: AppTextStyle.titleSmall(context),
+                  return FittedBox(
+                    fit: BoxFit.scaleDown,
+                    alignment: AlignmentDirectional.centerStart,
+                    child: Text(
+                      isGuest || userName.isEmpty
+                          ? welcomeText
+                          : '$welcomeText$separator $userName',
+                      style: AppTextStyle.titleSmall(context),
+                    ),
                   );
                 },
               ),

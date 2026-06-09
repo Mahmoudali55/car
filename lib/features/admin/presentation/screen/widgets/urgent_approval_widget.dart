@@ -17,14 +17,19 @@ class UrgentApprovalWidget extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              AppLocaleKey.urgentApprovalRequests.tr(),
-              style: TextStyle(
-                color: AppColor.blackTextColor(context),
-                fontSize: 18.sp,
-                fontWeight: FontWeight.w800,
+            Expanded(
+              child: Text(
+                AppLocaleKey.urgentApprovalRequests.tr(),
+                style: TextStyle(
+                  color: AppColor.blackTextColor(context),
+                  fontSize: 18.sp,
+                  fontWeight: FontWeight.w800,
+                ),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
               ),
             ),
+            Gap(8.w),
             Text(
               AppLocaleKey.adminThreeRequests.tr(),
               style: AppTextStyle.bodyMedium(context).copyWith(
