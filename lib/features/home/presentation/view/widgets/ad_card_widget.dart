@@ -1,5 +1,3 @@
-// ─── ad_card_widget.dart ─────────────────────────────────────────
-
 import 'package:car/features/home/data/model/ad_item_model.dart';
 import 'package:car/features/home/presentation/view/widgets/ad_card_background.dart';
 import 'package:car/features/home/presentation/view/widgets/ad_card_image.dart';

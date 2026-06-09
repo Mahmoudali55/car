@@ -53,8 +53,6 @@ class _AdsSliderWidgetState extends State<AdsSliderWidget> {
     ),
   ];
 
-  // ─── Lifecycle ───────────────────────────────────────────────
-
   @override
   void initState() {
     super.initState();
@@ -69,8 +67,6 @@ class _AdsSliderWidgetState extends State<AdsSliderWidget> {
     _pageController.dispose();
     super.dispose();
   }
-
-  // ─── Timer ───────────────────────────────────────────────────
 
   void _startTimer() {
     _timer?.cancel();

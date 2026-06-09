@@ -1,5 +1,3 @@
-// ─── ad_card_image.dart ──────────────────────────────────────────
-
 import 'package:car/core/custom_widgets/custom_image/custom_network_image.dart';
 import 'package:car/features/home/data/model/ad_item_model.dart';
 import 'package:flutter/material.dart';

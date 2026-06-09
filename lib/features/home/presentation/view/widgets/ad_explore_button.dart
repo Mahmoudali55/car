@@ -1,5 +1,3 @@
-// ─── ad_explore_button.dart ──────────────────────────────────────
-
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/features/home/data/model/ad_item_model.dart';
