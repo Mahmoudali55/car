@@ -1,10 +1,14 @@
 import 'package:car/core/custom_widgets/custom_image/custom_network_image.dart';
+import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
-import 'package:car/features/home/presentation/view/widgets/favorite_button_widget.dart';
+import 'package:car/core/theme/app_text_style.dart';
+import 'package:car/features/cars/presentation/widget/full_image_gallery_screen.dart';
+import 'package:car/features/home/data/model/brand_cars_data_model.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class CardImageSection extends StatelessWidget {
+class CardImageSection extends StatefulWidget {
   const CardImageSection({super.key, required this.car, required this.isSelected, this.heroTag});
 
   final Map<String, dynamic> car;
@@ -12,33 +16,183 @@ class CardImageSection extends StatelessWidget {
   final String? heroTag;
 
   @override
+  State<CardImageSection> createState() => _CardImageSectionState();
+}
+
+class _CardImageSectionState extends State<CardImageSection> {
+  int _currentImageIndex = 0;
+  late List<String> _displayImages;
+  late List<String> _fullImagesList;
+
+  @override
+  void initState() {
+    super.initState();
+    _initializeImages();
+  }
+
+  @override
+  void didUpdateWidget(CardImageSection oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.car != widget.car) {
+      _initializeImages();
+      _currentImageIndex = 0;
+    }
+  }
+
+  void _initializeImages() {
+    _fullImagesList = [
+      widget.car['image'] as String,
+      ...List<String>.from(widget.car['extraImages'] ?? []),
+    ];
+    _displayImages = _fullImagesList.take(4).toList();
+  }
+
+  void _nextImage() {
+    if (_displayImages.isEmpty) return;
+    setState(() {
+      _currentImageIndex = (_currentImageIndex + 1) % _displayImages.length;
+    });
+  }
+
+  void _previousImage() {
+    if (_displayImages.isEmpty) return;
+    setState(() {
+      _currentImageIndex = (_currentImageIndex - 1 + _displayImages.length) % _displayImages.length;
+    });
+  }
+
+  void _openGallery() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => FullImageGalleryScreen(
+          images: _fullImagesList,
+          initialIndex: _currentImageIndex,
+          car: GetBrandCarsDataModel.fromJson(widget.car),
+        ),
+      ),
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final hasMultipleImages = _displayImages.length > 1;
+    final hasPreviousImage = _currentImageIndex > 0;
+    final hasNextImage = _currentImageIndex < _displayImages.length - 1;
+    final isLastDisplayImage = _currentImageIndex == _displayImages.length - 1;
+    final hasMoreImagesInFull = _fullImagesList.length > _displayImages.length;
+
     return Stack(
       children: [
-        Container(
-          color: AppColor.blackTextColor(context).withValues(alpha: 0.05),
-          child: AnimatedScale(
-            duration: const Duration(milliseconds: 400),
-            scale: 1,
-            child: Hero(
-              tag: heroTag ?? 'car_image_${car['itemCode'] ?? car['name']}',
-              child: Center(
-                child: CustomNetworkImage(
-                  imageUrl: car['image']!,
-                  fit: BoxFit.fill,
-                  width: double.infinity,
-                  height: 120.h,
+        GestureDetector(
+          onTap: _openGallery,
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.vertical(top: Radius.circular(18.r)),
+            ),
+            child: AnimatedScale(
+              duration: const Duration(milliseconds: 400),
+              scale: 1,
+              child: Hero(
+                tag:
+                    widget.heroTag ??
+                    'car_image_${widget.car['itemCode'] ?? widget.car['name']}_$_currentImageIndex',
+                child: Center(
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      CustomNetworkImage(
+                        imageUrl: _displayImages.isNotEmpty
+                            ? _displayImages[_currentImageIndex]
+                            : widget.car['image']!,
+                        fit: BoxFit.fill,
+                        width: double.infinity,
+                        height: 120.h,
+                      ),
+                      if (isLastDisplayImage && hasMoreImagesInFull)
+                        Container(
+                          width: double.infinity,
+                          height: 120.h,
+                          decoration: BoxDecoration(
+                            color: AppColor.blackColor(context).withValues(alpha: 0.5),
+                            borderRadius: BorderRadius.vertical(top: Radius.circular(18.r)),
+                          ),
+                          child: Center(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.grid_view_rounded,
+                                  color: AppColor.whiteColor(context),
+                                  size: 24.sp,
+                                ),
+                                Text(
+                                  AppLocaleKey.see_all.tr(),
+                                  style: AppTextStyle.bodySmall(context).copyWith(
+                                    color: AppColor.whiteColor(context),
+                                    fontSize: 12.sp,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                    ],
+                  ),
                 ),
               ),
             ),
           ),
         ),
-        Positioned(
-          top: 5.h,
-          right: 16.w,
-          child: FavoriteButton(car: car),
-        ),
-        // Positioned(top: 5.h, left: 16.w, child: HotBadge()),
+        if (hasMultipleImages) ...[
+          if (hasPreviousImage)
+            Positioned(
+              left: 5.w,
+              top: 0,
+              bottom: 0,
+              child: Center(
+                child: IconButton(
+                  onPressed: _previousImage,
+                  icon: Container(
+                    padding: EdgeInsets.all(4.r),
+                    decoration: BoxDecoration(
+                      color: AppColor.blackColor(context).withValues(alpha: 0.3),
+                      shape: BoxShape.circle,
+                    ),
+                    child: Icon(
+                      Icons.arrow_back_ios_new,
+                      color: AppColor.whiteColor(context),
+                      size: 16.sp,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          if (hasNextImage)
+            Positioned(
+              right: 5.w,
+              top: 0,
+              bottom: 0,
+              child: Center(
+                child: IconButton(
+                  onPressed: _nextImage,
+                  icon: Container(
+                    padding: EdgeInsets.all(4.r),
+                    decoration: BoxDecoration(
+                      color: AppColor.blackColor(context).withValues(alpha: 0.3),
+                      shape: BoxShape.circle,
+                    ),
+                    child: Icon(
+                      Icons.arrow_forward_ios,
+                      color: AppColor.whiteColor(context),
+                      size: 16.sp,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+        ],
       ],
     );
   }

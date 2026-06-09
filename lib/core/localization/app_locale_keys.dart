@@ -1397,4 +1397,5 @@ class AppLocaleKey {
   static const String refundable_deposit = 'refundable_deposit';
   static const String noCars = 'no_cars';
   static const String customsCard = 'customsCard';
+  static const String see_all = 'see_all';
 }

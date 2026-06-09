@@ -1,7 +1,9 @@
 import 'dart:async';
 
+import 'package:car/core/cache/hive/hive_methods.dart';
 import 'package:car/core/network/contants.dart';
 import 'package:car/core/routes/routes_name.dart';
+import 'package:car/core/utils/common_methods.dart';
 import 'package:car/core/utils/navigator_methods.dart';
 import 'package:car/features/home/data/model/brand_cars_data_model.dart';
 import 'package:car/features/home/presentation/cubit/home_cubit.dart';
@@ -9,7 +11,6 @@ import 'package:car/features/home/presentation/view/widgets/car_card_widget.dart
 import 'package:car/features/home/presentation/view/widgets/loading_and_empty_placeholder_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class PopularCarsSlider extends StatefulWidget {
   const PopularCarsSlider({super.key});
@@ -153,11 +154,10 @@ class _PopularCarsSliderState extends State<PopularCarsSlider> {
         final displayCount = cars.length.clamp(0, _maxDisplayedCars);
 
         return SizedBox(
-          height: 280.h,
+          height: MediaQuery.of(context).size.height / 2.3,
           width: double.infinity,
           child: PageView.builder(
             controller: _pageController,
-
             itemCount: displayCount,
             onPageChanged: (page) => setState(() => _currentPage = page),
             itemBuilder: (context, index) {
@@ -165,6 +165,17 @@ class _PopularCarsSliderState extends State<PopularCarsSlider> {
                 car: cars[index],
                 isSelected: index == _currentPage,
                 onTap: () => _goToDetails(context, cars[index]),
+                onOrderNow: () {
+                  if (HiveMethods.getToken() == null) {
+                    CommonMethods.showLoginRequiredDialog(context);
+                  } else {
+                    Navigator.pushNamed(
+                      context,
+                      RoutesName.carReservationScreen,
+                      arguments: {'car': cars[index], 'isFromLink': false},
+                    );
+                  }
+                },
                 heroTag: 'popular_car_image_${cars[index]['itemCode'] ?? cars[index]['name']}',
               );
             },

@@ -18,7 +18,7 @@ class FavoriteButton extends StatelessWidget {
           onTap: () => context.read<FavoritesCubit>().toggleFavorite(car),
           child: CircleAvatar(
             radius: 16.r,
-            backgroundColor: AppColor.blackColor(context).withValues(alpha: (0.1)),
+            backgroundColor: AppColor.blackColor(context).withValues(alpha: (0.05)),
             child: Icon(
               isFav ? Icons.favorite_rounded : Icons.favorite_border_rounded,
               color: isFav ? AppColor.redColor(context) : AppColor.blackTextColor(context),

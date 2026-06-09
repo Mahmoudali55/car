@@ -10,41 +10,24 @@ class CarCard extends StatelessWidget {
     required this.car,
     required this.isSelected,
     required this.onTap,
+    required this.onOrderNow,
     this.heroTag,
   });
 
   final Map<String, dynamic> car;
   final bool isSelected;
   final VoidCallback onTap;
+  final VoidCallback onOrderNow;
   final String? heroTag;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 400),
-        curve: Curves.easeOutQuint,
-        margin: EdgeInsets.symmetric(vertical: isSelected ? 10.h : 20.h),
-        decoration: BoxDecoration(
-          color: AppColor.secondAppColor(context),
-          borderRadius: BorderRadius.circular(28.r),
-          border: Border.all(
-            color: isSelected
-                ? AppColor.primaryColor(context).withValues(alpha: (0.3))
-                : AppColor.blackTextColor(context).withValues(alpha: (0.05)),
-          ),
-          boxShadow: [
-            BoxShadow(
-              color: isSelected
-                  ? AppColor.primaryColor(context).withValues(alpha: (0.15))
-                  : AppColor.blackColor(context).withValues(alpha: (0.1)),
-              blurRadius: isSelected ? 20 : 10,
-              offset: isSelected ? const Offset(0, 10) : const Offset(0, 5),
-            ),
-          ],
-        ),
-        clipBehavior: Clip.antiAlias,
+      child: Card(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.r)),
+        shadowColor: AppColor.primaryColor(context).withValues(alpha: 0.25),
+        elevation: 4,
         child: Column(
           children: [
             Expanded(
@@ -53,7 +36,7 @@ class CarCard extends StatelessWidget {
             ),
             Expanded(
               flex: 15,
-              child: CardContentSection(car: car, onTap: onTap),
+              child: CardContentSection(car: car, onTap: onTap, onOrderNow: onOrderNow),
             ),
           ],
         ),
