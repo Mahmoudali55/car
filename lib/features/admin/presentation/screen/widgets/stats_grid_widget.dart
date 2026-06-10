@@ -35,11 +35,26 @@ class StatsGridWidget extends StatelessWidget {
           ],
         ),
         Gap(16.h),
-        AdminStatsCard(
-          title: AppLocaleKey.adminPendingApprovals.tr(),
-          value: '12',
-          icon: Icons.pending_actions_rounded,
-          color: AppColor.orangeColor(context),
+        Row(
+          children: [
+            Expanded(
+              child: AdminStatsCard(
+                title: AppLocaleKey.adminPendingApprovals.tr(),
+                value: '12',
+                icon: Icons.pending_actions_rounded,
+                color: AppColor.orangeColor(context),
+              ),
+            ),
+            Gap(16.w),
+            Expanded(
+              child: AdminStatsCard(
+                title: AppLocaleKey.admin_available_cars.tr(),
+                value: '40',
+                icon: Icons.directions_car_filled_rounded,
+                color: AppColor.redColor(context),
+              ),
+            ),
+          ],
         ),
       ],
     );

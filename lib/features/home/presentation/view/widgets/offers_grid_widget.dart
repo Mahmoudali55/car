@@ -1,4 +1,3 @@
-import 'package:car/core/images/app_images.dart';
 import 'package:car/core/utils/responsive_helper.dart';
 import 'package:car/features/home/presentation/view/widgets/offer_card_widget.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +10,8 @@ class OffersGridWidget extends StatelessWidget {
     {
       'name': 'G63 AMG 2024',
       'brand': 'Mercedes-Benz',
-      'image': AppImages.assetsImagesGclass,
+      'image':
+          'https://images.unsplash.com/photo-1555215695-3004980ad54e?q=80&w=1000&auto=format&fit=crop',
       'price': '850,000',
       'oldPrice': '1,000,000',
       'installments': '12,500',
@@ -26,7 +26,8 @@ class OffersGridWidget extends StatelessWidget {
     {
       'name': 'M5 Competition',
       'brand': 'BMW',
-      'image': 'https://images.unsplash.com/photo-1555215695-3004980ad54e?q=80&w=1000&auto=format&fit=crop',
+      'image':
+          'https://images.unsplash.com/photo-1555215695-3004980ad54e?q=80&w=1000&auto=format&fit=crop',
       'price': '440,000',
       'oldPrice': '520,000',
       'installments': '6,800',
@@ -41,7 +42,8 @@ class OffersGridWidget extends StatelessWidget {
     {
       'name': 'Land Cruiser 300',
       'brand': 'Toyota',
-      'image': 'https://images.unsplash.com/photo-1621245643477-90f7727a20c3?q=80&w=1000&auto=format&fit=crop',
+      'image':
+          'https://images.unsplash.com/photo-1555215695-3004980ad54e?q=80&w=1000&auto=format&fit=crop',
       'price': '330,000',
       'oldPrice': '350,000',
       'installments': '5,200',
@@ -56,7 +58,8 @@ class OffersGridWidget extends StatelessWidget {
     {
       'name': 'Ferrari SF90',
       'brand': 'Ferrari',
-      'image': AppImages.assetsImagesFerrari,
+      'image':
+          'https://images.unsplash.com/photo-1555215695-3004980ad54e?q=80&w=1000&auto=format&fit=crop',
       'price': '1,800,000',
       'oldPrice': '2,100,000',
       'installments': '28,500',

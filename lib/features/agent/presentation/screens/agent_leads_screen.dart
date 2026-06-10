@@ -31,7 +31,7 @@ class _AgentLeadsScreenState extends State<AgentLeadsScreen> {
     return DefaultTabController(
       length: 5,
       child: Scaffold(
-        backgroundColor: AppColor.scaffoldColor(context),
+        backgroundColor: AppColor.appBarColor(context),
         body: NestedScrollView(
           headerSliverBuilder: (_, _) => [
             SliverAppBar(
@@ -44,20 +44,17 @@ class _AgentLeadsScreenState extends State<AgentLeadsScreen> {
                   child: Padding(
                     padding: EdgeInsets.fromLTRB(16.w, 16.h, 16.w, 0),
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Row(
-                          children: [
-                            Text(
-                              AppLocaleKey.agentLeadsPotential.tr(),
-                              style: AppTextStyle.titleLarge(context).copyWith(
-                                color: AppColor.blackTextColor(context),
-                                fontWeight: FontWeight.w900,
-                                letterSpacing: -0.5,
-                              ),
-                            ),
-                            const Spacer(),
-                          ],
+                        Text(
+                          AppLocaleKey.agentLeadsPotential.tr(),
+                          textAlign: TextAlign.center,
+                          style: AppTextStyle.titleLarge(context).copyWith(
+                            color: AppColor.blackTextColor(context),
+                            fontWeight: FontWeight.w900,
+                            letterSpacing: -0.5,
+                            fontSize: 18.sp,
+                          ),
                         ),
                       ],
                     ),

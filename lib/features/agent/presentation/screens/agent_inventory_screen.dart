@@ -39,11 +39,12 @@ class _AgentInventoryScreenState extends State<AgentInventoryScreen> {
                   child: Padding(
                     padding: EdgeInsets.fromLTRB(16.w, 16.h, 16.w, 0),
                     child: Text(
+                      textAlign: TextAlign.center,
                       AppLocaleKey.agentInventory.tr(),
                       style: AppTextStyle.titleLarge(context).copyWith(
                         color: AppColor.blackTextColor(context),
                         fontWeight: FontWeight.w900,
-
+                        fontSize: 18.sp,
                         letterSpacing: -0.5,
                       ),
                     ),

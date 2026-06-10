@@ -17,7 +17,6 @@ class PremiumCommissionBanner extends StatelessWidget {
     final blueColor = AppColor.blueColor(context);
     final successColor = AppColor.greenColor(context);
     final goldColor = AppColor.goldColor(context);
-
     return Container(
       padding: EdgeInsets.all(22.w),
       decoration: BoxDecoration(

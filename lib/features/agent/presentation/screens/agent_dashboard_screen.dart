@@ -5,7 +5,6 @@ import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/features/agent/data/agent_models.dart';
 import 'package:car/features/agent/presentation/screens/widget/custom_gridview_with_dashoard_widget.dart';
 import 'package:car/features/agent/presentation/screens/widget/icon_btn_widget.dart';
-import 'package:car/features/agent/presentation/screens/widget/premium_avatar_widget.dart';
 import 'package:car/features/agent/presentation/screens/widget/premium_language_toggle_widget.dart';
 import 'package:car/features/agent/presentation/screens/widget/premium_theme_toggle_widget.dart';
 import 'package:car/features/agent/presentation/screens/widget/quick_stat_widget.dart';
@@ -30,19 +29,16 @@ class AgentDashboardScreen extends StatelessWidget {
       AppLocaleKey.thu.tr(),
       AppLocaleKey.fri.tr(),
     ];
-
     final pendingLeads = getAgentLeads()
         .where((l) => l.status == LeadStatus.newLead || l.status == LeadStatus.inProgress)
         .toList();
-
     final todayAppts = getAgentAppointments()
         .where(
           (a) => a.status == AppointmentStatus.upcoming || a.status == AppointmentStatus.checkedIn,
         )
         .toList();
-
     return Scaffold(
-      backgroundColor: AppColor.scaffoldColor(context),
+      backgroundColor: AppColor.appBarColor(context),
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
@@ -53,13 +49,10 @@ class AgentDashboardScreen extends StatelessWidget {
             flexibleSpace: FlexibleSpaceBar(
               background: Container(
                 decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [
-                      AppColor.blueColor(context).withValues(alpha: 0.15),
-                      AppColor.appBarColor(context),
-                    ],
-                    begin: Alignment.topRight,
-                    end: Alignment.bottomLeft,
+                  color: AppColor.appBarColor(context),
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(30.r),
+                    bottomRight: Radius.circular(30.r),
                   ),
                 ),
                 child: SafeArea(
@@ -70,10 +63,6 @@ class AgentDashboardScreen extends StatelessWidget {
                       children: [
                         Row(
                           children: [
-                            const PremiumAvatar(
-                              initials: null,
-                              localizedInitials: AppLocaleKey.agentUserInitials,
-                            ),
                             Gap(12.w),
                             Expanded(
                               child: Column(
@@ -88,7 +77,7 @@ class AgentDashboardScreen extends StatelessWidget {
                                     style: AppTextStyle.titleMedium(context).copyWith(
                                       color: AppColor.blackTextColor(context),
                                       fontWeight: FontWeight.w900,
-                                      fontSize: 20.sp,
+                                      fontSize: 18.sp,
                                     ),
                                   ),
                                   Text(
@@ -119,7 +108,7 @@ class AgentDashboardScreen extends StatelessWidget {
                             const PremiumLanguageToggle(),
                           ],
                         ),
-                        const Spacer(),
+                        Gap(70.h),
                         Row(
                           children: [
                             Expanded(

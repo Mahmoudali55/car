@@ -15,6 +15,7 @@ class AgentAppointmentsScreen extends StatefulWidget {
   @override
   State<AgentAppointmentsScreen> createState() => _AgentAppointmentsScreenState();
 }
+
 class _AgentAppointmentsScreenState extends State<AgentAppointmentsScreen> {
   @override
   Widget build(BuildContext context) {
@@ -32,12 +33,15 @@ class _AgentAppointmentsScreenState extends State<AgentAppointmentsScreen> {
       appBar: CustomAppBar(
         context,
         elevation: 0,
+        leading: SizedBox.shrink(),
+        centerTitle: true,
+        automaticallyImplyLeading: false,
         title: Text(
           AppLocaleKey.agentAppointment.tr(),
           style: AppTextStyle.titleLarge(context).copyWith(
             color: AppColor.blackTextColor(context),
             fontWeight: FontWeight.w900,
-            fontSize: 24.sp,
+            fontSize: 18.sp,
             letterSpacing: -0.5,
           ),
         ),

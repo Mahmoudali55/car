@@ -12,7 +12,6 @@ import 'package:gap/gap.dart';
 
 class AgentAddNoteScreen extends StatelessWidget {
   const AgentAddNoteScreen({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
