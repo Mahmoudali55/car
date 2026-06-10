@@ -5,7 +5,6 @@ import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/core/utils/common_methods.dart';
 import 'package:car/features/cars/presentation/widget/filter_apply_button_widget.dart';
-import 'package:car/features/cars/presentation/widget/filter_check_box_tile_widget.dart';
 import 'package:car/features/cars/presentation/widget/filter_chips_group_widget.dart';
 import 'package:car/features/cars/presentation/widget/filter_range_slider_widget.dart';
 import 'package:car/features/cars/presentation/widget/filter_widgets.dart';
@@ -281,11 +280,7 @@ class _FilterScreenState extends State<FilterScreen> {
                 onChanged: (values) => setState(() => _yearRange = values),
               ),
             ),
-            FilterCheckboxTile(
-              title: AppLocaleKey.testDrive.tr(),
-              value: _isTestDriveAvailable,
-              onChanged: (v) => setState(() => _isTestDriveAvailable = v!),
-            ),
+
             FilterSection(
               title: AppLocaleKey.status.tr(),
               child: _buildChipsGroup(AppLocaleKey.status),
@@ -300,16 +295,7 @@ class _FilterScreenState extends State<FilterScreen> {
                 isPrice: true,
               ),
             ),
-            FilterCheckboxTile(
-              title: AppLocaleKey.taxInclusive.tr(),
-              value: _isTaxInclusive,
-              onChanged: (v) => setState(() => _isTaxInclusive = v!),
-            ),
-            FilterCheckboxTile(
-              title: AppLocaleKey.discount.tr(),
-              value: _isDiscountApplied,
-              onChanged: (v) => setState(() => _isDiscountApplied = v!),
-            ),
+
             FilterSection(
               title: AppLocaleKey.engineSystem.tr(),
               child: _buildChipsGroup(AppLocaleKey.engineSystem),

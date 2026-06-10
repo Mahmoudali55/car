@@ -29,7 +29,7 @@ class RequestCarScreen extends StatelessWidget {
             flexibleSpace: FlexibleSpaceBar(
               centerTitle: true,
               title: Text(
-                AppLocaleKey.requestCar.tr(),
+                AppLocaleKey.request_car_title.tr(),
                 style: AppTextStyle.titleMedium(
                   context,
                 ).copyWith(color: AppColor.whiteColor(context), fontWeight: FontWeight.bold),

@@ -8,7 +8,6 @@ import 'package:car/features/admin/presentation/screen/widgets/logout_button_wid
 import 'package:car/features/auth/presentation/view/cubit/auth_cubit.dart';
 import 'package:car/features/profile/presentation/screen/widget/action_tile_widget.dart';
 import 'package:car/features/profile/presentation/screen/widget/info_tile_widget.dart';
-import 'package:car/features/profile/presentation/screen/widget/profile_header_widget.dart';
 import 'package:car/features/profile/presentation/screen/widget/section_widget.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -41,7 +40,6 @@ class UserProfileScreen extends StatelessWidget {
             physics: const BouncingScrollPhysics(),
             child: Column(
               children: [
-                const ProfileHeaderWidget(),
                 Padding(
                   padding: EdgeInsets.all(20.w),
                   child: Column(
@@ -66,6 +64,11 @@ class UserProfileScreen extends StatelessWidget {
                               label: AppLocaleKey.mobileNumber.tr(),
                               value: '---',
                             ),
+                            InfoTileWidget(
+                              icon: Icons.location_on_outlined,
+                              label: AppLocaleKey.city.tr(),
+                              value: '---',
+                            ),
                           ],
                         ),
                       ),
@@ -80,11 +83,7 @@ class UserProfileScreen extends StatelessWidget {
                               label: AppLocaleKey.editProfile.tr(),
                               onTap: () {},
                             ),
-                            ActionTileWidget(
-                              icon: Icons.lock_outline_rounded,
-                              label: AppLocaleKey.changePassword.tr(),
-                              onTap: () {},
-                            ),
+
                             ActionTileWidget(
                               icon: Icons.local_shipping_outlined,
                               label: AppLocaleKey.trackOrder.tr(),

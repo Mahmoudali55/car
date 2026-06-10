@@ -1398,4 +1398,5 @@ class AppLocaleKey {
   static const String noCars = 'no_cars';
   static const String customsCard = 'customsCard';
   static const String see_all = 'see_all';
+  static const String request_car_title = 'request_car_title';
 }

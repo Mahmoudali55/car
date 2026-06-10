@@ -100,8 +100,8 @@ class CustomRegisterFormWidget extends StatelessWidget {
             duration: const Duration(milliseconds: 1000),
             child: CustomFormField(
               controller: cubit.idNoController,
-              hintText: AppLocaleKey.idNumber.tr(),
-              prefixIcon: Icon(Icons.badge_outlined, color: AppColor.primaryColor(context)),
+              hintText: AppLocaleKey.phoneNumber.tr(),
+              prefixIcon: Icon(Icons.phone, color: AppColor.primaryColor(context)),
               fillColor: AppColor.blackTextColor(context).withValues(alpha: 0.05),
               textStyle: TextStyle(color: AppColor.blackTextColor(context)),
               hintStyle: TextStyle(color: AppColor.blackTextColor(context).withValues(alpha: 0.3)),
