@@ -1,3 +1,4 @@
+import 'package:car/core/custom_widgets/custom_sar_text.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
 import 'package:flutter/material.dart';
@@ -74,9 +75,9 @@ class PaymentMethodSelectionCard extends StatelessWidget {
                             color: const Color(0xFFE8F5E9),
                             borderRadius: BorderRadius.circular(6.r),
                           ),
-                          child: Text(
-                            badgeText!,
-                            style: AppTextStyle.bodySmall(context).copyWith(
+                          child: ValueWithCurrencyIcon(
+                            text: badgeText!,
+                            textStyle: AppTextStyle.bodySmall(context).copyWith(
                               color: const Color(0xFF2E7D32),
                               fontSize: 10.sp,
                               fontWeight: FontWeight.bold,

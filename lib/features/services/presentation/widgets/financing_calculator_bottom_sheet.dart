@@ -1,5 +1,6 @@
 import 'package:car/core/custom_widgets/buttons/custom_button.dart';
 import 'package:car/core/custom_widgets/custom_form_field/custom_form_field.dart';
+import 'package:car/core/custom_widgets/custom_sar_text.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
@@ -209,7 +210,6 @@ class _FinancingCalculatorBottomSheetState extends State<FinancingCalculatorBott
                         keyboardType: const TextInputType.numberWithOptions(decimal: true),
                         inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d*'))],
                         hintText: '0.0',
-
                         onChanged: (v) {
                           setState(() {
                             _downPayment = double.tryParse(v) ?? 0;
@@ -217,9 +217,9 @@ class _FinancingCalculatorBottomSheetState extends State<FinancingCalculatorBott
                         },
                         suffixIcon: Padding(
                           padding: const EdgeInsets.only(top: 8.0),
-                          child: Text(
-                            AppLocaleKey.agentYearly.tr(),
-                            style: AppTextStyle.bodyLarge(context).copyWith(
+                          child: ValueWithCurrencyIcon(
+                            text: AppLocaleKey.sar.tr(),
+                            textStyle: AppTextStyle.bodyLarge(context).copyWith(
                               color: AppColor.greyColor(context),
                               fontSize: 18.sp,
                               fontWeight: FontWeight.w900,
@@ -232,9 +232,10 @@ class _FinancingCalculatorBottomSheetState extends State<FinancingCalculatorBott
                   Gap(6.h),
                   Align(
                     alignment: Alignment.centerRight,
-                    child: Text(
-                      '${AppLocaleKey.agentFirstPayment.tr()}:${fmt.format(_maxDownPayment.round())} ﷼',
-                      style: AppTextStyle.bodySmall(
+                    child: ValueWithCurrencyIcon(
+                      text:
+                          '${AppLocaleKey.agentFirstPayment.tr()}:${fmt.format(_maxDownPayment.round())} ${AppLocaleKey.sar.tr()}',
+                      textStyle: AppTextStyle.bodySmall(
                         context,
                       ).copyWith(color: AppColor.greyColor(context), fontSize: 11.sp),
                     ),
@@ -248,9 +249,9 @@ class _FinancingCalculatorBottomSheetState extends State<FinancingCalculatorBott
                     hintText: '0.0',
                     suffixIcon: Padding(
                       padding: const EdgeInsets.only(top: 8.0),
-                      child: Text(
-                        AppLocaleKey.agentYearly.tr(),
-                        style: AppTextStyle.bodyLarge(context).copyWith(
+                      child: ValueWithCurrencyIcon(
+                        text: AppLocaleKey.sar.tr(),
+                        textStyle: AppTextStyle.bodyLarge(context).copyWith(
                           color: AppColor.greyColor(context),
                           fontSize: 18.sp,
                           fontWeight: FontWeight.w900,
@@ -266,9 +267,10 @@ class _FinancingCalculatorBottomSheetState extends State<FinancingCalculatorBott
                   Gap(6.h),
                   Align(
                     alignment: Alignment.centerRight,
-                    child: Text(
-                      '${AppLocaleKey.agentLastPaymentDesc.tr()} : ${fmt.format(_maxLastPayment.round())} ﷼',
-                      style: AppTextStyle.bodySmall(
+                    child: ValueWithCurrencyIcon(
+                      text:
+                          '${AppLocaleKey.agentLastPaymentDesc.tr()} : ${fmt.format(_maxLastPayment.round())} ${AppLocaleKey.sar.tr()}',
+                      textStyle: AppTextStyle.bodySmall(
                         context,
                       ).copyWith(color: AppColor.greyColor(context), fontSize: 11.sp),
                     ),

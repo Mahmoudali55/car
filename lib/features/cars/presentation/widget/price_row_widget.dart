@@ -1,3 +1,4 @@
+import 'package:car/core/custom_widgets/custom_sar_text.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
 import 'package:flutter/material.dart';
@@ -25,10 +26,9 @@ class PriceRowWidget extends StatelessWidget {
           ),
         ),
         SizedBox(width: 12.w),
-        Text(
-          value,
-          textAlign: TextAlign.end,
-          style: AppTextStyle.bodyMedium(
+        ValueWithCurrencyIcon(
+          text: value,
+          textStyle: AppTextStyle.bodyMedium(
             context,
           ).copyWith(fontWeight: FontWeight.w900, fontSize: isBold ? 16.sp : 14.sp),
         ),

@@ -1,4 +1,5 @@
 import 'package:car/core/custom_widgets/custom_toast/custom_toast.dart';
+import 'package:car/core/images/app_images.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/services/bnpl_service.dart';
 import 'package:car/core/theme/app_colors.dart';
@@ -9,6 +10,7 @@ import 'package:car/features/home/data/model/brand_cars_data_model.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 
 class BnplWidget extends StatefulWidget {
@@ -187,8 +189,12 @@ class _BnplWidgetState extends State<BnplWidget> {
                       style: AppTextStyle.bodyMedium(context).copyWith(fontSize: 12.sp),
                       children: [
                         TextSpan(
-                          text: '$formattedInstallment SAR',
+                          text: '$formattedInstallment ',
                           style: const TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        WidgetSpan(
+                          alignment: PlaceholderAlignment.middle,
+                          child: SvgPicture.asset(AppImages.sar, width: 12.w, height: 12.h),
                         ),
                       ],
                     ),

@@ -1,6 +1,7 @@
 import 'package:car/core/cache/hive/hive_methods.dart';
 import 'package:car/core/custom_widgets/buttons/custom_button.dart';
 import 'package:car/core/custom_widgets/custom_form_field/custom_form_field.dart';
+import 'package:car/core/custom_widgets/custom_sar_text.dart';
 import 'package:car/core/custom_widgets/custom_toast/custom_toast.dart';
 import 'package:car/core/images/app_images.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
@@ -210,9 +211,7 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
         backgroundColor: AppColor.scaffoldColor(context),
         appBar: AppBar(
           title: Text(
-            isMethodSelection
-                ? AppLocaleKey.agentSelectPaymentMethod.tr()
-                : widget.car.itemName,
+            isMethodSelection ? AppLocaleKey.agentSelectPaymentMethod.tr() : widget.car.itemName,
             style: AppTextStyle.titleMedium(context).copyWith(
               fontWeight: FontWeight.w900,
               fontSize: 16.sp,
@@ -436,7 +435,7 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
                   style: AppTextStyle.bodyMedium(context).copyWith(
                     color: AppColor.blackTextColor(context).withValues(alpha: 0.7),
                     fontWeight: FontWeight.bold,
-                    ),
+                  ),
                 ),
                 Row(
                   children: [
@@ -530,9 +529,9 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
           mainAxisSize: MainAxisSize.min,
           children: [
             if (!isMethodSelection && !_isFinancingFlow) ...[
-              Text(
-                '${_depositAmount.toInt()} SAR',
-                style: AppTextStyle.buttonStyle(context).copyWith(fontWeight: FontWeight.bold),
+              ValueWithCurrencyIcon(
+                text: '${_depositAmount.toInt()} SAR',
+                textStyle: AppTextStyle.buttonStyle(context).copyWith(fontWeight: FontWeight.bold),
               ),
               Gap(16.w),
             ],
@@ -772,9 +771,9 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
                 : Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
-                        '${_depositAmount.toInt()} ﷼',
-                        style: AppTextStyle.buttonStyle(
+                      ValueWithCurrencyIcon(
+                        text: '${_depositAmount.toInt()} ${AppLocaleKey.sar.tr()} ',
+                        textStyle: AppTextStyle.buttonStyle(
                           context,
                         ).copyWith(fontWeight: FontWeight.bold),
                       ),
@@ -894,13 +893,11 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
             children: [
               Icon(Icons.keyboard_arrow_down_rounded, color: const Color(0xFF0D47A1), size: 24.sp),
               Gap(8.w),
-              Text(
-                '${_totalPrice.toStringAsFixed(2)} ﷼',
-                style: TextStyle(
-                  color: const Color(0xFF0D47A1),
-                  fontWeight: FontWeight.w900,
-                  fontSize: 16.sp,
-                ),
+              ValueWithCurrencyIcon(
+                text: '${_totalPrice.toStringAsFixed(2)} ${AppLocaleKey.sar.tr()}',
+                textStyle: AppTextStyle.bodyMedium(
+                  context,
+                ).copyWith(color: const Color(0xFF0D47A1), fontWeight: FontWeight.w900),
               ),
             ],
           ),

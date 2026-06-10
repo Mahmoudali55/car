@@ -1,3 +1,4 @@
+import 'package:car/core/custom_widgets/custom_sar_text.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
@@ -194,11 +195,11 @@ class _CashPackagesWidgetState extends State<CashPackagesWidget> {
                             color: package.themeColor.withValues(alpha: 0.1),
                             borderRadius: BorderRadius.circular(8.r),
                           ),
-                          child: Text(
-                            package.extraPrice == 0
+                          child: ValueWithCurrencyIcon(
+                            text: package.extraPrice == 0
                                 ? '${AppLocaleKey.sar.tr()} 0'
                                 : '+ ${formatter.format(package.extraPrice)} ${AppLocaleKey.sar.tr()}',
-                            style: AppTextStyle.bodyMedium(
+                            textStyle: AppTextStyle.bodyMedium(
                               context,
                             ).copyWith(fontWeight: FontWeight.bold, color: package.themeColor),
                           ),
@@ -268,9 +269,9 @@ class _CashPackagesWidgetState extends State<CashPackagesWidget> {
                     context,
                   ).copyWith(color: AppColor.blackTextColor(context)),
                 ),
-                Text(
-                  '${formatter.format(currentTotal)} ${AppLocaleKey.sar.tr()}',
-                  style: AppTextStyle.bodyLarge(
+                ValueWithCurrencyIcon(
+                  text: '${formatter.format(currentTotal)} ${AppLocaleKey.sar.tr()}',
+                  textStyle: AppTextStyle.bodyLarge(
                     context,
                   ).copyWith(fontWeight: FontWeight.w900, color: AppColor.primaryColor(context)),
                 ),

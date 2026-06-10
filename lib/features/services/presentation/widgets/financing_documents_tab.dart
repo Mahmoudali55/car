@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:car/core/custom_widgets/custom_sar_text.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
@@ -221,7 +222,7 @@ class _FinancingDocumentsTabState extends State<FinancingDocumentsTab> {
     ];
 
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.end,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           AppLocaleKey.agentRequiredDocumentsList.tr(),
@@ -244,19 +245,16 @@ class _FinancingDocumentsTabState extends State<FinancingDocumentsTab> {
 
   Widget _buildDocItem(BuildContext context, String text) {
     return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.end,
       children: [
         Icon(Icons.check_circle_rounded, color: AppColor.greenColor(context), size: 20.sp),
-
         Gap(10.w),
-
         Expanded(
-          child: Text(
-            text,
-            style: AppTextStyle.bodyMedium(
+          child: ValueWithCurrencyIcon(
+            text: text,
+            textStyle: AppTextStyle.bodyMedium(
               context,
             ).copyWith(color: AppColor.blackTextColor(context), height: 1.4),
-            textAlign: TextAlign.end,
           ),
         ),
       ],
@@ -269,7 +267,6 @@ class _FinancingDocumentsTabState extends State<FinancingDocumentsTab> {
       AppLocaleKey.agentDrivingLicenseCopy.tr(),
       AppLocaleKey.agentSalaryStatement.tr(),
     ];
-
     return Container(
       padding: EdgeInsets.all(16.w),
       decoration: BoxDecoration(
@@ -286,9 +283,7 @@ class _FinancingDocumentsTabState extends State<FinancingDocumentsTab> {
               context,
             ).copyWith(fontWeight: FontWeight.w900, color: AppColor.blackTextColor(context)),
           ),
-
           Gap(12.h),
-
           ...uploadItems.map(
             (item) => Padding(
               padding: EdgeInsets.only(bottom: 10.h),
@@ -302,7 +297,6 @@ class _FinancingDocumentsTabState extends State<FinancingDocumentsTab> {
 
   Widget _buildUploadTile(BuildContext context, String label) {
     final file = uploadedFiles[label];
-
     return GestureDetector(
       onTap: () => showUploadOptions(label),
       child: Container(
@@ -321,9 +315,7 @@ class _FinancingDocumentsTabState extends State<FinancingDocumentsTab> {
               color: file != null ? AppColor.greenColor(context) : AppColor.primaryColor(context),
               size: 20.sp,
             ),
-
             Gap(10.w),
-
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
@@ -335,10 +327,8 @@ class _FinancingDocumentsTabState extends State<FinancingDocumentsTab> {
                     ).copyWith(color: AppColor.blackTextColor(context)),
                     textAlign: TextAlign.end,
                   ),
-
                   if (file != null) ...[
                     Gap(4.h),
-
                     Text(
                       file.path.split('/').last,
                       style: AppTextStyle.bodySmall(

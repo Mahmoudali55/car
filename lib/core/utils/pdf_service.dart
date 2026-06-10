@@ -121,7 +121,7 @@ class PdfService {
                       pw.SizedBox(width: 10),
                       pw.Text(
                         el.tr(AppLocaleKey.taxIncluded),
-                        style: pw.TextStyle(fontSize: 12, color: PdfColors.grey700),
+                        style: const pw.TextStyle(fontSize: 12, color: PdfColors.grey700),
                       ),
                     ],
                   ),

@@ -1,3 +1,4 @@
+import 'package:car/core/custom_widgets/custom_sar_text.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
@@ -78,9 +79,9 @@ class CarSummaryCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.baseline,
           textBaseline: TextBaseline.alphabetic,
           children: [
-            Text(
-              AppLocaleKey.agentYearly.tr(),
-              style: AppTextStyle.bodyMedium(
+            ValueWithCurrencyIcon(
+              text: AppLocaleKey.sar.tr(),
+              textStyle: AppTextStyle.bodyMedium(
                 context,
               ).copyWith(color: AppColor.primaryColor(context), fontWeight: FontWeight.w900),
             ),
@@ -152,13 +153,13 @@ class CarSummaryCard extends StatelessWidget {
         _buildChip(
           context,
           label: AppLocaleKey.agentLastPayment.tr(),
-          value: '${AppLocaleKey.agentYearly.tr()}  ${lastPayment.toStringAsFixed(1)}',
+          value: '${AppLocaleKey.sar.tr()}  ${lastPayment.toStringAsFixed(1)}',
         ),
         Gap(16.w),
         _buildChip(
           context,
           label: AppLocaleKey.agentFirstPayment.tr(),
-          value: '${AppLocaleKey.agentYearly.tr()}  ${downPayment.toStringAsFixed(1)}',
+          value: '${AppLocaleKey.sar.tr()}  ${downPayment.toStringAsFixed(1)}',
         ),
         Gap(16.w),
         _buildChip(
@@ -181,9 +182,9 @@ class CarSummaryCard extends StatelessWidget {
           ).copyWith(color: AppColor.greyColor(context), fontSize: 10.sp),
         ),
         Gap(2.h),
-        Text(
-          value,
-          style: AppTextStyle.bodySmall(context).copyWith(
+        ValueWithCurrencyIcon(
+          text: value,
+          textStyle: AppTextStyle.bodySmall(context).copyWith(
             color: AppColor.blackTextColor(context),
             fontWeight: FontWeight.w700,
             fontSize: 11.sp,

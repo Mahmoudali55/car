@@ -1,5 +1,6 @@
 import 'package:car/core/cache/hive/hive_methods.dart';
 import 'package:car/core/custom_widgets/buttons/custom_button.dart';
+import 'package:car/core/custom_widgets/custom_sar_text.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
@@ -137,9 +138,9 @@ class _FinancingInfoScreenState extends State<FinancingInfoScreen> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            AppLocaleKey.agentTotalPrice.tr(),
-                            style: AppTextStyle.bodyMedium(context).copyWith(
+                          ValueWithCurrencyIcon(
+                            text: AppLocaleKey.agentTotalPrice.tr(),
+                            textStyle: AppTextStyle.bodyMedium(context).copyWith(
                               color: AppColor.blackTextColor(context).withValues(alpha: 0.7),
                               fontWeight: FontWeight.bold,
                             ),
@@ -152,9 +153,9 @@ class _FinancingInfoScreenState extends State<FinancingInfoScreen> {
                                 color: AppColor.blackTextColor(context),
                               ),
                               Gap(6.w),
-                              Text(
-                                '${widget.totalPrice.toStringAsFixed(2)} SAR',
-                                style: AppTextStyle.bodyMedium(
+                              ValueWithCurrencyIcon(
+                                text: '${widget.totalPrice.toStringAsFixed(2)} SAR',
+                                textStyle: AppTextStyle.bodyMedium(
                                   context,
                                 ).copyWith(fontWeight: FontWeight.w900, fontSize: 16.sp),
                               ),

@@ -1,3 +1,4 @@
+import 'package:car/core/custom_widgets/custom_sar_text.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
@@ -74,9 +75,9 @@ class _ReservationPricingCardState extends State<ReservationPricingCard> {
                         ),
                       ],
                     ),
-                    Text(
-                      "${widget.depositAmount.toInt()} ${AppLocaleKey.sar.tr()}",
-                      style: AppTextStyle.bodyMedium(context).copyWith(
+                    ValueWithCurrencyIcon(
+                      text: "${widget.depositAmount.toInt()} ${AppLocaleKey.sar.tr()}",
+                      textStyle: AppTextStyle.bodyMedium(context).copyWith(
                         fontWeight: FontWeight.w900,
                         color: const Color(0xFF2E7D32),
                         fontSize: 18.sp,

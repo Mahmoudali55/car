@@ -1,4 +1,5 @@
 import 'package:car/core/custom_widgets/custom_image/custom_network_image.dart';
+import 'package:car/core/custom_widgets/custom_sar_text.dart';
 import 'package:car/core/images/app_images.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
@@ -154,11 +155,11 @@ class PricingDetailsBottomSheet extends StatelessWidget {
                   context,
                 ).copyWith(fontWeight: FontWeight.w900, fontSize: 18.sp),
               ),
-              Text(
-                '${totalPrice.toStringAsFixed(2)} ${AppLocaleKey.sar.tr()}',
-                style: AppTextStyle.titleMedium(
+              ValueWithCurrencyIcon(
+                text: ':${totalPrice.toStringAsFixed(2)} ${AppLocaleKey.sar.tr()}',
+                textStyle: AppTextStyle.titleMedium(
                   context,
-                ).copyWith(fontWeight: FontWeight.w900, fontSize: 22.sp),
+                ).copyWith(fontWeight: FontWeight.w900, fontSize: 18.sp),
               ),
             ],
           ),
@@ -181,9 +182,9 @@ class PricingDetailsBottomSheet extends StatelessWidget {
         ),
         Row(
           children: [
-            Text(
-              value,
-              style: AppTextStyle.bodyMedium(
+            ValueWithCurrencyIcon(
+              text: '$value ${AppLocaleKey.sar.tr()}',
+              textStyle: AppTextStyle.bodyMedium(
                 context,
               ).copyWith(fontWeight: FontWeight.w900, fontSize: 16.sp),
             ),

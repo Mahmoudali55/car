@@ -1,3 +1,4 @@
+import 'package:car/core/custom_widgets/custom_sar_text.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/features/home/data/model/brand_cars_data_model.dart';
@@ -37,9 +38,9 @@ class CarSummaryCard extends StatelessWidget {
               overflow: TextOverflow.ellipsis,
             ),
           ),
-          Text(
-            '${car.price ?? '0'} SAR',
-            style: AppTextStyle.bodyMedium(
+          ValueWithCurrencyIcon(
+            text: '${car.price ?? '0'} SAR',
+            textStyle: AppTextStyle.bodyMedium(
               context,
             ).copyWith(fontWeight: FontWeight.w900, fontSize: 14.sp),
           ),

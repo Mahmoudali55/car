@@ -1,3 +1,4 @@
+import 'package:car/core/custom_widgets/custom_sar_text.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
@@ -187,9 +188,9 @@ class FinancingRequirementsBottomSheet extends StatelessWidget {
         Icon(Icons.check_circle_rounded, color: AppColor.greenColor(context), size: 20.sp),
         Gap(10.w),
         Expanded(
-          child: Text(
-            text,
-            style: AppTextStyle.bodyMedium(
+          child: ValueWithCurrencyIcon(
+            text: text,
+            textStyle: AppTextStyle.bodyMedium(
               context,
             ).copyWith(color: AppColor.blackTextColor(context), height: 1.4),
           ),

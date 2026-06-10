@@ -1,3 +1,4 @@
+import 'package:car/core/custom_widgets/custom_sar_text.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
@@ -49,9 +50,9 @@ class CustomMonthlyInstallmentCardWidget extends StatelessWidget {
                 ).copyWith(color: AppColor.blackTextColor(context), fontWeight: FontWeight.w900),
               ),
               Gap(8.w),
-              Text(
-                AppLocaleKey.agentYearly.tr(),
-                style: AppTextStyle.titleLarge(
+              ValueWithCurrencyIcon(
+                text: AppLocaleKey.sar.tr(),
+                textStyle: AppTextStyle.titleLarge(
                   context,
                 ).copyWith(color: AppColor.blackTextColor(context), fontWeight: FontWeight.w900),
               ),
@@ -90,9 +91,9 @@ class CustomMonthlyInstallmentCardWidget extends StatelessWidget {
                 ).copyWith(color: AppColor.primaryColor(context), fontWeight: FontWeight.w900),
               ),
               Gap(4.w),
-              Text(
-                AppLocaleKey.agentYearly.tr(),
-                style: AppTextStyle.bodyLarge(
+              ValueWithCurrencyIcon(
+                text: AppLocaleKey.sar.tr(),
+                textStyle: AppTextStyle.bodyLarge(
                   context,
                 ).copyWith(color: AppColor.primaryColor(context), fontWeight: FontWeight.w900),
               ),
