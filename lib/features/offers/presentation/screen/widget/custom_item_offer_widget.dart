@@ -1,4 +1,5 @@
 import 'package:car/core/custom_widgets/custom_image/custom_network_image.dart';
+import 'package:car/core/custom_widgets/custom_sar_text.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/features/favorites/presentation/view/cubit/favorites_cubit.dart';
@@ -141,24 +142,20 @@ class CustomItemOfferWidget extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            offer['oldPrice'],
-                            style: AppTextStyle.bodySmall(context).copyWith(
+                          ValueWithCurrencyIcon(
+                            text: offer['oldPrice'],
+                            textStyle: AppTextStyle.bodySmall(context).copyWith(
                               color: AppColor.blackTextColor(context).withValues(alpha: 0.38),
                               fontSize: 11.sp,
                               decoration: TextDecoration.lineThrough,
                             ),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
                           ),
-                          Text(
-                            offer['price'],
-                            style: AppTextStyle.titleSmall(context).copyWith(
+                          ValueWithCurrencyIcon(
+                            text: offer['price'],
+                            textStyle: AppTextStyle.titleSmall(context).copyWith(
                               color: AppColor.blackTextColor(context),
                               fontWeight: FontWeight.w900,
                             ),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
                           ),
                         ],
                       ),

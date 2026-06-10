@@ -12,7 +12,7 @@ class ValueWithCurrencyIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final style = textStyle ?? DefaultTextStyle.of(context).style;
-    final parts = text.split(RegExp(r'\s*ر\.س\s*'));
+    final parts = text.split(RegExp(r'\s*(ر\.س|ريال|SAR)\s*'));
 
     if (parts.length == 1) {
       return Text(text, style: style);

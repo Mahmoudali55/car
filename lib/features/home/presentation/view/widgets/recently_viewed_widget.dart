@@ -1,10 +1,12 @@
 import 'package:car/core/custom_widgets/custom_image/custom_network_image.dart';
+import 'package:car/core/images/app_images.dart';
 import 'package:car/core/routes/routes_name.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/core/utils/navigator_methods.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 
 class RecentlyViewedWidget extends StatelessWidget {
@@ -106,12 +108,33 @@ class RecentlyViewedWidget extends StatelessWidget {
                             ),
                           ),
                           Gap(6.h),
-                          Text(
-                            car['price'] ?? '',
-                            style: AppTextStyle.bodySmall(context).copyWith(
-                              color: AppColor.primaryColor(context),
-                              fontWeight: FontWeight.bold,
-                            ),
+                          Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Flexible(
+                                child: Text(
+                                  '${car['price']}',
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: AppTextStyle.titleMedium(context).copyWith(
+                                    color: AppColor.primaryColor(context),
+                                    fontWeight: FontWeight.w900,
+                                    fontSize: 19.sp,
+                                    fontFamily: 'Arial',
+                                  ),
+                                ),
+                              ),
+                              SizedBox(width: 4.w),
+                              SvgPicture.asset(
+                                AppImages.sar,
+                                width: 18.w,
+                                height: 18.h,
+                                colorFilter: ColorFilter.mode(
+                                  AppColor.primaryColor(context),
+                                  BlendMode.srcIn,
+                                ),
+                              ),
+                            ],
                           ),
                         ],
                       ),

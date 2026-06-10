@@ -1,4 +1,5 @@
 import 'package:car/core/custom_widgets/custom_image/custom_network_image.dart';
+import 'package:car/core/custom_widgets/custom_sar_text.dart';
 import 'package:car/core/routes/routes_name.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
@@ -91,9 +92,10 @@ class FavoriteItemWidget extends StatelessWidget {
                     children: [
                       Text(
                         car['brand'] ?? '',
-                        style: AppTextStyle.bodySmall(
-                          context,
-                        ).copyWith(color: AppColor.primaryColor(context), fontWeight: FontWeight.bold),
+                        style: AppTextStyle.bodySmall(context).copyWith(
+                          color: AppColor.primaryColor(context),
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                       Gap(4.h),
                       Text(
@@ -112,9 +114,10 @@ class FavoriteItemWidget extends StatelessWidget {
                           color: AppColor.primaryColor(context).withValues(alpha: 0.1),
                           borderRadius: BorderRadius.circular(12.r),
                         ),
-                        child: Text(
-                          car['price'] ?? '',
-                          style: AppTextStyle.bodySmall(context).copyWith(
+                        child: ValueWithCurrencyIcon(
+                          text: '${car['price']} SAR',
+
+                          textStyle: AppTextStyle.bodySmall(context).copyWith(
                             color: AppColor.primaryColor(context),
                             fontWeight: FontWeight.bold,
                           ),
@@ -133,7 +136,11 @@ class FavoriteItemWidget extends StatelessWidget {
                     onPressed: () {
                       context.read<FavoritesCubit>().toggleFavorite(car);
                     },
-                    icon: Icon(Icons.favorite_rounded, color: AppColor.redColor(context), size: 22.sp),
+                    icon: Icon(
+                      Icons.favorite_rounded,
+                      color: AppColor.redColor(context),
+                      size: 22.sp,
+                    ),
                   ),
                 ),
               ],

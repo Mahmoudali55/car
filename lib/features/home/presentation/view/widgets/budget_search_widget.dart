@@ -1,3 +1,4 @@
+import 'package:car/core/custom_widgets/custom_sar_text.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
@@ -77,9 +78,9 @@ class _BudgetSearchWidgetState extends State<BudgetSearchWidget> {
                     : [],
               ),
               child: Center(
-                child: Text(
-                  budgets[index],
-                  style: AppTextStyle.bodySmall(context).copyWith(
+                child: ValueWithCurrencyIcon(
+                  text: '${budgets[index]}  ر.س',
+                  textStyle: AppTextStyle.bodySmall(context).copyWith(
                     color: isSelected
                         ? AppColor.whiteColor(context)
                         : AppColor.blackTextColor(context).withValues(alpha: 0.8),
