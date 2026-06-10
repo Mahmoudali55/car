@@ -108,6 +108,7 @@ flutter:
     - assets/images/
     - assets/images/car.jpeg
     - assets/global_icon/
+    - assets/svg/sar.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

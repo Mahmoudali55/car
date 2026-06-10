@@ -66,7 +66,7 @@ class CartCubit extends Cubit<CartState> {
   void _updateCart(List<Map<String, dynamic>> items) {
     double total = 0.0;
     for (var item in items) {
-      // Extract price from string like "850,000  ر.س       "
+      // Extract price from string like "850,000         "
       String priceStr = item['price'].toString().replaceAll(RegExp(r'[^0-9]'), '');
       total += double.tryParse(priceStr) ?? 0.0;
     }

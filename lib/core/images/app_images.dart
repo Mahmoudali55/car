@@ -8,33 +8,27 @@ class AppImages {
 
   /// Assets for assetsGlobalIconEmptyFolderIcon
   /// assets/global_icon/emptyFolderIcon.svg
-  static const String assetsGlobalIconEmptyFolderIcon =
-      "assets/global_icon/emptyFolderIcon.svg";
+  static const String assetsGlobalIconEmptyFolderIcon = "assets/global_icon/emptyFolderIcon.svg";
 
   /// Assets for assetsGlobalIconErrorIcon
   /// assets/global_icon/errorIcon.svg
-  static const String assetsGlobalIconErrorIcon =
-      "assets/global_icon/errorIcon.svg";
+  static const String assetsGlobalIconErrorIcon = "assets/global_icon/errorIcon.svg";
 
   /// Assets for assetsGlobalIconEyeHideIcon
   /// assets/global_icon/eyeHideIcon.svg
-  static const String assetsGlobalIconEyeHideIcon =
-      "assets/global_icon/eyeHideIcon.svg";
+  static const String assetsGlobalIconEyeHideIcon = "assets/global_icon/eyeHideIcon.svg";
 
   /// Assets for assetsGlobalIconEyeShowIcon
   /// assets/global_icon/eyeShowIcon.svg
-  static const String assetsGlobalIconEyeShowIcon =
-      "assets/global_icon/eyeShowIcon.svg";
+  static const String assetsGlobalIconEyeShowIcon = "assets/global_icon/eyeShowIcon.svg";
 
   /// Assets for assetsGlobalIconFailure
   /// assets/global_icon/failure.svg
-  static const String assetsGlobalIconFailure =
-      "assets/global_icon/failure.svg";
+  static const String assetsGlobalIconFailure = "assets/global_icon/failure.svg";
 
   /// Assets for assetsGlobalIconGallery
   /// assets/global_icon/gallery.svg
-  static const String assetsGlobalIconGallery =
-      "assets/global_icon/gallery.svg";
+  static const String assetsGlobalIconGallery = "assets/global_icon/gallery.svg";
 
   /// Assets for assetsGlobalIconHelp
   /// assets/global_icon/help.svg
@@ -42,23 +36,19 @@ class AppImages {
 
   /// Assets for assetsGlobalIconOfflineIcon
   /// assets/global_icon/offlineIcon.svg
-  static const String assetsGlobalIconOfflineIcon =
-      "assets/global_icon/offlineIcon.svg";
+  static const String assetsGlobalIconOfflineIcon = "assets/global_icon/offlineIcon.svg";
 
   /// Assets for assetsGlobalIconRefreshIcon
   /// assets/global_icon/refreshIcon.svg
-  static const String assetsGlobalIconRefreshIcon =
-      "assets/global_icon/refreshIcon.svg";
+  static const String assetsGlobalIconRefreshIcon = "assets/global_icon/refreshIcon.svg";
 
   /// Assets for assetsGlobalIconSuccess
   /// assets/global_icon/success.svg
-  static const String assetsGlobalIconSuccess =
-      "assets/global_icon/success.svg";
+  static const String assetsGlobalIconSuccess = "assets/global_icon/success.svg";
 
   /// Assets for assetsGlobalIconWarning
   /// assets/global_icon/warning.svg
-  static const String assetsGlobalIconWarning =
-      "assets/global_icon/warning.svg";
+  static const String assetsGlobalIconWarning = "assets/global_icon/warning.svg";
 
   /// Assets for assetsHELLO
   /// assets/HELLO.md
@@ -94,7 +84,8 @@ class AppImages {
 
   /// Assets for assetsImagesOnboardingCarSelection
   /// assets/images/onboarding_car_selection.png
-  static const String assetsImagesOnboardingCarSelection = "assets/images/onboarding_car_selection.png";
+  static const String assetsImagesOnboardingCarSelection =
+      "assets/images/onboarding_car_selection.png";
 
   /// Assets for assetsImagesOnboardingCarService
   /// assets/images/onboarding_car_service.png
@@ -131,5 +122,5 @@ class AppImages {
   /// Assets for assetsImagesPorsche
   /// assets/images/porsche.png
   static const String assetsImagesPorsche = "assets/images/porsche.png";
+  static const String sar = "assets/svg/sar.svg";
 }
-

@@ -11,10 +11,12 @@ class GlassFieldWidget extends StatelessWidget {
     required this.hint,
     this.keyboardType,
     required this.maxLines,
+    this.hintWidget,
   });
   final String hint;
   final TextInputType? keyboardType;
   final int maxLines;
+  final Widget? hintWidget;
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
@@ -35,6 +37,7 @@ class GlassFieldWidget extends StatelessWidget {
             ).copyWith(color: AppColor.blackTextColor(context)),
             decoration: InputDecoration(
               hintText: hint,
+              hint: hintWidget,
               hintStyle: AppTextStyle.bodyMedium(
                 context,
               ).copyWith(color: AppColor.blackTextColor(context).withValues(alpha: (0.2))),

@@ -1,4 +1,5 @@
 import 'package:car/core/custom_widgets/buttons/custom_button.dart';
+import 'package:car/core/images/app_images.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
@@ -6,6 +7,7 @@ import 'package:car/features/home/presentation/view/widgets/mini_detail_widget.d
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 
 class CardContentSection extends StatelessWidget {
@@ -45,13 +47,26 @@ class CardContentSection extends StatelessWidget {
             ],
           ),
           Gap(10.h),
-          Text(
-            '${car['price']!} ${AppLocaleKey.sar.tr()}',
-            style: AppTextStyle.titleMedium(context).copyWith(
-              color: AppColor.primaryColor(context),
-              fontWeight: FontWeight.w900,
-              fontSize: 19.sp,
-              fontFamily: 'Arial',
+          RichText(
+            text: TextSpan(
+              style: AppTextStyle.titleMedium(context).copyWith(
+                color: AppColor.primaryColor(context),
+                fontWeight: FontWeight.w900,
+                fontSize: 19.sp,
+                fontFamily: 'Arial',
+              ),
+              children: [
+                TextSpan(text: '${car['price']} '),
+                WidgetSpan(
+                  alignment: PlaceholderAlignment.middle,
+                  child: SvgPicture.asset(
+                    AppImages.sar,
+                    width: 18.w,
+                    height: 18.h,
+                    color: AppColor.primaryColor(context),
+                  ),
+                ),
+              ],
             ),
           ),
           Gap(10.h),

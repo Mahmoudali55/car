@@ -1,3 +1,4 @@
+import 'package:car/core/custom_widgets/custom_sar_text.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/routes/routes_name.dart';
 import 'package:car/core/theme/app_colors.dart';
@@ -50,9 +51,10 @@ class BankInstallmentsBannerWidget extends StatelessWidget {
               ),
               Gap(4.w),
               Flexible(
-                child: Text(
-                  '${AppLocaleKey.aed.tr()} / ${AppLocaleKey.agentAppointment.tr() == "English" ? "Mo" : "شهرياً"}',
-                  style: AppTextStyle.bodySmall(
+                child: ValueWithCurrencyIcon(
+                  text:
+                      '${AppLocaleKey.aed.tr()} / ${AppLocaleKey.agentAppointment.tr() == "English" ? "Mo" : "شهرياً"}',
+                  textStyle: AppTextStyle.bodySmall(
                     context,
                   ).copyWith(color: AppColor.blueColor(context), fontSize: 10.sp),
                 ),

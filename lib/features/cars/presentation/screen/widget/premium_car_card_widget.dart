@@ -15,6 +15,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 
 class PremiumCarCardWidget extends StatelessWidget {
@@ -171,11 +172,13 @@ class PremiumCarCardWidget extends StatelessWidget {
                                       ),
                                     ),
                                     Gap(4.w),
-                                    Text(
-                                      AppLocaleKey.aed.tr(),
-                                      style: AppTextStyle.bodySmall(context).copyWith(
-                                        color: AppColor.greenColor(context),
-                                        fontSize: 10.sp,
+                                    SvgPicture.asset(
+                                      AppImages.sar,
+                                      height: 16.h,
+                                      width: 16.w,
+                                      colorFilter: ColorFilter.mode(
+                                        AppColor.greenColor(context),
+                                        BlendMode.srcIn,
                                       ),
                                     ),
                                   ],

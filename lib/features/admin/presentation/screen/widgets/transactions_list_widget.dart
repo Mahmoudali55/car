@@ -1,3 +1,4 @@
+import 'package:car/core/custom_widgets/custom_sar_text.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
@@ -59,9 +60,11 @@ class TransactionsListWidget extends StatelessWidget {
                   ],
                 ),
               ),
-              Text(
-                index == 0 ? '+450,000 ${AppLocaleKey.aed.tr()}' : '+299 ${AppLocaleKey.aed.tr()}',
-                style: TextStyle(
+              ValueWithCurrencyIcon(
+                text: index == 0
+                    ? '+450,000 ${AppLocaleKey.aed.tr()}'
+                    : '+299 ${AppLocaleKey.aed.tr()}',
+                textStyle: TextStyle(
                   color: index == 0
                       ? AppColor.greenColor(context)
                       : AppColor.blackTextColor(context),

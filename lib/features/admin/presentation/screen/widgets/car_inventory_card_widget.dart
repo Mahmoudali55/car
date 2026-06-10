@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:car/core/images/app_images.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
@@ -7,6 +8,7 @@ import 'package:car/features/agent/presentation/screens/widget/quote_builder_dia
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 
 class CarInventoryCardWidget extends StatelessWidget {
@@ -143,11 +145,13 @@ class CarInventoryCardWidget extends StatelessWidget {
                               fontWeight: FontWeight.w900,
                             ),
                           ),
-                          Text(
-                            AppLocaleKey.aed.tr(),
-                            style: AppTextStyle.bodySmall(context).copyWith(
-                              color: AppColor.blackTextColor(context).withValues(alpha: 0.4),
-                              fontWeight: FontWeight.bold,
+                          SvgPicture.asset(
+                            AppImages.sar,
+                            height: 16.h,
+                            width: 16.w,
+                            colorFilter: ColorFilter.mode(
+                              AppColor.greenColor(context),
+                              BlendMode.srcIn,
                             ),
                           ),
                         ],

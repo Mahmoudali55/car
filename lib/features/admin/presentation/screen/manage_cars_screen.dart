@@ -70,7 +70,7 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
       'year': '2023',
       'mileage': '8,500 كم',
       'image': AppImages.assetsImagesYaris,
-      'bank': 'البنك السعودي الفرنسي',
+      'bank': 'البنك السعودي الفي',
     },
   ];
 
@@ -81,11 +81,7 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
   void _showPrintDialog(Map<String, String> car) {
     Navigator.push(
       context,
-      MaterialPageRoute(
-        builder: (context) => CarQuotationPreviewScreen(
-          car: car,
-        ),
-      ),
+      MaterialPageRoute(builder: (context) => CarQuotationPreviewScreen(car: car)),
     );
   }
 
