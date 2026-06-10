@@ -7,7 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
 class PriceRow extends StatelessWidget {
-  const PriceRow({required this.car});
+  const PriceRow({super.key, required this.car});
 
   final Map<String, dynamic> car;
 

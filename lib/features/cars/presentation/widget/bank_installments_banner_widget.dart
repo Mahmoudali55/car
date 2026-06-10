@@ -60,21 +60,38 @@ class BankInstallmentsBannerWidget extends StatelessWidget {
             ],
           ),
           const Spacer(),
-          Row(
-            children: [
-              Icon(Icons.calculate_outlined, color: AppColor.blueColor(context), size: 14.sp),
-              Gap(4.w),
-              Expanded(
-                child: Text(
-                  AppLocaleKey.agentCalculateFinancing.tr(),
-                  style: AppTextStyle.bodySmall(context).copyWith(
-                    color: AppColor.blueColor(context),
-                    decoration: TextDecoration.underline,
-                    fontWeight: FontWeight.bold,
+          Container(
+            height: 20.h,
+            padding: EdgeInsets.symmetric(horizontal: 6.w),
+            decoration: BoxDecoration(
+              color: AppColor.whiteColor(context),
+              borderRadius: BorderRadius.circular(16.r),
+              border: Border.all(color: AppColor.greyColor(context), width: 0.09.w),
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Icon(Icons.calculate_outlined, color: AppColor.blueColor(context), size: 14.sp),
+                Gap(4.w),
+                Expanded(
+                  child: Text(
+                    AppLocaleKey.agentCalculateFinancing.tr(),
+                    style: AppTextStyle.bodySmall(context).copyWith(
+                      color: AppColor.blueColor(context),
+                      decoration: TextDecoration.underline,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
-              ),
-            ],
+                Gap(4.w),
+                Icon(
+                  Icons.arrow_forward_ios_rounded,
+                  color: AppColor.primaryColor(context),
+                  size: 12.sp,
+                ),
+              ],
+            ),
           ),
         ],
       ),

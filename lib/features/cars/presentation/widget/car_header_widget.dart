@@ -133,25 +133,20 @@ class _CarHeaderWidgetState extends State<CarHeaderWidget> {
         Gap(15.h),
 
         // Pricing Section Card
-        Container(
-          padding: EdgeInsets.all(16.w),
-          decoration: BoxDecoration(
-            color: AppColor.whiteColor(context),
-            borderRadius: BorderRadius.circular(12.r),
-            border: Border.all(color: AppColor.greyColor(context).withValues(alpha: 0.1)),
-            boxShadow: [
-              BoxShadow(
-                color: AppColor.blackColor(context).withValues(alpha: 0.02),
-                blurRadius: 10,
-                offset: const Offset(0, 4),
-              ),
-            ],
-          ),
-          child: IntrinsicHeight(
-            child: Row(
-              children: [
-                // Cash Price (Right)
-                Expanded(
+        IntrinsicHeight(
+          child: Row(
+            children: [
+              // Cash Price (Right)
+              Expanded(
+                child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),
+                  decoration: BoxDecoration(
+                    color: AppColor.whiteColor(context),
+                    borderRadius: BorderRadius.circular(6.r),
+                    border: Border(
+                      right: BorderSide(color: AppColor.greenColor(context), width: 2.w),
+                    ),
+                  ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -194,24 +189,34 @@ class _CarHeaderWidgetState extends State<CarHeaderWidget> {
                     ],
                   ),
                 ),
-                VerticalDivider(color: AppColor.greyColor(context), width: 32.w),
-                widget.car.installments == null
-                    ? Expanded(
-                        child: GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (_) => BankInstallmentsBannerWidget(car: widget.car),
-                              ),
-                            );
-                          },
+              ),
+
+              widget.car.installments == null
+                  ? Expanded(
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => BankInstallmentsBannerWidget(car: widget.car),
+                            ),
+                          );
+                        },
+                        child: Container(
+                          padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),
+                          decoration: BoxDecoration(
+                            color: AppColor.whiteColor(context),
+                            borderRadius: BorderRadius.circular(6.r),
+                            border: Border(
+                              right: BorderSide(color: AppColor.primaryColor(context), width: 2.w),
+                            ),
+                          ),
                           child: BankInstallmentsBannerWidget(car: widget.car),
                         ),
-                      )
-                    : const SizedBox.shrink(),
-              ],
-            ),
+                      ),
+                    )
+                  : const SizedBox.shrink(),
+            ],
           ),
         ),
       ],
