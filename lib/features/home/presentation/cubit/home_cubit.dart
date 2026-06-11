@@ -82,10 +82,8 @@ class HomeCubit extends Cubit<HomeState> {
       final brandName = brandsToFetch[i].groupName;
 
       result.fold((_) {}, (carsList) {
-        if (carsList is List<GetBrandCarsDataModel>) {
-          allCarsMap[brandName] = carsList;
-        }
-      });
+        allCarsMap[brandName] = carsList;
+            });
     }
 
     emit(state.copyWith(allPopularCarsStatus: StatusState.success(allCarsMap)));

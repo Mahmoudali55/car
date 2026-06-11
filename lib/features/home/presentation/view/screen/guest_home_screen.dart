@@ -34,6 +34,7 @@ class _HomeGuestScreenState extends State<HomeGuestScreen> {
     super.initState();
   }
 
+  @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       physics: const BouncingScrollPhysics(),

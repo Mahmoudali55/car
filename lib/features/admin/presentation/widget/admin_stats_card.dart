@@ -10,6 +10,7 @@ class AdminStatsCard extends StatelessWidget {
   final String value;
   final IconData icon;
   final Color color;
+  final String? percentage;
 
   const AdminStatsCard({
     super.key,
@@ -17,6 +18,7 @@ class AdminStatsCard extends StatelessWidget {
     required this.value,
     required this.icon,
     required this.color,
+    this.percentage,
   });
 
   @override
@@ -89,7 +91,7 @@ class AdminStatsCard extends StatelessWidget {
           Icon(Icons.trending_up_rounded, color: AppColor.greenColor(context), size: 12.sp),
           Gap(4.w),
           Text(
-            '+8%',
+            percentage ?? '',
             style: TextStyle(
               color: AppColor.greenColor(context),
               fontSize: 10.sp,
@@ -102,18 +104,39 @@ class AdminStatsCard extends StatelessWidget {
   }
 
   Widget _buildTextContent(BuildContext context) {
+    final intValue = int.tryParse(value);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          value,
-          style: TextStyle(
-            color: AppColor.blackTextColor(context),
-            fontSize: 20.sp,
-            fontWeight: FontWeight.w900,
-            letterSpacing: -0.5,
+        if (intValue != null)
+          TweenAnimationBuilder<int>(
+            key: ValueKey<int>(intValue),
+            tween: IntTween(begin: 0, end: intValue),
+            duration: const Duration(milliseconds: 3000),
+            curve: Curves.easeOutCubic,
+            builder: (context, val, child) {
+              return Text(
+                val.toString(),
+                style: TextStyle(
+                  color: AppColor.blackTextColor(context),
+                  fontSize: 20.sp,
+                  fontWeight: FontWeight.w900,
+                  letterSpacing: -0.5,
+                ),
+              );
+            },
+          )
+        else
+          Text(
+            value,
+            style: TextStyle(
+              color: AppColor.blackTextColor(context),
+              fontSize: 20.sp,
+              fontWeight: FontWeight.w900,
+              letterSpacing: -0.5,
+            ),
           ),
-        ),
         Gap(2.h),
         Text(
           title,
