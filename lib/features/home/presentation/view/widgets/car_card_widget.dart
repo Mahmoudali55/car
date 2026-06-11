@@ -24,21 +24,24 @@ class CarCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
-      child: Card(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.r)),
-        shadowColor: AppColor.primaryColor(context).withValues(alpha: 0.25),
-        elevation: 4,
-        child: Column(
-          children: [
-            Expanded(
-              flex: 10,
-              child: CardImageSection(car: car, isSelected: isSelected, heroTag: heroTag),
-            ),
-            Expanded(
-              flex: 15,
-              child: CardContentSection(car: car, onTap: onTap, onOrderNow: onOrderNow),
-            ),
-          ],
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Card(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.r)),
+          shadowColor: AppColor.primaryColor(context).withValues(alpha: 0.25),
+          elevation: 4,
+          child: Column(
+            children: [
+              Expanded(
+                flex: 10,
+                child: CardImageSection(car: car, isSelected: isSelected, heroTag: heroTag),
+              ),
+              Expanded(
+                flex: 15,
+                child: CardContentSection(car: car, onTap: onTap, onOrderNow: onOrderNow),
+              ),
+            ],
+          ),
         ),
       ),
     );
