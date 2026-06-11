@@ -110,14 +110,16 @@ class _FeaturedCarsSliderWidgetState extends State<FeaturedCarsSliderWidget> {
                         Positioned.fill(
                           child: Hero(
                             tag: 'featured_car_image_${car['itemCode'] ?? car['name']}',
-                            child: car['image'].toString().trim().startsWith('http')
-                                ? CustomNetworkImage(imageUrl: car['image']!, fit: BoxFit.cover)
-                                : Image.asset(
-                                    car['image']!,
-                                    fit: BoxFit.cover,
-                                    errorBuilder: (context, error, stackTrace) =>
-                                        _buildErrorImage(context),
-                                  ),
+                            child: (car['image'] != null && car['image']!.trim().isNotEmpty)
+                                ? (car['image'].toString().trim().startsWith('http')
+                                    ? CustomNetworkImage(imageUrl: car['image']!, fit: BoxFit.cover)
+                                    : Image.asset(
+                                        car['image']!,
+                                        fit: BoxFit.cover,
+                                        errorBuilder: (context, error, stackTrace) =>
+                                            _buildErrorImage(context),
+                                      ))
+                                : _buildErrorImage(context),
                           ),
                         ),
 

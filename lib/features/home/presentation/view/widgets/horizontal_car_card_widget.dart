@@ -67,7 +67,9 @@ class HorizontalCarCardWidget extends StatelessWidget {
                           width: double.infinity,
                         )
                       : Image.asset(
-                          car['image'] ?? AppImages.assetsImagesCar,
+                          (car['image'] != null && car['image'].toString().trim().isNotEmpty)
+                              ? car['image']
+                              : AppImages.assetsImagesCar,
                           fit: BoxFit.fill,
                           width: double.infinity,
                         ),

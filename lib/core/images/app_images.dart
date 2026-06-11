@@ -109,7 +109,7 @@ class AppImages {
 
   /// Assets for assetsImagesPlaceholder
   /// assets/images/placeholder.png
-  static const String assetsImagesPlaceholder = "assets/images/placeholder.png";
+  static const String assetsImagesPlaceholder = "assets/images/picture.png";
 
   /// Assets for assetsImagesG63
   /// assets/images/g63.png

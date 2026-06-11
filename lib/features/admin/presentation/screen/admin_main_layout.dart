@@ -27,7 +27,7 @@ class _AdminMainLayoutState extends State<AdminMainLayout> {
 
   final List<Widget> _screens = [
     BlocProvider.value(value: sl<AdminCubit>(), child: const AdminDashboardScreen()),
-    const ManageCarsScreen(),
+    BlocProvider.value(value: sl<AdminCubit>(), child: const ManageCarsScreen()),
     const ManageBookingsScreen(),
     const RevenueReportScreen(),
     const AdminSettingsScreen(),

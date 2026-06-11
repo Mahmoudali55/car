@@ -67,7 +67,7 @@ class FavoriteItemWidget extends StatelessWidget {
                               width: 110.w,
                             ),
                           )
-                        : car['image'] != null
+                        : (car['image'] != null && car['image'].toString().trim().isNotEmpty)
                         ? ClipRRect(
                             borderRadius: BorderRadius.circular(16.r),
                             child: Image.asset(

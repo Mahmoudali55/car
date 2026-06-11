@@ -14,11 +14,9 @@ class CardImage extends StatelessWidget {
     final imageUrl = car['image'].toString();
     final actualHeroTag = heroTag ?? 'car_image_${car['itemCode'] ?? car['name']}';
 
-    return Container(
+    return SizedBox(
       height: 150.h,
       width: double.infinity,
-
-      decoration: BoxDecoration(image: DecorationImage(image: NetworkImage(imageUrl))),
       child: Hero(
         tag: actualHeroTag,
         child: imageUrl.trim().startsWith('http')

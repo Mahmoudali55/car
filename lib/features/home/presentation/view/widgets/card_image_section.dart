@@ -1,4 +1,5 @@
 import 'package:car/core/custom_widgets/custom_image/custom_network_image.dart';
+import 'package:car/core/images/app_images.dart';
 import 'package:car/features/home/presentation/view/widgets/discount_badge_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -12,7 +13,7 @@ class CardImageSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final imageUrl = car['image'].toString();
+    final imageUrl = car['image']?.toString() ?? '';
 
     return Stack(
       fit: StackFit.expand,
@@ -21,7 +22,11 @@ class CardImageSection extends StatelessWidget {
           tag: 'car_image_${car['itemCode'] ?? car['name']}',
           child: imageUrl.trim().startsWith('http')
               ? CustomNetworkImage(imageUrl: imageUrl, height: 190.h, fit: BoxFit.fill)
-              : Image.asset(imageUrl, height: 190.h, fit: BoxFit.fill),
+              : Image.asset(
+                  imageUrl.trim().isNotEmpty ? imageUrl : AppImages.assetsImagesPlaceholder,
+                  height: 190.h,
+                  fit: BoxFit.fill,
+                ),
         ),
         Positioned(
           top: 6.h,

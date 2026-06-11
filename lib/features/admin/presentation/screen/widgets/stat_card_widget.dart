@@ -1,4 +1,5 @@
 import 'package:car/core/theme/app_colors.dart';
+import 'package:car/core/theme/app_text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -34,21 +35,29 @@ class StatCard extends StatelessWidget {
               height: 7.w,
               decoration: BoxDecoration(color: dotColor, shape: BoxShape.circle),
             ),
-            Gap(6.h),
-            Text(
-              '$count',
-              style: TextStyle(
-                fontSize: 22.sp,
-                fontWeight: FontWeight.w600,
-                color: AppColor.blackTextColor(context),
+            Gap(15.h),
+            // Animated count — counts up from 0 whenever value changes
+            TweenAnimationBuilder<int>(
+              key: ValueKey<int>(count),
+              tween: IntTween(begin: 0, end: count),
+              duration: const Duration(milliseconds: 1200),
+              curve: Curves.easeOutCubic,
+              builder: (context, val, _) => Text(
+                '$val',
+                style: TextStyle(
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.w700,
+                  color: AppColor.blackTextColor(context),
+                ),
               ),
             ),
+            Gap(15.h),
             Text(
               label,
-              style: TextStyle(
-                fontSize: 11.sp,
-                color: AppColor.blackTextColor(context).withValues(alpha: 0.45),
-              ),
+              style: AppTextStyle.bodySmall(
+                context,
+                color: AppColor.blackTextColor(context),
+              ).copyWith(fontWeight: FontWeight.bold),
             ),
           ],
         ),

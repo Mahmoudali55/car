@@ -1,6 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:car/core/cache/hive/hive_methods.dart';
 import 'package:car/core/custom_widgets/custom_image/custom_network_image.dart';
+import 'package:car/core/images/app_images.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
@@ -45,13 +46,16 @@ class _CarComparisonScreenState extends State<CarComparisonScreen> {
               );
             },
           ),
+          Gap(12.w),
         ],
       ),
       body: ValueListenableBuilder(
         valueListenable: Hive.box('app').listenable(keys: ['comparisonList']),
         builder: (context, box, _) {
-          final list = box.get('comparisonList', defaultValue: []) as List;
-          if (list.isEmpty) return _buildEmptyState();
+          final list = box.get('comparisonList', defaultValue: []);
+          if (list.isEmpty) {
+            return _buildEmptyState();
+          }
           return _buildComparisonGrid(list);
         },
       ),
@@ -245,7 +249,12 @@ class _CarComparisonScreenState extends State<CarComparisonScreen> {
                         fit: BoxFit.contain,
                         width: double.infinity,
                       )
-                    : Image.asset(car['image'], fit: BoxFit.contain),
+                    : Image.asset(
+                        (car['image'] != null && car['image'].toString().trim().isNotEmpty)
+                            ? car['image']
+                            : AppImages.assetsImagesPlaceholder,
+                        fit: BoxFit.contain,
+                      ),
               ),
             ),
             Positioned(

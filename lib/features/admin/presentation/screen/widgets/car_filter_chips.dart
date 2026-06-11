@@ -1,5 +1,4 @@
 import 'package:car/core/theme/app_colors.dart';
-import 'package:car/core/theme/app_text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -8,10 +7,10 @@ class CarFilterChips extends StatelessWidget {
   final ValueChanged<String> onFilterChanged;
 
   static const filters = [
-    {'key': 'all', 'label': 'الكل'},
-    {'key': 'published', 'label': 'منشور'},
-    {'key': 'pending', 'label': 'معلق'},
-    {'key': 'deleted', 'label': 'محذوف'},
+    {'key': 'available', 'label': 'متاح'},
+    {'key': 'reserved', 'label': 'محجوز'},
+    {'key': 'sold', 'label': 'مباع'},
+    {'key': 'returned', 'label': 'مرتجع للمورد'},
   ];
 
   const CarFilterChips({super.key, required this.selectedFilter, required this.onFilterChanged});
@@ -49,7 +48,8 @@ class CarFilterChips extends StatelessWidget {
               child: Center(
                 child: Text(
                   f['label']!,
-                  style: AppTextStyle.bodyMedium(context).copyWith(
+                  style: TextStyle(
+                    fontSize: 13.sp,
                     fontWeight: FontWeight.w500,
                     color: isActive
                         ? AppColor.whiteColor(context)

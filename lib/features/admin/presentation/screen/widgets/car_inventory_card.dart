@@ -1,3 +1,4 @@
+import 'package:car/core/custom_widgets/custom_image/custom_network_image.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/features/admin/presentation/screen/widgets/card_header_widget.dart';
@@ -19,23 +20,35 @@ class CarStatusConfig {
     required this.accent,
   });
   static CarStatusConfig of(String status) => switch (status) {
-    'published' => const CarStatusConfig(
-      label: 'منشور',
+    'available' => const CarStatusConfig(
+      label: 'متاح',
       bg: Color(0xFFEAF3DE),
       textColor: Color(0xFF3B6D11),
       accent: Color(0xFF639922),
     ),
-    'pending' => const CarStatusConfig(
-      label: 'معلق',
+    'reserved' => const CarStatusConfig(
+      label: 'محجوز',
       bg: Color(0xFFFAEEDA),
       textColor: Color(0xFF854F0B),
       accent: Color(0xFFEF9F27),
     ),
-    _ => const CarStatusConfig(
-      label: 'محذوف',
+    'sold' => const CarStatusConfig(
+      label: 'مباع',
       bg: Color(0xFFFCEBEB),
       textColor: Color(0xFFA32D2D),
       accent: Color(0xFFE24B4A),
+    ),
+    'returned' => const CarStatusConfig(
+      label: 'مرتجع للمورد',
+      bg: Color(0xFFEDE8FA),
+      textColor: Color(0xFF4A2D9C),
+      accent: Color(0xFF7C5CBF),
+    ),
+    _ => const CarStatusConfig(
+      label: 'متاح',
+      bg: Color(0xFFEAF3DE),
+      textColor: Color(0xFF3B6D11),
+      accent: Color(0xFF639922),
     ),
   };
 }
@@ -73,12 +86,11 @@ class CarInventoryCard extends StatelessWidget {
           Stack(
             children: [
               car['image'] != null && car['image']!.isNotEmpty
-                  ? Image.asset(
-                      car['image']!,
+                  ? CustomNetworkImage(
+                      imageUrl: car['image']!,
                       height: 160.h,
                       width: double.infinity,
                       fit: BoxFit.cover,
-                      errorBuilder: (_, __, ___) => _ImagePlaceholder(),
                     )
                   : _ImagePlaceholder(),
               Positioned(

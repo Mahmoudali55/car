@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:car/core/custom_widgets/custom_image/custom_network_image.dart';
+import 'package:car/core/images/app_images.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
@@ -80,9 +81,9 @@ class _CartItemWidgetState extends State<CartItemWidget> {
               padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
               margin: EdgeInsets.only(bottom: 12.h),
               decoration: BoxDecoration(
-                color: AppColor.secondAppColor(context).withValues(alpha: 0.1),
+                color: AppColor.secondAppColor(context).withValues(alpha: 0.9),
                 borderRadius: BorderRadius.circular(8.r),
-                border: Border.all(color: AppColor.iconColor(context).withValues(alpha: 0.5)),
+                border: Border.all(color: AppColor.iconColor(context)),
               ),
               child: Row(
                 children: [
@@ -91,10 +92,9 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                   Expanded(
                     child: Text(
                       ' ${AppLocaleKey.reservationDuration.tr()}  ${_remainingTime.inHours.toString().padLeft(2, '0')}${AppLocaleKey.hours.tr()}:${(_remainingTime.inMinutes % 60).toString().padLeft(2, '0')} ${AppLocaleKey.minutes.tr()}:${(_remainingTime.inSeconds % 60).toString().padLeft(2, '0')} ${AppLocaleKey.seconds.tr()}',
-                      style: AppTextStyle.bodySmall(context).copyWith(
-                        color: AppColor.iconColor(context).withValues(alpha: 0.08),
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: AppTextStyle.bodySmall(
+                        context,
+                      ).copyWith(color: AppColor.iconColor(context), fontWeight: FontWeight.bold),
                     ),
                   ),
                 ],
@@ -112,13 +112,21 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                   borderRadius: BorderRadius.circular(14.r),
                 ),
                 clipBehavior: Clip.antiAlias,
-                child: widget.car['image'].toString().startsWith('http')
+                child:
+                    (widget.car['image'] != null &&
+                        widget.car['image'].toString().trim().startsWith('http'))
                     ? CustomNetworkImage(
                         imageUrl: widget.car['image'] as String,
                         fit: BoxFit.contain,
                         width: double.infinity,
                       )
-                    : Image.asset(widget.car['image'] as String, fit: BoxFit.contain),
+                    : Image.asset(
+                        (widget.car['image'] != null &&
+                                widget.car['image'].toString().trim().isNotEmpty)
+                            ? widget.car['image'] as String
+                            : AppImages.assetsImagesPlaceholder,
+                        fit: BoxFit.contain,
+                      ),
               ),
               Gap(14.w),
 

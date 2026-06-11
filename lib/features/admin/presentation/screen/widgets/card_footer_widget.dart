@@ -1,3 +1,4 @@
+import 'package:car/core/custom_widgets/custom_sar_text.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
@@ -28,9 +29,9 @@ class CardFooter extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Text(
-          ' ${car['price'] ?? ''} ${AppLocaleKey.sar.tr()}',
-          style: AppTextStyle.bodyMedium(
+        ValueWithCurrencyIcon(
+          text: ' ${car['price'] ?? ''} ${AppLocaleKey.sar.tr()}',
+          textStyle: AppTextStyle.bodyMedium(
             context,
           ).copyWith(fontWeight: FontWeight.w600, color: AppColor.blackTextColor(context)),
         ),
