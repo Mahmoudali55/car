@@ -5,10 +5,20 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
 class InfoTileWidget extends StatelessWidget {
-  const InfoTileWidget({super.key, required this.icon, required this.label, required this.value});
+  const InfoTileWidget({
+    super.key,
+    required this.icon,
+    required this.label,
+    required this.value,
+    this.trailing,
+    this.onTrailingTap,
+  });
   final IconData icon;
   final String label;
   final String value;
+  final Widget? trailing;
+  final VoidCallback? onTrailingTap;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -36,6 +46,12 @@ class InfoTileWidget extends StatelessWidget {
               ],
             ),
           ),
+          if (trailing != null)
+            GestureDetector(
+              onTap: onTrailingTap,
+              behavior: HitTestBehavior.opaque,
+              child: trailing!,
+            ),
         ],
       ),
     );

@@ -1400,4 +1400,5 @@ class AppLocaleKey {
   static const String see_all = 'see_all';
   static const String request_car_title = 'request_car_title';
   static const String admin_available_cars = 'admin_available_cars';
+  static const String save = 'save';
 }
