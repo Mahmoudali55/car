@@ -269,6 +269,7 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
                                     arguments: {
                                       'car': brandCar,
                                       'heroTag': 'admin_car_image_${brandCar.itemCode}',
+                                      'isFromAdmin': true,
                                     },
                                   );
                                 },

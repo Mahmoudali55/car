@@ -21,8 +21,9 @@ import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 class CarDetailsScreen extends StatefulWidget {
   final GetBrandCarsDataModel car;
   final String? heroTag;
+  final bool isFromAdmin;
 
-  const CarDetailsScreen({super.key, required this.car, this.heroTag});
+  const CarDetailsScreen({super.key, required this.car, this.heroTag, this.isFromAdmin = false});
 
   @override
   State<CarDetailsScreen> createState() => _CarDetailsScreenState();
@@ -36,7 +37,9 @@ class _CarDetailsScreenState extends State<CarDetailsScreen> {
   @override
   void initState() {
     super.initState();
-    HiveMethods.addToRecentlyViewed(widget.car.toMap());
+    if (!widget.isFromAdmin) {
+      HiveMethods.addToRecentlyViewed(widget.car.toMap());
+    }
     _carImages = widget.car.allImages.isNotEmpty
         ? widget.car.allImages
         : [AppImages.assetsImagesPlaceholder];

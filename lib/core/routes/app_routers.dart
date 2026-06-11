@@ -23,6 +23,7 @@ class AppRouters {
       case RoutesName.carDetailsScreen:
         GetBrandCarsDataModel? car;
         String? heroTag;
+        bool isFromAdmin = false;
 
         if (args is GetBrandCarsDataModel) {
           car = args;
@@ -33,11 +34,15 @@ class AppRouters {
             car = GetBrandCarsDataModel.fromJson(args['car']);
           }
           heroTag = args['heroTag'];
+          isFromAdmin = args['isFromAdmin'] ?? false;
         }
 
         return MaterialPageRoute(
-          builder: (_) =>
-              CarDetailsScreen(car: car ?? GetBrandCarsDataModel.fromJson(args), heroTag: heroTag),
+          builder: (_) => CarDetailsScreen(
+            car: car ?? GetBrandCarsDataModel.fromJson(args),
+            heroTag: heroTag,
+            isFromAdmin: isFromAdmin,
+          ),
         );
       case RoutesName.bankOffersScreen:
         GetBrandCarsDataModel? car;
