@@ -1356,7 +1356,9 @@
   "refundable_deposit": "500 ر.س (مسترد)",
   "no_cars":"لاتوجد سيارات",
   "customsCard":"بطاقة جمركية",
-  "save":"حفظ"
+  "save":"حفظ",
+  "vertical":"مرتجع للمورد",
+  "details":"عرض التفاصيل"
 
 
 }

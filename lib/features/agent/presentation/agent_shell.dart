@@ -1,5 +1,7 @@
 import 'package:car/core/localization/app_locale_keys.dart';
+import 'package:car/core/services/services_locator.dart';
 import 'package:car/core/theme/app_colors.dart';
+import 'package:car/features/admin/presentation/cubit/admin_cubit.dart';
 import 'package:car/features/agent/presentation/screens/agent_appointments_screen.dart';
 import 'package:car/features/agent/presentation/screens/agent_dashboard_screen.dart';
 import 'package:car/features/agent/presentation/screens/agent_inventory_screen.dart';
@@ -8,6 +10,7 @@ import 'package:car/features/agent/presentation/screens/widget/nav_meta_widget.d
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AgentShell extends StatefulWidget {
   const AgentShell({super.key});
@@ -22,7 +25,7 @@ class _AgentShellState extends State<AgentShell> {
     final screens = [
       const AgentDashboardScreen(),
       const AgentLeadsScreen(),
-      const AgentInventoryScreen(),
+      BlocProvider.value(value: sl<AdminCubit>(), child: const AgentInventoryScreen()),
       const AgentAppointmentsScreen(),
     ];
     final navItems = [

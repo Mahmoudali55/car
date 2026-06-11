@@ -1353,5 +1353,7 @@
   "refundable_deposit": "500 SAR (Refundable)",
   "no_cars": "No cars available",
   "customsCard": "Customs Card",
-  "save": "Save"
+  "save": "Save",
+  "vertical":"Returned abroad"
+
 }

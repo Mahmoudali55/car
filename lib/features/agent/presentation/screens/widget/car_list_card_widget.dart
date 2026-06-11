@@ -1,14 +1,17 @@
+import 'package:car/core/custom_widgets/custom_sar_text.dart';
+import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/features/agent/data/agent_models.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
-import 'package:intl/intl.dart';
 
 class CarListCard extends StatelessWidget {
   final AgentCar car;
   final VoidCallback? onTap;
+
   const CarListCard({super.key, required this.car, this.onTap});
 
   @override
@@ -17,105 +20,137 @@ class CarListCard extends StatelessWidget {
 
     return GestureDetector(
       onTap: onTap,
-      child: Container(
-        margin: EdgeInsets.only(bottom: 16.h),
-        padding: EdgeInsets.all(16.w),
-        decoration: BoxDecoration(
-          color: AppColor.cardColor(context),
-          borderRadius: BorderRadius.circular(24.r),
-          border: Border.all(color: AppColor.blackTextColor(context).withValues(alpha: 0.05)),
-          boxShadow: [
-            BoxShadow(
-              color: AppColor.blackColor(context).withValues(alpha: 0.04),
-              blurRadius: 20,
-              offset: const Offset(0, 8),
-            ),
-          ],
-        ),
-        child: Row(
+      child: Card(
+        margin: EdgeInsets.only(bottom: 18.h),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(28.r)),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            /// ── Details Area ──
-            Container(
-              width: 80.w,
-              height: 80.h,
-              decoration: BoxDecoration(
-                color: AppColor.blueColor(context).withValues(alpha: 0.08),
-                borderRadius: BorderRadius.circular(18.r),
-                border: Border.all(color: AppColor.blueColor(context).withValues(alpha: 0.1)),
-              ),
-              child: Icon(
-                Icons.directions_car_filled_rounded,
-                size: 38.sp,
-                color: AppColor.blueColor(context).withValues(alpha: 0.5),
-              ),
+            /// =========================
+            /// Car Image
+            /// =========================
+            Stack(
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(28.r),
+                    topRight: Radius.circular(28.r),
+                  ),
+                  child: Container(
+                    height: 200.h,
+                    width: double.infinity,
+                    color: AppColor.blueColor(context).withValues(alpha: 0.05),
+
+                    /// استبدلها بصورة السيارة
+                    child: Icon(
+                      Icons.directions_car_filled_rounded,
+                      size: 90.sp,
+                      color: AppColor.blueColor(context).withValues(alpha: .35),
+                    ),
+
+                    // child: CachedNetworkImage(
+                    //   imageUrl: car.image,
+                    //   fit: BoxFit.cover,
+                    // ),
+                  ),
+                ),
+
+                Positioned(
+                  top: 14.h,
+                  right: 14.w,
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
+                    decoration: BoxDecoration(
+                      color: availabilityColor,
+                      borderRadius: BorderRadius.circular(12.r),
+                    ),
+                    child: Text(
+                      car.availabilityLabel,
+                      style: AppTextStyle.bodySmall(
+                        context,
+                      ).copyWith(color: AppColor.whiteColor(context), fontWeight: FontWeight.w800),
+                    ),
+                  ),
+                ),
+              ],
             ),
-            Gap(16.w),
-            Expanded(
+
+            Padding(
+              padding: EdgeInsets.all(18.w),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  /// Badge & Brand
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        car.brand,
-                        style: AppTextStyle.bodySmall(
-                          context,
-                        ).copyWith(color: AppColor.greyColor(context), fontWeight: FontWeight.w600),
-                      ),
-                      Container(
-                        padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
-                        decoration: BoxDecoration(
-                          color: availabilityColor.withValues(alpha: 0.12),
-                          borderRadius: BorderRadius.circular(10.r),
-                        ),
-                        child: Text(
-                          car.availabilityLabel,
-                          style: AppTextStyle.bodySmall(
-                            context,
-                          ).copyWith(color: availabilityColor, fontWeight: FontWeight.w900),
-                        ),
-                      ),
-                    ],
+                  /// Brand
+                  Text(
+                    car.brand,
+                    style: AppTextStyle.bodySmall(
+                      context,
+                    ).copyWith(color: AppColor.greyColor(context), fontWeight: FontWeight.w700),
                   ),
-                  Gap(8.h),
 
-                  /// Name
+                  Gap(6.h),
+
+                  /// Car Name
                   Text(
                     car.name,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
                     style: AppTextStyle.bodyLarge(context).copyWith(
-                      color: AppColor.blackTextColor(context),
                       fontWeight: FontWeight.w900,
-                      letterSpacing: -0.5,
+                      color: AppColor.blackTextColor(context),
                     ),
                   ),
-                  Gap(4.h),
 
-                  /// Price
-                  Text(
-                    '${NumberFormat('#,##0').format(car.price)} ر.س',
-                    style: AppTextStyle.bodyLarge(
-                      context,
-                    ).copyWith(color: AppColor.blueColor(context), fontWeight: FontWeight.w900),
-                  ),
                   Gap(14.h),
 
-                  /// Specs Row
-                  Row(
+                  /// Price
+                  ValueWithCurrencyIcon(
+                    text: '${NumberFormat('#,###').format(car.price)} ${AppLocaleKey.sar.tr()}',
+                    textStyle: AppTextStyle.bodyLarge(context).copyWith(
+                      color: AppColor.blueColor(context),
+                      fontWeight: FontWeight.w900,
+                      fontSize: 24.sp,
+                    ),
+                  ),
+
+                  Gap(18.h),
+
+                  /// Specs
+                  Wrap(
+                    spacing: 8.w,
+                    runSpacing: 8.h,
                     children: [
-                      _SpecItem(icon: Icons.calendar_today_rounded, label: car.year),
-                      Gap(12.w),
-                      _SpecItem(icon: Icons.speed_rounded, label: '${car.mileage} كم'),
-                      Gap(12.w),
-                      _ColorIndicator(color: car.color),
+                      _SpecChip(icon: Icons.calendar_month_rounded, text: car.year),
+                      _SpecChip(icon: Icons.speed_rounded, text: '${car.mileage} كم'),
+                      _SpecChip(icon: Icons.palette_outlined, text: car.color),
                     ],
+                  ),
+
+                  Gap(20.h),
+
+                  /// Button
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: onTap,
+                      style: ElevatedButton.styleFrom(
+                        elevation: 0,
+                        backgroundColor: AppColor.blueColor(context),
+                        padding: EdgeInsets.symmetric(vertical: 14.h),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.r)),
+                      ),
+                      child: Text(
+                        AppLocaleKey.details.tr(),
+                        style: AppTextStyle.bodyMedium(context).copyWith(
+                          color: AppColor.whiteColor(context),
+                          fontWeight: FontWeight.w800,
+                        ),
+                      ),
+                    ),
                   ),
                 ],
               ),
             ),
-
-            Gap(16.w),
           ],
         ),
       ),
@@ -123,56 +158,28 @@ class CarListCard extends StatelessWidget {
   }
 }
 
-class _SpecItem extends StatelessWidget {
+class _SpecChip extends StatelessWidget {
   final IconData icon;
-  final String label;
-  const _SpecItem({required this.icon, required this.label});
+  final String text;
+
+  const _SpecChip({required this.icon, required this.text});
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Icon(icon, size: 12.sp, color: AppColor.hintColor(context).withValues(alpha: 0.6)),
-        Gap(4.w),
-        Text(
-          label,
-          style: TextStyle(
-            color: AppColor.hintColor(context),
-            fontSize: 11.sp,
-            fontWeight: FontWeight.w700,
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class _ColorIndicator extends StatelessWidget {
-  final String color;
-  const _ColorIndicator({required this.color});
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Container(
-          width: 8.w,
-          height: 8.w,
-          decoration: const BoxDecoration(
-            color: Colors.grey, // Ideally map 'color' string to Color
-            shape: BoxShape.circle,
-          ),
-        ),
-        Gap(4.w),
-        Text(
-          color,
-          style: AppTextStyle.bodySmall(
-            context,
-          ).copyWith(color: AppColor.hintColor(context), fontWeight: FontWeight.w700),
-        ),
-      ],
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
+      decoration: BoxDecoration(
+        color: AppColor.blackTextColor(context).withValues(alpha: .04),
+        borderRadius: BorderRadius.circular(12.r),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(icon, size: 15.sp, color: AppColor.hintColor(context)),
+          Gap(6.w),
+          Text(text, style: AppTextStyle.bodySmall(context).copyWith(fontWeight: FontWeight.w700)),
+        ],
+      ),
     );
   }
 }

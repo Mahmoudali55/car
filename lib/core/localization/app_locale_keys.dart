@@ -1404,4 +1404,5 @@ class AppLocaleKey {
   static const String admin_market_analysis = 'admin_market_analysis';
   static const String admin_car_status_pending = 'admin_car_status_pending';
   static const String admin_sold_cars = 'admin_sold_cars';
+  static const String vertical = "vertical";
 }
