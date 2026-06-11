@@ -71,12 +71,18 @@ class _HomeGuestScreenState extends State<HomeGuestScreen> {
                   builder: (context, box, _) {
                     final list = box.get('recentlyViewed', defaultValue: []) as List<dynamic>;
                     if (list.isEmpty) return const SizedBox.shrink();
+                    final displayList = list.take(3).toList();
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SectionTitleWidget(title: AppLocaleKey.recentlyViewed.tr(), onSeeAll: null),
+                        SectionTitleWidget(
+                          title: AppLocaleKey.recentlyViewed.tr(),
+                          onSeeAll: () {
+                            NavigatorMethods.pushNamed(context, RoutesName.recentlyViewedScreen);
+                          },
+                        ),
                         Gap(15.h),
-                        RecentlyViewedWidget(cars: list),
+                        RecentlyViewedWidget(cars: displayList),
                         Gap(20.h),
                       ],
                     );

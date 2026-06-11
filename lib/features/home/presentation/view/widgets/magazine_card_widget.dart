@@ -1,5 +1,4 @@
 import 'package:car/core/routes/routes_name.dart';
-import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/utils/navigator_methods.dart';
 import 'package:car/features/home/presentation/view/widgets/card_footer_widget.dart';
 import 'package:car/features/home/presentation/view/widgets/card_image_widget.dart';
@@ -25,21 +24,9 @@ class MagazineCardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => _navigateToDetails(context),
-      child: Container(
-        height: 360.h,
-        width: double.infinity,
+      child: Card(
         clipBehavior: Clip.antiAlias,
-        decoration: BoxDecoration(
-          color: AppColor.secondAppColor(context),
-          borderRadius: BorderRadius.circular(32.r),
-          boxShadow: [
-            BoxShadow(
-              color: AppColor.blackColor(context).withValues(alpha: (0.12)),
-              blurRadius: 24,
-              offset: const Offset(0, 8),
-            ),
-          ],
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24.r)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -56,4 +43,3 @@ class MagazineCardWidget extends StatelessWidget {
     );
   }
 }
-

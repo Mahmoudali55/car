@@ -1,3 +1,4 @@
+import 'package:car/core/custom_widgets/custom_sar_text.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
@@ -33,21 +34,16 @@ class CardFooter extends StatelessWidget {
           Gap(8.h),
           Text(
             car['name'] ?? '',
-            style: AppTextStyle.titleMedium(context).copyWith(
-              color: AppColor.blackTextColor(context),
-              fontWeight: FontWeight.w900,
-              fontSize: 20.sp,
-            ),
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
+            style: AppTextStyle.titleMedium(
+              context,
+            ).copyWith(color: AppColor.blackTextColor(context), fontWeight: FontWeight.w900),
           ),
           Gap(12.h),
-          Text(
-            priceText,
-            style: AppTextStyle.titleMedium(context).copyWith(
+          ValueWithCurrencyIcon(
+            text: priceText,
+            textStyle: AppTextStyle.titleMedium(context).copyWith(
               color: hasPrice ? AppColor.primaryColor(context) : AppColor.greyColor(context),
               fontWeight: FontWeight.bold,
-              fontSize: 17.sp,
             ),
           ),
           Gap(16.h),

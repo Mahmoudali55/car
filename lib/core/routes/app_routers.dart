@@ -90,6 +90,8 @@ class AppRouters {
         return MaterialPageRoute(builder: (_) => const ChangePasswordScreen());
       case RoutesName.profileScreen:
         return MaterialPageRoute(builder: (_) => const UserProfileScreen());
+      case RoutesName.recentlyViewedScreen:
+        return MaterialPageRoute(builder: (_) => const RecentlyViewedScreen());
       case RoutesName.tradeInScreen:
         return MaterialPageRoute(builder: (_) => const TradeInScreen());
       case RoutesName.requestCarScreen:

@@ -15,13 +15,19 @@ class CardImage extends StatelessWidget {
     final actualHeroTag = heroTag ?? 'car_image_${car['itemCode'] ?? car['name']}';
 
     return Container(
-      height: 200.h,
+      height: 150.h,
       width: double.infinity,
+
       decoration: BoxDecoration(image: DecorationImage(image: NetworkImage(imageUrl))),
       child: Hero(
         tag: actualHeroTag,
         child: imageUrl.trim().startsWith('http')
-            ? CustomNetworkImage(imageUrl: imageUrl, fit: BoxFit.fill, width: double.infinity)
+            ? CustomNetworkImage(
+                imageUrl: imageUrl,
+                fit: BoxFit.fill,
+                width: double.infinity,
+                height: 100,
+              )
             : Image.asset(
                 imageUrl.isNotEmpty ? imageUrl : AppImages.assetsImagesPlaceholder,
                 fit: BoxFit.contain,

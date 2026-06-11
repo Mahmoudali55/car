@@ -33,6 +33,7 @@ import 'package:car/features/home/presentation/view/screen/all_brands_screen.dar
 import 'package:car/features/home/presentation/view/screen/guest_home_screen.dart';
 import 'package:car/features/home/presentation/view/screen/main_layout.dart';
 import 'package:car/features/home/presentation/view/screen/popular_cars_screen.dart';
+import 'package:car/features/home/presentation/view/screen/recently_viewed_screen.dart';
 import 'package:car/features/notifications/presentation/view/screen/notifications_screen.dart';
 import 'package:car/features/onboarding/presentation/view/screen/onboarding_screen.dart';
 import 'package:car/features/profile/presentation/screen/user_profile_screen.dart';
