@@ -4,6 +4,7 @@ import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/features/agent/data/agent_models.dart';
+import 'package:car/features/agent/presentation/screens/widget/custom_agent_car_details_info_widget.dart';
 import 'package:car/features/agent/presentation/screens/widget/icon_btn_widget.dart';
 import 'package:car/features/agent/presentation/screens/widget/quote_builder_dialog.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -30,7 +31,7 @@ class AgentCarDetailsScreen extends StatelessWidget {
                 color: AppColor.cardColor(context),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withValues(alpha: .04),
+                    color: AppColor.blackColor(context).withValues(alpha: .04),
                     blurRadius: 20,
                     offset: const Offset(0, -2),
                   ),
@@ -107,7 +108,10 @@ class AgentCarDetailsScreen extends StatelessWidget {
                       gradient: LinearGradient(
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
-                        colors: [Colors.transparent, Colors.black.withValues(alpha: .75)],
+                        colors: [
+                          Colors.transparent,
+                          AppColor.blackColor(context).withValues(alpha: .75),
+                        ],
                       ),
                     ),
                   ),
@@ -170,180 +174,11 @@ class AgentCarDetailsScreen extends StatelessWidget {
               ),
             ),
           ),
-
           SliverToBoxAdapter(
             child: Padding(
               padding: EdgeInsets.all(20.w),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  /// QUICK INFO
-                  Container(
-                    padding: EdgeInsets.all(18.w),
-                    decoration: BoxDecoration(
-                      color: AppColor.cardColor(context),
-                      borderRadius: BorderRadius.circular(24.r),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withValues(alpha: .04),
-                          blurRadius: 20,
-                          offset: const Offset(0, 6),
-                        ),
-                      ],
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        _QuickInfo(
-                          icon: Icons.calendar_today_rounded,
-                          title: AppLocaleKey.agentYearMade.tr(),
-                          value: car.year,
-                        ),
-
-                        _QuickInfo(
-                          icon: Icons.speed_rounded,
-                          title: AppLocaleKey.agentDistance.tr(),
-                          value: car.mileage,
-                        ),
-
-                        _QuickInfo(
-                          icon: Icons.palette_rounded,
-                          title: AppLocaleKey.agentColor.tr(),
-                          value: car.color,
-                        ),
-                      ],
-                    ),
-                  ),
-
-                  Gap(30.h),
-
-                  Text(
-                    AppLocaleKey.agentMainSpecs.tr(),
-                    style: AppTextStyle.bodyLarge(context).copyWith(fontWeight: FontWeight.w900),
-                  ),
-
-                  Gap(16.h),
-
-                  SpecTile(
-                    icon: Icons.calendar_today_rounded,
-                    title: AppLocaleKey.agentYearMade.tr(),
-                    value: car.year,
-                  ),
-
-                  SpecTile(
-                    icon: Icons.speed_rounded,
-                    title: AppLocaleKey.agentDistance.tr(),
-                    value: '${car.mileage} ${AppLocaleKey.km.tr()}',
-                  ),
-
-                  SpecTile(
-                    icon: Icons.palette_rounded,
-                    title: AppLocaleKey.agentColor.tr(),
-                    value: car.color,
-                  ),
-
-                  SpecTile(
-                    icon: Icons.settings_rounded,
-                    title: AppLocaleKey.agentTransmission.tr(),
-                    value: AppLocaleKey.agentAutomatic.tr(),
-                  ),
-
-                  Gap(30.h),
-
-                  Container(
-                    padding: EdgeInsets.all(18.w),
-                    decoration: BoxDecoration(
-                      color: AppColor.cardColor(context),
-                      borderRadius: BorderRadius.circular(24.r),
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          AppLocaleKey.agentAboutCar.tr(),
-                          style: AppTextStyle.bodyLarge(
-                            context,
-                          ).copyWith(fontWeight: FontWeight.w900),
-                        ),
-
-                        Gap(12.h),
-
-                        Text(
-                          AppLocaleKey.agentCarDesc.tr(namedArgs: {'name': car.name}),
-                          style: AppTextStyle.bodyMedium(
-                            context,
-                          ).copyWith(height: 1.8, color: AppColor.greyColor(context)),
-                        ),
-                      ],
-                    ),
-                  ),
-
-                  Gap(120.h),
-                ],
-              ),
+              child: CustomAgentCarDetailsInfoWidget(car: car),
             ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _QuickInfo extends StatelessWidget {
-  final IconData icon;
-  final String title;
-  final String value;
-
-  const _QuickInfo({required this.icon, required this.title, required this.value});
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Icon(icon, color: AppColor.primaryColor(context)),
-        Gap(8.h),
-        Text(value, style: AppTextStyle.bodyMedium(context).copyWith(fontWeight: FontWeight.w900)),
-        Gap(4.h),
-        Text(
-          title,
-          style: AppTextStyle.bodySmall(context).copyWith(color: AppColor.greyColor(context)),
-        ),
-      ],
-    );
-  }
-}
-
-class SpecTile extends StatelessWidget {
-  final IconData icon;
-  final String title;
-  final String value;
-
-  const SpecTile({super.key, required this.icon, required this.title, required this.value});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(bottom: 12.h),
-      padding: EdgeInsets.all(16.w),
-      decoration: BoxDecoration(
-        color: AppColor.cardColor(context),
-        borderRadius: BorderRadius.circular(18.r),
-      ),
-      child: Row(
-        children: [
-          Container(
-            padding: EdgeInsets.all(12.r),
-            decoration: BoxDecoration(
-              color: AppColor.primaryColor(context).withValues(alpha: .08),
-              borderRadius: BorderRadius.circular(12.r),
-            ),
-            child: Icon(icon, color: AppColor.primaryColor(context)),
-          ),
-          Gap(14.w),
-          Expanded(child: Text(title)),
-          Text(
-            value,
-            style: AppTextStyle.bodyMedium(context).copyWith(fontWeight: FontWeight.w900),
           ),
         ],
       ),
