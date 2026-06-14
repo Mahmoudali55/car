@@ -1354,6 +1354,8 @@
   "no_cars": "No cars available",
   "customsCard": "Customs Card",
   "save": "Save",
-  "vertical":"Returned abroad"
+  "vertical":"Returned abroad",
+  "weekly_activity":"Weekly activity",
+  "last_7_days":"Last 7 days"
 
 }

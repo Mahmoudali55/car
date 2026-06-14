@@ -35,10 +35,10 @@ class CityDropdown extends StatelessWidget {
       context: context,
       backgroundColor: Colors.transparent,
       isScrollControlled: true,
-      builder: (_) => Container(
-        height: MediaQuery.of(context).size.height * 0.6,
+      builder: (sheetContext) => Container(
+        height: MediaQuery.of(sheetContext).size.height * 0.6,
         decoration: BoxDecoration(
-          color: AppColor.scaffoldColor(context),
+          color: AppColor.scaffoldColor(sheetContext),
           borderRadius: BorderRadius.vertical(top: Radius.circular(24.r)),
         ),
         child: Column(
@@ -54,18 +54,18 @@ class CityDropdown extends StatelessWidget {
             ),
             Text(
               AppLocaleKey.agentCity.tr(),
-              style: AppTextStyle.titleMedium(context).copyWith(fontWeight: FontWeight.bold),
+              style: AppTextStyle.titleMedium(sheetContext).copyWith(fontWeight: FontWeight.bold),
             ),
             Gap(16.h),
-            Divider(height: 1, color: AppColor.dividerColor(context)),
+            Divider(height: 1, color: AppColor.dividerColor(sheetContext)),
             Expanded(
               child: ListView.separated(
                 physics: const BouncingScrollPhysics(),
                 padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 16.h),
-                itemCount: cities(context).length,
+                itemCount: cities(sheetContext).length,
                 separatorBuilder: (_, __) => Gap(12.h),
                 itemBuilder: (ctx, index) {
-                  final city = cities(context)[index];
+                  final city = cities(ctx)[index];
                   final isSelected = city == selectedCity;
                   return GestureDetector(
                     onTap: () {
@@ -76,13 +76,13 @@ class CityDropdown extends StatelessWidget {
                       padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 14.h),
                       decoration: BoxDecoration(
                         color: isSelected
-                            ? AppColor.primaryColor(context).withValues(alpha: 0.1)
-                            : AppColor.cardColor(context),
+                            ? AppColor.primaryColor(ctx).withValues(alpha: 0.1)
+                            : AppColor.cardColor(ctx),
                         borderRadius: BorderRadius.circular(12.r),
                         border: Border.all(
                           color: isSelected
-                              ? AppColor.primaryColor(context)
-                              : AppColor.borderColor(context),
+                              ? AppColor.primaryColor(ctx)
+                              : AppColor.borderColor(ctx),
                         ),
                       ),
                       child: Row(
@@ -91,7 +91,7 @@ class CityDropdown extends StatelessWidget {
                           if (isSelected)
                             Icon(
                               Icons.check_circle_rounded,
-                              color: AppColor.primaryColor(context),
+                              color: AppColor.primaryColor(ctx),
                               size: 20.sp,
                             )
                           else
@@ -99,11 +99,11 @@ class CityDropdown extends StatelessWidget {
                           Expanded(
                             child: Text(
                               city,
-                              style: AppTextStyle.bodyMedium(context).copyWith(
+                              style: AppTextStyle.bodyMedium(ctx).copyWith(
                                 fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
                                 color: isSelected
-                                    ? AppColor.primaryColor(context)
-                                    : AppColor.blackTextColor(context),
+                                    ? AppColor.primaryColor(ctx)
+                                    : AppColor.blackTextColor(ctx),
                               ),
                               textAlign: TextAlign.end,
                             ),

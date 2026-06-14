@@ -25,19 +25,19 @@ class AdminMainLayout extends StatefulWidget {
 class _AdminMainLayoutState extends State<AdminMainLayout> {
   int _currentIndex = 0;
 
-  final List<Widget> _screens = [
-    BlocProvider.value(value: sl<AdminCubit>(), child: const AdminDashboardScreen()),
-    BlocProvider.value(value: sl<AdminCubit>(), child: const ManageCarsScreen()),
-    const ManageBookingsScreen(),
-    const RevenueReportScreen(),
-    const AdminSettingsScreen(),
-  ];
-
   @override
   Widget build(BuildContext context) {
+    final screens = [
+      BlocProvider.value(value: sl<AdminCubit>(), child: const AdminDashboardScreen()),
+      BlocProvider.value(value: sl<AdminCubit>(), child: const ManageCarsScreen()),
+      const ManageBookingsScreen(),
+      const RevenueReportScreen(),
+      const AdminSettingsScreen(),
+    ];
     return Scaffold(
+      key: ValueKey(context.locale.languageCode),
       backgroundColor: AppColor.scaffoldColor(context),
-      body: SafeArea(child: _screens[_currentIndex]),
+      body: SafeArea(child: screens[_currentIndex]),
       bottomNavigationBar: _buildBottomNav(),
     );
   }

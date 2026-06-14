@@ -1405,4 +1405,6 @@ class AppLocaleKey {
   static const String admin_car_status_pending = 'admin_car_status_pending';
   static const String admin_sold_cars = 'admin_sold_cars';
   static const String vertical = "vertical";
+  static const String weekly_activity = "weekly_activity";
+  static const String last_7_days = "last_7_days";
 }

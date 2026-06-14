@@ -36,6 +36,7 @@ class _AgentShellState extends State<AgentShell> {
     ];
     final isDark = Theme.of(context).brightness == Brightness.dark;
     return AnnotatedRegion<SystemUiOverlayStyle>(
+      key: ValueKey(context.locale.languageCode),
       value: isDark ? SystemUiOverlayStyle.light : SystemUiOverlayStyle.dark,
       child: Scaffold(
         backgroundColor: AppColor.scaffoldColor(context),

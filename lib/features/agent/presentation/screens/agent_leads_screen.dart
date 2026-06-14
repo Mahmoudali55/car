@@ -103,12 +103,14 @@ class _AgentLeadsScreenState extends State<AgentLeadsScreen> {
                           ),
                           labelColor: AppColor.whiteColor(context),
                           unselectedLabelColor: AppColor.hintColor(context),
-                          labelStyle: AppTextStyle.bodyMedium(
+                          labelStyle: AppTextStyle.bodySmall(context).copyWith(
+                            fontWeight: FontWeight.w900,
+                            letterSpacing: -0.2,
+                            fontSize: 10.sp,
+                          ),
+                          unselectedLabelStyle: AppTextStyle.bodySmall(
                             context,
-                          ).copyWith(fontWeight: FontWeight.w900, letterSpacing: -0.2),
-                          unselectedLabelStyle: AppTextStyle.bodyMedium(
-                            context,
-                          ).copyWith(fontWeight: FontWeight.w700),
+                          ).copyWith(fontWeight: FontWeight.w400),
                           indicatorSize: TabBarIndicatorSize.tab,
                           dividerColor: Colors.transparent,
                           tabs: [

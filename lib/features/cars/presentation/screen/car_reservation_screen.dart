@@ -150,7 +150,7 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
       context: context,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
-      builder: (_) => DraggableScrollableSheet(
+      builder: (ctx) => DraggableScrollableSheet(
         expand: false,
         initialChildSize: 0.85,
         maxChildSize: 0.95,
@@ -168,12 +168,12 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
       context: context,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
-      builder: (_) => Padding(
-        padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+      builder: (ctx) => Padding(
+        padding: EdgeInsets.only(bottom: MediaQuery.of(ctx).viewInsets.bottom),
         child: OtpBottomSheet(
           phoneNumber: _cashPhoneController.text,
           onVerified: () {
-            Navigator.pop(context);
+            Navigator.pop(ctx);
             setState(() {
               _currentStep = _ReservationScreenStep.payment;
             });

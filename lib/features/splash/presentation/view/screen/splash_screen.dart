@@ -100,8 +100,9 @@ class _SplashScreenState extends State<SplashScreen> {
                     duration: const Duration(milliseconds: 1500),
                     child: Text(
                       AppLocaleKey.carApp.tr(),
+                      textAlign: TextAlign.center,
                       style: AppTextStyle.titleLarge(context).copyWith(
-                        fontSize: 28.sp,
+                        fontSize: 20.sp,
                         fontWeight: FontWeight.bold,
                         color: AppColor.blackTextColor(context),
                         letterSpacing: 2.0,

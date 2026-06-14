@@ -100,137 +100,139 @@ class _AgentCarDetailsScreenState extends State<AgentCarDetailsScreen> {
               )
             : null,
 
-        body: CustomScrollView(
-          physics: const BouncingScrollPhysics(),
-          slivers: [
-            SliverAppBar(
-              pinned: true,
-              expandedHeight: 340.h,
-              backgroundColor: AppColor.appBarColor(context),
-              elevation: 0,
+        body: SafeArea(
+          child: CustomScrollView(
+            physics: const BouncingScrollPhysics(),
+            slivers: [
+              SliverAppBar(
+                pinned: true,
+                expandedHeight: 340.h,
+                backgroundColor: AppColor.appBarColor(context),
+                elevation: 0,
 
-              leading: Padding(
-                padding: EdgeInsets.all(8.w),
-                child: IconBtn(
-                  icon: Icons.arrow_back_ios_new_rounded,
-                  onTap: () => Navigator.pop(context),
-                ),
-              ),
-
-              actions: [
-                if (widget.car.availability == CarAvailability.available)
-                  Padding(
-                    padding: EdgeInsets.all(8.w),
-                    child: IconBtn(
-                      icon: Icons.description_outlined,
-                      onTap: () {
-                        QuoteBuilderDialog.show(
-                          context,
-                          carName: widget.car.name,
-                          initialPrice: widget.car.price,
-                          existingSpecs: {
-                            AppLocaleKey.agentYearMade.tr(): widget.car.year,
-                            AppLocaleKey.agentSimNumber.tr(): widget.car.mileage,
-                            AppLocaleKey.agentColor.tr(): widget.car.color,
-                            AppLocaleKey.agentTransmission.tr(): AppLocaleKey.agentAutomatic.tr(),
-                          },
-                        );
-                      },
-                    ),
+                leading: Padding(
+                  padding: EdgeInsets.all(8.w),
+                  child: IconBtn(
+                    icon: Icons.arrow_back_ios_new_rounded,
+                    onTap: () => Navigator.pop(context),
                   ),
-              ],
+                ),
 
-              flexibleSpace: FlexibleSpaceBar(
-                background: Stack(
-                  fit: StackFit.expand,
-                  children: [
-                    Container(
-                      color: AppColor.blueColor(context).withValues(alpha: .08),
-                      child: Icon(
-                        Icons.directions_car_filled_rounded,
-                        size: 150.sp,
-                        color: AppColor.blueColor(context).withValues(alpha: .25),
+                actions: [
+                  if (widget.car.availability == CarAvailability.available)
+                    Padding(
+                      padding: EdgeInsets.all(8.w),
+                      child: IconBtn(
+                        icon: Icons.description_outlined,
+                        onTap: () {
+                          QuoteBuilderDialog.show(
+                            context,
+                            carName: widget.car.name,
+                            initialPrice: widget.car.price,
+                            existingSpecs: {
+                              AppLocaleKey.agentYearMade.tr(): widget.car.year,
+                              AppLocaleKey.agentSimNumber.tr(): widget.car.mileage,
+                              AppLocaleKey.agentColor.tr(): widget.car.color,
+                              AppLocaleKey.agentTransmission.tr(): AppLocaleKey.agentAutomatic.tr(),
+                            },
+                          );
+                        },
                       ),
                     ),
+                ],
 
-                    Container(
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [
-                            Colors.transparent,
-                            AppColor.blackColor(context).withValues(alpha: .75),
-                          ],
+                flexibleSpace: FlexibleSpaceBar(
+                  background: Stack(
+                    fit: StackFit.expand,
+                    children: [
+                      Container(
+                        color: AppColor.blueColor(context).withValues(alpha: .08),
+                        child: Icon(
+                          Icons.directions_car_filled_rounded,
+                          size: 150.sp,
+                          color: AppColor.blueColor(context).withValues(alpha: .25),
                         ),
                       ),
-                    ),
 
-                    Positioned(
-                      left: 20.w,
-                      right: 20.w,
-                      bottom: 30.h,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
-                            decoration: BoxDecoration(
-                              color: availabilityColor,
-                              borderRadius: BorderRadius.circular(12.r),
+                      Container(
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors: [
+                              Colors.transparent,
+                              AppColor.blackColor(context).withValues(alpha: .75),
+                            ],
+                          ),
+                        ),
+                      ),
+
+                      Positioned(
+                        left: 20.w,
+                        right: 20.w,
+                        bottom: 30.h,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
+                              decoration: BoxDecoration(
+                                color: availabilityColor,
+                                borderRadius: BorderRadius.circular(12.r),
+                              ),
+                              child: Text(
+                                widget.car.availabilityLabel,
+                                style: AppTextStyle.bodySmall(context).copyWith(
+                                  color: AppColor.whiteColor(context),
+                                  fontWeight: FontWeight.w900,
+                                ),
+                              ),
                             ),
-                            child: Text(
-                              widget.car.availabilityLabel,
-                              style: AppTextStyle.bodySmall(context).copyWith(
+
+                            Gap(12.h),
+
+                            Text(
+                              widget.car.brand,
+                              style: AppTextStyle.bodyMedium(
+                                context,
+                              ).copyWith(color: Colors.white70, fontWeight: FontWeight.w700),
+                            ),
+
+                            Gap(4.h),
+
+                            Text(
+                              widget.car.name,
+                              style: AppTextStyle.titleLarge(context).copyWith(
                                 color: AppColor.whiteColor(context),
                                 fontWeight: FontWeight.w900,
                               ),
                             ),
-                          ),
 
-                          Gap(12.h),
+                            Gap(12.h),
 
-                          Text(
-                            widget.car.brand,
-                            style: AppTextStyle.bodyMedium(
-                              context,
-                            ).copyWith(color: Colors.white70, fontWeight: FontWeight.w700),
-                          ),
-
-                          Gap(4.h),
-
-                          Text(
-                            widget.car.name,
-                            style: AppTextStyle.titleLarge(context).copyWith(
-                              color: AppColor.whiteColor(context),
-                              fontWeight: FontWeight.w900,
+                            ValueWithCurrencyIcon(
+                              text:
+                                  '${NumberFormat('#,##0').format(widget.car.price)} ${AppLocaleKey.sar.tr()}',
+                              textStyle: AppTextStyle.titleLarge(context).copyWith(
+                                color: AppColor.whiteColor(context),
+                                fontWeight: FontWeight.w900,
+                              ),
                             ),
-                          ),
-
-                          Gap(12.h),
-
-                          ValueWithCurrencyIcon(
-                            text:
-                                '${NumberFormat('#,##0').format(widget.car.price)} ${AppLocaleKey.sar.tr()}',
-                            textStyle: AppTextStyle.titleLarge(context).copyWith(
-                              color: AppColor.whiteColor(context),
-                              fontWeight: FontWeight.w900,
-                            ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
-            ),
-            SliverToBoxAdapter(
-              child: Padding(
-                padding: EdgeInsets.all(20.w),
-                child: CustomAgentCarDetailsInfoWidget(car: widget.car),
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: EdgeInsets.all(20.w),
+                  child: CustomAgentCarDetailsInfoWidget(car: widget.car),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -251,198 +253,201 @@ class _AgentCarDetailsScreenState extends State<AgentCarDetailsScreen> {
       ),
 
       builder: (BuildContext dialogContext) {
-        return SizedBox(
-          height: 380.h,
-          child: Column(
-            children: [
-              SingleChildScrollView(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
-                  child: Form(
-                    key: formKey,
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        Row(
-                          children: [
-                            Container(
-                              padding: EdgeInsets.all(8.w),
-                              decoration: BoxDecoration(
-                                color: AppColor.primaryColor(context).withValues(alpha: .1),
-                                shape: BoxShape.circle,
-                              ),
-                              child: Icon(
-                                Icons.bookmark_add_rounded,
-                                color: AppColor.primaryColor(context),
-                                size: 24.sp,
-                              ),
-                            ),
-                            Gap(12.w),
-                            Expanded(
-                              child: Text(
-                                isArabic ? 'حجز سيارة للعميل' : 'Reserve Car for Customer',
-                                style: AppTextStyle.titleMedium(context).copyWith(
-                                  fontWeight: FontWeight.w900,
-                                  color: AppColor.blackTextColor(context),
+        return SafeArea(
+          child: SizedBox(
+            height: 380.h,
+            child: Column(
+              children: [
+                SingleChildScrollView(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
+                    child: Form(
+                      key: formKey,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Row(
+                            children: [
+                              Container(
+                                padding: EdgeInsets.all(8.w),
+                                decoration: BoxDecoration(
+                                  color: AppColor.primaryColor(dialogContext).withValues(alpha: .1),
+                                  shape: BoxShape.circle,
+                                ),
+                                child: Icon(
+                                  Icons.bookmark_add_rounded,
+                                  color: AppColor.primaryColor(dialogContext),
+                                  size: 24.sp,
                                 ),
                               ),
-                            ),
-                          ],
-                        ),
-                        Gap(20.h),
-                        const Divider(height: 1),
-                        Gap(20.h),
-                        CustomFormField(
-                          controller: nameController,
-                          hintText: isArabic ? 'الاسم بالكامل للعميل' : 'Customer Full Name',
-                          radius: 12.r,
-                          keyboardType: TextInputType.text,
-                          prefixIcon: Icon(
-                            Icons.person_outline_rounded,
-                            color: AppColor.hintColor(context),
-                          ),
-                          validator: (value) {
-                            if (value == null || value.trim().isEmpty) {
-                              return isArabic
-                                  ? 'برجاء إدخال اسم العميل'
-                                  : 'Please enter customer name';
-                            }
-                            return null;
-                          },
-                        ),
-                        Gap(16.h),
-                        CustomFormField(
-                          controller: phoneController,
-                          hintText: isArabic ? 'رقم جوال العميل' : 'Customer Phone Number',
-                          radius: 12.r,
-                          keyboardType: TextInputType.phone,
-                          maxLength: 10,
-                          prefixIcon: Icon(
-                            Icons.phone_android_rounded,
-                            color: AppColor.hintColor(context),
-                          ),
-                          validator: (value) {
-                            if (value == null || value.trim().isEmpty) {
-                              return isArabic
-                                  ? 'برجاء إدخال رقم الجوال'
-                                  : 'Please enter phone number';
-                            }
-                            if (value.trim().length < 10) {
-                              return isArabic
-                                  ? 'رقم الجوال يجب أن يكون 10 أرقام'
-                                  : 'Phone number must be 10 digits';
-                            }
-                            return null;
-                          },
-                        ),
-                        Gap(16.h),
-                        CustomFormField(
-                          controller: depositController,
-                          hintText: isArabic
-                              ? 'مبلغ العربون (اختياري)'
-                              : 'Deposit Amount (Optional)',
-                          radius: 12.r,
-                          keyboardType: TextInputType.number,
-                          prefixIcon: Icon(
-                            Icons.payments_outlined,
-                            color: AppColor.hintColor(context),
-                          ),
-                          suffixIcon: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              SvgPicture.asset(
-                                AppImages.sar,
-                                width: 15.w,
-                                height: 15.h,
-                                colorFilter: ColorFilter.mode(
-                                  AppColor.blackColor(context),
-                                  BlendMode.srcIn,
+                              Gap(12.w),
+                              Expanded(
+                                child: Text(
+                                  isArabic ? 'حجز سيارة للعميل' : 'Reserve Car for Customer',
+                                  style: AppTextStyle.titleMedium(dialogContext).copyWith(
+                                    fontWeight: FontWeight.w900,
+                                    color: AppColor.blackTextColor(dialogContext),
+                                  ),
                                 ),
                               ),
                             ],
                           ),
-                          validator: (value) {
-                            if (value != null && value.trim().isNotEmpty) {
-                              final amount = double.tryParse(value.trim());
-                              if (amount == null) {
+                          Gap(20.h),
+                          const Divider(height: 1),
+                          Gap(20.h),
+                          CustomFormField(
+                            controller: nameController,
+                            hintText: isArabic ? 'الاسم بالكامل للعميل' : 'Customer Full Name',
+                            radius: 12.r,
+                            keyboardType: TextInputType.text,
+                            prefixIcon: Icon(
+                              Icons.person_outline_rounded,
+                              color: AppColor.hintColor(dialogContext),
+                            ),
+                            validator: (value) {
+                              if (value == null || value.trim().isEmpty) {
                                 return isArabic
-                                    ? 'الرجاء إدخال رقم صحيح'
-                                    : 'Please enter a valid number';
+                                    ? 'برجاء إدخال اسم العميل'
+                                    : 'Please enter customer name';
                               }
-                              if (amount < 0) {
+                              return null;
+                            },
+                          ),
+                          Gap(16.h),
+                          CustomFormField(
+                            controller: phoneController,
+                            hintText: isArabic ? 'رقم جوال العميل' : 'Customer Phone Number',
+                            radius: 12.r,
+                            keyboardType: TextInputType.phone,
+                            maxLength: 10,
+                            prefixIcon: Icon(
+                              Icons.phone_android_rounded,
+                              color: AppColor.hintColor(dialogContext),
+                            ),
+                            validator: (value) {
+                              if (value == null || value.trim().isEmpty) {
                                 return isArabic
-                                    ? 'المبلغ لا يمكن أن يكون سالباً'
-                                    : 'Amount cannot be negative';
+                                    ? 'برجاء إدخال رقم الجوال'
+                                    : 'Please enter phone number';
                               }
-                              if (amount > widget.car.price) {
+                              if (value.trim().length < 10) {
                                 return isArabic
-                                    ? 'المبلغ لا يمكن أن يتجاوز سعر السيارة'
-                                    : 'Amount cannot exceed the car price';
+                                    ? 'رقم الجوال يجب أن يكون 10 أرقام'
+                                    : 'Phone number must be 10 digits';
                               }
-                            }
-                            return null;
-                          },
-                        ),
-                        Gap(24.h),
-                        Row(
-                          children: [
-                            Expanded(
-                              child: TextButton(
-                                onPressed: () => Navigator.pop(dialogContext),
-                                style: TextButton.styleFrom(
-                                  padding: EdgeInsets.symmetric(vertical: 14.h),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(12.r),
-                                    side: BorderSide(color: AppColor.borderColor(context)),
+                              return null;
+                            },
+                          ),
+                          Gap(16.h),
+                          CustomFormField(
+                            controller: depositController,
+                            hintText: isArabic
+                                ? 'مبلغ العربون (اختياري)'
+                                : 'Deposit Amount (Optional)',
+                            radius: 12.r,
+                            keyboardType: TextInputType.number,
+                            prefixIcon: Icon(
+                              Icons.payments_outlined,
+                              color: AppColor.hintColor(dialogContext),
+                            ),
+                            suffixIcon: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                SvgPicture.asset(
+                                  AppImages.sar,
+                                  width: 15.w,
+                                  height: 15.h,
+                                  colorFilter: ColorFilter.mode(
+                                    AppColor.blackColor(dialogContext),
+                                    BlendMode.srcIn,
                                   ),
                                 ),
-                                child: Text(
-                                  isArabic ? 'إلغاء' : 'Cancel',
-                                  style: AppTextStyle.bodyMedium(context).copyWith(
-                                    color: AppColor.greyColor(context),
-                                    fontWeight: FontWeight.bold,
+                              ],
+                            ),
+                            validator: (value) {
+                              if (value != null && value.trim().isNotEmpty) {
+                                final amount = double.tryParse(value.trim());
+                                if (amount == null) {
+                                  return isArabic
+                                      ? 'الرجاء إدخال رقم صحيح'
+                                      : 'Please enter a valid number';
+                                }
+                                if (amount < 0) {
+                                  return isArabic
+                                      ? 'المبلغ لا يمكن أن يكون سالباً'
+                                      : 'Amount cannot be negative';
+                                }
+                                if (amount > widget.car.price) {
+                                  return isArabic
+                                      ? 'المبلغ لا يمكن أن يتجاوز سعر السيارة'
+                                      : 'Amount cannot exceed the car price';
+                                }
+                              }
+                              return null;
+                            },
+                          ),
+                          Gap(24.h),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: TextButton(
+                                  onPressed: () => Navigator.pop(dialogContext),
+                                  style: TextButton.styleFrom(
+                                    padding: EdgeInsets.symmetric(vertical: 14.h),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(12.r),
+                                      side: BorderSide(color: AppColor.borderColor(dialogContext)),
+                                    ),
+                                  ),
+                                  child: Text(
+                                    isArabic ? 'إلغاء' : 'Cancel',
+                                    style: AppTextStyle.bodySmall(dialogContext).copyWith(
+                                      color: AppColor.greyColor(dialogContext),
+                                      fontWeight: FontWeight.bold,
+                                      letterSpacing: 0.5,
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                            Gap(12.w),
-                            Expanded(
-                              child: CustomButton(
-                                radius: 12.r,
-                                onPressed: () {
-                                  if (formKey.currentState!.validate()) {
-                                    final name = nameController.text.trim();
-                                    final phone = phoneController.text.trim();
-                                    final deposit =
-                                        double.tryParse(depositController.text.trim()) ?? 0.0;
-                                    Navigator.pop(dialogContext);
-                                    _submitReservation(
-                                      customerName: name,
-                                      customerPhone: phone,
-                                      depositAmount: deposit,
-                                    );
-                                  }
-                                },
-                                child: _isLoading
-                                    ? CustomLoading(color: AppColor.whiteColor(context))
-                                    : Text(
-                                        isArabic ? 'تأكيد الحجز' : 'Confirm Reservation',
-                                        style: AppTextStyle.bodyMedium(context).copyWith(
-                                          color: AppColor.whiteColor(context),
-                                          fontWeight: FontWeight.w800,
+                              Gap(12.w),
+                              Expanded(
+                                child: CustomButton(
+                                  radius: 12.r,
+                                  onPressed: () {
+                                    if (formKey.currentState!.validate()) {
+                                      final name = nameController.text.trim();
+                                      final phone = phoneController.text.trim();
+                                      final deposit =
+                                          double.tryParse(depositController.text.trim()) ?? 0.0;
+                                      Navigator.pop(dialogContext);
+                                      _submitReservation(
+                                        customerName: name,
+                                        customerPhone: phone,
+                                        depositAmount: deposit,
+                                      );
+                                    }
+                                  },
+                                  child: _isLoading
+                                      ? CustomLoading(color: AppColor.whiteColor(dialogContext))
+                                      : Text(
+                                          isArabic ? 'تأكيد الحجز' : 'Confirm Reservation',
+                                          style: AppTextStyle.bodySmall(dialogContext).copyWith(
+                                            color: AppColor.whiteColor(dialogContext),
+                                            fontWeight: FontWeight.w800,
+                                          ),
                                         ),
-                                      ),
+                                ),
                               ),
-                            ),
-                          ],
-                        ),
-                      ],
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         );
       },

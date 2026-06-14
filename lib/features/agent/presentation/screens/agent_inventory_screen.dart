@@ -144,8 +144,8 @@ class _AgentInventoryScreenState extends State<AgentInventoryScreen>
                 indicatorSize: TabBarIndicatorSize.label,
                 labelColor: AppColor.blackTextColor(context),
                 unselectedLabelColor: AppColor.hintColor(context),
-                labelStyle: AppTextStyle.bodyMedium(context).copyWith(fontWeight: FontWeight.w900),
-                unselectedLabelStyle: AppTextStyle.bodyMedium(
+                labelStyle: AppTextStyle.bodySmall(context).copyWith(fontWeight: FontWeight.w900),
+                unselectedLabelStyle: AppTextStyle.bodySmall(
                   context,
                 ).copyWith(fontWeight: FontWeight.w600),
                 indicatorPadding: EdgeInsets.symmetric(horizontal: 4.w),
@@ -174,8 +174,12 @@ class _AgentInventoryScreenState extends State<AgentInventoryScreen>
                       });
                     },
                     decoration: InputDecoration(
-                      hintText: context.locale.languageCode == 'ar' ? 'البحث عن سيارة (الاسم، الماركة...)' : 'Search car (name, brand...)',
-                      hintStyle: AppTextStyle.hintStyle(context).copyWith(color: AppColor.hintColor(context)),
+                      hintText: context.locale.languageCode == 'ar'
+                          ? 'البحث عن سيارة (الاسم، الماركة...)'
+                          : 'Search car (name, brand...)',
+                      hintStyle: AppTextStyle.hintStyle(
+                        context,
+                      ).copyWith(color: AppColor.hintColor(context)),
                       prefixIcon: Icon(Icons.search_rounded, color: AppColor.hintColor(context)),
                       suffixIcon: _searchQuery.isNotEmpty
                           ? IconButton(

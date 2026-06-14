@@ -1358,7 +1358,9 @@
   "customsCard":"بطاقة جمركية",
   "save":"حفظ",
   "vertical":"مرتجع للمورد",
-  "details":"عرض التفاصيل"
+  "details":"عرض التفاصيل",
+  "weekly_activity":"النشاط الأسبوعي",
+  "last_7_days":"آخر 7 أيام"
 
 
 }

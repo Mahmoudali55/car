@@ -54,7 +54,7 @@ class _FinancingDocumentsTabState extends State<FinancingDocumentsTab> {
         ),
       ),
       context: context,
-      builder: (_) {
+      builder: (ctx) {
         return SafeArea(
           child: Padding(
             padding: EdgeInsets.all(16.w),
@@ -65,18 +65,18 @@ class _FinancingDocumentsTabState extends State<FinancingDocumentsTab> {
                   leading: const Icon(Icons.image),
                   title: Text(
                     AppLocaleKey.selectImage.tr(),
-                    style: AppTextStyle.bodyMedium(context),
+                    style: AppTextStyle.bodyMedium(ctx),
                   ),
                   onTap: () async {
-                    Navigator.pop(context);
+                    Navigator.pop(ctx);
                     await pickImage(key);
                   },
                 ),
                 ListTile(
                   leading: const Icon(Icons.picture_as_pdf),
-                  title: Text(AppLocaleKey.selectPDF.tr(), style: AppTextStyle.bodyMedium(context)),
+                  title: Text(AppLocaleKey.selectPDF.tr(), style: AppTextStyle.bodyMedium(ctx)),
                   onTap: () async {
-                    Navigator.pop(context);
+                    Navigator.pop(ctx);
                     await pickFile(key);
                   },
                 ),

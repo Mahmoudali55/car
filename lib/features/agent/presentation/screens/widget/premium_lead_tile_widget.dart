@@ -1,10 +1,12 @@
+import 'package:car/core/custom_widgets/custom_sar_text.dart';
+import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/features/agent/data/agent_models.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
-import 'package:intl/intl.dart';
 
 class PremiumLeadTile extends StatelessWidget {
   final AgentLead lead;
@@ -101,9 +103,9 @@ class PremiumLeadTile extends StatelessWidget {
                 ),
               ),
               Gap(8.h),
-              Text(
-                '${NumberFormat('#,##0').format(lead.budget)} ر.س',
-                style: AppTextStyle.bodySmall(context).copyWith(
+              ValueWithCurrencyIcon(
+                text: '${NumberFormat('#,##0').format(lead.budget)} ${AppLocaleKey.sar.tr()}',
+                textStyle: AppTextStyle.bodySmall(context).copyWith(
                   color: AppColor.blackTextColor(context),
                   fontWeight: FontWeight.w900,
                   letterSpacing: -0.3,

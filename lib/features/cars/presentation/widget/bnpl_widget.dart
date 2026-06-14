@@ -233,7 +233,7 @@ class _BnplWidgetState extends State<BnplWidget> {
       builder: (bottomSheetContext) => Container(
         padding: EdgeInsets.all(24.w),
         decoration: BoxDecoration(
-          color: AppColor.scaffoldColor(context),
+          color: AppColor.scaffoldColor(bottomSheetContext),
           borderRadius: BorderRadius.vertical(top: Radius.circular(24.r)),
         ),
         child: Column(
@@ -250,38 +250,42 @@ class _BnplWidgetState extends State<BnplWidget> {
             Gap(24.h),
             Text(
               '${AppLocaleKey.payWith.tr()} ${providerName.toUpperCase()}',
-              style: AppTextStyle.titleMedium(context).copyWith(fontWeight: FontWeight.bold),
+              style: AppTextStyle.titleMedium(bottomSheetContext).copyWith(
+                fontWeight: FontWeight.bold,
+              ),
             ),
             Gap(16.h),
             Text(
               bottomSheetDescKey.tr(),
               textAlign: TextAlign.center,
-              style: AppTextStyle.bodySmall(context).copyWith(color: AppColor.greyColor(context)),
+              style: AppTextStyle.bodySmall(
+                bottomSheetContext,
+              ).copyWith(color: AppColor.greyColor(bottomSheetContext)),
             ),
             Gap(32.h),
             _buildTimelineItem(
-              context,
+              bottomSheetContext,
               AppLocaleKey.payToday.tr(),
               formattedInstallment,
               bgColor,
               true,
             ),
             _buildTimelineItem(
-              context,
+              bottomSheetContext,
               AppLocaleKey.inOneMonth.tr(),
               formattedInstallment,
               bgColor,
               false,
             ),
             _buildTimelineItem(
-              context,
+              bottomSheetContext,
               AppLocaleKey.inTwoMonths.tr(),
               formattedInstallment,
               bgColor,
               false,
             ),
             _buildTimelineItem(
-              context,
+              bottomSheetContext,
               AppLocaleKey.inThreeMonths.tr(),
               formattedInstallment,
               bgColor,
@@ -297,14 +301,14 @@ class _BnplWidgetState extends State<BnplWidget> {
                   _handleBnplCheckout(context, isTabby, total);
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColor.primaryColor(context),
+                  backgroundColor: AppColor.primaryColor(bottomSheetContext),
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.r)),
                   padding: EdgeInsets.symmetric(vertical: 14.h),
                 ),
                 child: Text(
                   AppLocaleKey.payNow.tr(),
                   style: TextStyle(
-                    color: AppColor.whiteColor(context),
+                    color: AppColor.whiteColor(bottomSheetContext),
                     fontWeight: FontWeight.bold,
                   ),
                 ),

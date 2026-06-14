@@ -27,15 +27,15 @@ void showLanguageDialog(BuildContext context) {
               Text(
                 AppLocaleKey.language.tr(),
                 style: AppTextStyle.titleMedium(
-                  context,
-                ).copyWith(color: AppColor.blackTextColor(context)),
+                  ctx,
+                ).copyWith(color: AppColor.blackTextColor(ctx)),
               ),
               Gap(20.h),
               LanguageOptionWidget(
                 title: AppLocaleKey.arabic.tr(),
-                isSelected: context.locale.languageCode == 'ar',
+                isSelected: ctx.locale.languageCode == 'ar',
                 onTap: () async {
-                  await context.setLocale(const Locale('ar'));
+                  await ctx.setLocale(const Locale('ar'));
                   HiveMethods.updateLang(const Locale('ar'));
                   if (ctx.mounted) Navigator.pop(ctx);
                 },
@@ -43,9 +43,9 @@ void showLanguageDialog(BuildContext context) {
               Gap(12.h),
               LanguageOptionWidget(
                 title: AppLocaleKey.english.tr(),
-                isSelected: context.locale.languageCode == 'en',
+                isSelected: ctx.locale.languageCode == 'en',
                 onTap: () async {
-                  await context.setLocale(const Locale('en'));
+                  await ctx.setLocale(const Locale('en'));
                   HiveMethods.updateLang(const Locale('en'));
                   if (ctx.mounted) Navigator.pop(ctx);
                 },
