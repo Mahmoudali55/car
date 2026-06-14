@@ -105,6 +105,10 @@ class AgentCar {
   final String year;
   final String mileage;
   final String color;
+  final String itemCode;
+  final String itemName;
+  final String chassisNo;
+  final String storeCode;
 
   const AgentCar({
     required this.id,
@@ -116,6 +120,10 @@ class AgentCar {
     required this.year,
     required this.mileage,
     required this.color,
+    this.itemCode = '',
+    this.itemName = '',
+    this.chassisNo = '',
+    this.storeCode = '',
   });
 
   Color getAvailabilityColor(BuildContext context) {

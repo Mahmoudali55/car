@@ -97,6 +97,10 @@ class _AgentInventoryScreenState extends State<AgentInventoryScreen>
       year: car.makeYear?.toString() ?? '—',
       mileage: car.chassisNo ?? '—',
       color: car.bodyColor ?? '—',
+      itemCode: car.itemCode ?? '',
+      itemName: car.itemName ?? '',
+      chassisNo: car.chassisNo ?? '',
+      storeCode: car.storeCode ?? '',
     );
   }
 
