@@ -41,7 +41,9 @@ class CustomFormField extends StatefulWidget {
   final TextStyle? hintStyle;
   final int? maxLength;
   final double? width;
+  final Function(String)? onSubmitted;
   final AutovalidateMode? autovalidateMode;
+
   const CustomFormField({
     super.key,
     this.controller,
@@ -73,6 +75,7 @@ class CustomFormField extends StatefulWidget {
     this.maxLength,
     this.autovalidateMode,
     this.width,
+    this.onSubmitted,
   });
 
   @override
@@ -95,24 +98,19 @@ class _CustomFormFieldState extends State<CustomFormField> {
                 Expanded(
                   child: Text(
                     widget.title!,
-                    style:
-                        widget.titleStyle ??
-                        AppTextStyle.formTitleStyle(context),
+                    style: widget.titleStyle ?? AppTextStyle.formTitleStyle(context),
                   ),
                 ),
               },
               if (widget.otherSideTitle != null) ...{
                 Text(
                   widget.otherSideTitle!,
-                  style:
-                      widget.titleStyle ?? AppTextStyle.formTitleStyle(context),
+                  style: widget.titleStyle ?? AppTextStyle.formTitleStyle(context),
                 ),
               },
             ],
           ),
-          if (widget.title != null || widget.otherSideTitle != null) ...{
-            const Gap(5),
-          },
+          if (widget.title != null || widget.otherSideTitle != null) ...{const Gap(5)},
           Directionality(
             textDirection: widget.textDirection != null
                 ? widget.textDirection!
@@ -127,12 +125,12 @@ class _CustomFormFieldState extends State<CustomFormField> {
               onChanged: widget.onChanged,
               validator: widget.validator,
               onTap: widget.onTap,
+              onFieldSubmitted: widget.onSubmitted,
               readOnly: widget.readOnly,
               keyboardType: widget.keyboardType,
               obscureText: widget.isPassword ? _obscureText : false,
               style: widget.textStyle ?? AppTextStyle.textFormStyle(context),
-              autovalidateMode:
-                  widget.autovalidateMode ?? AutovalidateMode.onUserInteraction,
+              autovalidateMode: widget.autovalidateMode ?? AutovalidateMode.onUserInteraction,
               maxLines: widget.maxLines,
               cursorColor: widget.focusColor ?? AppColor.primaryColor(context),
               inputFormatters: widget.inputFormatters,
@@ -149,30 +147,19 @@ class _CustomFormFieldState extends State<CustomFormField> {
                         : AppColor.textFormFillColor(context)),
                 filled: true,
                 border: _border(
-                  color:
-                      widget.unFocusColor ??
-                      AppColor.textFormBorderColor(context),
+                  color: widget.unFocusColor ?? AppColor.textFormBorderColor(context),
                 ),
                 disabledBorder: _border(
-                  color:
-                      widget.unFocusColor ??
-                      AppColor.textFormBorderColor(context),
+                  color: widget.unFocusColor ?? AppColor.textFormBorderColor(context),
                 ),
                 focusedBorder: _border(
                   color: widget.unFocusColor ?? AppColor.primaryColor(context),
                 ),
                 enabledBorder: _border(
-                  color:
-                      widget.unFocusColor ??
-                      AppColor.textFormBorderColor(context),
+                  color: widget.unFocusColor ?? AppColor.textFormBorderColor(context),
                 ),
-                contentPadding: const EdgeInsets.symmetric(
-                  vertical: 10,
-                  horizontal: 10,
-                ),
-                prefixIcon:
-                    widget.country != null &&
-                        context.locale == const Locale('en')
+                contentPadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                prefixIcon: widget.country != null && context.locale == const Locale('en')
                     ? Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
@@ -183,18 +170,14 @@ class _CustomFormFieldState extends State<CustomFormField> {
                             //     widget.onCountrySelect != null ? _select : null,
                             child: Text(
                               '${widget.country?.flagEmoji} +${widget.country?.phoneCode}',
-                              style:
-                                  widget.textStyle ??
-                                  AppTextStyle.textFormStyle(context),
+                              style: widget.textStyle ?? AppTextStyle.textFormStyle(context),
                               textDirection: ui.TextDirection.ltr,
                             ),
                           ),
                         ],
                       )
                     : widget.prefixIcon,
-                suffixIcon:
-                    widget.country != null &&
-                        context.locale == const Locale('ar')
+                suffixIcon: widget.country != null && context.locale == const Locale('ar')
                     ? Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
@@ -204,9 +187,7 @@ class _CustomFormFieldState extends State<CustomFormField> {
                             //     widget.onCountrySelect != null ? _select : null,
                             child: Text(
                               '${widget.country?.flagEmoji} +${widget.country?.phoneCode}',
-                              style:
-                                  widget.textStyle ??
-                                  AppTextStyle.textFormStyle(context),
+                              style: widget.textStyle ?? AppTextStyle.textFormStyle(context),
                               textDirection: ui.TextDirection.ltr,
                             ),
                           ),
@@ -221,13 +202,9 @@ class _CustomFormFieldState extends State<CustomFormField> {
                           });
                         },
                         child: Icon(
-                          _obscureText
-                              ? Icons.visibility_off_rounded
-                              : Icons.visibility_rounded,
+                          _obscureText ? Icons.visibility_off_rounded : Icons.visibility_rounded,
                           size: 20,
-                          color:
-                              widget.passwordColor ??
-                              AppColor.hintColor(context),
+                          color: widget.passwordColor ?? AppColor.hintColor(context),
                         ),
                       )
                     : widget.suffixIcon,

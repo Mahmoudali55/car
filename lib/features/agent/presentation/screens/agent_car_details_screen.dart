@@ -4,6 +4,7 @@ import 'package:car/core/custom_widgets/custom_form_field/custom_form_field.dart
 import 'package:car/core/custom_widgets/custom_loading/custom_loading.dart';
 import 'package:car/core/custom_widgets/custom_sar_text.dart';
 import 'package:car/core/custom_widgets/custom_toast/custom_toast.dart';
+import 'package:car/core/images/app_images.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
@@ -18,6 +19,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 
 class AgentCarDetailsScreen extends StatefulWidget {
@@ -345,6 +347,20 @@ class _AgentCarDetailsScreenState extends State<AgentCarDetailsScreen> {
                           prefixIcon: Icon(
                             Icons.payments_outlined,
                             color: AppColor.hintColor(context),
+                          ),
+                          suffixIcon: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SvgPicture.asset(
+                                AppImages.sar,
+                                width: 15.w,
+                                height: 15.h,
+                                colorFilter: ColorFilter.mode(
+                                  AppColor.blackColor(context),
+                                  BlendMode.srcIn,
+                                ),
+                              ),
+                            ],
                           ),
                           validator: (value) {
                             if (value != null && value.trim().isNotEmpty) {

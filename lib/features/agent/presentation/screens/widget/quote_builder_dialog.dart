@@ -1,13 +1,16 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:car/core/custom_widgets/buttons/custom_button.dart';
+import 'package:car/core/custom_widgets/custom_form_field/custom_form_field.dart';
+import 'package:car/core/images/app_images.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
-import 'package:car/core/utils/pdf_preview_screen.dart';
-import 'package:car/core/utils/pdf_service.dart';
+import 'package:car/features/admin/presentation/screen/car_quotation_preview_screen.dart';
+import 'package:car/features/agent/presentation/screens/widget/section_title_widget.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 
 class QuoteBuilderDialog extends StatefulWidget {
@@ -151,33 +154,53 @@ class _QuoteBuilderDialogState extends State<QuoteBuilderDialog> {
                 padding: EdgeInsets.fromLTRB(24.w, 32.h, 24.w, 100.h),
                 physics: const BouncingScrollPhysics(),
                 children: [
-                  // Price Section
-                  _buildSectionTitle(AppLocaleKey.customPrice.tr(), Icons.payments_rounded),
+                  SectionTitleWidget(
+                    title: AppLocaleKey.customPrice.tr(),
+                    icon: Icons.payments_rounded,
+                  ),
                   Gap(12.h),
-                  _buildTextField(
+                  CustomFormField(
+                    radius: 12.r,
                     controller: _priceController,
-                    hint: '0',
-                    suffix: AppLocaleKey.sar.tr(),
+                    hintText: '0',
+                    suffixIcon: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SvgPicture.asset(
+                          AppImages.sar,
+                          width: 15.w,
+                          height: 15.h,
+                          colorFilter: ColorFilter.mode(
+                            AppColor.primaryColor(context),
+                            BlendMode.srcIn,
+                          ),
+                        ),
+                      ],
+                    ),
                     keyboardType: TextInputType.number,
                   ),
                   Gap(32.h),
-                  // Instant Specs Section
-                  _buildSectionTitle(AppLocaleKey.instantSpecs.tr(), Icons.auto_awesome_rounded),
+                  SectionTitleWidget(
+                    title: AppLocaleKey.instantSpecs.tr(),
+                    icon: Icons.auto_awesome_rounded,
+                  ),
                   Gap(12.h),
                   Row(
                     children: [
                       Expanded(
-                        child: _buildTextField(
+                        child: CustomFormField(
+                          radius: 12.r,
                           controller: _specController,
-                          hint: AppLocaleKey.enterSpecTitle.tr(),
+                          hintText: AppLocaleKey.enterSpecTitle.tr(),
                           onSubmitted: (_) => _addSpec(),
                         ),
                       ),
                       Gap(12.w),
                       CustomButton(
-                        width: 56.w,
-                        height: 56.h,
-                        radius: 16.r,
+                        width: 40.w,
+                        height: 40.h,
+                        radius: 12.r,
                         onPressed: _addSpec,
                         child: Icon(Icons.add_rounded, color: AppColor.whiteColor(context)),
                       ),
@@ -209,11 +232,11 @@ class _QuoteBuilderDialogState extends State<QuoteBuilderDialog> {
                       }).toList(),
                     ),
                   ],
-
                   Gap(32.h),
-
-                  // Existing Specs Section
-                  _buildSectionTitle(AppLocaleKey.existingSpecs.tr(), Icons.list_alt_rounded),
+                  SectionTitleWidget(
+                    title: AppLocaleKey.existingSpecs.tr(),
+                    icon: Icons.list_alt_rounded,
+                  ),
                   Gap(16.h),
                   GridView.builder(
                     shrinkWrap: true,
@@ -222,36 +245,42 @@ class _QuoteBuilderDialogState extends State<QuoteBuilderDialog> {
                       crossAxisCount: 2,
                       crossAxisSpacing: 12.w,
                       mainAxisSpacing: 12.h,
-                      childAspectRatio: 2.8,
+                      childAspectRatio: 2.5,
                     ),
                     itemCount: widget.existingSpecs.length,
                     itemBuilder: (context, index) {
                       final key = widget.existingSpecs.keys.elementAt(index);
                       final value = widget.existingSpecs.values.elementAt(index);
-                      return Container(
-                        padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
-                        decoration: BoxDecoration(
-                          color: AppColor.greyColor(context).withValues(alpha: 0.05),
-                          borderRadius: BorderRadius.circular(16.r),
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              key,
-                              style: AppTextStyle.bodySmall(context).copyWith(
-                                color: AppColor.hintColor(context),
-                                fontWeight: FontWeight.bold,
+                      return Card(
+                        elevation: 0,
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.r)),
+                        color: AppColor.greyColor(context).withValues(alpha: 0.05),
+                        // padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
+                        // decoration: BoxDecoration(
+                        //   color: AppColor.greyColor(context).withValues(alpha: 0.05),
+                        //   borderRadius: BorderRadius.circular(16.r),
+                        // ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                key,
+                                style: AppTextStyle.bodySmall(context).copyWith(
+                                  color: AppColor.hintColor(context),
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
-                            ),
-                            Text(
-                              value,
-                              style: AppTextStyle.bodyMedium(
-                                context,
-                              ).copyWith(color: AppColor.blackTextColor(context)),
-                            ),
-                          ],
+                              Text(
+                                value,
+                                style: AppTextStyle.bodyMedium(
+                                  context,
+                                ).copyWith(color: AppColor.blackTextColor(context)),
+                              ),
+                            ],
+                          ),
                         ),
                       );
                     },
@@ -259,16 +288,13 @@ class _QuoteBuilderDialogState extends State<QuoteBuilderDialog> {
                 ],
               ),
             ),
-
-            // Action Button
             Padding(
               padding: EdgeInsets.fromLTRB(24.w, 0, 24.w, 40.h),
               child: CustomButton(
                 onPressed: () async {
-                  final String customPrice = _priceController.text;
-                  final Map<String, dynamic> carData = {
+                  final Map<String, String> stringCar = {
                     'name': widget.carName,
-                    'price': customPrice,
+                    'price': _priceController.text,
                     'year':
                         widget.existingSpecs[AppLocaleKey.agentYearMade.tr()] ??
                         widget.existingSpecs[AppLocaleKey.manufacturingYear.tr()] ??
@@ -277,22 +303,19 @@ class _QuoteBuilderDialogState extends State<QuoteBuilderDialog> {
                         widget.existingSpecs[AppLocaleKey.agentSimNumber.tr()] ??
                         widget.existingSpecs[AppLocaleKey.mileage.tr()] ??
                         '',
-                    'Color':
+                    'color':
                         widget.existingSpecs[AppLocaleKey.agentColor.tr()] ??
                         widget.existingSpecs[AppLocaleKey.exteriorColor.tr()] ??
                         '',
-                    'TRANSMISSION': 1,
-                    'instantSpecs': _instantSpecs,
+                    'instantSpecs': _instantSpecs.join(' | '),
+                    ...widget.existingSpecs,
                   };
-
-                  final doc = await PdfService.generateDocument(context: context, car: carData);
 
                   if (context.mounted) {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) =>
-                            PdfPreviewScreen(doc: doc, fileName: '${widget.carName}_Quote.pdf'),
+                        builder: (context) => CarQuotationPreviewScreen(car: stringCar),
                       ),
                     );
                   }
@@ -314,65 +337,6 @@ class _QuoteBuilderDialogState extends State<QuoteBuilderDialog> {
               ),
             ),
           ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildSectionTitle(String title, IconData icon) {
-    return Row(
-      children: [
-        Icon(icon, color: AppColor.primaryColor(context), size: 20.sp),
-        Gap(8.w),
-        Text(
-          title,
-          style: AppTextStyle.bodyLarge(
-            context,
-          ).copyWith(color: AppColor.blackTextColor(context), fontWeight: FontWeight.w900),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildTextField({
-    required TextEditingController controller,
-    required String hint,
-    String? suffix,
-    TextInputType? keyboardType,
-    Function(String)? onSubmitted,
-  }) {
-    return TextField(
-      controller: controller,
-      keyboardType: keyboardType,
-      onSubmitted: onSubmitted,
-      style: AppTextStyle.bodyMedium(context).copyWith(
-        color: AppColor.blackTextColor(context),
-        fontWeight: FontWeight.bold,
-        fontSize: 15.sp,
-      ),
-      decoration: InputDecoration(
-        hintText: hint,
-        hintStyle: AppTextStyle.bodySmall(
-          context,
-        ).copyWith(color: AppColor.hintColor(context), fontSize: 14.sp),
-        suffixText: suffix,
-        suffixStyle: AppTextStyle.bodySmall(
-          context,
-        ).copyWith(color: AppColor.primaryColor(context), fontWeight: FontWeight.bold),
-        filled: true,
-        fillColor: AppColor.greyColor(context).withValues(alpha: 0.05),
-        contentPadding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 18.h),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(20.r),
-          borderSide: BorderSide.none,
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(20.r),
-          borderSide: BorderSide.none,
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(20.r),
-          borderSide: BorderSide(color: AppColor.primaryColor(context), width: 1.5),
         ),
       ),
     );
