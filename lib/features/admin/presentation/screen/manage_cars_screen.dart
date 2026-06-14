@@ -1,6 +1,4 @@
 import 'package:animate_do/animate_do.dart';
-import 'package:car/features/home/presentation/cubit/home_cubit.dart';
-import 'package:car/features/home/data/model/brand_cars_data_model.dart';
 import 'package:car/core/custom_widgets/custom_app_bar/custom_app_bar.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/routes/routes_name.dart';
@@ -14,6 +12,8 @@ import 'package:car/features/admin/presentation/screen/car_quotation_preview_scr
 import 'package:car/features/admin/presentation/screen/widgets/car_filter_chips.dart';
 import 'package:car/features/admin/presentation/screen/widgets/car_inventory_card.dart';
 import 'package:car/features/admin/presentation/screen/widgets/fleet_stats_row.dart';
+import 'package:car/features/home/data/model/brand_cars_data_model.dart';
+import 'package:car/features/home/presentation/cubit/home_cubit.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -30,10 +30,7 @@ class ManageCarsScreen extends StatefulWidget {
 }
 
 class _ManageCarsScreenState extends State<ManageCarsScreen> {
-  // Default first filter
   String _selectedFilter = 'available';
-
-  // Filter key → API carstatus int
   static const Map<String, int> _filterToStatus = {
     'available': 1,
     'reserved': 2,
@@ -44,11 +41,8 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
   @override
   void initState() {
     super.initState();
-    // Fetch cars for the default filter (متاح)
     context.read<AdminCubit>().getCarsStatus(_filterToStatus['available']!);
-    // Fetch counts from dedicated endpoint
     context.read<AdminCubit>().getCarsCountStatus();
-    // Fetch brands and cars from HomeCubit so they are loaded for details mapping
     final homeCubit = context.read<HomeCubit>();
     if (homeCubit.state.brands.isEmpty) {
       homeCubit.getCarsModels();
@@ -58,15 +52,12 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
     }
   }
 
-  /// On filter tap: just update state + call API.
-  /// Stats row and filter chips stay visible — only the list area reloads.
   void _onFilterChanged(String filter) {
     if (_selectedFilter == filter) return;
     setState(() => _selectedFilter = filter);
     context.read<AdminCubit>().getCarsStatus(_filterToStatus[filter]!);
   }
 
-  // Map API carStatus int → filter key
   String _statusKey(int? carStatus) {
     switch (carStatus) {
       case 1:
@@ -136,33 +127,23 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
         builder: (context, state) {
           final carsStatus = state.getCarsStatus;
           final countStatus = state.getCarsCountStatus;
-
-          // Stats from dedicated endpoint
           final StockStatisticsModel? stats =
               countStatus.isSuccess && countStatus.data != null && countStatus.data!.isNotEmpty
               ? countStatus.data!.first
               : null;
-
-          // Cars list for the currently selected filter
           final List<Map<String, String>> cars = carsStatus.isSuccess && carsStatus.data != null
               ? carsStatus.data!.data.map(_toMap).toList()
               : [];
-
           return Column(
             children: [
-              // ── TOP: counts from getCarsCountStatus — always visible ──
               FleetStatsRow(stats: stats),
               Gap(14.h),
-              // ── FILTER CHIPS — always visible ──
               CarFilterChips(selectedFilter: _selectedFilter, onFilterChanged: _onFilterChanged),
               Gap(4.h),
-
-              // ── BOTTOM LIST — only this area reloads on filter tap ──
               Expanded(
                 child: AnimatedSwitcher(
                   duration: const Duration(milliseconds: 250),
                   child: carsStatus.isLoading
-                      // List-only loading indicator
                       ? const Center(key: ValueKey('loading'), child: CircularProgressIndicator())
                       : carsStatus.isFailure
                       ? Center(
@@ -229,7 +210,9 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
                                     brandCar = GetBrandCarsDataModel(
                                       groupCode: originalCar.groupCode ?? 0,
                                       groupName: brandName,
-                                      grName: brandName.isNotEmpty ? "$brandName - ${originalCar.itemName ?? ''}" : (originalCar.itemName ?? ''),
+                                      grName: brandName.isNotEmpty
+                                          ? "$brandName - ${originalCar.itemName ?? ''}"
+                                          : (originalCar.itemName ?? ''),
                                       groupParent: 0,
                                       groupLevel: 0,
                                       price: originalCar.costPrice?.toStringAsFixed(0),
@@ -262,7 +245,6 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
                                       color: originalCar.bodyColor ?? '',
                                     );
                                   }
-
                                   Navigator.pushNamed(
                                     context,
                                     RoutesName.carDetailsScreen,

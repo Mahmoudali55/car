@@ -80,7 +80,7 @@ class AgentCarDetailsScreen extends StatelessWidget {
                         initialPrice: car.price,
                         existingSpecs: {
                           AppLocaleKey.agentYearMade.tr(): car.year,
-                          AppLocaleKey.agentDistance.tr(): car.mileage,
+                          AppLocaleKey.agentSimNumber.tr(): car.mileage,
                           AppLocaleKey.agentColor.tr(): car.color,
                           AppLocaleKey.agentTransmission.tr(): AppLocaleKey.agentAutomatic.tr(),
                         },

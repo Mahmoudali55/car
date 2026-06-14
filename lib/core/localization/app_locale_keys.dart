@@ -1032,7 +1032,7 @@ class AppLocaleKey {
   static const String agentSaveNote = 'agent_save_note';
   static const String agentMainSpecs = 'agent_main_specs';
   static const String agentYearMade = 'agent_year_made';
-  static const String agentDistance = 'agent_distance';
+  static const String agentSimNumber = 'agent_sim_number';
   static const String agentColor = 'agent_color';
   static const String agentTransmission = 'agent_transmission';
   static const String agentAutomatic = 'agent_automatic';

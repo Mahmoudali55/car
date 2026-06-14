@@ -121,7 +121,7 @@ class CarListCard extends StatelessWidget {
                     runSpacing: 8.h,
                     children: [
                       _SpecChip(icon: Icons.calendar_month_rounded, text: car.year),
-                      _SpecChip(icon: Icons.speed_rounded, text: '${car.mileage} كم'),
+                      _SpecChip(icon: Icons.numbers, text: '${car.mileage} '),
                       _SpecChip(icon: Icons.palette_outlined, text: car.color),
                     ],
                   ),

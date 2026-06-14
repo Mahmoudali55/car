@@ -274,7 +274,7 @@ class _QuoteBuilderDialogState extends State<QuoteBuilderDialog> {
                         widget.existingSpecs[AppLocaleKey.manufacturingYear.tr()] ??
                         '',
                     'mileage':
-                        widget.existingSpecs[AppLocaleKey.agentDistance.tr()] ??
+                        widget.existingSpecs[AppLocaleKey.agentSimNumber.tr()] ??
                         widget.existingSpecs[AppLocaleKey.mileage.tr()] ??
                         '',
                     'Color':

@@ -996,7 +996,7 @@
   "agent_save_note": "Save Note",
   "agent_main_specs": "Main Specifications",
   "agent_year_made": "Year of Manufacture",
-  "agent_distance": "Distance",
+  "agent_sim_number": "chassisNo",
   "agent_color": "Color",
   "agent_transmission": "Transmission",
   "agent_automatic": "Automatic",
