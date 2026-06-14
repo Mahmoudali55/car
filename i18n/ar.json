@@ -95,7 +95,7 @@
   "car_group": "شركة هاجد بن وزير",
   "admin_total_cars": "إجمالي السيارات",
   "admin_sold_cars": "السيارات المباعة",
-  "admin_pending_approvals": " السيارات المحجوزه",
+  "admin_pending_approvals": "محجوز",
   "admin_available_cars":" السيارات المتاحه",
   "admin_sales_performance": "أداء المبيعات",
   "admin_most_requested_brands": "الماركات الأكثر طلباً",
@@ -151,9 +151,9 @@
   "manufacturing_year": "سنة الصنع",
   "test_drive": "تجربة القيادة",
   "status": "الحالة",
-  "available": "متوفر",
-  "unavailable": "غير متوفر",
-  "available_on_request": "متوفر عند الطلب",
+  "available": "متاح",
+  "unavailable": "غير متاح",
+  "available_on_request": "متاح عند الطلب",
   "price": "السعر",
   "tax_inclusive": "خاضع للضريبة",
   "discount": "تطبيق الخصم",
@@ -1031,9 +1031,9 @@
   "loginSuccess": "تم تسجيل الدخول بنجاح",
   "agent_no_cars": "لا يوجد سيارات متاحة لهذه الماركة",
   "agent_no_cars_available": "لا توجد سيارات متوفرة لهذه الماركة حالياً",
-  "agent_car_available": "متاحة",
-  "agent_car_reserved": "محجوزة",
-  "agent_car_sold": "مباعة",
+  "agent_car_available": "متاح",
+  "agent_car_reserved": "محجوز",
+  "agent_car_sold": "مباع",
   "agent_no_brands_available": "لا توجد ماركات متاحة حالياً",
   "agent_no_categories_found": "لا توجد فئات متوفرة حالياً",
   "agent_includes_vat": "السعر يشمل الضريبة المضافة",
@@ -1360,7 +1360,8 @@
   "vertical":"مرتجع للمورد",
   "details":"عرض التفاصيل",
   "weekly_activity":"النشاط الأسبوعي",
-  "last_7_days":"آخر 7 أيام"
+  "last_7_days":"آخر 7 أيام",
+  "horizontal":"مرتجع",
+  "search_car_hint": "البحث عن سيارة (الاسم، السنة، السعر...)"
+  }
 
-
-}

@@ -1,7 +1,9 @@
 import 'package:car/core/custom_widgets/custom_image/custom_network_image.dart';
+import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/features/admin/presentation/screen/widgets/card_header_widget.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -21,31 +23,31 @@ class CarStatusConfig {
   });
   static CarStatusConfig of(String status) => switch (status) {
     'available' => const CarStatusConfig(
-      label: 'متاح',
+      label: AppLocaleKey.agentCarAvailable,
       bg: Color(0xFFEAF3DE),
       textColor: Color(0xFF3B6D11),
       accent: Color(0xFF639922),
     ),
     'reserved' => const CarStatusConfig(
-      label: 'محجوز',
+      label: AppLocaleKey.adminPendingApprovals,
       bg: Color(0xFFFAEEDA),
       textColor: Color(0xFF854F0B),
       accent: Color(0xFFEF9F27),
     ),
     'sold' => const CarStatusConfig(
-      label: 'مباع',
+      label: AppLocaleKey.agentCarSold,
       bg: Color(0xFFFCEBEB),
       textColor: Color(0xFFA32D2D),
       accent: Color(0xFFE24B4A),
     ),
     'returned' => const CarStatusConfig(
-      label: 'مرتجع للمورد',
+      label: AppLocaleKey.horizontal,
       bg: Color(0xFFEDE8FA),
       textColor: Color(0xFF4A2D9C),
       accent: Color(0xFF7C5CBF),
     ),
     _ => const CarStatusConfig(
-      label: 'متاح',
+      label: AppLocaleKey.agentCarAvailable,
       bg: Color(0xFFEAF3DE),
       textColor: Color(0xFF3B6D11),
       accent: Color(0xFF639922),
@@ -103,7 +105,7 @@ class CarInventoryCard extends StatelessWidget {
                     borderRadius: BorderRadius.circular(20.r),
                   ),
                   child: Text(
-                    cfg.label,
+                    cfg.label.tr(),
                     style: AppTextStyle.bodySmall(
                       context,
                     ).copyWith(fontWeight: FontWeight.w600, color: cfg.textColor),

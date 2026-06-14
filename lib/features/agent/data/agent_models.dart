@@ -148,7 +148,7 @@ class AgentCar {
       case CarAvailability.sold:
         return AppLocaleKey.agentSold.tr();
       case CarAvailability.returned:
-        return 'مرتجع للمورد';
+        return AppLocaleKey.horizontal.tr();
     }
   }
 }

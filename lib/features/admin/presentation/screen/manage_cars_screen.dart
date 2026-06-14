@@ -171,9 +171,7 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
                     controller: _searchController,
                     onChanged: (value) => setState(() => _searchQuery = value),
                     decoration: InputDecoration(
-                      hintText: context.locale.languageCode == 'ar'
-                          ? 'البحث عن سيارة (الاسم، السنة، السعر...)'
-                          : 'Search car (name, year, price...)',
+                      hintText: AppLocaleKey.searchCarHint.tr(),
                       hintStyle: AppTextStyle.hintStyle(context)
                           .copyWith(color: AppColor.hintColor(context)),
                       prefixIcon: Icon(Icons.search_rounded, color: AppColor.hintColor(context)),
@@ -213,7 +211,7 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
                               ),
                               Gap(12.h),
                               Text(
-                                carsStatus.error ?? 'حدث خطأ ما',
+                                carsStatus.error ?? AppLocaleKey.tryAgain.tr(),
                                 style: AppTextStyle.bodyMedium(context),
                                 textAlign: TextAlign.center,
                               ),
@@ -222,7 +220,7 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
                                 onPressed: () => context.read<AdminCubit>().getCarsStatus(
                                   _filterToStatus[_selectedFilter]!,
                                 ),
-                                child: const Text('إعادة المحاولة'),
+                                child: Text(AppLocaleKey.tryAgain.tr()),
                               ),
                             ],
                           ),

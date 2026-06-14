@@ -1407,4 +1407,6 @@ class AppLocaleKey {
   static const String vertical = "vertical";
   static const String weekly_activity = "weekly_activity";
   static const String last_7_days = "last_7_days";
+  static const String horizontal = "horizontal";
+  static const String searchCarHint = "search_car_hint";
 }

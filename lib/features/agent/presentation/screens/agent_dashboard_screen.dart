@@ -74,15 +74,14 @@ class AgentDashboardScreen extends StatelessWidget {
                                     ),
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
-                                    style: AppTextStyle.titleMedium(context).copyWith(
+                                    style: AppTextStyle.bodyMedium(context).copyWith(
                                       color: AppColor.blackTextColor(context),
                                       fontWeight: FontWeight.w900,
-                                      fontSize: 18.sp,
                                     ),
                                   ),
                                   Text(
                                     AppLocaleKey.agentSalesConsultant.tr(),
-                                    style: AppTextStyle.bodySmall(context).copyWith(
+                                    style: AppTextStyle.bodyMedium(context).copyWith(
                                       color: AppColor.greyColor(context),
 
                                       fontWeight: FontWeight.w600,
@@ -91,8 +90,10 @@ class AgentDashboardScreen extends StatelessWidget {
                                 ],
                               ),
                             ),
+
                             IconBtn(
                               icon: Icons.logout_rounded,
+
                               onTap: () {
                                 context.read<AuthCubit>().logout();
                                 Navigator.pushNamedAndRemoveUntil(

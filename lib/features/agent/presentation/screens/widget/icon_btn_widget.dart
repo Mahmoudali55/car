@@ -13,6 +13,8 @@ class IconBtn extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
+        width: 44.w,
+        height: 44.w,
         decoration: BoxDecoration(
           color: primaryColor.withValues(alpha: 0.08),
           borderRadius: BorderRadius.circular(14.r),
