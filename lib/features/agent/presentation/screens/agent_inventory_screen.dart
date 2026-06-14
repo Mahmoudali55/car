@@ -25,6 +25,8 @@ class AgentInventoryScreen extends StatefulWidget {
 class _AgentInventoryScreenState extends State<AgentInventoryScreen>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
+  final TextEditingController _searchController = TextEditingController();
+  String _searchQuery = '';
 
   @override
   void initState() {
@@ -48,6 +50,7 @@ class _AgentInventoryScreenState extends State<AgentInventoryScreen>
   void dispose() {
     _tabController.removeListener(_handleTabChange);
     _tabController.dispose();
+    _searchController.dispose();
     super.dispose();
   }
 
@@ -154,6 +157,44 @@ class _AgentInventoryScreenState extends State<AgentInventoryScreen>
                 ],
               ),
             ),
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: EdgeInsets.fromLTRB(16.w, 12.h, 16.w, 4.h),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: AppColor.cardColor(context),
+                    borderRadius: BorderRadius.circular(12.r),
+                    border: Border.all(color: AppColor.borderColor(context).withValues(alpha: 0.5)),
+                  ),
+                  child: TextField(
+                    controller: _searchController,
+                    onChanged: (value) {
+                      setState(() {
+                        _searchQuery = value;
+                      });
+                    },
+                    decoration: InputDecoration(
+                      hintText: context.locale.languageCode == 'ar' ? 'البحث عن سيارة (الاسم، الماركة...)' : 'Search car (name, brand...)',
+                      hintStyle: AppTextStyle.hintStyle(context).copyWith(color: AppColor.hintColor(context)),
+                      prefixIcon: Icon(Icons.search_rounded, color: AppColor.hintColor(context)),
+                      suffixIcon: _searchQuery.isNotEmpty
+                          ? IconButton(
+                              icon: Icon(Icons.clear_rounded, color: AppColor.hintColor(context)),
+                              onPressed: () {
+                                _searchController.clear();
+                                setState(() {
+                                  _searchQuery = '';
+                                });
+                              },
+                            )
+                          : null,
+                      border: InputBorder.none,
+                      contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+                    ),
+                  ),
+                ),
+              ),
+            ),
           ],
           body: BlocBuilder<AdminCubit, AdminState>(
             builder: (context, state) {
@@ -189,7 +230,17 @@ class _AgentInventoryScreenState extends State<AgentInventoryScreen>
               }
 
               final carModels = status.data?.data ?? [];
-              final agentCars = carModels.map(_mapToAgentCar).toList();
+              var agentCars = carModels.map(_mapToAgentCar).toList();
+
+              if (_searchQuery.isNotEmpty) {
+                final query = _searchQuery.toLowerCase();
+                agentCars = agentCars.where((car) {
+                  return car.name.toLowerCase().contains(query) ||
+                      car.brand.toLowerCase().contains(query) ||
+                      car.year.toLowerCase().contains(query) ||
+                      car.chassisNo.toLowerCase().contains(query);
+                }).toList();
+              }
 
               return TabBarView(
                 controller: _tabController,

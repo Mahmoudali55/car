@@ -38,6 +38,9 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
     'returned': 4,
   };
 
+  final TextEditingController _searchController = TextEditingController();
+  String _searchQuery = '';
+
   @override
   void initState() {
     super.initState();
@@ -50,6 +53,12 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
     if (homeCubit.state.allCarsStatus.data == null || homeCubit.state.allCarsStatus.data!.isEmpty) {
       homeCubit.fetchAllCars();
     }
+  }
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
   }
 
   void _onFilterChanged(String filter) {
@@ -131,13 +140,59 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
               countStatus.isSuccess && countStatus.data != null && countStatus.data!.isNotEmpty
               ? countStatus.data!.first
               : null;
-          final List<Map<String, String>> cars = carsStatus.isSuccess && carsStatus.data != null
+          final List<Map<String, String>> allCars = carsStatus.isSuccess && carsStatus.data != null
               ? carsStatus.data!.data.map(_toMap).toList()
               : [];
+
+          final List<Map<String, String>> cars = _searchQuery.isEmpty
+              ? allCars
+              : allCars.where((car) {
+                  final query = _searchQuery.toLowerCase();
+                  return (car['name'] ?? '').toLowerCase().contains(query) ||
+                      (car['year'] ?? '').toLowerCase().contains(query) ||
+                      (car['mileage'] ?? '').toLowerCase().contains(query) ||
+                      (car['bank'] ?? '').toLowerCase().contains(query) ||
+                      (car['price'] ?? '').toLowerCase().contains(query);
+                }).toList();
+
           return Column(
             children: [
               FleetStatsRow(stats: stats),
-              Gap(14.h),
+              Gap(10.h),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.w),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: AppColor.cardColor(context),
+                    borderRadius: BorderRadius.circular(12.r),
+                    border: Border.all(color: AppColor.borderColor(context).withValues(alpha: 0.5)),
+                  ),
+                  child: TextField(
+                    controller: _searchController,
+                    onChanged: (value) => setState(() => _searchQuery = value),
+                    decoration: InputDecoration(
+                      hintText: context.locale.languageCode == 'ar'
+                          ? 'البحث عن سيارة (الاسم، السنة، السعر...)'
+                          : 'Search car (name, year, price...)',
+                      hintStyle: AppTextStyle.hintStyle(context)
+                          .copyWith(color: AppColor.hintColor(context)),
+                      prefixIcon: Icon(Icons.search_rounded, color: AppColor.hintColor(context)),
+                      suffixIcon: _searchQuery.isNotEmpty
+                          ? IconButton(
+                              icon: Icon(Icons.clear_rounded, color: AppColor.hintColor(context)),
+                              onPressed: () {
+                                _searchController.clear();
+                                setState(() => _searchQuery = '');
+                              },
+                            )
+                          : null,
+                      border: InputBorder.none,
+                      contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+                    ),
+                  ),
+                ),
+              ),
+              Gap(10.h),
               CarFilterChips(selectedFilter: _selectedFilter, onFilterChanged: _onFilterChanged),
               Gap(4.h),
               Expanded(
@@ -175,14 +230,19 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
                       : cars.isEmpty
                       ? const EmptyState(key: ValueKey('empty'))
                       : ListView.separated(
-                          key: ValueKey(_selectedFilter),
+                          key: ValueKey('${_selectedFilter}_$_searchQuery'),
                           padding: EdgeInsets.all(16.w),
                           physics: const BouncingScrollPhysics(),
                           itemCount: cars.length,
                           separatorBuilder: (_, __) => Gap(10.h),
                           itemBuilder: (context, i) {
                             final carMap = cars[i];
-                            final originalCar = carsStatus.data!.data[i];
+                            // Find original car matching the (possibly filtered) carMap
+                            final allOriginalCars = carsStatus.data!.data;
+                            final originalCar = allOriginalCars.firstWhere(
+                              (c) => (c.itemName ?? c.itemCode ?? '') == carMap['name'],
+                              orElse: () => allOriginalCars[i < allOriginalCars.length ? i : 0],
+                            );
                             return FadeInUp(
                               delay: Duration(milliseconds: i * 40),
                               duration: const Duration(milliseconds: 300),
