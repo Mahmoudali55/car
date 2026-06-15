@@ -13,7 +13,6 @@ import 'package:gap/gap.dart';
 
 class RevenueReportScreen extends StatelessWidget {
   const RevenueReportScreen({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

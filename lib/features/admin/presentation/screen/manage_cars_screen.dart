@@ -1,5 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:car/core/custom_widgets/custom_app_bar/custom_app_bar.dart';
+import 'package:car/core/custom_widgets/custom_loading/custom_loading.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/routes/routes_name.dart';
 import 'package:car/core/theme/app_colors.dart';
@@ -11,7 +12,6 @@ import 'package:car/features/admin/presentation/cubit/admin_state.dart';
 import 'package:car/features/admin/presentation/screen/car_quotation_preview_screen.dart';
 import 'package:car/features/admin/presentation/screen/widgets/car_filter_chips.dart';
 import 'package:car/features/admin/presentation/screen/widgets/car_inventory_card.dart';
-import 'package:car/features/admin/presentation/screen/widgets/fleet_stats_row.dart';
 import 'package:car/features/home/data/model/brand_cars_data_model.dart';
 import 'package:car/features/home/presentation/cubit/home_cubit.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -110,7 +110,7 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
         leading: null,
         centerTitle: true,
         title: Text(
-          AppLocaleKey.fleetManagement.tr(),
+          AppLocaleKey.cars.tr(),
           style: AppTextStyle.titleMedium(
             context,
           ).copyWith(fontWeight: FontWeight.w900, fontSize: 20.sp),
@@ -157,7 +157,7 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
 
           return Column(
             children: [
-              FleetStatsRow(stats: stats),
+              // FleetStatsRow(stats: stats),
               Gap(10.h),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16.w),
@@ -172,8 +172,9 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
                     onChanged: (value) => setState(() => _searchQuery = value),
                     decoration: InputDecoration(
                       hintText: AppLocaleKey.searchCarHint.tr(),
-                      hintStyle: AppTextStyle.hintStyle(context)
-                          .copyWith(color: AppColor.hintColor(context)),
+                      hintStyle: AppTextStyle.hintStyle(
+                        context,
+                      ).copyWith(color: AppColor.hintColor(context)),
                       prefixIcon: Icon(Icons.search_rounded, color: AppColor.hintColor(context)),
                       suffixIcon: _searchQuery.isNotEmpty
                           ? IconButton(
@@ -197,7 +198,7 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
                 child: AnimatedSwitcher(
                   duration: const Duration(milliseconds: 250),
                   child: carsStatus.isLoading
-                      ? const Center(key: ValueKey('loading'), child: CircularProgressIndicator())
+                      ? const Center(key: ValueKey('loading'), child: CustomLoading())
                       : carsStatus.isFailure
                       ? Center(
                           key: const ValueKey('error'),
@@ -235,7 +236,6 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
                           separatorBuilder: (_, __) => Gap(10.h),
                           itemBuilder: (context, i) {
                             final carMap = cars[i];
-                            // Find original car matching the (possibly filtered) carMap
                             final allOriginalCars = carsStatus.data!.data;
                             final originalCar = allOriginalCars.firstWhere(
                               (c) => (c.itemName ?? c.itemCode ?? '') == carMap['name'],

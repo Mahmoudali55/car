@@ -365,6 +365,7 @@ class _AgentCarDetailsScreenState extends State<AgentCarDetailsScreen> {
                                 ),
                               ],
                             ),
+
                             validator: (value) {
                               if (value != null && value.trim().isNotEmpty) {
                                 final amount = double.tryParse(value.trim());

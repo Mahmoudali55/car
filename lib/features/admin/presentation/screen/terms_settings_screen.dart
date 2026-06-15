@@ -115,16 +115,15 @@ class TermsSettingsScreen extends StatelessWidget {
                     AppLocaleKey.legalCompliance.tr(),
                     style: AppTextStyle.bodyLarge(context).copyWith(
                       color: AppColor.blackTextColor(context),
-                      fontSize: 16.sp,
+
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   Text(
                     "All policies are up to date with regional regulations.",
-                    style: AppTextStyle.bodySmall(context).copyWith(
-                      color: AppColor.blackTextColor(context).withValues(alpha: (0.5)),
-                      fontSize: 11.sp,
-                    ),
+                    style: AppTextStyle.bodySmall(
+                      context,
+                    ).copyWith(color: AppColor.blackTextColor(context).withValues(alpha: (0.5))),
                   ),
                 ],
               ),

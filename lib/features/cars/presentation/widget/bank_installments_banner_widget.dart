@@ -15,7 +15,6 @@ class BankInstallmentsBannerWidget extends StatelessWidget {
   const BankInstallmentsBannerWidget({super.key, required this.car});
 
   String _getInstallmentPrice() {
-    // Use model property for installments, fallback to default mock value
     final price = car.installments ?? "1,999";
     return price;
   }

@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:car/core/theme/app_colors.dart';
+import 'package:car/core/theme/app_text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -28,7 +29,11 @@ class AdminStatsCard extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(28.r),
         boxShadow: [
-          BoxShadow(color: color.withOpacity(0.08), blurRadius: 20, offset: const Offset(0, 10)),
+          BoxShadow(
+            color: color.withValues(alpha: 0.08),
+            blurRadius: 20,
+            offset: const Offset(0, 10),
+          ),
         ],
       ),
       child: ClipRRect(
@@ -92,7 +97,7 @@ class AdminStatsCard extends StatelessWidget {
           Gap(4.w),
           Text(
             percentage ?? '',
-            style: TextStyle(
+            style: AppTextStyle.bodySmall(context).copyWith(
               color: AppColor.greenColor(context),
               fontSize: 10.sp,
               fontWeight: FontWeight.w900,
@@ -118,7 +123,7 @@ class AdminStatsCard extends StatelessWidget {
             builder: (context, val, child) {
               return Text(
                 val.toString(),
-                style: TextStyle(
+                style: AppTextStyle.bodyLarge(context).copyWith(
                   color: AppColor.blackTextColor(context),
                   fontSize: 20.sp,
                   fontWeight: FontWeight.w900,
@@ -130,7 +135,7 @@ class AdminStatsCard extends StatelessWidget {
         else
           Text(
             value,
-            style: TextStyle(
+            style: AppTextStyle.bodyLarge(context).copyWith(
               color: AppColor.blackTextColor(context),
               fontSize: 20.sp,
               fontWeight: FontWeight.w900,
