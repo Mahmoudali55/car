@@ -67,34 +67,55 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
     context.read<AdminCubit>().getCarsStatus(_filterToStatus[filter]!);
   }
 
-  String _statusKey(int? carStatus) {
-    switch (carStatus) {
-      case 1:
-        return 'available';
-      case 2:
-        return 'reserved';
-      case 3:
-        return 'sold';
-      case 4:
-        return 'returned';
-      default:
-        return 'available';
+  GetBrandCarsDataModel _toBrandCar(CarModel car) {
+    final homeCubit = context.read<HomeCubit>();
+    final allHomeCars = homeCubit.state.allCarsStatus.data ?? [];
+    for (final c in allHomeCars) {
+      if (c.itemCode == car.itemCode) return c;
     }
+
+    final brandList = homeCubit.state.brands;
+    String brandName = '';
+    for (final b in brandList) {
+      if (b.groupCode == car.groupCode) {
+        brandName = b.groupName;
+        break;
+      }
+    }
+
+    return GetBrandCarsDataModel(
+      groupCode: car.groupCode ?? 0,
+      groupName: brandName,
+      grName: brandName.isNotEmpty ? "$brandName - ${car.itemName ?? ''}" : (car.itemName ?? ''),
+      groupParent: 0,
+      groupLevel: 0,
+      price: car.costPrice?.toStringAsFixed(0),
+      itemCode: car.itemCode ?? '',
+      itemType: car.carType ?? 0,
+      itemName: car.itemName ?? '',
+      groupCode1: car.groupCode ?? 0,
+      storeCode: car.storeCode ?? '',
+      carStatus: car.carStatus ?? 0,
+      carType: car.carType ?? 0,
+      chassisNo: car.chassisNo ?? '',
+      bodyColor: car.bodyColor ?? '',
+      transmission: car.transmission ?? 0,
+      cylinder: '',
+      powerHourse: '',
+      fuelCapacity: '',
+      fuelType: car.fuelType ?? '',
+      seatNo: 0, doorNo: 0, addType: 0,
+      colorCode: car.colorCode ?? 0,
+      makeYear: car.makeYear ?? 0,
+      notifyType: 0, supplierCd: 0, buyDate: '',
+      trNo: 0, reasonId: 0,
+      mobileShow: car.mobileShow ?? false,
+      carImage: '',
+      color: car.bodyColor ?? '',
+    );
   }
 
-  Map<String, String> _toMap(CarModel car) {
-    return {
-      'name': car.itemName ?? car.itemCode ?? '—',
-      'status': _statusKey(car.carStatus),
-      'price': car.costPrice != null ? car.costPrice!.toStringAsFixed(0) : '—',
-      'year': car.makeYear?.toString() ?? '—',
-      'mileage': car.chassisNo ?? '—',
-      'image': '',
-      'bank': car.storeCode ?? '—',
-    };
-  }
-
-  void _showPrintDialog(Map<String, String> car) {
+  void _showPrintDialog(GetBrandCarsDataModel car) {
     Navigator.push(context, MaterialPageRoute(builder: (_) => CarQuotationPreviewScreen(car: car)));
   }
 
@@ -140,19 +161,20 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
               countStatus.isSuccess && countStatus.data != null && countStatus.data!.isNotEmpty
               ? countStatus.data!.first
               : null;
-          final List<Map<String, String>> allCars = carsStatus.isSuccess && carsStatus.data != null
-              ? carsStatus.data!.data.map(_toMap).toList()
-              : [];
+          final List<GetBrandCarsDataModel> allCars =
+              carsStatus.isSuccess && carsStatus.data != null
+                  ? carsStatus.data!.data.map(_toBrandCar).toList()
+                  : [];
 
-          final List<Map<String, String>> cars = _searchQuery.isEmpty
+          final List<GetBrandCarsDataModel> cars = _searchQuery.isEmpty
               ? allCars
               : allCars.where((car) {
                   final query = _searchQuery.toLowerCase();
-                  return (car['name'] ?? '').toLowerCase().contains(query) ||
-                      (car['year'] ?? '').toLowerCase().contains(query) ||
-                      (car['mileage'] ?? '').toLowerCase().contains(query) ||
-                      (car['bank'] ?? '').toLowerCase().contains(query) ||
-                      (car['price'] ?? '').toLowerCase().contains(query);
+                  return car.itemName.toLowerCase().contains(query) ||
+                      car.makeYear.toString().contains(query) ||
+                      car.chassisNo.toLowerCase().contains(query) ||
+                      car.storeCode.toLowerCase().contains(query) ||
+                      (car.price ?? '').toLowerCase().contains(query);
                 }).toList();
 
           return Column(
@@ -235,90 +257,28 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
                           itemCount: cars.length,
                           separatorBuilder: (_, __) => Gap(10.h),
                           itemBuilder: (context, i) {
-                            final carMap = cars[i];
-                            final allOriginalCars = carsStatus.data!.data;
-                            final originalCar = allOriginalCars.firstWhere(
-                              (c) => (c.itemName ?? c.itemCode ?? '') == carMap['name'],
-                              orElse: () => allOriginalCars[i < allOriginalCars.length ? i : 0],
-                            );
+                            final car = cars[i];
                             return FadeInUp(
                               delay: Duration(milliseconds: i * 40),
                               duration: const Duration(milliseconds: 300),
                               child: GestureDetector(
                                 onTap: () {
-                                  final homeCubit = context.read<HomeCubit>();
-                                  final allHomeCars = homeCubit.state.allCarsStatus.data ?? [];
-                                  GetBrandCarsDataModel? brandCar;
-                                  for (final c in allHomeCars) {
-                                    if (c.itemCode == originalCar.itemCode) {
-                                      brandCar = c;
-                                      break;
-                                    }
-                                  }
-
-                                  if (brandCar == null) {
-                                    final brandList = homeCubit.state.brands;
-                                    String brandName = '';
-                                    for (final b in brandList) {
-                                      if (b.groupCode == originalCar.groupCode) {
-                                        brandName = b.groupName;
-                                        break;
-                                      }
-                                    }
-                                    brandCar = GetBrandCarsDataModel(
-                                      groupCode: originalCar.groupCode ?? 0,
-                                      groupName: brandName,
-                                      grName: brandName.isNotEmpty
-                                          ? "$brandName - ${originalCar.itemName ?? ''}"
-                                          : (originalCar.itemName ?? ''),
-                                      groupParent: 0,
-                                      groupLevel: 0,
-                                      price: originalCar.costPrice?.toStringAsFixed(0),
-                                      itemCode: originalCar.itemCode ?? '',
-                                      itemType: originalCar.carType ?? 0,
-                                      itemName: originalCar.itemName ?? '',
-                                      groupCode1: originalCar.groupCode ?? 0,
-                                      storeCode: originalCar.storeCode ?? '',
-                                      carStatus: originalCar.carStatus ?? 0,
-                                      carType: originalCar.carType ?? 0,
-                                      chassisNo: originalCar.chassisNo ?? '',
-                                      bodyColor: originalCar.bodyColor ?? '',
-                                      transmission: originalCar.transmission ?? 0,
-                                      cylinder: '',
-                                      powerHourse: '',
-                                      fuelCapacity: '',
-                                      fuelType: originalCar.fuelType ?? '',
-                                      seatNo: 0,
-                                      doorNo: 0,
-                                      addType: 0,
-                                      colorCode: originalCar.colorCode ?? 0,
-                                      makeYear: originalCar.makeYear ?? 0,
-                                      notifyType: 0,
-                                      supplierCd: 0,
-                                      buyDate: '',
-                                      trNo: 0,
-                                      reasonId: 0,
-                                      mobileShow: originalCar.mobileShow ?? false,
-                                      carImage: '',
-                                      color: originalCar.bodyColor ?? '',
-                                    );
-                                  }
                                   Navigator.pushNamed(
                                     context,
                                     RoutesName.carDetailsScreen,
                                     arguments: {
-                                      'car': brandCar,
-                                      'heroTag': 'admin_car_image_${brandCar.itemCode}',
+                                      'car': car,
+                                      'heroTag': 'admin_car_image_${car.itemCode}',
                                       'isFromAdmin': true,
                                     },
                                   );
                                 },
                                 child: CarInventoryCard(
-                                  car: carMap,
+                                  car: car,
                                   onEdit: () {},
                                   onWhatsApp: () {},
                                   onDelete: () {},
-                                  onPrint: () => _showPrintDialog(carMap),
+                                  onPrint: () => _showPrintDialog(car),
                                 ),
                               ),
                             );

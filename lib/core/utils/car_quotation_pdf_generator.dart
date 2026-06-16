@@ -1,3 +1,4 @@
+import 'package:car/features/home/data/model/brand_cars_data_model.dart';
 import 'package:flutter/services.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
@@ -283,19 +284,17 @@ pw.Widget _specsCell({
 
 // ── 6. Full table ─────────────────────────────────────────────
 pw.Widget _buildTable({
-  required Map<String, String> car,
+  required GetBrandCarsDataModel car,
   required pw.Font bold,
   required pw.Font regular,
 }) {
-  final price = double.tryParse(car['price']?.replaceAll(',', '') ?? '0') ?? 0;
+  final price = double.tryParse(car.price?.replaceAll(',', '') ?? '0') ?? 0;
   final vat = price * 0.15;
   const plates = 1250.0;
   final total = price + vat + plates;
 
-  final carName = car['name'] ?? 'تويوتا لاندكروزر برادو 4 سلندر - دبل لتر تربو، 4-اسطوانات 2.4';
-  final specs =
-      car['specs'] ??
-      'قير اتوماتيك - زجاج كهرباء - جنوط - بنزين - تشغيل بصمة - حساسات خلفية - مثبت سرعة - مقاعد مخمل - شاشة معلومات - كاميرا خلفية - 7 راكب - دفع رباعي - ثلاجه';
+  final carName = car.itemName;
+  final specs = car.carSpecification ?? '—';
 
   return pw.Column(
     children: [
@@ -335,12 +334,12 @@ pw.Widget _buildTable({
               _bodyCell(plates.toStringAsFixed(0), bold),
               _bodyCell(vat.toStringAsFixed(0), bold),
               _bodyCell(price.toStringAsFixed(0), bold),
-              _bodyCell(car['chassis'] ?? 'JTEAA9AJ9\nTK037212', bold),
-              _bodyCell(car['year'] ?? '2026', bold),
-              _bodyCell(car['color'] ?? 'ابيض', bold, rtl: true),
+              _bodyCell(car.chassisNo, bold),
+              _bodyCell(car.makeYear.toString(), bold),
+              _bodyCell(car.bodyColor, bold, rtl: true),
               _specsCell(
                 carName: carName,
-                trim: 'TXL1',
+                trim: '',
                 specs: specs,
                 bold: bold,
                 regular: regular,
@@ -456,7 +455,7 @@ class CarQuotationPdfGenerator {
   static String toArabicDigits(String input) => _H.arabicDigits(input);
   static String numberToArabicWords(int number) => _H.numberToWords(number);
 
-  static Future<Uint8List> generateQuotationPdf({required Map<String, String> car}) async {
+  static Future<Uint8List> generateQuotationPdf({required GetBrandCarsDataModel car}) async {
     final pdf = pw.Document();
     final fontRegular = await PdfGoogleFonts.cairoRegular();
     final fontBold = await PdfGoogleFonts.cairoBold();
@@ -474,7 +473,7 @@ class CarQuotationPdfGenerator {
       stampImage = pw.MemoryImage(data.buffer.asUint8List());
     } catch (_) {}
 
-    final bankName = car['bank'] ?? 'مصرف الراجحي';
+    final bankName = car.storeCode.isNotEmpty ? car.storeCode : 'مصرف الراجحي';
 
     pdf.addPage(
       pw.Page(

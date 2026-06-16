@@ -98,21 +98,10 @@ class _SliverAppBarWidgetState extends State<SliverAppBarWidget> {
                 size: 20,
               ),
               onPressed: () {
-                final Map<String, String> stringCar = widget.car.toMap().map(
-                  (key, value) => MapEntry(key, value?.toString() ?? ''),
-                );
-
-                // Ensure specific keys are present for CarQuotationPdfGenerator
-                stringCar['price'] = widget.car.price ?? '0';
-                stringCar['name'] = widget.car.itemName;
-                stringCar['year'] = widget.car.makeYear.toString();
-                stringCar['color'] = widget.car.color;
-                stringCar['chassis'] = widget.car.chassisNo;
-
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => CarQuotationPreviewScreen(car: stringCar),
+                    builder: (context) => CarQuotationPreviewScreen(car: widget.car),
                   ),
                 );
               },

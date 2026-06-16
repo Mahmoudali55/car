@@ -1,5 +1,6 @@
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
+import 'package:car/features/home/data/model/brand_cars_data_model.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
@@ -125,6 +126,44 @@ class AgentCar {
     this.chassisNo = '',
     this.storeCode = '',
   });
+
+  GetBrandCarsDataModel toBrandCar() {
+    return GetBrandCarsDataModel(
+      groupCode: 0,
+      groupName: brand,
+      grName: name,
+      groupParent: 0,
+      groupLevel: 0,
+      price: price.toStringAsFixed(0),
+      itemCode: itemCode,
+      itemType: 0,
+      itemName: itemName.isNotEmpty ? itemName : name,
+      groupCode1: 0,
+      storeCode: storeCode,
+      carStatus: availability.index + 1,
+      carType: 0,
+      chassisNo: chassisNo,
+      bodyColor: color,
+      transmission: 0,
+      cylinder: '',
+      powerHourse: '',
+      fuelCapacity: '',
+      fuelType: '',
+      seatNo: 0,
+      doorNo: 0,
+      addType: 0,
+      colorCode: 0,
+      makeYear: int.tryParse(year) ?? 0,
+      notifyType: 0,
+      supplierCd: 0,
+      buyDate: '',
+      trNo: 0,
+      reasonId: 0,
+      mobileShow: true,
+      carImage: imageUrl,
+      color: color,
+    );
+  }
 
   Color getAvailabilityColor(BuildContext context) {
     switch (availability) {

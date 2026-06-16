@@ -272,14 +272,20 @@ class GetBrandCarsDataModel extends Equatable {
     );
   }
 
-  GetBrandCarsDataModel copyWith({List<String>? extraImages, bool? isFavorite, bool? mobileShow}) {
+  GetBrandCarsDataModel copyWith({
+    List<String>? extraImages,
+    bool? isFavorite,
+    bool? mobileShow,
+    String? price,
+    String? carSpecification,
+  }) {
     return GetBrandCarsDataModel(
       groupCode: groupCode,
       groupName: groupName,
       grName: grName,
       groupParent: groupParent,
       groupLevel: groupLevel,
-      price: price,
+      price: price ?? this.price,
       itemCode: itemCode,
       itemType: itemType,
       itemName: itemName,
@@ -290,7 +296,7 @@ class GetBrandCarsDataModel extends Equatable {
       storeCode: storeCode,
       carStatus: carStatus,
       carType: carType,
-      carSpecification: carSpecification,
+      carSpecification: carSpecification ?? this.carSpecification,
       chassisNo: chassisNo,
       motorNo: motorNo,
       bodyColor: bodyColor,
