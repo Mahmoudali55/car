@@ -9,26 +9,25 @@ import 'package:printing/printing.dart';
 // ═══════════════════════════════════════════════════════════════
 class _C {
   // Font sizes
-  static const double fsTitle = 15.0;
-  static const double fsEnTitle = 10.0;
-  static const double fsRegInfo = 8.5;
-  static const double fsDateBank = 10.0;
-  static const double fsTableHeader = 9.5;
-  static const double fsTableBody = 9.5;
-  static const double fsSpecs = 8.5;
-  static const double fsTotal = 11.0;
-  static const double fsCondition = 9.5;
-  static const double fsFooter = 8.5;
+  static const double fsTitle = 14.0;
+  static const double fsEnTitle = 9.0;
+  static const double fsRegInfo = 8.0;
+  static const double fsDateBank = 9.5;
+  static const double fsTableHeader = 8.0; // Reduced for bilingual
+  static const double fsTableBody = 8.5;
+  static const double fsSpecs = 8.0;
+  static const double fsTotal = 10.0;
+  static const double fsCondition = 8.5;
+  static const double fsFooter = 8.0;
 
   // Spacing
   static const double spXS = 2.0;
   static const double spSM = 4.0;
   static const double spMD = 6.0;
-  static const double spLG = 8.0;
 
   // Padding
-  static const pw.EdgeInsets padCell = pw.EdgeInsets.symmetric(vertical: 5, horizontal: 3);
-  static const pw.EdgeInsets padSpecsCell = pw.EdgeInsets.symmetric(vertical: 6, horizontal: 5);
+  static const pw.EdgeInsets padCell = pw.EdgeInsets.symmetric(vertical: 4, horizontal: 2);
+  static const pw.EdgeInsets padSpecsCell = pw.EdgeInsets.symmetric(vertical: 5, horizontal: 4);
 
   // Colors
   static const PdfColor headerBg = PdfColors.red50;
@@ -47,7 +46,9 @@ class _H {
     const en = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
     const ar = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'];
     String r = input;
-    for (int i = 0; i < en.length; i++) r = r.replaceAll(en[i], ar[i]);
+    for (int i = 0; i < en.length; i++) {
+      r = r.replaceAll(en[i], ar[i]);
+    }
     return r;
   }
 
@@ -109,10 +110,12 @@ class _H {
   }
 
   static String numberToWords(int n) {
-    if (n == 0) return 'صفر ريال';
+    if (n == 0) {
+      return 'صفر ريال';
+    }
     final parts = <String>[];
     final m = n ~/ 1000000, th = (n % 1000000) ~/ 1000, rem = n % 1000;
-    if (m > 0)
+    if (m > 0) {
       parts.add(
         m == 1
             ? 'مليون'
@@ -122,7 +125,8 @@ class _H {
             ? '${_group(m)} ملايين'
             : '${_group(m)} مليون',
       );
-    if (th > 0)
+    }
+    if (th > 0) {
       parts.add(
         th == 1
             ? 'ألف'
@@ -132,7 +136,10 @@ class _H {
             ? '${_group(th)} آلاف'
             : '${_group(th)} ألف',
       );
-    if (rem > 0) parts.add(_group(rem));
+    }
+    if (rem > 0) {
+      parts.add(_group(rem));
+    }
     return '${parts.join(' و')} ريال';
   }
 
@@ -143,7 +150,27 @@ class _H {
     );
   }
 
-  // Convenient text builder
+  static pw.Widget bilingualTxt(
+    String ar,
+    pw.Font font, {
+    double size = 9,
+    PdfColor color = PdfColors.black,
+    pw.TextAlign align = pw.TextAlign.center,
+  }) {
+    return pw.Column(
+      mainAxisSize: pw.MainAxisSize.min,
+      crossAxisAlignment: pw.CrossAxisAlignment.center,
+      children: [
+        pw.Text(
+          ar,
+          textDirection: pw.TextDirection.rtl,
+          textAlign: align,
+          style: pw.TextStyle(font: font, fontSize: size, color: color),
+        ),
+      ],
+    );
+  }
+
   static pw.Text txt(
     String text,
     pw.Font font, {
@@ -160,10 +187,6 @@ class _H {
   );
 }
 
-// ═══════════════════════════════════════════════════════════════
-//  WIDGET BUILDERS  (all static, receive fonts/images as args)
-// ═══════════════════════════════════════════════════════════════
-
 // ── 1. Header ─────────────────────────────────────────────────
 pw.Widget _buildHeader({required pw.Font bold, pw.ImageProvider? logo}) {
   return pw.Container(
@@ -175,12 +198,10 @@ pw.Widget _buildHeader({required pw.Font bold, pw.ImageProvider? logo}) {
     child: pw.Row(
       mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
       children: [
-        // Logo
         logo != null
-            ? pw.Container(width: 60, height: 60, child: pw.Image(logo, fit: pw.BoxFit.contain))
-            : pw.SizedBox(width: 60, height: 60),
+            ? pw.Container(width: 55, height: 55, child: pw.Image(logo, fit: pw.BoxFit.contain))
+            : pw.SizedBox(width: 55, height: 55),
 
-        // Company info
         pw.Column(
           crossAxisAlignment: pw.CrossAxisAlignment.center,
           children: [
@@ -197,12 +218,8 @@ pw.Widget _buildHeader({required pw.Font bold, pw.ImageProvider? logo}) {
             pw.SizedBox(height: _C.spSM),
             pw.Row(
               children: [
-                _H.txt(
-                  '* سجل تجارى   : ${_H.arabicDigits("1010179293")}',
-                  bold,
-                  size: _C.fsRegInfo,
-                ),
-                pw.SizedBox(width: 20),
+                _H.txt('* سجل تجارى : ${_H.arabicDigits("1010179293")}', bold, size: _C.fsRegInfo),
+                pw.SizedBox(width: 15),
                 _H.txt(
                   '* سجل ضريبي : ${_H.arabicDigits("300021909200003")}',
                   bold,
@@ -223,11 +240,11 @@ pw.Widget _buildTitleAndSalutation({required pw.Font bold, required String bankN
     crossAxisAlignment: pw.CrossAxisAlignment.stretch,
     children: [
       pw.SizedBox(height: _C.spSM),
-      _H.txt('التاريخ : ${_H.todayStr()}', bold, size: _C.fsDateBank, align: pw.TextAlign.right),
+      _H.txt('التاريخ: ${_H.todayStr()}', bold, size: _C.fsDateBank, align: pw.TextAlign.right),
       pw.SizedBox(height: _C.spSM),
       pw.Center(
         child: _H.txt(
-          'عرض أسعار للبنوك',
+          'عرض أسعار للبنوك ',
           bold,
           size: _C.fsDateBank + 1,
           align: pw.TextAlign.center,
@@ -237,50 +254,82 @@ pw.Widget _buildTitleAndSalutation({required pw.Font bold, required String bankN
       pw.SizedBox(height: _C.spMD),
       _H.txt('السادة / $bankName', bold, size: _C.fsDateBank, align: pw.TextAlign.right),
       pw.SizedBox(height: _C.spXS),
-      _H.txt('المحترمين', bold, size: _C.fsDateBank, align: pw.TextAlign.center),
+      _H.txt('المحترمين ', bold, size: _C.fsDateBank, align: pw.TextAlign.center),
       pw.SizedBox(height: _C.spXS),
-      _H.txt('تحية طيبة وبعد ،،،،،،', bold, size: _C.fsDateBank, align: pw.TextAlign.center),
+      _H.txt('تحية طيبة وبعد ،،،،،، ,', bold, size: _C.fsDateBank, align: pw.TextAlign.center),
       pw.SizedBox(height: _C.spMD),
     ],
   );
 }
 
 // ── 3. Table header cell ───────────────────────────────────────
-pw.Widget _headerCell(String text, pw.Font bold) => pw.Container(
-  padding: const pw.EdgeInsets.symmetric(vertical: 7, horizontal: 4),
-  width: double.infinity,
-  child: _H.txt(text, bold, size: _C.fsTableHeader, align: pw.TextAlign.center),
+pw.Widget _headerCell(String ar, pw.Font bold) => pw.Container(
+  padding: const pw.EdgeInsets.symmetric(vertical: 4, horizontal: 2),
+  alignment: pw.Alignment.center,
+  child: _H.bilingualTxt(ar, bold, size: _C.fsTableHeader),
 );
 
 // ── 4. Table body cell ────────────────────────────────────────
 pw.Widget _bodyCell(String text, pw.Font font, {bool rtl = false}) => pw.Container(
-  width: double.infinity, // ← يمتد
+  width: double.infinity,
   padding: _C.padCell,
   child: _H.txt(text, font, size: _C.fsTableBody, align: pw.TextAlign.center, rtl: rtl),
 );
 
-// ── 5. Specs cell (largest column) ────────────────────────────
+// ── 5. Specs cell ─────────────────────────────────────────────
 pw.Widget _specsCell({
-  required String carName,
-  required String trim,
-  required String specs,
+  required GetBrandCarsDataModel car,
   required pw.Font bold,
   required pw.Font regular,
-}) => pw.Padding(
-  padding: _C.padSpecsCell,
-  child: pw.Column(
-    crossAxisAlignment: pw.CrossAxisAlignment.end,
-    children: [
-      _H.txt(carName, bold, size: _C.fsTableBody, align: pw.TextAlign.center),
-      pw.SizedBox(height: _C.spXS),
-      _H.txt(trim, bold, size: _C.fsTableBody, align: pw.TextAlign.center, rtl: false),
-      pw.SizedBox(height: _C.spXS),
-      _H.txt('المواصفات :-', bold, size: _C.fsSpecs, align: pw.TextAlign.right),
-      pw.SizedBox(height: _C.spXS),
-      _H.txt(specs, regular, size: _C.fsSpecs, align: pw.TextAlign.right),
-    ],
-  ),
-);
+}) {
+  final List<String> featureListAr = [];
+  final List<String> featureListEn = [];
+
+  if (car.cylinder.isNotEmpty && car.cylinder != '0') {
+    featureListAr.add('أسطوانات: ${car.cylinder}');
+    featureListEn.add('Cylinders: ${car.cylinder}');
+  }
+  if (car.fuelType.isNotEmpty) {
+    featureListAr.add('وقود: ${car.fuelType}');
+    featureListEn.add('Fuel: ${car.fuelType}');
+  }
+  if (car.seatNo != 0) {
+    featureListAr.add('ركاب: ${car.seatNo}');
+    featureListEn.add('Seats: ${car.seatNo}');
+  }
+
+  final featuresAr = featureListAr.isNotEmpty ? '\n${featureListAr.join(' - ')}' : '';
+  final featuresEn = featureListEn.isNotEmpty ? '\n${featureListEn.join(' - ')}' : '';
+
+  return pw.Padding(
+    padding: _C.padSpecsCell,
+    child: pw.Column(
+      crossAxisAlignment: pw.CrossAxisAlignment.end,
+      children: [
+        _H.txt(car.itemName, bold, size: _C.fsTableBody, align: pw.TextAlign.right),
+        if (car.itemEName != null && car.itemEName!.isNotEmpty)
+          _H.txt(
+            car.itemEName!,
+            bold,
+            size: _C.fsTableBody - 1,
+            align: pw.TextAlign.right,
+            rtl: false,
+          ),
+        pw.SizedBox(height: _C.spXS),
+        _H.txt('المواصفات  :-', bold, size: _C.fsSpecs, align: pw.TextAlign.right),
+        pw.SizedBox(height: _C.spXS),
+        _H.txt(
+          '${car.carSpecification ?? '—'}$featuresAr',
+          regular,
+          size: _C.fsSpecs,
+          align: pw.TextAlign.right,
+        ),
+        if (featuresEn.isNotEmpty)
+          _H.txt(featuresEn, regular, size: _C.fsSpecs - 1, align: pw.TextAlign.right, rtl: false),
+      ],
+    ),
+  );
+}
 
 // ── 6. Full table ─────────────────────────────────────────────
 pw.Widget _buildTable({
@@ -293,41 +342,36 @@ pw.Widget _buildTable({
   const plates = 1250.0;
   final total = price + vat + plates;
 
-  final carName = car.itemName;
-  final specs = car.carSpecification ?? '—';
-
   return pw.Column(
     children: [
       pw.Table(
         border: pw.TableBorder.all(color: _C.borderColor, width: 0.8),
         columnWidths: const {
-          0: pw.FlexColumnWidth(1.2), // إجمالي
-          1: pw.FlexColumnWidth(1.0), // لوحات
-          2: pw.FlexColumnWidth(1.2), // ضريبة
-          3: pw.FlexColumnWidth(1.2), // سعر
-          4: pw.FlexColumnWidth(1.5), // هيكل
-          5: pw.FlexColumnWidth(0.9), // موديل
-          6: pw.FlexColumnWidth(0.9), // لون
-          7: pw.FlexColumnWidth(4.0), // مواصفات
-          8: pw.FlexColumnWidth(0.5), // م
+          0: pw.FlexColumnWidth(1.1), // Total
+          1: pw.FlexColumnWidth(1.0), // Plates
+          2: pw.FlexColumnWidth(1.1), // VAT
+          3: pw.FlexColumnWidth(1.1), // Price
+          4: pw.FlexColumnWidth(1.5), // Chassis
+          5: pw.FlexColumnWidth(0.9), // Model
+          6: pw.FlexColumnWidth(0.9), // Color
+          7: pw.FlexColumnWidth(4.0), // Specs
+          8: pw.FlexColumnWidth(0.5), // No.
         },
         children: [
-          // ── Header row ──
           pw.TableRow(
-            decoration: const pw.BoxDecoration(color: _C.headerBg), // ← هنا اللون
+            decoration: const pw.BoxDecoration(color: _C.headerBg),
             children: [
-              'إجمالي',
-              'قيمة\nاللوحات',
-              'قيمة مضافة\n15%',
-              'سعر الوحدة',
-              'الهيكل',
-              'الموديل',
-              'اللون',
-              'نوع ومواصفات السيارة',
-              'م',
-            ].map((t) => _headerCell(t, bold)).toList(),
+              _headerCell('إجمالي', bold),
+              _headerCell('قيمة اللوحات', bold),
+              _headerCell('قيمة مضافة', bold),
+              _headerCell('سعر الوحدة', bold),
+              _headerCell('الهيكل', bold),
+              _headerCell('الموديل', bold),
+              _headerCell('اللون', bold),
+              _headerCell('نوع ومواصفات السيارة', bold),
+              _headerCell('م', bold),
+            ],
           ),
-          // ── Data row ──
           pw.TableRow(
             children: [
               _bodyCell(total.toStringAsFixed(0), bold),
@@ -337,19 +381,12 @@ pw.Widget _buildTable({
               _bodyCell(car.chassisNo, bold),
               _bodyCell(car.makeYear.toString(), bold),
               _bodyCell(car.bodyColor, bold, rtl: true),
-              _specsCell(
-                carName: carName,
-                trim: '',
-                specs: specs,
-                bold: bold,
-                regular: regular,
-              ),
+              _specsCell(car: car, bold: bold, regular: regular),
               _bodyCell('1', bold),
             ],
           ),
         ],
       ),
-      // ── Total bar ──
       pw.Container(
         width: double.infinity,
         decoration: pw.BoxDecoration(
@@ -362,7 +399,7 @@ pw.Widget _buildTable({
         ),
         padding: const pw.EdgeInsets.symmetric(vertical: 7, horizontal: 10),
         child: _H.txt(
-          'الإجمـــــالي / ${_H.numberToWords(total.toInt())}',
+          'الإجمـــــالي  : ${_H.numberToWords(total.toInt())}',
           bold,
           size: _C.fsTotal,
           align: pw.TextAlign.center,
@@ -375,13 +412,12 @@ pw.Widget _buildTable({
 // ── 7. Conditions ─────────────────────────────────────────────
 pw.Widget _buildConditions({required pw.Font bold}) {
   final items = [
-    _H.arabicDigits('1/ العرض ساري لمدة 3 أيام من تاريخ العرض'),
-    _H.arabicDigits('2/ السعر شامل الضريبة و شامل اللوحات'),
-    _H.arabicDigits('3/ السيارة مواصفات وضمان عبد اللطيف جميل ( 3 سنوات او 100 الف كيلو)'),
-    _H.arabicDigits('4/ مكان التسليم : مقر شركتنا'),
-    _H.arabicDigits('5/ مندوب المبيعات / يوسف هاجد'),
-    _H.arabicDigits('6/ جوال / 0505568888'),
-    _H.arabicDigits('7/ السجل الضريبي / 300021909200003'),
+    '1/ العرض ساري لمدة 3 أيام من تاريخ العرض ',
+    '2/ السعر شامل الضريبة و شامل اللوحات ',
+    '3/ السيارة مواصفات وضمان عبد اللطيف جميل ',
+    '4/ مكان التسليم : مقر شركتنا ',
+    '5/ مندوب المبيعات : يوسف هاجد',
+    '6/ جوال : 0505568888',
   ];
 
   return pw.Column(
@@ -390,7 +426,7 @@ pw.Widget _buildConditions({required pw.Font bold}) {
         .map(
           (c) => pw.Padding(
             padding: const pw.EdgeInsets.only(bottom: _C.spSM),
-            child: _H.txt(c, bold, size: _C.fsCondition),
+            child: _H.txt(_H.arabicDigits(c), bold, size: _C.fsCondition),
           ),
         )
         .toList(),
@@ -399,37 +435,27 @@ pw.Widget _buildConditions({required pw.Font bold}) {
 
 // ── 8. Stamp ──────────────────────────────────────────────────
 pw.Widget _buildStamp({pw.ImageProvider? stamp}) => pw.Center(
-  child: stamp != null ? pw.Image(stamp, width: 110) : pw.SizedBox(width: 110, height: 110),
+  child: stamp != null ? pw.Image(stamp, width: 100) : pw.SizedBox(width: 100, height: 100),
 );
 
 // ── 9. Footer ─────────────────────────────────────────────────
 pw.Widget _buildFooter({required pw.Font bold}) => pw.Column(
   children: [
     pw.Divider(color: _C.borderColor, thickness: 1.5),
-    pw.SizedBox(height: _C.spXS),
     _H.txt(
       _H.arabicDigits(
-        'الرياض - حي القادسية - شارع وادي الرمة - تليفون : 2311114 / 011-2378511 فاكس 2337551-011 ص.ب : 91290',
+        'الرياض - حي القادسية - شارع وادي الرمة - تليفون : 2311114 / 011-2378511 فاكس 2337551-011',
       ),
       bold,
       size: _C.fsFooter,
       align: pw.TextAlign.center,
     ),
-    pw.SizedBox(height: _C.spXS),
-    pw.RichText(
-      textDirection: pw.TextDirection.rtl,
-      textAlign: pw.TextAlign.center,
-      text: pw.TextSpan(
-        style: pw.TextStyle(font: bold, fontSize: _C.fsFooter),
-        children: [
-          pw.TextSpan(text: _H.arabicDigits('الرمز البريدى: 11633 ')),
-          pw.TextSpan(
-            text: ' EMAIL : BN_WAZIR@YAHOO.COM ',
-            style: pw.TextStyle(color: PdfColors.blue800, decoration: pw.TextDecoration.underline),
-          ),
-          pw.TextSpan(text: _H.arabicDigits(' عضوية الغرفة التجارية : 105555 - ترخيص مرور : 729')),
-        ],
-      ),
+    _H.txt(
+      'Riyadh - Al Qadisiyah - Wadi Al Rammah St - Tel: 011-2311114 Fax: 011-2337551',
+      bold,
+      size: _C.fsFooter - 1,
+      align: pw.TextAlign.center,
+      rtl: false,
     ),
   ],
 );
@@ -447,11 +473,7 @@ pw.Widget _buildWatermark() => pw.Positioned(
   ),
 );
 
-// ═══════════════════════════════════════════════════════════════
-//  MAIN GENERATOR
-// ═══════════════════════════════════════════════════════════════
 class CarQuotationPdfGenerator {
-  // Public helpers (kept for backward compat)
   static String toArabicDigits(String input) => _H.arabicDigits(input);
   static String numberToArabicWords(int number) => _H.numberToWords(number);
 
@@ -467,25 +489,21 @@ class CarQuotationPdfGenerator {
       final data = await rootBundle.load('assets/images/loge3.png');
       logoImage = pw.MemoryImage(data.buffer.asUint8List());
     } catch (_) {}
-
     try {
       final data = await rootBundle.load('assets/images/stamp2.png');
       stampImage = pw.MemoryImage(data.buffer.asUint8List());
     } catch (_) {}
 
-    final bankName = car.storeCode.isNotEmpty ? car.storeCode : 'مصرف الراجحي';
+    final bankName = car.storeCode.isNotEmpty ? car.storeCode : 'مصرف الراجحي ';
 
     pdf.addPage(
       pw.Page(
         pageFormat: PdfPageFormat.a4,
-        margin: const pw.EdgeInsets.symmetric(horizontal: 22, vertical: 18),
+        margin: const pw.EdgeInsets.symmetric(horizontal: 20, vertical: 15),
         build: (pw.Context context) {
           return pw.Stack(
             children: [
-              // ── Background watermark ──
               _buildWatermark(),
-
-              // ── Main content ──
               pw.Column(
                 crossAxisAlignment: pw.CrossAxisAlignment.start,
                 children: [
@@ -494,8 +512,6 @@ class CarQuotationPdfGenerator {
                   _buildTitleAndSalutation(bold: fontBold, bankName: bankName),
                   _buildTable(car: car, bold: fontBold, regular: fontRegular),
                   pw.SizedBox(height: _C.spMD),
-
-                  // ── Conditions + Stamp side by side ──
                   pw.Expanded(
                     child: pw.Column(
                       crossAxisAlignment: pw.CrossAxisAlignment.end,
@@ -505,7 +521,6 @@ class CarQuotationPdfGenerator {
                       ],
                     ),
                   ),
-
                   _buildFooter(bold: fontBold),
                 ],
               ),
@@ -514,7 +529,6 @@ class CarQuotationPdfGenerator {
         },
       ),
     );
-
     return pdf.save();
   }
 }

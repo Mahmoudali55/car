@@ -1411,4 +1411,6 @@ class AppLocaleKey {
   static const String searchCarHint = "search_car_hint";
   static const String agentSellingPrice = 'agent_selling_price';
   static const String agentEnterSpec = 'agent_enter_spec';
+  static const String quotation_preview = 'quotation_preview';
+  static const String quotation_file_name = 'quotation_file_name';
 }

@@ -1362,6 +1362,9 @@
   "weekly_activity":"النشاط الأسبوعي",
   "last_7_days":"آخر 7 أيام",
   "horizontal":"مرتجع",
-  "search_car_hint": "البحث عن سيارة (الاسم، السنة، السعر...)"
+  "search_car_hint": "البحث عن سيارة (الاسم، السنة، السعر...)",
+  "quotation_preview": "معاينة العرض",
+  "quotation_file_name": "عرض_سعر"
+
   }
 

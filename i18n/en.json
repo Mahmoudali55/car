@@ -1361,5 +1361,7 @@
   "details":"View Details",
   "weekly_activity":"Weekly Activity",
   "last_7_days":"Last 7 Days",
-  "horizontal":"Returned"
+  "horizontal":"Returned",
+  "quotation_preview": "Quotation Preview",
+  "quotation_file_name": "Quotation"
 }
