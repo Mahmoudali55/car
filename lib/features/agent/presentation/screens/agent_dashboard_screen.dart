@@ -2,7 +2,7 @@ import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/routes/routes_name.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
-import 'package:car/features/agent/data/agent_models.dart';
+import 'package:car/features/agent/data/model/agent_models.dart';
 import 'package:car/features/agent/presentation/screens/widget/custom_gridview_with_dashoard_widget.dart';
 import 'package:car/features/agent/presentation/screens/widget/icon_btn_widget.dart';
 import 'package:car/features/agent/presentation/screens/widget/premium_language_toggle_widget.dart';

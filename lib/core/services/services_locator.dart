@@ -1,5 +1,7 @@
 import 'package:car/features/admin/data/repo/admin_repo.dart';
 import 'package:car/features/admin/presentation/cubit/admin_cubit.dart';
+import 'package:car/features/agent/data/repo/agent_repo.dart';
+import 'package:car/features/agent/presentation/cubit/agent_cubit.dart';
 import 'package:car/features/auth/data/repository/auth_repo.dart';
 import 'package:car/features/auth/presentation/view/cubit/auth_cubit.dart';
 import 'package:car/features/favorites/presentation/view/cubit/favorites_cubit.dart';

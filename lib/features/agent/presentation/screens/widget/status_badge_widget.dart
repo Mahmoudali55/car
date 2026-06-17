@@ -1,5 +1,5 @@
 import 'package:car/core/theme/app_text_style.dart';
-import 'package:car/features/agent/data/agent_models.dart';
+import 'package:car/features/agent/data/model/agent_models.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

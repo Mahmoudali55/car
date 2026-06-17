@@ -5,7 +5,7 @@ import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/features/admin/data/model/cars_response_model.dart';
 import 'package:car/features/admin/presentation/cubit/admin_cubit.dart';
 import 'package:car/features/admin/presentation/cubit/admin_state.dart';
-import 'package:car/features/agent/data/agent_models.dart';
+import 'package:car/features/agent/data/model/agent_models.dart';
 import 'package:car/features/agent/presentation/screens/agent_car_details_screen.dart';
 import 'package:car/features/agent/presentation/screens/widget/car_list_card_widget.dart';
 import 'package:car/features/home/presentation/cubit/home_cubit.dart';

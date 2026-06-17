@@ -764,7 +764,7 @@
   "admin_guides": "أدلة الإدارة",
   "common_questions": "الأسئلة الشائعة",
   "technical_support_ticket": "تذكرة دعم فني",
-  "priority_liaison": "اتصال ذو أولوية",
+  "priority_liaison": "إتصال ذو أولوية",
   "biometric_auth": "المصادقة الحيوية",
   "biometric_auth_desc": "استخدم بصمة الإصبع أو الوجه لتسجيل الدخول",
   "stealth_mode": "وضع التخفي",
@@ -1262,10 +1262,9 @@
   "minutes": "دقيقه",
   "seconds": "ثانية",
   "noCarsAvailable": "لا توجد سيارات في هذه الفئة",
-  "resendOtp"
-: "إعادة إرسال رمز التحقق",
-"ApprovalRequest": "طلب الموافقة",
-"AgentRequested": "الوكيل قام بطلب تحديث سعر Mercedes G63.",
+  "resendOtp": "إعادة إرسال رمز التحقق",
+  "ApprovalRequest": "طلب الموافقة",
+  "AgentRequested": "الوكيل قام بطلب تحديث سعر Mercedes G63.",
   "totalUsers": "إجمالي المستخدمين",
   "activeAgents": "الوكلاء النشطين",
   "customers": "العملاء",
@@ -1364,7 +1363,26 @@
   "horizontal":"مرتجع",
   "search_car_hint": "البحث عن سيارة (الاسم، السنة، السعر...)",
   "quotation_preview": "معاينة العرض",
-  "quotation_file_name": "عرض_سعر"
-
-  }
-
+  "quotation_file_name": "عرض_سعر",
+  "client_details":"تفاصيل العميل",
+  "client_number":"رقم العميل:",
+  "call":"اتصال",
+  "whatsapp":"واتساب",
+  "summary":"الملخص المالي",
+  "agent_customer_details": "تفاصيل العميل",
+  "agent_customer_no": "رقم العميل:",
+  "agent_financial_summary": "الملخص المالي",
+  "agent_current_balance": "الرصيد الحالي",
+  "agent_credit_limit": "سقف الائتمان",
+  "agent_contact_information": "معلومات الاتصال",
+  "agent_mobile_1": "الجوال 1",
+  "agent_mobile_2": "الجوال 2",
+  "agent_mobile_3": "الجوال 3",
+  "agent_fax": "الفاكس",
+  "agent_full_address": "العنوان بالكامل",
+  "agent_area_city": "المنطقة / المدينة",
+  "agent_notes_title": "ملاحظات",
+  "agent_customer_tag": "عميل",
+  "agent_currency": "العملة",
+  "agent_address":"العنوان"
+}

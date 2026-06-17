@@ -13,4 +13,6 @@ Future<void> initDependencies() async {
   sl.registerLazySingleton<HomeCubit>(() => HomeCubit(sl()));
   sl.registerLazySingleton<AdminRepo>(() => AdminRepoImp(apiConsumer: sl()));
   sl.registerLazySingleton<AdminCubit>(() => AdminCubit(sl()));
+  sl.registerLazySingleton<AgentRepo>(() => AgentImplRepo(sl()));
+  sl.registerLazySingleton<AgentCubit>(() => AgentCubit(sl()));
 }

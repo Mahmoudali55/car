@@ -60,4 +60,5 @@ class RoutesName {
   static const String termsSettings = 'termsSettings';
   static const String adminSupport = 'adminSupport';
   static const String contactDeveloper = 'contactDeveloper';
+  static const String agentCustomerDetailsScreen = 'agentCustomerDetailsScreen';
 }

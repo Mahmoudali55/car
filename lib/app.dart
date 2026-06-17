@@ -4,6 +4,7 @@ import 'package:car/core/custom_widgets/security_lock_wrapper.dart';
 import 'package:car/core/services/services_locator.dart';
 import 'package:car/core/theme/cubit/app_theme_cubit.dart';
 import 'package:car/core/theme/theme_enum.dart';
+import 'package:car/features/agent/presentation/cubit/agent_cubit.dart';
 import 'package:car/features/auth/presentation/view/cubit/auth_cubit.dart';
 import 'package:car/features/cart/presentation/view/cubit/cart_cubit.dart';
 import 'package:car/features/favorites/presentation/view/cubit/favorites_cubit.dart';
@@ -59,6 +60,7 @@ class _CarAppState extends State<CarApp> {
                 BlocProvider(create: (context) => sl<FavoritesCubit>()),
                 BlocProvider(create: (context) => CartCubit()),
                 BlocProvider(create: (context) => NotificationsCubit()),
+                BlocProvider(create: (context) => sl<AgentCubit>()),
               ],
               child: BlocBuilder<AppThemeCubit, AppThemeState>(
                 builder: (context, themeState) {

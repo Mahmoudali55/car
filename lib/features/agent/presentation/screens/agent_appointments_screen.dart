@@ -2,7 +2,7 @@ import 'package:car/core/custom_widgets/custom_app_bar/custom_app_bar.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
-import 'package:car/features/agent/data/agent_models.dart';
+import 'package:car/features/agent/data/model/agent_models.dart';
 import 'package:car/features/agent/presentation/screens/widget/appointment_card_widget.dart';
 import 'package:car/features/agent/presentation/screens/widget/section_header_widget.dart';
 import 'package:easy_localization/easy_localization.dart';

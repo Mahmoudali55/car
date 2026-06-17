@@ -1,13 +1,15 @@
-import 'package:car/core/custom_widgets/custom_form_field/custom_form_field.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
-import 'package:car/features/agent/data/agent_models.dart';
-import 'package:car/features/agent/presentation/screens/widget/lead_card_widget.dart';
+import 'package:car/features/agent/presentation/cubit/agent_cubit.dart';
+import 'package:car/features/agent/presentation/cubit/agent_state.dart';
+import 'package:car/features/agent/presentation/screens/widget/custom_customer_empty_widget.dart';
+import 'package:car/features/agent/presentation/screens/widget/custom_customer_item_widget.dart';
+import 'package:car/features/agent/presentation/screens/widget/custom_leads_header_widget.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:gap/gap.dart';
 
 class AgentLeadsScreen extends StatefulWidget {
   const AgentLeadsScreen({super.key});
@@ -16,167 +18,63 @@ class AgentLeadsScreen extends StatefulWidget {
 }
 
 class _AgentLeadsScreenState extends State<AgentLeadsScreen> {
-  String _search = '';
-  List<AgentLead> _getFiltered(LeadStatus? status) {
-    return getAgentLeads().where((l) {
-      final matchStatus = status == null || l.status == status;
-      final matchSearch =
-          _search.isEmpty || l.customerName.contains(_search) || l.carInterest.contains(_search);
-      return matchStatus && matchSearch;
-    }).toList();
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<AgentCubit>().getCustomer(null);
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 5,
-      child: Scaffold(
-        backgroundColor: AppColor.appBarColor(context),
-        body: NestedScrollView(
-          headerSliverBuilder: (_, _) => [
-            SliverAppBar(
-              pinned: true,
-              backgroundColor: AppColor.appBarColor(context),
-              elevation: 0,
-              expandedHeight: 160.h,
-              flexibleSpace: FlexibleSpaceBar(
-                background: SafeArea(
-                  child: Padding(
-                    padding: EdgeInsets.fromLTRB(16.w, 16.h, 16.w, 0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(
-                          AppLocaleKey.agentLeadsPotential.tr(),
-                          textAlign: TextAlign.center,
-                          style: AppTextStyle.titleLarge(context).copyWith(
-                            color: AppColor.blackTextColor(context),
-                            fontWeight: FontWeight.w900,
-                            letterSpacing: -0.5,
-                            fontSize: 18.sp,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+    return Scaffold(
+      backgroundColor: AppColor.appBarColor(context),
+      body: NestedScrollView(
+        headerSliverBuilder: (_, _) => [const CustomLeadsHeaderWidget()],
+        body: BlocBuilder<AgentCubit, AgentState>(
+          builder: (context, state) {
+            if (state.customersStatus.isLoading) {
+              return Center(
+                child: CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation(AppColor.blueColor(context)),
                 ),
-              ),
-              bottom: PreferredSize(
-                preferredSize: Size.fromHeight(130.h),
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(16.w, 8.h, 16.w, 12.h),
-                      child: CustomFormField(
-                        hintText: AppLocaleKey.agentSearchByName.tr(),
-                        radius: 12.r,
-                        prefixIcon: Icon(
-                          Icons.search_rounded,
-                          size: 20.sp,
-                          color: AppColor.hintColor(context),
-                        ),
-                        onChanged: (v) => setState(() => _search = v),
-                      ),
-                    ),
-
-                    /// ── Tabs ──
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(16.w, 0, 16.w, 16.h),
-                      child: Container(
-                        height: 48.h,
-                        padding: EdgeInsets.all(4.w),
-                        decoration: BoxDecoration(
-                          color: AppColor.blueColor(context).withValues(alpha: 0.05),
-                          borderRadius: BorderRadius.circular(16.r),
-                        ),
-                        child: TabBar(
-                          indicator: BoxDecoration(
-                            color: AppColor.blueColor(context),
-                            borderRadius: BorderRadius.circular(12.r),
-                            boxShadow: [
-                              BoxShadow(
-                                color: AppColor.blueColor(context).withValues(alpha: 0.2),
-                                blurRadius: 8,
-                                offset: const Offset(0, 2),
-                              ),
-                            ],
-                          ),
-                          labelColor: AppColor.whiteColor(context),
-                          unselectedLabelColor: AppColor.hintColor(context),
-                          labelStyle: AppTextStyle.bodySmall(context).copyWith(
-                            fontWeight: FontWeight.w900,
-                            letterSpacing: -0.2,
-                            fontSize: 10.sp,
-                          ),
-                          unselectedLabelStyle: AppTextStyle.bodySmall(
-                            context,
-                          ).copyWith(fontWeight: FontWeight.w400),
-                          indicatorSize: TabBarIndicatorSize.tab,
-                          dividerColor: Colors.transparent,
-                          tabs: [
-                            Tab(text: AppLocaleKey.agentAll.tr()),
-                            Tab(text: AppLocaleKey.agentNew.tr()),
-                            Tab(text: AppLocaleKey.agentStatusInProgress.tr()),
-                            Tab(text: AppLocaleKey.agentStatusClosed.tr()),
-                            Tab(text: AppLocaleKey.agentStatusLost.tr()),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
+              );
+            }
+            if (state.customersStatus.isFailure) {
+              return Center(
+                child: Text(
+                  state.customersStatus.error ?? AppLocaleKey.agentNoMatchesFound.tr(),
+                  style: AppTextStyle.bodyMedium(
+                    context,
+                  ).copyWith(color: AppColor.hintColor(context), fontWeight: FontWeight.w700),
                 ),
-              ),
-            ),
-          ],
-
-          /// ── List Content ──
-          body: TabBarView(
-            children: [
-              _buildList(_getFiltered(null)),
-              _buildList(_getFiltered(LeadStatus.newLead)),
-              _buildList(_getFiltered(LeadStatus.inProgress)),
-              _buildList(_getFiltered(LeadStatus.closed)),
-              _buildList(_getFiltered(LeadStatus.lost)),
-            ],
-          ),
+              );
+            }
+            final customers = state.customersStatus.data ?? [];
+            if (customers.isEmpty) {
+              return const CustomCustomerEmptyWidget();
+            }
+            return ListView.builder(
+              padding: EdgeInsets.fromLTRB(16.w, 16.h, 16.w, 40.h),
+              itemCount: customers.length,
+              itemBuilder: (_, index) {
+                final customer = customers[index];
+                final customerName = context.locale.languageCode == 'ar'
+                    ? customer.customerName ?? customer.customerNameEng ?? '—'
+                    : customer.customerNameEng ?? customer.customerName ?? '—';
+                final phone =
+                    customer.tel1 ?? customer.tel2 ?? AppLocaleKey.agentNoMatchesFound.tr();
+                return CustomCustomerItemWidget(
+                  customerName: customerName,
+                  phone: phone,
+                  customer: customer,
+                );
+              },
+            );
+          },
         ),
       ),
-    );
-  }
-
-  Widget _buildList(List<AgentLead> list) {
-    if (list.isEmpty) {
-      return Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              padding: EdgeInsets.all(24.r),
-              decoration: BoxDecoration(
-                color: AppColor.hintColor(context).withValues(alpha: 0.05),
-                shape: BoxShape.circle,
-              ),
-              child: Icon(
-                Icons.people_outline_rounded,
-                size: 48.sp,
-                color: AppColor.hintColor(context),
-              ),
-            ),
-            Gap(16.h),
-            Text(
-              AppLocaleKey.agentNoMatchesFound.tr(),
-              style: AppTextStyle.bodyMedium(
-                context,
-              ).copyWith(color: AppColor.hintColor(context), fontWeight: FontWeight.w700),
-            ),
-          ],
-        ),
-      );
-    }
-    return ListView.builder(
-      padding: EdgeInsets.fromLTRB(16.w, 16.h, 16.w, 40.h),
-      itemCount: list.length,
-      itemBuilder: (_, i) => LeadCard(lead: list[i]),
     );
   }
 }

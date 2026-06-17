@@ -1413,4 +1413,26 @@ class AppLocaleKey {
   static const String agentEnterSpec = 'agent_enter_spec';
   static const String quotation_preview = 'quotation_preview';
   static const String quotation_file_name = 'quotation_file_name';
+  static const String client_details = 'client_details';
+  static const String client_number = 'client_number';
+  static const String call = 'call';
+  static const String summary = 'summary';
+
+  // Agent Customer Details
+  static const String agentCustomerDetails = 'agent_customer_details';
+  static const String agentCustomerNo = 'agent_customer_no';
+  static const String agentFinancialSummary = 'agent_financial_summary';
+  static const String agentCurrentBalance = 'agent_current_balance';
+  static const String agentCreditLimit = 'agent_credit_limit';
+  static const String agentCurrency = 'agent_currency';
+  static const String agentContactInformation = 'agent_contact_information';
+  static const String agentMobile1 = 'agent_mobile_1';
+  static const String agentMobile2 = 'agent_mobile_2';
+  static const String agentMobile3 = 'agent_mobile_3';
+  static const String agentFax = 'agent_fax';
+  static const String agentAddress = 'agent_address';
+  static const String agentFullAddress = 'agent_full_address';
+  static const String agentAreaCity = 'agent_area_city';
+  static const String agentNotesTitle = 'agent_notes_title';
+  static const String agentCustomerTag = 'agent_customer_tag';
 }

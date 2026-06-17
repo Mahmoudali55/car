@@ -170,6 +170,10 @@ class AppRouters {
         return MaterialPageRoute(builder: (_) => const AdminSupportScreen());
       case RoutesName.contactDeveloper:
         return MaterialPageRoute(builder: (_) => const ContactDeveloperScreen());
+      case RoutesName.agentCustomerDetailsScreen:
+        return MaterialPageRoute(
+          builder: (_) => AgentCustomerDetailsScreen(customer: args as CustomerModel),
+        );
       default:
         return null;
     }

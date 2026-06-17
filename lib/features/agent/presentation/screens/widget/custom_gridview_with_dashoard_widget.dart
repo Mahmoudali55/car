@@ -1,7 +1,7 @@
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
-import 'package:car/features/agent/data/agent_models.dart';
+import 'package:car/features/agent/data/model/agent_models.dart';
 import 'package:car/features/agent/presentation/screens/agent_add_appointment_screen.dart';
 import 'package:car/features/agent/presentation/screens/agent_add_lead_screen.dart';
 import 'package:car/features/agent/presentation/screens/agent_add_note_screen.dart';
