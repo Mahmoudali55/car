@@ -1384,5 +1384,7 @@
   "agent_notes_title": "Notes",
   "agent_customer_tag": "Customer",
   "agent_currency": "AgentCurrency",
-   "agent_address":"Address"
+   "agent_address":"Address",
+   "search":"Search",
+  "noData":"No Data"
 }

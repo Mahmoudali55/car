@@ -1269,6 +1269,8 @@
   "activeAgents": "الوكلاء النشطين",
   "customers": "العملاء",
   "agents": "الوكلاء",
+  "employees": "الموظفين",
+  "suppliers": "الموردين",
   "admins": "المدراء",
   "userName": "اسم المستخدم",
   "vipCarShipping": "شحن السيارات VIP",
@@ -1384,5 +1386,8 @@
   "agent_notes_title": "ملاحظات",
   "agent_customer_tag": "عميل",
   "agent_currency": "العملة",
-  "agent_address":"العنوان"
+  "agent_address":"العنوان",
+  "search":"بحث",
+  "noData":"لا توجد بيانات"
+
 }

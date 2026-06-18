@@ -32,4 +32,43 @@ class AdminCubit extends Cubit<AdminState> {
       },
     );
   }
+
+  Future<void> searchRepresentatives(String? searchVal) async {
+    emit(state.copyWith(searchRepresentativesStatus: const StatusState.loading()));
+    final result = await adminRepo.searchRepresentatives(searchVal);
+    result.fold(
+      (failure) {
+        emit(state.copyWith(searchRepresentativesStatus: StatusState.failure(failure.errMessage)));
+      },
+      (response) {
+        emit(state.copyWith(searchRepresentativesStatus: StatusState.success(response)));
+      },
+    );
+  }
+
+  Future<void> searchCustomers(String? searchVal) async {
+    emit(state.copyWith(searchCustomersStatus: const StatusState.loading()));
+    final result = await adminRepo.searchCustomers(searchVal);
+    result.fold(
+      (failure) {
+        emit(state.copyWith(searchCustomersStatus: StatusState.failure(failure.errMessage)));
+      },
+      (response) {
+        emit(state.copyWith(searchCustomersStatus: StatusState.success(response)));
+      },
+    );
+  }
+
+  Future<void> searchSuppliers(String? searchVal) async {
+    emit(state.copyWith(searchSuppliersStatus: const StatusState.loading()));
+    final result = await adminRepo.searchSuppliers(searchVal);
+    result.fold(
+      (failure) {
+        emit(state.copyWith(searchSuppliersStatus: StatusState.failure(failure.errMessage)));
+      },
+      (response) {
+        emit(state.copyWith(searchSuppliersStatus: StatusState.success(response)));
+      },
+    );
+  }
 }

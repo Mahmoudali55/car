@@ -144,7 +144,12 @@ class AppRouters {
       case RoutesName.manageBookings:
         return MaterialPageRoute(builder: (_) => const ManageBookingsScreen());
       case RoutesName.manageUsers:
-        return MaterialPageRoute(builder: (_) => const ManageUsersScreen());
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider.value(
+            value: sl<AdminCubit>(),
+            child: const ManageUsersScreen(),
+          ),
+        );
       case RoutesName.revenueReport:
       case RoutesName.revenueReports:
         return MaterialPageRoute(builder: (_) => const RevenueReportScreen());

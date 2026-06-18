@@ -1346,6 +1346,8 @@ class AppLocaleKey {
   static const String activeAgents = 'activeAgents';
   static const String customers = 'customers';
   static const String agents = 'agents';
+  static const String employees = 'employees';
+  static const String suppliers = 'suppliers';
   static const String admins = 'admins';
   static const String userName = 'userName';
   static const String openCarrierDesc = 'openCarrierDesc';
@@ -1435,4 +1437,6 @@ class AppLocaleKey {
   static const String agentAreaCity = 'agent_area_city';
   static const String agentNotesTitle = 'agent_notes_title';
   static const String agentCustomerTag = 'agent_customer_tag';
+  static const String noData = 'noData';
+  static const String search = 'search';
 }
