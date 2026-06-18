@@ -59,7 +59,7 @@ class CustomSuppliersTabWidget extends StatelessWidget {
                     child: CustomerCardWidget(
                       customer: suppliers[index],
                       roleColor: Colors.orangeAccent,
-                      roleLabel: AppLocaleKey.admins.tr(),
+                      roleLabel: AppLocaleKey.suppliers.tr(),
                     ),
                   ),
                 );

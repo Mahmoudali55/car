@@ -1,4 +1,5 @@
 import 'package:animate_do/animate_do.dart';
+import 'package:car/core/custom_widgets/custom_loading/custom_loading.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/features/admin/presentation/cubit/admin_cubit.dart';
@@ -40,7 +41,7 @@ class CustomRepresentativesTabWidget extends StatelessWidget {
             builder: (context, state) {
               final status = state.searchRepresentativesStatus;
               if (status.isLoading) {
-                return const Center(child: CircularProgressIndicator());
+                return const Center(child: CustomLoading());
               }
               if (status.isFailure) {
                 return CustomErrorWidget(error: status.error ?? '');
@@ -64,7 +65,7 @@ class CustomRepresentativesTabWidget extends StatelessWidget {
                   ),
                 );
               }
-              return CustomInitialSearchWidget();
+              return const CustomInitialSearchWidget();
             },
           ),
         ),

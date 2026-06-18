@@ -1439,4 +1439,10 @@ class AppLocaleKey {
   static const String agentCustomerTag = 'agent_customer_tag';
   static const String noData = 'noData';
   static const String search = 'search';
+  static const String code = 'code';
+  static const String phone = 'phone';
+  static const String area = 'area';
+  static const String address = 'address';
+  static const String balance = 'balance';
+  static const String notes = 'notes';
 }

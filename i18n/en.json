@@ -1386,5 +1386,11 @@
   "agent_currency": "AgentCurrency",
    "agent_address":"Address",
    "search":"Search",
-  "noData":"No Data"
+  "noData":"No Data",
+  "code":"Code",
+  "phone":"Phone",
+ "area":"Area",
+ "address":"Address",
+ "balance":"Balance",
+"notes ":"Notes"
 }
