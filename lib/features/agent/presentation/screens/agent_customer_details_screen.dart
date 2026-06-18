@@ -15,23 +15,19 @@ import 'package:url_launcher/url_launcher.dart';
 
 class AgentCustomerDetailsScreen extends StatelessWidget {
   const AgentCustomerDetailsScreen({super.key, required this.customer});
-
   final CustomerModel customer;
-
   Future<void> _makeCall(String phoneNumber) async {
     final Uri launchUri = Uri(scheme: 'tel', path: phoneNumber);
     if (await canLaunchUrl(launchUri)) {
       await launchUrl(launchUri);
     }
   }
-
   Future<void> _launchWhatsApp(String phoneNumber) async {
     final Uri whatsappUri = Uri.parse("https://wa.me/$phoneNumber");
     if (await canLaunchUrl(whatsappUri)) {
       await launchUrl(whatsappUri, mode: LaunchMode.externalApplication);
     }
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -71,9 +67,7 @@ class AgentCustomerDetailsScreen extends StatelessWidget {
                 ),
               ],
             ),
-
             Gap(24.h),
-
             /// Financial Summary
             _sectionTitle(AppLocaleKey.agentFinancialSummary.tr()),
             Gap(12.h),
@@ -105,9 +99,7 @@ class AgentCustomerDetailsScreen extends StatelessWidget {
                 ],
               ),
             ),
-
             Gap(24.h),
-
             /// Contact Info
             _sectionTitle(AppLocaleKey.agentContactInformation.tr()),
             Gap(12.h),
@@ -139,9 +131,7 @@ class AgentCustomerDetailsScreen extends StatelessWidget {
                 ],
               ),
             ),
-
             Gap(24.h),
-
             /// Address Details
             _sectionTitle(AppLocaleKey.agentAddress.tr()),
             Gap(12.h),

@@ -21,15 +21,8 @@ class RevenueReportScreen extends StatelessWidget {
         context,
         appBarColor: Colors.transparent,
         elevation: 0,
-        leading: Navigator.canPop(context)
-            ? IconButton(
-                onPressed: () => Navigator.pop(context),
-                icon: Icon(
-                  Icons.arrow_back_ios_new_rounded,
-                  color: AppColor.blackTextColor(context),
-                ),
-              )
-            : null,
+        leading: SizedBox(),
+        automaticallyImplyLeading: false,
         title: Text(
           AppLocaleKey.financialReports.tr(),
           style: AppTextStyle.titleMedium(context).copyWith(
