@@ -199,14 +199,14 @@ class _CarHeaderWidgetState extends State<CarHeaderWidget> {
               widget.car.installments == null
                   ? Expanded(
                       child: GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (_) => BankInstallmentsBannerWidget(car: widget.car),
-                            ),
-                          );
-                        },
+                        // onTap: () {
+                        //   Navigator.push(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //       builder: (_) => BankInstallmentsBannerWidget(car: widget.car),
+                        //     ),
+                        //   );
+                        // },
                         child: Container(
                           padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),
                           decoration: BoxDecoration(

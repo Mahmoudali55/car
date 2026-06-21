@@ -173,10 +173,14 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                 child: Container(
                   padding: EdgeInsets.all(8.w),
                   decoration: BoxDecoration(
-                    color: Colors.redAccent.withOpacity(0.15),
+                    color: AppColor.redColor(context).withValues(alpha: 0.15),
                     borderRadius: BorderRadius.circular(12.r),
                   ),
-                  child: Icon(Icons.delete_outline_rounded, color: Colors.redAccent, size: 22.sp),
+                  child: Icon(
+                    Icons.delete_outline_rounded,
+                    color: AppColor.redColor(context),
+                    size: 22.sp,
+                  ),
                 ),
               ),
             ],

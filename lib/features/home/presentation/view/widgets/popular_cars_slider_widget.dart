@@ -140,19 +140,13 @@ class _PopularCarsSliderState extends State<PopularCarsSlider> {
       builder: (context, state) {
         final isBrandSelected = state.selectedBrandId != null;
         final status = isBrandSelected ? state.brandCarsStatus : state.allPopularCarsStatus;
-
         if (status.isLoading || status.isInitial) {
           return const LoadingPlaceholder();
         }
-
         final cars = _buildDisplayedCars(state);
-
         if (cars.isEmpty) return const EmptyState();
-
         if (_currentPage >= cars.length) _currentPage = 0;
-
         final displayCount = cars.length.clamp(0, _maxDisplayedCars);
-
         return SizedBox(
           height: MediaQuery.of(context).size.height / 2.36,
           width: double.infinity,

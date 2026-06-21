@@ -22,13 +22,32 @@ import 'guest_home_screen.dart';
 
 class MainLayout extends StatefulWidget {
   const MainLayout({super.key});
-
+  static final ValueNotifier<int> tabIndex = ValueNotifier(0);
   @override
   State<MainLayout> createState() => _MainLayoutState();
 }
 
 class _MainLayoutState extends State<MainLayout> {
   int _currentIndex = 0;
+
+  void _onTabChanged() {
+    setState(() {
+      _currentIndex = MainLayout.tabIndex.value;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _currentIndex = MainLayout.tabIndex.value;
+    MainLayout.tabIndex.addListener(_onTabChanged);
+  }
+
+  @override
+  void dispose() {
+    MainLayout.tabIndex.removeListener(_onTabChanged);
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -107,7 +126,9 @@ class _MainLayoutState extends State<MainLayout> {
       // ),
       bottomNavigationBar: MainBottomNavBar(
         currentIndex: _currentIndex,
-        onItemSelected: (index) => setState(() => _currentIndex = index),
+        onItemSelected: (index) {
+          MainLayout.tabIndex.value = index;
+        },
       ),
     );
   }
