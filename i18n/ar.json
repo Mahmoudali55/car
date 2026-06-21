@@ -89,7 +89,7 @@
   "welcome_to_car_group": "مرحباً",
   "popular_cars": "السيارات الشائعة",
   "order_now": "اطلب الآن",
-  "details": "التفاصيل",
+  "agent_details": "التفاصيل",
   "brands": "العلامات التجارية",
   "welcome_to": "مرحباً بك في",
   "car_group": "شركة هاجد بن وزير",
@@ -1394,5 +1394,11 @@
  "area":"المنطقة",
  "address":"العنوان",
  "balance":"الرصيد",
-"notes ":"الملاحظات"
+"notes ":"الملاحظات",
+"agent_selling_price":"سعر البيع",
+"agent_enter_spec":"ادخل المواصفات"
+
+
+
+
 }

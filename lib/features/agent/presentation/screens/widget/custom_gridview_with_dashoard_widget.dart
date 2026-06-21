@@ -5,7 +5,6 @@ import 'package:car/features/agent/data/model/agent_models.dart';
 import 'package:car/features/agent/presentation/screens/agent_add_appointment_screen.dart';
 import 'package:car/features/agent/presentation/screens/agent_add_lead_screen.dart';
 import 'package:car/features/agent/presentation/screens/agent_add_note_screen.dart';
-import 'package:car/features/agent/presentation/screens/widget/premium_commission_banner_widget.dart';
 import 'package:car/features/agent/presentation/screens/widget/premium_kpi_card_widget.dart';
 import 'package:car/features/agent/presentation/screens/widget/premium_lead_tile_widget.dart';
 import 'package:car/features/agent/presentation/screens/widget/premium_quick_action_widget.dart';
@@ -34,7 +33,7 @@ class CustomGridviewWithDashoardWidget extends StatelessWidget {
       padding: EdgeInsets.fromLTRB(16.w, 20.h, 16.w, 30.h),
       sliver: SliverList(
         delegate: SliverChildListDelegate([
-          const PremiumCommissionBanner(),
+          // const PremiumCommissionBanner(),
           Gap(24.h),
           SectionHeader(title: AppLocaleKey.agentKeyMetrics.tr()),
           Gap(12.h),

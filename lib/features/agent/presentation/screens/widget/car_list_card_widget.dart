@@ -21,6 +21,7 @@ class CarListCard extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Card(
+        color: AppColor.cardColor(context),
         margin: EdgeInsets.only(bottom: 18.h),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(28.r)),
         child: Column(

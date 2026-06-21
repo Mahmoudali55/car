@@ -89,7 +89,7 @@
   "welcome_to_car_group": "Welcome",
   "popular_cars": "Popular Cars",
   "order_now": "Order Now",
-  "details": "Details",
+  "agent_details": "Details",
   "brands": "Brands",
   "welcome_to": "Welcome to",
   "car_group": "Hajid Bin Wazir Company",
@@ -1392,5 +1392,8 @@
  "area":"Area",
  "address":"Address",
  "balance":"Balance",
-"notes ":"Notes"
+"notes ":"Notes",
+"agent_selling_price":"Selling Price",
+"agent_enter_spec":"Enter Specifications"
+
 }

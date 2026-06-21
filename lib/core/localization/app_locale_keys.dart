@@ -105,6 +105,7 @@ class AppLocaleKey {
   static const String popularCars = 'popular_cars';
   static const String orderNow = 'order_now';
   static const String details = 'details';
+  static const String agentDetails = 'agent_details';
   static const String brands = 'brands';
   static const String services = 'services';
   static const String cars = 'cars';

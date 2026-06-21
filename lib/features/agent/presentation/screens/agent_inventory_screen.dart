@@ -8,6 +8,7 @@ import 'package:car/features/admin/presentation/cubit/admin_state.dart';
 import 'package:car/features/agent/data/model/agent_models.dart';
 import 'package:car/features/agent/presentation/screens/agent_car_details_screen.dart';
 import 'package:car/features/agent/presentation/screens/widget/car_list_card_widget.dart';
+import 'package:car/features/agent/presentation/screens/widget/custom_header_agent_inventory_widget.dart';
 import 'package:car/features/home/presentation/cubit/home_cubit.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -115,48 +116,7 @@ class _AgentInventoryScreenState extends State<AgentInventoryScreen>
         backgroundColor: AppColor.scaffoldColor(context),
         body: NestedScrollView(
           headerSliverBuilder: (_, _) => [
-            SliverAppBar(
-              pinned: true,
-              backgroundColor: AppColor.appBarColor(context),
-              expandedHeight: 80.h,
-              elevation: 0,
-              flexibleSpace: FlexibleSpaceBar(
-                background: SafeArea(
-                  child: Padding(
-                    padding: EdgeInsets.fromLTRB(16.w, 16.h, 16.w, 0),
-                    child: Text(
-                      textAlign: TextAlign.center,
-                      AppLocaleKey.agentInventory.tr(),
-                      style: AppTextStyle.titleLarge(context).copyWith(
-                        color: AppColor.blackTextColor(context),
-                        fontWeight: FontWeight.w900,
-                        fontSize: 18.sp,
-                        letterSpacing: -0.5,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              bottom: TabBar(
-                controller: _tabController,
-                indicatorColor: AppColor.blueColor(context),
-                indicatorWeight: 3.5.h,
-                indicatorSize: TabBarIndicatorSize.label,
-                labelColor: AppColor.blackTextColor(context),
-                unselectedLabelColor: AppColor.hintColor(context),
-                labelStyle: AppTextStyle.bodySmall(context).copyWith(fontWeight: FontWeight.w900),
-                unselectedLabelStyle: AppTextStyle.bodySmall(
-                  context,
-                ).copyWith(fontWeight: FontWeight.w600),
-                indicatorPadding: EdgeInsets.symmetric(horizontal: 4.w),
-                tabs: [
-                  Tab(text: AppLocaleKey.agentAvailable.tr()),
-                  Tab(text: AppLocaleKey.agentReserved.tr()),
-                  Tab(text: AppLocaleKey.agentSold.tr()),
-                  Tab(text: AppLocaleKey.vertical.tr()),
-                ],
-              ),
-            ),
+            CustomHeaderAgentInventoryWidget(tabController: _tabController),
             SliverToBoxAdapter(
               child: Padding(
                 padding: EdgeInsets.fromLTRB(16.w, 12.h, 16.w, 4.h),

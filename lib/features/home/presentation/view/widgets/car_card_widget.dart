@@ -28,7 +28,7 @@ class CarCard extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: Card(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.r)),
-          shadowColor: AppColor.primaryColor(context).withValues(alpha: 0.25),
+          color: AppColor.secondAppColor(context),
           elevation: 4,
           child: Column(
             children: [

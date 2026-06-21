@@ -1,11 +1,12 @@
 import 'package:animate_do/animate_do.dart';
-import 'package:car/core/custom_widgets/buttons/custom_button.dart';
 import 'package:car/core/custom_widgets/custom_form_field/custom_form_field.dart';
 import 'package:car/core/images/app_images.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
-import 'package:car/features/admin/presentation/screen/car_quotation_preview_screen.dart';
+import 'package:car/features/agent/presentation/screens/widget/custom_footer_action_widget.dart';
+import 'package:car/features/agent/presentation/screens/widget/custom_grid_view_exist_specs_widget.dart';
+import 'package:car/features/agent/presentation/screens/widget/custom_quote_header_widget.dart';
 import 'package:car/features/agent/presentation/screens/widget/section_title_widget.dart';
 import 'package:car/features/home/data/model/brand_cars_data_model.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -90,60 +91,7 @@ class _QuoteBuilderDialogState extends State<QuoteBuilderDialog> {
         child: Column(
           children: [
             // Header
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 20.h),
-              decoration: BoxDecoration(
-                border: Border(
-                  bottom: BorderSide(
-                    color: AppColor.blackTextColor(context).withValues(alpha: 0.05),
-                  ),
-                ),
-              ),
-              child: Row(
-                children: [
-                  Container(
-                    padding: EdgeInsets.all(12.w),
-                    decoration: BoxDecoration(
-                      color: AppColor.primaryColor(context).withValues(alpha: 0.1),
-                      borderRadius: BorderRadius.circular(16.r),
-                    ),
-                    child: Icon(
-                      Icons.description_rounded,
-                      color: AppColor.primaryColor(context),
-                      size: 24.sp,
-                    ),
-                  ),
-                  Gap(16.w),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          AppLocaleKey.generateQuote.tr(),
-                          style: AppTextStyle.titleMedium(context).copyWith(
-                            fontWeight: FontWeight.w900,
-                            color: AppColor.blackTextColor(context),
-                          ),
-                        ),
-                        Text(
-                          widget.car.itemName,
-                          style: AppTextStyle.bodySmall(context).copyWith(
-                            color: AppColor.blackTextColor(context).withValues(alpha: 0.5),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  IconButton(
-                    onPressed: () => Navigator.pop(context),
-                    icon: Icon(
-                      Icons.close_rounded,
-                      color: AppColor.blackTextColor(context).withValues(alpha: 0.4),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            CustomQuoteHeaderWidget(widget: widget),
 
             Expanded(
               child: SingleChildScrollView(
@@ -160,10 +108,11 @@ class _QuoteBuilderDialogState extends State<QuoteBuilderDialog> {
                       controller: _priceController,
                       keyboardType: TextInputType.number,
                       hintText: '0',
-                      prefixIcon: Padding(
+                      suffixIcon: Padding(
                         padding: EdgeInsets.all(12.w),
                         child: SvgPicture.asset(
                           AppImages.sar,
+                          height: 20.h,
                           colorFilter: ColorFilter.mode(
                             AppColor.primaryColor(context),
                             BlendMode.srcIn,
@@ -253,91 +202,17 @@ class _QuoteBuilderDialogState extends State<QuoteBuilderDialog> {
                       icon: Icons.list_alt_rounded,
                     ),
                     Gap(16.h),
-                    GridView.builder(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        crossAxisSpacing: 12.w,
-                        mainAxisSpacing: 12.h,
-                        childAspectRatio: 2.5,
-                      ),
-                      itemCount: widget.existingSpecs.length,
-                      itemBuilder: (context, index) {
-                        final key = widget.existingSpecs.keys.elementAt(index);
-                        final value = widget.existingSpecs.values.elementAt(index);
-                        return Card(
-                          elevation: 0,
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.r)),
-                          color: AppColor.greyColor(context).withValues(alpha: 0.05),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  key,
-                                  style: AppTextStyle.bodySmall(context).copyWith(
-                                    color: AppColor.blackTextColor(context).withValues(alpha: 0.4),
-                                    fontSize: 10.sp,
-                                  ),
-                                ),
-                                Gap(2.h),
-                                Text(
-                                  value,
-                                  style: AppTextStyle.bodySmall(context).copyWith(
-                                    fontWeight: FontWeight.bold,
-                                    color: AppColor.blackTextColor(context),
-                                  ),
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ],
-                            ),
-                          ),
-                        );
-                      },
-                    ),
+                    CustomGridViewExistSpecsWidget(widget: widget),
                   ],
                 ),
               ),
             ),
 
             // Footer Actions
-            Padding(
-              padding: EdgeInsets.all(24.w),
-              child: CustomButton(
-                onPressed: () {
-                  final updatedCar = widget.car.copyWith(
-                    price: _priceController.text,
-                    carSpecification: _instantSpecs.join(' | '),
-                  );
-
-                  if (context.mounted) {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => CarQuotationPreviewScreen(car: updatedCar),
-                      ),
-                    );
-                  }
-                },
-                radius: 16.r,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(Icons.download_rounded, color: AppColor.whiteColor(context)),
-                    Gap(10.w),
-                    Text(
-                      AppLocaleKey.downloadQuote.tr(),
-                      style: AppTextStyle.bodyMedium(
-                        context,
-                      ).copyWith(color: AppColor.whiteColor(context), fontWeight: FontWeight.bold),
-                    ),
-                  ],
-                ),
-              ),
+            CustomFooterActionWidget(
+              widget: widget,
+              instantSpecs: _instantSpecs,
+              priceController: _priceController,
             ),
           ],
         ),
