@@ -51,7 +51,6 @@ class RecentlyViewedWidget extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // Image
                     Expanded(
                       flex: 5,
                       child: Container(
@@ -91,7 +90,6 @@ class RecentlyViewedWidget extends StatelessWidget {
                         ),
                       ),
                     ),
-                    // Details
                     Expanded(
                       flex: 4,
                       child: Padding(

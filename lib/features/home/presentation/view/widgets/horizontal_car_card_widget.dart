@@ -44,10 +44,9 @@ class HorizontalCarCardWidget extends StatelessWidget {
         ),
         child: Column(
           children: [
-            // Left Side: Image
             Container(
               width: double.infinity,
-              height: 120.h,
+              height: 100.h,
               decoration: BoxDecoration(
                 color: AppColor.blackTextColor(context).withValues(alpha: 0.02),
                 borderRadius: BorderRadius.horizontal(left: Radius.circular(20.r)),

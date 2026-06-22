@@ -20,7 +20,7 @@ class CardDetailsSection extends StatelessWidget {
         children: [
           Text(
             car['brand'],
-            style: TextStyle(
+            style: AppTextStyle.bodySmall(context).copyWith(
               color: AppColor.primaryColor(context),
               fontSize: 10.sp,
               fontWeight: FontWeight.w900,

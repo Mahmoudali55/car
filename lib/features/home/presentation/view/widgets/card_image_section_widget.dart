@@ -83,6 +83,7 @@ class _CardImageSectionState extends State<CardImageSection> {
     final hasMoreImagesInFull = _fullImagesList.length > _displayImages.length;
 
     return Stack(
+      fit: StackFit.expand,
       children: [
         GestureDetector(
           onTap: _openGallery,
@@ -99,49 +100,43 @@ class _CardImageSectionState extends State<CardImageSection> {
                   tag:
                       widget.heroTag ??
                       'car_image_${widget.car['itemCode'] ?? widget.car['name']}_$_currentImageIndex',
-                  child: Center(
-                    child: Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        CustomNetworkImage(
-                          imageUrl: _displayImages.isNotEmpty
-                              ? _displayImages[_currentImageIndex]
-                              : widget.car['image']!,
-                          fit: BoxFit.fill,
-                          width: double.infinity,
-                          height: 120.h,
-                        ),
-                        if (isLastDisplayImage && hasMoreImagesInFull)
-                          Container(
-                            width: double.infinity,
-                            height: 120.h,
-                            decoration: BoxDecoration(
-                              color: AppColor.blackColor(context).withValues(alpha: 0.5),
-                              borderRadius: BorderRadius.vertical(top: Radius.circular(18.r)),
-                            ),
-                            child: Center(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(
-                                    Icons.grid_view_rounded,
+                  child: Stack(
+                    fit: StackFit.expand,
+                    alignment: Alignment.center,
+                    children: [
+                      CustomNetworkImage(
+                        imageUrl: _displayImages.isNotEmpty
+                            ? _displayImages[_currentImageIndex]
+                            : widget.car['image']!,
+                        fit: BoxFit.cover,
+                      ),
+                      if (isLastDisplayImage && hasMoreImagesInFull)
+                        Container(
+                          decoration: BoxDecoration(
+                            color: AppColor.blackColor(context).withValues(alpha: 0.5),
+                            borderRadius: BorderRadius.vertical(top: Radius.circular(18.r)),
+                          ),
+                          child: Center(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.grid_view_rounded,
+                                  color: AppColor.whiteColor(context),
+                                  size: 24.sp,
+                                ),
+                                Text(
+                                  AppLocaleKey.see_all.tr(),
+                                  style: AppTextStyle.bodySmall(context).copyWith(
                                     color: AppColor.whiteColor(context),
-                                    size: 24.sp,
+                                    fontWeight: FontWeight.bold,
                                   ),
-                                  Text(
-                                    AppLocaleKey.see_all.tr(),
-                                    style: AppTextStyle.bodySmall(context).copyWith(
-                                      color: AppColor.whiteColor(context),
-                                      fontSize: 12.sp,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
                           ),
-                      ],
-                    ),
+                        ),
+                    ],
                   ),
                 ),
               ),

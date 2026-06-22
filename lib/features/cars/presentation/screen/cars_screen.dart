@@ -69,12 +69,9 @@ class _CarsScreenState extends State<CarsScreen> {
                   ),
                 );
               }
-
               final allAvailable = (state.allCarsStatus.data ?? [])
                   .where((car) => car.carStatus == 1)
                   .toList();
-
-              // فلترة بالاسم لو فيه نص في خانة البحث
               final availableCars = _searchQuery.isEmpty
                   ? allAvailable
                   : allAvailable.where((car) {
@@ -98,9 +95,7 @@ class _CarsScreenState extends State<CarsScreen> {
                 backgroundColor: AppColor.secondAppColor(context),
                 child: ListView(
                   padding: EdgeInsets.zero,
-                  physics: const AlwaysScrollableScrollPhysics(
-                    parent: BouncingScrollPhysics(),
-                  ),
+                  physics: const AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
                   children: [
                     const SectionHeader(),
                     Gap(16.h),
