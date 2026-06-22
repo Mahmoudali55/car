@@ -176,6 +176,7 @@ class CustomFormLoginWidget extends StatelessWidget {
                       HiveMethods.updateIsGuest(false);
                       HiveMethods.updateToken('admin_dummy_token');
                       HiveMethods.updateRole('admin');
+                      HiveMethods.updateUserCode('1');
                       CommonMethods.showToast(message: AppLocaleKey.adminLoginSuccess.tr());
                       NavigatorMethods.pushReplacementNamed(context, RoutesName.adminDashboard);
                     } else {
@@ -210,6 +211,7 @@ class CustomFormLoginWidget extends StatelessWidget {
                         HiveMethods.updateIsGuest(false);
                         HiveMethods.updateToken('admin_dummy_token');
                         HiveMethods.updateRole('admin');
+                        HiveMethods.updateUserCode('1');
                         CommonMethods.showToast(message: AppLocaleKey.managerLoginSuccess.tr());
                         NavigatorMethods.pushReplacementNamed(context, RoutesName.adminDashboard);
                       },
@@ -229,6 +231,7 @@ class CustomFormLoginWidget extends StatelessWidget {
                     HiveMethods.updateIsGuest(false);
                     HiveMethods.updateToken('agent_dummy_token');
                     HiveMethods.updateRole('agent');
+                    HiveMethods.updateUserCode('1');
                     CommonMethods.showToast(message: AppLocaleKey.agentLoginSuccess.tr());
                     NavigatorMethods.pushReplacementNamed(context, RoutesName.agentDashboard);
                   },

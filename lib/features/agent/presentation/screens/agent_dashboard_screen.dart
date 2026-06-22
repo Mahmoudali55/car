@@ -1,8 +1,10 @@
+import 'package:car/core/cache/hive/hive_methods.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/routes/routes_name.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/features/agent/data/model/agent_models.dart';
+import 'package:car/features/agent/presentation/cubit/agent_cubit.dart';
 import 'package:car/features/agent/presentation/screens/widget/custom_gridview_with_dashoard_widget.dart';
 import 'package:car/features/agent/presentation/screens/widget/icon_btn_widget.dart';
 import 'package:car/features/agent/presentation/screens/widget/premium_language_toggle_widget.dart';
@@ -15,9 +17,26 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
-class AgentDashboardScreen extends StatelessWidget {
+class AgentDashboardScreen extends StatefulWidget {
   const AgentDashboardScreen({super.key});
+
+  @override
+  State<AgentDashboardScreen> createState() => _AgentDashboardScreenState();
+}
+
+class _AgentDashboardScreenState extends State<AgentDashboardScreen> {
   static const _weeklyData = [4, 6, 3, 8, 5, 7, 4];
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final userCode = HiveMethods.getUserCode() ?? '1';
+      final represNo = int.tryParse(userCode) ?? 1;
+      context.read<AgentCubit>().getOffers(null, represNo, null);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final weekDays = [

@@ -917,7 +917,7 @@
   "agent_leads_potential": "عملاء محتملون",
   "agent_visits_offers": "زيارات / عروض",
   "agent_closed_deals": "صفقات مغلقة",
-  "agent_commissions_sales": "العمولات والمبيعات",
+  "agent_commissions_sales": "عروض السعر ",
   "agent_commission_this_month": "عمولة هذا الشهر",
   "agent_total_quarter": "إجمالي هذا الربع",
   "agent_month_target": "هدف الشهر",
@@ -1396,7 +1396,21 @@
  "balance":"الرصيد",
 "notes ":"الملاحظات",
 "agent_selling_price":"سعر البيع",
-"agent_enter_spec":"ادخل المواصفات"
+"agent_enter_spec":"ادخل المواصفات",
+"agent_plate_price":"سعر اللوحات",
+"retry":"اعادة المحاولة",
+"no_offers":"لا توجد عروض أسعار حالياً",
+"no_offers_desc":"لم يتم تسجيل أي عروض أسعار لهذا المندوب بعد",
+"show_number":"عرض رقم",
+"customer":"العميل:",
+"agent":"المندوب:",
+"agent_area":"المنطقة:",
+"agent_total_value":"القيمة الإجمالية",
+"agent_from":"من:" ,
+"agent_to":"إلى:",
+"agent_delivery":"التسليم خلال",
+"CHS":"نقداً"
+
 
 
 

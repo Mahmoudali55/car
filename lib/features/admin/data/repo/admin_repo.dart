@@ -50,7 +50,7 @@ class AdminRepoImp implements AdminRepo {
     return handleDioRequest(
       request: () async {
         final response = await apiConsumer.get(
-          EndPoints.Customer,
+          EndPoints.customer,
           queryParameters: {'TableName': 'sp_REPRES_DATA_search_sel', 'Searchval': searchVal},
         );
         return RepresentativeModel.listFromResponse(response['Data'] ?? response);
@@ -63,7 +63,7 @@ class AdminRepoImp implements AdminRepo {
     return handleDioRequest(
       request: () async {
         final response = await apiConsumer.get(
-          EndPoints.Customer,
+          EndPoints.customer,
           queryParameters: {'TableName': 'sp_CUSTOMER_DATA_search_sel', 'Searchval': searchVal},
         );
         return CustomerModel.listFromResponse(response['Data'] ?? response);
@@ -76,7 +76,7 @@ class AdminRepoImp implements AdminRepo {
     return handleDioRequest(
       request: () async {
         final response = await apiConsumer.get(
-          EndPoints.Customer,
+          EndPoints.customer,
           queryParameters: {'TableName': 'sp_Supplier_DATA_search_sel', 'Searchval': searchVal},
         );
         return CustomerModel.listFromResponse(response['Data'] ?? response);

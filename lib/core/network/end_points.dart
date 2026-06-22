@@ -11,5 +11,6 @@ class EndPoints {
   static const String logout = 'api/Account/Logout';
   static const String getcarscount = 'DeltagroupService/Cars/Getcarscount';
   static const String getcars = 'DeltagroupService/Cars/GetcarsData';
-  static const String Customer = 'DeltaGroup/Search/FillPopup';
+  static const String customer = 'DeltaGroup/Search/FillPopup';
+  static const String getofferprice = 'DeltagroupService/Cars/GetofferpriceData';
 }

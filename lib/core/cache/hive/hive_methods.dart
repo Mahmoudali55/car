@@ -185,4 +185,13 @@ class HiveMethods {
     _box.delete('savedMobile');
     _box.delete('savedPassword');
   }
+
+  static String? getUserCode() {
+    return _box.get('userCode', defaultValue: '1');
+  }
+
+  static void updateUserCode(String userCode) {
+    _box.put('userCode', userCode);
+  }
 }
+

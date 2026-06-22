@@ -1446,4 +1446,18 @@ class AppLocaleKey {
   static const String address = 'address';
   static const String balance = 'balance';
   static const String notes = 'notes';
+  static const String agentPlatePrice = 'agent_plate_price';
+
+  static const String retry = 'retry';
+  static const String no_offers = 'no_offers';
+  static const String no_offers_desc = 'no_offers_desc';
+  static const String show_number = 'show_number';
+  static const String customer = 'customer';
+  static const String agent = 'agent';
+  static const String agent_area = 'agent_area';
+  static const String agent_total_value = 'agent_total_value';
+  static const String agent_from = 'agent_from';
+  static const String agent_to = 'agent_to';
+  static const String agent_delivery = 'agent_delivery';
+  static const String chs = 'CHS';
 }

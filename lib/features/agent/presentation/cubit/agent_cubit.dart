@@ -19,4 +19,17 @@ class AgentCubit extends Cubit<AgentState> {
       },
     );
   }
+
+  Future<void> getOffers(String? Searchval, int REPRESNO, int? LISTNO) async {
+    emit(state.copyWith(offersStatus: const StatusState.loading()));
+    final result = await agentRepo.getOffers(Searchval, REPRESNO, LISTNO);
+    result.fold(
+      (failure) {
+        emit(state.copyWith(offersStatus: StatusState.failure(failure.errMessage)));
+      },
+      (response) {
+        emit(state.copyWith(offersStatus: StatusState.success(response)));
+      },
+    );
+  }
 }

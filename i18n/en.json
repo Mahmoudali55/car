@@ -918,7 +918,7 @@
   "agent_leads_potential": "Potential Leads",
   "agent_visits_offers": "Visits / Offers",
   "agent_closed_deals": "Closed Deals",
-  "agent_commissions_sales": "Commissions & Sales",
+  "agent_commissions_sales": "Price offers",
   "agent_commission_this_month": "Commission This Month",
   "agent_total_quarter": "Total This Quarter",
   "agent_month_target": "Month Target",
@@ -1394,6 +1394,19 @@
  "balance":"Balance",
 "notes ":"Notes",
 "agent_selling_price":"Selling Price",
-"agent_enter_spec":"Enter Specifications"
+"agent_enter_spec":"Enter Specifications",
+"agent_plate_price":"Plates Price",
+"retry":"Retry",
+"no_offers":"No offers available",
+"no_offers_desc":"No offers have been registered for this agent yet",
+"show_number":"Show Number",
+"customer":"Customer",
+"agent":"Agent",
+"agent_area":"Area",
+"agent_total_value":"Total Value",
+"agent_from":"From:" ,
+"agent_to":"To:",
+"agent_delivery":"Delivery",
+"CHS":"CHS"
 
 }

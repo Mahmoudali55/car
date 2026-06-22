@@ -41,6 +41,7 @@ class QuoteBuilderDialog extends StatefulWidget {
 class _QuoteBuilderDialogState extends State<QuoteBuilderDialog> {
   late TextEditingController _priceController;
   final TextEditingController _specController = TextEditingController();
+  final TextEditingController _platePrice = TextEditingController();
   final List<String> _instantSpecs = [];
 
   @override
@@ -100,12 +101,12 @@ class _QuoteBuilderDialogState extends State<QuoteBuilderDialog> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SectionTitleWidget(
-                      title: AppLocaleKey.agentSellingPrice.tr(),
+                      title: AppLocaleKey.agentPlatePrice.tr(),
                       icon: Icons.sell_rounded,
                     ),
                     Gap(16.h),
                     CustomFormField(
-                      controller: _priceController,
+                      controller: _platePrice,
                       keyboardType: TextInputType.number,
                       hintText: '0',
                       suffixIcon: Padding(
@@ -121,7 +122,31 @@ class _QuoteBuilderDialogState extends State<QuoteBuilderDialog> {
                       ),
                       validator: (v) => null,
                     ),
-                    Gap(32.h),
+                    Gap(20.h),
+                    SectionTitleWidget(
+                      title: AppLocaleKey.agentSellingPrice.tr(),
+                      icon: Icons.sell_rounded,
+                    ),
+                    Gap(16.h),
+                    CustomFormField(
+                      controller: _priceController,
+                      keyboardType: TextInputType.number,
+                      hintText: '0',
+
+                      suffixIcon: Padding(
+                        padding: EdgeInsets.all(12.w),
+                        child: SvgPicture.asset(
+                          AppImages.sar,
+                          height: 20.h,
+                          colorFilter: ColorFilter.mode(
+                            AppColor.primaryColor(context),
+                            BlendMode.srcIn,
+                          ),
+                        ),
+                      ),
+                      validator: (v) => null,
+                    ),
+                    Gap(20.h),
                     SectionTitleWidget(
                       title: AppLocaleKey.additionalSpecs.tr(),
                       icon: Icons.add_task_rounded,
@@ -196,7 +221,7 @@ class _QuoteBuilderDialogState extends State<QuoteBuilderDialog> {
                         }).toList(),
                       ),
                     ],
-                    Gap(32.h),
+                    Gap(20.h),
                     SectionTitleWidget(
                       title: AppLocaleKey.existingSpecs.tr(),
                       icon: Icons.list_alt_rounded,
