@@ -161,7 +161,8 @@ class _AgentOffersScreenState extends State<AgentOffersScreen> {
                   return ListView.builder(
                     padding: EdgeInsets.fromLTRB(16.w, 4.h, 16.w, 24.h),
                     itemCount: offers.length,
-                    itemBuilder: (context, index) => OfferCard(offer: offers[index]),
+                    itemBuilder: (context, index) =>
+                        GestureDetector(child: OfferCard(offer: offers[index])),
                   );
                 },
               ),

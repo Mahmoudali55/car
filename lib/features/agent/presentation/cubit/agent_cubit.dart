@@ -1,4 +1,5 @@
 import 'package:car/core/network/status.state.dart';
+import 'package:car/features/agent/data/model/creat_offer_model.dart';
 import 'package:car/features/agent/data/repo/agent_repo.dart';
 import 'package:car/features/agent/presentation/cubit/agent_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,6 +8,7 @@ class AgentCubit extends Cubit<AgentState> {
   final AgentRepo agentRepo;
 
   AgentCubit(this.agentRepo) : super(const AgentState());
+
   Future<void> getCustomer(String? Searchval) async {
     emit(state.copyWith(customersStatus: const StatusState.loading()));
     final result = await agentRepo.getCustomer(Searchval);
@@ -31,5 +33,22 @@ class AgentCubit extends Cubit<AgentState> {
         emit(state.copyWith(offersStatus: StatusState.success(response)));
       },
     );
+  }
+
+  Future<void> addbookingpermission(CreatOfferModel offer) async {
+    emit(state.copyWith(createOfferStatus: const StatusState.loading()));
+    final result = await agentRepo.addbookingpermission(offer);
+    result.fold(
+      (failure) {
+        emit(state.copyWith(createOfferStatus: StatusState.failure(failure.errMessage)));
+      },
+      (response) {
+        emit(state.copyWith(createOfferStatus: StatusState.success(response)));
+      },
+    );
+  }
+
+  void resetCreateOfferStatus() {
+    emit(state.copyWith(createOfferStatus: const StatusState.initial()));
   }
 }

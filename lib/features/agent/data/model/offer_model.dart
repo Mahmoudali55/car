@@ -5,44 +5,44 @@ import 'package:equatable/equatable.dart';
 class OfferModel extends Equatable {
   final int listNo;
   final int listType;
-  final int? actListNo;
-  final String listDate;
+  final String? actListNo;
+  final String? listDate;
   final String? listDesc;
   final String? analytical;
   final int customerNo;
   final int represCode;
   final int resType;
   final int areaNo;
-  final String paymentType;
+  final String? paymentType;
   final String? taamedNo;
   final String? taamedDate;
   final String? lastDate;
-  final String? guarPrimary;
-  final String? guarFinal;
-  final String? deliveryPeriod;
-  final String? listPeriod;
-  final String begDate;
-  final String endDate;
+  final double? guarPrimary;
+  final double? guarFinal;
+  final int? deliveryPeriod;
+  final int? listPeriod;
+  final String? begDate;
+  final String? endDate;
   final String? receivePlace;
   final String? notes;
   final String? terms;
   final double total;
   final String customerName;
   final String represName;
-  final String areaName;
+  final String? areaName;
 
   const OfferModel({
     required this.listNo,
     required this.listType,
     this.actListNo,
-    required this.listDate,
+    this.listDate,
     this.listDesc,
     this.analytical,
     required this.customerNo,
     required this.represCode,
     required this.resType,
     required this.areaNo,
-    required this.paymentType,
+    this.paymentType,
     this.taamedNo,
     this.taamedDate,
     this.lastDate,
@@ -50,79 +50,75 @@ class OfferModel extends Equatable {
     this.guarFinal,
     this.deliveryPeriod,
     this.listPeriod,
-    required this.begDate,
-    required this.endDate,
+    this.begDate,
+    this.endDate,
     this.receivePlace,
     this.notes,
     this.terms,
     required this.total,
     required this.customerName,
     required this.represName,
-    required this.areaName,
+    this.areaName,
   });
 
   factory OfferModel.fromJson(Map<String, dynamic> json) {
     return OfferModel(
-      listNo: json['LIST_NO'] ?? 0,
-      listType: json['LIST_TYPE'] ?? 0,
-      actListNo: json['ACT_LIST_NO'],
-      listDate: json['LIST_DATE'] ?? '',
-      listDesc: json['LIST_DESC'],
-      analytical: json['ANALYTICAL'],
-      customerNo: json['CUSTOMER_NO'] ?? 0,
-      represCode: json['REPRES_CODE'] ?? 0,
-      resType: json['RES_TYPE'] ?? 0,
-      areaNo: json['AREA_NO'] ?? 0,
-      paymentType: json['PAYMENT_TYPE'] ?? '',
-      taamedNo: json['TAAMED_NO'],
-      taamedDate: json['TAAMED_DATE'],
-      lastDate: json['LAST_DATE'],
-      guarPrimary: json['GUAR_PRIMARY'],
-      guarFinal: json['GUAR_FINAL'],
-      deliveryPeriod: json['DELIVERY_PERIOD'],
-      listPeriod: json['LIST_PERIOD'],
-      begDate: json['BEG_DATE'] ?? '',
-      endDate: json['END_DATE'] ?? '',
-      receivePlace: json['RECEIVE_PLACE'],
-      notes: json['NOTES'],
-      terms: json['TERMS'],
-      total: (json['TOTAL'] ?? 0).toDouble(),
-      customerName: json['CUSTOMERNAME'] ?? '',
-      represName: json['REPRES_NAME'] ?? '',
-      areaName: json['AREA_NAME'] ?? '',
+      listNo: _toInt(json['LIST_NO']),
+      listType: _toInt(json['LIST_TYPE']),
+      actListNo: json['ACT_LIST_NO']?.toString(),
+
+      listDate: json['LIST_DATE']?.toString(),
+      listDesc: json['LIST_DESC']?.toString(),
+      analytical: json['ANALYTICAL']?.toString(),
+
+      customerNo: _toInt(json['CUSTOMER_NO']),
+      represCode: _toInt(json['REPRES_CODE']),
+      resType: _toInt(json['RES_TYPE']),
+      areaNo: _toInt(json['AREA_NO']),
+
+      paymentType: json['PAYMENT_TYPE']?.toString(),
+      taamedNo: json['TAAMED_NO']?.toString(),
+      taamedDate: json['TAAMED_DATE']?.toString(),
+      lastDate: json['LAST_DATE']?.toString(),
+
+      guarPrimary: _toDoubleNullable(json['GUAR_PRIMARY']),
+      guarFinal: _toDoubleNullable(json['GUAR_FINAL']),
+      deliveryPeriod: _toIntNullable(json['DELIVERY_PERIOD']),
+      listPeriod: _toIntNullable(json['LIST_PERIOD']),
+
+      begDate: json['BEG_DATE']?.toString(),
+      endDate: json['END_DATE']?.toString(),
+
+      receivePlace: json['RECEIVE_PLACE']?.toString(),
+      notes: json['NOTES']?.toString(),
+      terms: json['TERMS']?.toString(),
+
+      total: _toDouble(json['TOTAL']),
+
+      customerName: json['CUSTOMERNAME']?.toString() ?? '',
+      represName: json['REPRES_NAME']?.toString() ?? '',
+      areaName: json['AREA_NAME']?.toString(),
     );
   }
 
-  Map<String, dynamic> toJson() {
-    return {
-      'LIST_NO': listNo,
-      'LIST_TYPE': listType,
-      'ACT_LIST_NO': actListNo,
-      'LIST_DATE': listDate,
-      'LIST_DESC': listDesc,
-      'ANALYTICAL': analytical,
-      'CUSTOMER_NO': customerNo,
-      'REPRES_CODE': represCode,
-      'RES_TYPE': resType,
-      'AREA_NO': areaNo,
-      'PAYMENT_TYPE': paymentType,
-      'TAAMED_NO': taamedNo,
-      'TAAMED_DATE': taamedDate,
-      'LAST_DATE': lastDate,
-      'GUAR_PRIMARY': guarPrimary,
-      'GUAR_FINAL': guarFinal,
-      'DELIVERY_PERIOD': deliveryPeriod,
-      'LIST_PERIOD': listPeriod,
-      'BEG_DATE': begDate,
-      'END_DATE': endDate,
-      'RECEIVE_PLACE': receivePlace,
-      'NOTES': notes,
-      'TERMS': terms,
-      'TOTAL': total,
-      'CUSTOMERNAME': customerName,
-      'REPRES_NAME': represName,
-      'AREA_NAME': areaName,
-    };
+  static int _toInt(dynamic value) {
+    if (value == null) return 0;
+    return int.tryParse(value.toString()) ?? 0;
+  }
+
+  static int? _toIntNullable(dynamic value) {
+    if (value == null) return null;
+    return int.tryParse(value.toString());
+  }
+
+  static double _toDouble(dynamic value) {
+    if (value == null) return 0;
+    return double.tryParse(value.toString()) ?? 0;
+  }
+
+  static double? _toDoubleNullable(dynamic value) {
+    if (value == null) return null;
+    return double.tryParse(value.toString());
   }
 
   @override
@@ -158,8 +154,12 @@ class OfferModel extends Equatable {
   static List<OfferModel> listFromResponse(String data) {
     final decoded = jsonDecode(data);
 
+    if (decoded is! List || decoded.length < 2) {
+      return [];
+    }
+
     final List<dynamic> items = decoded[1];
 
-    return items.map((e) => OfferModel.fromJson(e)).toList();
+    return items.map((e) => OfferModel.fromJson(Map<String, dynamic>.from(e))).toList();
   }
 }

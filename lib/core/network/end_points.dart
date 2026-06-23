@@ -13,4 +13,5 @@ class EndPoints {
   static const String getcars = 'DeltagroupService/Cars/GetcarsData';
   static const String customer = 'DeltaGroup/Search/FillPopup';
   static const String getofferprice = 'DeltagroupService/Cars/GetofferpriceData';
+  static const String addbookingpermission = 'DeltagroupService/Cars/Addofferprice';
 }

@@ -16,7 +16,7 @@ class OfferCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final paymentLabel = offer.paymentType.toUpperCase() == 'CSH'
+    final paymentLabel = offer.paymentType!.toUpperCase() == 'CSH'
         ? AppLocaleKey.chs.tr()
         : offer.paymentType;
 
@@ -53,7 +53,7 @@ class OfferCard extends StatelessWidget {
                 ),
                 Pill(
                   icon: Icons.calendar_today_rounded,
-                  label: offer.listDate,
+                  label: offer.listDate.toString(),
                   bgColor: AppColor.scaffoldColor(context),
                   borderColor: AppColor.borderColor(context).withValues(alpha: 0.15),
                   textColor: AppColor.greyColor(context),
@@ -242,22 +242,22 @@ class OfferCard extends StatelessWidget {
                     ),
                   ],
                 ),
-                if (offer.deliveryPeriod != null && offer.deliveryPeriod!.isNotEmpty)
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 3.h),
-                    decoration: BoxDecoration(
-                      color: AppColor.primaryColor(context).withValues(alpha: 0.08),
-                      borderRadius: BorderRadius.circular(6.r),
-                    ),
-                    child: Text(
-                      '${AppLocaleKey.agent_delivery.tr()} ${offer.deliveryPeriod}',
-                      style: AppTextStyle.bodySmall(context).copyWith(
-                        color: AppColor.primaryColor(context),
-                        fontWeight: FontWeight.w600,
-                        fontSize: 11.sp,
-                      ),
-                    ),
-                  ),
+                // if (offer.deliveryPeriod != null)
+                //   Container(
+                //     padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 3.h),
+                //     decoration: BoxDecoration(
+                //       color: AppColor.primaryColor(context).withValues(alpha: 0.08),
+                //       borderRadius: BorderRadius.circular(6.r),
+                //     ),
+                //     child: Text(
+                //       '${AppLocaleKey.agent_delivery.tr()} ${offer.deliveryPeriod}',
+                //       style: AppTextStyle.bodySmall(context).copyWith(
+                //         color: AppColor.primaryColor(context),
+                //         fontWeight: FontWeight.w600,
+                //         fontSize: 11.sp,
+                //       ),
+                //     ),
+                //   ),
               ],
             ),
           ),
