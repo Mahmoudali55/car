@@ -1474,4 +1474,7 @@ class AppLocaleKey {
   static const String plate_value = 'plate_value';
   static const String specs = 'specs';
   static const String enter_spec_title_hint = 'enter_spec_title_hint';
+  static const String to = 'to';
+  static const String form = 'form';
+  static const String period = 'period';
 }

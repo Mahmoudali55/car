@@ -12,6 +12,7 @@ import 'package:car/features/agent/presentation/cubit/agent_cubit.dart';
 import 'package:car/features/agent/presentation/cubit/agent_state.dart';
 import 'package:car/features/agent/presentation/screens/widget/custom_quote_header_widget.dart';
 import 'package:car/features/agent/presentation/screens/widget/customer_dropdown_widget.dart';
+import 'package:car/features/agent/presentation/screens/widget/date_picker_tile_widget.dart';
 import 'package:car/features/agent/presentation/screens/widget/info_chip_widget.dart';
 import 'package:car/features/agent/presentation/screens/widget/payment_toggle_widget.dart';
 import 'package:car/features/agent/presentation/screens/widget/sar_field_widget.dart';
@@ -55,6 +56,8 @@ class _QuoteBuilderDialogState extends State<QuoteBuilderDialog> {
   final TextEditingController _platePriceController = TextEditingController(text: '600');
   final TextEditingController _specController = TextEditingController();
   final TextEditingController _customerSearchController = TextEditingController();
+  final TextEditingController _begDateController = TextEditingController();
+  final TextEditingController _endDateController = TextEditingController();
   final List<String> _instantSpecs = [];
   CustomerModel? _selectedCustomer;
   String _paymentType = 'CSH'; // CSH = نقد, CRD = آجل
@@ -62,6 +65,29 @@ class _QuoteBuilderDialogState extends State<QuoteBuilderDialog> {
   int get _represNo {
     final code = HiveMethods.getUserCode() ?? '1';
     return int.tryParse(code) ?? 1;
+  }
+
+  DateTime? _begDate;
+  DateTime? _endDate;
+  Future<void> _pickDate(BuildContext context, bool isBeg) async {
+    final picked = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2020),
+      lastDate: DateTime(2030),
+    );
+    if (picked != null) {
+      final formatted = DateFormat('yyyy-MM-dd').format(picked);
+      setState(() {
+        if (isBeg) {
+          _begDate = picked;
+          _begDateController.text = formatted;
+        } else {
+          _endDate = picked;
+          _endDateController.text = formatted;
+        }
+      });
+    }
   }
 
   num get _price => num.tryParse(_priceController.text) ?? 0;
@@ -101,7 +127,8 @@ class _QuoteBuilderDialogState extends State<QuoteBuilderDialog> {
   @override
   void dispose() {
     _priceController.dispose();
-
+    _begDateController.dispose();
+    _endDateController.dispose();
     _platePriceController.dispose();
     _existingSpecsController.dispose();
     _specController.dispose();
@@ -164,6 +191,8 @@ class _QuoteBuilderDialogState extends State<QuoteBuilderDialog> {
       terms: _terms.isEmpty ? null : _terms,
       total: _total,
       subList: subList,
+      begDate: _begDateController.text,
+      endDate: _endDateController.text,
     );
 
     context.read<AgentCubit>().addbookingpermission(offer);
@@ -180,7 +209,6 @@ class _QuoteBuilderDialogState extends State<QuoteBuilderDialog> {
             message: state.createOfferStatus.message ?? "",
             type: ToastType.success,
           );
-
           context.read<AgentCubit>().resetCreateOfferStatus();
         } else if (state.createOfferStatus.isFailure) {
           CommonMethods.showToast(
@@ -218,6 +246,39 @@ class _QuoteBuilderDialogState extends State<QuoteBuilderDialog> {
                         SectionTitle(
                           title: AppLocaleKey.date.tr(),
                           icon: Icons.calendar_today_rounded,
+                        ),
+
+                        Gap(20.h),
+                        Gap(20.h),
+                        SectionTitle(
+                          title: AppLocaleKey.period.tr(),
+                          icon: Icons.date_range_rounded,
+                        ),
+                        Gap(10.h),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: DatePickerTile(
+                                label: AppLocaleKey.form.tr(),
+                                date: _begDate,
+                                onTap: () => _pickDate(context, true),
+                                context: context,
+                                controller: _begDateController,
+                                validator: (_) => null,
+                              ),
+                            ),
+                            Gap(12.w),
+                            Expanded(
+                              child: DatePickerTile(
+                                label: AppLocaleKey.to.tr(),
+                                date: _endDate,
+                                onTap: () => _pickDate(context, false),
+                                context: context,
+                                controller: _endDateController,
+                                validator: (_) => null,
+                              ),
+                            ),
+                          ],
                         ),
                         Gap(10.h),
                         InfoChip(

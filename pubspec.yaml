@@ -77,6 +77,7 @@ dependencies:
   firebase_core:
   firebase_messaging: ^16.2.2
   file_picker:
+
 dev_dependencies:
   flutter_launcher_icons: ^0.13.1
 

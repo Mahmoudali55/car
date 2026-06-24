@@ -1421,5 +1421,8 @@
 "tax_value":"Tax Value",
 "plate_value":"Plates Value",
 "specs":"Specifications",
-"enter_spec_title_hint":"Enter Specifications, each specification in a separate line..."
+"enter_spec_title_hint":"Enter Specifications, each specification in a separate line...",
+"period":"Period",
+"from":"From",
+"to":"To"
 }
