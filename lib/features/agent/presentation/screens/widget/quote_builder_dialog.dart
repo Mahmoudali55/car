@@ -1,9 +1,11 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:car/core/cache/hive/hive_methods.dart';
 import 'package:car/core/custom_widgets/custom_form_field/custom_form_field.dart';
+import 'package:car/core/custom_widgets/custom_toast/custom_toast.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
+import 'package:car/core/utils/common_methods.dart';
 import 'package:car/features/agent/data/model/creat_offer_model.dart';
 import 'package:car/features/agent/data/model/customer_model.dart';
 import 'package:car/features/agent/presentation/cubit/agent_cubit.dart';
@@ -27,9 +29,7 @@ import 'package:gap/gap.dart';
 class QuoteBuilderDialog extends StatefulWidget {
   final GetBrandCarsDataModel car;
   final Map<String, String> existingSpecs;
-
   const QuoteBuilderDialog({super.key, required this.car, required this.existingSpecs});
-
   static void show(
     BuildContext context, {
     required GetBrandCarsDataModel car,
@@ -51,21 +51,14 @@ class QuoteBuilderDialog extends StatefulWidget {
 }
 
 class _QuoteBuilderDialogState extends State<QuoteBuilderDialog> {
-  // ── Controllers ──────────────────────────────────────────────
   late TextEditingController _priceController;
-  final TextEditingController _taxController = TextEditingController(text: '15');
   final TextEditingController _platePriceController = TextEditingController(text: '600');
-
   final TextEditingController _specController = TextEditingController();
   final TextEditingController _customerSearchController = TextEditingController();
-
-  // ── State ─────────────────────────────────────────────────────
   final List<String> _instantSpecs = [];
   CustomerModel? _selectedCustomer;
   String _paymentType = 'CSH'; // CSH = نقد, CRD = آجل
   bool _isCustomerDropdownOpen = false;
-
-  // ── Derived ──────────────────────────────────────────────────
   int get _represNo {
     final code = HiveMethods.getUserCode() ?? '1';
     return int.tryParse(code) ?? 1;
@@ -74,18 +67,12 @@ class _QuoteBuilderDialogState extends State<QuoteBuilderDialog> {
   num get _price => num.tryParse(_priceController.text) ?? 0;
   num get _taxRate => 0.15;
   num get _platePrice => num.tryParse(_platePriceController.text) ?? 0;
-
   num get _taxAmount => _price * _taxRate;
   num get _total => (_price + _taxAmount + _platePrice) * 1;
-
   String get _today => DateFormat('yyyy-MM-dd').format(DateTime.now());
   String get _lastDate =>
       DateFormat('yyyy-MM-dd').format(DateTime.now().add(const Duration(days: 8)));
-
-  /// TERMS = المواصفات الإضافية التي أضافها المستخدم
   String get _terms => _instantSpecs.join(' | ');
-
-  /// NOTE = المواصفات الموجودة للسيارة (existingSpecs + carSpecification)
   String get _carNote {
     final List<String> parts = _existingSpecsController.text
         .split('\n')
@@ -98,17 +85,12 @@ class _QuoteBuilderDialogState extends State<QuoteBuilderDialog> {
     return parts.join(' | ');
   }
 
-  late Map<String, String> _editableSpecs;
-  final TextEditingController _newSpecKeyController = TextEditingController();
-  final TextEditingController _newSpecValueController = TextEditingController();
   late TextEditingController _existingSpecsController;
   @override
   void initState() {
     super.initState();
     _priceController = TextEditingController(text: widget.car.price ?? '0');
-    // Trigger customer list load
     context.read<AgentCubit>().getCustomer(null);
-    // حوّل الـ map إلى نص
     final initialText = widget.existingSpecs.entries
         .where((e) => e.value.trim().isNotEmpty && e.value.trim() != '—' && e.value.trim() != '-')
         .map((e) => '${e.key}: ${e.value}')
@@ -142,11 +124,11 @@ class _QuoteBuilderDialogState extends State<QuoteBuilderDialog> {
 
   void _submit(BuildContext context) {
     if (_selectedCustomer == null) {
-      _showError(
-        context,
-        context.locale.languageCode == 'ar'
+      CommonMethods.showToast(
+        message: context.locale.languageCode == 'ar'
             ? 'برجاء اختيار العميل أولاً'
             : 'Please select a customer first',
+        type: ToastType.error,
       );
       return;
     }
@@ -187,47 +169,23 @@ class _QuoteBuilderDialogState extends State<QuoteBuilderDialog> {
     context.read<AgentCubit>().addbookingpermission(offer);
   }
 
-  void _showError(BuildContext context, String msg) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(msg, style: const TextStyle(color: Colors.white)),
-        backgroundColor: AppColor.redColor(context),
-        behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.r)),
-        margin: EdgeInsets.all(16.w),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
-    final isAr = context.locale.languageCode == 'ar';
-
     return BlocListener<AgentCubit, AgentState>(
       listenWhen: (p, c) => p.createOfferStatus != c.createOfferStatus,
       listener: (context, state) {
         if (state.createOfferStatus.isSuccess) {
           Navigator.pop(context);
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(
-                state.createOfferStatus.message ??
-                    (isAr ? 'تمت العملية بنجاح' : 'Operation successful'),
-                style: AppTextStyle.bodyMedium(
-                  context,
-                ).copyWith(color: AppColor.whiteColor(context), fontWeight: FontWeight.bold),
-              ),
-              backgroundColor: AppColor.greenColor(context),
-              behavior: SnackBarBehavior.floating,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.r)),
-              margin: EdgeInsets.all(16.w),
-            ),
+          CommonMethods.showToast(
+            message: state.createOfferStatus.message ?? "",
+            type: ToastType.success,
           );
+
           context.read<AgentCubit>().resetCreateOfferStatus();
         } else if (state.createOfferStatus.isFailure) {
-          _showError(
-            context,
-            state.createOfferStatus.error ?? (isAr ? 'حدث خطأ' : 'An error occurred'),
+          CommonMethods.showToast(
+            message: state.createOfferStatus.message ?? "",
+            type: ToastType.error,
           );
           context.read<AgentCubit>().resetCreateOfferStatus();
         }
@@ -250,16 +208,13 @@ class _QuoteBuilderDialogState extends State<QuoteBuilderDialog> {
             ),
             child: Column(
               children: [
-                // Header
                 CustomQuoteHeaderWidget(widget: widget),
-
                 Expanded(
                   child: SingleChildScrollView(
                     padding: EdgeInsets.fromLTRB(20.w, 16.h, 20.w, 20.h),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // ── Date ─────────────────────────────────────────
                         SectionTitle(
                           title: AppLocaleKey.date.tr(),
                           icon: Icons.calendar_today_rounded,
@@ -272,8 +227,6 @@ class _QuoteBuilderDialogState extends State<QuoteBuilderDialog> {
                           context: context,
                         ),
                         Gap(20.h),
-
-                        // ── Customer ──────────────────────────────────────
                         SectionTitle(
                           title: AppLocaleKey.customer.tr(),
                           icon: Icons.person_search_rounded,
@@ -296,8 +249,6 @@ class _QuoteBuilderDialogState extends State<QuoteBuilderDialog> {
                           context: context,
                         ),
                         Gap(20.h),
-
-                        // ── Payment Type ──────────────────────────────────
                         SectionTitle(
                           title: AppLocaleKey.payment_type.tr(),
                           icon: Icons.payments_rounded,
@@ -310,8 +261,6 @@ class _QuoteBuilderDialogState extends State<QuoteBuilderDialog> {
                           context: context,
                         ),
                         Gap(20.h),
-
-                        // ── Price ─────────────────────────────────────────
                         SectionTitle(
                           title: AppLocaleKey.agentSellingPrice.tr(),
                           icon: Icons.sell_rounded,
@@ -323,15 +272,10 @@ class _QuoteBuilderDialogState extends State<QuoteBuilderDialog> {
                           onChanged: (_) => setState(() {}),
                         ),
                         Gap(16.h),
-
-                        // ── Tax ───────────────────────────────────────────
-
-                        // حقل النسبة + شريط عرض القيمة المحسوبة
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Gap(8.h),
-                            // شريط القيمة المحسوبة
                             Container(
                               width: double.infinity,
                               padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 10.h),
@@ -375,7 +319,6 @@ class _QuoteBuilderDialogState extends State<QuoteBuilderDialog> {
                           ],
                         ),
                         Gap(16.h),
-                        // ── Plate Price ───────────────────────────────────
                         SectionTitle(
                           title: AppLocaleKey.agentPlatePrice.tr(),
                           icon: Icons.credit_card_rounded,
@@ -470,8 +413,6 @@ class _QuoteBuilderDialogState extends State<QuoteBuilderDialog> {
                           ),
                         ],
                         Gap(20.h),
-
-                        // ── Existing Specs ────────────────────────────────
                         SectionTitleWidget(
                           title: AppLocaleKey.existingSpecs.tr(),
                           icon: Icons.list_alt_rounded,
@@ -487,8 +428,6 @@ class _QuoteBuilderDialogState extends State<QuoteBuilderDialog> {
                     ),
                   ),
                 ),
-
-                // ── Footer Submit ─────────────────────────────────────────
                 SubmitFooter(onSubmit: () => _submit(context), context: context),
               ],
             ),
