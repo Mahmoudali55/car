@@ -1409,7 +1409,24 @@
 "agent_from":"من:" ,
 "agent_to":"إلى:",
 "agent_delivery":"التسليم خلال",
-"CHS":"نقداً"
+"CHS":"نقداً",
+"crad":"اجل",
+"create_quotation":"انشاء عرض السعر",
+"select_client":"اختر العميل...",
+"search_agent_hint":"بحث بالاسم...",
+"no_customers":"لا يوجد عملاء",
+"tax":"الضريبة",
+"plates":"اللوحات",
+"date":"تاريخ الحركة ",
+"payment_type":"نوع الدفع",
+"selling_price":"سعر البيع",
+"tax_value":"قيمة الضريبة",
+"plate_value":"قيمة اللوحات",
+"specs":"مواصفات العرض",
+"enter_spec_title_hint":"أدخل المواصفات، كل مواصفة في سطر..."
+
+
+
 
 
 

@@ -1407,6 +1407,19 @@
 "agent_from":"From:" ,
 "agent_to":"To:",
 "agent_delivery":"Delivery",
-"CHS":"CHS"
-
+"CHS":"CHS",
+"create_quotation":"Create Quotation",
+"select_client":"Select Client...",
+"search_agent_hint":"Search by name...",
+"no_customers":"No customers",
+"tax":"Tax",
+"crad":"Card",
+"plates":"Plates",
+"date":"Date",
+"payment_type":"Payment Type",
+"selling_price":"Selling Price",
+"tax_value":"Tax Value",
+"plate_value":"Plates Value",
+"specs":"Specifications",
+"enter_spec_title_hint":"Enter Specifications, each specification in a separate line..."
 }

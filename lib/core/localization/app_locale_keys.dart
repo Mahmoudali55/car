@@ -1460,4 +1460,18 @@ class AppLocaleKey {
   static const String agent_to = 'agent_to';
   static const String agent_delivery = 'agent_delivery';
   static const String chs = 'CHS';
+  static const String create_quotation = 'create_quotation';
+  static const String select_client = 'select_client';
+  static const String search_agent_hint = 'search_agent_hint';
+  static const String no_customers = 'no_customers';
+  static const String tax = 'tax';
+  static const String plates = 'plates';
+  static const String crad = 'crad';
+  static const String date = 'date';
+  static const String payment_type = 'payment_type';
+  static const String selling_price = 'selling_price';
+  static const String tax_value = 'tax_value';
+  static const String plate_value = 'plate_value';
+  static const String specs = 'specs';
+  static const String enter_spec_title_hint = 'enter_spec_title_hint';
 }
