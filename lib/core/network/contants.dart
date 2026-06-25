@@ -4,5 +4,6 @@ class Constants {
 
   // Moyasar payment gateway (test environment)
   static const String moyasarPublishableKey = 'pk_test_jdvdiyDA6PuwzC9dkKsKpuJt8yGmLDWa7KcnJzJt';
-  static const String applePayMerchantId = 'merchant.moyasar.test'; // Replace with your actual merchant ID
+  static const String applePayMerchantId =
+      'merchant.moyasar.test'; // Replace with your actual merchant ID
 }

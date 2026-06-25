@@ -5,6 +5,7 @@ import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/features/agent/presentation/cubit/agent_cubit.dart';
 import 'package:car/features/agent/presentation/cubit/agent_state.dart';
+import 'package:car/features/agent/presentation/screens/car_quotation_preview_screen.dart';
 import 'package:car/features/agent/presentation/screens/widget/empty_state_widget.dart';
 import 'package:car/features/agent/presentation/screens/widget/error_state_widget.dart';
 import 'package:car/features/agent/presentation/screens/widget/loading_state_widget.dart';
@@ -157,12 +158,26 @@ class _AgentOffersScreenState extends State<AgentOffersScreen> {
                     return EmptyState();
                   }
 
-                  // List
                   return ListView.builder(
                     padding: EdgeInsets.fromLTRB(16.w, 4.h, 16.w, 24.h),
                     itemCount: offers.length,
-                    itemBuilder: (context, index) =>
-                        GestureDetector(child: OfferCard(offer: offers[index])),
+                    itemBuilder: (context, index) {
+                      final offer = offers[index];
+                      return GestureDetector(
+                        onTap: () async {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => CarQuotationOffersPreviewScreen(
+                                offerId: offer.listNo,
+                                offers: offers,
+                              ),
+                            ),
+                          );
+                        },
+                        child: OfferCard(offer: offer),
+                      );
+                    },
                   );
                 },
               ),

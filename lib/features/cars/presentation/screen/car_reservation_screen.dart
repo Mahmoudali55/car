@@ -631,11 +631,11 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
             children: [
               Icon(Icons.lock_outline_rounded, color: AppColor.whiteColor(context), size: 20.sp),
               Gap(10.w),
-              Text(
-                isArabic
+              ValueWithCurrencyIcon(
+                text: isArabic
                     ? 'مبلغ العربون: ${_depositAmount.toInt()} ${AppLocaleKey.sar.tr()} '
                     : 'Deposit Amount: ${_depositAmount.toInt()} SAR',
-                style: AppTextStyle.bodyMedium(
+                textStyle: AppTextStyle.bodyMedium(
                   context,
                 ).copyWith(color: AppColor.whiteColor(context), fontWeight: FontWeight.bold),
               ),
@@ -645,24 +645,6 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
         Gap(24.h),
 
         // 4. Moyasar widgets (official SDK)
-        Text(
-          isArabic ? 'اختر طريقة الدفع' : 'Choose Payment Method',
-          style: AppTextStyle.titleMedium(
-            context,
-          ).copyWith(fontWeight: FontWeight.w900, fontSize: 18.sp),
-        ),
-        Gap(8.h),
-        Row(
-          children: [
-            _buildNetworkBadge('Visa', Colors.blue.shade900),
-            Gap(8.w),
-            _buildNetworkBadge('Mastercard', Colors.orange.shade800),
-            Gap(8.w),
-            _buildNetworkBadge('Mada', Colors.blue.shade700),
-            if (Platform.isIOS) ...[Gap(8.w), _buildNetworkBadge('Apple Pay', Colors.black)],
-          ],
-        ),
-        Gap(16.h),
 
         // Loading overlay or Moyasar widgets
         if (_isLoading)
