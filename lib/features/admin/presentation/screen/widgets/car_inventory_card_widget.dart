@@ -185,7 +185,7 @@ class CarInventoryCardWidget extends StatelessWidget {
                             onTap: () {
                               QuoteBuilderDialog.show(
                                 context,
-                                car: car,
+                                car: car.toCarModel(),
                                 existingSpecs: {
                                   AppLocaleKey.manufacturingYear.tr(): car.makeYear.toString(),
                                   AppLocaleKey.mileage.tr(): car.chassisNo,

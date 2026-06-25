@@ -1,5 +1,6 @@
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
+import 'package:car/features/admin/data/model/cars_response_model.dart';
 import 'package:car/features/home/data/model/brand_cars_data_model.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -162,6 +163,25 @@ class AgentCar {
       mobileShow: true,
       carImage: imageUrl,
       color: color,
+    );
+  }
+
+  CarModel toCarModel() {
+    return CarModel(
+      itemCode: itemCode.isNotEmpty ? itemCode : null,
+      itemName: itemName.isNotEmpty ? itemName : name,
+      groupCode: 0,
+      storeCode: storeCode.isNotEmpty ? storeCode : null,
+      carStatus: availability.index + 1,
+      carType: 0,
+      chassisNo: chassisNo.isNotEmpty ? chassisNo : null,
+      bodyColor: color,
+      transmission: 0,
+      fuelType: null,
+      makeYear: int.tryParse(year) ?? 0,
+      costPrice: price,
+      colorCode: 0,
+      mobileShow: true,
     );
   }
 

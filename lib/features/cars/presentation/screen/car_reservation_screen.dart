@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:car/core/cache/hive/hive_methods.dart';
 import 'package:car/core/custom_widgets/buttons/custom_button.dart';
 import 'package:car/core/custom_widgets/custom_form_field/custom_form_field.dart';
@@ -5,14 +8,13 @@ import 'package:car/core/custom_widgets/custom_sar_text.dart';
 import 'package:car/core/custom_widgets/custom_toast/custom_toast.dart';
 import 'package:car/core/images/app_images.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
+import 'package:car/core/network/contants.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/core/utils/common_methods.dart';
 import 'package:car/features/cars/data/model/brand_model.dart';
 import 'package:car/features/cars/presentation/screen/financing_info_screen.dart';
 import 'package:car/features/cars/presentation/screen/reservation_success_screen.dart';
-import 'package:car/features/cars/presentation/screen/widget/card_expiry_formatter_widget.dart';
-import 'package:car/features/cars/presentation/screen/widget/card_number_formatter_widget.dart';
 import 'package:car/features/cars/presentation/widget/buying_faq_section_widget.dart';
 import 'package:car/features/cars/presentation/widget/car_summary_card_widget.dart';
 import 'package:car/features/cars/presentation/widget/financing_contact_form.dart';
@@ -32,6 +34,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
+import 'package:moyasar/moyasar.dart';
 
 enum _ReservationScreenStep { methodSelection, informationEntry, payment }
 
@@ -55,13 +58,6 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
   final TextEditingController _cashNameController = TextEditingController();
   final TextEditingController _cashPhoneController = TextEditingController();
 
-  // Cash payment form controllers
-  final _paymentFormKey = GlobalKey<FormState>();
-  final TextEditingController _cardNameController = TextEditingController();
-  final TextEditingController _cardNumberController = TextEditingController();
-  final TextEditingController _cardExpiryController = TextEditingController();
-  final TextEditingController _cardCvcController = TextEditingController();
-
   // Financing flow controllers
   final TextEditingController _firstNameController = TextEditingController();
   final TextEditingController _lastNameController = TextEditingController();
@@ -71,11 +67,17 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
 
   double _totalPrice = 0.0;
   final double _depositAmount = 500.0;
-
+  late Map<String, dynamic> _errorCodes;
   @override
   void initState() {
     super.initState();
     _totalPrice = _parsePrice(widget.car.price);
+    _loadErrorCodes();
+  }
+
+  Future<void> _loadErrorCodes() async {
+    final String data = await rootBundle.loadString('assets/payment_error_codes.json');
+    setState(() => _errorCodes = jsonDecode(data));
   }
 
   double _parsePrice(dynamic price) {
@@ -96,10 +98,6 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
   void dispose() {
     _cashNameController.dispose();
     _cashPhoneController.dispose();
-    _cardNameController.dispose();
-    _cardNumberController.dispose();
-    _cardExpiryController.dispose();
-    _cardCvcController.dispose();
     _firstNameController.dispose();
     _lastNameController.dispose();
     _financePhoneController.dispose();
@@ -193,18 +191,13 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
         final status = state.addBookingPermissionResponseModel;
         if (status.isSuccess) {
           setState(() => _isLoading = false);
-          final msg = status.data?.msg ?? (isArabic ? 'تم الحفظ بنجاح' : 'Saved successfully');
+          final msg = status.data?.msg ?? '';
           CommonMethods.showToast(message: msg, type: ToastType.success);
           _navigateToSuccess();
         } else if (status.isFailure) {
           setState(() => _isLoading = false);
 
-          CommonMethods.showToast(
-            message:
-                status.error ??
-                (isArabic ? 'حدث خطأ أثناء حفظ الحجز' : 'Error occurred while saving reservation'),
-            type: ToastType.error,
-          );
+          CommonMethods.showToast(message: status.error ?? '', type: ToastType.error);
         }
       },
       child: Scaffold(
@@ -337,11 +330,36 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         PaymentMethodSelectionCard(
-          title: AppLocaleKey.cash.tr(),
+          title: AppLocaleKey.payment_types.tr(),
           badgeText: AppLocaleKey.agent500.tr(),
           description: AppLocaleKey.agentPriceIncludesVat.tr(),
-          isSelected: _selectedMethod == 'cash',
-          onTap: () => setState(() => _selectedMethod = 'cash'),
+          logo: Row(
+            children: [
+              Container(
+                padding: EdgeInsets.all(4.w),
+                decoration: BoxDecoration(
+                  color: AppColor.primaryColor(context),
+                  borderRadius: BorderRadius.circular(6.r),
+                ),
+                child: Icon(
+                  Icons.credit_card_rounded,
+                  color: AppColor.whiteColor(context),
+                  size: 14.sp,
+                ),
+              ),
+              Gap(8.w),
+              Container(
+                padding: EdgeInsets.all(4.w),
+                decoration: BoxDecoration(
+                  color: AppColor.blackColor(context),
+                  borderRadius: BorderRadius.circular(6.r),
+                ),
+                child: Icon(Icons.apple, color: AppColor.whiteColor(context), size: 14.sp),
+              ),
+            ],
+          ),
+          isSelected: _selectedMethod == 'moyasar',
+          onTap: () => setState(() => _selectedMethod = 'moyasar'),
         ),
         Gap(32.h),
         Text(
@@ -555,268 +573,173 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
 
   Widget _buildPaymentBody() {
     final isArabic = context.locale.languageCode == 'ar';
-    return Form(
-      key: _paymentFormKey,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // 1. Step Indicator tabs
-          _buildPaymentStepIndicator(),
-          Gap(24.h),
 
-          // 2. Custom Car summary card
-          _buildBespokeCarSummaryCard(),
-          Gap(32.h),
-
-          // 3. Name on Card Field
-          Text(
-            isArabic ? 'الاسم على البطاقة' : 'Cardholder Name',
-            style: AppTextStyle.bodyMedium(context).copyWith(
-              fontWeight: FontWeight.bold,
-              color: AppColor.blackTextColor(context).withValues(alpha: 0.8),
-            ),
-          ),
-          Gap(8.h),
-          CustomFormField(
-            controller: _cardNameController,
-            hintText: isArabic ? 'الاسم على البطاقة' : 'Cardholder Name',
-            radius: 12,
-            validator: (value) => value == null || value.isEmpty
-                ? AppLocaleKey.paymentCardHolderInvalidMessage.tr()
-                : null,
-          ),
-          Gap(20.h),
-
-          // 4. Card Details Merged Input Field
-          Text(
-            isArabic ? 'معلومات البطاقة' : 'Card Information',
-            style: AppTextStyle.bodyMedium(context).copyWith(
-              fontWeight: FontWeight.bold,
-              color: AppColor.blackTextColor(context).withValues(alpha: 0.8),
-            ),
-          ),
-          Gap(8.h),
-          Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12.r),
-              border: Border.all(color: AppColor.borderColor(context)),
-              color: AppColor.secondAppColor(context),
-            ),
-            child: Column(
-              children: [
-                TextFormField(
-                  controller: _cardNumberController,
-                  keyboardType: TextInputType.number,
-                  inputFormatters: [
-                    FilteringTextInputFormatter.digitsOnly,
-                    LengthLimitingTextInputFormatter(19),
-                    CardNumberFormatter(),
-                  ],
-                  decoration: InputDecoration(
-                    hintText: '1234 5678 9101 1121',
-                    hintStyle: AppTextStyle.hintStyle(
-                      context,
-                      listen: false,
-                    ).copyWith(color: AppColor.hintColor(context)),
-                    border: InputBorder.none,
-                    contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
-                    suffixIcon: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Container(
-                          padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 2.h),
-                          decoration: BoxDecoration(
-                            color: Colors.blue.shade100,
-                            borderRadius: BorderRadius.circular(4.r),
-                          ),
-                          child: Text(
-                            'mada',
-                            style: TextStyle(
-                              color: Colors.blue.shade900,
-                              fontSize: 8.sp,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                        Gap(4.w),
-                        Container(
-                          padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 2.h),
-                          decoration: BoxDecoration(
-                            color: const Color(0xFF0D47A1),
-                            borderRadius: BorderRadius.circular(4.r),
-                          ),
-                          child: Text(
-                            'VISA',
-                            style: TextStyle(
-                              color: AppColor.whiteColor(context),
-                              fontSize: 8.sp,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                        Gap(4.w),
-                        Container(
-                          padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 2.h),
-                          decoration: BoxDecoration(
-                            color: Colors.red.shade100,
-                            borderRadius: BorderRadius.circular(4.r),
-                          ),
-                          child: Text(
-                            'mc',
-                            style: TextStyle(
-                              color: Colors.red.shade900,
-                              fontSize: 8.sp,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                        Gap(8.w),
-                      ],
-                    ),
-                  ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return AppLocaleKey.paymentCardNumberInvalidMessage.tr();
-                    }
-                    final cleanValue = value.replaceAll(RegExp(r'\s+|-'), '');
-                    if (cleanValue.length < 15 || cleanValue.length > 19) {
-                      return AppLocaleKey.paymentCardNumberInvalidMessage.tr();
-                    }
-                    return null;
-                  },
-                ),
-                const Divider(height: 1),
-                Row(
-                  children: [
-                    Expanded(
-                      child: TextFormField(
-                        controller: _cardExpiryController,
-                        keyboardType: TextInputType.number,
-                        inputFormatters: [
-                          FilteringTextInputFormatter.allow(RegExp(r'[0-9/]')),
-                          LengthLimitingTextInputFormatter(5),
-                          CardExpiryFormatter(),
-                        ],
-                        decoration: InputDecoration(
-                          hintText: 'MM / YY',
-                          hintStyle: TextStyle(color: AppColor.hintColor(context), fontSize: 13.sp),
-                          border: InputBorder.none,
-                          contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
-                        ),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return AppLocaleKey.paymentExpiryInvalidMessage.tr();
-                          }
-                          final cleanValue = value.replaceAll(RegExp(r'\s+'), '');
-                          final parts = cleanValue.split('/');
-                          if (parts.length != 2) {
-                            return AppLocaleKey.paymentExpiryInvalidMessage.tr();
-                          }
-                          final month = int.tryParse(parts[0]);
-                          final year = int.tryParse(parts[1]);
-                          if (month == null || month < 1 || month > 12) {
-                            return AppLocaleKey.paymentExpiryInvalidMessage.tr();
-                          }
-                          if (year == null || year < 24 || year > 50) {
-                            return AppLocaleKey.paymentExpiryInvalidMessage.tr();
-                          }
-                          return null;
-                        },
-                      ),
-                    ),
-                    Container(width: 1, height: 40.h, color: AppColor.borderColor(context)),
-                    Expanded(
-                      child: TextFormField(
-                        controller: _cardCvcController,
-                        keyboardType: TextInputType.number,
-                        obscureText: true,
-                        inputFormatters: [
-                          FilteringTextInputFormatter.digitsOnly,
-                          LengthLimitingTextInputFormatter(4),
-                        ],
-                        decoration: InputDecoration(
-                          hintText: 'CVC',
-                          hintStyle: TextStyle(color: AppColor.hintColor(context), fontSize: 13.sp),
-                          border: InputBorder.none,
-                          contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
-                        ),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return AppLocaleKey.paymentCvvInvalidMessage.tr();
-                          }
-                          final cleanValue = value.trim();
-                          if (cleanValue.length < 3 || cleanValue.length > 4) {
-                            return AppLocaleKey.paymentCvvInvalidMessage.tr();
-                          }
-                          return null;
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-          Gap(40.h),
-
-          // 5. Green Pay Button
-          CustomButton(
-            height: 56.h,
-            width: double.infinity,
-            radius: 12.r,
-            color: const Color(0xff00c853),
-            onPressed: _isLoading ? null : _submitPayment,
-            child: _isLoading
-                ? CircularProgressIndicator(color: AppColor.whiteColor(context))
-                : Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      ValueWithCurrencyIcon(
-                        text: '${_depositAmount.toInt()} ${AppLocaleKey.sar.tr()} ',
-                        textStyle: AppTextStyle.buttonStyle(
-                          context,
-                        ).copyWith(fontWeight: FontWeight.bold),
-                      ),
-                      Gap(16.w),
-                      Text(
-                        isArabic ? 'أتمم لدفع العربون' : 'Complete Deposit Payment',
-                        style: AppTextStyle.buttonStyle(
-                          context,
-                        ).copyWith(fontWeight: FontWeight.bold, fontSize: 16.sp),
-                      ),
-                    ],
-                  ),
-          ),
-          Gap(24.h),
-
-          // 6. Guarantee Banner
-          Container(
-            padding: EdgeInsets.all(16.w),
-            decoration: BoxDecoration(
-              color: const Color(0xFFE8F5E9),
-              borderRadius: BorderRadius.circular(12.r),
-              border: Border.all(color: const Color(0xFFC8E6C9)),
-            ),
-            child: Row(
-              children: [
-                Icon(Icons.verified_user_rounded, color: const Color(0xFF2E7D32), size: 24.sp),
-                Gap(12.w),
-                Expanded(
-                  child: Text(
-                    AppLocaleKey.about.tr(),
-                    style: AppTextStyle.bodySmall(context).copyWith(
-                      color: const Color(0xFF2E7D32),
-                      fontWeight: FontWeight.w600,
-                      height: 1.4,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Gap(60.h),
-        ],
+    // Moyasar PaymentConfig: 500 SAR = 50000 halalas
+    final paymentConfig = PaymentConfig(
+      publishableApiKey: Constants.moyasarPublishableKey,
+      amount: (_depositAmount * 100).toInt(), // 500 SAR → 50000 halalas
+      description: isArabic
+          ? 'حجز سيارة ${widget.car.itemName}'
+          : 'Car Reservation - ${widget.car.itemName}',
+      metadata: {
+        'item_code': widget.car.itemCode,
+        'chassis_no': widget.car.chassisNo,
+        'customer_name': _cashNameController.text,
+        'customer_phone': _cashPhoneController.text,
+      },
+      creditCard: CreditCardConfig(saveCard: false, manual: false),
+      applePay: ApplePayConfig(
+        merchantId: Constants.applePayMerchantId,
+        label: isArabic ? 'شركة معرض السيارات' : 'Car Dealership App',
+        manual: false,
+        saveCard: false,
       ),
+      supportedNetworks: const [
+        PaymentNetwork.mada,
+        PaymentNetwork.visa,
+        PaymentNetwork.masterCard,
+      ],
+    );
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // 1. Step Indicator
+        _buildPaymentStepIndicator(),
+        Gap(24.h),
+
+        // 2. Car Summary
+        _buildBespokeCarSummaryCard(),
+        Gap(24.h),
+
+        // 3. Deposit amount banner
+        Container(
+          padding: EdgeInsets.all(16.w),
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                AppColor.primaryColor(context),
+                AppColor.primaryColor(context).withValues(alpha: 0.8),
+              ],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+            borderRadius: BorderRadius.circular(16.r),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(Icons.lock_outline_rounded, color: AppColor.whiteColor(context), size: 20.sp),
+              Gap(10.w),
+              Text(
+                isArabic
+                    ? 'مبلغ العربون: ${_depositAmount.toInt()} ${AppLocaleKey.sar.tr()} '
+                    : 'Deposit Amount: ${_depositAmount.toInt()} SAR',
+                style: AppTextStyle.bodyMedium(
+                  context,
+                ).copyWith(color: AppColor.whiteColor(context), fontWeight: FontWeight.bold),
+              ),
+            ],
+          ),
+        ),
+        Gap(24.h),
+
+        // 4. Moyasar widgets (official SDK)
+        Text(
+          isArabic ? 'اختر طريقة الدفع' : 'Choose Payment Method',
+          style: AppTextStyle.titleMedium(
+            context,
+          ).copyWith(fontWeight: FontWeight.w900, fontSize: 18.sp),
+        ),
+        Gap(8.h),
+        Row(
+          children: [
+            _buildNetworkBadge('Visa', Colors.blue.shade900),
+            Gap(8.w),
+            _buildNetworkBadge('Mastercard', Colors.orange.shade800),
+            Gap(8.w),
+            _buildNetworkBadge('Mada', Colors.blue.shade700),
+            if (Platform.isIOS) ...[Gap(8.w), _buildNetworkBadge('Apple Pay', Colors.black)],
+          ],
+        ),
+        Gap(16.h),
+
+        // Loading overlay or Moyasar widgets
+        if (_isLoading)
+          Center(
+            child: Padding(
+              padding: EdgeInsets.symmetric(vertical: 40.h),
+              child: Column(
+                children: [
+                  CircularProgressIndicator(color: AppColor.primaryColor(context)),
+                  Gap(16.h),
+                  Text(
+                    isArabic ? 'جارٍ معالجة الدفع...' : 'Processing payment...',
+                    style: AppTextStyle.bodyMedium(context),
+                  ),
+                ],
+              ),
+            ),
+          )
+        else ...[
+          if (Platform.isIOS) ...[
+            ApplePay(
+              config: paymentConfig,
+              onPaymentResult: (result) => _handlePaymentResult(result, isApplePay: true),
+            ),
+            Gap(16.h),
+            Row(
+              children: [
+                const Expanded(child: Divider()),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16.w),
+                  child: Text(
+                    isArabic ? 'أو الدفع باستخدام البطاقة' : 'Or pay with credit card',
+                    style: AppTextStyle.bodySmall(
+                      context,
+                    ).copyWith(color: AppColor.greyColor(context)),
+                  ),
+                ),
+                const Expanded(child: Divider()),
+              ],
+            ),
+            Gap(16.h),
+          ],
+          CreditCard(
+            config: paymentConfig,
+            onPaymentResult: (result) => _handlePaymentResult(result, isApplePay: false),
+          ),
+        ],
+
+        Gap(24.h),
+
+        // 5. Guarantee Banner
+        Container(
+          padding: EdgeInsets.all(16.w),
+          decoration: BoxDecoration(
+            color: const Color(0xFFE8F5E9),
+            borderRadius: BorderRadius.circular(12.r),
+            border: Border.all(color: const Color(0xFFC8E6C9)),
+          ),
+          child: Row(
+            children: [
+              Icon(Icons.verified_user_rounded, color: const Color(0xFF2E7D32), size: 24.sp),
+              Gap(12.w),
+              Expanded(
+                child: Text(
+                  AppLocaleKey.about.tr(),
+                  style: AppTextStyle.bodySmall(context).copyWith(
+                    color: const Color(0xFF2E7D32),
+                    fontWeight: FontWeight.w600,
+                    height: 1.4,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        Gap(60.h),
+      ],
     );
   }
 
@@ -980,12 +903,66 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
     );
   }
 
-  void _submitPayment() {
-    if (!_paymentFormKey.currentState!.validate()) return;
+  Widget _buildNetworkBadge(String label, Color color) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 6.h),
+      decoration: BoxDecoration(
+        color: color.withValues(alpha: 0.1),
+        borderRadius: BorderRadius.circular(6.r),
+        border: Border.all(color: color.withValues(alpha: 0.3)),
+      ),
+      child: Text(
+        label,
+        style: TextStyle(color: color, fontWeight: FontWeight.bold, fontSize: 12.sp),
+      ),
+    );
+  }
 
-    setState(() => _isLoading = true);
+  void _handlePaymentResult(dynamic result, {required bool isApplePay}) {
+    if (result is PaymentResponse) {
+      if (result.status == PaymentStatus.paid) {
+        _submitPayment(paymentId: result.id);
+      } else {
+        String? code;
+        String? fallback;
 
-    final todayStr = DateFormat('yyyy-MM-dd').format(DateTime.now());
+        if (isApplePay && result.source is ApplePayPaymentResponseSource) {
+          final src = result.source as ApplePayPaymentResponseSource;
+          fallback = src.message;
+        } else if (!isApplePay && result.source is CardPaymentResponseSource) {
+          final src = result.source as CardPaymentResponseSource;
+
+          fallback = src.message;
+        }
+
+        CommonMethods.showToast(
+          message: _translateRawMessage(fallback ?? 'Payment failed, please try again'),
+          type: ToastType.error,
+        );
+      }
+    }
+  }
+
+  String _translateRawMessage(String message) {
+    final isArabic = context.locale.languageCode == 'ar';
+    final lang = isArabic ? 'ar' : 'en';
+    final msg = message.toLowerCase();
+
+    // ابحث في كل الـ JSON عن أقرب رسالة مطابقة
+    for (final entry in _errorCodes.entries) {
+      final enText = (entry.value['en'] as String).toLowerCase();
+      if (msg.contains(enText) || enText.contains(msg)) {
+        return entry.value[lang];
+      }
+    }
+
+    return isArabic ? 'فشل الدفع، يرجى المحاولة مجدداً' : 'Payment failed, please try again';
+  }
+
+  void _submitPayment({String? paymentId}) {
+    if (mounted) setState(() => _isLoading = true);
+
+    final todayStr = DateFormat('yyyy-MM-dd', 'en').format(DateTime.now());
     final futureDateStr = DateFormat(
       'yyyy-MM-dd',
     ).format(DateTime.now().add(const Duration(days: 1)));
@@ -994,6 +971,10 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
     final itemName = widget.car.itemName;
     final chassisNo = widget.car.chassisNo;
     final storeCodeVal = int.tryParse(widget.car.storeCode) ?? 1;
+
+    final paymentNote = paymentId != null
+        ? 'Moyasar ID: $paymentId'
+        : 'حجز سيارة كاش - ${_cashNameController.text} (${_cashPhoneController.text})';
 
     final model = AddBookingPermissionModel(
       lpoNos: '',
@@ -1009,7 +990,7 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
       taamedNo: '',
       payCond: '',
       guarFinal: 0,
-      notes: 'حجز سيارة كاش - ${_cashNameController.text} (${_cashPhoneController.text})',
+      notes: paymentNote,
       userName: HiveMethods.getUserName() ?? '',
       subLpo: [
         SubLpoModel(

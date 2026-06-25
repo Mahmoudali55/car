@@ -47,7 +47,7 @@ class CustomQuoteHeaderWidget extends StatelessWidget {
                   ).copyWith(fontWeight: FontWeight.w900, color: AppColor.blackTextColor(context)),
                 ),
                 Text(
-                  widget.car.itemName,
+                  widget.car.itemName ?? '',
                   style: AppTextStyle.bodySmall(
                     context,
                   ).copyWith(color: AppColor.blackTextColor(context).withValues(alpha: 0.5)),

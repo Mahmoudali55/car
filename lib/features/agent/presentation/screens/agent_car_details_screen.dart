@@ -127,7 +127,7 @@ class _AgentCarDetailsScreenState extends State<AgentCarDetailsScreen> {
                         onTap: () {
                           QuoteBuilderDialog.show(
                             context,
-                            car: widget.car.toBrandCar(),
+                            car: widget.car.toCarModel(),
                             existingSpecs: {
                               AppLocaleKey.agentYearMade.tr(): widget.car.year,
                               AppLocaleKey.agentSimNumber.tr(): widget.car.mileage,

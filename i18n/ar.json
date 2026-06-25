@@ -1426,7 +1426,8 @@
 "enter_spec_title_hint":"أدخل المواصفات، كل مواصفة في سطر...",
 "period":"فترة العرض",
 "from":"من",
-"to":"الي"
+"to":"الي",
+"payment_types":"بطاقة مدى / فيزا / Apple Pay' : 'Mada / Visa / Apple Pay"
 
 
 

@@ -1477,4 +1477,5 @@ class AppLocaleKey {
   static const String to = 'to';
   static const String form = 'form';
   static const String period = 'period';
+  static const String payment_types = 'payment_types';
 }

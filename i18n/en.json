@@ -1424,5 +1424,6 @@
 "enter_spec_title_hint":"Enter Specifications, each specification in a separate line...",
 "period":"Period",
 "from":"From",
-"to":"To"
+"to":"To",
+"payment_types":" Mada / Visa / Apple Pay' : 'Mada / Visa / Apple Pay"
 }

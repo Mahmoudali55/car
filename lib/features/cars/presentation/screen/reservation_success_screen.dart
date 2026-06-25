@@ -22,6 +22,8 @@ class ReservationSuccessScreen extends StatelessWidget {
         ? 'تمارا'
         : paymentMethod == 'bank'
         ? 'بطاقة الراجحي / الأهلي'
+        : paymentMethod == 'moyasar'
+        ? 'بطاقة مدى / فيزا / Apple Pay (ميسر)'
         : 'الكاش';
 
     return Scaffold(

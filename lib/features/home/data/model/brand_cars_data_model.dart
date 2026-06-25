@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/network/contants.dart';
+import 'package:car/features/admin/data/model/cars_response_model.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:equatable/equatable.dart';
 
@@ -512,4 +513,24 @@ class GetBrandCarsDataModel extends Equatable {
     isTamaraAvailable,
     videoId,
   ];
+
+  CarModel toCarModel() {
+    return CarModel(
+      itemCode: itemCode,
+      itemName: itemName,
+      groupCode: groupCode,
+      storeCode: storeCode,
+      carStatus: carStatus,
+      carType: carType,
+      chassisNo: chassisNo,
+      bodyColor: bodyColor,
+      transmission: transmission,
+      fuelType: fuelType,
+      makeYear: makeYear,
+      costPrice: price != null ? double.tryParse(price!.replaceAll(RegExp(r'[^0-9.]'), '')) : null,
+      colorCode: colorCode,
+      mobileShow: mobileShow,
+    );
+  }
 }
+

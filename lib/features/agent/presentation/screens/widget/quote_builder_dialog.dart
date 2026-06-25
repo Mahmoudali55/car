@@ -20,7 +20,7 @@ import 'package:car/features/agent/presentation/screens/widget/section_title_wid
 import 'package:car/features/agent/presentation/screens/widget/sections_title_widget.dart';
 import 'package:car/features/agent/presentation/screens/widget/submit_footer_widget.dart';
 import 'package:car/features/agent/presentation/screens/widget/total_banner_widget.dart';
-import 'package:car/features/home/data/model/brand_cars_data_model.dart';
+import 'package:car/features/admin/data/model/cars_response_model.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,12 +28,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
 class QuoteBuilderDialog extends StatefulWidget {
-  final GetBrandCarsDataModel car;
+  final CarModel car;
   final Map<String, String> existingSpecs;
   const QuoteBuilderDialog({super.key, required this.car, required this.existingSpecs});
   static void show(
     BuildContext context, {
-    required GetBrandCarsDataModel car,
+    required CarModel car,
     required Map<String, String> existingSpecs,
   }) {
     showModalBottomSheet(
@@ -105,9 +105,6 @@ class _QuoteBuilderDialogState extends State<QuoteBuilderDialog> {
         .map((e) => e.trim())
         .where((e) => e.isNotEmpty)
         .toList();
-    if (widget.car.carSpecification != null && widget.car.carSpecification!.trim().isNotEmpty) {
-      parts.add(widget.car.carSpecification!.trim());
-    }
     return parts.join(' | ');
   }
 
@@ -115,7 +112,8 @@ class _QuoteBuilderDialogState extends State<QuoteBuilderDialog> {
   @override
   void initState() {
     super.initState();
-    _priceController = TextEditingController(text: widget.car.price ?? '0');
+    _priceController = TextEditingController(
+        text: widget.car.costPrice?.toStringAsFixed(0) ?? '0');
     context.read<AgentCubit>().getCustomer(null);
     final initialText = widget.existingSpecs.entries
         .where((e) => e.value.trim().isNotEmpty && e.value.trim() != '—' && e.value.trim() != '-')
@@ -162,11 +160,11 @@ class _QuoteBuilderDialogState extends State<QuoteBuilderDialog> {
 
     final subList = [
       OfferItemModel(
-        itemCode: widget.car.itemCode,
-        itemName: widget.car.itemName,
-        colorCode: widget.car.colorCode,
-        chassisNo: widget.car.chassisNo,
-        makeYear: widget.car.makeYear,
+        itemCode: widget.car.itemCode ?? '',
+        itemName: widget.car.itemName ?? '',
+        colorCode: widget.car.colorCode ?? 0,
+        chassisNo: widget.car.chassisNo ?? '',
+        makeYear: widget.car.makeYear ?? 0,
         qnty: 1,
         price: _price,
         note: _carNote,
