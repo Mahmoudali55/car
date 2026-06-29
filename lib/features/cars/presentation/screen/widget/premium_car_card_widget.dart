@@ -163,7 +163,7 @@ class PremiumCarCardWidget extends StatelessWidget {
                                       child: FittedBox(
                                         fit: BoxFit.scaleDown,
                                         child: Text(
-                                          car.formattedPrice,
+                                          car.formattedPriceWithVat,
                                           style: AppTextStyle.titleMedium(context).copyWith(
                                             color: AppColor.greenColor(context),
                                             fontWeight: FontWeight.w900,

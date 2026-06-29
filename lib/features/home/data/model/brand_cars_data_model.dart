@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:car/core/cache/hive/hive_methods.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/network/contants.dart';
 import 'package:car/features/admin/data/model/cars_response_model.dart';
@@ -136,9 +137,20 @@ class GetBrandCarsDataModel extends Equatable {
     return images;
   }
 
-  String get formattedPrice {
+  String get formattedPriceWithVat {
     if (price == null || price!.isEmpty) return '---';
-    return price!.replaceAll(RegExp(r'[^0-9,]'), '');
+
+    final vatNumber = HiveMethods.getVatNumber();
+    final cleanPrice = price!.replaceAll(RegExp(r'[^0-9,]'), '');
+    final numericPrice = cleanPrice.replaceAll(',', '');
+    if (numericPrice.isEmpty) return '---';
+
+    final double originalPrice = double.tryParse(numericPrice) ?? 0;
+    final double vatPercentage = double.tryParse(vatNumber.toString()) ?? 0;
+    final double priceWithVat = originalPrice * (1 + (vatPercentage / 100));
+
+    final formatter = NumberFormat('#,##0', 'ar_SA');
+    return formatter.format(priceWithVat);
   }
 
   Map<String, dynamic> toMap() {
@@ -338,7 +350,7 @@ class GetBrandCarsDataModel extends Equatable {
   factory GetBrandCarsDataModel.fromJson(Map<String, dynamic> json) {
     String getString(String key1, [String? key2, String? key3]) {
       dynamic val;
-      
+
       dynamic findInJson(String k) {
         if (json.containsKey(k)) return json[k];
         final lowerK = k.toLowerCase().trim();
@@ -351,16 +363,18 @@ class GetBrandCarsDataModel extends Equatable {
       val = findInJson(key1);
       if (val == null && key2 != null) val = findInJson(key2);
       if (val == null && key3 != null) val = findInJson(key3);
-      
+
       if (val == null || val.toString().toLowerCase().trim() == 'null') return '';
       return val.toString().trim();
     }
 
-    final List<String> extraFromMap = (json['extraImages'] as List?)?.map((e) => e.toString()).toList() ?? [];
+    final List<String> extraFromMap =
+        (json['extraImages'] as List?)?.map((e) => e.toString()).toList() ?? [];
     final String rawImages = getString('carimage', 'image');
-    final List<String> splitImages =
-        rawImages.isNotEmpty ? rawImages.split(',').map((s) => s.trim()).where((s) => s.isNotEmpty).toList() : [];
-    
+    final List<String> splitImages = rawImages.isNotEmpty
+        ? rawImages.split(',').map((s) => s.trim()).where((s) => s.isNotEmpty).toList()
+        : [];
+
     final Set<String> allUniqueImages = {...extraFromMap, ...splitImages};
     final List<String> finalImagesList = allUniqueImages.toList();
 
@@ -381,11 +395,15 @@ class GetBrandCarsDataModel extends Equatable {
       storeCode: getString('STORE_CODE', 'storeCode'),
       carStatus: int.tryParse(getString('CAR_STATUS', 'carStatus')) ?? 0,
       carType: int.tryParse(getString('CAR_TYPE', 'carType')) ?? 0,
-      carSpecification: json['CAR_SPECIFICATION']?.toString() ?? json['carSpecification']?.toString(),
+      carSpecification:
+          json['CAR_SPECIFICATION']?.toString() ?? json['carSpecification']?.toString(),
       chassisNo: getString('CHASSIS_NO', 'chassisNo'),
       motorNo: json['MOTOR_NO']?.toString() ?? json['motorNo']?.toString(),
       bodyColor: getString('BODY_COLOR', 'bodyColor', 'interiorColor'),
-      kilometerReading: json['KILOMETER_READING']?.toString() ?? json['kilometerReading'] ?? json['mileage']?.toString(),
+      kilometerReading:
+          json['KILOMETER_READING']?.toString() ??
+          json['kilometerReading'] ??
+          json['mileage']?.toString(),
       transmission: int.tryParse(getString('TRANSMISSION', 'transmission')) ?? 0,
       cylinder: getString('CYLINDER', 'cylinder', 'engine'),
       powerHourse: getString('POWER_HOURSE', 'powerHourse'),
@@ -405,7 +423,10 @@ class GetBrandCarsDataModel extends Equatable {
       trNo: int.tryParse(getString('TR_NO', 'trNo')) ?? 0,
       customsCardNo: json['CUSTOMS_CARD_NO']?.toString() ?? json['customsCardNo']?.toString(),
       reasonId: int.tryParse(getString('REASON_ID', 'reasonId')) ?? 0,
-      mobileShow: json['MobileShow'] == true || json['mobileShow'] == true || json['MobileShow']?.toString().toLowerCase() == 'true',
+      mobileShow:
+          json['MobileShow'] == true ||
+          json['mobileShow'] == true ||
+          json['MobileShow']?.toString().toLowerCase() == 'true',
       carImage: finalImagesList.isNotEmpty ? finalImagesList.first : '',
       color: getString('Color', 'color', 'exteriorColor'),
       extraImages: finalImagesList,
@@ -533,4 +554,3 @@ class GetBrandCarsDataModel extends Equatable {
     );
   }
 }
-

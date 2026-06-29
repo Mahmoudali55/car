@@ -36,13 +36,31 @@ class CashPackagesWidget extends StatefulWidget {
 class _CashPackagesWidgetState extends State<CashPackagesWidget> {
   int _selectedIndex = 0;
   late double _baseCarPrice;
+  late double _vatPercentage;
 
   @override
   void initState() {
     super.initState();
+    // جلب السعر الأساسي
     final priceRawString = widget.car.price ?? '0';
     final priceString = priceRawString.replaceAll(RegExp(r'[^0-9.]'), '');
     _baseCarPrice = double.tryParse(priceString) ?? 0.0;
+
+    // جلب نسبة الضريبة (يمكن تعديلها لجلب القيمة من Hive أو من الـ API)
+    _vatPercentage = _getVatPercentage();
+  }
+
+  // دالة لجلب نسبة الضريبة
+  double _getVatPercentage() {
+    // TODO: استبدال هذه القيمة بجلبها من Hive أو من الـ API
+    // مثال: final vatSerial = HiveMethods.getVatNumber();
+    // return double.tryParse(vatSerial.toString()) ?? 15.0;
+    return 15.0; // القيمة الافتراضية
+  }
+
+  // دالة لحساب السعر مع الضريبة
+  double _getPriceWithVat(double price) {
+    return price * (1 + (_vatPercentage / 100));
   }
 
   final List<CashPackage> _packages = [
@@ -88,7 +106,13 @@ class _CashPackagesWidgetState extends State<CashPackagesWidget> {
 
     final formatter = NumberFormat('#,##0', 'en_US');
     final selectedPackage = _packages[_selectedIndex];
-    final currentTotal = _baseCarPrice + selectedPackage.extraPrice;
+
+    // حساب السعر الأساسي مع الضريبة
+    final basePriceWithVat = _getPriceWithVat(_baseCarPrice);
+    // حساب سعر الباقة الإضافي مع الضريبة
+    final extraPriceWithVat = _getPriceWithVat(selectedPackage.extraPrice);
+    // المجموع الكلي مع الضريبة
+    final currentTotalWithVat = basePriceWithVat + extraPriceWithVat;
 
     return Container(
       margin: EdgeInsets.only(top: 24.h),
@@ -110,6 +134,32 @@ class _CashPackagesWidgetState extends State<CashPackagesWidget> {
               context,
             ).copyWith(fontSize: 13.sp, color: Colors.grey[600]),
           ),
+          Gap(8.h),
+          // إضافة نص يوضح أن الأسعار شاملة الضريبة
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
+            decoration: BoxDecoration(
+              color: AppColor.primaryColor(context).withValues(alpha: 0.1),
+              borderRadius: BorderRadius.circular(8.r),
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(
+                  Icons.info_outline_rounded,
+                  size: 14.sp,
+                  color: AppColor.primaryColor(context),
+                ),
+                Gap(6.w),
+                Text(
+                  'الأسعار شاملة القيمة المضافة (${_vatPercentage.toStringAsFixed(0)}%)',
+                  style: AppTextStyle.bodySmall(
+                    context,
+                  ).copyWith(color: AppColor.primaryColor(context), fontWeight: FontWeight.w500),
+                ),
+              ],
+            ),
+          ),
           Gap(16.h),
           SizedBox(
             height: 280.h,
@@ -120,6 +170,9 @@ class _CashPackagesWidgetState extends State<CashPackagesWidget> {
               itemBuilder: (context, index) {
                 final package = _packages[index];
                 final isSelected = index == _selectedIndex;
+
+                // حساب سعر الباقة مع الضريبة
+                final packageExtraWithVat = _getPriceWithVat(package.extraPrice);
 
                 return GestureDetector(
                   onTap: () {
@@ -198,12 +251,23 @@ class _CashPackagesWidgetState extends State<CashPackagesWidget> {
                           child: ValueWithCurrencyIcon(
                             text: package.extraPrice == 0
                                 ? '${AppLocaleKey.sar.tr()} 0'
-                                : '+ ${formatter.format(package.extraPrice)} ${AppLocaleKey.sar.tr()}',
+                                : '+ ${formatter.format(packageExtraWithVat)} ${AppLocaleKey.sar.tr()}',
                             textStyle: AppTextStyle.bodyMedium(
                               context,
                             ).copyWith(fontWeight: FontWeight.bold, color: package.themeColor),
                           ),
                         ),
+                        // إضافة نص شامل الضريبة
+                        if (package.extraPrice > 0)
+                          Padding(
+                            padding: EdgeInsets.only(top: 4.h),
+                            child: Text(
+                              'شامل الضريبة',
+                              style: AppTextStyle.bodySmall(
+                                context,
+                              ).copyWith(fontSize: 9.sp, color: Colors.grey[500]),
+                            ),
+                          ),
                         Gap(16.h),
                         Text(
                           AppLocaleKey.includedFeatures.tr(),
@@ -252,7 +316,7 @@ class _CashPackagesWidgetState extends State<CashPackagesWidget> {
             ),
           ),
           Gap(16.h),
-          // Total Sum Container below packages
+          // Total Sum Container below packages مع الضريبة
           Container(
             padding: EdgeInsets.all(16.w),
             decoration: BoxDecoration(
@@ -260,20 +324,98 @@ class _CashPackagesWidgetState extends State<CashPackagesWidget> {
               borderRadius: BorderRadius.circular(12.r),
               border: Border.all(color: AppColor.primaryColor(context).withValues(alpha: 0.2)),
             ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            child: Column(
               children: [
-                Text(
-                  AppLocaleKey.totalWithPackage.tr(),
-                  style: AppTextStyle.bodyMedium(
-                    context,
-                  ).copyWith(color: AppColor.blackTextColor(context)),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      AppLocaleKey.totalWithPackage.tr(),
+                      style: AppTextStyle.bodyMedium(
+                        context,
+                      ).copyWith(color: AppColor.blackTextColor(context)),
+                    ),
+                    ValueWithCurrencyIcon(
+                      text: '${formatter.format(currentTotalWithVat)} ${AppLocaleKey.sar.tr()}',
+                      textStyle: AppTextStyle.bodyLarge(context).copyWith(
+                        fontWeight: FontWeight.w900,
+                        color: AppColor.primaryColor(context),
+                      ),
+                    ),
+                  ],
                 ),
-                ValueWithCurrencyIcon(
-                  text: '${formatter.format(currentTotal)} ${AppLocaleKey.sar.tr()}',
-                  textStyle: AppTextStyle.bodyLarge(
-                    context,
-                  ).copyWith(fontWeight: FontWeight.w900, color: AppColor.primaryColor(context)),
+                // إضافة تفاصيل الضريبة
+                Gap(8.h),
+                Container(
+                  padding: EdgeInsets.all(8.w),
+                  decoration: BoxDecoration(
+                    color: Colors.grey.withValues(alpha: 0.05),
+                    borderRadius: BorderRadius.circular(8.r),
+                  ),
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'سعر السيارة الأساسي (شامل الضريبة)',
+                            style: AppTextStyle.bodySmall(
+                              context,
+                            ).copyWith(color: Colors.grey[600], fontSize: 11.sp),
+                          ),
+                          Text(
+                            '${formatter.format(basePriceWithVat)} ${AppLocaleKey.sar.tr()}',
+                            style: AppTextStyle.bodySmall(context).copyWith(
+                              color: Colors.grey[600],
+                              fontSize: 11.sp,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ],
+                      ),
+                      if (selectedPackage.extraPrice > 0) ...[
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'قيمة الباقة الإضافية (شامل الضريبة)',
+                              style: AppTextStyle.bodySmall(
+                                context,
+                              ).copyWith(color: Colors.grey[600], fontSize: 11.sp),
+                            ),
+                            Text(
+                              '+ ${formatter.format(extraPriceWithVat)} ${AppLocaleKey.sar.tr()}',
+                              style: AppTextStyle.bodySmall(context).copyWith(
+                                color: selectedPackage.themeColor,
+                                fontSize: 11.sp,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                      Divider(height: 12.h, color: Colors.grey.withValues(alpha: 0.2)),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'قيمة الضريبة (${_vatPercentage.toStringAsFixed(0)}%)',
+                            style: AppTextStyle.bodySmall(
+                              context,
+                            ).copyWith(color: Colors.grey[600], fontSize: 11.sp),
+                          ),
+                          Text(
+                            '+ ${formatter.format(currentTotalWithVat - (_baseCarPrice + selectedPackage.extraPrice))} ${AppLocaleKey.sar.tr()}',
+                            style: AppTextStyle.bodySmall(context).copyWith(
+                              color: Colors.grey[600],
+                              fontSize: 11.sp,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),

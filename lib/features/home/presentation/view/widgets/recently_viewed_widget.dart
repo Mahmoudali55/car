@@ -1,4 +1,5 @@
 import 'package:animate_do/animate_do.dart';
+import 'package:car/core/cache/hive/hive_methods.dart';
 import 'package:car/core/custom_widgets/custom_image/custom_network_image.dart';
 import 'package:car/core/images/app_images.dart';
 import 'package:car/core/routes/routes_name.dart';
@@ -9,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
+import 'package:intl/intl.dart';
 
 class RecentlyViewedWidget extends StatelessWidget {
   final List<dynamic> cars;
@@ -19,10 +21,30 @@ class RecentlyViewedWidget extends StatelessWidget {
     NavigatorMethods.pushNamed(context, RoutesName.carDetailsScreen, arguments: car);
   }
 
+  // دالة لحساب السعر مع الضريبة
+  double _getPriceWithVat(Map<String, dynamic> car) {
+    final priceRaw = car['price']?.toString() ?? '0';
+    if (priceRaw.isEmpty || priceRaw == '0') return 0.0;
+
+    final cleanPrice = priceRaw.replaceAll(RegExp(r'[^0-9.]'), '');
+    final double originalPrice = double.tryParse(cleanPrice) ?? 0.0;
+
+    if (originalPrice <= 0) return 0.0;
+
+    // استخدام HiveMethods للحصول على نسبة الضريبة
+    final vatSerial = HiveMethods.getVatNumber();
+    final double vatPercentage = double.tryParse(vatSerial.toString()) ?? 15.0;
+
+    return originalPrice * (1 + (vatPercentage / 100));
+  }
+
   @override
   Widget build(BuildContext context) {
+    // تنسيق الأرقام
+    final formatter = NumberFormat('#,##0', 'en_US');
+
     return SizedBox(
-      height: 200.h,
+      height: 240.h,
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
         physics: const BouncingScrollPhysics(),
@@ -30,6 +52,22 @@ class RecentlyViewedWidget extends StatelessWidget {
         separatorBuilder: (context, index) => Gap(12.w),
         itemBuilder: (context, index) {
           final Map<String, dynamic> car = Map<String, dynamic>.from(cars[index]);
+
+          // حساب السعر مع الضريبة
+          final double priceWithVat = _getPriceWithVat(car);
+          final String formattedPrice = priceWithVat > 0
+              ? formatter.format(priceWithVat)
+              : car['price']?.toString() ?? '0';
+
+          // الحصول على نسبة الضريبة للعرض
+          double vatPercentage = 15.0;
+          if (car.containsKey('VAT_SERIAL')) {
+            final vatSerial = car['VAT_SERIAL']?.toString();
+            if (vatSerial != null && vatSerial.isNotEmpty) {
+              vatPercentage = double.tryParse(vatSerial) ?? 15.0;
+            }
+          }
+
           return FadeInRight(
             duration: Duration(milliseconds: 500 + (index * 100)),
             child: GestureDetector(
@@ -109,12 +147,13 @@ class RecentlyViewedWidget extends StatelessWidget {
                               ),
                             ),
                             Gap(6.h),
+                            // السعر شامل الضريبة
                             Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 Flexible(
                                   child: Text(
-                                    '${car['price']}',
+                                    formattedPrice,
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
                                     style: AppTextStyle.titleMedium(context).copyWith(
@@ -137,6 +176,29 @@ class RecentlyViewedWidget extends StatelessWidget {
                                 ),
                               ],
                             ),
+                            // إضافة نص شامل الضريبة
+                            if (priceWithVat > 0) ...[
+                              Gap(2.h),
+                              Row(
+                                children: [
+                                  Container(
+                                    padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 2.h),
+                                    decoration: BoxDecoration(
+                                      color: AppColor.primaryColor(context).withValues(alpha: 0.1),
+                                      borderRadius: BorderRadius.circular(4.r),
+                                    ),
+                                    child: Text(
+                                      'شامل الضريبة ${vatPercentage.toStringAsFixed(0)}%',
+                                      style: AppTextStyle.bodySmall(context).copyWith(
+                                        fontSize: 8.sp,
+                                        color: AppColor.primaryColor(context),
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
                           ],
                         ),
                       ),

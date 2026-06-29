@@ -1,13 +1,13 @@
 import 'package:bloc/bloc.dart';
 import 'package:car/core/cache/hive/hive_methods.dart';
 import 'package:car/core/network/status.state.dart';
+import 'package:car/core/services/notification_service.dart';
+import 'package:car/features/auth/data/model/change_password_request_model.dart';
 import 'package:car/features/auth/data/model/login_request_model.dart';
 import 'package:car/features/auth/data/model/login_response_model.dart';
 import 'package:car/features/auth/data/model/register_request_model.dart';
 import 'package:car/features/auth/data/model/register_response_model.dart';
-import 'package:car/features/auth/data/model/change_password_request_model.dart';
 import 'package:car/features/auth/data/repository/auth_repo.dart';
-import 'package:car/core/services/notification_service.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/widgets.dart';
 
@@ -31,7 +31,7 @@ class AuthCubit extends Cubit<AuthState> {
   final TextEditingController mobileController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController accountTypeController = TextEditingController();
-  
+
   // Registration specific controllers
   final TextEditingController fullNameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
@@ -73,10 +73,11 @@ class AuthCubit extends Cubit<AuthState> {
         HiveMethods.updateRole(response.type);
         HiveMethods.updateUserName(response.userName);
         HiveMethods.updateUserCode(response.code);
+        HiveMethods.updateVatNumber(response.vatSerial);
 
         // Update FCM Token for push notifications
         String fcmToken = await NotificationService.getFCMToken() ?? '';
-        
+
         // If empty (e.g. on iOS simulator), send a placeholder so the API still runs for testing
         if (fcmToken.isEmpty) {
           fcmToken = 'dummy_token_for_simulator';
@@ -134,7 +135,7 @@ class AuthCubit extends Cubit<AuthState> {
           emailController.clear();
           idNoController.clear();
           passwordController.clear();
-          
+
           emit(state.copyWith(registerStatus: StatusState.success(response)));
         } else {
           emit(state.copyWith(registerStatus: const StatusState.failure('Registration failed')));
@@ -148,11 +149,15 @@ class AuthCubit extends Cubit<AuthState> {
 
     // Check if new password matches confirm password
     if (newPasswordController.text != confirmPasswordController.text) {
-      emit(state.copyWith(changePasswordStatus: StatusState.failure(
-        const Locale('ar').languageCode == 'ar' 
-            ? 'كلمة المرور الجديدة وتأكيدها غير متطابقتين' 
-            : 'Passwords do not match'
-      )));
+      emit(
+        state.copyWith(
+          changePasswordStatus: StatusState.failure(
+            const Locale('ar').languageCode == 'ar'
+                ? 'كلمة المرور الجديدة وتأكيدها غير متطابقتين'
+                : 'Passwords do not match',
+          ),
+        ),
+      );
       return;
     }
 
@@ -176,11 +181,15 @@ class AuthCubit extends Cubit<AuthState> {
           confirmPasswordController.clear();
           emit(state.copyWith(changePasswordStatus: const StatusState.success(true)));
         } else {
-          emit(state.copyWith(changePasswordStatus: StatusState.failure(
-            const Locale('ar').languageCode == 'ar' 
-                ? 'فشل تعديل كلمة المرور' 
-                : 'Failed to change password'
-          )));
+          emit(
+            state.copyWith(
+              changePasswordStatus: StatusState.failure(
+                const Locale('ar').languageCode == 'ar'
+                    ? 'فشل تعديل كلمة المرور'
+                    : 'Failed to change password',
+              ),
+            ),
+          );
         }
       },
     );
@@ -192,7 +201,7 @@ class AuthCubit extends Cubit<AuthState> {
     HiveMethods.deleteToken();
     HiveMethods.updateRole('user');
     HiveMethods.updateUserName('');
-    
+
     // Clear registration and change password controllers
     fullNameController.clear();
     emailController.clear();

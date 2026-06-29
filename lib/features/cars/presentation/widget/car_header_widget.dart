@@ -167,7 +167,7 @@ class _CarHeaderWidgetState extends State<CarHeaderWidget> {
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             Text(
-                              widget.car.formattedPrice,
+                              widget.car.formattedPriceWithVat,
                               style: AppTextStyle.titleMedium(context).copyWith(
                                 color: AppColor.greenColor(context),
                                 fontWeight: FontWeight.w900,

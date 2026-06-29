@@ -9,12 +9,60 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
+import 'package:intl/intl.dart';
 
 class FavoriteItemWidget extends StatelessWidget {
   const FavoriteItemWidget({super.key, required this.car});
   final Map<String, dynamic> car;
+
+  // دالة لحساب السعر مع الضريبة
+  String _getFormattedPriceWithVat(Map<String, dynamic> carData) {
+    // جلب السعر من الـ map
+    final priceRaw = carData['price']?.toString() ?? '0';
+    if (priceRaw.isEmpty || priceRaw == '0') return '0';
+
+    // تنظيف السعر من الرموز غير الرقمية
+    final cleanPrice = priceRaw.replaceAll(RegExp(r'[^0-9.]'), '');
+    final double originalPrice = double.tryParse(cleanPrice) ?? 0.0;
+
+    if (originalPrice <= 0) return '0';
+
+    // جلب نسبة الضريبة (من الـ map أو استخدام القيمة الافتراضية)
+    double vatPercentage = 15.0; // القيمة الافتراضية
+
+    // محاولة جلب نسبة الضريبة من الـ map
+    if (carData.containsKey('VAT_SERIAL')) {
+      final vatSerial = carData['VAT_SERIAL']?.toString();
+      if (vatSerial != null && vatSerial.isNotEmpty) {
+        vatPercentage = double.tryParse(vatSerial) ?? 15.0;
+      }
+    }
+
+    // حساب السعر شامل الضريبة
+    final double priceWithVat = originalPrice * (1 + (vatPercentage / 100));
+
+    // تنسيق السعر
+    final formatter = NumberFormat('#,##0', 'en_US');
+    return formatter.format(priceWithVat);
+  }
+
+  // دالة للحصول على نسبة الضريبة للعرض
+  String _getVatPercentageText(Map<String, dynamic> carData) {
+    double vatPercentage = 15.0;
+    if (carData.containsKey('VAT_SERIAL')) {
+      final vatSerial = carData['VAT_SERIAL']?.toString();
+      if (vatSerial != null && vatSerial.isNotEmpty) {
+        vatPercentage = double.tryParse(vatSerial) ?? 15.0;
+      }
+    }
+    return vatPercentage.toStringAsFixed(0);
+  }
+
   @override
   Widget build(BuildContext context) {
+    final String formattedPrice = _getFormattedPriceWithVat(car);
+    final String vatPercentage = _getVatPercentageText(car);
+
     return Container(
       decoration: BoxDecoration(
         color: AppColor.secondAppColor(context),
@@ -108,6 +156,7 @@ class FavoriteItemWidget extends StatelessWidget {
                         overflow: TextOverflow.ellipsis,
                       ),
                       Gap(8.h),
+                      // السعر شامل الضريبة
                       Container(
                         padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
                         decoration: BoxDecoration(
@@ -115,11 +164,27 @@ class FavoriteItemWidget extends StatelessWidget {
                           borderRadius: BorderRadius.circular(12.r),
                         ),
                         child: ValueWithCurrencyIcon(
-                          text: '${car['price']} SAR',
-
+                          text: '$formattedPrice SAR',
                           textStyle: AppTextStyle.bodySmall(context).copyWith(
                             color: AppColor.primaryColor(context),
                             fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      // إضافة نص شامل الضريبة
+                      Gap(4.h),
+                      Container(
+                        padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 2.h),
+                        decoration: BoxDecoration(
+                          color: AppColor.primaryColor(context).withValues(alpha: 0.06),
+                          borderRadius: BorderRadius.circular(8.r),
+                        ),
+                        child: Text(
+                          'شامل الضريبة $vatPercentage%',
+                          style: AppTextStyle.bodySmall(context).copyWith(
+                            fontSize: 9.sp,
+                            color: AppColor.primaryColor(context),
+                            fontWeight: FontWeight.w500,
                           ),
                         ),
                       ),

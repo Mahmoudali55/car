@@ -26,21 +26,44 @@ class _BnplWidgetState extends State<BnplWidget> {
   final BnplService _bnplService = BnplService();
   bool _isLoading = false;
 
+  // دالة لحساب السعر مع الضريبة
+  double _getPriceWithVat() {
+    // الحصول على السعر الأصلي
+    final priceStr = widget.car.price ?? widget.car.cashPrice;
+    if (priceStr == null || priceStr.isEmpty) return 0.0;
+
+    // تنظيف السعر من الرموز غير الرقمية
+    final cleanPrice = priceStr.replaceAll(RegExp(r'[^0-9.]'), '');
+    final double originalPrice = double.tryParse(cleanPrice) ?? 0.0;
+
+    if (originalPrice <= 0) return 0.0;
+
+    // الحصول على نسبة الضريبة (من الـ API أو من Hive)
+    // يمكنك إضافة دالة لجلب النسبة من Hive كما في المثال السابق
+    final double vatPercentage = _getVatPercentage(); // 15.0 افتراضياً
+
+    // حساب السعر شامل الضريبة
+    return originalPrice * (1 + (vatPercentage / 100));
+  }
+
+  // دالة لجلب نسبة الضريبة
+  double _getVatPercentage() {
+    // يمكنك جلب النسبة من Hive أو من الـ API
+    // مثال: final vatSerial = HiveMethods.getVatNumber();
+    // return double.tryParse(vatSerial.toString()) ?? 15.0;
+
+    // حالياً نستخدم قيمة افتراضية 15%
+    return 15.0;
+  }
+
   @override
   Widget build(BuildContext context) {
-    // Robust price parsing to handle various formats
-    double parsePrice(dynamic priceValue) {
-      if (priceValue == null) return 0.0;
-      final priceStr = priceValue.toString();
-      // Remove everything except digits and dots
-      final cleanStr = priceStr.replaceAll(RegExp(r'[^0-9.]'), '');
-      return double.tryParse(cleanStr) ?? 0.0;
-    }
+    // استخدام السعر مع الضريبة
+    final priceWithVat = _getPriceWithVat();
 
-    final price = parsePrice(widget.car.price ?? widget.car.cashPrice);
-    if (price <= 0) return const SizedBox.shrink();
+    if (priceWithVat <= 0) return const SizedBox.shrink();
 
-    final installment = price / 4;
+    final installment = priceWithVat / 4;
     final formatter = NumberFormat('#,##0', 'en_US');
     final formattedInstallment = formatter.format(installment);
 
@@ -63,20 +86,20 @@ class _BnplWidgetState extends State<BnplWidget> {
           bottomSheetDescKey: AppLocaleKey.tabbyDesc,
           installment: installment,
           formattedInstallment: formattedInstallment,
-          total: price,
+          total: priceWithVat,
           isTabby: true,
         ),
         Gap(12.h),
         _buildProviderCard(
           context: context,
           providerName: 'tamara',
-          bgColor: const Color(0xFFEBC18A), // More accurate Tamara gold
+          bgColor: const Color(0xFFEBC18A),
           textColor: AppColor.blackColor(context),
           descKey: AppLocaleKey.withoutInterestTamara,
           bottomSheetDescKey: AppLocaleKey.tamaraDesc,
           installment: installment,
           formattedInstallment: formattedInstallment,
-          total: price,
+          total: priceWithVat,
           isTabby: false,
         ),
       ],
@@ -205,6 +228,15 @@ class _BnplWidgetState extends State<BnplWidget> {
                       context,
                     ).copyWith(color: AppColor.greyColor(context), fontSize: 10.sp),
                   ),
+                  // إضافة نص يوضح أن السعر شامل الضريبة
+                  Text(
+                    'السعر شامل الضريبة',
+                    style: AppTextStyle.bodySmall(context).copyWith(
+                      color: AppColor.primaryColor(context),
+                      fontSize: 9.sp,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -226,6 +258,9 @@ class _BnplWidgetState extends State<BnplWidget> {
     required String formattedInstallment,
     required bool isTabby,
   }) {
+    final formatter = NumberFormat('#,##0', 'en_US');
+    final formattedTotal = formatter.format(total);
+
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -250,7 +285,16 @@ class _BnplWidgetState extends State<BnplWidget> {
             Gap(24.h),
             Text(
               '${AppLocaleKey.payWith.tr()} ${providerName.toUpperCase()}',
-              style: AppTextStyle.titleMedium(bottomSheetContext).copyWith(
+              style: AppTextStyle.titleMedium(
+                bottomSheetContext,
+              ).copyWith(fontWeight: FontWeight.bold),
+            ),
+            Gap(8.h),
+            // إضافة السعر الإجمالي شامل الضريبة
+            Text(
+              'المبلغ الإجمالي: $formattedTotal ${AppLocaleKey.sar.tr()} (شامل الضريبة)',
+              style: AppTextStyle.bodyMedium(bottomSheetContext).copyWith(
+                color: AppColor.primaryColor(bottomSheetContext),
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -306,7 +350,7 @@ class _BnplWidgetState extends State<BnplWidget> {
                   padding: EdgeInsets.symmetric(vertical: 14.h),
                 ),
                 child: Text(
-                  AppLocaleKey.payNow.tr(),
+                  '${AppLocaleKey.payNow.tr()} ($formattedTotal ${AppLocaleKey.sar.tr()})',
                   style: TextStyle(
                     color: AppColor.whiteColor(bottomSheetContext),
                     fontWeight: FontWeight.bold,

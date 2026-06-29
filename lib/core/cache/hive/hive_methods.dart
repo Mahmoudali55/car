@@ -85,14 +85,14 @@ class HiveMethods {
 
   static bool addToComparison(Map<String, dynamic> car) {
     final List<dynamic> list = List.from(getComparisonList());
-    
+
     // If it's already in the list, remove it so it can be added to the top
     list.removeWhere((c) => c['name'] == car['name']);
 
     if (list.length >= 2) {
       return false;
     }
-    
+
     list.insert(0, car);
     _box.put('comparisonList', list);
     return true;
@@ -122,7 +122,7 @@ class HiveMethods {
     // Remove if exists to move it to the top
     list.removeWhere((c) => c['name'] == car['name']);
     list.insert(0, car);
-    
+
     // Limit to 10 stored cars
     if (list.length > 10) {
       list.removeLast();
@@ -193,5 +193,12 @@ class HiveMethods {
   static void updateUserCode(String userCode) {
     _box.put('userCode', userCode);
   }
-}
 
+  static void updateVatNumber(String vatNumber) {
+    _box.put('VAT_SERIAL', vatNumber);
+  }
+
+  static String? getVatNumber() {
+    return _box.get('VAT_SERIAL', defaultValue: '');
+  }
+}
