@@ -4,6 +4,7 @@ import 'package:car/core/custom_widgets/custom_sar_text.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
+import 'package:car/core/services/permission_service.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +22,9 @@ class FinancingDocumentsTab extends StatefulWidget {
 class _FinancingDocumentsTabState extends State<FinancingDocumentsTab> {
   final Map<String, File?> uploadedFiles = {};
   Future<void> pickFile(String key) async {
+    final hasPermission = await PermissionService.requestPhotoPermission(context);
+    if (!hasPermission) return;
+
     final result = await FilePicker.pickFiles(
       type: FileType.custom,
       allowedExtensions: ['pdf', 'jpg', 'jpeg', 'png'],
@@ -33,6 +37,9 @@ class _FinancingDocumentsTabState extends State<FinancingDocumentsTab> {
   }
 
   Future<void> pickImage(String key) async {
+    final hasPermission = await PermissionService.requestPhotoPermission(context);
+    if (!hasPermission) return;
+
     final picker = ImagePicker();
 
     final image = await picker.pickImage(source: ImageSource.gallery, imageQuality: 70);

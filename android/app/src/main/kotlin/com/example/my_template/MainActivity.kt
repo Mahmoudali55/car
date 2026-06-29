@@ -1,4 +1,4 @@
-package com.example.my_template
+package com.asg.car
 
 import android.os.Bundle
 import android.view.WindowManager

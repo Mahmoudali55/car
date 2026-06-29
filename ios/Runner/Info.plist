@@ -66,5 +66,15 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSCameraUsageDescription</key>
+	<string>نحتاج إلى الوصول للكاميرا لمسح وتصوير المستندات المطلوبة لطلبات التمويل المالي للسيارات.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>نحتاج إلى الوصول لمعرض الصور لتمكينك من اختيار ورفع المستندات الثبوتية كالهوية الوطنية ورخصة القيادة.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>نحتاج إلى حفظ الصور وتقارير السيارات في ألبوم الكاميرا الخاص بك.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>نحتاج إلى الوصول للموقع لمساعدتك في تحديد أقرب فرع/معرض سيارات أو لحساب تكلفة الشحن بدقة.</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>نحتاج إلى الوصول للموقع لخدمات التوصيل والشحن للسيارة بدقة.</string>
 </dict>
 </plist>

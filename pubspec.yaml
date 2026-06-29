@@ -76,8 +76,10 @@ dependencies:
   screenshot: ^3.0.0
   firebase_core:
   firebase_messaging: ^16.2.2
-  file_picker:
+  file_picker: ^11.0.2
   moyasar: ^3.0.0
+  permission_handler: ^11.4.0
+  image_picker: ^1.2.2
 
 
 dev_dependencies:

@@ -17,10 +17,7 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      throw UnsupportedError(
-        'DefaultFirebaseOptions have not been configured for web - '
-        'you can reconfigure this by running the FlutterFire CLI again.',
-      );
+      return web;
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -30,10 +27,7 @@ class DefaultFirebaseOptions {
       case TargetPlatform.macOS:
         return macos;
       case TargetPlatform.windows:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for windows - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return windows;
       case TargetPlatform.linux:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for linux - '
@@ -48,21 +42,19 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyD9zywupridWLT8Wr0IZW0Wzug3pqJ2EKQ',
-    appId: '1:640250185998:android:a0b964970926a03977ef5f',
+    appId: '1:640250185998:android:f4dd04cec649a59777ef5f',
     messagingSenderId: '640250185998',
     projectId: 'cars-172a8',
     storageBucket: 'cars-172a8.firebasestorage.app',
   );
-
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyAu_urKSLYBsb23UUtSXRmLrjNbgt4m9TE',
-    appId: '1:640250185998:ios:cd34f0900749495d77ef5f',
+    appId: '1:640250185998:ios:bf33a8e94686a22177ef5f',
     messagingSenderId: '640250185998',
     projectId: 'cars-172a8',
     storageBucket: 'cars-172a8.firebasestorage.app',
-    iosBundleId: 'com.example.car',
+    iosBundleId: 'com.asg.car',
   );
-
   static const FirebaseOptions macos = FirebaseOptions(
     apiKey: 'AIzaSyAu_urKSLYBsb23UUtSXRmLrjNbgt4m9TE',
     appId: '1:640250185998:ios:cd34f0900749495d77ef5f',
@@ -70,5 +62,24 @@ class DefaultFirebaseOptions {
     projectId: 'cars-172a8',
     storageBucket: 'cars-172a8.firebasestorage.app',
     iosBundleId: 'com.example.car',
+  );
+  static const FirebaseOptions web = FirebaseOptions(
+    apiKey: 'AIzaSyDbN6yOp5FsZReEx2UWK-DwzVVYNK-ifJk',
+    appId: '1:640250185998:web:807f4f9bee069d2c77ef5f',
+    messagingSenderId: '640250185998',
+    projectId: 'cars-172a8',
+    authDomain: 'cars-172a8.firebaseapp.com',
+    storageBucket: 'cars-172a8.firebasestorage.app',
+    measurementId: 'G-8K17XPMDQ1',
+  );
+
+  static const FirebaseOptions windows = FirebaseOptions(
+    apiKey: 'AIzaSyDbN6yOp5FsZReEx2UWK-DwzVVYNK-ifJk',
+    appId: '1:640250185998:web:3ce82d30fdda059f77ef5f',
+    messagingSenderId: '640250185998',
+    projectId: 'cars-172a8',
+    authDomain: 'cars-172a8.firebaseapp.com',
+    storageBucket: 'cars-172a8.firebasestorage.app',
+    measurementId: 'G-JDVWW7Y2MP',
   );
 }

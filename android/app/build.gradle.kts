@@ -10,7 +10,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.my_template"
+    namespace = "com.asg.car"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
@@ -25,7 +25,7 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId = "com.example.car"
+        applicationId = "com.asg.car"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
         minSdk = flutter.minSdkVersion
@@ -39,7 +39,7 @@ android {
             // TODO: Add your own signing config for the release build.
             // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig = signingConfigs.getByName("debug")
-            
+
             firebaseAppDistribution {
                 artifactType = "APK"
                 releaseNotes = "New Release"
