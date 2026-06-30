@@ -72,9 +72,27 @@ class ReservationPaymentBody extends StatelessWidget {
             _OrDivider(isArabic: isArabic),
             Gap(16.h),
           ],
-          CreditCard(
-            config: paymentConfig,
-            onPaymentResult: (r) => onPaymentResult(r, isApplePay: false),
+          Theme(
+            data: Theme.of(context).copyWith(
+              // Ensure text colors inside Moyasar inputs match theme text colors
+              textTheme: Theme.of(context).textTheme.copyWith(
+                titleMedium: TextStyle(color: AppColor.blackColor(context)),
+                bodyMedium: TextStyle(color: AppColor.blackColor(context)),
+                bodyLarge: TextStyle(color: AppColor.blackColor(context)),
+              ),
+              inputDecorationTheme: InputDecorationTheme(
+                labelStyle: TextStyle(color: AppColor.blackColor(context)),
+                hintStyle: TextStyle(color: AppColor.hintColor(context)),
+                counterStyle: TextStyle(color: AppColor.blackColor(context)),
+                suffixStyle: TextStyle(color: AppColor.blackColor(context)),
+                prefixStyle: TextStyle(color: AppColor.blackColor(context)),
+              ),
+              hintColor: AppColor.hintColor(context),
+            ),
+            child: CreditCard(
+              config: paymentConfig,
+              onPaymentResult: (r) => onPaymentResult(r, isApplePay: false),
+            ),
           ),
         ],
         Gap(24.h),
