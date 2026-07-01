@@ -42,7 +42,7 @@ class CustomTabBarWidget extends StatelessWidget {
         tabs: [
           Tab(text: AppLocaleKey.employees.tr()),
           Tab(text: AppLocaleKey.suppliers.tr()),
-          Tab(text: AppLocaleKey.customers.tr()),
+          //  Tab(text: AppLocaleKey.customers.tr()),
         ],
       ),
     );

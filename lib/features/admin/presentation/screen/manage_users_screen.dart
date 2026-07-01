@@ -3,7 +3,6 @@ import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/features/admin/presentation/cubit/admin_cubit.dart';
-import 'package:car/features/admin/presentation/screen/widgets/custom_customers_tab_widget.dart';
 import 'package:car/features/admin/presentation/screen/widgets/custom_representatives_tab_widget.dart';
 import 'package:car/features/admin/presentation/screen/widgets/custom_suppliers_tab_widget.dart';
 import 'package:car/features/admin/presentation/screen/widgets/custom_tab_bar_widget.dart';
@@ -22,17 +21,17 @@ class ManageUsersScreen extends StatefulWidget {
 class _ManageUsersScreenState extends State<ManageUsersScreen> with SingleTickerProviderStateMixin {
   late TabController _tabController;
   final TextEditingController _representativesSearchController = TextEditingController();
-  final TextEditingController _customersSearchController = TextEditingController();
+  // final TextEditingController _customersSearchController = TextEditingController();
   final TextEditingController _suppliersSearchController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 3, vsync: this);
+    _tabController = TabController(length: 2, vsync: this);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (mounted) {
         context.read<AdminCubit>().searchRepresentatives('');
-        context.read<AdminCubit>().searchCustomers('');
+        // context.read<AdminCubit>().searchCustomers('');
         context.read<AdminCubit>().searchSuppliers('');
       }
     });
@@ -42,7 +41,7 @@ class _ManageUsersScreenState extends State<ManageUsersScreen> with SingleTicker
   void dispose() {
     _tabController.dispose();
     _representativesSearchController.dispose();
-    _customersSearchController.dispose();
+    //  _customersSearchController.dispose();
     _suppliersSearchController.dispose();
     super.dispose();
   }
@@ -80,7 +79,7 @@ class _ManageUsersScreenState extends State<ManageUsersScreen> with SingleTicker
                   representativesSearchController: _representativesSearchController,
                 ),
                 CustomSuppliersTabWidget(suppliersSearchController: _suppliersSearchController),
-                CustomCustomersTabWidget(customersSearchController: _customersSearchController),
+                // CustomCustomersTabWidget(customersSearchController: _customersSearchController),
               ],
             ),
           ),
