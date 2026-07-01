@@ -32,7 +32,7 @@ class _AgentInventoryScreenState extends State<AgentInventoryScreen>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 4, vsync: this);
+    _tabController = TabController(length: 3, vsync: this);
     _tabController.addListener(_handleTabChange);
 
     // Fetch initial status (Available = 1)
@@ -84,9 +84,7 @@ class _AgentInventoryScreenState extends State<AgentInventoryScreen>
       case 3:
         availability = CarAvailability.sold;
         break;
-      case 4:
-        availability = CarAvailability.returned;
-        break;
+
       default:
         availability = CarAvailability.available;
     }
@@ -213,7 +211,7 @@ class _AgentInventoryScreenState extends State<AgentInventoryScreen>
                   _buildList(agentCars),
                   _buildList(agentCars),
                   _buildList(agentCars),
-                  _buildList(agentCars),
+                  //_buildList(agentCars),
                 ],
               );
             },

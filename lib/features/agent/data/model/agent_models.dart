@@ -95,7 +95,7 @@ class AgentAppointment {
 }
 
 // ── Car ───────────────────────────────────────────────────────────────────────
-enum CarAvailability { available, reserved, sold, returned }
+enum CarAvailability { available, reserved, sold }
 
 class AgentCar {
   final String id;
@@ -193,8 +193,6 @@ class AgentCar {
         return AppColor.orangeColor(context);
       case CarAvailability.sold:
         return AppColor.redColor(context);
-      case CarAvailability.returned:
-        return AppColor.greyColor(context);
     }
   }
 
@@ -206,8 +204,6 @@ class AgentCar {
         return AppLocaleKey.agentReserved.tr();
       case CarAvailability.sold:
         return AppLocaleKey.agentSold.tr();
-      case CarAvailability.returned:
-        return AppLocaleKey.horizontal.tr();
     }
   }
 }

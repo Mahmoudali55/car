@@ -49,7 +49,6 @@ class CustomHeaderAgentInventoryWidget extends StatelessWidget {
           Tab(text: AppLocaleKey.agentAvailable.tr()),
           Tab(text: AppLocaleKey.agentReserved.tr()),
           Tab(text: AppLocaleKey.agentSold.tr()),
-          Tab(text: AppLocaleKey.vertical.tr()),
         ],
       ),
     );
