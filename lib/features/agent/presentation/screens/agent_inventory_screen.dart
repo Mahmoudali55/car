@@ -37,7 +37,7 @@ class _AgentInventoryScreenState extends State<AgentInventoryScreen>
 
     // Fetch initial status (Available = 1)
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<AdminCubit>().getCarsStatus(1);
+      context.read<AdminCubit>().getCarsStatus(1, null);
     });
 
     // Ensure brands are loaded for mapping
@@ -58,7 +58,7 @@ class _AgentInventoryScreenState extends State<AgentInventoryScreen>
   void _handleTabChange() {
     if (!_tabController.indexIsChanging) {
       final status = _tabController.index + 1;
-      context.read<AdminCubit>().getCarsStatus(status);
+      context.read<AdminCubit>().getCarsStatus(status, null);
     }
   }
 
@@ -184,7 +184,7 @@ class _AgentInventoryScreenState extends State<AgentInventoryScreen>
                       TextButton(
                         onPressed: () {
                           final currentStatus = _tabController.index + 1;
-                          context.read<AdminCubit>().getCarsStatus(currentStatus);
+                          context.read<AdminCubit>().getCarsStatus(currentStatus, null);
                         },
                         child: const Text('إعادة المحاولة'),
                       ),

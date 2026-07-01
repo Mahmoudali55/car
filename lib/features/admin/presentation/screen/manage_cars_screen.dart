@@ -31,12 +31,7 @@ class ManageCarsScreen extends StatefulWidget {
 
 class _ManageCarsScreenState extends State<ManageCarsScreen> {
   String _selectedFilter = 'available';
-  static const Map<String, int> _filterToStatus = {
-    'available': 1,
-    'reserved': 2,
-    'sold': 3,
-    'returned': 4,
-  };
+  static const Map<String, int> _filterToStatus = {'available': 1, 'reserved': 2, 'sold': 3};
 
   final TextEditingController _searchController = TextEditingController();
   String _searchQuery = '';
@@ -44,7 +39,7 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
   @override
   void initState() {
     super.initState();
-    context.read<AdminCubit>().getCarsStatus(_filterToStatus['available']!);
+    context.read<AdminCubit>().getCarsStatus(_filterToStatus['available']!, null);
     context.read<AdminCubit>().getCarsCountStatus();
     final homeCubit = context.read<HomeCubit>();
     if (homeCubit.state.brands.isEmpty) {
@@ -64,7 +59,7 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
   void _onFilterChanged(String filter) {
     if (_selectedFilter == filter) return;
     setState(() => _selectedFilter = filter);
-    context.read<AdminCubit>().getCarsStatus(_filterToStatus[filter]!);
+    context.read<AdminCubit>().getCarsStatus(_filterToStatus[filter]!, null);
   }
 
   GetBrandCarsDataModel _toBrandCar(CarModel car) {
@@ -104,11 +99,16 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
       powerHourse: '',
       fuelCapacity: '',
       fuelType: car.fuelType ?? '',
-      seatNo: 0, doorNo: 0, addType: 0,
+      seatNo: 0,
+      doorNo: 0,
+      addType: 0,
       colorCode: car.colorCode ?? 0,
       makeYear: car.makeYear ?? 0,
-      notifyType: 0, supplierCd: 0, buyDate: '',
-      trNo: 0, reasonId: 0,
+      notifyType: 0,
+      supplierCd: 0,
+      buyDate: '',
+      trNo: 0,
+      reasonId: 0,
       mobileShow: car.mobileShow ?? false,
       carImage: '',
       color: car.bodyColor ?? '',
@@ -163,8 +163,8 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
               : null;
           final List<GetBrandCarsDataModel> allCars =
               carsStatus.isSuccess && carsStatus.data != null
-                  ? carsStatus.data!.data.map(_toBrandCar).toList()
-                  : [];
+              ? carsStatus.data!.data.map(_toBrandCar).toList()
+              : [];
 
           final List<GetBrandCarsDataModel> cars = _searchQuery.isEmpty
               ? allCars
@@ -242,6 +242,7 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
                               TextButton(
                                 onPressed: () => context.read<AdminCubit>().getCarsStatus(
                                   _filterToStatus[_selectedFilter]!,
+                                  null,
                                 ),
                                 child: Text(AppLocaleKey.tryAgain.tr()),
                               ),

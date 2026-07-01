@@ -29,7 +29,7 @@ class CarStatusConfig {
       textColor: Color(0xFF3B6D11),
       accent: Color(0xFF639922),
     ),
-    2 => const CarStatusConfig(
+    0 => const CarStatusConfig(
       label: AppLocaleKey.adminPendingApprovals,
       bg: Color(0xFFFAEEDA),
       textColor: Color(0xFF854F0B),

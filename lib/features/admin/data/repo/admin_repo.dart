@@ -9,7 +9,7 @@ import 'package:dartz/dartz.dart';
 
 abstract interface class AdminRepo {
   Future<Either<Failure, List<StockStatisticsModel>>> getcarscount();
-  Future<Either<Failure, CarsModel>> getCars(int carstatus);
+  Future<Either<Failure, CarsModel>> getCars(int carstatus, int? CUSTOMER_NO);
   Future<Either<Failure, List<RepresentativeModel>>> searchRepresentatives(String? searchVal);
   Future<Either<Failure, List<CustomerModel>>> searchCustomers(String? searchVal);
   Future<Either<Failure, List<CustomerModel>>> searchSuppliers(String? searchVal);
@@ -31,12 +31,12 @@ class AdminRepoImp implements AdminRepo {
   }
 
   @override
-  Future<Either<Failure, CarsModel>> getCars(int carstatus) async {
+  Future<Either<Failure, CarsModel>> getCars(int carstatus, int? CUSTOMER_NO) async {
     return handleDioRequest(
       request: () async {
         final response = await apiConsumer.get(
           EndPoints.getcars,
-          queryParameters: {'carstatus': carstatus},
+          queryParameters: {'carstatus': carstatus, 'CUSTOMER_NO': CUSTOMER_NO},
         );
         return CarsModel.fromJson(response);
       },
