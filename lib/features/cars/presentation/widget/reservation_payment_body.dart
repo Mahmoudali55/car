@@ -155,7 +155,7 @@ class _CarSummaryCard extends StatelessWidget {
         border: Border.all(color: AppColor.borderColor(context).withValues(alpha: 0.8)),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.03),
+            color: AppColor.blackColor(context).withValues(alpha: 0.03),
             blurRadius: 8,
             offset: const Offset(0, 2),
           ),
@@ -196,7 +196,9 @@ class _CarSummaryCard extends StatelessWidget {
                       ),
                       Text(
                         car.makeYear.toString(),
-                        style: TextStyle(color: AppColor.greyColor(context), fontSize: 11.sp),
+                        style: AppTextStyle.bodySmall(
+                          context,
+                        ).copyWith(color: AppColor.greyColor(context)),
                       ),
                     ],
                   ),

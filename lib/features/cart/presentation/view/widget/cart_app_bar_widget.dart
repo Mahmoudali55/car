@@ -10,12 +10,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CartAppBarWidget extends StatelessWidget implements PreferredSizeWidget {
   final int itemsCount;
-
   const CartAppBarWidget({super.key, required this.itemsCount});
-
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
-
   @override
   Widget build(BuildContext context) {
     return CustomAppBar(

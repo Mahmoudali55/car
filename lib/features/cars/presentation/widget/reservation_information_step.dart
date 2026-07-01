@@ -1,4 +1,5 @@
 import 'package:car/core/custom_widgets/custom_form_field/custom_form_field.dart';
+import 'package:car/core/custom_widgets/custom_sar_text.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
@@ -150,9 +151,9 @@ class _FinancingPricingCard extends StatelessWidget {
                       color: AppColor.blackTextColor(context),
                     ),
                     Gap(6.w),
-                    Text(
-                      '${totalPrice.toStringAsFixed(2)} SAR',
-                      style: AppTextStyle.bodyMedium(
+                    ValueWithCurrencyIcon(
+                      text: '${totalPrice.toStringAsFixed(2)} SAR',
+                      textStyle: AppTextStyle.bodyMedium(
                         context,
                       ).copyWith(fontWeight: FontWeight.w900, fontSize: 16.sp),
                     ),
@@ -173,11 +174,9 @@ class _FinancingPricingCard extends StatelessWidget {
               child: Center(
                 child: Text(
                   AppLocaleKey.agentShowDetails.tr(),
-                  style: TextStyle(
-                    color: AppColor.primaryColor(context),
-                    fontWeight: FontWeight.bold,
-                    fontSize: 14.sp,
-                  ),
+                  style: AppTextStyle.bodyMedium(
+                    context,
+                  ).copyWith(color: AppColor.primaryColor(context), fontWeight: FontWeight.bold),
                 ),
               ),
             ),

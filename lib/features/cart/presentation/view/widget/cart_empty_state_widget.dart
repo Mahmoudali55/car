@@ -10,7 +10,6 @@ import 'package:gap/gap.dart';
 
 class CartEmptyStateWidget extends StatelessWidget {
   const CartEmptyStateWidget({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Center(

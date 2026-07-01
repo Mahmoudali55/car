@@ -33,9 +33,7 @@ enum ReservationScreenStep { methodSelection, informationEntry, payment }
 class CarReservationScreen extends StatefulWidget {
   final GetBrandCarsDataModel car;
   final bool isFromLink;
-
   const CarReservationScreen({super.key, required this.car, this.isFromLink = false});
-
   @override
   State<CarReservationScreen> createState() => _CarReservationScreenState();
 }
@@ -44,7 +42,6 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
   ReservationScreenStep _currentStep = ReservationScreenStep.methodSelection;
   String? _selectedMethod;
   bool _isLoading = false;
-
   final _infoFormKey = GlobalKey<FormState>();
   final TextEditingController _cashNameController = TextEditingController();
   final TextEditingController _cashPhoneController = TextEditingController();
@@ -53,15 +50,13 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
   final TextEditingController _financePhoneController = TextEditingController();
   final ValueNotifier<bool> _whatsappNotifier = ValueNotifier(true);
   final ValueNotifier<String?> _selectedCityNotifier = ValueNotifier('الرياض');
-
   double _totalPrice = 0.0;
   final double _depositAmount = 500.0;
   late Map<String, dynamic> _errorCodes;
-
   @override
   void initState() {
     super.initState();
-    _totalPrice = _parsePrice(widget.car.price);
+    _totalPrice = _parsePrice(widget.car.price, withTax: true);
     _loadErrorCodes();
   }
 
@@ -70,19 +65,23 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
     setState(() => _errorCodes = jsonDecode(data));
   }
 
-  double _parsePrice(dynamic price) {
+  double _parsePrice(dynamic price, {bool withTax = false}) {
     if (price == null) return 0.0;
-    if (price is num) return price.toDouble();
-    if (price is String) {
+    double value;
+    if (price is num) {
+      value = price.toDouble();
+    } else if (price is String) {
       final clean = price.replaceAll(RegExp(r'[^0-9.]'), '');
-      final parsed = double.tryParse(clean) ?? 0.0;
-      return parsed.isFinite ? parsed : 0.0;
+      value = double.tryParse(clean) ?? 0.0;
+    } else {
+      value = 0.0;
     }
-    return 0.0;
+    if (!value.isFinite) value = 0.0;
+    final double vatSerial = double.tryParse(HiveMethods.getVatNumber().toString()) ?? 15.0;
+    return withTax ? value * ((100 + vatSerial) / 100) : value;
   }
 
   bool get _isFinancingFlow => _selectedMethod == 'tamara' || _selectedMethod == 'bank';
-
   @override
   void dispose() {
     _cashNameController.dispose();

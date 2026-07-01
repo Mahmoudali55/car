@@ -23,7 +23,6 @@ import 'core/theme/style.dart';
 
 class CarApp extends StatefulWidget {
   const CarApp({super.key});
-
   @override
   State<CarApp> createState() => _CarAppState();
 }
@@ -31,22 +30,14 @@ class CarApp extends StatefulWidget {
 class _CarAppState extends State<CarApp> {
   @override
   Widget build(BuildContext context) {
-    // Explicitly access context.locale to register a dependency on the localization state.
-    // This ensures that the entire sub-tree rebuilds when the language is changed.
-    // ignore: unused_local_variable
     final currentLocale = context.locale;
-
     return LayoutBuilder(
       builder: (context, constraints) {
         final bool isTablet = constraints.maxWidth >= 600;
-        // By scaling designSize relative to the actual width/height constraints,
-        // we ensure that both .w and .h get identical scaling factors on tablets (e.g. 1.35x).
-        // This prevents component distortion (squares turning to rectangles) caused by different aspect ratios.
         final Size designSize =
             (isTablet && constraints.maxWidth.isFinite && constraints.maxHeight.isFinite)
             ? Size(constraints.maxWidth / 1.35, constraints.maxHeight / 1.35)
             : const Size(360, 690);
-
         return ScreenUtilInit(
           designSize: designSize,
           minTextAdapt: true,
