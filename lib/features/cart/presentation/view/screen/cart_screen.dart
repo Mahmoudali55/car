@@ -1,4 +1,5 @@
 import 'package:car/core/custom_widgets/custom_toast/custom_toast.dart';
+import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/core/utils/common_methods.dart';
@@ -7,6 +8,7 @@ import 'package:car/features/cart/presentation/view/widget/cart_app_bar_widget.d
 import 'package:car/features/cart/presentation/view/widget/cart_empty_state_widget.dart';
 import 'package:car/features/cart/presentation/view/widget/cart_items_list_widget.dart';
 import 'package:car/features/cart/presentation/view/widget/cart_summary_widget.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -75,7 +77,7 @@ class _CartScreenState extends State<CartScreen> {
                           const SizedBox(width: 8),
                           Expanded(
                             child: Text(
-                              'الحجز متاح لمدة 24 ساعة وبعدها سيتم إلغاء الحجز تلقائيًا',
+                              AppLocaleKey.cancelReservationMsg.tr(),
                               style: AppTextStyle.bodyMedium(context).copyWith(
                                 color: Colors.orange.shade800,
                                 fontWeight: FontWeight.w600,

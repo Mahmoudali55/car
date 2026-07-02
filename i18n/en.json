@@ -1432,5 +1432,6 @@
 "cancelReservationYes":"Yes, Cancel",
 "clientDetails":"Client Details",
 "agentDetails":"representative",
-"cancelReservation":"Cancel Reservation"
+"cancelReservation":"Cancel Reservation",
+"cancelReservationMsg":"The reservation is valid for 24 hours and will be automatically cancelled afterwards"
 }

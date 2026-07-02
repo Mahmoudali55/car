@@ -1435,5 +1435,6 @@
 "cancelReservationNo":"لا، تراجع",
 "clientDetails":"تفاصيل العميل",
 "representative":"مندوب المبيعات",
-"cancelReservation":"الغاء الحجز"
+"cancelReservation":"الغاء الحجز",
+"cancelReservationMsg":"الحجز متاح لمدة 24 ساعة وبعدها سيتم إلغاء الحجز تلقائيًا"
 }
