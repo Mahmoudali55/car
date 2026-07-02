@@ -7,10 +7,15 @@ class CartState {
   final bool isLoading;
   final String? errorMessage;
 
+  /// Set to the API success message after a cancellation completes.
+  /// Consumed by the UI as a one-shot SnackBar trigger, then cleared.
+  final String? cancellationMessage;
+
   const CartState({
     this.reservedCars = const [],
     this.isLoading = false,
     this.errorMessage,
+    this.cancellationMessage,
   });
 
   factory CartState.initial() {
@@ -21,11 +26,13 @@ class CartState {
     List<admin.CarModel>? reservedCars,
     bool? isLoading,
     String? errorMessage,
+    String? cancellationMessage,
   }) {
     return CartState(
       reservedCars: reservedCars ?? this.reservedCars,
       isLoading: isLoading ?? this.isLoading,
       errorMessage: errorMessage,
+      cancellationMessage: cancellationMessage,
     );
   }
 

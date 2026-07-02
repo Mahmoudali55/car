@@ -1341,6 +1341,7 @@
   "quotation_total_price": "إجمالي",
   "selectImage":"اختيار صورة",
   "selectPDF":"اختيار ملف PDF",
+  "camera":"الكاميرا",
   "no_alert":"لا توجد تنبيهات حالياً",
   "no_alert_desc":"سنقوم بتنبيهك عند وجود عروض جديدة\nأو تحديثات على طلباتك.",
   "request_submitted":"تم تقديم طلبك بنجاح! 🎉",
@@ -1356,7 +1357,7 @@
   "bank_card": "بطاقة الراجحي / الأهلي",
   "refundable_deposit": "500 ر.س (مسترد)",
   "no_cars":"لاتوجد سيارات",
-  "customsCard":"بطاقة جمركية",
+  "customsCard":" البطاقة الجمركية",
   "save":"حفظ",
   "vertical":"مرتجع للمورد",
   "details":"عرض التفاصيل",
@@ -1433,5 +1434,6 @@
 "cancelReservationYes":"نعم، إلغاء",
 "cancelReservationNo":"لا، تراجع",
 "clientDetails":"تفاصيل العميل",
-"representative":"مندوب المبيعات"
+"representative":"مندوب المبيعات",
+"cancelReservation":"الغاء الحجز"
 }

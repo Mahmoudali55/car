@@ -21,79 +21,34 @@ class FinancingDocumentsTab extends StatefulWidget {
 
 class _FinancingDocumentsTabState extends State<FinancingDocumentsTab> {
   final Map<String, File?> uploadedFiles = {};
-  Future<void> pickFile(String key) async {
+
+  // ─── Pickers ───────────────────────────────────────────────────────────────
+
+  Future<void> _pickImageFromGallery(String key) async {
     final hasPermission = await PermissionService.requestPhotoPermission(context);
     if (!hasPermission) return;
+    final image = await ImagePicker().pickImage(source: ImageSource.gallery, imageQuality: 70);
+    if (image != null) setState(() => uploadedFiles[key] = File(image.path));
+  }
 
+  Future<void> _pickImageFromCamera(String key) async {
+    final hasPermission = await PermissionService.requestPhotoPermission(context);
+    if (!hasPermission) return;
+    final image = await ImagePicker().pickImage(source: ImageSource.camera, imageQuality: 70);
+    if (image != null) setState(() => uploadedFiles[key] = File(image.path));
+  }
+
+  Future<void> _pickPdfFile(String key) async {
     final result = await FilePicker.pickFiles(
       type: FileType.custom,
-      allowedExtensions: ['pdf', 'jpg', 'jpeg', 'png'],
+      allowedExtensions: ['pdf'],
     );
     if (result != null && result.files.single.path != null) {
-      setState(() {
-        uploadedFiles[key] = File(result.files.single.path!);
-      });
+      setState(() => uploadedFiles[key] = File(result.files.single.path!));
     }
   }
 
-  Future<void> pickImage(String key) async {
-    final hasPermission = await PermissionService.requestPhotoPermission(context);
-    if (!hasPermission) return;
-
-    final picker = ImagePicker();
-
-    final image = await picker.pickImage(source: ImageSource.gallery, imageQuality: 70);
-
-    if (image != null) {
-      setState(() {
-        uploadedFiles[key] = File(image.path);
-      });
-    }
-  }
-
-  void showUploadOptions(String key) {
-    showModalBottomSheet(
-      isScrollControlled: true,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(24),
-          topRight: Radius.circular(24),
-        ),
-      ),
-      context: context,
-      builder: (ctx) {
-        return SafeArea(
-          child: Padding(
-            padding: EdgeInsets.all(16.w),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                ListTile(
-                  leading: const Icon(Icons.image),
-                  title: Text(
-                    AppLocaleKey.selectImage.tr(),
-                    style: AppTextStyle.bodyMedium(ctx),
-                  ),
-                  onTap: () async {
-                    Navigator.pop(ctx);
-                    await pickImage(key);
-                  },
-                ),
-                ListTile(
-                  leading: const Icon(Icons.picture_as_pdf),
-                  title: Text(AppLocaleKey.selectPDF.tr(), style: AppTextStyle.bodyMedium(ctx)),
-                  onTap: () async {
-                    Navigator.pop(ctx);
-                    await pickFile(key);
-                  },
-                ),
-              ],
-            ),
-          ),
-        );
-      },
-    );
-  }
+  // ─── Build ─────────────────────────────────────────────────────────────────
 
   @override
   Widget build(BuildContext context) {
@@ -104,20 +59,17 @@ class _FinancingDocumentsTabState extends State<FinancingDocumentsTab> {
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           _buildRequirementsSection(context),
-
           Gap(24.h),
-
           _buildDocumentsSection(context),
-
           Gap(24.h),
-
           _buildUploadSection(context),
-
           Gap(16.h),
         ],
       ),
     );
   }
+
+  // ─── Requirements ──────────────────────────────────────────────────────────
 
   Widget _buildRequirementsSection(BuildContext context) {
     return Column(
@@ -125,13 +77,10 @@ class _FinancingDocumentsTabState extends State<FinancingDocumentsTab> {
       children: [
         Text(
           AppLocaleKey.agentFinancingRequirements.tr(),
-          style: AppTextStyle.titleSmall(
-            context,
-          ).copyWith(fontWeight: FontWeight.w900, color: AppColor.blackTextColor(context)),
+          style: AppTextStyle.titleSmall(context)
+              .copyWith(fontWeight: FontWeight.w900, color: AppColor.blackTextColor(context)),
         ),
-
         Gap(14.h),
-
         Container(
           width: double.infinity,
           decoration: BoxDecoration(
@@ -148,7 +97,6 @@ class _FinancingDocumentsTabState extends State<FinancingDocumentsTab> {
                 value: AppLocaleKey.agentCustomerAgeLimit.tr(),
                 isLast: false,
               ),
-
               _buildRequirementRow(
                 context,
                 icon: Icons.credit_card_rounded,
@@ -156,7 +104,6 @@ class _FinancingDocumentsTabState extends State<FinancingDocumentsTab> {
                 value: AppLocaleKey.agentValidLicense.tr(),
                 isLast: false,
               ),
-
               _buildRequirementRow(
                 context,
                 icon: Icons.receipt_long_rounded,
@@ -187,37 +134,39 @@ class _FinancingDocumentsTabState extends State<FinancingDocumentsTab> {
               Container(
                 padding: EdgeInsets.all(8.w),
                 decoration: BoxDecoration(
-                  color: AppColor.primaryColor(context).withValues(alpha: (0.1)),
+                  color: AppColor.primaryColor(context).withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(8.r),
                 ),
                 child: Icon(icon, color: AppColor.primaryColor(context), size: 18.sp),
               ),
-
               Gap(12.w),
-
               Expanded(
                 child: Text(
                   title,
                   style: AppTextStyle.bodyMedium(context).copyWith(fontWeight: FontWeight.w700),
                 ),
               ),
-
               Text(
                 value,
-                style: AppTextStyle.bodySmall(
-                  context,
-                ).copyWith(color: AppColor.greyColor(context), fontSize: 12.sp),
+                style: AppTextStyle.bodySmall(context)
+                    .copyWith(color: AppColor.greyColor(context), fontSize: 12.sp),
                 textAlign: TextAlign.end,
               ),
             ],
           ),
         ),
-
         if (!isLast)
-          Divider(height: 1, color: AppColor.dividerColor(context), indent: 16.w, endIndent: 16.w),
+          Divider(
+            height: 1,
+            color: AppColor.dividerColor(context),
+            indent: 16.w,
+            endIndent: 16.w,
+          ),
       ],
     );
   }
+
+  // ─── Documents checklist ───────────────────────────────────────────────────
 
   Widget _buildDocumentsSection(BuildContext context) {
     final docs = [
@@ -233,13 +182,10 @@ class _FinancingDocumentsTabState extends State<FinancingDocumentsTab> {
       children: [
         Text(
           AppLocaleKey.agentRequiredDocumentsList.tr(),
-          style: AppTextStyle.titleSmall(
-            context,
-          ).copyWith(fontWeight: FontWeight.w900, color: AppColor.blackTextColor(context)),
+          style: AppTextStyle.titleSmall(context)
+              .copyWith(fontWeight: FontWeight.w900, color: AppColor.blackTextColor(context)),
         ),
-
         Gap(14.h),
-
         ...docs.map(
           (doc) => Padding(
             padding: EdgeInsets.only(bottom: 12.h),
@@ -252,28 +198,31 @@ class _FinancingDocumentsTabState extends State<FinancingDocumentsTab> {
 
   Widget _buildDocItem(BuildContext context, String text) {
     return Row(
-      crossAxisAlignment: CrossAxisAlignment.end,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Icon(Icons.check_circle_rounded, color: AppColor.greenColor(context), size: 20.sp),
         Gap(10.w),
         Expanded(
           child: ValueWithCurrencyIcon(
             text: text,
-            textStyle: AppTextStyle.bodyMedium(
-              context,
-            ).copyWith(color: AppColor.blackTextColor(context), height: 1.4),
+            textStyle: AppTextStyle.bodyMedium(context)
+                .copyWith(color: AppColor.blackTextColor(context), height: 1.4),
           ),
         ),
       ],
     );
   }
 
+  // ─── Upload section ────────────────────────────────────────────────────────
+
   Widget _buildUploadSection(BuildContext context) {
     final uploadItems = [
       AppLocaleKey.agentNationalIdCopy.tr(),
       AppLocaleKey.agentDrivingLicenseCopy.tr(),
       AppLocaleKey.agentSalaryStatement.tr(),
+      AppLocaleKey.customsCard.tr(),
     ];
+
     return Container(
       padding: EdgeInsets.all(16.w),
       decoration: BoxDecoration(
@@ -286,14 +235,13 @@ class _FinancingDocumentsTabState extends State<FinancingDocumentsTab> {
         children: [
           Text(
             AppLocaleKey.agentUploadDocuments.tr(),
-            style: AppTextStyle.bodyMedium(
-              context,
-            ).copyWith(fontWeight: FontWeight.w900, color: AppColor.blackTextColor(context)),
+            style: AppTextStyle.bodyMedium(context)
+                .copyWith(fontWeight: FontWeight.w900, color: AppColor.blackTextColor(context)),
           ),
           Gap(12.h),
           ...uploadItems.map(
             (item) => Padding(
-              padding: EdgeInsets.only(bottom: 10.h),
+              padding: EdgeInsets.only(bottom: 16.h),
               child: _buildUploadTile(context, item),
             ),
           ),
@@ -304,50 +252,158 @@ class _FinancingDocumentsTabState extends State<FinancingDocumentsTab> {
 
   Widget _buildUploadTile(BuildContext context, String label) {
     final file = uploadedFiles[label];
-    return GestureDetector(
-      onTap: () => showUploadOptions(label),
-      child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 12.h),
-        decoration: BoxDecoration(
-          color: AppColor.scaffoldColor(context),
-          borderRadius: BorderRadius.circular(10.r),
-          border: Border.all(
-            color: file != null ? AppColor.greenColor(context) : AppColor.borderColor(context),
-          ),
-        ),
-        child: Row(
+    final bool uploaded = file != null;
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.end,
+      children: [
+        // Label
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            Icon(
-              file != null ? Icons.check_circle : Icons.upload_file_outlined,
-              color: file != null ? AppColor.greenColor(context) : AppColor.primaryColor(context),
-              size: 20.sp,
-            ),
-            Gap(10.w),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Text(
-                    label,
-                    style: AppTextStyle.bodyMedium(
-                      context,
-                    ).copyWith(color: AppColor.blackTextColor(context)),
-                    textAlign: TextAlign.end,
-                  ),
-                  if (file != null) ...[
-                    Gap(4.h),
-                    Text(
-                      file.path.split('/').last,
-                      style: AppTextStyle.bodySmall(
-                        context,
-                      ).copyWith(color: AppColor.greyColor(context), fontSize: 11.sp),
-                      textAlign: TextAlign.end,
-                    ),
-                  ],
-                ],
+            if (uploaded) ...[
+              Icon(Icons.check_circle_rounded, color: AppColor.greenColor(context), size: 16.sp),
+              Gap(6.w),
+            ],
+            Flexible(
+              child: Text(
+                label,
+                style: AppTextStyle.bodyMedium(context).copyWith(
+                  fontWeight: FontWeight.w700,
+                  color: AppColor.blackTextColor(context),
+                ),
+                textAlign: TextAlign.end,
               ),
             ),
           ],
+        ),
+
+        Gap(10.h),
+
+        // Three inline choice buttons
+        Row(
+          children: [
+            _UploadChoiceButton(
+              icon: Icons.camera_alt_rounded,
+              label: AppLocaleKey.camera.tr(),
+              accentColor: AppColor.blueColor(context),
+              onTap: () => _pickImageFromCamera(label),
+            ),
+            Gap(8.w),
+            _UploadChoiceButton(
+              icon: Icons.photo_library_rounded,
+              label: AppLocaleKey.selectImage.tr(),
+              accentColor: AppColor.primaryColor(context),
+              onTap: () => _pickImageFromGallery(label),
+            ),
+            Gap(8.w),
+            _UploadChoiceButton(
+              icon: Icons.picture_as_pdf_rounded,
+              label: AppLocaleKey.selectPDF.tr(),
+              accentColor: AppColor.redColor(context),
+              onTap: () => _pickPdfFile(label),
+            ),
+          ],
+        ),
+
+        // Uploaded file indicator
+        if (uploaded) ...[
+          Gap(8.h),
+          Container(
+            width: double.infinity,
+            padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
+            decoration: BoxDecoration(
+              color: AppColor.greenColor(context).withValues(alpha: 0.07),
+              borderRadius: BorderRadius.circular(8.r),
+              border: Border.all(color: AppColor.greenColor(context).withValues(alpha: 0.35)),
+            ),
+            child: Row(
+              children: [
+                Icon(
+                  file.path.toLowerCase().endsWith('.pdf')
+                      ? Icons.picture_as_pdf_rounded
+                      : Icons.image_rounded,
+                  color: AppColor.greenColor(context),
+                  size: 16.sp,
+                ),
+                Gap(8.w),
+                Expanded(
+                  child: Text(
+                    file.path.split('/').last,
+                    style: AppTextStyle.bodySmall(context).copyWith(
+                      color: AppColor.greenColor(context),
+                      fontWeight: FontWeight.w600,
+                    ),
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.end,
+                  ),
+                ),
+                Gap(6.w),
+                GestureDetector(
+                  onTap: () => setState(() => uploadedFiles[label] = null),
+                  child: Icon(
+                    Icons.close_rounded,
+                    size: 16.sp,
+                    color: AppColor.greyColor(context),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+
+        Gap(12.h),
+        Divider(height: 1, color: AppColor.dividerColor(context)),
+      ],
+    );
+  }
+}
+
+// ─── Inline choice button ───────────────────────────────────────────────────
+
+class _UploadChoiceButton extends StatelessWidget {
+  final IconData icon;
+  final String label;
+  final Color accentColor;
+  final VoidCallback onTap;
+
+  const _UploadChoiceButton({
+    required this.icon,
+    required this.label,
+    required this.accentColor,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: GestureDetector(
+        onTap: onTap,
+        child: Container(
+          padding: EdgeInsets.symmetric(vertical: 12.h),
+          decoration: BoxDecoration(
+            color: accentColor.withValues(alpha: 0.08),
+            borderRadius: BorderRadius.circular(10.r),
+            border: Border.all(color: accentColor.withValues(alpha: 0.3)),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(icon, color: accentColor, size: 22.sp),
+              Gap(4.h),
+              Text(
+                label,
+                style: AppTextStyle.bodySmall(context).copyWith(
+                  color: accentColor,
+                  fontWeight: FontWeight.w700,
+                  fontSize: 10.sp,
+                ),
+                textAlign: TextAlign.center,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ],
+          ),
         ),
       ),
     );

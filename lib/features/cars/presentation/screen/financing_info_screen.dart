@@ -139,7 +139,7 @@ class _FinancingInfoScreenState extends State<FinancingInfoScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           ValueWithCurrencyIcon(
-                            text: AppLocaleKey.agentTotalPrice.tr(),
+                            text: AppLocaleKey.agentTotalPrice.tr() + 'SAR',
                             textStyle: AppTextStyle.bodyMedium(context).copyWith(
                               color: AppColor.blackTextColor(context).withValues(alpha: 0.7),
                               fontWeight: FontWeight.bold,

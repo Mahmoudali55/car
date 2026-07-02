@@ -6,6 +6,7 @@ import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/core/utils/common_methods.dart';
+import 'package:car/features/admin/data/model/cars_response_model.dart' as admin;
 import 'package:car/features/cars/presentation/screen/financing_info_screen.dart';
 import 'package:car/features/cars/presentation/screen/reservation_success_screen.dart';
 import 'package:car/features/cars/presentation/widget/buying_faq_section_widget.dart';
@@ -242,12 +243,20 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
   Widget build(BuildContext context) {
     final isArabic = context.locale.languageCode == 'ar';
     final isMethodSelection = _currentStep == ReservationScreenStep.methodSelection;
-
     return BlocListener<HomeCubit, HomeState>(
       listener: (context, state) {
         final status = state.addBookingPermissionResponseModel;
         if (status.isSuccess) {
           setState(() => _isLoading = false);
+          context.read<CartCubit>().rememberReservationStart(
+            admin.CarModel(
+              itemCode: widget.car.itemCode,
+              itemName: widget.car.itemName,
+              storeCode: widget.car.storeCode.toString(),
+              costPrice: widget.car.price is num ? (widget.car.price as num).toDouble() : null,
+            ),
+            reservedAt: DateTime.now(),
+          );
           CommonMethods.showToast(
             message: isArabic ? 'تم الحجز بنجاح' : 'Reservation completed successfully',
             type: ToastType.success,

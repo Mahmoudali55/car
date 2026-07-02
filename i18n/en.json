@@ -1340,6 +1340,7 @@
   "quotation_total_price": "Total",
   "selectImage":"Select Image",
   "selectPDF":"Select PDF File",
+  "camera":"Camera",
   "no_alert":"No notifications currently",
   "no_alert_desc":"We will notify you when there are new offers\nor updates on your orders.",
   "request_submitted":"Request submitted successfully! 🎉",
@@ -1430,5 +1431,6 @@
 "cancelReservationBody":"Are you sure you want to cancel this car reservation? This action cannot be undone.",
 "cancelReservationYes":"Yes, Cancel",
 "clientDetails":"Client Details",
-"agentDetails":"representative"
+"agentDetails":"representative",
+"cancelReservation":"Cancel Reservation"
 }

@@ -194,6 +194,18 @@ class HiveMethods {
     _box.put('userCode', userCode);
   }
 
+  static String? getReservationStartedAt(String itemCode) {
+    return _box.get('reservationStartedAt_$itemCode');
+  }
+
+  static void updateReservationStartedAt(String itemCode, DateTime startedAt) {
+    _box.put('reservationStartedAt_$itemCode', startedAt.toIso8601String());
+  }
+
+  static void clearReservationStartedAt(String itemCode) {
+    _box.delete('reservationStartedAt_$itemCode');
+  }
+
   static void updateVatNumber(String vatNumber) {
     _box.put('VAT_SERIAL', vatNumber);
   }

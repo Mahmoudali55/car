@@ -23,8 +23,8 @@ class CartCubit extends Cubit<CartState> {
   // ─── Load reserved cars from API (carstatus=2, CUSTOMER_NO=userCode) ────
 
   Future<void> loadReservedCars() async {
-    final String? userCodeStr = HiveMethods.getUserCode();
-    final int? customerNo = int.tryParse('5');
+    final String? userCode = HiveMethods.getUserCode();
+    final int? customerNo = int.tryParse(userCode ?? '5');
 
     emit(state.copyWith(isLoading: true, errorMessage: null));
 
@@ -71,18 +71,22 @@ class CartCubit extends Cubit<CartState> {
         if (kDebugMode) {
           debugPrint('[CartCubit] cancelReservation failed: ${failure.errMessage}');
         }
+        emit(state.copyWith(errorMessage: failure.errMessage));
       },
       (response) {
         if (kDebugMode) {
           debugPrint('[CartCubit] cancelReservation success: ${response.msg}');
         }
+        // Emit the success message so the UI can show a SnackBar.
+        final msg = response.msg.isNotEmpty ? response.msg : 'تم إلغاء الحجز بنجاح';
+        emit(state.copyWith(cancellationMessage: msg));
       },
     );
 
     // Stop the auto-cancel timer for this car.
     _reservationService.cancelTimer({'itemCode': car.itemCode});
 
-    // Refresh from API.
+    // Refresh from API (clear the cancellationMessage so it fires only once).
     if (!isClosed) unawaited(loadReservedCars());
   }
 
@@ -102,6 +106,10 @@ class CartCubit extends Cubit<CartState> {
     emit(CartState.initial());
   }
 
+  void rememberReservationStart(admin.CarModel car, {DateTime? reservedAt}) {
+    _reservationService.rememberReservationStart(car, reservedAt: reservedAt);
+  }
+
   // ─── Restore timers after app restart ────────────────────────────────────
   // Now uses the API data (reservedCars) as the source of truth instead of Hive maps.
 
@@ -109,7 +117,7 @@ class CartCubit extends Cubit<CartState> {
     _scheduleAllTimers(state.reservedCars);
   }
 
-  // ─── Called when timer fires after 24h ───────────────────────────────────
+  // ─── Called when timer fires after the reservation window ends ──────────
 
   void _onItemExpired(admin.CarModel car) {
     if (kDebugMode) {
@@ -128,6 +136,15 @@ class CartCubit extends Cubit<CartState> {
     for (final car in cars) {
       _reservationService.scheduleExpiryForModel(car: car, onExpired: () => _onItemExpired(car));
     }
+  }
+
+  /// Exposes the expiry [DateTime] for a given [itemCode] so the UI can
+  /// render a live countdown. Returns null if there's no active timer
+  /// for this item (e.g. state was just loaded and timers haven't been
+  /// (re)scheduled yet).
+  DateTime? expiryTimeFor(String? itemCode) {
+    if (itemCode == null) return null;
+    return _reservationService.expiryTimeFor(itemCode);
   }
 
   @override

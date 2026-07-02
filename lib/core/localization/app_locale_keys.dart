@@ -1385,6 +1385,7 @@ class AppLocaleKey {
   static const String idNumberRequired = 'idNumberRequired';
   static const String selectImage = 'selectImage';
   static const String selectPDF = 'selectPDF';
+  static const String camera = 'camera';
   static const String no_alert = 'no_alert';
   static const String no_alert_desc = 'no_alert_desc';
   static const String request_submitted = 'request_submitted';
@@ -1484,4 +1485,5 @@ class AppLocaleKey {
   static const String cancelReservationNo = 'cancelReservationNo';
   static const String clientDetails = 'clientDetails';
   static const String representative = 'representative';
+  static const String cancelReservation = 'cancelReservation';
 }
