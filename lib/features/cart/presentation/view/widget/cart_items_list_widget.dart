@@ -1,6 +1,7 @@
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
+import 'package:car/features/admin/data/model/cars_response_model.dart';
 import 'package:car/features/cart/presentation/view/widget/cart_item_widget.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -8,9 +9,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
 class CartItemsListWidget extends StatelessWidget {
-  final List<Map<String, dynamic>> items;
+  final List<CarModel> cars;
 
-  const CartItemsListWidget({super.key, required this.items});
+  const CartItemsListWidget({super.key, required this.cars});
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +37,7 @@ class CartItemsListWidget extends StatelessWidget {
                 ),
                 Gap(10.w),
                 Text(
-                  '${items.length} ${items.length == 1 ? AppLocaleKey.cartCarSingular.tr() : AppLocaleKey.cartCarPlural.tr()} ${AppLocaleKey.inYourCart.tr()}',
+                  '${cars.length} ${cars.length == 1 ? AppLocaleKey.cartCarSingular.tr() : AppLocaleKey.cartCarPlural.tr()} ${AppLocaleKey.inYourCart.tr()}',
                   style: AppTextStyle.bodyMedium(
                     context,
                   ).copyWith(color: AppColor.primaryColor(context), fontWeight: FontWeight.w600),
@@ -45,7 +46,7 @@ class CartItemsListWidget extends StatelessWidget {
             ),
           ),
 
-          ...items.map((car) => CartItemWidget(car: car)),
+          ...cars.map((car) => CartItemWidget(car: car)),
           Gap(16.h),
         ],
       ),

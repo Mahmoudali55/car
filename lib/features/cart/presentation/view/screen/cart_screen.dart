@@ -7,25 +7,38 @@ import 'package:car/features/cart/presentation/view/widget/cart_summary_widget.d
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class CartScreen extends StatelessWidget {
+class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
+
+  @override
+  State<CartScreen> createState() => _CartScreenState();
+}
+
+class _CartScreenState extends State<CartScreen> {
+  @override
+  void initState() {
+    super.initState();
+    // Load reserved cars from API every time the screen opens.
+    context.read<CartCubit>().loadReservedCars();
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<CartCubit, CartState>(
       builder: (context, state) {
-        final items = state.items;
-        final totalPrice = state.totalPrice;
         return Scaffold(
           backgroundColor: AppColor.scaffoldColor(context),
-          appBar: CartAppBarWidget(itemsCount: items.length),
-          body: items.isEmpty
-              ? const CartEmptyStateWidget()
-              : Column(
-                  children: [
-                    CartItemsListWidget(items: items),
-                    CartSummaryWidget(totalPrice: totalPrice),
-                  ],
-                ),
+          appBar: CartAppBarWidget(itemsCount: state.itemCount),
+          body: state.isLoading
+              ? const Center(child: CircularProgressIndicator())
+              : state.reservedCars.isEmpty
+                  ? const CartEmptyStateWidget()
+                  : Column(
+                      children: [
+                        CartItemsListWidget(cars: state.reservedCars),
+                        CartSummaryWidget(totalPrice: state.totalPrice),
+                      ],
+                    ),
         );
       },
     );

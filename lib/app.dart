@@ -7,8 +7,8 @@ import 'package:car/core/theme/theme_enum.dart';
 import 'package:car/features/admin/presentation/cubit/admin_cubit.dart';
 import 'package:car/features/agent/presentation/cubit/agent_cubit.dart';
 import 'package:car/features/auth/presentation/view/cubit/auth_cubit.dart';
-import 'package:car/features/cart/presentation/view/cubit/cart_cubit.dart';
 import 'package:car/features/favorites/presentation/view/cubit/favorites_cubit.dart';
+import 'package:car/features/cart/presentation/view/cubit/cart_cubit.dart';
 import 'package:car/features/home/presentation/cubit/home_cubit.dart';
 import 'package:car/features/notifications/presentation/view/cubit/notifications_cubit.dart';
 import 'package:country_picker/country_picker.dart';
@@ -50,7 +50,7 @@ class _CarAppState extends State<CarApp> {
                 BlocProvider(create: (context) => sl<AuthCubit>()),
                 BlocProvider(create: (context) => sl<HomeCubit>()),
                 BlocProvider(create: (context) => sl<FavoritesCubit>()),
-                BlocProvider(create: (context) => CartCubit()),
+                BlocProvider(create: (context) => sl<CartCubit>()),
                 BlocProvider(create: (context) => NotificationsCubit()),
                 BlocProvider(create: (context) => sl<AgentCubit>()),
                 BlocProvider(create: (context) => sl<AdminCubit>()),

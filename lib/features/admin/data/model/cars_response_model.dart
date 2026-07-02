@@ -32,6 +32,11 @@ class CarModel extends Equatable {
   final double? costPrice;
   final int? colorCode;
   final bool? mobileShow;
+  final String? customerName;
+
+  /// LPO number returned by the reserved-cars endpoint (LPONO field).
+  final String? lpoNo;
+  final String? reservedName;
 
   const CarModel({
     this.itemCode,
@@ -48,6 +53,9 @@ class CarModel extends Equatable {
     this.costPrice,
     this.colorCode,
     this.mobileShow,
+    this.lpoNo,
+    this.reservedName,
+    this.customerName,
   });
 
   factory CarModel.fromJson(Map<String, dynamic> json) {
@@ -66,6 +74,9 @@ class CarModel extends Equatable {
       costPrice: (json['COST_PRICE'] as num?)?.toDouble(),
       colorCode: json['COLOR_CODE'],
       mobileShow: json['MobileShow'],
+      reservedName: json['REPRES_NAME']?.toString(),
+      lpoNo: json['LPONO']?.toString() ?? json['LPO_NO']?.toString(),
+      customerName: json['CUSTOMER_NAME']?.toString(),
     );
   }
 
@@ -85,5 +96,8 @@ class CarModel extends Equatable {
     costPrice,
     colorCode,
     mobileShow,
+    lpoNo,
+    reservedName,
+    customerName,
   ];
 }

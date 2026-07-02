@@ -1,4 +1,5 @@
 import 'package:car/core/custom_widgets/custom_image/custom_network_image.dart';
+import 'package:car/core/custom_widgets/custom_sar_text.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
@@ -8,8 +9,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
-
-import 'card_footer_widget.dart';
 
 class CarStatusConfig {
   final String label;
@@ -130,16 +129,41 @@ class CarInventoryCard extends StatelessWidget {
                         Gap(8.h),
                         _CardMeta(car: car, context: context),
                         Gap(10.h),
+                        car.customerName != null
+                            ? Text(
+                                ' ${AppLocaleKey.customer.tr()}: ${car.customerName ?? ''}',
+                                style: AppTextStyle.bodyMedium(context).copyWith(
+                                  color: AppColor.blackTextColor(context).withValues(alpha: 0.6),
+                                ),
+                              )
+                            : Gap(0),
+                        Gap(5.h),
+                        car.customerName != null
+                            ? Text(
+                                ' ${AppLocaleKey.representative.tr()}: ${car.reservedName ?? ''}',
+                                style: AppTextStyle.bodyMedium(context).copyWith(
+                                  color: AppColor.blackTextColor(context).withValues(alpha: 0.6),
+                                ),
+                              )
+                            : Gap(0),
+                        Gap(10.h),
                         const Divider(height: 1),
                         Gap(10.h),
-                        CardFooter(
-                          car: car,
-                          context: context,
-                          onEdit: onEdit,
-                          onWhatsApp: onWhatsApp,
-                          onDelete: onDelete,
-                          onPrint: onPrint,
+                        ValueWithCurrencyIcon(
+                          text: ' ${car.price ?? ''} ${AppLocaleKey.sar.tr()}',
+                          textStyle: AppTextStyle.bodyMedium(context).copyWith(
+                            fontWeight: FontWeight.w600,
+                            color: AppColor.blackTextColor(context),
+                          ),
                         ),
+                        // CardFooter(
+                        //   car: car,
+                        //   context: context,
+                        //   onEdit: onEdit,
+                        //   onWhatsApp: onWhatsApp,
+                        //   onDelete: onDelete,
+                        //   onPrint: onPrint,
+                        // ),
                       ],
                     ),
                   ),
@@ -197,11 +221,11 @@ class _MetaItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Icon(icon, size: 13.sp, color: AppColor.blackTextColor(context).withValues(alpha: 0.35)),
+        Icon(icon, size: 14.sp, color: AppColor.blackTextColor(context).withValues(alpha: 0.35)),
         Gap(4.w),
         Text(
           text,
-          style: AppTextStyle.bodySmall(
+          style: AppTextStyle.bodyMedium(
             context,
           ).copyWith(color: AppColor.blackTextColor(context).withValues(alpha: 0.45)),
         ),

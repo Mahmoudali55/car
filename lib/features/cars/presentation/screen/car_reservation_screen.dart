@@ -118,7 +118,7 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
   }
 
   void _navigateToSuccess() {
-    context.read<CartCubit>().addToCart(widget.car.toMap());
+    context.read<CartCubit>().loadReservedCars();
     HiveMethods.removeFromRecentlyViewed(widget.car.itemName);
     Navigator.push(
       context,
@@ -230,8 +230,7 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
           lpoType: 3,
           storeCode: storeCodeVal,
           transDate: todayStr,
-          fDate: todayStr,
-          lDate: futureStr,
+
           userName: HiveMethods.getUserName() ?? '',
         ),
       ],

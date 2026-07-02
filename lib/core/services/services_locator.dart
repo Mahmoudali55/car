@@ -4,6 +4,7 @@ import 'package:car/features/agent/data/repo/agent_repo.dart';
 import 'package:car/features/agent/presentation/cubit/agent_cubit.dart';
 import 'package:car/features/auth/data/repository/auth_repo.dart';
 import 'package:car/features/auth/presentation/view/cubit/auth_cubit.dart';
+import 'package:car/features/cart/presentation/view/cubit/cart_cubit.dart';
 import 'package:car/features/favorites/presentation/view/cubit/favorites_cubit.dart';
 import 'package:car/features/home/data/repository/home_repo.dart';
 import 'package:car/features/home/presentation/cubit/home_cubit.dart';

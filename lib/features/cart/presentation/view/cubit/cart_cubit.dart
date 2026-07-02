@@ -1,79 +1,144 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'dart:async';
+
 import 'package:car/core/cache/hive/hive_methods.dart';
+import 'package:car/features/admin/data/model/cars_response_model.dart' as admin;
+import 'package:car/features/admin/data/repo/admin_repo.dart';
+import 'package:car/features/cart/presentation/view/cubit/cart_reservation_service.dart';
+import 'package:car/features/home/data/model/cancel_reserved_car_model.dart';
+import 'package:car/features/home/data/repository/home_repo.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'cart_state.dart';
 
 class CartCubit extends Cubit<CartState> {
-  CartCubit() : super(CartState.initial()) {
-    _loadCart();
+  final AdminRepo adminRepo;
+  final HomeRepo homeRepo;
+  late final CartReservationService _reservationService;
+
+  CartCubit({required this.adminRepo, required this.homeRepo}) : super(CartState.initial()) {
+    _reservationService = CartReservationService(homeRepo: homeRepo);
   }
 
-  void _loadCart() {
-    final rawItems = HiveMethods.getCartItems();
-    final List<Map<String, dynamic>> validItems = [];
-    final now = DateTime.now();
-    bool hasExpiredItems = false;
+  // ─── Load reserved cars from API (carstatus=2, CUSTOMER_NO=userCode) ────
 
-    for (var rawItem in rawItems) {
-      final item = Map<String, dynamic>.from(rawItem as Map);
-      if (item.containsKey('reservedAt')) {
-        final reservedAt = DateTime.tryParse(item['reservedAt'].toString());
-        if (reservedAt != null && now.difference(reservedAt).inHours < 24) {
-          validItems.add(item);
-        } else {
-          hasExpiredItems = true;
+  Future<void> loadReservedCars() async {
+    final String? userCodeStr = HiveMethods.getUserCode();
+    final int? customerNo = int.tryParse('5');
+
+    emit(state.copyWith(isLoading: true, errorMessage: null));
+
+    final result = await adminRepo.getCars(2, customerNo);
+
+    result.fold(
+      (failure) {
+        emit(state.copyWith(isLoading: false, errorMessage: failure.errMessage));
+      },
+      (carsModel) {
+        final cars = carsModel.data;
+        _scheduleAllTimers(cars);
+        emit(state.copyWith(isLoading: false, reservedCars: cars));
+      },
+    );
+  }
+
+  // ─── Cancel reservation: calls endpoint then removes locally ────────────
+  // All required fields (lpoNo, storeCode) are taken directly from the CarModel.
+  // No Hive map lookups needed.
+
+  Future<void> cancelReservation(admin.CarModel car) async {
+    final String lpoNo = car.lpoNo ?? '';
+    final int storeCode = int.tryParse(car.storeCode?.toString() ?? '') ?? 0;
+
+    final model = CancelReservedCarModel(
+      lpoNo: lpoNo,
+      itemCode: car.itemCode ?? '',
+      storeCode: storeCode,
+      notes: 'Cancelled by user',
+    );
+
+    if (kDebugMode) {
+      debugPrint(
+        '[CartCubit] Calling cancelReservedCar for ${car.itemCode} '
+        '| lpoNo=$lpoNo | storeCode=$storeCode',
+      );
+    }
+
+    final result = await homeRepo.cancelreservedcar(model);
+
+    result.fold(
+      (failure) {
+        if (kDebugMode) {
+          debugPrint('[CartCubit] cancelReservation failed: ${failure.errMessage}');
         }
-      } else {
-        item['reservedAt'] = now.toIso8601String();
-        validItems.add(item);
-        hasExpiredItems = true; // Force save to persist the new timestamp
-      }
-    }
+      },
+      (response) {
+        if (kDebugMode) {
+          debugPrint('[CartCubit] cancelReservation success: ${response.msg}');
+        }
+      },
+    );
 
-    if (hasExpiredItems) {
-      HiveMethods.updateCartItems(validItems);
-    }
-    _updateCart(validItems);
+    // Stop the auto-cancel timer for this car.
+    _reservationService.cancelTimer({'itemCode': car.itemCode});
+
+    // Refresh from API.
+    if (!isClosed) unawaited(loadReservedCars());
   }
 
-  void addToCart(Map<String, dynamic> car) {
-    final updatedItems = List<Map<String, dynamic>>.from(state.items);
+  // ─── Remove locally only (no endpoint – e.g., after auto-cancel) ─────────
 
-    // Check if item already exists based on name
-    bool exists = updatedItems.any((item) => item['name'] == car['name']);
+  void removeFromCart(admin.CarModel car) {
+    _reservationService.cancelTimer({'itemCode': car.itemCode, 'name': car.itemName});
 
-    if (!exists) {
-      final carToAdd = Map<String, dynamic>.from(car);
-      carToAdd['reservedAt'] = DateTime.now().toIso8601String();
-      updatedItems.add(carToAdd);
-      _updateCart(updatedItems);
-      HiveMethods.updateCartItems(updatedItems);
-    }
+    // Refresh the reserved-cars list from API.
+    unawaited(loadReservedCars());
   }
 
-  void removeFromCart(Map<String, dynamic> car) {
-    final updatedItems = List<Map<String, dynamic>>.from(state.items);
-    updatedItems.removeWhere((item) => item['name'] == car['name']);
-    _updateCart(updatedItems);
-    HiveMethods.updateCartItems(updatedItems);
-  }
+  // ─── Clear all ───────────────────────────────────────────────────────────
 
   void clearCart() {
+    _reservationService.disposeAll();
     emit(CartState.initial());
-    HiveMethods.updateCartItems([]);
   }
 
-  void _updateCart(List<Map<String, dynamic>> items) {
-    double total = 0.0;
-    for (var item in items) {
-      // Extract price from string like "850,000         "
-      String priceStr = item['price'].toString().replaceAll(RegExp(r'[^0-9]'), '');
-      total += double.tryParse(priceStr) ?? 0.0;
+  // ─── Restore timers after app restart ────────────────────────────────────
+  // Now uses the API data (reservedCars) as the source of truth instead of Hive maps.
+
+  void restoreTimers() {
+    _scheduleAllTimers(state.reservedCars);
+  }
+
+  // ─── Called when timer fires after 24h ───────────────────────────────────
+
+  void _onItemExpired(admin.CarModel car) {
+    if (kDebugMode) {
+      debugPrint('[CartCubit] Item expired, removing from cart: ${car.itemCode}');
     }
-    emit(state.copyWith(items: items, totalPrice: total));
+
+    // Refresh the reserved-cars list from API.
+    if (!isClosed) {
+      unawaited(loadReservedCars());
+    }
   }
 
-  bool isInCart(String carName) {
-    return state.items.any((item) => item['name'] == carName);
+  // ─── Schedule timers for all currently loaded cars ────────────────────────
+
+  void _scheduleAllTimers(List<admin.CarModel> cars) {
+    for (final car in cars) {
+      _reservationService.scheduleExpiryForModel(car: car, onExpired: () => _onItemExpired(car));
+    }
+  }
+
+  @override
+  Future<void> close() {
+    _reservationService.disposeAll();
+    return super.close();
+  }
+
+  // ─── Helper ──────────────────────────────────────────────────────────────
+
+  bool isInCart(String itemCode) {
+    return state.reservedCars.any((c) => c.itemCode == itemCode);
   }
 }

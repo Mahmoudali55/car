@@ -1478,4 +1478,10 @@ class AppLocaleKey {
   static const String form = 'form';
   static const String period = 'period';
   static const String payment_types = 'payment_types';
+  static const String cancelReservationTitle = 'cancelReservationTitle';
+  static const String cancelReservationBody = 'cancelReservationBody';
+  static const String cancelReservationYes = 'cancelReservationYes';
+  static const String cancelReservationNo = 'cancelReservationNo';
+  static const String clientDetails = 'clientDetails';
+  static const String representative = 'representative';
 }

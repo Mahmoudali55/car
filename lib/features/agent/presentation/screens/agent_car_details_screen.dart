@@ -498,8 +498,6 @@ class _AgentCarDetailsScreenState extends State<AgentCarDetailsScreen> {
           lpoType: 3,
           storeCode: storeCodeVal,
           transDate: todayStr,
-          fDate: todayStr,
-          lDate: futureDateStr,
           userName: HiveMethods.getUserName() ?? '',
         ),
       ],

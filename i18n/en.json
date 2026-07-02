@@ -1425,5 +1425,10 @@
 "period":"Period",
 "from":"From",
 "to":"To",
-"payment_types":" Mada / Visa / Apple Pay' : 'Mada / Visa / Apple Pay"
+"payment_types":" Mada / Visa / Apple Pay' : 'Mada / Visa / Apple Pay",
+"cancelReservationTitle":"Cancel Reservation",
+"cancelReservationBody":"Are you sure you want to cancel this car reservation? This action cannot be undone.",
+"cancelReservationYes":"Yes, Cancel",
+"clientDetails":"Client Details",
+"agentDetails":"representative"
 }

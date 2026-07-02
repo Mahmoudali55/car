@@ -63,22 +63,38 @@ class StickyActionBarWidget extends StatelessWidget {
                   flex: 1,
                   child: CustomButton(
                     radius: 10.r,
-                    onPressed: () {
-                      if (HiveMethods.getToken() == null) {
-                        CommonMethods.showLoginRequiredDialog(context);
-                      } else {
-                        Navigator.pushNamed(
-                          context,
-                          RoutesName.carReservationScreen,
-                          arguments: {'car': car, 'isFromLink': false},
-                        );
-                      }
-                    },
+                    color: (car.carStatus == 0 || car.carStatus == 3)
+                        ? AppColor.greyColor(context).withValues(alpha: 0.3)
+                        : null,
+                    onPressed: (car.carStatus == 0 || car.carStatus == 3)
+                        ? null
+                        : () {
+                            if (HiveMethods.getToken() == null) {
+                              CommonMethods.showLoginRequiredDialog(context);
+                            } else {
+                              Navigator.pushNamed(
+                                context,
+                                RoutesName.carReservationScreen,
+                                arguments: {'car': car, 'isFromLink': false},
+                              );
+                            }
+                          },
                     child: Text(
-                      AppLocaleKey.agentReserveButton.tr(),
-                      style: AppTextStyle.bodySmall(
-                        context,
-                      ).copyWith(fontWeight: FontWeight.w900, color: AppColor.whiteColor(context)),
+                      car.carStatus == 0
+                          ? (EasyLocalization.of(context)?.locale.languageCode == 'ar'
+                                ? "محجوزة"
+                                : "Reserved")
+                          : car.carStatus == 3
+                          ? (EasyLocalization.of(context)?.locale.languageCode == 'ar'
+                                ? "مباعة"
+                                : "Sold")
+                          : AppLocaleKey.agentReserveButton.tr(),
+                      style: AppTextStyle.bodySmall(context).copyWith(
+                        fontWeight: FontWeight.w900,
+                        color: (car.carStatus == 0 || car.carStatus == 3)
+                            ? AppColor.blackTextColor(context).withValues(alpha: 0.5)
+                            : AppColor.whiteColor(context),
+                      ),
                     ),
                   ),
                 ),

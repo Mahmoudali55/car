@@ -6,6 +6,8 @@ import 'package:car/core/network/status.state.dart';
 import 'package:car/features/home/data/model/add_booking_permission_model.dart';
 import 'package:car/features/home/data/model/add_booking_permission_response_model.dart';
 import 'package:car/features/home/data/model/brand_cars_data_model.dart';
+import 'package:car/features/home/data/model/cancel_reserved_car_model.dart';
+import 'package:car/features/home/data/model/cancel_reserved_car_response_model.dart';
 import 'package:car/features/home/data/model/cars_models_response.dart';
 import 'package:car/features/home/data/repository/home_repo.dart';
 import 'package:equatable/equatable.dart';
@@ -50,14 +52,14 @@ class HomeCubit extends Cubit<HomeState> {
             brands: fetchedBrands,
           ),
         );
-        
+
         if (fetchedBrands.isNotEmpty) {
           if (state.selectedBrandId == null) {
             selectBrand(0, fetchedBrands.first.groupCode.toString());
           } else if (state.selectedIndex >= fetchedBrands.length) {
             selectBrand(0, fetchedBrands.first.groupCode.toString());
           }
-          
+
           fetchAllBrandsCars(fetchedBrands);
         }
       },
@@ -83,7 +85,7 @@ class HomeCubit extends Cubit<HomeState> {
 
       result.fold((_) {}, (carsList) {
         allCarsMap[brandName] = carsList;
-            });
+      });
     }
 
     emit(state.copyWith(allPopularCarsStatus: StatusState.success(allCarsMap)));
@@ -177,6 +179,21 @@ class HomeCubit extends Cubit<HomeState> {
       },
       (response) {
         emit(state.copyWith(addBookingPermissionResponseModel: StatusState.success(response)));
+      },
+    );
+  }
+
+  Future<void> cancelReservedCar(CancelReservedCarModel model) async {
+    emit(state.copyWith(cancelReservedCarResponseModel: const StatusState.loading()));
+    final result = await homeRepo.cancelreservedcar(model);
+    result.fold(
+      (failure) {
+        emit(
+          state.copyWith(cancelReservedCarResponseModel: StatusState.failure(failure.errMessage)),
+        );
+      },
+      (response) {
+        emit(state.copyWith(cancelReservedCarResponseModel: StatusState.success(response)));
       },
     );
   }

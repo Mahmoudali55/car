@@ -114,7 +114,12 @@ class GetBrandCarsDataModel extends Equatable {
     this.isFavorite = false,
     this.isTamaraAvailable = true,
     this.videoId = 'D7O8J5vVf-M',
+    this.customerName,
+    this.reservedName,
   });
+
+  final String? customerName;
+  final String? reservedName;
 
   String _sanitizeImageUrl(String path) {
     if (path.isEmpty) return '';
@@ -282,6 +287,8 @@ class GetBrandCarsDataModel extends Equatable {
       isFavorite: isFavorite || other.isFavorite,
       isTamaraAvailable: isTamaraAvailable,
       videoId: videoId,
+      customerName: customerName ?? other.customerName,
+      reservedName: reservedName ?? other.reservedName,
     );
   }
 
@@ -344,6 +351,8 @@ class GetBrandCarsDataModel extends Equatable {
       isFavorite: isFavorite ?? this.isFavorite,
       isTamaraAvailable: isTamaraAvailable,
       videoId: videoId,
+      customerName: customerName,
+      reservedName: reservedName,
     );
   }
 
@@ -433,10 +442,8 @@ class GetBrandCarsDataModel extends Equatable {
       discount: json['discount']?.toString(),
       oldPrice: json['oldPrice']?.toString(),
       installments: json['installments']?.toString() ?? json['installmentPrice']?.toString(),
-      cashPrice: json['cashPrice']?.toString(),
-      isFavorite: json['isFavorite'] ?? false,
-      isTamaraAvailable: json['isTamaraAvailable'] ?? true,
-      videoId: json['video_id']?.toString() ?? 'D7O8J5vVf-M',
+      customerName: json['CUSTOMER_NAME']?.toString() ?? json['customerName']?.toString() ?? json['CUSTOMERNAME']?.toString(),
+      reservedName: json['REPRES_NAME']?.toString() ?? json['reservedName']?.toString() ?? json['REPRESNAME']?.toString(),
     );
   }
 

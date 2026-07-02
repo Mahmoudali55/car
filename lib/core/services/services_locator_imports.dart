@@ -15,4 +15,6 @@ Future<void> initDependencies() async {
   sl.registerLazySingleton<AdminCubit>(() => AdminCubit(sl()));
   sl.registerLazySingleton<AgentRepo>(() => AgentImplRepo(sl()));
   sl.registerLazySingleton<AgentCubit>(() => AgentCubit(sl()));
+  // CartCubit needs AdminRepo (to fetch reserved cars) and HomeRepo (to cancel reservations).
+  sl.registerLazySingleton<CartCubit>(() => CartCubit(adminRepo: sl(), homeRepo: sl()));
 }

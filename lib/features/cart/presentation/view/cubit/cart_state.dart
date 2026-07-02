@@ -1,19 +1,42 @@
 part of 'cart_cubit.dart';
 
 class CartState {
-  final List<Map<String, dynamic>> items;
-  final double totalPrice;
+  /// Cars retrieved from the API (carstatus=2 = reserved).
+  final List<admin.CarModel> reservedCars;
 
-  CartState({required this.items, required this.totalPrice});
+  final bool isLoading;
+  final String? errorMessage;
+
+  const CartState({
+    this.reservedCars = const [],
+    this.isLoading = false,
+    this.errorMessage,
+  });
 
   factory CartState.initial() {
-    return CartState(items: [], totalPrice: 0.0);
+    return const CartState();
   }
 
-  CartState copyWith({List<Map<String, dynamic>>? items, double? totalPrice}) {
+  CartState copyWith({
+    List<admin.CarModel>? reservedCars,
+    bool? isLoading,
+    String? errorMessage,
+  }) {
     return CartState(
-      items: items ?? this.items,
-      totalPrice: totalPrice ?? this.totalPrice,
+      reservedCars: reservedCars ?? this.reservedCars,
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage,
     );
   }
+
+  /// Total price computed from API car data.
+  double get totalPrice {
+    double total = 0.0;
+    for (final car in reservedCars) {
+      total += car.costPrice ?? 0.0;
+    }
+    return total;
+  }
+
+  int get itemCount => reservedCars.length;
 }

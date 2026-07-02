@@ -129,6 +129,70 @@ class CarListCard extends StatelessWidget {
 
                   Gap(20.h),
 
+                  /// Reservation Info (only for reserved cars)
+                  if (car.availability == CarAvailability.reserved) ...[
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 10.h),
+                      decoration: BoxDecoration(
+                        color: AppColor.orangeColor(context).withValues(alpha: 0.08),
+                        borderRadius: BorderRadius.circular(12.r),
+                        border: Border.all(
+                          color: AppColor.orangeColor(context).withValues(alpha: 0.3),
+                        ),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          if (car.customerName.isNotEmpty)
+                            Row(
+                              children: [
+                                Icon(
+                                  Icons.person_rounded,
+                                  size: 14.sp,
+                                  color: AppColor.orangeColor(context),
+                                ),
+                                Gap(6.w),
+                                Expanded(
+                                  child: Text(
+                                    car.customerName,
+                                    style: AppTextStyle.bodySmall(context).copyWith(
+                                      fontWeight: FontWeight.w700,
+                                      color: AppColor.blackTextColor(context),
+                                    ),
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          if (car.customerName.isNotEmpty && car.reservedName.isNotEmpty)
+                            Gap(6.h),
+                          if (car.reservedName.isNotEmpty)
+                            Row(
+                              children: [
+                                Icon(
+                                  Icons.badge_rounded,
+                                  size: 14.sp,
+                                  color: AppColor.greyColor(context),
+                                ),
+                                Gap(6.w),
+                                Expanded(
+                                  child: Text(
+                                    car.reservedName,
+                                    style: AppTextStyle.bodySmall(context).copyWith(
+                                      fontWeight: FontWeight.w600,
+                                      color: AppColor.greyColor(context),
+                                    ),
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
+                              ],
+                            ),
+                        ],
+                      ),
+                    ),
+                    Gap(12.h),
+                  ],
+
                   /// Button
                   SizedBox(
                     width: double.infinity,

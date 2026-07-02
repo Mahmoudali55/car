@@ -111,6 +111,8 @@ class AgentCar {
   final String itemName;
   final String chassisNo;
   final String storeCode;
+  final String customerName;
+  final String reservedName;
 
   const AgentCar({
     required this.id,
@@ -126,6 +128,8 @@ class AgentCar {
     this.itemName = '',
     this.chassisNo = '',
     this.storeCode = '',
+    this.customerName = '',
+    this.reservedName = '',
   });
 
   GetBrandCarsDataModel toBrandCar() {

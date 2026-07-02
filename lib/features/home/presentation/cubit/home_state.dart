@@ -11,6 +11,7 @@ class HomeState extends Equatable {
   final List<CarModel> brands;
   final String searchQuery;
   final StatusState<AddBookingPermissionResponseModel> addBookingPermissionResponseModel;
+  final StatusState<CancelReservedCarResponseModel> cancelReservedCarResponseModel;
   final int? brandId;
   final String? fromMakeYear;
   final String? toMakeYear;
@@ -34,6 +35,7 @@ class HomeState extends Equatable {
     this.fromPrice,
     this.toPrice,
     this.fuelType,
+    this.cancelReservedCarResponseModel = const StatusState.initial(),
   });
   HomeState copyWith({
     StatusState? carsModelsStatus,
@@ -52,6 +54,7 @@ class HomeState extends Equatable {
     int? fromPrice,
     int? toPrice,
     String? fuelType,
+    StatusState<CancelReservedCarResponseModel>? cancelReservedCarResponseModel,
   }) {
     return HomeState(
       carsModelsStatus: carsModelsStatus ?? this.carsModelsStatus,
@@ -71,6 +74,8 @@ class HomeState extends Equatable {
       fromPrice: fromPrice ?? this.fromPrice,
       toPrice: toPrice ?? this.toPrice,
       fuelType: fuelType ?? this.fuelType,
+      cancelReservedCarResponseModel:
+          cancelReservedCarResponseModel ?? this.cancelReservedCarResponseModel,
     );
   }
 
@@ -92,5 +97,6 @@ class HomeState extends Equatable {
     fromPrice,
     toPrice,
     fuelType,
+    cancelReservedCarResponseModel,
   ];
 }

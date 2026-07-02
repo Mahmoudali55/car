@@ -72,7 +72,7 @@ class _FinancingInfoScreenState extends State<FinancingInfoScreen> {
 
   void _handleSubmit() {
     if (_formKey.currentState!.validate()) {
-      context.read<CartCubit>().addToCart(widget.car.toMap());
+      context.read<CartCubit>().loadReservedCars();
       HiveMethods.removeFromRecentlyViewed(widget.car.itemName);
       Navigator.push(
         context,

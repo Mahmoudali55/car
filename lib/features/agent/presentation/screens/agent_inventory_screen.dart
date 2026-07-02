@@ -62,7 +62,7 @@ class _AgentInventoryScreenState extends State<AgentInventoryScreen>
     }
   }
 
-  AgentCar _mapToAgentCar(CarModel car) {
+  AgentCar _mapToAgentCar(CarModel car, {required int tabStatus}) {
     final homeCubit = context.read<HomeCubit>();
     final brandList = homeCubit.state.brands;
     String brandName = '';
@@ -73,8 +73,13 @@ class _AgentInventoryScreenState extends State<AgentInventoryScreen>
       }
     }
 
+    // Use CAR_STATUS from model if present, otherwise fall back to the tab
+    // that triggered the API call (reserved tab → status 2, etc.).
     CarAvailability availability;
-    switch (car.carStatus) {
+    final int statusVal = (car.carStatus != null && car.carStatus! > 0)
+        ? car.carStatus!
+        : tabStatus;
+    switch (statusVal) {
       case 1:
         availability = CarAvailability.available;
         break;
@@ -84,7 +89,6 @@ class _AgentInventoryScreenState extends State<AgentInventoryScreen>
       case 3:
         availability = CarAvailability.sold;
         break;
-
       default:
         availability = CarAvailability.available;
     }
@@ -103,6 +107,8 @@ class _AgentInventoryScreenState extends State<AgentInventoryScreen>
       itemName: car.itemName ?? '',
       chassisNo: car.chassisNo ?? '',
       storeCode: car.storeCode ?? '',
+      customerName: car.customerName ?? '',
+      reservedName: car.reservedName ?? '',
     );
   }
 
@@ -192,7 +198,10 @@ class _AgentInventoryScreenState extends State<AgentInventoryScreen>
               }
 
               final carModels = status.data?.data ?? [];
-              var agentCars = carModels.map(_mapToAgentCar).toList();
+              final int tabStatus = _tabController.index + 1;
+              var agentCars = carModels
+                  .map((car) => _mapToAgentCar(car, tabStatus: tabStatus))
+                  .toList();
 
               if (_searchQuery.isNotEmpty) {
                 final query = _searchQuery.toLowerCase();
@@ -208,10 +217,15 @@ class _AgentInventoryScreenState extends State<AgentInventoryScreen>
                 controller: _tabController,
                 physics: const NeverScrollableScrollPhysics(),
                 children: [
-                  _buildList(agentCars),
-                  _buildList(agentCars),
-                  _buildList(agentCars),
-                  //_buildList(agentCars),
+                  _buildList(
+                    agentCars.where((c) => c.availability == CarAvailability.available).toList(),
+                  ),
+                  _buildList(
+                    agentCars.where((c) => c.availability == CarAvailability.reserved).toList(),
+                  ),
+                  _buildList(
+                    agentCars.where((c) => c.availability == CarAvailability.sold).toList(),
+                  ),
                 ],
               );
             },

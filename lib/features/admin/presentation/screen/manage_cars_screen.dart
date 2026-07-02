@@ -64,10 +64,6 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
 
   GetBrandCarsDataModel _toBrandCar(CarModel car) {
     final homeCubit = context.read<HomeCubit>();
-    final allHomeCars = homeCubit.state.allCarsStatus.data ?? [];
-    for (final c in allHomeCars) {
-      if (c.itemCode == car.itemCode) return c;
-    }
 
     final brandList = homeCubit.state.brands;
     String brandName = '';
@@ -112,6 +108,8 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
       mobileShow: car.mobileShow ?? false,
       carImage: '',
       color: car.bodyColor ?? '',
+      customerName: car.customerName,
+      reservedName: car.reservedName,
     );
   }
 

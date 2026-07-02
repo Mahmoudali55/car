@@ -45,8 +45,8 @@ class AddBookingPermissionModel extends Equatable {
       analytical: json['ANALYTICAL'] ?? '',
       customerNo: json['CUSTOMERNO'] ?? 0,
       represCode: json['REPRESCODE'] ?? 0,
-      fDate: json['FDATE'] ?? '',
-      lDate: json['LDATE'] ?? '',
+      fDate: json['RESERVBEGIN'] ?? '',
+      lDate: json['RESERVEND'] ?? '',
       lpoDate: json['LPODATE'] ?? '',
       storeCode: json['STORECODE'] ?? 0,
       taamedNo: json['TAAMEDNO'] ?? '',
@@ -67,8 +67,8 @@ class AddBookingPermissionModel extends Equatable {
       "ANALYTICAL": analytical,
       "CUSTOMERNO": customerNo,
       "REPRESCODE": represCode,
-      "FDATE": fDate,
-      "LDATE": lDate,
+      "RESERVBEGIN": fDate,
+      "RESERVEND": lDate,
       "LPODATE": lpoDate,
       "STORECODE": storeCode,
       "TAAMEDNO": taamedNo,
@@ -149,8 +149,7 @@ class SubLpoModel extends Equatable {
   final int lpoType;
   final int storeCode;
   final String transDate;
-  final String fDate;
-  final String lDate;
+
   final String userName;
   const SubLpoModel({
     required this.itemCode,
@@ -162,8 +161,7 @@ class SubLpoModel extends Equatable {
     required this.lpoType,
     required this.storeCode,
     required this.transDate,
-    required this.fDate,
-    required this.lDate,
+
     this.userName = '',
   });
 
@@ -178,8 +176,7 @@ class SubLpoModel extends Equatable {
       lpoType: json['LPO_TYPE'] ?? 0,
       storeCode: json['STORE_CODE'] ?? 0,
       transDate: json['TRANSDATE'] ?? '',
-      fDate: json['FDATE'] ?? '',
-      lDate: json['LDATE'] ?? '',
+
       userName: json['username'] ?? '',
     );
   }
@@ -195,8 +192,6 @@ class SubLpoModel extends Equatable {
       "LPO_TYPE": lpoType,
       "STORE_CODE": storeCode,
       "TRANSDATE": transDate,
-      "FDATE": fDate,
-      "LDATE": lDate,
       "username": userName,
     };
   }
@@ -225,8 +220,7 @@ class SubLpoModel extends Equatable {
       lpoType: lpoType ?? this.lpoType,
       storeCode: storeCode ?? this.storeCode,
       transDate: transDate ?? this.transDate,
-      fDate: fDate ?? this.fDate,
-      lDate: lDate ?? this.lDate,
+
       userName: userName ?? this.userName,
     );
   }
@@ -242,8 +236,6 @@ class SubLpoModel extends Equatable {
     lpoType,
     storeCode,
     transDate,
-    fDate,
-    lDate,
     userName,
   ];
 }

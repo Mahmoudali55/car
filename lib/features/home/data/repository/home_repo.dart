@@ -4,6 +4,8 @@ import 'package:car/core/network/end_points.dart';
 import 'package:car/features/home/data/model/add_booking_permission_model.dart';
 import 'package:car/features/home/data/model/add_booking_permission_response_model.dart';
 import 'package:car/features/home/data/model/brand_cars_data_model.dart';
+import 'package:car/features/home/data/model/cancel_reserved_car_model.dart';
+import 'package:car/features/home/data/model/cancel_reserved_car_response_model.dart';
 import 'package:car/features/home/data/model/cars_models_response.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
@@ -22,6 +24,9 @@ abstract interface class HomeRepo {
     int? fromprice,
     int? toprice,
     String? fuelType,
+  );
+  Future<Either<Failure, CancelReservedCarResponseModel>> cancelreservedcar(
+    CancelReservedCarModel model,
   );
 }
 
@@ -104,6 +109,18 @@ class HomeRepoImpl implements HomeRepo {
           }
           rethrow;
         }
+      },
+    );
+  }
+
+  @override
+  Future<Either<Failure, CancelReservedCarResponseModel>> cancelreservedcar(
+    CancelReservedCarModel model,
+  ) {
+    return handleDioRequest(
+      request: () async {
+        final response = await apiConsumer.post(EndPoints.cancelreservedcar, body: model.toJson());
+        return CancelReservedCarResponseModel.fromJson(response);
       },
     );
   }

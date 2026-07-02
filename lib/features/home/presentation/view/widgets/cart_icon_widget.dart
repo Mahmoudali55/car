@@ -23,7 +23,7 @@ class CartIconWidget extends StatelessWidget {
                 icon: Icon(Icons.shopping_cart_outlined, color: AppColor.blackTextColor(context)),
               ),
             ),
-            if (state.items.isNotEmpty)
+            if (state.reservedCars.isNotEmpty)
               Positioned(
                 top: 0,
                 right: 0,
@@ -34,7 +34,7 @@ class CartIconWidget extends StatelessWidget {
                     shape: BoxShape.circle,
                   ),
                   child: Text(
-                    state.items.length.toString(),
+                    state.itemCount.toString(),
                     style: AppTextStyle.bodySmall(context).copyWith(
                       color: AppColor.whiteColor(context),
                       fontSize: 10.sp,
