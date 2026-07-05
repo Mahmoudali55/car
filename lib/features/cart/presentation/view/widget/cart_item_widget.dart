@@ -6,6 +6,7 @@ import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/features/admin/data/model/cars_response_model.dart';
 import 'package:car/features/cart/presentation/view/cubit/cart_cubit.dart';
+import 'package:car/features/cart/presentation/view/widget/cancel_confirm_dialog_widget.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,9 +15,7 @@ import 'package:gap/gap.dart';
 
 class CartItemWidget extends StatefulWidget {
   final CarModel car;
-
   const CartItemWidget({super.key, required this.car});
-
   @override
   State<CartItemWidget> createState() => _CartItemWidgetState();
 }
@@ -27,15 +26,11 @@ class _CartItemWidgetState extends State<CartItemWidget> with SingleTickerProvid
   bool _isCancelling = false;
   late AnimationController _animationController;
   late Animation<double> _fadeAnimation;
-
   @override
   void initState() {
     super.initState();
-    // نحسب أول قيمة فورًا بعد أول frame عشان نضمن إن context.read<CartCubit>()
-    // متاح والـ CartReservationService خلّصت تسجيل التايمرز (scheduleExpiryForModel).
     WidgetsBinding.instance.addPostFrameCallback((_) => _calculateTime());
     _timer = Timer.periodic(const Duration(seconds: 1), (_) => _calculateTime());
-
     _animationController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 400),
@@ -63,7 +58,6 @@ class _CartItemWidgetState extends State<CartItemWidget> with SingleTickerProvid
       setState(() => _remainingTime = Duration.zero);
       return;
     }
-
     final Duration diff = expiry.difference(DateTime.now());
     setState(() => _remainingTime = diff.isNegative ? Duration.zero : diff);
   }
@@ -74,7 +68,7 @@ class _CartItemWidgetState extends State<CartItemWidget> with SingleTickerProvid
     final bool? confirmed = await showDialog<bool>(
       context: context,
       barrierDismissible: false,
-      builder: (ctx) => _CancelConfirmDialog(carName: widget.car.itemName ?? ''),
+      builder: (ctx) => CancelConfirmDialog(carName: widget.car.itemName ?? ''),
     );
 
     if (confirmed != true || !mounted) return;
@@ -91,7 +85,8 @@ class _CartItemWidgetState extends State<CartItemWidget> with SingleTickerProvid
   Widget build(BuildContext context) {
     final String carName = widget.car.itemName ?? '';
     final double price = widget.car.costPrice ?? 0;
-    final bool isAboutToExpire = _remainingTime > Duration.zero && _remainingTime <= const Duration(hours: 1);
+    final bool isAboutToExpire =
+        _remainingTime > Duration.zero && _remainingTime <= const Duration(hours: 1);
     final String priceFormatted = price
         .toStringAsFixed(0)
         .replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (m) => '${m[1]},');
@@ -103,27 +98,17 @@ class _CartItemWidgetState extends State<CartItemWidget> with SingleTickerProvid
           begin: const Offset(0.3, 0),
           end: Offset.zero,
         ).animate(_fadeAnimation),
-        child: Container(
+        child: Card(
           margin: EdgeInsets.only(bottom: 14.h),
-          decoration: BoxDecoration(
-            color: AppColor.scaffoldColor(context),
-            borderRadius: BorderRadius.circular(16.r),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withValues(alpha: 0.04),
-                blurRadius: 10,
-                offset: const Offset(0, 2),
-              ),
-            ],
-          ),
+          color: AppColor.secondAppColor(context),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.r)),
+
           child: Column(
             children: [
-              // ─── Top Section ──────────────────────────────────
               Container(
                 padding: EdgeInsets.all(16.w),
                 child: Row(
                   children: [
-                    // Car Image
                     ClipRRect(
                       borderRadius: BorderRadius.circular(12.r),
                       child: Container(
@@ -209,8 +194,6 @@ class _CartItemWidgetState extends State<CartItemWidget> with SingleTickerProvid
                         ],
                       ),
                     ),
-
-                    // Status Badge
                   ],
                 ),
               ),
@@ -278,7 +261,7 @@ class _CartItemWidgetState extends State<CartItemWidget> with SingleTickerProvid
                                     ),
                                     Gap(4.w),
                                     Text(
-                                      'الحجز قريب من الانتهاء',
+                                      AppLocaleKey.cancelReservationAboutToExpire.tr(),
                                       style: AppTextStyle.bodySmall(context).copyWith(
                                         color: Colors.orange.shade800,
                                         fontWeight: FontWeight.w600,
@@ -292,7 +275,7 @@ class _CartItemWidgetState extends State<CartItemWidget> with SingleTickerProvid
                         ],
                       ),
                     ),
-                    // Cancel Button
+
                     GestureDetector(
                       onTap: _isCancelling ? null : _onDeleteTapped,
                       child: Container(
@@ -339,100 +322,6 @@ class _CartItemWidgetState extends State<CartItemWidget> with SingleTickerProvid
               ),
             ],
           ),
-        ),
-      ),
-    );
-  }
-}
-
-// ─── Confirmation Dialog ────────────────────────────────────────────────────
-
-class _CancelConfirmDialog extends StatelessWidget {
-  final String carName;
-  const _CancelConfirmDialog({required this.carName});
-
-  @override
-  Widget build(BuildContext context) {
-    return Dialog(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.r)),
-      backgroundColor: AppColor.whiteColor(context),
-      child: Padding(
-        padding: EdgeInsets.all(24.w),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(
-              width: 60.w,
-              height: 60.w,
-              decoration: BoxDecoration(
-                color: AppColor.redColor(context).withValues(alpha: 0.06),
-                shape: BoxShape.circle,
-              ),
-              child: Icon(
-                Icons.delete_outline_rounded,
-                color: AppColor.redColor(context),
-                size: 28.sp,
-              ),
-            ),
-            Gap(16.h),
-            Text(
-              AppLocaleKey.cancelReservationTitle.tr(),
-              style: AppTextStyle.titleMedium(
-                context,
-              ).copyWith(fontWeight: FontWeight.w700, fontSize: 18.sp),
-            ),
-            Gap(8.h),
-            Text(
-              AppLocaleKey.cancelReservationBody.tr(),
-              style: AppTextStyle.bodyMedium(context).copyWith(
-                color: AppColor.blackTextColor(context).withValues(alpha: 0.6),
-                height: 1.4,
-              ),
-              textAlign: TextAlign.center,
-            ),
-            Gap(24.h),
-            Row(
-              children: [
-                Expanded(
-                  child: TextButton(
-                    onPressed: () => Navigator.pop(context, false),
-                    style: TextButton.styleFrom(
-                      padding: EdgeInsets.symmetric(vertical: 14.h),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.r)),
-                      side: BorderSide(
-                        color: AppColor.blackTextColor(context).withValues(alpha: 0.1),
-                      ),
-                    ),
-                    child: Text(
-                      AppLocaleKey.cancelReservationNo.tr(),
-                      style: AppTextStyle.bodyMedium(context).copyWith(
-                        fontWeight: FontWeight.w600,
-                        color: AppColor.blackTextColor(context).withValues(alpha: 0.6),
-                      ),
-                    ),
-                  ),
-                ),
-                Gap(12.w),
-                Expanded(
-                  child: ElevatedButton(
-                    onPressed: () => Navigator.pop(context, true),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColor.redColor(context),
-                      padding: EdgeInsets.symmetric(vertical: 14.h),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.r)),
-                      elevation: 0,
-                    ),
-                    child: Text(
-                      AppLocaleKey.cancelReservationYes.tr(),
-                      style: AppTextStyle.bodyMedium(
-                        context,
-                      ).copyWith(color: AppColor.whiteColor(context), fontWeight: FontWeight.w700),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ],
         ),
       ),
     );

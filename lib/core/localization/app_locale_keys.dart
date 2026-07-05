@@ -1487,4 +1487,5 @@ class AppLocaleKey {
   static const String representative = 'representative';
   static const String cancelReservation = 'cancelReservation';
   static const String cancelReservationMsg = 'cancelReservationMsg';
+  static const String cancelReservationAboutToExpire = 'cancelReservationAboutToExpire';
 }

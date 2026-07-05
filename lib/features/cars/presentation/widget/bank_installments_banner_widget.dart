@@ -60,12 +60,12 @@ class BankInstallmentsBannerWidget extends StatelessWidget {
               ),
             ],
           ),
-          const Spacer(),
+
+          Gap(10.h),
           Container(
             height: 20.h,
             padding: EdgeInsets.symmetric(horizontal: 6.w),
             decoration: BoxDecoration(
-              color: AppColor.whiteColor(context),
               borderRadius: BorderRadius.circular(16.r),
               border: Border.all(color: AppColor.greyColor(context), width: 0.09.w),
             ),

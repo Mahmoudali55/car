@@ -1433,5 +1433,6 @@
 "clientDetails":"Client Details",
 "agentDetails":"representative",
 "cancelReservation":"Cancel Reservation",
-"cancelReservationMsg":"The reservation is valid for 24 hours and will be automatically cancelled afterwards"
+"cancelReservationMsg":"The reservation is valid for 24 hours and will be automatically cancelled afterwards",
+"cancelReservationAboutToExpire":"The reservation is about to expire"
 }

@@ -20,29 +20,27 @@ class CartItemsListWidget extends StatelessWidget {
         padding: EdgeInsets.fromLTRB(20.w, 16.h, 20.w, 0),
         physics: const BouncingScrollPhysics(),
         children: [
-          Container(
+          Card(
             margin: EdgeInsets.only(bottom: 20.h),
-            padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
-            decoration: BoxDecoration(
-              color: AppColor.primaryColor(context).withValues(alpha: 0.1),
-              borderRadius: BorderRadius.circular(12.r),
-              border: Border.all(color: AppColor.primaryColor(context).withValues(alpha: 0.3)),
-            ),
-            child: Row(
-              children: [
-                Icon(
-                  Icons.shopping_cart_rounded,
-                  color: AppColor.primaryColor(context),
-                  size: 18.sp,
-                ),
-                Gap(10.w),
-                Text(
-                  '${cars.length} ${cars.length == 1 ? AppLocaleKey.cartCarSingular.tr() : AppLocaleKey.cartCarPlural.tr()} ${AppLocaleKey.inYourCart.tr()}',
-                  style: AppTextStyle.bodyMedium(
-                    context,
-                  ).copyWith(color: AppColor.primaryColor(context), fontWeight: FontWeight.w600),
-                ),
-              ],
+            color: AppColor.secondAppColor(context),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                children: [
+                  Icon(
+                    Icons.shopping_cart_rounded,
+                    color: AppColor.primaryColor(context),
+                    size: 18.sp,
+                  ),
+                  Gap(10.w),
+                  Text(
+                    '${cars.length} ${cars.length == 1 ? AppLocaleKey.cartCarSingular.tr() : AppLocaleKey.cartCarPlural.tr()} ${AppLocaleKey.inYourCart.tr()}',
+                    style: AppTextStyle.bodyMedium(
+                      context,
+                    ).copyWith(color: AppColor.primaryColor(context), fontWeight: FontWeight.w600),
+                  ),
+                ],
+              ),
             ),
           ),
 

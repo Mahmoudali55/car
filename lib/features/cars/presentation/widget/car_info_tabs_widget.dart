@@ -112,7 +112,7 @@ class _CarInfoTabsWidgetState extends State<CarInfoTabsWidget> with SingleTicker
                   Container(
                     margin: EdgeInsets.symmetric(horizontal: 10.w),
                     decoration: BoxDecoration(
-                      color: AppColor.whiteColor(context),
+                      color: AppColor.secondAppColor(context),
                       borderRadius: BorderRadius.circular(12.r),
                       border: Border.all(color: Colors.grey.shade200),
                     ),

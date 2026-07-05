@@ -53,59 +53,48 @@ class _SliverAppBarWidgetState extends State<SliverAppBarWidget> {
       stretch: true,
       backgroundColor: AppColor.scaffoldColor(context),
       leading: Padding(
-        padding: EdgeInsets.all(8.w),
-        child: CircleAvatar(
-          backgroundColor: AppColor.whiteColor(context),
-          child: IconButton(
-            icon: Icon(
-              Icons.arrow_back_ios_new_rounded,
-              color: AppColor.blackColor(context),
-              size: 20,
-            ),
-            onPressed: () => Navigator.pop(context),
+        padding: EdgeInsets.all(5.w),
+        child: IconButton(
+          icon: Icon(
+            Icons.arrow_back_ios_new_rounded,
+            color: AppColor.blackTextColor(context),
+            size: 20,
           ),
+          onPressed: () => Navigator.pop(context),
         ),
       ),
       actions: [
         Padding(
           padding: EdgeInsets.all(8.w),
-          child: CircleAvatar(
-            backgroundColor: AppColor.whiteColor(context),
-            child: IconButton(
-              icon: Icon(Icons.share_outlined, color: AppColor.blackColor(context), size: 20),
-              onPressed: () {
-                if (HiveMethods.getToken() == null) {
-                  CommonMethods.showLoginRequiredDialog(context);
-                } else {
-                  final String carName = widget.car.itemName;
-                  final String carPrice = widget.car.price ?? '';
-                  final String message =
-                      '${AppLocaleKey.checkOutThisCar.tr()} $carName ${AppLocaleKey.atPrice.tr()} $carPrice\n\n${AppLocaleKey.downloadApp.tr()}: https://hbwinternational.com';
-                  SharePlus.instance.share(ShareParams(text: message));
-                }
-              },
-            ),
+          child: IconButton(
+            icon: Icon(Icons.share_outlined, color: AppColor.blackTextColor(context), size: 20),
+            onPressed: () {
+              if (HiveMethods.getToken() == null) {
+                CommonMethods.showLoginRequiredDialog(context);
+              } else {
+                final String carName = widget.car.itemName;
+                final String carPrice = widget.car.price ?? '';
+                final String message =
+                    '${AppLocaleKey.checkOutThisCar.tr()} $carName ${AppLocaleKey.atPrice.tr()} $carPrice\n\n${AppLocaleKey.downloadApp.tr()}: https://hbwinternational.com';
+                SharePlus.instance.share(ShareParams(text: message));
+              }
+            },
           ),
         ),
         Padding(
           padding: EdgeInsets.all(8.w),
-          child: CircleAvatar(
-            backgroundColor: AppColor.whiteColor(context),
-            child: IconButton(
-              icon: Icon(
-                Icons.picture_as_pdf_outlined,
-                color: AppColor.blackColor(context),
-                size: 20,
-              ),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => CarQuotationPreviewScreen(car: widget.car),
-                  ),
-                );
-              },
+          child: IconButton(
+            icon: Icon(
+              Icons.picture_as_pdf_outlined,
+              color: AppColor.blackTextColor(context),
+              size: 20,
             ),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => CarQuotationPreviewScreen(car: widget.car)),
+              );
+            },
           ),
         ),
         BlocBuilder<FavoritesCubit, FavoritesState>(
@@ -113,22 +102,19 @@ class _SliverAppBarWidgetState extends State<SliverAppBarWidget> {
             final isFav = context.read<FavoritesCubit>().isFavorite(widget.car.itemName);
             return Padding(
               padding: EdgeInsets.all(8.w),
-              child: CircleAvatar(
-                backgroundColor: AppColor.whiteColor(context),
-                child: IconButton(
-                  icon: Icon(
-                    isFav ? Icons.favorite_rounded : Icons.favorite_outline_rounded,
-                    color: isFav ? AppColor.redColor(context) : AppColor.blackColor(context),
-                    size: 20,
-                  ),
-                  onPressed: () {
-                    if (HiveMethods.getToken() == null) {
-                      CommonMethods.showLoginRequiredDialog(context);
-                    } else {
-                      context.read<FavoritesCubit>().toggleFavorite(widget.car.toMap());
-                    }
-                  },
+              child: IconButton(
+                icon: Icon(
+                  isFav ? Icons.favorite_rounded : Icons.favorite_outline_rounded,
+                  color: isFav ? AppColor.redColor(context) : AppColor.blackTextColor(context),
+                  size: 20,
                 ),
+                onPressed: () {
+                  if (HiveMethods.getToken() == null) {
+                    CommonMethods.showLoginRequiredDialog(context);
+                  } else {
+                    context.read<FavoritesCubit>().toggleFavorite(widget.car.toMap());
+                  }
+                },
               ),
             );
           },

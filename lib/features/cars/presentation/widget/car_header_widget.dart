@@ -143,7 +143,7 @@ class _CarHeaderWidgetState extends State<CarHeaderWidget> {
                 child: Container(
                   padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),
                   decoration: BoxDecoration(
-                    color: AppColor.whiteColor(context),
+                    color: AppColor.secondAppColor(context),
                     borderRadius: BorderRadius.circular(6.r),
                     border: Border(
                       right: BorderSide(color: AppColor.greenColor(context), width: 2.w),
@@ -155,7 +155,7 @@ class _CarHeaderWidgetState extends State<CarHeaderWidget> {
                       Text(
                         AppLocaleKey.cash.tr(),
                         style: AppTextStyle.bodySmall(context).copyWith(
-                          color: AppColor.blackColor(context),
+                          color: AppColor.blackTextColor(context),
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -210,7 +210,7 @@ class _CarHeaderWidgetState extends State<CarHeaderWidget> {
                         child: Container(
                           padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),
                           decoration: BoxDecoration(
-                            color: AppColor.whiteColor(context),
+                            color: AppColor.secondAppColor(context),
                             borderRadius: BorderRadius.circular(6.r),
                             border: Border(
                               right: BorderSide(color: AppColor.primaryColor(context), width: 2.w),

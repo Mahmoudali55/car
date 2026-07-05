@@ -61,9 +61,10 @@ class CarDetailRow extends StatelessWidget {
                 Flexible(
                   child: Text(
                     value,
-                    style: AppTextStyle.bodyMedium(
-                      context,
-                    ).copyWith(fontWeight: FontWeight.w700, color: AppColor.blackColor(context)),
+                    style: AppTextStyle.bodyMedium(context).copyWith(
+                      fontWeight: FontWeight.w700,
+                      color: AppColor.blackTextColor(context),
+                    ),
                     textAlign: TextAlign.end,
                   ),
                 ),
