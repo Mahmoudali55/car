@@ -1437,5 +1437,8 @@
 "representative":"مندوب المبيعات",
 "cancelReservation":"الغاء الحجز",
 "cancelReservationMsg":"الحجز متاح لمدة 24 ساعة وبعدها سيتم إلغاء الحجز تلقائيًا",
-"cancelReservationAboutToExpire":"الحجز قريب من الانتهاء"
+"cancelReservationAboutToExpire":"الحجز قريب من الانتهاء",
+"vat_inclusive":"الأسعار شاملة القيمة المضافة ",
+"base_car_price_with_vat":"سعر السيارة الأساسي (شامل الضريبة)",
+"extra_package_value_with_vat":"قيمة الباقة الإضافية (شامل الضريبة)"
 }

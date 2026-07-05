@@ -41,24 +41,16 @@ class _CashPackagesWidgetState extends State<CashPackagesWidget> {
   @override
   void initState() {
     super.initState();
-    // جلب السعر الأساسي
     final priceRawString = widget.car.price ?? '0';
     final priceString = priceRawString.replaceAll(RegExp(r'[^0-9.]'), '');
     _baseCarPrice = double.tryParse(priceString) ?? 0.0;
-
-    // جلب نسبة الضريبة (يمكن تعديلها لجلب القيمة من Hive أو من الـ API)
     _vatPercentage = _getVatPercentage();
   }
 
-  // دالة لجلب نسبة الضريبة
   double _getVatPercentage() {
-    // TODO: استبدال هذه القيمة بجلبها من Hive أو من الـ API
-    // مثال: final vatSerial = HiveMethods.getVatNumber();
-    // return double.tryParse(vatSerial.toString()) ?? 15.0;
-    return 15.0; // القيمة الافتراضية
+    return 15.0;
   }
 
-  // دالة لحساب السعر مع الضريبة
   double _getPriceWithVat(double price) {
     return price * (1 + (_vatPercentage / 100));
   }
@@ -103,17 +95,11 @@ class _CashPackagesWidgetState extends State<CashPackagesWidget> {
   @override
   Widget build(BuildContext context) {
     if (_baseCarPrice <= 0) return const SizedBox.shrink();
-
     final formatter = NumberFormat('#,##0', 'en_US');
     final selectedPackage = _packages[_selectedIndex];
-
-    // حساب السعر الأساسي مع الضريبة
     final basePriceWithVat = _getPriceWithVat(_baseCarPrice);
-    // حساب سعر الباقة الإضافي مع الضريبة
     final extraPriceWithVat = _getPriceWithVat(selectedPackage.extraPrice);
-    // المجموع الكلي مع الضريبة
     final currentTotalWithVat = basePriceWithVat + extraPriceWithVat;
-
     return Container(
       margin: EdgeInsets.only(top: 24.h),
       child: Column(
@@ -135,7 +121,6 @@ class _CashPackagesWidgetState extends State<CashPackagesWidget> {
             ).copyWith(fontSize: 13.sp, color: Colors.grey[600]),
           ),
           Gap(8.h),
-          // إضافة نص يوضح أن الأسعار شاملة الضريبة
           Container(
             padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
             decoration: BoxDecoration(
@@ -152,7 +137,7 @@ class _CashPackagesWidgetState extends State<CashPackagesWidget> {
                 ),
                 Gap(6.w),
                 Text(
-                  'الأسعار شاملة القيمة المضافة (${_vatPercentage.toStringAsFixed(0)}%)',
+                  '${AppLocaleKey.vat_inclusive.tr()} (${_vatPercentage.toStringAsFixed(0)}%)',
                   style: AppTextStyle.bodySmall(
                     context,
                   ).copyWith(color: AppColor.primaryColor(context), fontWeight: FontWeight.w500),
@@ -170,10 +155,7 @@ class _CashPackagesWidgetState extends State<CashPackagesWidget> {
               itemBuilder: (context, index) {
                 final package = _packages[index];
                 final isSelected = index == _selectedIndex;
-
-                // حساب سعر الباقة مع الضريبة
                 final packageExtraWithVat = _getPriceWithVat(package.extraPrice);
-
                 return GestureDetector(
                   onTap: () {
                     setState(() {
@@ -237,7 +219,9 @@ class _CashPackagesWidgetState extends State<CashPackagesWidget> {
                         Gap(8.h),
                         Text(
                           package.descKey.tr(),
-                          style: TextStyle(fontSize: 12.sp, color: Colors.grey[600], height: 1.2),
+                          style: AppTextStyle.bodySmall(
+                            context,
+                          ).copyWith(color: Colors.grey[600], height: 1.2),
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                         ),
@@ -257,12 +241,11 @@ class _CashPackagesWidgetState extends State<CashPackagesWidget> {
                             ).copyWith(fontWeight: FontWeight.bold, color: package.themeColor),
                           ),
                         ),
-                        // إضافة نص شامل الضريبة
                         if (package.extraPrice > 0)
                           Padding(
                             padding: EdgeInsets.only(top: 4.h),
                             child: Text(
-                              'شامل الضريبة',
+                              AppLocaleKey.taxIncluded.tr(),
                               style: AppTextStyle.bodySmall(
                                 context,
                               ).copyWith(fontSize: 9.sp, color: Colors.grey[500]),
@@ -316,7 +299,6 @@ class _CashPackagesWidgetState extends State<CashPackagesWidget> {
             ),
           ),
           Gap(16.h),
-          // Total Sum Container below packages مع الضريبة
           Container(
             padding: EdgeInsets.all(16.w),
             decoration: BoxDecoration(
@@ -344,7 +326,6 @@ class _CashPackagesWidgetState extends State<CashPackagesWidget> {
                     ),
                   ],
                 ),
-                // إضافة تفاصيل الضريبة
                 Gap(8.h),
                 Container(
                   padding: EdgeInsets.all(8.w),
@@ -358,7 +339,7 @@ class _CashPackagesWidgetState extends State<CashPackagesWidget> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            'سعر السيارة الأساسي (شامل الضريبة)',
+                            '${AppLocaleKey.baseCarPriceWithVat.tr()}',
                             style: AppTextStyle.bodySmall(
                               context,
                             ).copyWith(color: Colors.grey[600], fontSize: 11.sp),
@@ -378,7 +359,7 @@ class _CashPackagesWidgetState extends State<CashPackagesWidget> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              'قيمة الباقة الإضافية (شامل الضريبة)',
+                              '${AppLocaleKey.extraPackageValueWithVat.tr()}',
                               style: AppTextStyle.bodySmall(
                                 context,
                               ).copyWith(color: Colors.grey[600], fontSize: 11.sp),
@@ -399,7 +380,7 @@ class _CashPackagesWidgetState extends State<CashPackagesWidget> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            'قيمة الضريبة (${_vatPercentage.toStringAsFixed(0)}%)',
+                            '${AppLocaleKey.vat_inclusive.tr()} (${_vatPercentage.toStringAsFixed(0)}%)',
                             style: AppTextStyle.bodySmall(
                               context,
                             ).copyWith(color: Colors.grey[600], fontSize: 11.sp),

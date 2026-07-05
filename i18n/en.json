@@ -1434,5 +1434,8 @@
 "agentDetails":"representative",
 "cancelReservation":"Cancel Reservation",
 "cancelReservationMsg":"The reservation is valid for 24 hours and will be automatically cancelled afterwards",
-"cancelReservationAboutToExpire":"The reservation is about to expire"
+"cancelReservationAboutToExpire":"The reservation is about to expire",
+"vat_inclusive":"Price includes VAT",
+"base_car_price_with_vat":"Base car price includes VAT",
+"extra_package_value_with_vat":"Extra package value includes VAT"
 }

@@ -1488,4 +1488,7 @@ class AppLocaleKey {
   static const String cancelReservation = 'cancelReservation';
   static const String cancelReservationMsg = 'cancelReservationMsg';
   static const String cancelReservationAboutToExpire = 'cancelReservationAboutToExpire';
+  static const String vat_inclusive = 'vat_inclusive';
+  static const String baseCarPriceWithVat = 'base_car_price_with_vat';
+  static const String extraPackageValueWithVat = 'extra_package_value_with_vat';
 }
