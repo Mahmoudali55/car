@@ -1,6 +1,7 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:car/core/custom_widgets/internet_connectivity_wrapper.dart';
 import 'package:car/core/custom_widgets/security_lock_wrapper.dart';
+import 'package:car/core/services/notification_service.dart';
 import 'package:car/core/services/services_locator.dart';
 import 'package:car/core/theme/cubit/app_theme_cubit.dart';
 import 'package:car/core/theme/theme_enum.dart';
@@ -30,7 +31,7 @@ class CarApp extends StatefulWidget {
 class _CarAppState extends State<CarApp> {
   @override
   Widget build(BuildContext context) {
-    final currentLocale = context.locale;
+    context.locale;
     return LayoutBuilder(
       builder: (context, constraints) {
         final bool isTablet = constraints.maxWidth >= 600;
@@ -51,7 +52,13 @@ class _CarAppState extends State<CarApp> {
                 BlocProvider(create: (context) => sl<HomeCubit>()),
                 BlocProvider(create: (context) => sl<FavoritesCubit>()),
                 BlocProvider(create: (context) => sl<CartCubit>()),
-                BlocProvider(create: (context) => NotificationsCubit()),
+                BlocProvider(
+                  create: (context) {
+                    final cubit = NotificationsCubit();
+                    NotificationService.bindNotificationsCubit(cubit);
+                    return cubit;
+                  },
+                ),
                 BlocProvider(create: (context) => sl<AgentCubit>()),
                 BlocProvider(create: (context) => sl<AdminCubit>()),
               ],

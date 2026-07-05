@@ -31,6 +31,10 @@ class NotificationItemWidget extends StatelessWidget {
         icon = Icons.settings_rounded;
         iconColor = AppColor.primaryColor(context);
         break;
+      case 'reservation':
+        icon = Icons.access_time_rounded;
+        iconColor = Colors.orange;
+        break;
       default:
         icon = Icons.notifications_rounded;
         iconColor = Colors.grey;

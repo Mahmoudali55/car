@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:car/core/cache/hive/hive_methods.dart';
+import 'package:car/core/services/notification_service.dart';
 import 'package:car/features/admin/data/model/cars_response_model.dart' as admin;
 import 'package:car/features/admin/data/repo/admin_repo.dart';
 import 'package:car/features/cart/presentation/view/cubit/cart_reservation_service.dart';
@@ -77,9 +78,13 @@ class CartCubit extends Cubit<CartState> {
         if (kDebugMode) {
           debugPrint('[CartCubit] cancelReservation success: ${response.msg}');
         }
-        // Emit the success message so the UI can show a SnackBar.
         final msg = response.msg.isNotEmpty ? response.msg : 'تم إلغاء الحجز بنجاح';
         emit(state.copyWith(cancellationMessage: msg));
+        unawaited(
+          NotificationService.showReservationCancelledNotification(
+            carName: car.itemName ?? 'السيارة',
+          ),
+        );
       },
     );
 

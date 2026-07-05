@@ -91,6 +91,7 @@ class _CartItemWidgetState extends State<CartItemWidget> with SingleTickerProvid
   Widget build(BuildContext context) {
     final String carName = widget.car.itemName ?? '';
     final double price = widget.car.costPrice ?? 0;
+    final bool isAboutToExpire = _remainingTime > Duration.zero && _remainingTime <= const Duration(hours: 1);
     final String priceFormatted = price
         .toStringAsFixed(0)
         .replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (m) => '${m[1]},');
@@ -228,26 +229,66 @@ class _CartItemWidgetState extends State<CartItemWidget> with SingleTickerProvid
                   children: [
                     // Timer
                     Expanded(
-                      child: Row(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Icon(
-                            Icons.access_time_rounded,
-                            size: 16.sp,
-                            color: _remainingTime <= const Duration(seconds: 30)
-                                ? AppColor.redColor(context)
-                                : AppColor.blackTextColor(context).withValues(alpha: 0.35),
+                          Row(
+                            children: [
+                              Icon(
+                                Icons.access_time_rounded,
+                                size: 16.sp,
+                                color: isAboutToExpire
+                                    ? Colors.orange.shade700
+                                    : _remainingTime <= const Duration(seconds: 30)
+                                    ? AppColor.redColor(context)
+                                    : AppColor.blackTextColor(context).withValues(alpha: 0.35),
+                              ),
+                              Gap(6.w),
+                              Text(
+                                '${_remainingTime.inHours.toString().padLeft(2, '0')}:${(_remainingTime.inMinutes % 60).toString().padLeft(2, '0')}:${(_remainingTime.inSeconds % 60).toString().padLeft(2, '0')}',
+                                style: AppTextStyle.bodySmall(context).copyWith(
+                                  color: isAboutToExpire
+                                      ? Colors.orange.shade700
+                                      : _remainingTime <= const Duration(seconds: 30)
+                                      ? AppColor.redColor(context)
+                                      : AppColor.blackTextColor(context).withValues(alpha: 0.5),
+                                  fontWeight: FontWeight.w600,
+                                  fontFamily: 'monospace',
+                                ),
+                              ),
+                            ],
                           ),
-                          Gap(6.w),
-                          Text(
-                            '${_remainingTime.inHours.toString().padLeft(2, '0')}:${(_remainingTime.inMinutes % 60).toString().padLeft(2, '0')}:${(_remainingTime.inSeconds % 60).toString().padLeft(2, '0')}',
-                            style: AppTextStyle.bodySmall(context).copyWith(
-                              color: _remainingTime <= const Duration(seconds: 30)
-                                  ? AppColor.redColor(context)
-                                  : AppColor.blackTextColor(context).withValues(alpha: 0.5),
-                              fontWeight: FontWeight.w600,
-                              fontFamily: 'monospace',
+                          if (isAboutToExpire)
+                            Padding(
+                              padding: EdgeInsets.only(top: 6.h),
+                              child: Container(
+                                padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 5.h),
+                                decoration: BoxDecoration(
+                                  color: Colors.orange.withValues(alpha: 0.12),
+                                  borderRadius: BorderRadius.circular(8.r),
+                                  border: Border.all(color: Colors.orange.withValues(alpha: 0.25)),
+                                ),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Icon(
+                                      Icons.warning_amber_rounded,
+                                      size: 12.sp,
+                                      color: Colors.orange.shade700,
+                                    ),
+                                    Gap(4.w),
+                                    Text(
+                                      'الحجز قريب من الانتهاء',
+                                      style: AppTextStyle.bodySmall(context).copyWith(
+                                        color: Colors.orange.shade800,
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 10.sp,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
                             ),
-                          ),
                         ],
                       ),
                     ),

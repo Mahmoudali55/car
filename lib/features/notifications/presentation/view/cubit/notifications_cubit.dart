@@ -46,6 +46,25 @@ class NotificationsCubit extends Cubit<NotificationsState> {
     _emitLoaded(dummyNotifications);
   }
 
+  void addReservationNotification({required String title, required String body}) {
+    final notification = {
+      'id': DateTime.now().millisecondsSinceEpoch.toString(),
+      'title': title,
+      'body': body,
+      'time': 'الآن',
+      'isRead': false,
+      'type': 'reservation',
+    };
+
+    if (state is NotificationsLoaded) {
+      final currentState = state as NotificationsLoaded;
+      final updatedList = [notification, ...currentState.notifications];
+      _emitLoaded(updatedList);
+    } else {
+      _emitLoaded([notification]);
+    }
+  }
+
   void markAsRead(String id) {
     if (state is NotificationsLoaded) {
       final currentState = state as NotificationsLoaded;

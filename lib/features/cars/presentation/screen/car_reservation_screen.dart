@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:car/core/cache/hive/hive_methods.dart';
 import 'package:car/core/custom_widgets/custom_toast/custom_toast.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
+import 'package:car/core/services/notification_service.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/core/utils/common_methods.dart';
@@ -213,6 +214,7 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
       lDate: futureStr,
       lpoDate: todayStr,
       storeCode: storeCodeVal,
+
       taamedNo: '',
       payCond: '',
       guarFinal: 0,
@@ -257,6 +259,7 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
             ),
             reservedAt: DateTime.now(),
           );
+          NotificationService.showReservationCreatedNotification(carName: widget.car.itemName);
           CommonMethods.showToast(
             message: isArabic ? 'تم الحجز بنجاح' : 'Reservation completed successfully',
             type: ToastType.success,

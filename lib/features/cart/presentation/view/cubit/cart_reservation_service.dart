@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:car/core/cache/hive/hive_methods.dart';
+import 'package:car/core/services/notification_service.dart';
 import 'package:car/features/admin/data/model/cars_response_model.dart';
 import 'package:car/features/home/data/model/cancel_reserved_car_model.dart';
 import 'package:car/features/home/data/repository/home_repo.dart';
@@ -19,6 +20,12 @@ class CartReservationService {
 
   // key → itemCode, value → active timer
   final Map<String, Timer> _timers = {};
+
+  // key → itemCode, value → reminder timer scheduled one hour before expiry.
+  final Map<String, Timer> _reminderTimers = {};
+
+  // key → itemCode, value → whether the reminder notification has already been sent.
+  final Set<String> _reminderSent = <String>{};
 
   // key → itemCode, value → the DateTime this reservation expires at.
   // Exposed so the UI can compute a live countdown instead of guessing.
@@ -52,6 +59,7 @@ class CartReservationService {
 
     // Cancel any existing timer for the same item (idempotent).
     _timers[key]?.cancel();
+    _reminderTimers[key]?.cancel();
 
     final DateTime? storedStart = _reservationStarts[key] ?? _readStoredStartTime(key);
     final DateTime from = reservedAt ?? storedStart ?? DateTime.now();
@@ -64,6 +72,17 @@ class CartReservationService {
     final Duration remaining = expiryTime.difference(DateTime.now());
 
     _expiryTimes[key] = expiryTime;
+
+    if (remaining > const Duration(hours: 1)) {
+      final Duration reminderDelay = remaining - const Duration(minutes: 5);
+      _reminderTimers[key] = Timer(reminderDelay, () {
+        if (_reminderSent.add(key)) {
+          NotificationService.showReservationReminder(carName: car.itemName ?? 'السيارة');
+        }
+      });
+    } else if (remaining > Duration.zero && _reminderSent.add(key)) {
+      NotificationService.showReservationReminder(carName: car.itemName ?? 'السيارة');
+    }
 
     if (remaining <= Duration.zero) {
       // Already expired – fire immediately (async so we don't block callers).
@@ -86,9 +105,12 @@ class CartReservationService {
     final String key =
         car['itemCode']?.toString() ?? car['name']?.toString() ?? car.hashCode.toString();
     _timers[key]?.cancel();
+    _reminderTimers[key]?.cancel();
     _timers.remove(key);
+    _reminderTimers.remove(key);
     _expiryTimes.remove(key);
     _reservationStarts.remove(key);
+    _reminderSent.remove(key);
     HiveMethods.clearReservationStartedAt(key);
   }
 
@@ -98,8 +120,10 @@ class CartReservationService {
       timer.cancel();
     }
     _timers.clear();
+    _reminderTimers.clear();
     _expiryTimes.clear();
     _reservationStarts.clear();
+    _reminderSent.clear();
   }
 
   // ─── Private ─────────────────────────────────────────────────────────────
@@ -113,8 +137,10 @@ class CartReservationService {
   Future<void> _doCancelModel({required CarModel car, required VoidCallback onExpired}) async {
     final String key = car.itemCode ?? car.hashCode.toString();
     _timers.remove(key);
+    _reminderTimers.remove(key);
     _expiryTimes.remove(key);
     _reservationStarts.remove(key);
+    _reminderSent.remove(key);
     HiveMethods.clearReservationStartedAt(key);
 
     final model = CancelReservedCarModel(
@@ -132,6 +158,10 @@ class CartReservationService {
     }
 
     await homeRepo.cancelreservedcar(model);
+
+    unawaited(
+      NotificationService.showReservationCancelledNotification(carName: car.itemName ?? 'السيارة'),
+    );
 
     // Notify the cubit regardless of API result.
     onExpired();
