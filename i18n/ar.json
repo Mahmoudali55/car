@@ -1445,7 +1445,7 @@
 "period":"فترة العرض",
 "from":"من",
 "to":"الي",
-"payment_types":"بطاقة مدى / فيزا / Apple Pay",
+"payment_types":"بطاقة مدى / فيزا / ماستركارد / Apple Pay",
 "cancelReservationTitle":"إلغاء الحجز",
 "cancelReservationBody":"هل تريد إلغاء حجز هذه السيارة؟ لا يمكن التراجع عن هذا الإجراء.",
 "cancelReservationYes":"نعم، إلغاء",

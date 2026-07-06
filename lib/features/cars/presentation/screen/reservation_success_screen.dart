@@ -19,12 +19,12 @@ class ReservationSuccessScreen extends StatelessWidget {
     final bool isFinancingFlow = paymentMethod == 'tamara' || paymentMethod == 'bank';
 
     final String methodLabel = paymentMethod == 'tamara'
-        ? 'تمارا'
+        ? (context.locale.languageCode == 'ar' ? 'تمارا' : 'Tamara')
         : paymentMethod == 'bank'
-        ? 'بطاقة الراجحي / الأهلي'
+        ? (context.locale.languageCode == 'ar' ? 'بطاقة الراجحي / الأهلي' : 'Al Rajhi / Al Ahli Card')
         : paymentMethod == 'moyasar'
-        ? 'بطاقة مدى / فيزا / Apple Pay (ميسر)'
-        : 'الكاش';
+        ? AppLocaleKey.payment_types.tr()
+        : (context.locale.languageCode == 'ar' ? 'الكاش' : 'Cash');
 
     return Scaffold(
       backgroundColor: AppColor.scaffoldColor(context),
