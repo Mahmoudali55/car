@@ -45,7 +45,7 @@ class FeatureCard extends StatelessWidget {
             overflow: TextOverflow.ellipsis,
             style: AppTextStyle.bodyLarge(
               context,
-            ).copyWith(fontWeight: FontWeight.w800, color: AppColor.blackTextColor(context)),
+            ).copyWith(fontWeight: FontWeight.w800, color: AppColor.blackColor(context)),
           ),
 
           Text(

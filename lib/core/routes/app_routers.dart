@@ -95,6 +95,14 @@ class AppRouters {
         return MaterialPageRoute(builder: (_) => const ChangePasswordScreen());
       case RoutesName.profileScreen:
         return MaterialPageRoute(builder: (_) => const UserProfileScreen());
+      case RoutesName.trackOrderScreen:
+        final orderId = args is String
+            ? args
+            : (args is Map<String, dynamic> ? args['orderId']?.toString() : null);
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (_) => TrackOrderScreen(orderId: orderId ?? 'ORD-1001'),
+        );
       case RoutesName.recentlyViewedScreen:
         return MaterialPageRoute(builder: (_) => const RecentlyViewedScreen());
       case RoutesName.tradeInScreen:
@@ -145,10 +153,8 @@ class AppRouters {
         return MaterialPageRoute(builder: (_) => const ManageBookingsScreen());
       case RoutesName.manageUsers:
         return MaterialPageRoute(
-          builder: (_) => BlocProvider.value(
-            value: sl<AdminCubit>(),
-            child: const ManageUsersScreen(),
-          ),
+          builder: (_) =>
+              BlocProvider.value(value: sl<AdminCubit>(), child: const ManageUsersScreen()),
         );
       case RoutesName.revenueReport:
       case RoutesName.revenueReports:

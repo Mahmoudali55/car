@@ -220,8 +220,11 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                             ActionTileWidget(
                               icon: Icons.local_shipping_outlined,
                               label: AppLocaleKey.trackOrder.tr(),
-                              onTap: () =>
-                                  Navigator.pushNamed(context, RoutesName.trackOrderScreen),
+                              onTap: () => Navigator.pushNamed(
+                                context,
+                                RoutesName.trackOrderScreen,
+                                arguments: 'ORD-1001',
+                              ),
                             ),
                             ActionTileWidget(
                               icon: Icons.history_rounded,

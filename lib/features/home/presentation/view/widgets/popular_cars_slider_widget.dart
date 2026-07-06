@@ -159,6 +159,7 @@ class _PopularCarsSliderState extends State<PopularCarsSlider> {
                 car: cars[index],
                 isSelected: index == _currentPage,
                 onTap: () => _goToDetails(context, cars[index]),
+                onImageTap: () => _goToDetails(context, cars[index]),
                 onOrderNow: () {
                   if (HiveMethods.getToken() == null) {
                     CommonMethods.showLoginRequiredDialog(context);

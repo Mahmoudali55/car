@@ -344,9 +344,10 @@ class _CashPackagesWidgetState extends State<CashPackagesWidget> {
                               context,
                             ).copyWith(color: Colors.grey[600], fontSize: 11.sp),
                           ),
-                          Text(
-                            '${formatter.format(basePriceWithVat)} ${AppLocaleKey.sar.tr()}',
-                            style: AppTextStyle.bodySmall(context).copyWith(
+                          ValueWithCurrencyIcon(
+                            text:
+                                '${formatter.format(basePriceWithVat)}   ${AppLocaleKey.sar.tr()}',
+                            textStyle: AppTextStyle.bodySmall(context).copyWith(
                               color: Colors.grey[600],
                               fontSize: 11.sp,
                               fontWeight: FontWeight.w600,
@@ -364,9 +365,10 @@ class _CashPackagesWidgetState extends State<CashPackagesWidget> {
                                 context,
                               ).copyWith(color: Colors.grey[600], fontSize: 11.sp),
                             ),
-                            Text(
-                              '+ ${formatter.format(extraPriceWithVat)} ${AppLocaleKey.sar.tr()}',
-                              style: AppTextStyle.bodySmall(context).copyWith(
+                            ValueWithCurrencyIcon(
+                              text:
+                                  '+ ${formatter.format(extraPriceWithVat)} ${AppLocaleKey.sar.tr()}',
+                              textStyle: AppTextStyle.bodySmall(context).copyWith(
                                 color: selectedPackage.themeColor,
                                 fontSize: 11.sp,
                                 fontWeight: FontWeight.w600,
@@ -385,9 +387,10 @@ class _CashPackagesWidgetState extends State<CashPackagesWidget> {
                               context,
                             ).copyWith(color: Colors.grey[600], fontSize: 11.sp),
                           ),
-                          Text(
-                            '+ ${formatter.format(currentTotalWithVat - (_baseCarPrice + selectedPackage.extraPrice))} ${AppLocaleKey.sar.tr()}',
-                            style: AppTextStyle.bodySmall(context).copyWith(
+                          ValueWithCurrencyIcon(
+                            text:
+                                '+ ${formatter.format(currentTotalWithVat - (_baseCarPrice + selectedPackage.extraPrice))} ${AppLocaleKey.sar.tr()}',
+                            textStyle: AppTextStyle.bodySmall(context).copyWith(
                               color: Colors.grey[600],
                               fontSize: 11.sp,
                               fontWeight: FontWeight.w600,

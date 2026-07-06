@@ -12,12 +12,14 @@ class CarCard extends StatelessWidget {
     required this.onTap,
     required this.onOrderNow,
     this.heroTag,
+    this.onImageTap,
   });
 
   final Map<String, dynamic> car;
   final bool isSelected;
   final VoidCallback onTap;
   final VoidCallback onOrderNow;
+  final VoidCallback? onImageTap;
   final String? heroTag;
 
   @override
@@ -34,7 +36,12 @@ class CarCard extends StatelessWidget {
             children: [
               Expanded(
                 flex: 10,
-                child: CardImageSection(car: car, isSelected: isSelected, heroTag: heroTag),
+                child: CardImageSection(
+                  car: car,
+                  isSelected: isSelected,
+                  heroTag: heroTag,
+                  onTap: onImageTap ?? onTap,
+                ),
               ),
               Expanded(
                 flex: 15,

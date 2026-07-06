@@ -73,7 +73,7 @@ class ReservationStickyFooter extends StatelessWidget {
           children: [
             if (!isMethodSelection && !isFinancingFlow) ...[
               ValueWithCurrencyIcon(
-                text: '${depositAmount.toInt()} SAR',
+                text: '${depositAmount.toInt()} ${AppLocaleKey.sar.tr()}',
                 textStyle: AppTextStyle.buttonStyle(context).copyWith(fontWeight: FontWeight.bold),
               ),
               Gap(16.w),

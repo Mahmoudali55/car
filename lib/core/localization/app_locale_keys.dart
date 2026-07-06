@@ -840,6 +840,23 @@ class AppLocaleKey {
   static const String statusShipped = 'status_shipped';
   static const String statusDelivered = 'status_delivered';
   static const String viewTimeline = 'view_timeline';
+  static const String trackOrderProgressTimeline = 'track_order_progress_timeline';
+  static const String trackOrderContactSupport = 'track_order_contact_support';
+  static const String trackOrderCancelOrder = 'track_order_cancel_order';
+  static const String trackOrderNoDetails = 'track_order_no_details';
+  static const String trackOrderRetry = 'track_order_retry';
+  static const String trackOrderCancelling = 'track_order_cancelling';
+  static const String trackOrderCancelOrderTitle = 'track_order_cancel_order_title';
+  static const String trackOrderCancelOrderMessage = 'track_order_cancel_order_message';
+  static const String trackOrderNo = 'track_order_no';
+  static const String trackOrderYesCancel = 'track_order_yes_cancel';
+  static const String trackOrderFinancing = 'track_order_financing';
+  static const String trackOrderPurchase = 'track_order_purchase';
+  static const String trackOrderService = 'track_order_service';
+  static const String trackOrderReady = 'track_order_ready';
+  static const String trackOrderPlacedDescription = 'track_order_placed_description';
+  static const String trackOrderProcessingDescription = 'track_order_processing_description';
+  static const String trackOrderReadyDescription = 'track_order_ready_description';
 
   // Financing Overhaul
   static const String selectBrand = 'select_brand';
@@ -1491,4 +1508,5 @@ class AppLocaleKey {
   static const String vat_inclusive = 'vat_inclusive';
   static const String baseCarPriceWithVat = 'base_car_price_with_vat';
   static const String extraPackageValueWithVat = 'extra_package_value_with_vat';
+  static const String agentSellingPriceWithVat = 'agent_selling_price_with_vat';
 }

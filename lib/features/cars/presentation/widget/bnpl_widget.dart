@@ -1,3 +1,5 @@
+import 'package:car/core/custom_widgets/buttons/custom_button.dart';
+import 'package:car/core/custom_widgets/custom_sar_text.dart';
 import 'package:car/core/custom_widgets/custom_toast/custom_toast.dart';
 import 'package:car/core/images/app_images.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
@@ -193,12 +195,9 @@ class _BnplWidgetState extends State<BnplWidget> {
               decoration: BoxDecoration(color: bgColor, borderRadius: BorderRadius.circular(8.r)),
               child: Text(
                 providerName.toUpperCase(),
-                style: TextStyle(
-                  color: textColor,
-                  fontWeight: FontWeight.w900,
-                  fontSize: 12.sp,
-                  letterSpacing: 1,
-                ),
+                style: AppTextStyle.bodySmall(
+                  context,
+                ).copyWith(color: textColor, fontWeight: FontWeight.w900, letterSpacing: 1),
               ),
             ),
             Gap(16.w),
@@ -217,7 +216,15 @@ class _BnplWidgetState extends State<BnplWidget> {
                         ),
                         WidgetSpan(
                           alignment: PlaceholderAlignment.middle,
-                          child: SvgPicture.asset(AppImages.sar, width: 12.w, height: 12.h),
+                          child: SvgPicture.asset(
+                            AppImages.sar,
+                            width: 12.w,
+                            height: 12.h,
+                            colorFilter: ColorFilter.mode(
+                              AppColor.whiteColor(context),
+                              BlendMode.srcIn,
+                            ),
+                          ),
                         ),
                       ],
                     ),
@@ -228,9 +235,9 @@ class _BnplWidgetState extends State<BnplWidget> {
                       context,
                     ).copyWith(color: AppColor.greyColor(context), fontSize: 10.sp),
                   ),
-                  // إضافة نص يوضح أن السعر شامل الضريبة
+
                   Text(
-                    'السعر شامل الضريبة',
+                    AppLocaleKey.agentSellingPriceWithVat.tr(),
                     style: AppTextStyle.bodySmall(context).copyWith(
                       color: AppColor.primaryColor(context),
                       fontSize: 9.sp,
@@ -290,10 +297,11 @@ class _BnplWidgetState extends State<BnplWidget> {
               ).copyWith(fontWeight: FontWeight.bold),
             ),
             Gap(8.h),
-            // إضافة السعر الإجمالي شامل الضريبة
-            Text(
-              'المبلغ الإجمالي: $formattedTotal ${AppLocaleKey.sar.tr()} (شامل الضريبة)',
-              style: AppTextStyle.bodyMedium(bottomSheetContext).copyWith(
+
+            ValueWithCurrencyIcon(
+              text:
+                  '${AppLocaleKey.agentSellingPriceWithVat.tr()}: $formattedTotal ${AppLocaleKey.sar.tr()}',
+              textStyle: AppTextStyle.bodyMedium(bottomSheetContext).copyWith(
                 color: AppColor.primaryColor(bottomSheetContext),
                 fontWeight: FontWeight.bold,
               ),
@@ -339,19 +347,16 @@ class _BnplWidgetState extends State<BnplWidget> {
             Gap(32.h),
             SizedBox(
               width: double.infinity,
-              child: ElevatedButton(
+              child: CustomButton(
+                radius: 12.r,
                 onPressed: () {
                   Navigator.pop(bottomSheetContext);
                   _handleBnplCheckout(context, isTabby, total);
                 },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColor.primaryColor(bottomSheetContext),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.r)),
-                  padding: EdgeInsets.symmetric(vertical: 14.h),
-                ),
-                child: Text(
-                  '${AppLocaleKey.payNow.tr()} ($formattedTotal ${AppLocaleKey.sar.tr()})',
-                  style: TextStyle(
+
+                child: ValueWithCurrencyIcon(
+                  text: '${AppLocaleKey.payNow.tr()} ($formattedTotal ${AppLocaleKey.sar.tr()})',
+                  textStyle: TextStyle(
                     color: AppColor.whiteColor(bottomSheetContext),
                     fontWeight: FontWeight.bold,
                   ),
@@ -407,9 +412,9 @@ class _BnplWidgetState extends State<BnplWidget> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(title, style: AppTextStyle.bodyMedium(context)),
-              Text(
-                '$amount ${AppLocaleKey.sar.tr()}',
-                style: AppTextStyle.bodyMedium(context).copyWith(fontWeight: FontWeight.bold),
+              ValueWithCurrencyIcon(
+                text: '$amount ${AppLocaleKey.sar.tr()}',
+                textStyle: AppTextStyle.bodyMedium(context).copyWith(fontWeight: FontWeight.bold),
               ),
             ],
           ),

@@ -9,11 +9,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CardImageSection extends StatefulWidget {
-  const CardImageSection({super.key, required this.car, required this.isSelected, this.heroTag});
+  const CardImageSection({
+    super.key,
+    required this.car,
+    required this.isSelected,
+    this.heroTag,
+    this.onTap,
+  });
 
   final Map<String, dynamic> car;
   final bool isSelected;
   final String? heroTag;
+  final VoidCallback? onTap;
 
   @override
   State<CardImageSection> createState() => _CardImageSectionState();
@@ -86,7 +93,7 @@ class _CardImageSectionState extends State<CardImageSection> {
       fit: StackFit.expand,
       children: [
         GestureDetector(
-          onTap: _openGallery,
+          onTap: widget.onTap ?? _openGallery,
           child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.vertical(top: Radius.circular(18.r)),
@@ -110,7 +117,7 @@ class _CardImageSectionState extends State<CardImageSection> {
                             : widget.car['image']!,
                         fit: BoxFit.cover,
                       ),
-                      if (isLastDisplayImage && hasMoreImagesInFull)
+                      if (widget.onTap == null && isLastDisplayImage && hasMoreImagesInFull)
                         Container(
                           decoration: BoxDecoration(
                             color: AppColor.blackColor(context).withValues(alpha: 0.5),
