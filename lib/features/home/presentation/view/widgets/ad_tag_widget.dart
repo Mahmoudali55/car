@@ -1,5 +1,3 @@
-// ─── ad_tag_widget.dart ──────────────────────────────────────────
-
 import 'package:car/core/theme/app_text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -8,9 +6,7 @@ import 'package:gap/gap.dart';
 class AdTagWidget extends StatelessWidget {
   final String tag;
   final Color accentColor;
-
   const AdTagWidget({super.key, required this.tag, required this.accentColor});
-
   @override
   Widget build(BuildContext context) {
     return Container(

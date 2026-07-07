@@ -6,7 +6,6 @@ import 'package:gap/gap.dart';
 
 class PaymentSuccessScreen extends StatefulWidget {
   const PaymentSuccessScreen({super.key});
-
   @override
   State<PaymentSuccessScreen> createState() => _PaymentSuccessScreenState();
 }

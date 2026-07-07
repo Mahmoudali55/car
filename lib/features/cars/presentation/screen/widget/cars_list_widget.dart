@@ -9,7 +9,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
 class CarsList extends StatelessWidget {
-  const CarsList({required this.cars, this.localizeCarData});
+  const CarsList({super.key, required this.cars, this.localizeCarData});
 
   final List<GetBrandCarsDataModel> cars;
   final GetBrandCarsDataModel Function(GetBrandCarsDataModel)? localizeCarData;

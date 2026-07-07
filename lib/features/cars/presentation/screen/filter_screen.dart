@@ -295,7 +295,6 @@ class _FilterScreenState extends State<FilterScreen> {
                 isPrice: true,
               ),
             ),
-
             FilterSection(
               title: AppLocaleKey.engineSystem.tr(),
               child: _buildChipsGroup(AppLocaleKey.engineSystem),

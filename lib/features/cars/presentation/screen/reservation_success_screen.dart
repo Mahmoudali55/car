@@ -2,6 +2,7 @@ import 'package:car/core/custom_widgets/buttons/custom_button.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
+import 'package:car/features/cars/presentation/screen/widget/info_card_widget.dart';
 import 'package:car/features/home/data/model/brand_cars_data_model.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +22,9 @@ class ReservationSuccessScreen extends StatelessWidget {
     final String methodLabel = paymentMethod == 'tamara'
         ? (context.locale.languageCode == 'ar' ? 'تمارا' : 'Tamara')
         : paymentMethod == 'bank'
-        ? (context.locale.languageCode == 'ar' ? 'بطاقة الراجحي / الأهلي' : 'Al Rajhi / Al Ahli Card')
+        ? (context.locale.languageCode == 'ar'
+              ? 'بطاقة الراجحي / الأهلي'
+              : 'Al Rajhi / Al Ahli Card')
         : paymentMethod == 'moyasar'
         ? AppLocaleKey.payment_types.tr()
         : (context.locale.languageCode == 'ar' ? 'الكاش' : 'Cash');
@@ -80,39 +83,37 @@ class ReservationSuccessScreen extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             Gap(48.h),
-
-            // Order summary card
-            _buildInfoCard(context, [
-              _InfoRow(
-                icon: Icons.directions_car_filled_rounded,
-                iconColor: AppColor.primaryColor(context),
-                label: AppLocaleKey.car.tr(),
-                value: car.itemName,
-              ),
-              _InfoRow(
-                icon: Icons.payment_rounded,
-                iconColor: const Color(0xFF3F51B5),
-                label: AppLocaleKey.paymentMethod.tr(),
-                value: methodLabel,
-              ),
-              if (!isFinancingFlow)
-                _InfoRow(
-                  icon: Icons.lock_clock_rounded,
-                  iconColor: AppColor.iconColor(context),
-                  label: AppLocaleKey.deposit_amount.tr(),
-                  value: '500 ر.س (مسترد)',
+            InfoCardWidget(
+              rows: [
+                InfoRow(
+                  icon: Icons.directions_car_filled_rounded,
+                  iconColor: AppColor.primaryColor(context),
+                  label: AppLocaleKey.car.tr(),
+                  value: car.itemName,
                 ),
-              _InfoRow(
-                icon: Icons.info_outline_rounded,
-                iconColor: Colors.grey,
-                label: AppLocaleKey.status.tr(),
-                value: AppLocaleKey.under_review.tr(),
-              ),
-            ]),
+                InfoRow(
+                  icon: Icons.payment_rounded,
+                  iconColor: const Color(0xFF3F51B5),
+                  label: AppLocaleKey.paymentMethod.tr(),
+                  value: methodLabel,
+                ),
+                if (!isFinancingFlow)
+                  InfoRow(
+                    icon: Icons.lock_clock_rounded,
+                    iconColor: AppColor.iconColor(context),
+                    label: AppLocaleKey.deposit_amount.tr(),
+                    value: '500 ر.س (مسترد)',
+                  ),
+                InfoRow(
+                  icon: Icons.info_outline_rounded,
+                  iconColor: Colors.grey,
+                  label: AppLocaleKey.status.tr(),
+                  value: AppLocaleKey.under_review.tr(),
+                ),
+              ],
+            ),
 
             Gap(32.h),
-
-            // Whatsapp notice
             Container(
               padding: EdgeInsets.all(16.w),
               decoration: BoxDecoration(
@@ -140,8 +141,6 @@ class ReservationSuccessScreen extends StatelessWidget {
             ),
 
             Gap(48.h),
-
-            // Actions
             CustomButton(
               height: 56.h,
               width: double.infinity,
@@ -172,85 +171,4 @@ class ReservationSuccessScreen extends StatelessWidget {
       ),
     );
   }
-
-  Widget _buildInfoCard(BuildContext context, List<_InfoRow> rows) {
-    return Container(
-      decoration: BoxDecoration(
-        color: AppColor.cardColor(context),
-        borderRadius: BorderRadius.circular(20.r),
-        border: Border.all(color: AppColor.borderColor(context)),
-        boxShadow: [
-          BoxShadow(
-            color: AppColor.blackColor(context).withValues(alpha: 0.03),
-            blurRadius: 12,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      child: Column(
-        children: List.generate(rows.length, (i) {
-          final row = rows[i];
-          final bool isLast = i == rows.length - 1;
-          return Column(
-            children: [
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 16.h),
-                child: Row(
-                  children: [
-                    Container(
-                      width: 38.w,
-                      height: 38.w,
-                      decoration: BoxDecoration(
-                        color: row.iconColor.withValues(alpha: 0.1),
-                        borderRadius: BorderRadius.circular(10.r),
-                      ),
-                      child: Icon(row.icon, color: row.iconColor, size: 18.sp),
-                    ),
-                    Gap(14.w),
-                    Text(
-                      row.label,
-                      style: AppTextStyle.bodyMedium(context).copyWith(
-                        color: AppColor.blackTextColor(context).withValues(alpha: 0.5),
-                        fontSize: 13.sp,
-                      ),
-                    ),
-                    Gap(14.w),
-                    Expanded(
-                      child: Text(
-                        row.value,
-                        style: AppTextStyle.bodyMedium(
-                          context,
-                        ).copyWith(fontWeight: FontWeight.w900, fontSize: 14.sp),
-                        textAlign: TextAlign.end,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              if (!isLast)
-                Container(
-                  height: 1,
-                  margin: EdgeInsets.symmetric(horizontal: 16.w),
-                  color: AppColor.borderColor(context).withValues(alpha: 0.5),
-                ),
-            ],
-          );
-        }),
-      ),
-    );
-  }
-}
-
-class _InfoRow {
-  final IconData icon;
-  final Color iconColor;
-  final String label;
-  final String value;
-
-  const _InfoRow({
-    required this.icon,
-    required this.iconColor,
-    required this.label,
-    required this.value,
-  });
 }

@@ -62,8 +62,8 @@ class _BankOffersScreenState extends State<BankOffersScreen> {
   @override
   void initState() {
     super.initState();
-    // Use the car price or fallback to generic big number if null
-    _carPrice = num.tryParse(widget.car.price?.toString().replaceAll(',', '') ?? '150000') ?? 150000;
+    _carPrice =
+        num.tryParse(widget.car.price?.toString().replaceAll(',', '') ?? '150000') ?? 150000;
   }
 
   @override

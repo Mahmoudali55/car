@@ -8,7 +8,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class BnplPaymentScreen extends StatefulWidget {
   final String checkoutUrl;
   final String providerName;
-
   const BnplPaymentScreen({super.key, required this.checkoutUrl, required this.providerName});
 
   @override
@@ -51,7 +50,7 @@ class _BnplPaymentScreenState extends State<BnplPaymentScreen> {
               useShouldOverrideUrlLoading: true,
               mediaPlaybackRequiresUserGesture: false,
               allowsInlineMediaPlayback: true,
-              iframeAllow: "camera; microphone",
+              iframeAllow: "camera microphone",
               iframeAllowFullscreen: true,
             ),
             onWebViewCreated: (controller) {

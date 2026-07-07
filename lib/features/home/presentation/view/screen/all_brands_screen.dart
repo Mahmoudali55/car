@@ -15,11 +15,9 @@ import 'package:gap/gap.dart';
 
 class AllBrandsScreen extends StatelessWidget {
   const AllBrandsScreen({super.key});
-
   @override
   Widget build(BuildContext context) {
     final bool isTablet = context.isTablet || context.isDesktop;
-
     return Scaffold(
       appBar: CustomAppBar(
         context,
@@ -53,7 +51,6 @@ class AllBrandsScreen extends StatelessWidget {
                                 b.groupName.toLowerCase().contains(state.searchQuery.toLowerCase()),
                           )
                           .toList();
-
                       if (brands.isEmpty) {
                         return bulidCarModelEmpty(context);
                       }

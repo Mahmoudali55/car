@@ -59,7 +59,7 @@ class PremiumCarCardWidget extends StatelessWidget {
                           width: double.infinity,
                         ),
                 ),
-                // Badges
+
                 Positioned(
                   top: 10.h,
                   left: -5.w,
@@ -143,7 +143,6 @@ class PremiumCarCardWidget extends StatelessWidget {
                     child: IntrinsicHeight(
                       child: Row(
                         children: [
-                          // Cash Price (Right)
                           Expanded(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -224,7 +223,7 @@ class PremiumCarCardWidget extends StatelessWidget {
                         Icons.local_gas_station_rounded,
                         AppLocaleKey.petrol.tr(),
                       ),
-                      Spacer(),
+                      const Spacer(),
                       _buildCompareButton(context),
                     ],
                   ),

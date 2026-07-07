@@ -21,7 +21,7 @@ class PaymentAppBarWidget extends StatelessWidget implements PreferredSizeWidget
         icon: Icon(Icons.arrow_back_ios_new_rounded, color: AppColor.blackTextColor(context)),
         onPressed: () => Navigator.pop(context),
         style: IconButton.styleFrom(
-          backgroundColor: AppColor.blackTextColor(context).withOpacity(0.05),
+          backgroundColor: AppColor.blackTextColor(context).withValues(alpha: 0.05),
         ),
       ),
       title: Text(

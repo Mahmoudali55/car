@@ -17,7 +17,6 @@ class SelectionBodyWidget extends StatefulWidget {
 
 class _SelectionBodyWidgetState extends State<SelectionBodyWidget> {
   String? _selectedMethod;
-  bool get _isFinancingFlow => _selectedMethod == 'tamara' || _selectedMethod == 'bank';
   @override
   Widget build(BuildContext context) {
     return Column(

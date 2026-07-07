@@ -6,7 +6,6 @@ class AdsDotIndicator extends StatelessWidget {
   final int currentIndex;
   final Color activeColor;
   final ValueChanged<int> onDotTapped;
-
   const AdsDotIndicator({
     super.key,
     required this.count,
@@ -14,7 +13,6 @@ class AdsDotIndicator extends StatelessWidget {
     required this.activeColor,
     required this.onDotTapped,
   });
-
   @override
   Widget build(BuildContext context) {
     return Row(

@@ -29,10 +29,8 @@ class _PopularCarsScreenState extends State<PopularCarsScreen> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final state = context.read<HomeCubit>().state;
       if (state.selectedBrandId != null) {
-        // If a brand is selected, only fetch that brand's cars
         context.read<HomeCubit>().getBrandCars(state.selectedBrandId.toString());
       } else if (state.brands.isEmpty) {
-        // Only fetch all models if brands are empty and no specific brand is selected
         context.read<HomeCubit>().getCarsModels();
       }
     });
@@ -42,7 +40,6 @@ class _PopularCarsScreenState extends State<PopularCarsScreen> {
     if (state.selectedBrandId == null) {
       return Map<String, List<GetBrandCarsDataModel>>.from(state.allPopularCarsStatus.data ?? {});
     }
-
     final brands = state.brands;
     CarModel? selectedBrand;
     for (final b in brands) {
@@ -70,9 +67,7 @@ class _PopularCarsScreenState extends State<PopularCarsScreen> {
   Map<String, dynamic> _carToMap(GetBrandCarsDataModel car, String? selectedBrandName) {
     String imageUrl(String path) =>
         "${Constants.baseImage}${path.replaceAll("../../Img/Emp/", "")}";
-
     final brand = selectedBrandName ?? car.groupName;
-
     return {
       'name': car.itemName,
       'groupCode': car.groupCode.toString(),

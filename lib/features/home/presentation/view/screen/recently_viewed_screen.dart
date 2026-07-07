@@ -12,7 +12,6 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 class RecentlyViewedScreen extends StatefulWidget {
   const RecentlyViewedScreen({super.key});
-
   @override
   State<RecentlyViewedScreen> createState() => _RecentlyViewedScreenState();
 }

@@ -26,7 +26,7 @@ class PaymentPayButtonWidget extends StatelessWidget {
         onPressed: isLoading ? null : onPressed,
         style: ElevatedButton.styleFrom(
           backgroundColor: AppColor.primaryColor(context),
-          disabledBackgroundColor: AppColor.primaryColor(context).withOpacity(0.5),
+          disabledBackgroundColor: AppColor.primaryColor(context).withValues(alpha: 0.5),
           padding: EdgeInsets.symmetric(vertical: 18.h),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.r)),
           elevation: 0,

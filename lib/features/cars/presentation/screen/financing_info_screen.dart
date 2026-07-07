@@ -124,7 +124,6 @@ class _FinancingInfoScreenState extends State<FinancingInfoScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Compact pricing card
               Container(
                 decoration: BoxDecoration(
                   color: AppColor.cardColor(context),

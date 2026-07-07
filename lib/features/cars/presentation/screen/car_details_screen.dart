@@ -115,7 +115,6 @@ class _CarDetailsScreenState extends State<CarDetailsScreen> {
                               if (widget.car.isTamaraAvailable) ...[
                                 Gap(16.h),
                                 BnplWidget(car: widget.car),
-                                // Gap(16.h),
                                 CashPackagesWidget(car: widget.car),
                               ],
                               Gap(16.h),
@@ -123,7 +122,6 @@ class _CarDetailsScreenState extends State<CarDetailsScreen> {
                               _buildOverview(context),
                               Gap(16.h),
                               FeaturesGridWidget(car: widget.car),
-
                               Gap(20.h),
                               // VideoReviewWidget(
                               //   car: widget.car,

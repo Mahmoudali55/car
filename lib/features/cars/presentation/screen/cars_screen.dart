@@ -1,7 +1,6 @@
 import 'package:car/core/custom_widgets/custom_loading/custom_loading.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
-import 'package:car/features/cars/data/model/brand_model.dart';
 import 'package:car/features/cars/presentation/screen/widget/car_search_header_widget.dart';
 import 'package:car/features/cars/presentation/screen/widget/cars_list_widget.dart';
 import 'package:car/features/cars/presentation/screen/widget/section_header_widget.dart';
@@ -20,7 +19,6 @@ class CarsScreen extends StatefulWidget {
 }
 
 class _CarsScreenState extends State<CarsScreen> {
-  BrandModel? _selectedBrand;
   final TextEditingController _searchController = TextEditingController();
   String _searchQuery = '';
 
