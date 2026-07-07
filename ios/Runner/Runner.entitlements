@@ -4,5 +4,10 @@
 <dict>
 	<key>aps-environment</key>
 	<string>development</string>
+	<key>com.apple.developer.in-app-payments</key>
+	<array>
+		<!-- Must match the Merchant ID registered in Apple Developer Portal -->
+		<string>merchant.moyasar.test</string>
+	</array>
 </dict>
 </plist>

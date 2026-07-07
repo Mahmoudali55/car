@@ -9,6 +9,8 @@ import 'package:car/features/home/data/model/brand_cars_data_model.dart';
 import 'package:car/features/home/data/model/cancel_reserved_car_model.dart';
 import 'package:car/features/home/data/model/cancel_reserved_car_response_model.dart';
 import 'package:car/features/home/data/model/cars_models_response.dart';
+import 'package:car/features/home/data/model/send_otp_model.dart';
+import 'package:car/features/home/data/model/send_otp_response_model.dart';
 import 'package:car/features/home/data/repository/home_repo.dart';
 import 'package:equatable/equatable.dart';
 
@@ -194,6 +196,19 @@ class HomeCubit extends Cubit<HomeState> {
       },
       (response) {
         emit(state.copyWith(cancelReservedCarResponseModel: StatusState.success(response)));
+      },
+    );
+  }
+
+  Future<void> sendOtp(SendOtpModel model) async {
+    emit(state.copyWith(sendOtpStatus: const StatusState.loading()));
+    final result = await homeRepo.sendOtp(model);
+    result.fold(
+      (failure) {
+        emit(state.copyWith(sendOtpStatus: StatusState.failure(failure.errMessage)));
+      },
+      (response) {
+        emit(state.copyWith(sendOtpStatus: StatusState.success(response)));
       },
     );
   }

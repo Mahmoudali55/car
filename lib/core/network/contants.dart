@@ -3,7 +3,34 @@ class Constants {
   static const String baseImage = 'https://delta-asg.com:54510/MyVirtualDir/';
 
   // Moyasar payment gateway (test environment)
+  // Test keys start with pk_test_ — safe to use on real devices
   static const String moyasarPublishableKey = 'pk_test_jdvdiyDA6PuwzC9dkKsKpuJt8yGmLDWa7KcnJzJt';
-  static const String applePayMerchantId =
-      'merchant.moyasar.test'; // Replace with your actual merchant ID
+
+  // Apple Pay Merchant ID — must match:
+  // 1. Apple Developer Portal → Identifiers → Merchant IDs
+  // 2. Xcode → Signing & Capabilities → Apple Pay → Merchant IDs
+  // 3. Runner.entitlements → com.apple.developer.in-app-payments
+  static const String applePayMerchantId = 'merchant.moyasar.test';
+
+  // ─── Moyasar Test Cards (sandbox only) ───────────────────────────────────
+  // Use pk_test_ key above. Any future expiry date, any 3-digit CVV.
+  //
+  // VISA:
+  //   4111 1111 1111 1111  → Success
+  //   4000 0000 0000 0002  → Requires 3DS
+  //
+  // Mastercard:
+  //   5555 5555 5555 4444  → Success
+  //
+  // Mada:
+  //   4201 3201 1111 1010  → Success
+  //   4201 3200 0001 3020  → Failed (unspecified)
+  //   4201 3200 0031 1101  → Failed (insufficient funds)
+  //
+  // Apple Pay (physical iPhone only — no simulator):
+  //   Add a REAL card to Wallet, then use these AMOUNTS to trigger results:
+  //   200–300 SAR   (20000–30000 halalas)  → Paid / Approved
+  //   1000–1100 SAR (100000–110000 halalas)→ Failed (unspecified)
+  //   1101–1200 SAR → Insufficient funds
+  // ─────────────────────────────────────────────────────────────────────────
 }

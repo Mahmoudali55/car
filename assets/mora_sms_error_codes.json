@@ -1,0 +1,50 @@
+{
+  "100": {
+    "en": "Numbers received successfully",
+    "ar": "تم استلام الأرقام بنجاح"
+  },
+  "105": {
+    "en": "Insufficient balance",
+    "ar": "رصيد غير كافٍ"
+  },
+  "106": {
+    "en": "Sender name not available",
+    "ar": "اسم المرسل غير متاح"
+  },
+  "107": {
+    "en": "Sender name is blocked",
+    "ar": "اسم المرسل محظور"
+  },
+  "108": {
+    "en": "No valid numbers for sending",
+    "ar": "لا توجد أرقام صالحة للإرسال"
+  },
+  "112": {
+    "en": "Message contains prohibited words",
+    "ar": "الرسالة تحتوي على كلمات ممنوعة"
+  },
+  "114": {
+    "en": "Account is suspended",
+    "ar": "الحساب موقوف"
+  },
+  "115": {
+    "en": "Mobile number not activated",
+    "ar": "رقم الجوال غير مفعل"
+  },
+  "116": {
+    "en": "Email not activated",
+    "ar": "البريد الإلكتروني غير مفعل"
+  },
+  "117": {
+    "en": "Empty message cannot be sent",
+    "ar": "لا يمكن إرسال رسالة فارغة"
+  },
+  "118": {
+    "en": "Sender name is empty",
+    "ar": "اسم المرسل فارغ"
+  },
+  "119": {
+    "en": "No recipient number provided",
+    "ar": "لم يتم توفير رقم المستلم"
+  }
+}

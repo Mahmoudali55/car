@@ -11,7 +11,16 @@ class CustomOtpField extends StatefulWidget {
   final int length;
   final TextEditingController? controller;
   final void Function(String)? onCompleted;
-  const CustomOtpField({super.key, this.length = 4, this.controller, this.onCompleted});
+  final void Function(String)? onChanged;
+  final bool hasError;
+  const CustomOtpField({
+    super.key,
+    this.length = 4,
+    this.controller,
+    this.onCompleted,
+    this.onChanged,
+    this.hasError = false,
+  });
 
   @override
   State<CustomOtpField> createState() => _CustomOtpFieldState();
@@ -24,6 +33,8 @@ class _CustomOtpFieldState extends State<CustomOtpField> {
       child: Directionality(
         textDirection: ui.TextDirection.ltr,
         child: Pinput(
+          length: widget.length,
+          forceErrorState: widget.hasError,
           controller: widget.controller,
           defaultPinTheme: PinTheme(
             height: 56,
@@ -66,6 +77,9 @@ class _CustomOtpFieldState extends State<CustomOtpField> {
             ),
           ),
           errorBuilder: (errorText, pin) {
+            if (errorText == null || errorText.isEmpty) {
+              return const SizedBox.shrink();
+            }
             return Align(
               alignment: context.getByLang(
                 ar: AlignmentDirectional.centerEnd,
@@ -74,7 +88,7 @@ class _CustomOtpFieldState extends State<CustomOtpField> {
               child: Padding(
                 padding: const EdgeInsets.all(5),
                 child: Text(
-                  errorText!,
+                  errorText,
                   style: TextStyle(
                     fontSize: 12,
                     color: Colors.red.shade700,
@@ -96,6 +110,7 @@ class _CustomOtpFieldState extends State<CustomOtpField> {
           onTapOutside: (event) {
             FocusManager.instance.primaryFocus?.unfocus();
           },
+          onChanged: widget.onChanged,
           onCompleted: widget.onCompleted,
         ),
       ),

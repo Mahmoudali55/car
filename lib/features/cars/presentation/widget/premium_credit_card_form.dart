@@ -127,6 +127,13 @@ class _PremiumCreditCardFormState extends State<PremiumCreditCardForm> {
       result = await Moyasar.pay(
         apiKey: widget.config.publishableApiKey,
         paymentRequest: paymentRequest,
+      ).timeout(
+        const Duration(seconds: 60),
+        onTimeout: () => throw Exception(
+          widget.isArabic
+              ? 'انتهت مهلة الاتصال. تحقق من الإنترنت وأعد المحاولة.'
+              : 'Connection timed out. Please check your internet and try again.',
+        ),
       );
     } catch (e) {
       if (mounted) {

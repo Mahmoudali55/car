@@ -21,6 +21,7 @@ import 'package:car/features/cars/presentation/widget/reservation_sticky_footer.
 import 'package:car/features/cart/presentation/view/cubit/cart_cubit.dart';
 import 'package:car/features/home/data/model/add_booking_permission_model.dart';
 import 'package:car/features/home/data/model/brand_cars_data_model.dart';
+import 'package:car/features/home/data/model/send_otp_model.dart';
 import 'package:car/features/home/presentation/cubit/home_cubit.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -55,6 +56,9 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
   double _totalPrice = 0.0;
   final double _depositAmount = 500.0;
   late Map<String, dynamic> _errorCodes;
+  late Map<String, dynamic> _moraErrorCodes;
+  String? _expectedOtp;
+  bool _isOtpSheetOpen = false;
   @override
   void initState() {
     super.initState();
@@ -64,7 +68,11 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
 
   Future<void> _loadErrorCodes() async {
     final String data = await rootBundle.loadString('assets/payment_error_codes.json');
-    setState(() => _errorCodes = jsonDecode(data));
+    final String moraData = await rootBundle.loadString('assets/mora_sms_error_codes.json');
+    setState(() {
+      _errorCodes = jsonDecode(data);
+      _moraErrorCodes = jsonDecode(moraData);
+    });
   }
 
   double _parsePrice(dynamic price, {bool withTax = false}) {
@@ -114,7 +122,7 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
         setState(() => _currentStep = ReservationScreenStep.informationEntry);
       } else {
         if (!_infoFormKey.currentState!.validate()) return;
-        _showOtpSheet();
+        context.read<HomeCubit>().sendOtp(SendOtpModel(mobileNumber: _cashPhoneController.text));
       }
     }
   }
@@ -133,7 +141,12 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
   void _showPricingDetails() {
     showModalBottomSheet(
       context: context,
-      isScrollControlled: true,
+      isScrollControlled: false,
+      isDismissible: false,
+      enableDrag: false,
+      useRootNavigator: false,
+      useSafeArea: false,
+      barrierColor: Colors.transparent,
       backgroundColor: Colors.transparent,
       builder: (ctx) => DraggableScrollableSheet(
         expand: false,
@@ -149,6 +162,8 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
   }
 
   void _showOtpSheet() {
+    if (_isOtpSheetOpen) return;
+    _isOtpSheetOpen = true;
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -157,13 +172,17 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
         padding: EdgeInsets.only(bottom: MediaQuery.of(ctx).viewInsets.bottom),
         child: OtpBottomSheet(
           phoneNumber: _cashPhoneController.text,
+          homeCubit: context.read<HomeCubit>(),
+          expectedOtp: _expectedOtp,
           onVerified: () {
             Navigator.pop(ctx);
             setState(() => _currentStep = ReservationScreenStep.payment);
           },
         ),
       ),
-    );
+    ).then((_) {
+      _isOtpSheetOpen = false;
+    });
   }
 
   void _handlePaymentResult(dynamic result, {required bool isApplePay}) {
@@ -198,6 +217,17 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
     return isArabic ? 'فشل الدفع، يرجى المحاولة مجدداً' : 'Payment failed, please try again';
   }
 
+  void _showMoraToast(String code, bool isArabic) {
+    final lang = isArabic ? 'ar' : 'en';
+    if (_moraErrorCodes.containsKey(code)) {
+      final msg = _moraErrorCodes[code][lang];
+      CommonMethods.showToast(
+        message: msg,
+        type: code == "100" ? ToastType.success : ToastType.error,
+      );
+    }
+  }
+
   void _submitPayment({String? paymentId}) {
     if (mounted) setState(() => _isLoading = true);
     final todayStr = DateFormat('yyyy-MM-dd', 'en').format(DateTime.now());
@@ -214,7 +244,6 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
       lDate: futureStr,
       lpoDate: todayStr,
       storeCode: storeCodeVal,
-
       taamedNo: '',
       payCond: '',
       guarFinal: 0,
@@ -245,36 +274,76 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
   Widget build(BuildContext context) {
     final isArabic = context.locale.languageCode == 'ar';
     final isMethodSelection = _currentStep == ReservationScreenStep.methodSelection;
-    return BlocListener<HomeCubit, HomeState>(
-      listener: (context, state) {
-        final status = state.addBookingPermissionResponseModel;
-        if (status.isSuccess) {
-          setState(() => _isLoading = false);
-          context.read<CartCubit>().rememberReservationStart(
-            admin.CarModel(
-              itemCode: widget.car.itemCode,
-              itemName: widget.car.itemName,
-              storeCode: widget.car.storeCode.toString(),
-              costPrice: widget.car.price is num ? (widget.car.price as num).toDouble() : null,
-            ),
-            reservedAt: DateTime.now(),
-          );
-          NotificationService.showReservationCreatedNotification(carName: widget.car.itemName);
-          CommonMethods.showToast(
-            message: isArabic ? 'تم الحجز بنجاح' : 'Reservation completed successfully',
-            type: ToastType.success,
-          );
-          _navigateToSuccess();
-        } else if (status.isFailure) {
-          setState(() => _isLoading = false);
-          CommonMethods.showToast(
-            message: isArabic
-                ? 'فشل الحجز، يرجى المحاولة مجدداً'
-                : 'Reservation failed, please try again',
-            type: ToastType.error,
-          );
-        }
-      },
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<HomeCubit, HomeState>(
+          listenWhen: (previous, current) =>
+              previous.addBookingPermissionResponseModel !=
+              current.addBookingPermissionResponseModel,
+          listener: (context, state) {
+            final status = state.addBookingPermissionResponseModel;
+            if (status.isSuccess) {
+              setState(() => _isLoading = false);
+              context.read<CartCubit>().rememberReservationStart(
+                admin.CarModel(
+                  itemCode: widget.car.itemCode,
+                  itemName: widget.car.itemName,
+                  storeCode: widget.car.storeCode.toString(),
+                  costPrice: widget.car.price is num ? (widget.car.price as num).toDouble() : null,
+                ),
+                reservedAt: DateTime.now(),
+              );
+              NotificationService.showReservationCreatedNotification(carName: widget.car.itemName);
+              CommonMethods.showToast(
+                message: isArabic ? 'تم الحجز بنجاح' : 'Reservation completed successfully',
+                type: ToastType.success,
+              );
+              _navigateToSuccess();
+            } else if (status.isFailure) {
+              setState(() => _isLoading = false);
+              CommonMethods.showToast(
+                message: isArabic
+                    ? 'فشل الحجز، يرجى المحاولة مجدداً'
+                    : 'Reservation failed, please try again',
+                type: ToastType.error,
+              );
+            }
+          },
+        ),
+        BlocListener<HomeCubit, HomeState>(
+          listenWhen: (previous, current) => previous.sendOtpStatus != current.sendOtpStatus,
+          listener: (context, state) {
+            final status = state.sendOtpStatus;
+            if (status.isLoading) {
+              setState(() => _isLoading = true);
+            } else {
+              setState(() => _isLoading = false);
+              if (status.isSuccess && status.data != null) {
+                _expectedOtp = status.data!.message;
+                final moraResponse = status.data!.moraResponse;
+                if (moraResponse != null) {
+                  final code = moraResponse.data.code.toString();
+                  _showMoraToast(code, isArabic);
+                  if (code == "100") {
+                    _showOtpSheet();
+                  }
+                } else {
+                  if (status.data!.success) {
+                    _showOtpSheet();
+                  } else {
+                    CommonMethods.showToast(message: status.data!.message, type: ToastType.error);
+                  }
+                }
+              } else if (status.isFailure) {
+                CommonMethods.showToast(
+                  message: status.message ?? (isArabic ? 'حدث خطأ' : 'An error occurred'),
+                  type: ToastType.error,
+                );
+              }
+            }
+          },
+        ),
+      ],
       child: Scaffold(
         backgroundColor: AppColor.scaffoldColor(context),
         appBar: AppBar(

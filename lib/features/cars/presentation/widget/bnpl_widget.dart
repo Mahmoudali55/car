@@ -221,7 +221,7 @@ class _BnplWidgetState extends State<BnplWidget> {
                             width: 12.w,
                             height: 12.h,
                             colorFilter: ColorFilter.mode(
-                              AppColor.whiteColor(context),
+                              AppColor.blackTextColor(context),
                               BlendMode.srcIn,
                             ),
                           ),

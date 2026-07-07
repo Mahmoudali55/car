@@ -1,4 +1,6 @@
 import 'package:car/core/error/failures.dart';
+import 'package:car/features/home/data/model/send_otp_model.dart';
+import 'package:car/features/home/data/model/send_otp_response_model.dart';
 import 'package:car/core/network/api_consumer.dart';
 import 'package:car/core/network/end_points.dart';
 import 'package:car/features/home/data/model/add_booking_permission_model.dart';
@@ -28,6 +30,7 @@ abstract interface class HomeRepo {
   Future<Either<Failure, CancelReservedCarResponseModel>> cancelreservedcar(
     CancelReservedCarModel model,
   );
+  Future<Either<Failure, SendOtpResponseModel>> sendOtp(SendOtpModel model);
 }
 
 class HomeRepoImpl implements HomeRepo {
@@ -121,6 +124,16 @@ class HomeRepoImpl implements HomeRepo {
       request: () async {
         final response = await apiConsumer.post(EndPoints.cancelreservedcar, body: model.toJson());
         return CancelReservedCarResponseModel.fromJson(response);
+      },
+    );
+  }
+
+  @override
+  Future<Either<Failure, SendOtpResponseModel>> sendOtp(SendOtpModel model) async {
+    return handleDioRequest(
+      request: () async {
+        final response = await apiConsumer.post(EndPoints.sendotp, body: model.toJson());
+        return SendOtpResponseModel.fromJson(response);
       },
     );
   }
