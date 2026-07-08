@@ -14,7 +14,7 @@ void main() async {
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
-  // Initialize services
+
   await ServiceInitialize.initialize();
   final String lang = HiveMethods.getLang();
   //
