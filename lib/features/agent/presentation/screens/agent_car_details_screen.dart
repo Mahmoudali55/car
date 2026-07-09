@@ -494,8 +494,6 @@ class _AgentCarDetailsScreenState extends State<AgentCarDetailsScreen> {
           chassisNo: chassisNo,
           price: widget.car.price,
           advancedAmount: depositAmount,
-          lpoNo: '',
-          lpoType: 3,
           storeCode: storeCodeVal,
           transDate: todayStr,
           userName: HiveMethods.getUserName() ?? '',

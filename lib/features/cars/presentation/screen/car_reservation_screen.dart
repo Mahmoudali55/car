@@ -221,8 +221,8 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
 
         final translated = _translateRawMessage(rawMsg ?? '');
         final displayMsg = isArabic
-            ? '$translated\nالحالة: $statusName | الرسالة: ${rawMsg ?? "—"}'
-            : '$translated\nStatus: $statusName | Msg: ${rawMsg ?? "—"}';
+            ? ' $statusName ${rawMsg ?? "—"}'
+            : '$statusName | Msg: ${rawMsg ?? "—"}';
         CommonMethods.showToast(message: displayMsg, type: ToastType.error);
       }
     }
@@ -287,8 +287,6 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
           chassisNo: widget.car.chassisNo,
           price: _totalPrice,
           advancedAmount: _depositAmount,
-          lpoNo: '',
-          lpoType: 3,
           storeCode: storeCodeVal,
           transDate: todayStr,
 

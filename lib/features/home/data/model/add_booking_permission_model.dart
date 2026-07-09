@@ -145,8 +145,7 @@ class SubLpoModel extends Equatable {
   final String chassisNo;
   final double price;
   final double advancedAmount;
-  final String lpoNo;
-  final int lpoType;
+
   final int storeCode;
   final String transDate;
 
@@ -157,8 +156,7 @@ class SubLpoModel extends Equatable {
     required this.chassisNo,
     required this.price,
     required this.advancedAmount,
-    required this.lpoNo,
-    required this.lpoType,
+
     required this.storeCode,
     required this.transDate,
 
@@ -172,8 +170,7 @@ class SubLpoModel extends Equatable {
       chassisNo: json['CHASSIS_NO'] ?? '',
       price: (json['PRICE'] ?? 0).toDouble(),
       advancedAmount: (json['ADVANCED_AMOUNT'] ?? 0).toDouble(),
-      lpoNo: json['LPO_NO'] ?? '',
-      lpoType: json['LPO_TYPE'] ?? 0,
+
       storeCode: json['STORE_CODE'] ?? 0,
       transDate: json['TRANSDATE'] ?? '',
 
@@ -188,8 +185,6 @@ class SubLpoModel extends Equatable {
       "CHASSIS_NO": chassisNo,
       "PRICE": price,
       "ADVANCED_AMOUNT": advancedAmount,
-      "LPO_NO": lpoNo,
-      "LPO_TYPE": lpoType,
       "STORE_CODE": storeCode,
       "TRANSDATE": transDate,
       "username": userName,
@@ -216,8 +211,7 @@ class SubLpoModel extends Equatable {
       chassisNo: chassisNo ?? this.chassisNo,
       price: price ?? this.price,
       advancedAmount: advancedAmount ?? this.advancedAmount,
-      lpoNo: lpoNo ?? this.lpoNo,
-      lpoType: lpoType ?? this.lpoType,
+
       storeCode: storeCode ?? this.storeCode,
       transDate: transDate ?? this.transDate,
 
@@ -232,8 +226,7 @@ class SubLpoModel extends Equatable {
     chassisNo,
     price,
     advancedAmount,
-    lpoNo,
-    lpoType,
+
     storeCode,
     transDate,
     userName,
