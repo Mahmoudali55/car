@@ -187,19 +187,39 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
 
   void _handlePaymentResult(dynamic result, {required bool isApplePay}) {
     if (result is PaymentResponse) {
-      if (result.status == PaymentStatus.paid) {
+      if (result.status == PaymentStatus.paid ||
+          result.status == PaymentStatus.captured ||
+          result.status == PaymentStatus.authorized) {
+        // final isArabic = context.locale.languageCode == 'ar';
+        // String? rawMsg;
+        // if (isApplePay && result.source is ApplePayPaymentResponseSource) {
+        //   rawMsg = (result.source as ApplePayPaymentResponseSource).message;
+        // } else if (!isApplePay && result.source is CardPaymentResponseSource) {
+        //   rawMsg = (result.source as CardPaymentResponseSource).message;
+        // }
+        // final statusName = result.status.name;
+
+        // final translated = _translateRawMessage(rawMsg ?? '');
+        // final displayMsg = isArabic
+        //     ? '$translated\nالحالة: $statusName | الرسالة: ${rawMsg ?? "—"}| رقم الطلب: ${result.id}'
+        //     : '$translated\nStatus: $statusName | Msg: ${rawMsg ?? "—"}';
+        // CommonMethods.showToast(message: displayMsg, type: ToastType.success, seconds: 5);
         _submitPayment(paymentId: result.id);
       } else {
-        String? fallback;
+        final isArabic = context.locale.languageCode == 'ar';
+        String? rawMsg;
         if (isApplePay && result.source is ApplePayPaymentResponseSource) {
-          fallback = (result.source as ApplePayPaymentResponseSource).message;
+          rawMsg = (result.source as ApplePayPaymentResponseSource).message;
         } else if (!isApplePay && result.source is CardPaymentResponseSource) {
-          fallback = (result.source as CardPaymentResponseSource).message;
+          rawMsg = (result.source as CardPaymentResponseSource).message;
         }
-        CommonMethods.showToast(
-          message: _translateRawMessage(fallback ?? 'Payment failed, please try again'),
-          type: ToastType.error,
-        );
+        final statusName = result.status.name;
+
+        final translated = _translateRawMessage(rawMsg ?? '');
+        final displayMsg = isArabic
+            ? '$translated\nالحالة: $statusName | الرسالة: ${rawMsg ?? "—"}'
+            : '$translated\nStatus: $statusName | Msg: ${rawMsg ?? "—"}';
+        CommonMethods.showToast(message: displayMsg, type: ToastType.error);
       }
     }
   }
@@ -211,10 +231,12 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
     for (final entry in _errorCodes.entries) {
       final enText = (entry.value['en'] as String).toLowerCase();
       if (msg.contains(enText) || enText.contains(msg)) {
-        return entry.value[lang];
+        final code = entry.key;
+        final translation = entry.value[lang];
+        return isArabic ? '$translation (رمز: $code)' : '$translation (Code: $code)';
       }
     }
-    return isArabic ? 'فشل الدفع، يرجى المحاولة مجدداً' : 'Payment failed, please try again';
+    return isArabic ? 'فشل الدفع $message ' : 'Payment failed';
   }
 
   void _showMoraToast(String code, bool isArabic) {
@@ -231,7 +253,10 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
   void _submitPayment({String? paymentId}) {
     if (mounted) setState(() => _isLoading = true);
     final todayStr = DateFormat('yyyy-MM-dd', 'en').format(DateTime.now());
-    final futureStr = DateFormat('yyyy-MM-dd').format(DateTime.now().add(const Duration(days: 1)));
+    final futureStr = DateFormat(
+      'yyyy-MM-dd',
+      'en',
+    ).format(DateTime.now().add(const Duration(days: 1)));
     final storeCodeVal = int.tryParse(widget.car.storeCode) ?? 1;
     final model = AddBookingPermissionModel(
       lpoNos: '',
@@ -295,18 +320,20 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
               );
               NotificationService.showReservationCreatedNotification(carName: widget.car.itemName);
               CommonMethods.showToast(
-                message: isArabic ? 'تم الحجز بنجاح' : 'Reservation completed successfully',
+                message: isArabic
+                    ? status.message ?? 'تم الحجز بنجاح، سيتم التواصل معك قريبا'
+                    : 'Reservation successful, you will be contacted soon',
                 type: ToastType.success,
               );
               _navigateToSuccess();
             } else if (status.isFailure) {
               setState(() => _isLoading = false);
-              CommonMethods.showToast(
-                message: isArabic
-                    ? 'فشل الحجز، يرجى المحاولة مجدداً'
-                    : 'Reservation failed, please try again',
-                type: ToastType.error,
-              );
+              final serverMsg = status.message;
+              final errorCode = status.data?.msg;
+              final displayMessage = isArabic
+                  ? 'فشل الحجز: ${serverMsg ?? "يرجى المحاولة مرة أخرى"}'
+                  : 'Reservation failed: ${serverMsg ?? ""} ${errorCode ?? "please try again"}';
+              CommonMethods.showToast(message: displayMessage, type: ToastType.error);
             }
           },
         ),
@@ -331,7 +358,10 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
                   if (status.data!.success) {
                     _showOtpSheet();
                   } else {
-                    CommonMethods.showToast(message: status.data!.message, type: ToastType.error);
+                    CommonMethods.showToast(
+                      message: '${status.data!.message ?? ''}',
+                      type: ToastType.error,
+                    );
                   }
                 }
               } else if (status.isFailure) {

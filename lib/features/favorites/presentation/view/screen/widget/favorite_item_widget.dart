@@ -22,8 +22,8 @@ class FavoriteItemWidget extends StatelessWidget {
     if (priceRaw.isEmpty || priceRaw == '0') return '0';
 
     // تنظيف السعر من الرموز غير الرقمية
-    final cleanPrice = priceRaw.replaceAll(RegExp(r'[^0-9.]'), '');
-    final double originalPrice = double.tryParse(cleanPrice) ?? 0.0;
+
+    final double originalPrice = double.tryParse(priceRaw) ?? 0.0;
 
     if (originalPrice <= 0) return '0';
 
@@ -39,7 +39,7 @@ class FavoriteItemWidget extends StatelessWidget {
     }
 
     // حساب السعر شامل الضريبة
-    final double priceWithVat = originalPrice * (1 + (vatPercentage / 100));
+    final double priceWithVat = originalPrice * ((vatPercentage / 100)) + originalPrice;
 
     // تنسيق السعر
     final formatter = NumberFormat('#,##0', 'en_US');

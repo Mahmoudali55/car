@@ -1,14 +1,14 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
+import 'package:car/core/theme/app_text_style.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:gap/gap.dart' show Gap;
+import 'package:gap/gap.dart';
 
 class DirectLiaisonWidget extends StatelessWidget {
   const DirectLiaisonWidget({super.key});
-
   @override
   Widget build(BuildContext context) {
     return FadeInUp(
@@ -41,7 +41,7 @@ class DirectLiaisonWidget extends StatelessWidget {
                 children: [
                   Text(
                     AppLocaleKey.priorityLiaison.tr(),
-                    style: TextStyle(
+                    style: AppTextStyle.bodyMedium(context).copyWith(
                       color: AppColor.blackTextColor(context),
                       fontSize: 14.sp,
                       fontWeight: FontWeight.bold,
@@ -49,9 +49,9 @@ class DirectLiaisonWidget extends StatelessWidget {
                   ),
                   Text(
                     "Administrative tickets are handled with high priority.",
-                    style: TextStyle(
+                    style: AppTextStyle.bodySmall(
+                      context,
                       color: AppColor.blackTextColor(context).withValues(alpha: (0.5)),
-                      fontSize: 11.sp,
                     ),
                   ),
                 ],

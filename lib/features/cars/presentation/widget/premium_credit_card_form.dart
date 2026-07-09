@@ -164,6 +164,8 @@ class _PremiumCreditCardFormState extends State<PremiumCreditCardForm> {
             on3dsDone: (String status, String message) async {
               if (status == PaymentStatus.paid.name) {
                 result.status = PaymentStatus.paid;
+              } else if (status == PaymentStatus.captured.name) {
+                result.status = PaymentStatus.captured;
               } else if (status == PaymentStatus.authorized.name) {
                 result.status = PaymentStatus.authorized;
               } else {

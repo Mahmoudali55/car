@@ -144,17 +144,13 @@ class GetBrandCarsDataModel extends Equatable {
 
   String get formattedPriceWithVat {
     if (price == null || price!.isEmpty) return '---';
-
     final vatNumber = HiveMethods.getVatNumber();
-    final cleanPrice = price!.replaceAll(RegExp(r'[^0-9,]'), '');
-    final numericPrice = cleanPrice.replaceAll(',', '');
-    if (numericPrice.isEmpty) return '---';
-
-    final double originalPrice = double.tryParse(numericPrice) ?? 0;
+    final cleanPrice = double.tryParse(price.toString());
+    final double originalPrice = double.tryParse(cleanPrice.toString()) ?? 0;
     final double vatPercentage = double.tryParse(vatNumber.toString()) ?? 0;
-    final double priceWithVat = originalPrice * (1 + (vatPercentage / 100));
+    final double priceWithVat = originalPrice * ((vatPercentage / 100)) + originalPrice;
 
-    final formatter = NumberFormat('#,##0', 'ar_SA');
+    final formatter = NumberFormat('#,###.00', 'ar_SA');
     return formatter.format(priceWithVat);
   }
 
@@ -442,8 +438,14 @@ class GetBrandCarsDataModel extends Equatable {
       discount: json['discount']?.toString(),
       oldPrice: json['oldPrice']?.toString(),
       installments: json['installments']?.toString() ?? json['installmentPrice']?.toString(),
-      customerName: json['CUSTOMER_NAME']?.toString() ?? json['customerName']?.toString() ?? json['CUSTOMERNAME']?.toString(),
-      reservedName: json['REPRES_NAME']?.toString() ?? json['reservedName']?.toString() ?? json['REPRESNAME']?.toString(),
+      customerName:
+          json['CUSTOMER_NAME']?.toString() ??
+          json['customerName']?.toString() ??
+          json['CUSTOMERNAME']?.toString(),
+      reservedName:
+          json['REPRES_NAME']?.toString() ??
+          json['reservedName']?.toString() ??
+          json['REPRESNAME']?.toString(),
     );
   }
 

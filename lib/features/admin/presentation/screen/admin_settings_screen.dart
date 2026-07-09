@@ -33,7 +33,6 @@ class AdminSettingsScreen extends StatelessWidget {
       ),
       body: Stack(
         children: [
-          // Background Glow
           Positioned(
             bottom: -50.h,
             right: -50.w,

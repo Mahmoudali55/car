@@ -33,6 +33,10 @@ class ReservationPaymentBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isArabic = context.locale.languageCode == 'ar';
+    // IMPORTANT: Set callbackUrl so ThreeDSWebView can detect 3DS completion.
+    // The WebView watches for a redirect to this host — must match what Moyasar
+    // sends after 3DS. Keep in sync with the Moyasar dashboard callback setting.
+
     final paymentConfig = PaymentConfig(
       publishableApiKey: Constants.moyasarPublishableKey,
       amount: (depositAmount * 100).toInt(),

@@ -1,3 +1,4 @@
+import 'package:car/core/cache/hive/hive_methods.dart';
 import 'package:car/core/custom_widgets/buttons/custom_button.dart';
 import 'package:car/core/images/app_images.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
@@ -21,6 +22,17 @@ class CardContentSection extends StatelessWidget {
   final Map<String, dynamic> car;
   final VoidCallback onTap;
   final VoidCallback onOrderNow;
+  String get formattedPriceWithVat {
+    if ('${car['price']}' == null || '${car['price']}'!.isEmpty) return '---';
+    final vatNumber = HiveMethods.getVatNumber();
+    final cleanPrice = double.tryParse('${car['price']}'.toString());
+    final double originalPrice = double.tryParse(cleanPrice.toString()) ?? 0;
+    final double vatPercentage = double.tryParse(vatNumber.toString()) ?? 0;
+    final double priceWithVat = originalPrice * ((vatPercentage / 100)) + originalPrice;
+
+    final formatter = NumberFormat('#,###.00', 'ar_SA');
+    return formatter.format(priceWithVat);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +68,7 @@ class CardContentSection extends StatelessWidget {
                 fontFamily: 'Arial',
               ),
               children: [
-                TextSpan(text: '${car['price']} '),
+                TextSpan(text: formattedPriceWithVat),
                 WidgetSpan(
                   alignment: PlaceholderAlignment.middle,
                   child: SvgPicture.asset(

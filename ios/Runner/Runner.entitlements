@@ -7,7 +7,7 @@
 	<key>com.apple.developer.in-app-payments</key>
 	<array>
 		<!-- Must match the Merchant ID registered in Apple Developer Portal -->
-		<string>merchant.moyasar.test</string>
+		<string>merchant.com.YOURCOMPANY.Hajed</string>
 	</array>
 </dict>
 </plist>
