@@ -14,8 +14,10 @@ void main() async {
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
+
   await ServiceInitialize.initialize();
   final String lang = HiveMethods.getLang();
+  //
   runApp(
     EasyLocalization(
       supportedLocales: const [Locale('ar'), Locale('en')],
