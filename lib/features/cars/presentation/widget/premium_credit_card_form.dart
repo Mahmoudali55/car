@@ -481,6 +481,9 @@ class _PremiumCreditCardFormState extends State<PremiumCreditCardForm> {
       case CardNetwork.amex:
         assetName = 'assets/images/amex.png';
         break;
+      case CardNetwork.unionPay:
+        assetName = 'assets/images/unionpay.png';
+        break;
       default:
         return null;
     }
@@ -583,7 +586,9 @@ class _PremiumCreditCardFormState extends State<PremiumCreditCardForm> {
                           ? 'assets/images/mastercard.png'
                           : _detectedNetwork == CardNetwork.mada
                               ? 'assets/images/mada.png'
-                              : 'assets/images/amex.png',
+                              : _detectedNetwork == CardNetwork.amex
+                                  ? 'assets/images/amex.png'
+                                  : 'assets/images/unionpay.png',
                   package: 'moyasar',
                   height: 28.h,
                   errorBuilder: (c, e, s) => const SizedBox.shrink(),

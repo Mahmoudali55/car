@@ -122,6 +122,7 @@ class _OtpBottomSheetState extends State<OtpBottomSheet> {
 
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 32.h),
+        height: 400.h,
         decoration: BoxDecoration(
           color: AppColor.scaffoldColor(context),
           borderRadius: BorderRadius.vertical(top: Radius.circular(32.r)),

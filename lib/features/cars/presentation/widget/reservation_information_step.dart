@@ -96,7 +96,15 @@ class ReservationInformationStep extends StatelessWidget {
                     if (v == null || v.isEmpty) {
                       return AppLocaleKey.validateEmpty.tr();
                     }
-                    if (v.length < 10) {
+                    if (!v.startsWith('05')) {
+                      return context.locale.languageCode == 'ar'
+                          ? 'رقم الجوال يجب أن يبدأ بـ 05'
+                          : 'Phone number must start with 05';
+                    } else if (!RegExp(r'^[0-9]+$').hasMatch(v)) {
+                      return context.locale.languageCode == 'ar'
+                          ? 'رقم الجوال يجب أن يحتوي على أرقام فقط'
+                          : 'Phone number must contain only digits';
+                    } else if (v.length < 10) {
                       return context.locale.languageCode == 'ar'
                           ? 'رقم الجوال يجب أن يكون 10 أرقام'
                           : 'Phone number must be 10 digits';

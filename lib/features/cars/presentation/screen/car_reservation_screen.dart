@@ -168,16 +168,18 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
       context: context,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
-      builder: (ctx) => Padding(
-        padding: EdgeInsets.only(bottom: MediaQuery.of(ctx).viewInsets.bottom),
-        child: OtpBottomSheet(
-          phoneNumber: _cashPhoneController.text,
-          homeCubit: context.read<HomeCubit>(),
-          expectedOtp: _expectedOtp,
-          onVerified: () {
-            Navigator.pop(ctx);
-            setState(() => _currentStep = ReservationScreenStep.payment);
-          },
+      builder: (ctx) => SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.only(bottom: MediaQuery.of(ctx).viewInsets.bottom),
+          child: OtpBottomSheet(
+            phoneNumber: _cashPhoneController.text,
+            homeCubit: context.read<HomeCubit>(),
+            expectedOtp: _expectedOtp,
+            onVerified: () {
+              Navigator.pop(ctx);
+              setState(() => _currentStep = ReservationScreenStep.payment);
+            },
+          ),
         ),
       ),
     ).then((_) {
@@ -212,6 +214,8 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
           rawMsg = (result.source as ApplePayPaymentResponseSource).message;
         } else if (!isApplePay && result.source is CardPaymentResponseSource) {
           rawMsg = (result.source as CardPaymentResponseSource).message;
+        } else if (!isApplePay && result.source is StcResponseSource) {
+          rawMsg = (result.source as StcResponseSource).message;
         }
         final statusName = result.status.name;
 
