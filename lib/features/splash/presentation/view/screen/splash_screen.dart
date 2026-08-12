@@ -40,7 +40,8 @@ class _SplashScreenState extends State<SplashScreen> {
             NavigatorMethods.pushReplacementNamed(context, RoutesName.mainLayout);
           }
         } else {
-          NavigatorMethods.pushReplacementNamed(context, RoutesName.loginScreen);
+          HiveMethods.updateIsGuest(true);
+          NavigatorMethods.pushReplacementNamed(context, RoutesName.mainLayout);
         }
       }
     });

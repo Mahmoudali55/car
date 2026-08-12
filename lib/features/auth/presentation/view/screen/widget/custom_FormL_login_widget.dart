@@ -83,17 +83,17 @@ class CustomFormLoginWidget extends StatelessWidget {
             duration: const Duration(milliseconds: 1000),
             child: CustomFormField(
               controller: cubit.mobileController,
-              hintText: AppLocaleKey.userName.tr(),
+              hintText: AppLocaleKey.phoneNumber.tr(),
               prefixIcon: Icon(Icons.person, color: AppColor.primaryColor(context)),
               fillColor: AppColor.textFormFillColor(context),
               textStyle: TextStyle(color: AppColor.blackTextColor(context)),
               hintStyle: TextStyle(color: AppColor.blackTextColor(context).withValues(alpha: 0.3)),
               radius: 16,
-              keyboardType: TextInputType.name,
+              keyboardType: TextInputType.phone,
 
               validator: (p0) {
                 if (p0 == null || p0.trim().isEmpty) {
-                  return AppLocaleKey.fullNameRequired.tr();
+                  return AppLocaleKey.phoneNumberRequired.tr();
                 }
                 return null;
               },
@@ -188,19 +188,19 @@ class CustomFormLoginWidget extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    TextButton(
-                      onPressed: () {
-                        HiveMethods.updateIsGuest(true);
-                        NavigatorMethods.pushReplacementNamed(context, RoutesName.mainLayout);
-                      },
-                      child: Text(
-                        AppLocaleKey.continueAsGuest.tr(),
-                        style: AppTextStyle.bodyLarge(
-                          context,
-                          color: AppColor.blackTextColor(context),
-                        ),
-                      ),
-                    ),
+                    // TextButton(
+                    //   onPressed: () {
+                    //     HiveMethods.updateIsGuest(true);
+                    //     NavigatorMethods.pushReplacementNamed(context, RoutesName.mainLayout);
+                    //   },
+                    //   child: Text(
+                    //     AppLocaleKey.continueAsGuest.tr(),
+                    //     style: AppTextStyle.bodyLarge(
+                    //       context,
+                    //       color: AppColor.blackTextColor(context),
+                    //     ),
+                    //   ),
+                    // ),
                     Container(
                       width: 1,
                       height: 20.h,
