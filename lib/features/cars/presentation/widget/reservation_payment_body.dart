@@ -15,6 +15,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:moyasar/moyasar.dart';
+import 'package:pay/pay.dart' as pay_pkg;
+import 'dart:convert';
 
 class ReservationPaymentBody extends StatelessWidget {
   final GetBrandCarsDataModel car;
@@ -58,7 +60,6 @@ class ReservationPaymentBody extends StatelessWidget {
         PaymentNetwork.visa,
         PaymentNetwork.masterCard,
         PaymentNetwork.amex,
-        PaymentNetwork.unionPay,
       ],
     );
 
@@ -253,9 +254,9 @@ class _PaymentMethodSelectorState extends State<_PaymentMethodSelector> {
       case _PaymentTab.applePay:
         return KeyedSubtree(
           key: const ValueKey('applePay'),
-          child: ApplePay(
+          child: _DirectApplePayButton(
             config: widget.config,
-            onPaymentResult: (r) => widget.onPaymentResult(r, isApplePay: true),
+            onPaymentResult: widget.onPaymentResult,
           ),
         );
       case _PaymentTab.stcPay:
@@ -755,6 +756,101 @@ class _GuaranteeBanner extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+// ─── Direct Apple Pay Button (bypasses Moyasar availability check) ───────────
+
+class _DirectApplePayButton extends StatefulWidget {
+  final PaymentConfig config;
+  final void Function(dynamic result, {required bool isApplePay}) onPaymentResult;
+
+  const _DirectApplePayButton({
+    required this.config,
+    required this.onPaymentResult,
+  });
+
+  @override
+  State<_DirectApplePayButton> createState() => _DirectApplePayButtonState();
+}
+
+class _DirectApplePayButtonState extends State<_DirectApplePayButton> {
+  bool _isProcessing = false;
+
+  String _buildPaymentConfig() {
+    final networks = widget.config.supportedNetworks.map((e) => e.toJson()).toList();
+    return jsonEncode({
+      'provider': 'apple_pay',
+      'data': {
+        'merchantIdentifier': widget.config.applePay!.merchantId,
+        'displayName': widget.config.applePay!.label,
+        'merchantCapabilities': widget.config.applePay!.merchantCapabilities ?? ['3DS'],
+        'supportedCountries': widget.config.applePay!.supportedCountries ?? ['SA'],
+        'supportedNetworks': networks,
+        'countryCode': 'SA',
+        'currencyCode': 'SAR',
+      }
+    });
+  }
+
+  Future<void> _onApplePayResult(Map<String, dynamic> result) async {
+    if (_isProcessing) return;
+    setState(() => _isProcessing = true);
+
+    try {
+      final token = result['token'];
+      if (token == null || (token as String).isEmpty) {
+        widget.onPaymentResult(UnprocessableTokenError(), isApplePay: true);
+        return;
+      }
+
+      final source = ApplePayPaymentRequestSource(
+        token,
+        widget.config.applePay!.manual,
+        widget.config.applePay!.saveCard,
+      );
+      final paymentRequest = PaymentRequest(widget.config, source);
+      final payResult = await Moyasar.pay(
+        apiKey: widget.config.publishableApiKey,
+        paymentRequest: paymentRequest,
+      );
+
+      widget.onPaymentResult(payResult, isApplePay: true);
+    } catch (e) {
+      widget.onPaymentResult(ApiError(e.toString()), isApplePay: true);
+    } finally {
+      if (mounted) setState(() => _isProcessing = false);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: double.infinity,
+      height: 54.h,
+      child: _isProcessing
+          ? Center(child: CircularProgressIndicator(color: AppColor.primaryColor(context)))
+          : pay_pkg.ApplePayButton(
+              paymentConfiguration: pay_pkg.PaymentConfiguration.fromJsonString(
+                _buildPaymentConfig(),
+              ),
+              paymentItems: [
+                pay_pkg.PaymentItem(
+                  label: widget.config.applePay!.label,
+                  amount: (widget.config.amount / 100).toStringAsFixed(2),
+                  status: pay_pkg.PaymentItemStatus.final_price,
+                ),
+              ],
+              type: pay_pkg.ApplePayButtonType.inStore,
+              style: pay_pkg.ApplePayButtonStyle.black,
+              onPaymentResult: _onApplePayResult,
+              loadingIndicator: Center(
+                child: CircularProgressIndicator(color: AppColor.primaryColor(context)),
+              ),
+              onError: (_) =>
+                  widget.onPaymentResult(PaymentCanceledError(), isApplePay: true),
+            ),
     );
   }
 }

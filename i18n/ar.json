@@ -1456,5 +1456,7 @@
 "vat_inclusive":"الأسعار شاملة القيمة المضافة ",
 "base_car_price_with_vat":"سعر السيارة الأساسي (شامل الضريبة)",
 "extra_package_value_with_vat":"قيمة الباقة الإضافية (شامل الضريبة)",
-"agent_selling_price_with_vat":"السعر شامل الضريبة"
+"agent_selling_price_with_vat":"السعر شامل الضريبة",
+"reservation_number":"رقم الحجز:",
+"ad_number":"رقم الاعلان:"
 }

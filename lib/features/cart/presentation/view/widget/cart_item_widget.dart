@@ -85,6 +85,7 @@ class _CartItemWidgetState extends State<CartItemWidget> with SingleTickerProvid
   Widget build(BuildContext context) {
     final String carName = widget.car.itemName ?? '';
     final double price = widget.car.costPrice ?? 0;
+    final String lpoNo = widget.car.lpoNo ?? '';
     final bool isAboutToExpire =
         _remainingTime > Duration.zero && _remainingTime <= const Duration(hours: 1);
     final String priceFormatted = price
@@ -190,6 +191,22 @@ class _CartItemWidgetState extends State<CartItemWidget> with SingleTickerProvid
                                 ),
                               ),
                             ],
+                          ),
+                          Gap(6.h),
+                          Container(
+                            padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
+                            decoration: BoxDecoration(
+                              color: AppColor.primaryColor(context).withValues(alpha: 0.08),
+                              borderRadius: BorderRadius.circular(6.r),
+                            ),
+                            child: Text(
+                              '${AppLocaleKey.reservationNumber.tr()} $lpoNo',
+                              style: AppTextStyle.bodySmall(context).copyWith(
+                                color: AppColor.blackTextColor(context).withValues(alpha: 0.5),
+                                fontWeight: FontWeight.w600,
+                                fontSize: 12.sp,
+                              ),
+                            ),
                           ),
                         ],
                       ),

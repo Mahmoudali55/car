@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
 import '../../theme/app_colors.dart';
 import '../../utils/navigator_methods.dart';
 import '../zoom_image/zoom_image_screen.dart';
@@ -30,7 +31,7 @@ class CustomNetworkImage extends StatelessWidget {
     if (imageUrl.contains('1617788131775-ddb49554618a')) {
       effectiveUrl = 'https://images.unsplash.com/photo-1560958089-b8a1929cea89?q=80&w=800';
     }
-    
+
     // Debug log to verify fix
     debugPrint('CustomNetworkImage loading: $effectiveUrl');
 
@@ -52,17 +53,15 @@ class CustomNetworkImage extends StatelessWidget {
           width: width,
           height: height,
           placeholder: (context, url) => Container(
-            color: AppColor.greyColor(context).withOpacity(0.05),
-            child: Center(
-              child: CupertinoActivityIndicator(color: AppColor.primaryColor(context)),
-            ),
+            color: AppColor.greyColor(context).withValues(alpha: 0.05),
+            child: Center(child: CupertinoActivityIndicator(color: AppColor.primaryColor(context))),
           ),
           errorWidget: (context, url, error) => Container(
-            color: AppColor.greyColor(context).withOpacity(0.1),
+            color: AppColor.greyColor(context).withValues(alpha: (0.1)),
             child: Center(
               child: Icon(
                 Icons.image_not_supported_outlined,
-                color: AppColor.primaryColor(context).withOpacity(0.4),
+                color: AppColor.primaryColor(context).withValues(alpha: (0.4)),
                 size: 24,
               ),
             ),

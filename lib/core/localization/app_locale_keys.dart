@@ -1509,4 +1509,6 @@ class AppLocaleKey {
   static const String baseCarPriceWithVat = 'base_car_price_with_vat';
   static const String extraPackageValueWithVat = 'extra_package_value_with_vat';
   static const String agentSellingPriceWithVat = 'agent_selling_price_with_vat';
+  static const String reservationNumber = 'reservation_number';
+  static const String adNumber = 'ad_number';
 }

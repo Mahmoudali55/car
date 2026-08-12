@@ -36,14 +36,14 @@ class CustomToast extends StatelessWidget {
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: AppColor.blackColor(context).withOpacity(0.08),
+            color: AppColor.blackColor(context).withValues(alpha: 0.08),
             blurRadius: 15,
             spreadRadius: 2,
             offset: const Offset(0, 4),
           ),
         ],
         border: Border.all(
-          color: (backgroundColor ?? _backgroundColor()).withOpacity(0.5),
+          color: (backgroundColor ?? _backgroundColor()).withValues(alpha: 0.5),
           width: 1.5,
         ),
       ),

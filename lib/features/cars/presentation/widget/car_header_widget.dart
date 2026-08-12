@@ -59,6 +59,23 @@ class _CarHeaderWidgetState extends State<CarHeaderWidget> {
                       ),
                     ),
                     child: Text(
+                      '${AppLocaleKey.adNumber.tr()}${widget.car.itemCode}',
+                      style: AppTextStyle.bodyMedium(context).copyWith(
+                        color: AppColor.blackTextColor(context),
+                        fontWeight: FontWeight.w900,
+                      ),
+                    ),
+                  ),
+                  Gap(8.h),
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(16.r),
+                      border: Border.all(
+                        color: AppColor.greenColor(context).withValues(alpha: (0.3)),
+                      ),
+                    ),
+                    child: Text(
                       widget.car.groupName,
                       style: AppTextStyle.bodyMedium(context).copyWith(
                         color: AppColor.blackTextColor(context),

@@ -1453,5 +1453,7 @@
 "vat_inclusive":"Price includes VAT",
 "base_car_price_with_vat":"Base car price includes VAT",
 "extra_package_value_with_vat":"Extra package value includes VAT",
-"agent_selling_price_with_vat":"Agent selling price includes VAT"
+"agent_selling_price_with_vat":"Agent selling price includes VAT",
+"reservation_number":"Reservation Number:",
+"ad_number":"Ad Number:"
 }

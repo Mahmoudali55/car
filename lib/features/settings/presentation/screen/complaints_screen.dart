@@ -172,7 +172,6 @@ class _ComplaintsScreenState extends State<ComplaintsScreen> {
                   ),
                 ),
                 Gap(20.h),
-
                 // DESCRIPTION FIELD
                 FadeInLeft(
                   delay: const Duration(milliseconds: 200),
@@ -191,7 +190,6 @@ class _ComplaintsScreenState extends State<ComplaintsScreen> {
                   ),
                 ),
                 Gap(30.h),
-
                 // SUBMIT BUTTON
                 FadeInUp(
                   delay: const Duration(milliseconds: 300),

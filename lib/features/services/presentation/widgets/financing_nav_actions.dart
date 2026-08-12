@@ -23,7 +23,6 @@ class FinancingNavActions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final primary = AppColor.primaryColor(context);
     return Container(
       padding: EdgeInsets.only(top: 16.h, bottom: 20.h, left: 20.w, right: 20.w),
       decoration: BoxDecoration(
