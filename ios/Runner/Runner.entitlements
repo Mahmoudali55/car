@@ -6,8 +6,7 @@
 	<string>development</string>
 	<key>com.apple.developer.in-app-payments</key>
 	<array>
-		<!-- Must match the Merchant ID registered in Apple Developer Portal -->
-		<string>merchant.com.YOURCOMPANY.Hajed</string>
+		<string>merchant.com.asg.car</string>
 	</array>
 </dict>
 </plist>

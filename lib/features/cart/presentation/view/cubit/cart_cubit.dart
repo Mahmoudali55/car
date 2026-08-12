@@ -19,6 +19,7 @@ class CartCubit extends Cubit<CartState> {
 
   CartCubit({required this.adminRepo, required this.homeRepo}) : super(CartState.initial()) {
     _reservationService = CartReservationService(homeRepo: homeRepo);
+    loadReservedCars();
   }
 
   // ─── Load reserved cars from API (carstatus=2, CUSTOMER_NO=userCode) ────
