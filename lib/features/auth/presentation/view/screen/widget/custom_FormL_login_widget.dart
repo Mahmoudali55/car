@@ -2,6 +2,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:car/core/cache/hive/hive_methods.dart';
 import 'package:car/core/custom_widgets/buttons/custom_button.dart';
 import 'package:car/core/custom_widgets/custom_form_field/custom_form_field.dart';
+import 'package:car/core/images/app_images.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/routes/routes_name.dart';
 import 'package:car/core/theme/app_colors.dart';
@@ -31,32 +32,16 @@ class CustomFormLoginWidget extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Gap(50.h),
-          FadeInDown(
-            duration: const Duration(milliseconds: 1500),
-            child: Center(
-              child: Container(
-                padding: EdgeInsets.all(20.w),
-                decoration: BoxDecoration(
-                  color: AppColor.primaryColor(context).withValues(alpha: 0.1),
-                  shape: BoxShape.circle,
-                  boxShadow: [
-                    BoxShadow(
-                      color: AppColor.primaryColor(context).withValues(alpha: 0.2),
-                      blurRadius: 30,
-                      spreadRadius: 5,
-                    ),
-                  ],
-                ),
-                child: Icon(
-                  Icons.directions_car_filled_rounded,
-                  size: 60.w,
-                  color: AppColor.whiteColor(context),
-                ),
-              ),
+          Gap(10.h),
+          Center(
+            child: Image.asset(
+              AppImages.assetsImagesLoge,
+              width: 100.w,
+              height: 200.h,
+              fit: BoxFit.contain,
             ),
           ),
-          Gap(30.h),
+
           FadeInLeft(
             duration: const Duration(milliseconds: 1000),
             child: Column(

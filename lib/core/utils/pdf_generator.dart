@@ -18,7 +18,7 @@ class QuotePdfGenerator {
     final arabicFont = await PdfGoogleFonts.cairoRegular();
     final arabicFontBold = await PdfGoogleFonts.cairoBold();
     // Load logo image
-    final ByteData logoData = await rootBundle.load(AppImages.assetsImagesLoge);
+    final ByteData logoData = await rootBundle.load(AppImages.assetsImagesLogeStatic);
     final Uint8List logoBytes = logoData.buffer.asUint8List();
     final logoImage = pw.MemoryImage(logoBytes);
     // Car placeholder image if exists / can be handled if it's an asset

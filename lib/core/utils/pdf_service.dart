@@ -42,7 +42,7 @@ class PdfService {
     // Load Logo
     pw.ImageProvider? logoImage;
     try {
-      final logoBytes = await rootBundle.load(AppImages.assetsImagesLoge);
+      final logoBytes = await rootBundle.load(AppImages.assetsImagesLogeStatic);
       logoImage = pw.MemoryImage(logoBytes.buffer.asUint8List());
     } catch (e) {
       debugPrint('Error loading logo for PDF: $e');

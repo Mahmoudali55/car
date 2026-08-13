@@ -1,20 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
 
-import '../../theme/app_colors.dart';
+import '../../images/app_images.dart';
 
 class CustomLoading extends StatelessWidget {
   final double size;
   final Color? color;
-  const CustomLoading({super.key, this.size = 35, this.color});
+  const CustomLoading({super.key, this.size = 180, this.color});
 
   @override
   Widget build(BuildContext context) {
-    return LoadingAnimationWidget.discreteCircle(
-      color: color ?? AppColor.primaryColor(context),
-      secondRingColor: color ?? AppColor.primaryColor(context),
-      thirdRingColor: color ?? AppColor.primaryColor(context),
-      size: size,
-    );
+    return Image.asset(AppImages.assetsImagesLoge, width: size, height: size, fit: BoxFit.contain);
   }
 }

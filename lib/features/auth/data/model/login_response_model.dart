@@ -7,27 +7,24 @@ class LoginResponse extends Equatable {
   final String userName;
   final String userId;
   final String companyName;
-  final String changeName;
+  final String modName;
   final String autoCode;
-  final String eduStartDate;
-  final String secondTermDate;
-  final String vatPrec;
-  final String paidPermDays;
-  final String changeFinanDate;
+  final String multiEffect;
+  final String transShip;
   final String linkWithAcc;
   final String vatSerial;
   final String decimal2;
+  final String viewInvoice;
+  final String appInvoice;
+  final String viewInvoiceTemp;
+  final String taxReg;
   final String code;
   final String name;
-  final String sectionCode;
-  final String stageCode;
-  final String levelCode;
-  final String classCode;
-  final String openingBalance;
+  final String tel1;
+  final String represNo;
   final String type;
   final String issued;
   final String expires;
-
   const LoginResponse({
     required this.accessToken,
     required this.tokenType,
@@ -35,23 +32,21 @@ class LoginResponse extends Equatable {
     required this.userName,
     required this.userId,
     required this.companyName,
-    required this.changeName,
+    required this.modName,
     required this.autoCode,
-    required this.eduStartDate,
-    required this.secondTermDate,
-    required this.vatPrec,
-    required this.paidPermDays,
-    required this.changeFinanDate,
+    required this.multiEffect,
+    required this.transShip,
     required this.linkWithAcc,
     required this.vatSerial,
     required this.decimal2,
+    required this.viewInvoice,
+    required this.appInvoice,
+    required this.viewInvoiceTemp,
+    required this.taxReg,
     required this.code,
     required this.name,
-    required this.sectionCode,
-    required this.stageCode,
-    required this.levelCode,
-    required this.classCode,
-    required this.openingBalance,
+    required this.tel1,
+    required this.represNo,
     required this.type,
     required this.issued,
     required this.expires,
@@ -59,32 +54,32 @@ class LoginResponse extends Equatable {
 
   factory LoginResponse.fromJson(Map<String, dynamic> json) {
     return LoginResponse(
-      accessToken: json['access_token'] ?? '',
-      tokenType: json['token_type'] ?? '',
-      expiresIn: json['expires_in'] ?? 0,
+      accessToken: json['access_token']?.toString() ?? '',
+      tokenType: json['token_type']?.toString() ?? '',
+      expiresIn: json['expires_in'] is int
+          ? json['expires_in']
+          : int.tryParse(json['expires_in']?.toString() ?? '') ?? 0,
       userName: json['userName']?.toString() ?? '',
       userId: json['userid']?.toString() ?? '',
       companyName: json['compneyname']?.toString() ?? '',
-      changeName: json['ChangeName'] ?? '',
-      autoCode: json['autocode'] ?? '',
-      eduStartDate: json['EDU_START_DATE'] ?? '',
-      secondTermDate: json['SECOND_TERM_DATE'] ?? '',
-      vatPrec: json['VAT_PREC'] ?? '',
-      paidPermDays: json['PAID_PERM_DAYS'] ?? '',
-      changeFinanDate: json['CHANGE_FINAN_DATE'] ?? '',
-      linkWithAcc: json['LINK_WITH_ACC'] ?? '',
-      vatSerial: json['VAT_SERIAL'] ?? '',
-      decimal2: json['DECIMAL2'] ?? '',
-      code: json['Code'] ?? '',
-      name: json['Name'] ?? '',
-      sectionCode: json['SECTION_CODE'] ?? '',
-      stageCode: json['STAGE_CODE'] ?? '',
-      levelCode: json['LEVEL_CODE'] ?? '',
-      classCode: json['CLASS_CODE'] ?? '',
-      openingBalance: json['S_OPENING_BALANCE'] ?? '',
-      type: json['type'] ?? '',
-      issued: json['.issued'] ?? '',
-      expires: json['.expires'] ?? '',
+      modName: json['MOD_NAME']?.toString() ?? '',
+      autoCode: json['autocode']?.toString() ?? '',
+      multiEffect: json['MULTI_EFFECT']?.toString() ?? '',
+      transShip: json['TRANS_SHIP']?.toString() ?? '',
+      linkWithAcc: json['LINK_WITH_ACC']?.toString() ?? '',
+      vatSerial: json['VAT_SERIAL']?.toString() ?? '',
+      decimal2: json['DECIMAL2']?.toString() ?? '',
+      viewInvoice: json['VIEW_INVOICE']?.toString() ?? '',
+      appInvoice: json['APP_INVOICE']?.toString() ?? '',
+      viewInvoiceTemp: json['VIEW_INVOICE_TEMP']?.toString() ?? '',
+      taxReg: json['TAX_REG']?.toString() ?? '',
+      code: json['Code']?.toString() ?? '',
+      name: json['Name']?.toString() ?? '',
+      tel1: json['TEL1']?.toString() ?? '',
+      represNo: json['REPRES_NO']?.toString() ?? '',
+      type: json['type']?.toString() ?? '',
+      issued: json['.issued']?.toString() ?? '',
+      expires: json['.expires']?.toString() ?? '',
     );
   }
 
@@ -96,23 +91,21 @@ class LoginResponse extends Equatable {
       'userName': userName,
       'userid': userId,
       'compneyname': companyName,
-      'ChangeName': changeName,
+      'MOD_NAME': modName,
       'autocode': autoCode,
-      'EDU_START_DATE': eduStartDate,
-      'SECOND_TERM_DATE': secondTermDate,
-      'VAT_PREC': vatPrec,
-      'PAID_PERM_DAYS': paidPermDays,
-      'CHANGE_FINAN_DATE': changeFinanDate,
+      'MULTI_EFFECT': multiEffect,
+      'TRANS_SHIP': transShip,
       'LINK_WITH_ACC': linkWithAcc,
       'VAT_SERIAL': vatSerial,
       'DECIMAL2': decimal2,
+      'VIEW_INVOICE': viewInvoice,
+      'APP_INVOICE': appInvoice,
+      'VIEW_INVOICE_TEMP': viewInvoiceTemp,
+      'TAX_REG': taxReg,
       'Code': code,
       'Name': name,
-      'SECTION_CODE': sectionCode,
-      'STAGE_CODE': stageCode,
-      'LEVEL_CODE': levelCode,
-      'CLASS_CODE': classCode,
-      'S_OPENING_BALANCE': openingBalance,
+      'TEL1': tel1,
+      'REPRES_NO': represNo,
       'type': type,
       '.issued': issued,
       '.expires': expires,
@@ -127,23 +120,21 @@ class LoginResponse extends Equatable {
     userName,
     userId,
     companyName,
-    changeName,
+    modName,
     autoCode,
-    eduStartDate,
-    secondTermDate,
-    vatPrec,
-    paidPermDays,
-    changeFinanDate,
+    multiEffect,
+    transShip,
     linkWithAcc,
     vatSerial,
     decimal2,
+    viewInvoice,
+    appInvoice,
+    viewInvoiceTemp,
+    taxReg,
     code,
     name,
-    sectionCode,
-    stageCode,
-    levelCode,
-    classCode,
-    openingBalance,
+    tel1,
+    represNo,
     type,
     issued,
     expires,
