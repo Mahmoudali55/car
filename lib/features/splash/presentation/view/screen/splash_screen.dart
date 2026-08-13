@@ -1,4 +1,3 @@
-import 'package:animate_do/animate_do.dart';
 import 'package:car/core/cache/hive/hive_methods.dart';
 import 'package:car/core/custom_widgets/custom_loading/custom_loading.dart';
 import 'package:car/core/images/app_images.dart';
@@ -19,25 +18,97 @@ class SplashScreen extends StatefulWidget {
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
+class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMixin {
+  late AnimationController _entranceController;
+  late AnimationController _pulseController;
+  late Animation<double> _avatarScale;
+  late Animation<double> _avatarFade;
+  late Animation<double> _titleFade;
+  late Animation<Offset> _titleSlide;
+  late Animation<double> _subTitleFade;
+  late Animation<double> _badgeFade;
+  late Animation<double> _badgeScale;
+  late Animation<double> _pulseGlow;
+
   @override
   void initState() {
     super.initState();
+
+    _entranceController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 2200),
+    );
+
+    _pulseController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 1800),
+    )..repeat(reverse: true);
+
+    _avatarScale = CurvedAnimation(
+      parent: _entranceController,
+      curve: const Interval(0.0, 0.55, curve: Curves.easeOutBack),
+    );
+
+    _avatarFade = CurvedAnimation(
+      parent: _entranceController,
+      curve: const Interval(0.0, 0.35, curve: Curves.easeIn),
+    );
+
+    _titleFade = CurvedAnimation(
+      parent: _entranceController,
+      curve: const Interval(0.25, 0.65, curve: Curves.easeOut),
+    );
+
+    _titleSlide = Tween<Offset>(begin: const Offset(0, 0.35), end: Offset.zero).animate(
+      CurvedAnimation(
+        parent: _entranceController,
+        curve: const Interval(0.25, 0.65, curve: Curves.easeOutCubic),
+      ),
+    );
+
+    _subTitleFade = CurvedAnimation(
+      parent: _entranceController,
+      curve: const Interval(0.4, 0.8, curve: Curves.easeOut),
+    );
+
+    _badgeFade = CurvedAnimation(
+      parent: _entranceController,
+      curve: const Interval(0.55, 0.95, curve: Curves.easeOut),
+    );
+
+    _badgeScale = CurvedAnimation(
+      parent: _entranceController,
+      curve: const Interval(0.55, 0.95, curve: Curves.easeOutBack),
+    );
+
+    _pulseGlow = Tween<double>(
+      begin: 0.9,
+      end: 1.12,
+    ).animate(CurvedAnimation(parent: _pulseController, curve: Curves.easeInOut));
+
+    _entranceController.forward();
     _navigateToNextScreen();
   }
 
+  @override
+  void dispose() {
+    _entranceController.dispose();
+    _pulseController.dispose();
+    super.dispose();
+  }
+
   void _navigateToNextScreen() {
-    Future.delayed(const Duration(seconds: 3)).then((value) {
+    Future.delayed(const Duration(milliseconds: 3200)).then((value) {
       if (mounted) {
         if (HiveMethods.isFirstTime()) {
           NavigatorMethods.pushReplacementNamed(context, RoutesName.onboardingScreen);
         } else if (HiveMethods.getToken() != null) {
-          if (HiveMethods.getRole() == 'admin') {
-            NavigatorMethods.pushReplacementNamed(context, RoutesName.adminDashboard);
-          } else if (HiveMethods.getRole() == 'agent') {
+          if (HiveMethods.isUserRole()) {
+            NavigatorMethods.pushReplacementNamed(context, RoutesName.mainLayout);
+          } else if (HiveMethods.isAgentRole()) {
             NavigatorMethods.pushReplacementNamed(context, RoutesName.agentDashboard);
           } else {
-            NavigatorMethods.pushReplacementNamed(context, RoutesName.mainLayout);
+            NavigatorMethods.pushReplacementNamed(context, RoutesName.adminDashboard);
           }
         } else {
           HiveMethods.updateIsGuest(true);
@@ -49,6 +120,8 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Scaffold(
       body: Container(
         width: double.infinity,
@@ -57,132 +130,261 @@ class _SplashScreenState extends State<SplashScreen> {
           gradient: LinearGradient(
             begin: Alignment.topRight,
             end: Alignment.bottomLeft,
-            colors: [
-              AppColor.secondAppColor(context),
-              AppColor.gradientSecondaryColor(context),
-              AppColor.primaryColor(context).withValues(alpha: 0.3),
-            ],
+            colors: isDark
+                ? [
+                    const Color(0xFF0F172A),
+                    const Color(0xFF1E293B),
+                    AppColor.primaryColor(context).withValues(alpha: 0.2),
+                  ]
+                : [
+                    AppColor.secondAppColor(context),
+                    AppColor.gradientSecondaryColor(context),
+                    AppColor.primaryColor(context).withValues(alpha: 0.25),
+                  ],
           ),
         ),
-        child: Stack(
-          children: [
-            Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  FadeInDown(
-                    duration: const Duration(milliseconds: 1500),
-                    child: Container(
-                      width: 140.w,
-                      height: 140.w,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        boxShadow: [
-                          BoxShadow(
-                            color: AppColor.primaryColor(context).withValues(alpha: 0.4),
-                            blurRadius: 40,
-                            spreadRadius: 5,
+        child: SafeArea(
+          child: Stack(
+            children: [
+              Center(
+                child: SingleChildScrollView(
+                  physics: const BouncingScrollPhysics(),
+                  padding: EdgeInsets.symmetric(horizontal: 24.w),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      // ─── 1. Avatar with Breathing Glow ───
+                      AnimatedBuilder(
+                        animation: _pulseController,
+                        builder: (context, child) {
+                          return ScaleTransition(
+                            scale: _avatarScale,
+                            child: FadeTransition(
+                              opacity: _avatarFade,
+                              child: Stack(
+                                alignment: Alignment.center,
+                                children: [
+                                  // Ambient Breathing Outer Aura
+                                  Transform.scale(
+                                    scale: _pulseGlow.value,
+                                    child: Container(
+                                      width: 175.w,
+                                      height: 175.w,
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: AppColor.primaryColor(
+                                              context,
+                                            ).withValues(alpha: isDark ? 0.45 : 0.35),
+                                            blurRadius: 45,
+                                            spreadRadius: 8,
+                                          ),
+                                          BoxShadow(
+                                            color: isDark
+                                                ? Colors.white.withValues(alpha: 0.1)
+                                                : AppColor.secondAppColor(
+                                                    context,
+                                                  ).withValues(alpha: 0.4),
+                                            blurRadius: 25,
+                                            spreadRadius: 2,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  // Main Circle Avatar Container
+                                  Container(
+                                    width: 145.w,
+                                    height: 145.w,
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      border: Border.all(
+                                        color: isDark
+                                            ? Colors.white.withValues(alpha: 0.3)
+                                            : Colors.white.withValues(alpha: 0.8),
+                                        width: 3.w,
+                                      ),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.black.withValues(alpha: 0.15),
+                                          blurRadius: 20,
+                                          offset: const Offset(0, 10),
+                                        ),
+                                      ],
+                                      image: const DecorationImage(
+                                        image: AssetImage(AppImages.assetsImagesProfile),
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                      Gap(28.h),
+
+                      // ─── 2. Company Name ───
+                      SlideTransition(
+                        position: _titleSlide,
+                        child: FadeTransition(
+                          opacity: _titleFade,
+                          child: Text(
+                            AppLocaleKey.carApp.tr(),
+                            textAlign: TextAlign.center,
+                            style: AppTextStyle.titleLarge(context).copyWith(
+                              fontSize: 22.sp,
+                              fontWeight: FontWeight.bold,
+                              color: AppColor.blackTextColor(context),
+                              letterSpacing: 1.5,
+                            ),
                           ),
-                          BoxShadow(
-                            color: AppColor.blackTextColor(context).withValues(alpha: 0.2),
-                            blurRadius: 20,
-                            offset: const Offset(0, 10),
-                          ),
-                        ],
-                        image: const DecorationImage(
-                          image: AssetImage(AppImages.assetsImagesProfile),
-                          fit: BoxFit.cover,
                         ),
                       ),
-                    ),
-                  ),
-                  Gap(30.h),
-                  FadeInUp(
-                    duration: const Duration(milliseconds: 1500),
-                    child: Text(
-                      AppLocaleKey.carApp.tr(),
-                      textAlign: TextAlign.center,
-                      style: AppTextStyle.titleLarge(context).copyWith(
-                        fontSize: 20.sp,
-                        fontWeight: FontWeight.bold,
-                        color: AppColor.blackTextColor(context),
-                        letterSpacing: 2.0,
+                      Gap(8.h),
+
+                      // ─── 3. Subtitle / Motto ───
+                      FadeTransition(
+                        opacity: _subTitleFade,
+                        child: Column(
+                          children: [
+                            Text(
+                              AppLocaleKey.qualityReliability.tr(),
+                              style: AppTextStyle.text14RGrey(context).copyWith(
+                                color: AppColor.blackTextColor(context).withValues(alpha: 0.75),
+                                letterSpacing: 1.0,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            Gap(12.h),
+                            Container(
+                              width: 50.w,
+                              height: 3.h,
+                              decoration: BoxDecoration(
+                                color: AppColor.primaryColor(context).withValues(alpha: 0.6),
+                                borderRadius: BorderRadius.circular(10.r),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                  ),
-                  Gap(10.h),
-                  FadeInUp(
-                    delay: const Duration(milliseconds: 500),
-                    duration: const Duration(milliseconds: 1500),
-                    child: Text(
-                      AppLocaleKey.qualityReliability.tr(),
-                      style: AppTextStyle.text14RGrey(context).copyWith(
-                        color: AppColor.blackTextColor(context).withValues(alpha: 0.8),
-                        letterSpacing: 1.0,
+                      Gap(24.h),
+
+                      // ─── 4. Authorized Distributor Badges ───
+                      ScaleTransition(
+                        scale: _badgeScale,
+                        child: FadeTransition(
+                          opacity: _badgeFade,
+                          child: Container(
+                            padding: EdgeInsets.symmetric(horizontal: 18.w, vertical: 16.h),
+                            decoration: BoxDecoration(
+                              color: isDark
+                                  ? Colors.white.withValues(alpha: 0.05)
+                                  : Colors.white.withValues(alpha: 0.6),
+                              borderRadius: BorderRadius.circular(20.r),
+                              border: Border.all(
+                                color: isDark
+                                    ? Colors.white.withValues(alpha: 0.1)
+                                    : AppColor.primaryColor(context).withValues(alpha: 0.15),
+                              ),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withValues(alpha: isDark ? 0.2 : 0.04),
+                                  blurRadius: 15,
+                                  offset: const Offset(0, 5),
+                                ),
+                              ],
+                            ),
+                            child: Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      Icons.verified_rounded,
+                                      color: AppColor.primaryColor(context),
+                                      size: 18.sp,
+                                    ),
+                                    Gap(6.w),
+                                    Text(
+                                      AppLocaleKey.authorizedDistributor.tr(),
+                                      style: AppTextStyle.bodyLarge(context).copyWith(
+                                        fontSize: 15.sp,
+                                        fontWeight: FontWeight.bold,
+                                        color: AppColor.primaryColor(context),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Gap(10.h),
+                                Text(
+                                  '${AppLocaleKey.brandsLine1.tr()} - ${AppLocaleKey.brandsLine2.tr()}',
+                                  textAlign: TextAlign.center,
+                                  style: AppTextStyle.bodySmall(context).copyWith(
+                                    fontSize: 12.5.sp,
+                                    height: 1.4,
+                                    color: AppColor.blackTextColor(context).withValues(alpha: 0.85),
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                                Gap(12.h),
+                                Container(
+                                  padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
+                                  decoration: BoxDecoration(
+                                    color: AppColor.primaryColor(context).withValues(alpha: 0.1),
+                                    borderRadius: BorderRadius.circular(30.r),
+                                  ),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Icon(
+                                        Icons.account_balance_rounded,
+                                        color: AppColor.primaryColor(context),
+                                        size: 14.sp,
+                                      ),
+                                      Gap(6.w),
+                                      Text(
+                                        AppLocaleKey.financingAvailable.tr(),
+                                        style: AppTextStyle.bodyMedium(context).copyWith(
+                                          fontSize: 12.sp,
+                                          fontWeight: FontWeight.w600,
+                                          color: AppColor.primaryColor(context),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                  Gap(20.h),
-                  FadeInUp(
-                    delay: const Duration(milliseconds: 1000),
-                    duration: const Duration(milliseconds: 1500),
-                    child: Column(
-                      children: [
-                        Text(
-                          AppLocaleKey.authorizedDistributor.tr(),
-                          style: AppTextStyle.bodyLarge(context).copyWith(
-                            fontSize: 16.sp,
-                            fontWeight: FontWeight.bold,
-                            color: AppColor.primaryColor(context),
-                          ),
-                        ),
-                        Gap(8.h),
-                        Text(
-                          AppLocaleKey.brandsLine1.tr(),
-                          style: AppTextStyle.bodySmall(context).copyWith(
-                            fontSize: 13.sp,
-                            color: AppColor.blackTextColor(context).withValues(alpha: 0.9),
-                          ),
-                        ),
-                        Text(
-                          AppLocaleKey.brandsLine2.tr(),
-                          style: AppTextStyle.bodySmall(context).copyWith(
-                            fontSize: 13.sp,
-                            color: AppColor.blackTextColor(context).withValues(alpha: 0.9),
-                          ),
-                        ),
-                        Gap(12.h),
-                        Text(
-                          AppLocaleKey.financingAvailable.tr(),
-                          style: AppTextStyle.bodyMedium(context).copyWith(
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w600,
-                            color: AppColor.blackTextColor(context).withValues(alpha: 0.8),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Positioned(
-              bottom: 50.h,
-              left: 0,
-              right: 0,
-              child: FadeIn(
-                delay: const Duration(seconds: 1),
-                duration: const Duration(milliseconds: 1000),
-                child: Center(
-                  child: SizedBox(
-                    width: 100.w,
-                    height: 120.h,
-                    child: CustomLoading(color: AppColor.primaryColor(context)),
+                      Gap(80.h),
+                    ],
                   ),
                 ),
               ),
-            ),
-          ],
+
+              // ─── 5. Bottom Animated Loader ───
+              Positioned(
+                bottom: 35.h,
+                left: 0,
+                right: 0,
+                child: FadeTransition(
+                  opacity: _subTitleFade,
+                  child: Center(
+                    child: SizedBox(
+                      width: 80.w,
+                      height: 80.w,
+                      child: CustomLoading(size: 80.r, color: AppColor.primaryColor(context)),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -34,12 +34,7 @@ class CustomFormLoginWidget extends StatelessWidget {
         children: [
           Gap(10.h),
           Center(
-            child: Image.asset(
-              AppImages.assetsImagesLoge,
-              width: 100.w,
-              height: 200.h,
-              fit: BoxFit.contain,
-            ),
+            child: Image.asset(AppImages.assetsImagesLoge, width: 100.w, height: 200.h),
           ),
           FadeInLeft(
             duration: const Duration(milliseconds: 1000),
@@ -74,6 +69,7 @@ class CustomFormLoginWidget extends StatelessWidget {
               hintStyle: TextStyle(color: AppColor.blackTextColor(context).withValues(alpha: 0.3)),
               radius: 16,
               keyboardType: TextInputType.name,
+
               validator: (p0) {
                 if (p0 == null || p0.trim().isEmpty) {
                   return AppLocaleKey.userName.tr();
