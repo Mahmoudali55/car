@@ -14,8 +14,8 @@ class TrackOrderScreen extends StatelessWidget {
           child: Column(
             children: [
               Image.asset('assets/images/picture.png'),
-              SizedBox(height: 16),
-              Text(
+              const SizedBox(height: 16),
+              const Text(
                 'Your order tracking details will be available soon.',
                 textAlign: TextAlign.center,
               ),

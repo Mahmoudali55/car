@@ -1,5 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:car/core/cache/hive/hive_methods.dart';
+import 'package:car/core/custom_widgets/custom_loading/custom_loading.dart';
 import 'package:car/core/images/app_images.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/routes/routes_name.dart';
@@ -163,6 +164,22 @@ class _SplashScreenState extends State<SplashScreen> {
                     ),
                   ),
                 ],
+              ),
+            ),
+            Positioned(
+              bottom: 50.h,
+              left: 0,
+              right: 0,
+              child: FadeIn(
+                delay: const Duration(seconds: 1),
+                duration: const Duration(milliseconds: 1000),
+                child: Center(
+                  child: SizedBox(
+                    width: 100.w,
+                    height: 120.h,
+                    child: CustomLoading(color: AppColor.primaryColor(context)),
+                  ),
+                ),
               ),
             ),
           ],

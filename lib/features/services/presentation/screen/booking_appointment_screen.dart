@@ -9,7 +9,6 @@ import 'package:gap/gap.dart';
 
 class BookingAppointmentScreen extends StatefulWidget {
   const BookingAppointmentScreen({super.key});
-
   @override
   State<BookingAppointmentScreen> createState() => _BookingAppointmentScreenState();
 }

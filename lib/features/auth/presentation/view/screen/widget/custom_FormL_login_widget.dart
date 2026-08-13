@@ -41,7 +41,6 @@ class CustomFormLoginWidget extends StatelessWidget {
               fit: BoxFit.contain,
             ),
           ),
-
           FadeInLeft(
             duration: const Duration(milliseconds: 1000),
             child: Column(
@@ -68,17 +67,16 @@ class CustomFormLoginWidget extends StatelessWidget {
             duration: const Duration(milliseconds: 1000),
             child: CustomFormField(
               controller: cubit.mobileController,
-              hintText: AppLocaleKey.phoneNumber.tr(),
+              hintText: AppLocaleKey.userName.tr(),
               prefixIcon: Icon(Icons.person, color: AppColor.primaryColor(context)),
               fillColor: AppColor.textFormFillColor(context),
               textStyle: TextStyle(color: AppColor.blackTextColor(context)),
               hintStyle: TextStyle(color: AppColor.blackTextColor(context).withValues(alpha: 0.3)),
               radius: 16,
-              keyboardType: TextInputType.phone,
-
+              keyboardType: TextInputType.name,
               validator: (p0) {
                 if (p0 == null || p0.trim().isEmpty) {
-                  return AppLocaleKey.phoneNumberRequired.tr();
+                  return AppLocaleKey.userName.tr();
                 }
                 return null;
               },
@@ -170,64 +168,64 @@ class CustomFormLoginWidget extends StatelessWidget {
                   },
                 ),
                 Gap(15.h),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    // TextButton(
-                    //   onPressed: () {
-                    //     HiveMethods.updateIsGuest(true);
-                    //     NavigatorMethods.pushReplacementNamed(context, RoutesName.mainLayout);
-                    //   },
-                    //   child: Text(
-                    //     AppLocaleKey.continueAsGuest.tr(),
-                    //     style: AppTextStyle.bodyLarge(
-                    //       context,
-                    //       color: AppColor.blackTextColor(context),
-                    //     ),
-                    //   ),
-                    // ),
-                    Container(
-                      width: 1,
-                      height: 20.h,
-                      color: AppColor.blackTextColor(context).withValues(alpha: 0.2),
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        HiveMethods.updateIsGuest(false);
-                        HiveMethods.updateToken('admin_dummy_token');
-                        HiveMethods.updateRole('admin');
-                        HiveMethods.updateUserCode('1');
-                        CommonMethods.showToast(message: AppLocaleKey.managerLoginSuccess.tr());
-                        NavigatorMethods.pushReplacementNamed(context, RoutesName.adminDashboard);
-                      },
-                      child: Text(
-                        AppLocaleKey.loginAsAdmin.tr(),
-                        style: AppTextStyle.bodyLarge(
-                          context,
-                          color: AppColor.primaryColor(context),
-                        ).copyWith(fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  ],
-                ),
-                Gap(5.h),
-                TextButton(
-                  onPressed: () {
-                    HiveMethods.updateIsGuest(false);
-                    HiveMethods.updateToken('agent_dummy_token');
-                    HiveMethods.updateRole('agent');
-                    HiveMethods.updateUserCode('1');
-                    CommonMethods.showToast(message: AppLocaleKey.agentLoginSuccess.tr());
-                    NavigatorMethods.pushReplacementNamed(context, RoutesName.agentDashboard);
-                  },
-                  child: Text(
-                    AppLocaleKey.loginAsAgent.tr(),
-                    style: AppTextStyle.bodyLarge(
-                      context,
-                      color: const Color(0xFF1565C0),
-                    ).copyWith(fontWeight: FontWeight.bold),
-                  ),
-                ),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                //   children: [
+                //     // TextButton(
+                //     //   onPressed: () {
+                //     //     HiveMethods.updateIsGuest(true);
+                //     //     NavigatorMethods.pushReplacementNamed(context, RoutesName.mainLayout);
+                //     //   },
+                //     //   child: Text(
+                //     //     AppLocaleKey.continueAsGuest.tr(),
+                //     //     style: AppTextStyle.bodyLarge(
+                //     //       context,
+                //     //       color: AppColor.blackTextColor(context),
+                //     //     ),
+                //     //   ),
+                //     // ),
+                //     Container(
+                //       width: 1,
+                //       height: 20.h,
+                //       color: AppColor.blackTextColor(context).withValues(alpha: 0.2),
+                //     ),
+                //     TextButton(
+                //       onPressed: () {
+                //         HiveMethods.updateIsGuest(false);
+                //         HiveMethods.updateToken('admin_dummy_token');
+                //         HiveMethods.updateRole('admin');
+                //         HiveMethods.updateUserCode('1');
+                //         CommonMethods.showToast(message: AppLocaleKey.managerLoginSuccess.tr());
+                //         NavigatorMethods.pushReplacementNamed(context, RoutesName.adminDashboard);
+                //       },
+                //       child: Text(
+                //         AppLocaleKey.loginAsAdmin.tr(),
+                //         style: AppTextStyle.bodyLarge(
+                //           context,
+                //           color: AppColor.primaryColor(context),
+                //         ).copyWith(fontWeight: FontWeight.bold),
+                //       ),
+                //     ),
+                //   ],
+                // ),
+                // Gap(5.h),
+                // TextButton(
+                //   onPressed: () {
+                //     HiveMethods.updateIsGuest(false);
+                //     HiveMethods.updateToken('agent_dummy_token');
+                //     HiveMethods.updateRole('agent');
+                //     HiveMethods.updateUserCode('1');
+                //     CommonMethods.showToast(message: AppLocaleKey.agentLoginSuccess.tr());
+                //     NavigatorMethods.pushReplacementNamed(context, RoutesName.agentDashboard);
+                //   },
+                //   child: Text(
+                //     AppLocaleKey.loginAsAgent.tr(),
+                //     style: AppTextStyle.bodyLarge(
+                //       context,
+                //       color: const Color(0xFF1565C0),
+                //     ).copyWith(fontWeight: FontWeight.bold),
+                //   ),
+                // ),
               ],
             ),
           ),

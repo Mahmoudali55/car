@@ -1,3 +1,4 @@
+import 'package:car/core/cache/hive/hive_methods.dart';
 import 'package:car/core/routes/routes_name.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
@@ -23,7 +24,7 @@ class CartIconWidget extends StatelessWidget {
                 icon: Icon(Icons.shopping_cart_outlined, color: AppColor.blackTextColor(context)),
               ),
             ),
-            if (state.reservedCars.isNotEmpty)
+            if (!HiveMethods.isGuest() && state.reservedCars.isNotEmpty)
               Positioned(
                 top: 0,
                 right: 0,

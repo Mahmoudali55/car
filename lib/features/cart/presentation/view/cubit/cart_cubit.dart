@@ -25,8 +25,22 @@ class CartCubit extends Cubit<CartState> {
   // ─── Load reserved cars from API (carstatus=2, CUSTOMER_NO=userCode) ────
 
   Future<void> loadReservedCars() async {
-    final String? userCode = HiveMethods.getUserCode();
-    final int? customerNo = int.tryParse(userCode ?? '5');
+    if (HiveMethods.isGuest()) {
+      emit(state.copyWith(isLoading: false, reservedCars: []));
+      return;
+    }
+
+    final String? userCode = HiveMethods.getcode();
+    if (userCode == null || userCode.trim().isEmpty) {
+      emit(state.copyWith(isLoading: false, reservedCars: []));
+      return;
+    }
+
+    final int? customerNo = int.tryParse(userCode);
+    if (customerNo == null) {
+      emit(state.copyWith(isLoading: false, reservedCars: []));
+      return;
+    }
 
     emit(state.copyWith(isLoading: true, errorMessage: null));
 

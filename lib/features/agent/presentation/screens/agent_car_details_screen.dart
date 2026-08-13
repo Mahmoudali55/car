@@ -470,13 +470,13 @@ class _AgentCarDetailsScreenState extends State<AgentCarDetailsScreen> {
     final itemName = widget.car.itemName;
     final chassisNo = widget.car.chassisNo;
     final storeCodeVal = int.tryParse(widget.car.storeCode) ?? 1;
-
+    final code = HiveMethods.getcode() ?? '';
     final model = AddBookingPermissionModel(
       lpoNos: '',
       lpono: '',
       listNo: 0,
       analytical: '',
-      customerNo: 5,
+      customerNo: int.tryParse(code) ?? 1,
       represCode: 1,
       fDate: todayStr,
       lDate: futureDateStr,

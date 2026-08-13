@@ -25,7 +25,6 @@ class _BespokeSelectionScreenState extends State<BespokeSelectionScreen> {
   final _budgetMinController = TextEditingController();
   final _budgetMaxController = TextEditingController();
   final _descriptionController = TextEditingController();
-
   double _performancePriority = 3.0;
   double _comfortPriority = 4.0;
   double _techPriority = 3.0;

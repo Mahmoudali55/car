@@ -45,12 +45,12 @@ class LoginScreen extends StatelessWidget {
                 message: AppLocaleKey.loginSuccess.tr(),
                 type: ToastType.success,
               );
-              if (HiveMethods.getRole() == 'admin') {
-                NavigatorMethods.pushReplacementNamed(context, RoutesName.adminDashboard);
-              } else if (HiveMethods.getRole() == 'agent') {
+              if (HiveMethods.isUserRole()) {
+                NavigatorMethods.pushReplacementNamed(context, RoutesName.mainLayout);
+              } else if (HiveMethods.isAgentRole()) {
                 NavigatorMethods.pushReplacementNamed(context, RoutesName.agentDashboard);
               } else {
-                NavigatorMethods.pushReplacementNamed(context, RoutesName.mainLayout);
+                NavigatorMethods.pushReplacementNamed(context, RoutesName.adminDashboard);
               }
             }
             if (state.loginStatus.isFailure) {

@@ -63,11 +63,25 @@ class HiveMethods {
   }
 
   static String getRole() {
-    return _box.get('role', defaultValue: 'user');
+    return _box.get('role', defaultValue: '1');
   }
 
   static void updateRole(String role) {
     _box.put('role', role);
+  }
+
+  static bool isUserRole() {
+    final role = getRole();
+    return role == '1' || role == 'user';
+  }
+
+  static bool isAgentRole() {
+    final role = getRole();
+    return role == '2' || role == 'agent';
+  }
+
+  static bool isAdminRole() {
+    return !isUserRole() && !isAgentRole();
   }
 
   static String? getUserName() {
@@ -208,6 +222,14 @@ class HiveMethods {
 
   static void updateVatNumber(String vatNumber) {
     _box.put('VAT_SERIAL', vatNumber);
+  }
+
+  static void updatecode(String code) {
+    _box.put('Code', code);
+  }
+
+  static String? getcode() {
+    return _box.get('Code', defaultValue: '');
   }
 
   static String? getVatNumber() {
