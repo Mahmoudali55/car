@@ -16,6 +16,7 @@ import 'package:car/features/agent/presentation/screens/widget/custom_agent_car_
 import 'package:car/features/agent/presentation/screens/widget/customer_dropdown_widget.dart';
 import 'package:car/features/agent/presentation/screens/widget/icon_btn_widget.dart';
 import 'package:car/features/agent/presentation/screens/widget/quote_builder_dialog.dart';
+import 'package:car/features/cars/presentation/widget/reservation_terms_widget.dart';
 import 'package:car/features/home/data/model/add_booking_permission_model.dart';
 import 'package:car/features/home/presentation/cubit/home_cubit.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -245,6 +246,7 @@ class _AgentCarDetailsScreenState extends State<AgentCarDetailsScreen> {
 
     CustomerModel? selectedCustomer;
     bool isCustomerDropdownOpen = false;
+    bool isTermsAccepted = false;
 
     // Fetch initial customer list
     context.read<AgentCubit>().getCustomer(null);
@@ -421,6 +423,13 @@ class _AgentCarDetailsScreenState extends State<AgentCarDetailsScreen> {
                                   return null;
                                 },
                               ),
+                              Gap(16.h),
+                              ReservationTermsCheckboxWidget(
+                                value: isTermsAccepted,
+                                onChanged: (val) => setModalState(() {
+                                  isTermsAccepted = val ?? false;
+                                }),
+                              ),
                               Gap(24.h),
                               Row(
                                 children: [
@@ -451,6 +460,15 @@ class _AgentCarDetailsScreenState extends State<AgentCarDetailsScreen> {
                                     child: CustomButton(
                                       radius: 12.r,
                                       onPressed: () {
+                                        if (!isTermsAccepted) {
+                                          CommonMethods.showToast(
+                                            message: isArabic
+                                                ? 'يرجى الموافقة على الشروط والأحكام أولاً'
+                                                : 'Please agree to the Terms & Conditions first',
+                                            type: ToastType.error,
+                                          );
+                                          return;
+                                        }
                                         if (formKey.currentState!.validate()) {
                                           final name = nameController.text.trim();
                                           final phone = phoneController.text.trim();

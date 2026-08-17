@@ -104,6 +104,8 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
     super.dispose();
   }
 
+  bool _isTermsAccepted = false;
+
   void _handleContinue() {
     if (_selectedMethod == null) return;
     if (_isFinancingFlow) {
@@ -122,6 +124,15 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
         setState(() => _currentStep = ReservationScreenStep.informationEntry);
       } else {
         if (!_infoFormKey.currentState!.validate()) return;
+        if (!_isTermsAccepted) {
+          CommonMethods.showToast(
+            message: context.locale.languageCode == 'ar'
+                ? 'يرجى الموافقة على الشروط والأحكام أولاً قبل الإنتقال للدفع'
+                : 'Please accept the Terms & Conditions before proceeding to payment',
+            type: ToastType.error,
+          );
+          return;
+        }
         context.read<HomeCubit>().sendOtp(SendOtpModel(mobileNumber: _cashPhoneController.text));
       }
     }
@@ -454,6 +465,9 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
                   whatsappNotifier: _whatsappNotifier,
                   selectedCityNotifier: _selectedCityNotifier,
                   onShowPricingDetails: _showPricingDetails,
+                  isTermsAccepted: _isTermsAccepted,
+                  onTermsAcceptedChanged: (val) =>
+                      setState(() => _isTermsAccepted = val ?? false),
                 ),
               ],
               Gap(100.h),

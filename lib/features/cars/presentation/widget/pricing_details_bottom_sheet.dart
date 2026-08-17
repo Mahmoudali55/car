@@ -13,9 +13,7 @@ import 'package:gap/gap.dart';
 class PricingDetailsBottomSheet extends StatelessWidget {
   final GetBrandCarsDataModel car;
   final double totalPrice;
-
   const PricingDetailsBottomSheet({super.key, required this.car, required this.totalPrice});
-
   @override
   Widget build(BuildContext context) {
     final double registrationFee = 875.0;

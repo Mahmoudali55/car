@@ -6,7 +6,7 @@ import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/features/cars/presentation/widget/financing_contact_form.dart';
 import 'package:car/features/cars/presentation/widget/reservation_pricing_card.dart';
 import 'package:car/features/cars/presentation/widget/reservation_step_indicator.dart';
-import 'package:car/features/cars/presentation/widget/reservation_trust_badge.dart';
+import 'package:car/features/cars/presentation/widget/reservation_terms_widget.dart';
 import 'package:car/features/home/data/model/brand_cars_data_model.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -27,6 +27,8 @@ class ReservationInformationStep extends StatelessWidget {
   final ValueNotifier<bool> whatsappNotifier;
   final ValueNotifier<String?> selectedCityNotifier;
   final VoidCallback onShowPricingDetails;
+  final bool isTermsAccepted;
+  final ValueChanged<bool?> onTermsAcceptedChanged;
 
   const ReservationInformationStep({
     super.key,
@@ -43,6 +45,8 @@ class ReservationInformationStep extends StatelessWidget {
     required this.whatsappNotifier,
     required this.selectedCityNotifier,
     required this.onShowPricingDetails,
+    required this.isTermsAccepted,
+    required this.onTermsAcceptedChanged,
   });
 
   @override
@@ -115,8 +119,8 @@ class ReservationInformationStep extends StatelessWidget {
               ],
             ),
           ),
-          Gap(32.h),
-          const ReservationTrustBadge(),
+          Gap(16.h),
+          ReservationTermsCheckboxWidget(value: isTermsAccepted, onChanged: onTermsAcceptedChanged),
         ],
       ],
     );
