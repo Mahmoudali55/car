@@ -332,25 +332,40 @@ class _AgentCarDetailsScreenState extends State<AgentCarDetailsScreen> {
                               ),
                               Gap(16.h),
 
-                              // CustomFormField(
-                              //   controller: nameController,
-                              //   hintText: isArabic ? 'الاسم بالكامل للعميل' : 'Customer Full Name',
-                              //   radius: 12.r,
-                              //   keyboardType: TextInputType.text,
-                              //   prefixIcon: Icon(
-                              //     Icons.person_outline_rounded,
-                              //     color: AppColor.hintColor(dialogContext),
-                              //   ),
-                              //   validator: (value) {
-                              //     if (value == null || value.trim().isEmpty) {
-                              //       return isArabic
-                              //           ? 'برجاء إدخال اسم العميل'
-                              //           : 'Please enter customer name';
-                              //     }
-                              //     return null;
-                              //   },
-                              // ),
-                              //Gap(16.h),
+                              AnimatedSize(
+                                duration: const Duration(milliseconds: 300),
+                                curve: Curves.easeInOut,
+                                child: (selectedCustomer != null &&
+                                        selectedCustomer!.customerName?.trim() == 'عميل عادي')
+                                    ? Column(
+                                        children: [
+                                          Gap(4.h),
+                                          CustomFormField(
+                                            controller: nameController,
+                                            hintText: isArabic ? 'الاسم بالكامل للعميل' : 'Customer Full Name',
+                                            radius: 12.r,
+                                            keyboardType: TextInputType.name,
+                                            prefixIcon: Icon(
+                                              Icons.person_outline_rounded,
+                                              color: AppColor.hintColor(dialogContext),
+                                            ),
+                                            validator: (value) {
+                                              if (selectedCustomer?.customerName?.trim() == 'عميل عادي') {
+                                                if (value == null || value.trim().isEmpty) {
+                                                  return isArabic
+                                                      ? 'برجاء إدخال اسم العميل'
+                                                      : 'Please enter customer name';
+                                                }
+                                              }
+                                              return null;
+                                            },
+                                          ),
+                                          Gap(16.h),
+                                        ],
+                                      )
+                                    : const SizedBox.shrink(),
+                              ),
+
                               CustomFormField(
                                 controller: phoneController,
                                 hintText: isArabic ? 'رقم جوال العميل' : 'Customer Phone Number',
@@ -544,7 +559,8 @@ class _AgentCarDetailsScreenState extends State<AgentCarDetailsScreen> {
       taamedNo: '',
       payCond: '',
       guarFinal: 0,
-      notes: 'حجز سيارة كاش - $customerName ($customerPhone)',
+      notes: 'حجز سيارة كاش - $customerName ($customerPhone)'
+          .substring(0, 'حجز سيارة كاش - $customerName ($customerPhone)'.length.clamp(0, 100)),
       userName: HiveMethods.getUserName() ?? '',
       subLpo: [
         SubLpoModel(

@@ -289,9 +289,13 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
       taamedNo: '',
       payCond: '',
       guarFinal: 0,
-      notes: paymentId != null
+      notes: (paymentId != null
           ? 'Moyasar ID: $paymentId'
-          : 'حجز سيارة كاش - ${_cashNameController.text} (${_cashPhoneController.text})',
+          : 'حجز سيارة كاش - ${_cashNameController.text} (${_cashPhoneController.text})')
+          .substring(0, (paymentId != null
+              ? 'Moyasar ID: $paymentId'
+              : 'حجز سيارة كاش - ${_cashNameController.text} (${_cashPhoneController.text})')
+              .length.clamp(0, 100)),
       userName: HiveMethods.getUserName() ?? '',
       subLpo: [
         SubLpoModel(

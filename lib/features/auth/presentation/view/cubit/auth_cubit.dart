@@ -36,6 +36,14 @@ class AuthCubit extends Cubit<AuthState> {
   final TextEditingController fullNameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController idNoController = TextEditingController();
+  final TextEditingController registerPasswordController = TextEditingController();
+
+  void clearRegisterFields() {
+    fullNameController.clear();
+    emailController.clear();
+    idNoController.clear();
+    registerPasswordController.clear();
+  }
 
   final TextEditingController currentPasswordController = TextEditingController();
   final TextEditingController newPasswordController = TextEditingController();
@@ -120,7 +128,7 @@ class AuthCubit extends Cubit<AuthState> {
       userName: fullNameController.text.trim(),
       email: emailController.text.trim(),
       idno: idNoController.text.trim(),
-      password: passwordController.text.trim(),
+      password: registerPasswordController.text.trim(),
       fcm: fcmToken,
     );
 
@@ -132,11 +140,7 @@ class AuthCubit extends Cubit<AuthState> {
       },
       (response) async {
         if (response.data) {
-          // Clear controllers so the password and data don't persist in the login screen
-          fullNameController.clear();
-          emailController.clear();
-          idNoController.clear();
-          passwordController.clear();
+          clearRegisterFields();
 
           emit(state.copyWith(registerStatus: StatusState.success(response)));
         } else {
@@ -205,9 +209,7 @@ class AuthCubit extends Cubit<AuthState> {
     HiveMethods.updateUserName('');
 
     // Clear registration and change password controllers
-    fullNameController.clear();
-    emailController.clear();
-    idNoController.clear();
+    clearRegisterFields();
     currentPasswordController.clear();
     newPasswordController.clear();
     confirmPasswordController.clear();

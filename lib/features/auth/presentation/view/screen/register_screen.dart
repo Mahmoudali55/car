@@ -22,6 +22,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final _formKey = GlobalKey<FormState>();
 
   @override
+  void initState() {
+    super.initState();
+    context.read<AuthCubit>().clearRegisterFields();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final cubit = context.read<AuthCubit>();
 
