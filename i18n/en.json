@@ -932,7 +932,7 @@
   "agent_conversion_funnel": "Conversion Funnel",
   "agent_leads_potential": "Potential Leads",
   "agent_visits_offers": "Visits / Offers",
-  "agent_closed_deals": "Closed Deals",
+  "agent_closed_deals": "My Bookings",
   "agent_commissions_sales": "Price offers",
   "agent_commission_this_month": "Commission This Month",
   "agent_total_quarter": "Total This Quarter",
@@ -1454,6 +1454,17 @@
 "base_car_price_with_vat":"Base car price includes VAT",
 "extra_package_value_with_vat":"Extra package value includes VAT",
 "agent_selling_price_with_vat":"Agent selling price includes VAT",
-"reservation_number":"Reservation Number:",
-"ad_number":"Ad Number:"
+  "reservation_number":"Reservation Number:",
+  "ad_number":"Ad Number:",
+  "agent_search_bookings_hint": "Search by chassis no, car model, or customer...",
+  "agent_total_reserved_cars": "Total Reserved Cars",
+  "agent_cars_count_suffix": "{count} Cars",
+  "agent_active_bookings": "Active Bookings",
+  "agent_chassis_label": "Chassis: {chassis}",
+  "agent_car_value": "Car Value",
+  "agent_unnamed_car": "Unnamed Car",
+  "agent_spec_model": "Model",
+  "agent_spec_color": "Color",
+  "agent_spec_store": "Store",
+  "ADVANCED_AMOUNT": "Advanced Amount"
 }

@@ -1,3 +1,4 @@
+import 'package:car/core/custom_widgets/custom_loading/custom_loading.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
@@ -35,11 +36,7 @@ class _AgentLeadsScreenState extends State<AgentLeadsScreen> {
         body: BlocBuilder<AgentCubit, AgentState>(
           builder: (context, state) {
             if (state.customersStatus.isLoading) {
-              return Center(
-                child: CircularProgressIndicator(
-                  valueColor: AlwaysStoppedAnimation(AppColor.blueColor(context)),
-                ),
-              );
+              return Center(child: const CustomLoading());
             }
             if (state.customersStatus.isFailure) {
               return Center(

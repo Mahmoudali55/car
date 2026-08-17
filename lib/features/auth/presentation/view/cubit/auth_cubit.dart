@@ -75,6 +75,7 @@ class AuthCubit extends Cubit<AuthState> {
         HiveMethods.updateUserCode(response.code);
         HiveMethods.updateVatNumber(response.vatSerial);
         HiveMethods.updatecode(response.code);
+        HiveMethods.updateRepresentativeNo(response.represNo); // Save representative number
 
         // Update FCM Token for push notifications
         String fcmToken = await NotificationService.getFCMToken() ?? '';

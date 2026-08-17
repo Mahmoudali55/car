@@ -147,6 +147,8 @@ class AppRouters {
         return MaterialPageRoute(builder: (_) => const AdminMainLayout());
       case RoutesName.agentDashboard:
         return MaterialPageRoute(builder: (_) => const AgentShell());
+      case RoutesName.agentMyBookingsScreen:
+        return MaterialPageRoute(builder: (_) => const AgentMyBookingsScreen());
       case RoutesName.manageCars:
         return MaterialPageRoute(builder: (_) => const ManageCarsScreen());
       case RoutesName.manageBookings:

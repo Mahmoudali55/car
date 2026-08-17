@@ -33,12 +33,14 @@ class CarModel extends Equatable {
   final int? colorCode;
   final bool? mobileShow;
   final String? customerName;
+  final String? ADVANCED_AMOUNT;
 
   /// LPO number returned by the reserved-cars endpoint (LPONO field).
   final String? lpoNo;
   final String? reservedName;
 
   const CarModel({
+    this.ADVANCED_AMOUNT,
     this.itemCode,
     this.itemName,
     this.groupCode,
@@ -77,6 +79,7 @@ class CarModel extends Equatable {
       reservedName: json['REPRES_NAME']?.toString(),
       lpoNo: json['LPONO']?.toString() ?? json['LPO_NO']?.toString(),
       customerName: json['CUSTOMER_NAME']?.toString(),
+      ADVANCED_AMOUNT: json['ADVANCED_AMOUNT']?.toString(),
     );
   }
 
@@ -99,5 +102,6 @@ class CarModel extends Equatable {
     lpoNo,
     reservedName,
     customerName,
+    ADVANCED_AMOUNT,
   ];
 }

@@ -44,7 +44,7 @@ class CustomAgentCarDetailsInfoWidget extends StatelessWidget {
               QuickInfo(
                 icon: Icons.numbers,
                 title: AppLocaleKey.agentSimNumber.tr(),
-                value: car.mileage,
+                value: car.chassisNo,
               ),
               QuickInfo(
                 icon: Icons.palette_rounded,
@@ -68,7 +68,7 @@ class CustomAgentCarDetailsInfoWidget extends StatelessWidget {
         SpecTile(
           icon: Icons.numbers,
           title: AppLocaleKey.agentSimNumber.tr(),
-          value: '${car.mileage} ',
+          value: '${car.chassisNo} ',
         ),
         SpecTile(
           icon: Icons.palette_rounded,

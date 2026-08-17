@@ -263,13 +263,14 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
     ).format(DateTime.now().add(const Duration(days: 1)));
     final storeCodeVal = int.tryParse(widget.car.storeCode) ?? 1;
     final code = HiveMethods.getcode() ?? '';
+    final represCode = int.tryParse(HiveMethods.getRepresentativeNo() ?? '') ?? 1;
     final model = AddBookingPermissionModel(
       lpoNos: '',
       lpono: '',
       listNo: 0,
       analytical: '',
       customerNo: int.tryParse(code) ?? 1,
-      represCode: 1,
+      represCode: represCode,
       fDate: todayStr,
       lDate: futureStr,
       lpoDate: todayStr,

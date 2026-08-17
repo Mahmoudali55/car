@@ -47,25 +47,6 @@ class PremiumKpiCard extends StatelessWidget {
                 ),
                 child: Icon(kpi.icon, color: kpi.color, size: 20.sp),
               ),
-              const Spacer(),
-              if (kpi.change != null)
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
-                  decoration: BoxDecoration(
-                    color: (isUp ? successColor : errorColor).withValues(alpha: 0.1),
-                    borderRadius: BorderRadius.circular(10.r),
-                    border: Border.all(
-                      color: (isUp ? successColor : errorColor).withValues(alpha: 0.15),
-                    ),
-                  ),
-                  child: Text(
-                    '${isUp ? '↑' : '↓'} ${kpi.change!.abs().toStringAsFixed(0)}%',
-                    style: AppTextStyle.bodySmall(context).copyWith(
-                      color: isUp ? successColor : errorColor,
-                      fontWeight: FontWeight.w900,
-                    ),
-                  ),
-                ),
             ],
           ),
           const Spacer(),

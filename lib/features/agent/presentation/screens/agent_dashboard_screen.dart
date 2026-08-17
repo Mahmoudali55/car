@@ -11,6 +11,7 @@ import 'package:car/features/agent/presentation/screens/widget/premium_language_
 import 'package:car/features/agent/presentation/screens/widget/premium_theme_toggle_widget.dart';
 import 'package:car/features/agent/presentation/screens/widget/quick_stat_widget.dart';
 import 'package:car/features/auth/presentation/view/cubit/auth_cubit.dart';
+import 'package:car/features/cart/presentation/view/cubit/cart_cubit.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -34,6 +35,7 @@ class _AgentDashboardScreenState extends State<AgentDashboardScreen> {
       final userCode = HiveMethods.getUserCode() ?? '1';
       final represNo = int.tryParse(userCode) ?? 1;
       context.read<AgentCubit>().getOffers(null, represNo, null);
+      context.read<CartCubit>().loadReservedCars();
     });
   }
 

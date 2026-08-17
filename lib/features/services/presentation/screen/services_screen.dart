@@ -1,6 +1,5 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:car/core/cache/hive/hive_methods.dart';
-import 'package:car/core/images/app_images.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/routes/routes_name.dart';
 import 'package:car/core/theme/app_colors.dart';
@@ -170,35 +169,13 @@ class ServicesScreen extends StatelessWidget {
   }
 
   Widget _buildEliteHeroHighlight(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: 20.w),
-      height: 200.h,
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [
-            AppColor.primaryColor(context),
-            AppColor.primaryColor(context).withValues(alpha: .8),
-          ],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
-        borderRadius: BorderRadius.circular(24.r),
-        boxShadow: [
-          BoxShadow(
-            color: AppColor.primaryColor(context).withValues(alpha: 0.3),
-            blurRadius: 20,
-            offset: const Offset(0, 10),
-          ),
-        ],
-      ),
-      child: Opacity(
-        opacity: 0.8,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(24.r),
-            child: Image.asset(AppImages.assetsImagesCar, height: 160.h, fit: BoxFit.contain),
-          ),
+    return Opacity(
+      opacity: 0.8,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(40.r),
+          child: Image.asset('assets/images/loge.png', height: 160.h, fit: BoxFit.contain),
         ),
       ),
     );

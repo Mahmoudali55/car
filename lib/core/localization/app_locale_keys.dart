@@ -1511,4 +1511,15 @@ class AppLocaleKey {
   static const String agentSellingPriceWithVat = 'agent_selling_price_with_vat';
   static const String reservationNumber = 'reservation_number';
   static const String adNumber = 'ad_number';
+  static const String agentSearchBookingsHint = 'agent_search_bookings_hint';
+  static const String agentTotalReservedCars = 'agent_total_reserved_cars';
+  static const String agentCarsCountSuffix = 'agent_cars_count_suffix';
+  static const String agentActiveBookings = 'agent_active_bookings';
+  static const String agentChassisLabel = 'agent_chassis_label';
+  static const String agentCarValue = 'agent_car_value';
+  static const String agentUnnamedCar = 'agent_unnamed_car';
+  static const String agentSpecModel = 'agent_spec_model';
+  static const String agentSpecColor = 'agent_spec_color';
+  static const String agentSpecStore = 'agent_spec_store';
+  static const String ADVANCED_AMOUNT = 'ADVANCED_AMOUNT';
 }

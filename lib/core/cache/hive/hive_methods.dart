@@ -232,7 +232,15 @@ class HiveMethods {
     return _box.get('Code', defaultValue: '');
   }
 
+  static String? getRepresentativeNo() {
+    return _box.get('REPRES_NO', defaultValue: '');
+  }
+
   static String? getVatNumber() {
     return _box.get('VAT_SERIAL', defaultValue: '');
+  }
+
+  static void updateRepresentativeNo(String representativeNo) {
+    _box.put('REPRES_NO', representativeNo);
   }
 }

@@ -240,7 +240,7 @@ List<AgentKpi> getAgentKpis({
       label: AppLocaleKey.agentClosedDeals.tr(),
       value: closedDeals.toString(),
       subtitle: AppLocaleKey.agentThisMonth.tr(),
-      icon: Icons.handshake_rounded,
+      icon: Icons.bookmark_added_rounded,
       color: const Color(0xFF10B981),
       change: 22.0,
     ),

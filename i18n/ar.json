@@ -932,7 +932,7 @@
   "agent_conversion_funnel": "قمع التحويل",
   "agent_leads_potential": "عملاء محتملون",
   "agent_visits_offers": "زيارات / عروض",
-  "agent_closed_deals": "صفقات مغلقة",
+  "agent_closed_deals": "حجوزاتي",
   "agent_commissions_sales": "عروض السعر ",
   "agent_commission_this_month": "عمولة هذا الشهر",
   "agent_total_quarter": "إجمالي هذا الربع",
@@ -1457,6 +1457,17 @@
 "base_car_price_with_vat":"سعر السيارة الأساسي (شامل الضريبة)",
 "extra_package_value_with_vat":"قيمة الباقة الإضافية (شامل الضريبة)",
 "agent_selling_price_with_vat":"السعر شامل الضريبة",
-"reservation_number":"رقم الحجز:",
-"ad_number":"رقم الاعلان:"
+  "reservation_number":"رقم الحجز:",
+  "ad_number":"رقم الاعلان:",
+  "agent_search_bookings_hint": "ابحث برقم الهيكل، موديل السيارة أو العميل...",
+  "agent_total_reserved_cars": "إجمالي السيارات المحجوزة",
+  "agent_cars_count_suffix": "{count} سيارة",
+  "agent_active_bookings": "حجوزات نشطة",
+  "agent_chassis_label": "هيكل: {chassis}",
+  "agent_car_value": "قيمة السيارة",
+  "agent_unnamed_car": "سيارة غير مسمّاة",
+  "agent_spec_model": "الموديل",
+  "agent_spec_color": "اللون",
+  "agent_spec_store": "المستودع",
+  "ADVANCED_AMOUNT":"قيمة الدفعة المقدمة"
 }
