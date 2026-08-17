@@ -48,7 +48,24 @@ class AgentCubit extends Cubit<AgentState> {
     );
   }
 
+  Future<void> getCustomerProfile(String code) async {
+    emit(state.copyWith(customerProfileStatus: const StatusState.loading()));
+    final result = await agentRepo.getCustomerProfile(code);
+    result.fold(
+      (failure) {
+        emit(state.copyWith(customerProfileStatus: StatusState.failure(failure.errMessage)));
+      },
+      (profile) {
+        emit(state.copyWith(customerProfileStatus: StatusState.success(profile)));
+      },
+    );
+  }
+
   void resetCreateOfferStatus() {
     emit(state.copyWith(createOfferStatus: const StatusState.initial()));
+  }
+
+  void resetCustomerProfileStatus() {
+    emit(state.copyWith(customerProfileStatus: const StatusState.initial()));
   }
 }

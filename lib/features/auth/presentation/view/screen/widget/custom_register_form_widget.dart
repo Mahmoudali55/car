@@ -37,7 +37,6 @@ class _CustomRegisterFormWidgetState extends State<CustomRegisterFormWidget> {
   bool _isSendingOtp = false;
   bool _isTermsAccepted = false;
   String? _expectedOtp;
-
   // Password requirements tracking
   bool _hasUppercase = false;
   bool _hasLowercase = false;
@@ -57,7 +56,8 @@ class _CustomRegisterFormWidgetState extends State<CustomRegisterFormWidget> {
     });
   }
 
-  bool get _isPasswordValid => _hasUppercase && _hasLowercase && _hasDigit && _hasSpecial && _hasMinLength;
+  bool get _isPasswordValid =>
+      _hasUppercase && _hasLowercase && _hasDigit && _hasSpecial && _hasMinLength;
 
   void _sendOtp(BuildContext context) {
     final phone = widget.cubit.idNoController.text.trim();
@@ -408,7 +408,7 @@ class _CustomRegisterFormWidgetState extends State<CustomRegisterFormWidget> {
                         return null;
                       },
                     ),
-                    if (_passwordTouched) ...[  
+                    if (_passwordTouched) ...[
                       Gap(10.h),
                       Wrap(
                         spacing: 8.w,
@@ -546,11 +546,7 @@ class _PasswordHintChip extends StatelessWidget {
           Gap(5.w),
           Text(
             label,
-            style: TextStyle(
-              color: color,
-              fontSize: 11.5.sp,
-              fontWeight: FontWeight.w600,
-            ),
+            style: TextStyle(color: color, fontSize: 11.5.sp, fontWeight: FontWeight.w600),
           ),
         ],
       ),

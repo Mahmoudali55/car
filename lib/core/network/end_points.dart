@@ -16,4 +16,5 @@ class EndPoints {
   static const String addbookingpermission = 'DeltagroupService/Cars/Addofferprice';
   static const String cancelreservedcar = 'DeltagroupService/Cars/CancelReservedCar';
   static const String sendotp = 'DeltagroupService/Cars/sendotp';
+  static const String customerProfile = 'DeltagroupService/Cars/GetcustomerProfile';
 }

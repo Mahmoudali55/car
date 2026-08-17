@@ -104,7 +104,6 @@ class _AgentDashboardScreenState extends State<AgentDashboardScreen> {
                                     AppLocaleKey.agentSalesConsultant.tr(),
                                     style: AppTextStyle.bodyMedium(context).copyWith(
                                       color: AppColor.greyColor(context),
-
                                       fontWeight: FontWeight.w600,
                                     ),
                                   ),
@@ -114,7 +113,6 @@ class _AgentDashboardScreenState extends State<AgentDashboardScreen> {
 
                             IconBtn(
                               icon: Icons.logout_rounded,
-
                               onTap: () {
                                 context.read<AuthCubit>().logout();
                                 Navigator.pushNamedAndRemoveUntil(
