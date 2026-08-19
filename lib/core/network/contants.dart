@@ -1,6 +1,9 @@
+import '../config/app_config.dart';
+
 class Constants {
-  static const String baseUrl = 'https://delta-asg.com:54510/';
-  static const String baseImage = 'https://delta-asg.com:54510/MyVirtualDir/';
+  static String get baseUrl => AppConfig.baseUrl;
+  static String get baseImage => AppConfig.baseImage;
+
   // Moyasar payment gateway (test environment)
   // Test keys start with pk_test_ — safe to use on real devices
   static const String moyasarPublishableKey = 'pk_test_jdvdiyDA6PuwzC9dkKsKpuJt8yGmLDWa7KcnJzJt';

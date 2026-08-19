@@ -34,12 +34,14 @@ class AuthCubit extends Cubit<AuthState> {
 
   // Registration specific controllers
   final TextEditingController fullNameController = TextEditingController();
+  final TextEditingController userNameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController idNoController = TextEditingController();
   final TextEditingController registerPasswordController = TextEditingController();
 
   void clearRegisterFields() {
     fullNameController.clear();
+    userNameController.clear();
     emailController.clear();
     idNoController.clear();
     registerPasswordController.clear();
@@ -125,7 +127,8 @@ class AuthCubit extends Cubit<AuthState> {
     String fcmToken = await NotificationService.getFCMToken() ?? '';
 
     final request = RegisterRequestModel(
-      userName: fullNameController.text.trim(),
+      userName: userNameController.text.trim(),
+      fullname: fullNameController.text.trim(),
       email: emailController.text.trim(),
       idno: idNoController.text.trim(),
       password: registerPasswordController.text.trim(),

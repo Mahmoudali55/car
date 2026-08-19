@@ -5,11 +5,22 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'app.dart';
 import 'core/cache/hive/hive_methods.dart';
+import 'core/config/app_config.dart';
 import 'core/theme/cubit/app_theme_cubit.dart';
 import 'service_initialize.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  // If running main.dart directly without a flavor entrypoint, default to Prod
+  try {
+    AppConfig.baseUrl;
+  } catch (_) {
+    AppConfig.init(
+      appFlavor: AppFlavor.dev,
+      appBaseUrl: 'https://delta-asg.com:54510/',
+      appBaseImage: 'https://delta-asg.com:54510/MyVirtualDir/',
+    );
+  }
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,

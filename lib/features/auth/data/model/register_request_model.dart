@@ -6,6 +6,7 @@ class RegisterRequestModel extends Equatable {
   final String idno;
   final String password;
   final String fcm;
+  final String fullname;
 
   const RegisterRequestModel({
     required this.userName,
@@ -13,6 +14,7 @@ class RegisterRequestModel extends Equatable {
     required this.idno,
     required this.password,
     required this.fcm,
+    required this.fullname,
   });
 
   Map<String, dynamic> toJson() {
@@ -22,9 +24,10 @@ class RegisterRequestModel extends Equatable {
       'IDNO': idno,
       'password': password,
       'FCM': fcm,
+      'FullName': fullname,
     };
   }
 
   @override
-  List<Object?> get props => [userName, email, idno, password, fcm];
+  List<Object?> get props => [userName, email, idno, password, fcm, fullname];
 }

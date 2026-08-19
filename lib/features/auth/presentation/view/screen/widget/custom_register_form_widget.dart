@@ -353,6 +353,32 @@ class _CustomRegisterFormWidgetState extends State<CustomRegisterFormWidget> {
               ),
               Gap(16.h),
               FadeInUp(
+                delay: const Duration(milliseconds: 200),
+                duration: const Duration(milliseconds: 800),
+                child: CustomFormField(
+                  controller: widget.cubit.userNameController,
+                  hintText: AppLocaleKey.userName.tr(),
+                  prefixIcon: Icon(
+                    Icons.person_outline_rounded,
+                    color: AppColor.primaryColor(context),
+                  ),
+                  fillColor: AppColor.blackTextColor(context).withValues(alpha: 0.05),
+                  textStyle: TextStyle(color: AppColor.blackTextColor(context)),
+                  hintStyle: TextStyle(
+                    color: AppColor.blackTextColor(context).withValues(alpha: 0.3),
+                  ),
+                  radius: 16,
+                  keyboardType: TextInputType.name,
+                  validator: (p0) {
+                    if (p0 == null || p0.trim().isEmpty) {
+                      return AppLocaleKey.userName.tr();
+                    }
+                    return null;
+                  },
+                ),
+              ),
+              Gap(16.h),
+              FadeInUp(
                 delay: const Duration(milliseconds: 300),
                 duration: const Duration(milliseconds: 800),
                 child: CustomFormField(
