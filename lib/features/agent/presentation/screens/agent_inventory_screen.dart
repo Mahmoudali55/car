@@ -34,13 +34,9 @@ class _AgentInventoryScreenState extends State<AgentInventoryScreen>
     super.initState();
     _tabController = TabController(length: 3, vsync: this);
     _tabController.addListener(_handleTabChange);
-
-    // Fetch initial status (Available = 1)
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.read<AdminCubit>().getCarsStatus(1, null);
     });
-
-    // Ensure brands are loaded for mapping
     final homeCubit = context.read<HomeCubit>();
     if (homeCubit.state.brands.isEmpty) {
       homeCubit.getCarsModels();
@@ -73,8 +69,6 @@ class _AgentInventoryScreenState extends State<AgentInventoryScreen>
       }
     }
 
-    // Use CAR_STATUS from model if present, otherwise fall back to the tab
-    // that triggered the API call (reserved tab → status 2, etc.).
     CarAvailability availability;
     final int statusVal = (car.carStatus != null && car.carStatus! > 0)
         ? car.carStatus!

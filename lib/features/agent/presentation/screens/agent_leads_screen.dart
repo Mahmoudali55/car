@@ -36,7 +36,7 @@ class _AgentLeadsScreenState extends State<AgentLeadsScreen> {
         body: BlocBuilder<AgentCubit, AgentState>(
           builder: (context, state) {
             if (state.customersStatus.isLoading) {
-              return Center(child: const CustomLoading());
+              return const Center(child: CustomLoading());
             }
             if (state.customersStatus.isFailure) {
               return Center(

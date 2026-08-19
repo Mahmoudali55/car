@@ -11,12 +11,10 @@ class MetaChip extends StatelessWidget {
     required this.label,
     this.fullWidth = false,
   });
-
   final IconData icon;
   final Color iconColor;
   final String label;
   final bool fullWidth;
-
   @override
   Widget build(BuildContext context) {
     return Container(

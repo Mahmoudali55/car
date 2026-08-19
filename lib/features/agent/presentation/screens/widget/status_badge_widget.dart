@@ -10,7 +10,6 @@ class StatusBadge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final statusColor = lead.getStatusColor(context);
-
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
       decoration: BoxDecoration(

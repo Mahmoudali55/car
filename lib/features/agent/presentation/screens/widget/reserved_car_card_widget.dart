@@ -39,7 +39,7 @@ class ReservedCarCard extends StatelessWidget {
         border: Border.all(color: AppColor.borderColor(context).withValues(alpha: 0.15)),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.03),
+            color: AppColor.blackColor(context).withValues(alpha: 0.03),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),
@@ -153,10 +153,7 @@ class ReservedCarCard extends StatelessWidget {
                 ),
               ],
             ),
-
             Gap(14.h),
-
-            // ── Attributes Grid ─────────────────────────────────────────────
             Container(
               padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
               decoration: BoxDecoration(
@@ -201,10 +198,7 @@ class ReservedCarCard extends StatelessWidget {
                 ],
               ),
             ),
-
             Gap(14.h),
-
-            // ── Price & Actions Row ─────────────────────────────────────────
             if (price > 0)
               Row(
                 children: [

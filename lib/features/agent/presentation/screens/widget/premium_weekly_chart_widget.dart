@@ -39,20 +39,17 @@ class PremiumWeeklyChart extends StatelessWidget {
             children: [
               Text(
                 AppLocaleKey.weekly_activity.tr(),
-                style: TextStyle(
+                style: AppTextStyle.bodyMedium(context).copyWith(
                   color: AppColor.blackTextColor(context),
                   fontWeight: FontWeight.w900,
-                  fontSize: 14.sp,
                   letterSpacing: -0.2,
                 ),
               ),
               Text(
                 AppLocaleKey.last_7_days.tr(),
-                style: TextStyle(
-                  color: AppColor.hintColor(context),
-                  fontSize: 12.sp,
-                  fontWeight: FontWeight.w700,
-                ),
+                style: AppTextStyle.bodySmall(
+                  context,
+                ).copyWith(color: AppColor.hintColor(context), fontWeight: FontWeight.w700),
               ),
             ],
           ),

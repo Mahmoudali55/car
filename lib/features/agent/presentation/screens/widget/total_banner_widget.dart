@@ -12,9 +12,7 @@ class TotalBanner extends StatelessWidget {
   final num taxAmount;
   final num platePrice;
   final num total;
-
   final BuildContext context;
-
   const TotalBanner({
     super.key,
     required this.price,
@@ -42,7 +40,6 @@ class TotalBanner extends StatelessWidget {
       ),
       child: Column(
         children: [
-          // تفاصيل البنود
           TotalRow(
             label: AppLocaleKey.agentSellingPrice.tr(),
             value: price,
@@ -66,7 +63,6 @@ class TotalBanner extends StatelessWidget {
           Gap(10.h),
           Divider(color: primary.withValues(alpha: 0.2), height: 1),
           Gap(10.h),
-          // الإجمالي الكلي
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -95,5 +91,3 @@ class TotalBanner extends StatelessWidget {
     );
   }
 }
-
-// Row مساعد داخل البانر

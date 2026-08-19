@@ -21,6 +21,7 @@ class CustomerDropdown extends StatelessWidget {
   final BuildContext context;
 
   const CustomerDropdown({
+    super.key,
     required this.selected,
     required this.isOpen,
     required this.searchController,
@@ -37,7 +38,6 @@ class CustomerDropdown extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // Selector button
         GestureDetector(
           onTap: onToggle,
           child: Container(
@@ -78,8 +78,6 @@ class CustomerDropdown extends StatelessWidget {
             ),
           ),
         ),
-
-        // Dropdown panel
         if (isOpen)
           AnimatedContainer(
             duration: const Duration(milliseconds: 200),
@@ -99,7 +97,6 @@ class CustomerDropdown extends StatelessWidget {
             ),
             child: Column(
               children: [
-                // Search inside dropdown
                 CustomFormField(
                   controller: searchController,
                   hintText: AppLocaleKey.search_agent_hint.tr(),
@@ -112,7 +109,6 @@ class CustomerDropdown extends StatelessWidget {
                   validator: (v) => null,
                 ),
                 Gap(10.h),
-                // List of customers
                 BlocBuilder<AgentCubit, AgentState>(
                   buildWhen: (p, c) => p.customersStatus != c.customersStatus,
                   builder: (context, state) {

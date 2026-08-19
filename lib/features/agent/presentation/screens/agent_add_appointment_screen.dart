@@ -3,9 +3,13 @@ import 'package:car/core/custom_widgets/custom_form_field/custom_form_field.dart
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
+import 'package:car/features/agent/data/model/customer_model.dart';
+import 'package:car/features/agent/presentation/cubit/agent_cubit.dart';
+import 'package:car/features/agent/presentation/screens/widget/customer_dropdown_widget.dart';
 import 'package:car/features/agent/presentation/screens/widget/icon_btn_widget.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
@@ -18,6 +22,24 @@ class AgentAddAppointmentScreen extends StatefulWidget {
 class _AgentAddAppointmentScreenState extends State<AgentAddAppointmentScreen> {
   final TextEditingController dateController = TextEditingController();
   final TextEditingController timeController = TextEditingController();
+  final TextEditingController searchCustomerController = TextEditingController();
+  CustomerModel? selectedCustomer;
+  bool isCustomerDropdownOpen = false;
+
+  @override
+  void initState() {
+    super.initState();
+    context.read<AgentCubit>().getCustomer(null);
+  }
+
+  @override
+  void dispose() {
+    dateController.dispose();
+    timeController.dispose();
+    searchCustomerController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,6 +68,7 @@ class _AgentAddAppointmentScreenState extends State<AgentAddAppointmentScreen> {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 AppLocaleKey.agentScheduleApptDesc.tr(),
@@ -54,12 +77,30 @@ class _AgentAddAppointmentScreenState extends State<AgentAddAppointmentScreen> {
                 ).copyWith(color: AppColor.goldColor(context)),
               ),
               Gap(24.h),
-
-              /// Form Fields
-              CustomFormField(
-                radius: 12.r,
-                title: AppLocaleKey.agentSearchCustomer.tr(),
-                prefixIcon: const Icon(Icons.search_rounded),
+              Text(
+                AppLocaleKey.agentSearchCustomer.tr(),
+                style: AppTextStyle.formTitleStyle(context),
+              ),
+              Gap(5.h),
+              CustomerDropdown(
+                selected: selectedCustomer,
+                isOpen: isCustomerDropdownOpen,
+                searchController: searchCustomerController,
+                onToggle: () {
+                  setState(() {
+                    isCustomerDropdownOpen = !isCustomerDropdownOpen;
+                  });
+                },
+                onSelect: (customer) {
+                  setState(() {
+                    selectedCustomer = customer;
+                    isCustomerDropdownOpen = false;
+                  });
+                },
+                onSearch: (value) {
+                  context.read<AgentCubit>().getCustomer(value);
+                },
+                context: context,
               ),
               Gap(20.h),
               Row(
@@ -101,7 +142,7 @@ class _AgentAddAppointmentScreenState extends State<AgentAddAppointmentScreen> {
                           initialTime: TimeOfDay.now(),
                         );
 
-                        if (pickedTime != null) {
+                        if (pickedTime != null && context.mounted) {
                           timeController.text = pickedTime.format(context);
                         }
                       },
@@ -125,8 +166,6 @@ class _AgentAddAppointmentScreenState extends State<AgentAddAppointmentScreen> {
                 maxLines: 3,
               ),
               Gap(20.h),
-
-              /// Bottom Action Bar
               CustomButton(
                 onPressed: () => Navigator.pop(context),
                 radius: 12.r,

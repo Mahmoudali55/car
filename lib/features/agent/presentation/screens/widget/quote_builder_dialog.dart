@@ -6,6 +6,7 @@ import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/core/utils/common_methods.dart';
+import 'package:car/features/admin/data/model/cars_response_model.dart';
 import 'package:car/features/agent/data/model/creat_offer_model.dart';
 import 'package:car/features/agent/data/model/customer_model.dart';
 import 'package:car/features/agent/presentation/cubit/agent_cubit.dart';
@@ -20,7 +21,6 @@ import 'package:car/features/agent/presentation/screens/widget/section_title_wid
 import 'package:car/features/agent/presentation/screens/widget/sections_title_widget.dart';
 import 'package:car/features/agent/presentation/screens/widget/submit_footer_widget.dart';
 import 'package:car/features/agent/presentation/screens/widget/total_banner_widget.dart';
-import 'package:car/features/admin/data/model/cars_response_model.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -77,7 +77,7 @@ class _QuoteBuilderDialogState extends State<QuoteBuilderDialog> {
       lastDate: DateTime(2030),
     );
     if (picked != null) {
-      final formatted = DateFormat('yyyy-MM-dd').format(picked);
+      final formatted = DateFormat('yyyy-MM-dd', 'en').format(picked);
       setState(() {
         if (isBeg) {
           _begDate = picked;
@@ -95,9 +95,9 @@ class _QuoteBuilderDialogState extends State<QuoteBuilderDialog> {
   num get _platePrice => num.tryParse(_platePriceController.text) ?? 0;
   num get _taxAmount => _price * _taxRate;
   num get _total => (_price + _taxAmount + _platePrice) * 1;
-  String get _today => DateFormat('yyyy-MM-dd').format(DateTime.now());
+  String get _today => DateFormat('yyyy-MM-dd', 'en').format(DateTime.now());
   String get _lastDate =>
-      DateFormat('yyyy-MM-dd').format(DateTime.now().add(const Duration(days: 8)));
+      DateFormat('yyyy-MM-dd', 'en').format(DateTime.now().add(const Duration(days: 8)));
   String get _terms => _instantSpecs.join(' | ');
   String get _carNote {
     final List<String> parts = _existingSpecsController.text
@@ -112,8 +112,7 @@ class _QuoteBuilderDialogState extends State<QuoteBuilderDialog> {
   @override
   void initState() {
     super.initState();
-    _priceController = TextEditingController(
-        text: widget.car.costPrice?.toStringAsFixed(0) ?? '0');
+    _priceController = TextEditingController(text: widget.car.costPrice?.toStringAsFixed(0) ?? '0');
     context.read<AgentCubit>().getCustomer(null);
     final initialText = widget.existingSpecs.entries
         .where((e) => e.value.trim().isNotEmpty && e.value.trim() != '—' && e.value.trim() != '-')

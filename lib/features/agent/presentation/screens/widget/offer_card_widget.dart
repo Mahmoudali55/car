@@ -11,7 +11,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
 class OfferCard extends StatelessWidget {
-  const OfferCard({required this.offer});
+  const OfferCard({super.key, required this.offer});
   final OfferModel offer;
 
   @override
@@ -37,7 +37,6 @@ class OfferCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // ── Header ────────────────────────────────────────────
           Padding(
             padding: EdgeInsets.fromLTRB(16.w, 14.h, 16.w, 12.h),
             child: Row(
@@ -67,8 +66,6 @@ class OfferCard extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 16.w),
             child: Divider(height: 1, color: AppColor.borderColor(context).withValues(alpha: 0.12)),
           ),
-
-          // ── Customer ──────────────────────────────────────────
           Padding(
             padding: EdgeInsets.fromLTRB(16.w, 14.h, 16.w, 0),
             child: Row(
@@ -122,8 +119,6 @@ class OfferCard extends StatelessWidget {
               ],
             ),
           ),
-
-          // ── Meta Chips ────────────────────────────────────────
           Padding(
             padding: EdgeInsets.fromLTRB(16.w, 10.h, 16.w, 0),
             child: Row(
@@ -155,8 +150,6 @@ class OfferCard extends StatelessWidget {
               fullWidth: true,
             ),
           ),
-
-          // ── Notes ─────────────────────────────────────────────
           if (offer.notes != null && offer.notes!.isNotEmpty)
             Padding(
               padding: EdgeInsets.fromLTRB(16.w, 8.h, 16.w, 0),
@@ -189,8 +182,6 @@ class OfferCard extends StatelessWidget {
                 ),
               ),
             ),
-
-          // ── Total Footer ──────────────────────────────────────
           Padding(
             padding: EdgeInsets.fromLTRB(16.w, 12.h, 16.w, 0),
             child: Container(
@@ -224,7 +215,6 @@ class OfferCard extends StatelessWidget {
             ),
           ),
 
-          // ── Dates & Delivery ──────────────────────────────────
           Padding(
             padding: EdgeInsets.fromLTRB(16.w, 10.h, 16.w, 14.h),
             child: Row(

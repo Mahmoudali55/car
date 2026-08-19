@@ -14,10 +14,8 @@ class SummaryKPIBannerCardWidget extends StatelessWidget {
     required this.filteredCars,
     required this.totalPrice,
   });
-
   final List<CarModel> filteredCars;
   final double totalPrice;
-
   @override
   Widget build(BuildContext context) {
     return Container(

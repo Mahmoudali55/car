@@ -243,14 +243,10 @@ class _AgentCarDetailsScreenState extends State<AgentCarDetailsScreen> {
     final searchController = TextEditingController();
     final formKey = GlobalKey<FormState>();
     final isArabic = context.locale.languageCode == 'ar';
-
     CustomerModel? selectedCustomer;
     bool isCustomerDropdownOpen = false;
     bool isTermsAccepted = false;
-
-    // Fetch initial customer list
     context.read<AgentCubit>().getCustomer(null);
-
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -307,8 +303,6 @@ class _AgentCarDetailsScreenState extends State<AgentCarDetailsScreen> {
                               Gap(20.h),
                               const Divider(height: 1),
                               Gap(20.h),
-
-                              // Customer Dropdown
                               CustomerDropdown(
                                 selected: selectedCustomer,
                                 isOpen: isCustomerDropdownOpen,
@@ -331,18 +325,20 @@ class _AgentCarDetailsScreenState extends State<AgentCarDetailsScreen> {
                                 context: dialogContext,
                               ),
                               Gap(16.h),
-
                               AnimatedSize(
                                 duration: const Duration(milliseconds: 300),
                                 curve: Curves.easeInOut,
-                                child: (selectedCustomer != null &&
+                                child:
+                                    (selectedCustomer != null &&
                                         selectedCustomer!.customerName?.trim() == 'عميل عادي')
                                     ? Column(
                                         children: [
                                           Gap(4.h),
                                           CustomFormField(
                                             controller: nameController,
-                                            hintText: isArabic ? 'الاسم بالكامل للعميل' : 'Customer Full Name',
+                                            hintText: isArabic
+                                                ? 'الاسم بالكامل للعميل'
+                                                : 'Customer Full Name',
                                             radius: 12.r,
                                             keyboardType: TextInputType.name,
                                             prefixIcon: Icon(
@@ -350,7 +346,8 @@ class _AgentCarDetailsScreenState extends State<AgentCarDetailsScreen> {
                                               color: AppColor.hintColor(dialogContext),
                                             ),
                                             validator: (value) {
-                                              if (selectedCustomer?.customerName?.trim() == 'عميل عادي') {
+                                              if (selectedCustomer?.customerName?.trim() ==
+                                                  'عميل عادي') {
                                                 if (value == null || value.trim().isEmpty) {
                                                   return isArabic
                                                       ? 'برجاء إدخال اسم العميل'
@@ -365,7 +362,6 @@ class _AgentCarDetailsScreenState extends State<AgentCarDetailsScreen> {
                                       )
                                     : const SizedBox.shrink(),
                               ),
-
                               CustomFormField(
                                 controller: phoneController,
                                 hintText: isArabic ? 'رقم جوال العميل' : 'Customer Phone Number',
@@ -559,8 +555,10 @@ class _AgentCarDetailsScreenState extends State<AgentCarDetailsScreen> {
       taamedNo: '',
       payCond: '',
       guarFinal: 0,
-      notes: 'حجز سيارة كاش - $customerName ($customerPhone)'
-          .substring(0, 'حجز سيارة كاش - $customerName ($customerPhone)'.length.clamp(0, 100)),
+      notes: 'حجز سيارة كاش - $customerName ($customerPhone)'.substring(
+        0,
+        'حجز سيارة كاش - $customerName ($customerPhone)'.length.clamp(0, 100),
+      ),
       userName: HiveMethods.getUserName() ?? '',
       subLpo: [
         SubLpoModel(

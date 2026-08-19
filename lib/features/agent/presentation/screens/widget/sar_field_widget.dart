@@ -10,7 +10,6 @@ class SarField extends StatelessWidget {
   final BuildContext context;
   final ValueChanged<String>? onChanged;
   const SarField({super.key, required this.controller, required this.context, this.onChanged});
-
   @override
   Widget build(BuildContext ctx) {
     return CustomFormField(

@@ -70,7 +70,6 @@ class _AgentCustomerDetailsScreenState extends State<AgentCustomerDetailsScreen>
         builder: (context, state) {
           final profileStatus = state.customerProfileStatus;
           final CustomerProfileModel? profile = profileStatus.data;
-
           final customerName = profile?.displayName.isNotEmpty == true
               ? profile!.displayName
               : (widget.customer.customerName ?? '');
@@ -81,7 +80,10 @@ class _AgentCustomerDetailsScreenState extends State<AgentCustomerDetailsScreen>
               ? profile.formattedBalance
               : widget.customer.formattedBalance;
           final creditLimitVal = profile?.creditLimit ?? widget.customer.creditLimit ?? 0.0;
-          final currencyStr = profile?.currencyName ?? widget.customer.currencyName ?? AppLocaleKey.currencyRiyal.tr();
+          final currencyStr =
+              profile?.currencyName ??
+              widget.customer.currencyName ??
+              AppLocaleKey.currencyRiyal.tr();
           final areaStr = profile?.areaName ?? widget.customer.areaName ?? '---';
           final cityStr = profile?.cityName ?? widget.customer.cityName ?? '---';
           final addressStr = (profile?.address?.isNotEmpty == true)
@@ -90,7 +92,6 @@ class _AgentCustomerDetailsScreenState extends State<AgentCustomerDetailsScreen>
           final taxNo = profile?.custTaxNo ?? widget.customer.custTaxNo;
           final tradeName = profile?.tradeName ?? widget.customer.tradeName;
           final notes = profile?.notes ?? widget.customer.notes;
-
           return SingleChildScrollView(
             padding: EdgeInsets.all(20.w),
             child: Column(
@@ -100,11 +101,8 @@ class _AgentCustomerDetailsScreenState extends State<AgentCustomerDetailsScreen>
                     padding: EdgeInsets.only(bottom: 16.h),
                     child: const CustomLoading(),
                   ),
-
-                /// Header Profile Card
                 HeaderProfileCard(customer: widget.customer),
                 Gap(24.h),
-
                 Row(
                   children: [
                     Expanded(
@@ -125,8 +123,6 @@ class _AgentCustomerDetailsScreenState extends State<AgentCustomerDetailsScreen>
                   ],
                 ),
                 Gap(24.h),
-
-                /// Financial Summary
                 _sectionTitle(AppLocaleKey.agentFinancialSummary.tr()),
                 Gap(12.h),
                 Container(
@@ -150,16 +146,11 @@ class _AgentCustomerDetailsScreenState extends State<AgentCustomerDetailsScreen>
                         value: "$creditLimitVal ${AppLocaleKey.sar.tr()}",
                       ),
                       Gap(12.h),
-                      InfoRowWidget(
-                        label: AppLocaleKey.agentCurrency.tr(),
-                        value: currencyStr,
-                      ),
+                      InfoRowWidget(label: AppLocaleKey.agentCurrency.tr(), value: currencyStr),
                     ],
                   ),
                 ),
                 Gap(24.h),
-
-                /// Contact Info
                 _sectionTitle(AppLocaleKey.agentContactInformation.tr()),
                 Gap(12.h),
                 Container(
@@ -219,8 +210,6 @@ class _AgentCustomerDetailsScreenState extends State<AgentCustomerDetailsScreen>
                   ),
                 ),
                 Gap(24.h),
-
-                /// Address Details
                 _sectionTitle(AppLocaleKey.agentAddress.tr()),
                 Gap(12.h),
                 Container(
@@ -259,7 +248,9 @@ class _AgentCustomerDetailsScreenState extends State<AgentCustomerDetailsScreen>
                     decoration: BoxDecoration(
                       color: AppColor.cardColor(context),
                       borderRadius: BorderRadius.circular(24.r),
-                      border: Border.all(color: AppColor.borderColor(context).withValues(alpha: .1)),
+                      border: Border.all(
+                        color: AppColor.borderColor(context).withValues(alpha: .1),
+                      ),
                     ),
                     child: Text(
                       notes!,
@@ -284,7 +275,9 @@ class _AgentCustomerDetailsScreenState extends State<AgentCustomerDetailsScreen>
       alignment: Alignment.centerRight,
       child: Text(
         title,
-        style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w800),
+        style: AppTextStyle.bodyLarge(
+          context,
+        ).copyWith(color: AppColor.blackTextColor(context), fontWeight: FontWeight.w800),
       ),
     );
   }

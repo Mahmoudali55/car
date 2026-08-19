@@ -39,7 +39,6 @@ class LeadCard extends StatelessWidget {
             padding: EdgeInsets.all(16.w),
             child: Row(
               children: [
-                /// ── Avatar ──
                 Container(
                   width: 52.w,
                   height: 52.w,
@@ -65,8 +64,6 @@ class LeadCard extends StatelessWidget {
                   ),
                 ),
                 Gap(14.w),
-
-                /// ── Info ──
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -114,7 +111,6 @@ class LeadCard extends StatelessWidget {
             ),
           ),
 
-          /// ── Actions ──
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(

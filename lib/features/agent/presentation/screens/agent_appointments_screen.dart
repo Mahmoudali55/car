@@ -33,7 +33,7 @@ class _AgentAppointmentsScreenState extends State<AgentAppointmentsScreen> {
       appBar: CustomAppBar(
         context,
         elevation: 0,
-        leading: SizedBox.shrink(),
+        leading: const SizedBox.shrink(),
         centerTitle: true,
         automaticallyImplyLeading: false,
         title: Text(

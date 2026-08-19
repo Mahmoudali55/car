@@ -11,6 +11,7 @@ class TotalRow extends StatelessWidget {
   final Color color;
 
   const TotalRow({
+    super.key,
     required this.label,
     required this.value,
 

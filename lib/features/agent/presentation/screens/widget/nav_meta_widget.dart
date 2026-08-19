@@ -45,7 +45,6 @@ class BottomNav extends StatelessWidget {
             children: List.generate(items.length, (i) {
               final selected = currentIndex == i;
               final color = selected ? AppColor.blueColor(context) : AppColor.hintColor(context);
-
               return GestureDetector(
                 onTap: () => onTap(i),
                 behavior: HitTestBehavior.opaque,

@@ -7,7 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
 class ErrorState extends StatelessWidget {
-  const ErrorState({required this.message, required this.onRetry});
+  const ErrorState({super.key, required this.message, required this.onRetry});
   final String message;
   final VoidCallback onRetry;
 

@@ -3,15 +3,44 @@ import 'package:car/core/custom_widgets/custom_form_field/custom_form_field.dart
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
+import 'package:car/features/agent/data/model/customer_model.dart';
+import 'package:car/features/agent/presentation/cubit/agent_cubit.dart';
+import 'package:car/features/agent/presentation/screens/widget/customer_dropdown_widget.dart';
 import 'package:car/features/agent/presentation/screens/widget/icon_btn_widget.dart';
 import 'package:car/features/agent/presentation/screens/widget/note_tag_widget.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
-class AgentAddNoteScreen extends StatelessWidget {
+class AgentAddNoteScreen extends StatefulWidget {
   const AgentAddNoteScreen({super.key});
+
+  @override
+  State<AgentAddNoteScreen> createState() => _AgentAddNoteScreenState();
+}
+
+class _AgentAddNoteScreenState extends State<AgentAddNoteScreen> {
+  final TextEditingController searchCustomerController = TextEditingController();
+  final TextEditingController noteController = TextEditingController();
+
+  CustomerModel? selectedCustomer;
+  bool isCustomerDropdownOpen = false;
+
+  @override
+  void initState() {
+    super.initState();
+    context.read<AgentCubit>().getCustomer(null);
+  }
+
+  @override
+  void dispose() {
+    searchCustomerController.dispose();
+    noteController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,6 +66,7 @@ class AgentAddNoteScreen extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 AppLocaleKey.agentAddNoteDesc.tr(),
@@ -45,14 +75,34 @@ class AgentAddNoteScreen extends StatelessWidget {
                 ).copyWith(color: AppColor.greyColor(context), fontWeight: FontWeight.w500),
               ),
               Gap(24.h),
-              CustomFormField(
-                radius: 12.r,
-                title: AppLocaleKey.agentTargetCustomer.tr(),
-                hintText: AppLocaleKey.agentSearchRelevantCustomer.tr(),
-                prefixIcon: const Icon(Icons.search_rounded),
+              Text(
+                AppLocaleKey.agentTargetCustomer.tr(),
+                style: AppTextStyle.formTitleStyle(context),
+              ),
+              Gap(5.h),
+              CustomerDropdown(
+                selected: selectedCustomer,
+                isOpen: isCustomerDropdownOpen,
+                searchController: searchCustomerController,
+                onToggle: () {
+                  setState(() {
+                    isCustomerDropdownOpen = !isCustomerDropdownOpen;
+                  });
+                },
+                onSelect: (customer) {
+                  setState(() {
+                    selectedCustomer = customer;
+                    isCustomerDropdownOpen = false;
+                  });
+                },
+                onSearch: (value) {
+                  context.read<AgentCubit>().getCustomer(value);
+                },
+                context: context,
               ),
               Gap(20.h),
               CustomFormField(
+                controller: noteController,
                 radius: 12.r,
                 title: AppLocaleKey.agentNoteText.tr(),
                 hintText: AppLocaleKey.agentWriteNoteHint.tr(),
