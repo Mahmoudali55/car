@@ -18,6 +18,7 @@ class HomeState extends Equatable {
   final int? fromPrice;
   final int? toPrice;
   final String? fuelType;
+  final StatusState<List<BANKSDATAModel>> banksStatus;
   final StatusState<SendOtpResponseModel> sendOtpStatus;
   const HomeState({
     this.carsModelsStatus = const StatusState.initial(),
@@ -25,6 +26,7 @@ class HomeState extends Equatable {
     this.filteredCarsStatus = const StatusState.initial(),
     this.allCarsStatus = const StatusState.initial(),
     this.allPopularCarsStatus = const StatusState.initial(),
+    this.banksStatus = const StatusState.initial(),
     this.selectedBrandId,
     this.selectedIndex = 0,
     this.searchQuery = '',
@@ -45,6 +47,7 @@ class HomeState extends Equatable {
     StatusState<List<GetBrandCarsDataModel>>? filteredCarsStatus,
     StatusState<List<GetBrandCarsDataModel>>? allCarsStatus,
     StatusState? allPopularCarsStatus,
+    StatusState<List<BANKSDATAModel>>? banksStatus,
     int? selectedBrandId,
     int? selectedIndex,
     List<CarModel>? brands,
@@ -65,6 +68,7 @@ class HomeState extends Equatable {
       filteredCarsStatus: filteredCarsStatus ?? this.filteredCarsStatus,
       allCarsStatus: allCarsStatus ?? this.allCarsStatus,
       allPopularCarsStatus: allPopularCarsStatus ?? this.allPopularCarsStatus,
+      banksStatus: banksStatus ?? this.banksStatus,
       selectedBrandId: selectedBrandId ?? this.selectedBrandId,
       selectedIndex: selectedIndex ?? this.selectedIndex,
       brands: brands ?? this.brands,
@@ -90,6 +94,7 @@ class HomeState extends Equatable {
     filteredCarsStatus,
     allCarsStatus,
     allPopularCarsStatus,
+    banksStatus,
     selectedBrandId,
     selectedIndex,
     brands,

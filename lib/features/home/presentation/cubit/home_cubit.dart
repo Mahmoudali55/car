@@ -5,6 +5,7 @@ import 'package:bloc/bloc.dart';
 import 'package:car/core/network/status.state.dart';
 import 'package:car/features/home/data/model/add_booking_permission_model.dart';
 import 'package:car/features/home/data/model/add_booking_permission_response_model.dart';
+import 'package:car/features/home/data/model/banks_data_model.dart';
 import 'package:car/features/home/data/model/brand_cars_data_model.dart';
 import 'package:car/features/home/data/model/cancel_reserved_car_model.dart';
 import 'package:car/features/home/data/model/cancel_reserved_car_response_model.dart';
@@ -209,6 +210,19 @@ class HomeCubit extends Cubit<HomeState> {
       },
       (response) {
         emit(state.copyWith(sendOtpStatus: StatusState.success(response)));
+      },
+    );
+  }
+
+  Future<void> getBanks({String? searchVal}) async {
+    emit(state.copyWith(banksStatus: const StatusState.loading()));
+    final result = await homeRepo.getBanks(searchVal);
+    result.fold(
+      (failure) {
+        emit(state.copyWith(banksStatus: StatusState.failure(failure.errMessage)));
+      },
+      (response) {
+        emit(state.copyWith(banksStatus: StatusState.success(response)));
       },
     );
   }

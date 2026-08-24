@@ -1,14 +1,15 @@
 import 'package:car/core/error/failures.dart';
-import 'package:car/features/home/data/model/send_otp_model.dart';
-import 'package:car/features/home/data/model/send_otp_response_model.dart';
 import 'package:car/core/network/api_consumer.dart';
 import 'package:car/core/network/end_points.dart';
 import 'package:car/features/home/data/model/add_booking_permission_model.dart';
 import 'package:car/features/home/data/model/add_booking_permission_response_model.dart';
+import 'package:car/features/home/data/model/banks_data_model.dart';
 import 'package:car/features/home/data/model/brand_cars_data_model.dart';
 import 'package:car/features/home/data/model/cancel_reserved_car_model.dart';
 import 'package:car/features/home/data/model/cancel_reserved_car_response_model.dart';
 import 'package:car/features/home/data/model/cars_models_response.dart';
+import 'package:car/features/home/data/model/send_otp_model.dart';
+import 'package:car/features/home/data/model/send_otp_response_model.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
@@ -31,6 +32,7 @@ abstract interface class HomeRepo {
     CancelReservedCarModel model,
   );
   Future<Either<Failure, SendOtpResponseModel>> sendOtp(SendOtpModel model);
+  Future<Either<Failure, List<BANKSDATAModel>>> getBanks(String? Searchval);
 }
 
 class HomeRepoImpl implements HomeRepo {
@@ -134,6 +136,19 @@ class HomeRepoImpl implements HomeRepo {
       request: () async {
         final response = await apiConsumer.post(EndPoints.sendotp, body: model.toJson());
         return SendOtpResponseModel.fromJson(response);
+      },
+    );
+  }
+
+  @override
+  Future<Either<Failure, List<BANKSDATAModel>>> getBanks(String? Searchval) async {
+    return handleDioRequest(
+      request: () async {
+        final response = await apiConsumer.get(
+          EndPoints.customer,
+          queryParameters: {'Searchval': Searchval, 'TableName': 'sp_BANKS_DATA_search_sel'},
+        );
+        return BANKSDATAModel.listFromResponse(response['Data']);
       },
     );
   }
