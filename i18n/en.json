@@ -1300,6 +1300,12 @@
   "openCarrierDesc": "Open and fast transport suitable for regional distances",
   "closedCarrierDesc": "Closed container full protection from dust and weather",
   "startsFrom": "Starts from",
+  "adLastPayment": "and {value}% final payment",
+  "adAdministrativeFees": "Administrative fees",
+  "adProfitRate": "Profit rate",
+  "adDealerName": "Hajid Bin Wazir & Sons",
+  "adDealerSubtitle": "Car Trading",
+  "adUntil": "Until {date}",
   "fromCityHint": "City (e.g. Riyadh)",
   "toCityHint": "City (e.g. Jeddah)",
   "carHint": "Mercedes, Camry...",
@@ -1466,5 +1472,6 @@
   "agent_spec_model": "Model",
   "agent_spec_color": "Color",
   "agent_spec_store": "Store",
-  "ADVANCED_AMOUNT": "Advanced Amount"
+  "ADVANCED_AMOUNT": "Advanced Amount",
+  "CAR_OFFERS": "Car Offers"
 }

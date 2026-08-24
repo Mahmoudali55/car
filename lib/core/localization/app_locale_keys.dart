@@ -368,6 +368,12 @@ class AppLocaleKey {
   static const String openFlatbedDesc = 'openFlatbedDesc';
   static const String closedCarrierVipDesc = 'closedCarrierVipDesc';
   static const String startsFrom = 'startsFrom';
+  static const String adLastPayment = 'adLastPayment';
+  static const String adAdministrativeFees = 'adAdministrativeFees';
+  static const String adProfitRate = 'adProfitRate';
+  static const String adDealerName = 'adDealerName';
+  static const String adDealerSubtitle = 'adDealerSubtitle';
+  static const String adUntil = 'adUntil';
   static const String riyadhCityHint = 'riyadhCityHint';
   static const String jeddahCityHint = 'jeddahCityHint';
   static const String carBrandModelHint = 'carBrandModelHint';
@@ -1522,4 +1528,5 @@ class AppLocaleKey {
   static const String agentSpecColor = 'agent_spec_color';
   static const String agentSpecStore = 'agent_spec_store';
   static const String ADVANCED_AMOUNT = 'ADVANCED_AMOUNT';
+  static const String CAR_OFFERS = 'CAR_OFFERS';
 }

@@ -325,6 +325,12 @@
   "openFlatbedDesc": "نقل مكشوف وسريع مناسب للمسافات الإقليمية",
   "closedCarrierVipDesc": "حاوية مغلقة حماية كاملة من الغبار وعوامل الجو",
   "startsFrom": "يبدأ من",
+  "adLastPayment": "و {value}% دفعة أخيرة",
+  "adAdministrativeFees": "رسوم إدارية",
+  "adProfitRate": "معدل الربح",
+  "adDealerName": "هاجد بن وزير وأولاده",
+  "adDealerSubtitle": "لتجارة السيارات",
+  "adUntil": "حتى {date}",
   "riyadhCityHint": "المدينة (مثلاً: الرياض)",
   "jeddahCityHint": "المدينة (مثلاً: جدة)",
   "carBrandModelHint": "مرسيدس، كامري...",
@@ -1469,5 +1475,6 @@
   "agent_spec_model": "الموديل",
   "agent_spec_color": "اللون",
   "agent_spec_store": "المستودع",
-  "ADVANCED_AMOUNT":"قيمة الدفعة المقدمة"
+  "ADVANCED_AMOUNT":"قيمة الدفعة المقدمة",
+  "CAR_OFFERS":"عروض السيارات"
 }

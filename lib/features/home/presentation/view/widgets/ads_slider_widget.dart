@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:car/features/home/data/model/ad_item_model.dart';
+import 'package:car/features/home/data/model/financing_ad_model.dart';
 import 'package:car/features/home/presentation/cubit/home_cubit.dart';
 import 'package:car/features/home/presentation/view/screen/main_layout.dart';
 import 'package:car/features/home/presentation/view/widgets/ad_card_widget.dart';
@@ -29,7 +29,6 @@ class _AdsSliderWidgetState extends State<AdsSliderWidget> {
 
     _currentPage = 1000;
 
-    // Initialize PageController
     _pageController = PageController(initialPage: _currentPage);
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -85,13 +84,12 @@ class _AdsSliderWidgetState extends State<AdsSliderWidget> {
     }
   }
 
-  void _onAdTap(AdItem ad) {
+  void _onAdTap(FinancingAdModel ad) {
     if (ad.programId != null) {
       context.read<HomeCubit>().getFinancingAds(code: ad.programId.toString());
     } else {
       context.read<HomeCubit>().getFinancingAds();
     }
-
     MainLayout.tabIndex.value = 1;
   }
 
@@ -109,11 +107,12 @@ class _AdsSliderWidgetState extends State<AdsSliderWidget> {
         if (models == null || models.isEmpty) {
           return const SizedBox.shrink();
         }
-
-        final List<AdItem> adsList = List.generate(
-          models.length,
-          (index) => AdItem.fromFinancingAd(models[index], index),
-        );
+        final seenProgramIds = <int>{};
+        final adsList = models.where((ad) {
+          final programId = ad.programId;
+          if (programId == null) return true;
+          return seenProgramIds.add(programId);
+        }).toList();
 
         final realIndex = _currentPage % adsList.length;
 
@@ -144,13 +143,11 @@ class _AdsSliderWidgetState extends State<AdsSliderWidget> {
                 },
               ),
             ),
-
             Gap(10.h),
-
             AdsDotIndicator(
               count: adsList.length,
               currentIndex: realIndex,
-              activeColor: adsList[realIndex].accentColor,
+              activeColor: const Color(0xFFFFC24B),
               onDotTapped: (i) => _onDotTapped(i, adsList.length),
             ),
           ],
