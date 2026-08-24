@@ -41,7 +41,10 @@ class AdCardWidget extends StatelessWidget {
               padding: EdgeInsets.fromLTRB(18.w, 16.h, 12.w, 16.h),
               child: Row(
                 children: [
-                  Expanded(flex: 55, child: AdCardTextContent(ad: ad, onTap: onTap)),
+                  Expanded(
+                    flex: 55,
+                    child: AdCardTextContent(ad: ad, onTap: onTap),
+                  ),
                   Gap(8.w),
                   Expanded(flex: 45, child: AdCardImage(ad: ad)),
                 ],

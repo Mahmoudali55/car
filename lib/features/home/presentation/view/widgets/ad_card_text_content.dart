@@ -1,5 +1,6 @@
 // ─── ad_card_text_content.dart ───────────────────────────────────
 
+import 'package:car/core/custom_widgets/custom_sar_text.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/features/home/data/model/ad_item_model.dart';
@@ -55,9 +56,9 @@ class AdCardTextContent extends StatelessWidget {
   }
 
   Widget _buildPrice(BuildContext context) {
-    return Text(
-      ad.price,
-      style: AppTextStyle.bodyMedium(
+    return ValueWithCurrencyIcon(
+      text: ad.price,
+      textStyle: AppTextStyle.bodyMedium(
         context,
       ).copyWith(color: ad.accentColor, fontWeight: FontWeight.w800, letterSpacing: 0.3),
     );
