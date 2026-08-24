@@ -55,9 +55,16 @@ class _CarsScreenState extends State<CarsScreen> {
         Expanded(
           child: BlocBuilder<HomeCubit, HomeState>(
             builder: (context, state) {
-              if (state.allCarsStatus.isLoading) {
+              final bool isFilteredByOffer = state.programCarsStatus.isSuccess &&
+                  state.programCarsStatus.data != null &&
+                  state.programCarsStatus.data!.isNotEmpty;
+
+              final activeOffer =
+                  isFilteredByOffer ? state.programCarsStatus.data!.first : null;
+
+              if (state.allCarsStatus.isLoading || state.programCarsStatus.isLoading) {
                 return const Center(child: CustomLoading());
-              } else if (state.allCarsStatus.isFailure) {
+              } else if (state.allCarsStatus.isFailure && !isFilteredByOffer) {
                 return Center(
                   child: Text(
                     state.allCarsStatus.message ?? 'Error loading cars',
@@ -67,12 +74,34 @@ class _CarsScreenState extends State<CarsScreen> {
                   ),
                 );
               }
-              final allAvailable = (state.allCarsStatus.data ?? [])
-                  .where((car) => car.carStatus == 1)
-                  .toList();
+
+              List<GetBrandCarsDataModel> baseCarsList = [];
+              if (isFilteredByOffer) {
+                final allCars = state.allCarsStatus.data ?? [];
+                baseCarsList = state.programCarsStatus.data!.map((ad) {
+                  final offerCar = ad.toCarDataModel();
+                  final originalCar = allCars.cast<GetBrandCarsDataModel?>().firstWhere(
+                    (car) => car?.itemCode == offerCar.itemCode,
+                    orElse: () => null,
+                  );
+                  if (originalCar != null) return offerCar.merge(originalCar);
+
+                  final nameParts = offerCar.itemName.trim().split(RegExp(r'\s+'));
+                  if (nameParts.isEmpty || nameParts.first.isEmpty) return offerCar;
+                  return offerCar.copyWith(
+                    grName: nameParts.first,
+                    groupName: nameParts.last,
+                  );
+                }).toList();
+              } else {
+                baseCarsList = (state.allCarsStatus.data ?? [])
+                    .where((car) => car.carStatus == 1)
+                    .toList();
+              }
+
               final availableCars = _searchQuery.isEmpty
-                  ? allAvailable
-                  : allAvailable.where((car) {
+                  ? baseCarsList
+                  : baseCarsList.where((car) {
                       final name = car.itemName.toLowerCase();
                       final brand = car.groupName.toLowerCase();
                       return name.contains(_searchQuery) || brand.contains(_searchQuery);
@@ -84,6 +113,7 @@ class _CarsScreenState extends State<CarsScreen> {
                   setState(() {
                     _searchQuery = '';
                   });
+                  context.read<HomeCubit>().clearProgramCarsFilter();
                   await Future.wait([
                     context.read<HomeCubit>().getCarsModels(),
                     context.read<HomeCubit>().fetchAllCars(),
@@ -95,9 +125,60 @@ class _CarsScreenState extends State<CarsScreen> {
                   padding: EdgeInsets.zero,
                   physics: const AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
                   children: [
-                    const SectionHeader(),
+                    if (isFilteredByOffer && activeOffer != null) ...[
+                      if (activeOffer.displayPicUrl.isNotEmpty)
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(12.r),
+                            child: Image.network(
+                              activeOffer.displayPicUrl,
+                              width: double.infinity,
+                              height: 120.h,
+                              fit: BoxFit.cover,
+                              errorBuilder: (context, error, stackTrace) =>
+                                  const SizedBox.shrink(),
+                            ),
+                          ),
+                        ),
+                      Container(
+                        margin: EdgeInsets.symmetric(horizontal: 20.w, vertical: 8.h),
+                        padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 10.h),
+                        decoration: BoxDecoration(
+                          color: AppColor.primaryColor(context).withValues(alpha: 0.05),
+                          borderRadius: BorderRadius.circular(8.r),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'عروض السيارات',
+                              style: AppTextStyle.bodyMedium(context).copyWith(
+                                color: AppColor.blackTextColor(context).withValues(alpha: 0.6),
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            InkWell(
+                              onTap: () {
+                                context.read<HomeCubit>().clearProgramCarsFilter();
+                              },
+                              child: Icon(
+                                Icons.close_rounded,
+                                color: AppColor.blackTextColor(context).withValues(alpha: 0.5),
+                                size: 18.sp,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                    if (!isFilteredByOffer) const SectionHeader(),
                     Gap(16.h),
-                    CarsList(cars: availableCars, localizeCarData: _localizeCarData),
+                    CarsList(
+                      cars: availableCars,
+                      localizeCarData: _localizeCarData,
+                      isOffer: isFilteredByOffer,
+                    ),
                   ],
                 ),
               );

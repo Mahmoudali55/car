@@ -9,10 +9,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
 class CarsList extends StatelessWidget {
-  const CarsList({super.key, required this.cars, this.localizeCarData});
+  const CarsList({super.key, required this.cars, this.localizeCarData, this.isOffer = false});
 
   final List<GetBrandCarsDataModel> cars;
   final GetBrandCarsDataModel Function(GetBrandCarsDataModel)? localizeCarData;
+  final bool isOffer;
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +51,7 @@ class CarsList extends StatelessWidget {
       separatorBuilder: (_, __) => Gap(16.h),
       itemBuilder: (context, index) {
         final car = localizeCarData != null ? localizeCarData!(cars[index]) : cars[index];
-        return PremiumCarCardWidget(car: car, heroTag: 'premium_car_image_${car.itemCode}');
+        return PremiumCarCardWidget(car: car, heroTag: 'premium_car_image_${car.itemCode}', isOffer: isOffer);
       },
     );
   }

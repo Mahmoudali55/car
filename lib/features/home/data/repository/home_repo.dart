@@ -8,6 +8,7 @@ import 'package:car/features/home/data/model/brand_cars_data_model.dart';
 import 'package:car/features/home/data/model/cancel_reserved_car_model.dart';
 import 'package:car/features/home/data/model/cancel_reserved_car_response_model.dart';
 import 'package:car/features/home/data/model/cars_models_response.dart';
+import 'package:car/features/home/data/model/financing_ad_model.dart';
 import 'package:car/features/home/data/model/send_otp_model.dart';
 import 'package:car/features/home/data/model/send_otp_response_model.dart';
 import 'package:dartz/dartz.dart';
@@ -33,6 +34,7 @@ abstract interface class HomeRepo {
   );
   Future<Either<Failure, SendOtpResponseModel>> sendOtp(SendOtpModel model);
   Future<Either<Failure, List<BANKSDATAModel>>> getBanks(String? Searchval);
+  Future<Either<Failure, List<FinancingAdModel>>> getFinancingAds({String? code});
 }
 
 class HomeRepoImpl implements HomeRepo {
@@ -149,6 +151,19 @@ class HomeRepoImpl implements HomeRepo {
           queryParameters: {'Searchval': Searchval, 'TableName': 'sp_BANKS_DATA_search_sel'},
         );
         return BANKSDATAModel.listFromResponse(response['Data']);
+      },
+    );
+  }
+
+  @override
+  Future<Either<Failure, List<FinancingAdModel>>> getFinancingAds({String? code}) async {
+    return handleDioRequest(
+      request: () async {
+        final response = await apiConsumer.get(
+          EndPoints.getFinancingAds,
+          queryParameters: {'code': code},
+        );
+        return FinancingAdModel.listFromResponse(response['Data']);
       },
     );
   }

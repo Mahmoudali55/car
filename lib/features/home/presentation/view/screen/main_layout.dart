@@ -8,14 +8,16 @@ import 'package:car/features/home/presentation/view/widgets/profile_icon_widget.
 import 'package:car/features/home/presentation/view/widgets/search_icon_widget.dart';
 import 'package:car/features/home/presentation/view/widgets/support_icon_widget.dart';
 import 'package:car/features/home/presentation/view/widgets/translate_icon_widget.dart';
+import 'package:car/features/home/presentation/cubit/home_cubit.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import '../../../../cars/presentation/screen/cars_screen.dart';
-import '../../../../offers/presentation/screen/offers_screen.dart';
+
 import '../../../../services/presentation/screen/services_screen.dart';
 import '../widgets/main_bottom_nav_bar.dart';
 import 'guest_home_screen.dart';
@@ -31,8 +33,12 @@ class _MainLayoutState extends State<MainLayout> {
   int _currentIndex = 0;
 
   void _onTabChanged() {
+    final nextIndex = MainLayout.tabIndex.value;
+    if (_currentIndex == 1 && nextIndex != 1) {
+      context.read<HomeCubit>().clearProgramCarsFilter();
+    }
     setState(() {
-      _currentIndex = MainLayout.tabIndex.value;
+      _currentIndex = nextIndex;
     });
   }
 
@@ -55,11 +61,10 @@ class _MainLayoutState extends State<MainLayout> {
       HomeGuestScreen(key: ValueKey('home_${context.locale.languageCode}')),
       CarsScreen(key: ValueKey('cars_${context.locale.languageCode}')),
       FavoritesScreen(key: ValueKey('favorites_${context.locale.languageCode}')),
-      OffersScreen(key: ValueKey('offers_${context.locale.languageCode}')),
       ServicesScreen(key: ValueKey('services_${context.locale.languageCode}')),
     ];
     return Scaffold(
-      appBar: _currentIndex == 4
+      appBar: _currentIndex == 3
           ? null
           : CustomAppBar(
               context,

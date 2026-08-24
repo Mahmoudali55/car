@@ -10,6 +10,7 @@ import 'package:car/features/home/data/model/brand_cars_data_model.dart';
 import 'package:car/features/home/data/model/cancel_reserved_car_model.dart';
 import 'package:car/features/home/data/model/cancel_reserved_car_response_model.dart';
 import 'package:car/features/home/data/model/cars_models_response.dart';
+import 'package:car/features/home/data/model/financing_ad_model.dart';
 import 'package:car/features/home/data/model/send_otp_model.dart';
 import 'package:car/features/home/data/model/send_otp_response_model.dart';
 import 'package:car/features/home/data/repository/home_repo.dart';
@@ -225,5 +226,37 @@ class HomeCubit extends Cubit<HomeState> {
         emit(state.copyWith(banksStatus: StatusState.success(response)));
       },
     );
+  }
+
+  Future<void> getFinancingAds({String? code}) async {
+    final isSpecificProgram = code != null && code.isNotEmpty;
+    if (isSpecificProgram) {
+      emit(state.copyWith(programCarsStatus: const StatusState.loading()));
+    } else {
+      emit(state.copyWith(financingAdsStatus: const StatusState.loading()));
+    }
+
+    final result = await homeRepo.getFinancingAds(code: code);
+
+    result.fold(
+      (failure) {
+        if (isSpecificProgram) {
+          emit(state.copyWith(programCarsStatus: StatusState.failure(failure.errMessage)));
+        } else {
+          emit(state.copyWith(financingAdsStatus: StatusState.failure(failure.errMessage)));
+        }
+      },
+      (response) {
+        if (isSpecificProgram) {
+          emit(state.copyWith(programCarsStatus: StatusState.success(response)));
+        } else {
+          emit(state.copyWith(financingAdsStatus: StatusState.success(response)));
+        }
+      },
+    );
+  }
+
+  void clearProgramCarsFilter() {
+    emit(state.copyWith(programCarsStatus: const StatusState.initial()));
   }
 }

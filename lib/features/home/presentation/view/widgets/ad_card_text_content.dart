@@ -11,7 +11,8 @@ import 'package:gap/gap.dart';
 
 class AdCardTextContent extends StatelessWidget {
   final AdItem ad;
-  const AdCardTextContent({super.key, required this.ad});
+  final VoidCallback? onTap;
+  const AdCardTextContent({super.key, required this.ad, this.onTap});
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -26,7 +27,7 @@ class AdCardTextContent extends StatelessWidget {
         const Spacer(),
         _buildPrice(context),
         Gap(10.h),
-        AdExploreButton(ad: ad),
+        AdExploreButton(ad: ad, onTap: onTap),
       ],
     );
   }

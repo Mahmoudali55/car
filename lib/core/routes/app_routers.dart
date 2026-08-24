@@ -187,6 +187,22 @@ class AppRouters {
         return MaterialPageRoute(
           builder: (_) => AgentCustomerDetailsScreen(customer: args as CustomerModel),
         );
+      case RoutesName.financingProgramOffersScreen:
+      case RoutesName.offersScreen:
+        int? programId;
+        String? programName;
+        if (args is Map<String, dynamic>) {
+          programId = args['programId'] as int?;
+          programName = args['programName'] as String?;
+        } else if (args is int) {
+          programId = args;
+        }
+        return MaterialPageRoute(
+          builder: (_) => OffersScreen(
+            programId: programId,
+            programName: programName,
+          ),
+        );
       default:
         return null;
     }

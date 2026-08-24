@@ -21,7 +21,8 @@ import 'package:gap/gap.dart';
 class PremiumCarCardWidget extends StatelessWidget {
   final GetBrandCarsDataModel car;
   final String? heroTag;
-  const PremiumCarCardWidget({super.key, required this.car, this.heroTag});
+  final bool isOffer;
+  const PremiumCarCardWidget({super.key, required this.car, this.heroTag, this.isOffer = false});
 
   @override
   Widget build(BuildContext context) {
@@ -116,6 +117,47 @@ class PremiumCarCardWidget extends StatelessWidget {
                     ],
                   ),
                 ),
+                if (isOffer && car.interestRate != null)
+                  Positioned(
+                    left: 70.w,
+                    child: Container(
+                      padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 6.h),
+                      decoration: BoxDecoration(
+                        color: AppColor.primaryColor(context),
+                        borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(12.r),
+                          bottomRight: Radius.circular(12.r),
+                        ),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withValues(alpha: 0.2),
+                            blurRadius: 8,
+                            offset: const Offset(0, 3),
+                          ),
+                        ],
+                      ),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            '${car.interestRate}% ',
+                            style: AppTextStyle.bodySmall(context).copyWith(
+                              color: AppColor.whiteColor(context),
+                              fontSize: 11.sp,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+
+                          Text(
+                            context.locale.languageCode == 'ar' ? 'عرض' : 'Offer',
+                            style: AppTextStyle.bodySmall(
+                              context,
+                            ).copyWith(color: AppColor.whiteColor(context), fontSize: 14.sp),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
               ],
             ),
             Padding(
@@ -148,7 +190,7 @@ class PremiumCarCardWidget extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  AppLocaleKey.cash.tr(),
+                                  isOffer ? 'السعر' : 'كاش',
                                   style: AppTextStyle.bodySmall(context).copyWith(
                                     color: AppColor.blackTextColor(context),
                                     fontWeight: FontWeight.bold,

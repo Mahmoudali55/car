@@ -12,8 +12,11 @@ class PremiumOfferCardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () =>
-          NavigatorMethods.pushNamed(context, RoutesName.carDetailsScreen, arguments: offer),
+      onTap: () => NavigatorMethods.pushNamed(
+        context,
+        RoutesName.carDetailsScreen,
+        arguments: offer['carData'] ?? offer,
+      ),
       child: Container(
         height: MediaQuery.of(context).size.height * 0.25,
         width: double.infinity,

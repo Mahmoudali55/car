@@ -58,6 +58,7 @@ class GetBrandCarsDataModel extends Equatable {
   final String? oldPrice;
   final String? installments;
   final String? cashPrice;
+  final double? interestRate;
   final bool isFavorite;
   final bool isTamaraAvailable;
   final String videoId;
@@ -111,6 +112,7 @@ class GetBrandCarsDataModel extends Equatable {
     this.oldPrice,
     this.installments,
     this.cashPrice,
+    this.interestRate,
     this.isFavorite = false,
     this.isTamaraAvailable = true,
     this.videoId = 'D7O8J5vVf-M',
@@ -211,6 +213,7 @@ class GetBrandCarsDataModel extends Equatable {
       'oldPrice': oldPrice,
       'installments': installments,
       'cashPrice': cashPrice ?? price,
+      'interestRate': interestRate,
       'isFavorite': isFavorite,
       'isTamaraAvailable': isTamaraAvailable,
       'video_id': videoId,
@@ -280,6 +283,7 @@ class GetBrandCarsDataModel extends Equatable {
       oldPrice: oldPrice ?? other.oldPrice,
       installments: installments ?? other.installments,
       cashPrice: cashPrice ?? other.cashPrice,
+      interestRate: interestRate ?? other.interestRate,
       isFavorite: isFavorite || other.isFavorite,
       isTamaraAvailable: isTamaraAvailable,
       videoId: videoId,
@@ -294,11 +298,14 @@ class GetBrandCarsDataModel extends Equatable {
     bool? mobileShow,
     String? price,
     String? carSpecification,
+    double? interestRate,
+    String? groupName,
+    String? grName,
   }) {
     return GetBrandCarsDataModel(
       groupCode: groupCode,
-      groupName: groupName,
-      grName: grName,
+      groupName: groupName ?? this.groupName,
+      grName: grName ?? this.grName,
       groupParent: groupParent,
       groupLevel: groupLevel,
       price: price ?? this.price,
@@ -344,6 +351,7 @@ class GetBrandCarsDataModel extends Equatable {
       oldPrice: oldPrice,
       installments: installments,
       cashPrice: cashPrice,
+      interestRate: interestRate ?? this.interestRate,
       isFavorite: isFavorite ?? this.isFavorite,
       isTamaraAvailable: isTamaraAvailable,
       videoId: videoId,
@@ -539,6 +547,7 @@ class GetBrandCarsDataModel extends Equatable {
     oldPrice,
     installments,
     cashPrice,
+    interestRate,
     isFavorite,
     isTamaraAvailable,
     videoId,
