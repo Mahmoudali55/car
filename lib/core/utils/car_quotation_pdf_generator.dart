@@ -4,16 +4,13 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
 
-// ═══════════════════════════════════════════════════════════════
-//  CONSTANTS
-// ═══════════════════════════════════════════════════════════════
 class _C {
   // Font sizes
   static const double fsTitle = 14.0;
   static const double fsEnTitle = 9.0;
   static const double fsRegInfo = 8.0;
   static const double fsDateBank = 9.5;
-  static const double fsTableHeader = 8.0; // Reduced for bilingual
+  static const double fsTableHeader = 8.0;
   static const double fsTableBody = 8.5;
   static const double fsSpecs = 8.0;
   static const double fsTotal = 10.0;
@@ -234,7 +231,6 @@ pw.Widget _buildHeader({required pw.Font bold, pw.ImageProvider? logo}) {
   );
 }
 
-// ── 2. Title & Salutation ─────────────────────────────────────
 pw.Widget _buildTitleAndSalutation({required pw.Font bold, required String bankName}) {
   return pw.Column(
     crossAxisAlignment: pw.CrossAxisAlignment.stretch,
@@ -389,12 +385,12 @@ pw.Widget _buildTable({
       ),
       pw.Container(
         width: double.infinity,
-        decoration: pw.BoxDecoration(
+        decoration: const pw.BoxDecoration(
           color: _C.totalBg,
           border: pw.Border(
-            left: const pw.BorderSide(color: _C.borderColor, width: 0.8),
-            right: const pw.BorderSide(color: _C.borderColor, width: 0.8),
-            bottom: const pw.BorderSide(color: _C.borderColor, width: 0.8),
+            left: pw.BorderSide(color: _C.borderColor, width: 0.8),
+            right: pw.BorderSide(color: _C.borderColor, width: 0.8),
+            bottom: pw.BorderSide(color: _C.borderColor, width: 0.8),
           ),
         ),
         padding: const pw.EdgeInsets.symmetric(vertical: 7, horizontal: 10),

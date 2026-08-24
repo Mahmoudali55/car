@@ -4,9 +4,6 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
 
-// ═══════════════════════════════════════════════════════════════
-//  CONSTANTS
-// ═══════════════════════════════════════════════════════════════
 class _C {
   // Font sizes
   static const double fsTitle = 14.0;
@@ -307,7 +304,6 @@ pw.Widget _bodyCell(String text, pw.Font font, {bool rtl = false}) => pw.Contain
 pw.Widget _specsCell({required OfferModel offer, required pw.Font bold, required pw.Font regular}) {
   final specs = <String>[];
 
-  // إضافة المواصفات المتاحة من الـ OfferModel
   if (offer.groupName != null && offer.groupName!.isNotEmpty) {
     specs.add('المجموعة: ${offer.groupName}');
   }
@@ -347,9 +343,8 @@ pw.Widget _buildTable({
   required pw.Font bold,
   required pw.Font regular,
 }) {
-  // حساب الإجماليات من الـ OfferModel
   final price = offer.price;
-  final vat = offer.taxVal; // الضريبة موجودة بالفعل في الـ Model
+  final vat = offer.taxVal;
   final paintings = offer.paintingsVal;
   final total = offer.total;
 
@@ -400,12 +395,12 @@ pw.Widget _buildTable({
       ),
       pw.Container(
         width: double.infinity,
-        decoration: pw.BoxDecoration(
+        decoration: const pw.BoxDecoration(
           color: _C.totalBg,
           border: pw.Border(
-            left: const pw.BorderSide(color: _C.borderColor, width: 0.8),
-            right: const pw.BorderSide(color: _C.borderColor, width: 0.8),
-            bottom: const pw.BorderSide(color: _C.borderColor, width: 0.8),
+            left: pw.BorderSide(color: _C.borderColor, width: 0.8),
+            right: pw.BorderSide(color: _C.borderColor, width: 0.8),
+            bottom: pw.BorderSide(color: _C.borderColor, width: 0.8),
           ),
         ),
         padding: const pw.EdgeInsets.symmetric(vertical: 7, horizontal: 10),
@@ -507,7 +502,6 @@ class CarQuotationOffersGenerator {
       stampImage = pw.MemoryImage(data.buffer.asUint8List());
     } catch (_) {}
 
-    // استخدام اسم العميل كاسم البنك إذا لم يتم تحديده
     final bank = bankName ?? offer.customerName;
 
     pdf.addPage(
@@ -549,7 +543,6 @@ class CarQuotationOffersGenerator {
     return pdf.save();
   }
 
-  // دالة مساعدة لإنشاء PDF لعروض متعددة
   static Future<Uint8List> generateMultipleOffersPdf({
     required List<OfferModel> offers,
     String? bankName,
@@ -557,8 +550,6 @@ class CarQuotationOffersGenerator {
     if (offers.isEmpty) {
       throw Exception('لا توجد عروض لعرضها');
     }
-    // يمكن إنشاء PDF لعرض واحد فقط في الوقت الحالي
-    // أو يمكن تعديل الكود لعرض جميع العروض في صفحات متعددة
     return generateOffersQuotationPdf(offer: offers.first, bankName: bankName);
   }
 }

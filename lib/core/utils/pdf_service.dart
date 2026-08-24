@@ -151,7 +151,6 @@ class PdfService {
                     pw.SizedBox(height: 30),
                   ],
 
-                  // ── SPECIFICATIONS ──
                   _buildSectionTitle(el.tr(AppLocaleKey.basicFeatures)),
                   pw.SizedBox(height: 15),
                   pw.GridView(
@@ -222,11 +221,11 @@ class PdfService {
                     children: [
                       pw.Text(
                         'Hajed bin Wazir Motors © 2024',
-                        style: pw.TextStyle(fontSize: 10, color: PdfColors.grey700),
+                        style: const pw.TextStyle(fontSize: 10, color: PdfColors.grey700),
                       ),
                       pw.Text(
                         'info@hbwinternational.com',
-                        style: pw.TextStyle(fontSize: 10, color: PdfColors.grey700),
+                        style: const pw.TextStyle(fontSize: 10, color: PdfColors.grey700),
                       ),
                     ],
                   ),
@@ -264,7 +263,7 @@ class PdfService {
       child: pw.Column(
         crossAxisAlignment: pw.CrossAxisAlignment.start,
         children: [
-          pw.Text(label, style: pw.TextStyle(fontSize: 9, color: PdfColors.grey700)),
+          pw.Text(label, style: const pw.TextStyle(fontSize: 9, color: PdfColors.grey700)),
           pw.SizedBox(height: 2),
           pw.Text(
             value,

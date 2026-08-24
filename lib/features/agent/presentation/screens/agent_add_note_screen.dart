@@ -16,7 +16,6 @@ import 'package:gap/gap.dart';
 
 class AgentAddNoteScreen extends StatefulWidget {
   const AgentAddNoteScreen({super.key});
-
   @override
   State<AgentAddNoteScreen> createState() => _AgentAddNoteScreenState();
 }

@@ -14,24 +14,19 @@ import 'package:share_plus/share_plus.dart';
 class QuotePdfGenerator {
   static Future<Uint8List> generatePdfBytes(Map<String, dynamic> car, String languageCode) async {
     final pdf = pw.Document();
-    // Load Arabic font
     final arabicFont = await PdfGoogleFonts.cairoRegular();
     final arabicFontBold = await PdfGoogleFonts.cairoBold();
-    // Load logo image
     final ByteData logoData = await rootBundle.load(AppImages.assetsImagesLogeStatic);
     final Uint8List logoBytes = logoData.buffer.asUint8List();
     final logoImage = pw.MemoryImage(logoBytes);
-    // Car placeholder image if exists / can be handled if it's an asset
     pw.ImageProvider? carImageProvider;
     try {
       if (car['image'] != null && car['image'].toString().startsWith('assets/')) {
         final ByteData carData = await rootBundle.load(car['image']);
         carImageProvider = pw.MemoryImage(carData.buffer.asUint8List());
       }
-    } catch (e) {
-      // Ignored if car image loading fails
-    }
-    final dateStr = DateFormat('yyyy-MM-dd').format(DateTime.now());
+    } catch (e) {}
+    final dateStr = DateFormat('yyyy-MM-dd', 'en').format(DateTime.now());
     final textCompany = AppLocaleKey.carApp.tr();
     final textDate = '${AppLocaleKey.appointmentDate.tr()}: $dateStr';
     final textHeader = AppLocaleKey.carQuotation.tr();
@@ -51,7 +46,6 @@ class QuotePdfGenerator {
           return pw.Column(
             crossAxisAlignment: pw.CrossAxisAlignment.stretch,
             children: [
-              // HEADER
               pw.Row(
                 mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                 children: [
@@ -111,7 +105,7 @@ class QuotePdfGenerator {
                 ),
               ),
               pw.SizedBox(height: 40),
-              // CAR INFO & IMAGE
+
               pw.Row(
                 crossAxisAlignment: pw.CrossAxisAlignment.start,
                 children: [
