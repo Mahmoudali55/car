@@ -1,3 +1,4 @@
+import 'package:car/core/cache/hive/hive_methods.dart';
 import 'package:car/core/custom_widgets/custom_form_field/custom_form_field.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
@@ -22,7 +23,6 @@ class FinancingPersonalInfoTab extends StatefulWidget {
   final VoidCallback onEditCalculator;
   final VoidCallback onShowRequirements;
   final String? bankName;
-
   const FinancingPersonalInfoTab({
     super.key,
     required this.formKey,
@@ -48,11 +48,14 @@ class _FinancingPersonalInfoTabState extends State<FinancingPersonalInfoTab> {
   bool _whatsappConsent = true;
   String? _selectedGender;
   String? _selectedCity;
-
+  final username = HiveMethods.getUserName();
+  final phone = HiveMethods.getphone();
   @override
   void initState() {
     super.initState();
     _selectedCity = AppLocaleKey.cityRiyadh.tr();
+    _fullNameCtrl.text = username.toString();
+    _phoneCtrl.text = phone ?? '';
   }
 
   @override

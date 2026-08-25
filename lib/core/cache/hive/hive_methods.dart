@@ -243,4 +243,12 @@ class HiveMethods {
   static void updateRepresentativeNo(String representativeNo) {
     _box.put('REPRES_NO', representativeNo);
   }
+
+  static void phone(String phone) {
+    _box.put('phone', phone);
+  }
+
+  static String? getphone() {
+    return _box.get('phone', defaultValue: '');
+  }
 }

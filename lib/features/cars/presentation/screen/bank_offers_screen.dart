@@ -15,9 +15,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class BankOffersScreen extends StatefulWidget {
   final GetBrandCarsDataModel car;
-
   const BankOffersScreen({super.key, required this.car});
-
   @override
   State<BankOffersScreen> createState() => _BankOffersScreenState();
 }
