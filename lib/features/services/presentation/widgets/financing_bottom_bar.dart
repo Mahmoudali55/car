@@ -11,11 +11,13 @@ class FinancingBottomBar extends StatelessWidget {
   final int currentIndex;
   final VoidCallback onNext;
   final VoidCallback onBack;
+  final bool isLoading;
 
   const FinancingBottomBar({
     required this.currentIndex,
     required this.onNext,
     required this.onBack,
+    this.isLoading = false,
   });
 
   @override
@@ -43,28 +45,37 @@ class FinancingBottomBar extends StatelessWidget {
             child: CustomButton(
               radius: 14.r,
               color: AppColor.primaryColor(context),
-              onPressed: onNext,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  if (currentIndex < 2) ...[
-                    Icon(
-                      Icons.arrow_back_rounded,
-                      color: AppColor.whiteColor(context),
-                      size: 18.sp,
+              onPressed: isLoading ? null : onNext,
+              child: isLoading
+                  ? SizedBox(
+                      height: 22.sp,
+                      width: 22.sp,
+                      child: CircularProgressIndicator(
+                        strokeWidth: 2.5,
+                        color: AppColor.whiteColor(context),
+                      ),
+                    )
+                  : Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        if (currentIndex < 2) ...[
+                          Icon(
+                            Icons.arrow_back_rounded,
+                            color: AppColor.whiteColor(context),
+                            size: 18.sp,
+                          ),
+                          Gap(10.w),
+                        ],
+                        Text(
+                          currentIndex == 2
+                              ? AppLocaleKey.submitApplication.tr()
+                              : AppLocaleKey.agentNext.tr(),
+                          style: AppTextStyle.bodyLarge(
+                            context,
+                          ).copyWith(color: AppColor.whiteColor(context)),
+                        ),
+                      ],
                     ),
-                    Gap(10.w),
-                  ],
-                  Text(
-                    currentIndex == 2
-                        ? AppLocaleKey.submitApplication.tr()
-                        : AppLocaleKey.agentNext.tr(),
-                    style: AppTextStyle.bodyLarge(
-                      context,
-                    ).copyWith(color: AppColor.whiteColor(context)),
-                  ),
-                ],
-              ),
             ),
           ),
         ],

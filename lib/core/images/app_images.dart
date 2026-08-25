@@ -86,6 +86,9 @@ class AppImages {
   /// assets/images/loge.png
   static const String assetsImagesLogeStatic = "assets/images/loge.png";
 
+  /// Black logo asset for letterhead / PDFs
+  static const String assetsImagesLogeBlack = "assets/images/loge_black.png";
+
   /// Assets for assetsImagesOnboardingCarSelection
   /// assets/images/onboarding_car_selection.png
   static const String assetsImagesOnboardingCarSelection =

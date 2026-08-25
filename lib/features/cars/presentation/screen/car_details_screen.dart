@@ -6,7 +6,6 @@ import 'package:car/core/theme/app_colors.dart';
 import 'package:car/features/cars/presentation/widget/bnpl_widget.dart';
 import 'package:car/features/cars/presentation/widget/car_header_widget.dart';
 import 'package:car/features/cars/presentation/widget/car_info_tabs_widget.dart';
-import 'package:car/features/cars/presentation/widget/cash_packages_widget.dart';
 import 'package:car/features/cars/presentation/widget/features_grid_widget.dart';
 import 'package:car/features/cars/presentation/widget/section_title_widget.dart';
 import 'package:car/features/cars/presentation/widget/sliver_app_bar_widget.dart';
@@ -129,7 +128,7 @@ class _CarDetailsScreenState extends State<CarDetailsScreen> {
                               if (widget.car.isTamaraAvailable) ...[
                                 Gap(16.h),
                                 BnplWidget(car: widget.car),
-                                CashPackagesWidget(car: widget.car),
+                                // CashPackagesWidget(car: widget.car),
                               ],
                               Gap(16.h),
                               CarInfoTabsWidget(car: widget.car),

@@ -23,6 +23,7 @@ class FinancingPersonalInfoTab extends StatefulWidget {
   final VoidCallback onEditCalculator;
   final VoidCallback onShowRequirements;
   final String? bankName;
+  final ValueChanged<String>? onPhoneChanged;
   const FinancingPersonalInfoTab({
     super.key,
     required this.formKey,
@@ -34,6 +35,7 @@ class FinancingPersonalInfoTab extends StatefulWidget {
     required this.onEditCalculator,
     required this.onShowRequirements,
     this.bankName,
+    this.onPhoneChanged,
   });
 
   @override
@@ -56,6 +58,13 @@ class _FinancingPersonalInfoTabState extends State<FinancingPersonalInfoTab> {
     _selectedCity = AppLocaleKey.cityRiyadh.tr();
     _fullNameCtrl.text = username.toString();
     _phoneCtrl.text = phone ?? '';
+    // Notify parent of initial phone value
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      widget.onPhoneChanged?.call(_phoneCtrl.text);
+    });
+    _phoneCtrl.addListener(() {
+      widget.onPhoneChanged?.call(_phoneCtrl.text);
+    });
   }
 
   @override

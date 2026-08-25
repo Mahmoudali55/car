@@ -5,17 +5,20 @@ import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/features/home/data/model/brand_cars_data_model.dart';
 import 'package:car/features/home/data/model/financing_ad_model.dart';
+import 'package:car/features/home/data/model/send_otp_model.dart';
+import 'package:car/features/home/presentation/cubit/home_cubit.dart';
+import 'package:car/features/cars/presentation/widget/otp_bottom_sheet.dart';
 import 'package:car/features/services/presentation/widgets/financing_bottom_bar.dart';
 import 'package:car/features/services/presentation/widgets/financing_calculator_bottom_sheet.dart';
 import 'package:car/features/services/presentation/widgets/financing_cancel_dialog.dart';
 import 'package:car/features/services/presentation/widgets/financing_documents_tab.dart';
-import 'package:car/features/services/presentation/widgets/financing_otp_bottom_sheet.dart';
 import 'package:car/features/services/presentation/widgets/financing_personal_info_tab.dart';
 import 'package:car/features/services/presentation/widgets/financing_requirements_bottom_sheet.dart';
 import 'package:car/features/services/presentation/widgets/financing_tab_bar.dart';
 import 'package:car/features/services/presentation/widgets/financing_work_info_tab.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class FinancingScreen extends StatefulWidget {
@@ -53,6 +56,12 @@ class _FinancingScreenState extends State<FinancingScreen> with SingleTickerProv
   final _formKey2 = GlobalKey<FormState>();
 
   bool _isCalculatorCompleted = false;
+
+  // OTP state
+  String _phoneNumber = '';
+  String? _expectedOtp;
+  bool _isOtpSheetOpen = false;
+  bool _isSendingOtp = false;
 
   static const double _defaultApr = 4.5;
 
@@ -183,31 +192,52 @@ class _FinancingScreenState extends State<FinancingScreen> with SingleTickerProv
 
     if (current == 0) {
       if (!(_formKey1.currentState?.validate() ?? false)) return;
-      final verified = await showModalBottomSheet<bool>(
-        context: context,
-        isScrollControlled: true,
-        backgroundColor: Colors.transparent,
-        builder: (_) => const FinancingOtpBottomSheet(),
-      );
-      if (verified != true) return;
+      // Send OTP to the phone number entered in the form
+      context.read<HomeCubit>().sendOtp(SendOtpModel(mobileNumber: _phoneNumber));
     } else if (current == 1) {
       if (!(_formKey2.currentState?.validate() ?? false)) return;
+      if (current < 2) _tabController.animateTo(current + 1);
     } else if (current == 2) {
       _showSnack(AppLocaleKey.requestSubmittedSuccess.tr());
       Future.delayed(const Duration(seconds: 1), () {
         if (mounted) Navigator.of(context).pop();
       });
-      return;
     }
+  }
 
-    if (current < 2) _tabController.animateTo(current + 1);
+  void _showOtpSheet() {
+    if (_isOtpSheetOpen) return;
+    _isOtpSheetOpen = true;
+    // Read cubit BEFORE entering the builder to avoid Provider.of outside widget tree
+    final homeCubit = context.read<HomeCubit>();
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (ctx) => SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.only(bottom: MediaQuery.of(ctx).viewInsets.bottom),
+          child: OtpBottomSheet(
+            phoneNumber: _phoneNumber,
+            homeCubit: homeCubit,
+            expectedOtp: _expectedOtp,
+            onVerified: () {
+              Navigator.pop(ctx);
+              _tabController.animateTo(1);
+            },
+          ),
+        ),
+      ),
+    ).then((_) {
+      _isOtpSheetOpen = false;
+    });
   }
 
   void _showSnack(String msg) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(msg, textAlign: TextAlign.end),
-        backgroundColor: AppColor.primaryColor(context),
+        backgroundColor: AppColor.primaryColor(context, listen: false),
         behavior: SnackBarBehavior.floating,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.r)),
       ),
@@ -227,6 +257,27 @@ class _FinancingScreenState extends State<FinancingScreen> with SingleTickerProv
 
   @override
   Widget build(BuildContext context) {
+    return BlocListener<HomeCubit, HomeState>(
+      listenWhen: (prev, curr) => prev.sendOtpStatus != curr.sendOtpStatus,
+      listener: (context, state) {
+        final status = state.sendOtpStatus;
+        if (status.isLoading) {
+          setState(() => _isSendingOtp = true);
+        } else {
+          setState(() => _isSendingOtp = false);
+          if (status.isSuccess && status.data != null) {
+            _expectedOtp = status.data!.message;
+            if (status.data!.success) {
+              _showOtpSheet();
+            }
+          }
+        }
+      },
+      child: _buildScaffold(context),
+    );
+  }
+
+  Widget _buildScaffold(BuildContext context) {
     if (!_isCalculatorCompleted) {
       return Scaffold(
         backgroundColor: AppColor.scaffoldColor(context),
@@ -263,6 +314,7 @@ class _FinancingScreenState extends State<FinancingScreen> with SingleTickerProv
                 bankName: _activeOffer?.displayBankName,
                 onEditCalculator: _showCalculatorSheet,
                 onShowRequirements: _showRequirementsSheet,
+                onPhoneChanged: (phone) => _phoneNumber = phone,
               ),
               FinancingWorkInfoTab(formKey: _formKey2, onShowCalculator: _showCalculatorSheet),
               const FinancingDocumentsTab(),
@@ -273,6 +325,7 @@ class _FinancingScreenState extends State<FinancingScreen> with SingleTickerProv
           padding: EdgeInsets.only(bottom: 20.r),
           child: FinancingBottomBar(
             currentIndex: _tabController.index,
+            isLoading: _isSendingOtp,
             onNext: _onNextStep,
             onBack: () => _tabController.animateTo(_tabController.index - 1),
           ),

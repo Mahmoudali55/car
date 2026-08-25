@@ -186,45 +186,21 @@ class _H {
 
 // ── 1. Header ─────────────────────────────────────────────────
 pw.Widget _buildHeader({required pw.Font bold, pw.ImageProvider? logo}) {
-  return pw.Container(
-    decoration: pw.BoxDecoration(
-      border: pw.Border.all(color: PdfColors.blueGrey700, width: 1.2),
-      borderRadius: const pw.BorderRadius.all(pw.Radius.circular(10)),
-    ),
-    padding: const pw.EdgeInsets.symmetric(horizontal: 10, vertical: 7),
+  return pw.Padding(
+    padding: const pw.EdgeInsets.only(top: 5, bottom: 15),
     child: pw.Row(
       mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: pw.CrossAxisAlignment.center,
       children: [
         logo != null
-            ? pw.Container(width: 55, height: 55, child: pw.Image(logo, fit: pw.BoxFit.contain))
-            : pw.SizedBox(width: 55, height: 55),
-
-        pw.Column(
-          crossAxisAlignment: pw.CrossAxisAlignment.center,
-          children: [
-            _H.txt('شركة هاجد بن وزير وأولاده للتجارة', bold, size: _C.fsTitle, color: _C.greyText),
-            pw.SizedBox(height: _C.spXS),
-            _H.txt(
-              'HAJID BIN WAZIR AL-MUTAIRI AND SONS TRADING',
-              bold,
-              size: _C.fsEnTitle,
-              color: _C.accentRed,
-              rtl: false,
-              align: pw.TextAlign.center,
-            ),
-            pw.SizedBox(height: _C.spSM),
-            pw.Row(
-              children: [
-                _H.txt('* سجل تجارى : ${_H.arabicDigits("1010179293")}', bold, size: _C.fsRegInfo),
-                pw.SizedBox(width: 15),
-                _H.txt(
-                  '* سجل ضريبي : ${_H.arabicDigits("300021909200003")}',
-                  bold,
-                  size: _C.fsRegInfo,
-                ),
-              ],
-            ),
-          ],
+            ? pw.Container(width: 65, height: 65, child: pw.Image(logo, fit: pw.BoxFit.contain))
+            : pw.SizedBox(width: 65, height: 65),
+        _H.txt(
+          'شركة هاجد بن وزير وأولاده للتجارة',
+          bold,
+          size: 16,
+          color: PdfColors.black,
+          align: pw.TextAlign.right,
         ),
       ],
     ),
@@ -435,39 +411,68 @@ pw.Widget _buildStamp({pw.ImageProvider? stamp}) => pw.Center(
 );
 
 // ── 9. Footer ─────────────────────────────────────────────────
-pw.Widget _buildFooter({required pw.Font bold}) => pw.Column(
-  children: [
-    pw.Divider(color: _C.borderColor, thickness: 1.5),
-    _H.txt(
-      _H.arabicDigits(
-        'الرياض - حي القادسية - شارع وادي الرمة - تليفون : 2311114 / 011-2378511 فاكس 2337551-011',
+pw.Widget _buildFooter({required pw.Font bold}) {
+  return pw.Column(
+    children: [
+      pw.Row(
+        mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+        children: [
+          _H.txt(
+            'info@binwazir.com   www.binwazir.com   ${_H.arabicDigits("0112311114")}',
+            bold,
+            size: 8.5,
+            color: PdfColors.black,
+            rtl: false,
+          ),
+          pw.Row(
+            children: [
+              _H.txt(
+                'الرقم الضريبي: ${_H.arabicDigits("300021909200003")}',
+                bold,
+                size: 8.5,
+                color: PdfColors.black,
+              ),
+              pw.SizedBox(width: 20),
+              _H.txt(
+                'السجل التجاري: ${_H.arabicDigits("1010179293")}',
+                bold,
+                size: 8.5,
+                color: PdfColors.black,
+              ),
+            ],
+          ),
+        ],
       ),
-      bold,
-      size: _C.fsFooter,
-      align: pw.TextAlign.center,
-    ),
-    _H.txt(
-      'Riyadh - Al Qadisiyah - Wadi Al Rammah St - Tel: 011-2311114 Fax: 011-2337551',
-      bold,
-      size: _C.fsFooter - 1,
-      align: pw.TextAlign.center,
-      rtl: false,
-    ),
-  ],
-);
+      pw.SizedBox(height: 4),
+      pw.Divider(color: PdfColors.black, thickness: 0.8),
+      pw.SizedBox(height: 4),
+      pw.Row(
+        mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+        children: [
+          _H.txt(
+            'الرياض - حي القادسية - شارع وادي الرمة',
+            bold,
+            size: 8.5,
+            color: PdfColors.black,
+          ),
+        ],
+      ),
+    ],
+  );
+}
 
 // ── 10. Watermark ─────────────────────────────────────────────
-pw.Widget _buildWatermark() => pw.Positioned(
-  top: 300,
-  left: 40,
-  child: pw.Transform.rotate(
-    angle: 0.8,
-    child: pw.Text(
-      'BNWAZIR',
-      style: pw.TextStyle(fontSize: 120, color: _C.watermark, fontWeight: pw.FontWeight.bold),
+pw.Widget _buildWatermark({pw.ImageProvider? logo}) {
+  if (logo == null) return pw.SizedBox();
+  return pw.Positioned.fill(
+    child: pw.Center(
+      child: pw.Opacity(
+        opacity: 0.05,
+        child: pw.Image(logo, width: 320, height: 320, fit: pw.BoxFit.contain),
+      ),
     ),
-  ),
-);
+  );
+}
 
 class CarQuotationPdfGenerator {
   static String toArabicDigits(String input) => _H.arabicDigits(input);
@@ -482,9 +487,14 @@ class CarQuotationPdfGenerator {
     pw.ImageProvider? stampImage;
 
     try {
-      final data = await rootBundle.load('assets/images/loge3.png');
+      final data = await rootBundle.load('assets/images/loge_black.png');
       logoImage = pw.MemoryImage(data.buffer.asUint8List());
-    } catch (_) {}
+    } catch (_) {
+      try {
+        final data = await rootBundle.load('assets/images/loge3.png');
+        logoImage = pw.MemoryImage(data.buffer.asUint8List());
+      } catch (_) {}
+    }
     try {
       final data = await rootBundle.load('assets/images/stamp2.png');
       stampImage = pw.MemoryImage(data.buffer.asUint8List());
@@ -499,7 +509,7 @@ class CarQuotationPdfGenerator {
         build: (pw.Context context) {
           return pw.Stack(
             children: [
-              _buildWatermark(),
+              _buildWatermark(logo: logoImage),
               pw.Column(
                 crossAxisAlignment: pw.CrossAxisAlignment.start,
                 children: [
