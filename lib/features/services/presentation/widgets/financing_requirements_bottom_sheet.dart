@@ -1,7 +1,7 @@
-import 'package:car/core/custom_widgets/custom_sar_text.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
+import 'package:car/features/services/presentation/widgets/document_Item_widget.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -107,7 +107,6 @@ class FinancingRequirementsBottomSheet extends StatelessWidget {
                     ),
                   ),
                   Gap(24.h),
-                  // Required documents section
                   Text(
                     AppLocaleKey.agentRequiredDocumentsList.tr(),
                     style: AppTextStyle.titleSmall(context).copyWith(
@@ -116,15 +115,15 @@ class FinancingRequirementsBottomSheet extends StatelessWidget {
                     ),
                   ),
                   Gap(16.h),
-                  _buildDocumentItem(context, AppLocaleKey.agentMinSalaryDoc.tr()),
+                  DocumentItemWidget(text: AppLocaleKey.agentMinSalaryDoc.tr()),
                   Gap(12.h),
-                  _buildDocumentItem(context, AppLocaleKey.agentNoSalaryTransfer.tr()),
+                  DocumentItemWidget(text: AppLocaleKey.agentNoSalaryTransfer.tr()),
                   Gap(12.h),
-                  _buildDocumentItem(context, AppLocaleKey.agentEmployerNotApproved.tr()),
+                  DocumentItemWidget(text: AppLocaleKey.agentEmployerNotApproved.tr()),
                   Gap(12.h),
-                  _buildDocumentItem(context, AppLocaleKey.agentNoDownPaymentDoc.tr()),
+                  DocumentItemWidget(text: AppLocaleKey.agentNoDownPaymentDoc.tr()),
                   Gap(12.h),
-                  _buildDocumentItem(context, AppLocaleKey.agentLastPaymentDoc.tr()),
+                  DocumentItemWidget(text: AppLocaleKey.agentLastPaymentDoc.tr()),
                   Gap(24.h),
                 ],
               ),
@@ -151,7 +150,7 @@ class FinancingRequirementsBottomSheet extends StatelessWidget {
               Container(
                 padding: EdgeInsets.all(8.w),
                 decoration: BoxDecoration(
-                  color: AppColor.primaryColor(context).withOpacity(0.1),
+                  color: AppColor.primaryColor(context).withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(8.r),
                 ),
                 child: Icon(icon, color: AppColor.primaryColor(context), size: 18.sp),
@@ -177,24 +176,6 @@ class FinancingRequirementsBottomSheet extends StatelessWidget {
         ),
         if (!isLast)
           Divider(height: 1, color: AppColor.dividerColor(context), indent: 16.w, endIndent: 16.w),
-      ],
-    );
-  }
-
-  Widget _buildDocumentItem(BuildContext context, String text) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Icon(Icons.check_circle_rounded, color: AppColor.greenColor(context), size: 20.sp),
-        Gap(10.w),
-        Expanded(
-          child: ValueWithCurrencyIcon(
-            text: text,
-            textStyle: AppTextStyle.bodyMedium(
-              context,
-            ).copyWith(color: AppColor.blackTextColor(context), height: 1.4),
-          ),
-        ),
       ],
     );
   }

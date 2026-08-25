@@ -7,6 +7,7 @@ import 'package:car/features/services/presentation/widgets/car_summary_card.dart
 import 'package:car/features/services/presentation/widgets/city_dropdown.dart';
 import 'package:car/features/services/presentation/widgets/gender_button.dart';
 import 'package:car/features/services/presentation/widgets/info_banner.dart';
+import 'package:car/features/services/presentation/widgets/whats_app_consent_widget.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -58,7 +59,7 @@ class _FinancingPersonalInfoTabState extends State<FinancingPersonalInfoTab> {
     _selectedCity = AppLocaleKey.cityRiyadh.tr();
     _fullNameCtrl.text = name.toString();
     _phoneCtrl.text = phone ?? '';
-    // Notify parent of initial phone value
+
     WidgetsBinding.instance.addPostFrameCallback((_) {
       widget.onPhoneChanged?.call(_phoneCtrl.text);
     });
@@ -181,7 +182,7 @@ class _FinancingPersonalInfoTabState extends State<FinancingPersonalInfoTab> {
               },
             ),
             Gap(16.h),
-            _buildWhatsAppConsent(context),
+            const WhatsAppConsentWidget(),
             Gap(20.h),
             CityDropdown(
               selectedCity: _selectedCity,
@@ -192,47 +193,6 @@ class _FinancingPersonalInfoTabState extends State<FinancingPersonalInfoTab> {
             Gap(16.h),
           ],
         ),
-      ),
-    );
-  }
-
-  Widget _buildWhatsAppConsent(BuildContext context) {
-    return GestureDetector(
-      onTap: () => setState(() => _whatsappConsent = !_whatsappConsent),
-      child: Row(
-        children: [
-          AnimatedContainer(
-            duration: const Duration(milliseconds: 200),
-            width: 22.w,
-            height: 22.w,
-            decoration: BoxDecoration(
-              color: _whatsappConsent ? AppColor.primaryColor(context) : Colors.transparent,
-              borderRadius: BorderRadius.circular(5.r),
-              border: Border.all(
-                color: _whatsappConsent
-                    ? AppColor.primaryColor(context)
-                    : AppColor.borderColor(context),
-                width: 1.5,
-              ),
-            ),
-            child: _whatsappConsent
-                ? Icon(Icons.check_rounded, color: Colors.white, size: 14.sp)
-                : null,
-          ),
-          Gap(10.w),
-          Icon(Icons.phone, color: const Color(0xff25D366), size: 20.sp),
-          Gap(6.w),
-          Expanded(
-            child: Text(
-              AppLocaleKey.agentWhatsAppNotification.tr(),
-              style: AppTextStyle.bodySmall(context).copyWith(
-                fontSize: 12.sp,
-                color: AppColor.blackTextColor(context).withValues(alpha: 0.75),
-              ),
-              textAlign: TextAlign.end,
-            ),
-          ),
-        ],
       ),
     );
   }
