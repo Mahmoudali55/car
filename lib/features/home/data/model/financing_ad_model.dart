@@ -16,6 +16,7 @@ class FinancingAdModel extends Equatable {
   final double? adminFeesPct;
   final String? programPic;
   final double? interestRate;
+  final int? totalMonths;
   final String? modelName;
   final int? modelYear;
   final double? price;
@@ -55,6 +56,7 @@ class FinancingAdModel extends Equatable {
     this.adminFeesPct,
     this.programPic,
     this.interestRate,
+    this.totalMonths,
     this.modelName,
     this.price,
     this.itemCode,
@@ -96,6 +98,7 @@ class FinancingAdModel extends Equatable {
       adminFeesPct: (json['AdminFeesPct'] as num?)?.toDouble(),
       programPic: json['programpic']?.toString(),
       interestRate: (json['InterestRate'] as num?)?.toDouble(),
+      totalMonths: ((json['TotalMonths'] ?? json['Months'] ?? json['DurationMonths']) as num?)?.toInt(),
       modelName: json['modelName']?.toString(),
       modelYear: (json['ModelYear'] as num?)?.toInt(),
       price: (json['Price'] as num?)?.toDouble(),
@@ -154,6 +157,17 @@ class FinancingAdModel extends Equatable {
 
   GetBrandCarsDataModel toCarDataModel() {
     final images = allCarImages;
+    final carPrice = price ?? 0;
+    final months = totalMonths ?? 60;
+    final firstAmount = carPrice * ((firstInstallmentPct ?? 0) / 100);
+    final lastAmount = carPrice * ((lastInstallmentPct ?? 0) / 100);
+    final financedAmount = carPrice - firstAmount - lastAmount;
+    final years = months / 12;
+    final totalInterest = financedAmount * ((interestRate ?? 0) / 100) * years;
+    final monthlyInstallment = months > 0
+        ? (financedAmount + totalInterest) / months
+        : null;
+
     return GetBrandCarsDataModel(
       groupCode: 0,
       groupName: '',
@@ -162,6 +176,7 @@ class FinancingAdModel extends Equatable {
       groupLevel: 0,
       price: price?.toStringAsFixed(0),
       interestRate: interestRate,
+      monthlyInstallment: monthlyInstallment,
       itemCode: itemCode ?? '',
       itemType: 0,
       itemName: itemName ?? modelName ?? '',
@@ -252,6 +267,7 @@ class FinancingAdModel extends Equatable {
         adminFeesPct,
         programPic,
         interestRate,
+        totalMonths,
         modelName,
         modelYear,
         price,

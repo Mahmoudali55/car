@@ -120,7 +120,7 @@ class _AdsSliderWidgetState extends State<AdsSliderWidget> {
           mainAxisSize: MainAxisSize.min,
           children: [
             SizedBox(
-              height: 195.h,
+              height: 220.h,
               child: PageView.builder(
                 controller: _pageController,
                 itemCount: adsList.length * 2000,

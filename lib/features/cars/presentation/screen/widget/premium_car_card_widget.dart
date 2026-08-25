@@ -190,7 +190,7 @@ class PremiumCarCardWidget extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  isOffer ? 'السعر' : 'كاش',
+                                  isOffer ? AppLocaleKey.price.tr() : AppLocaleKey.cash.tr(),
                                   style: AppTextStyle.bodySmall(context).copyWith(
                                     color: AppColor.blackTextColor(context),
                                     fontWeight: FontWeight.bold,
@@ -240,11 +240,17 @@ class PremiumCarCardWidget extends StatelessWidget {
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                          builder: (_) => BankInstallmentsBannerWidget(car: car),
+                                          builder: (_) => BankInstallmentsBannerWidget(
+                                            car: car,
+                                            isOffer: isOffer,
+                                          ),
                                         ),
                                       );
                                     },
-                                    child: BankInstallmentsBannerWidget(car: car),
+                                    child: BankInstallmentsBannerWidget(
+                                      car: car,
+                                      isOffer: isOffer,
+                                    ),
                                   ),
                                 )
                               : const SizedBox.shrink(),

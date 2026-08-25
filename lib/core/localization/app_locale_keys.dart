@@ -374,6 +374,7 @@ class AppLocaleKey {
   static const String adDealerName = 'adDealerName';
   static const String adDealerSubtitle = 'adDealerSubtitle';
   static const String adUntil = 'adUntil';
+  static const String monthlyInstallment = 'monthlyInstallment';
   static const String riyadhCityHint = 'riyadhCityHint';
   static const String jeddahCityHint = 'jeddahCityHint';
   static const String carBrandModelHint = 'carBrandModelHint';
@@ -742,7 +743,6 @@ class AppLocaleKey {
   static const String calculateFinancing = 'calculateFinancing';
   static const String downPayment = 'downPayment';
   static const String durationInYears = 'durationInYears';
-  static const String monthlyInstallment = 'monthlyInstallment';
   static const String profitMargin = 'profitMargin';
   static const String totalAmount = 'totalAmount';
   static const String sortBy = 'sortBy';

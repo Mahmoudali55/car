@@ -59,6 +59,7 @@ class GetBrandCarsDataModel extends Equatable {
   final String? installments;
   final String? cashPrice;
   final double? interestRate;
+  final double? monthlyInstallment;
   final bool isFavorite;
   final bool isTamaraAvailable;
   final String videoId;
@@ -113,6 +114,7 @@ class GetBrandCarsDataModel extends Equatable {
     this.installments,
     this.cashPrice,
     this.interestRate,
+    this.monthlyInstallment,
     this.isFavorite = false,
     this.isTamaraAvailable = true,
     this.videoId = 'D7O8J5vVf-M',
@@ -214,6 +216,7 @@ class GetBrandCarsDataModel extends Equatable {
       'installments': installments,
       'cashPrice': cashPrice ?? price,
       'interestRate': interestRate,
+      'monthlyInstallment': monthlyInstallment,
       'isFavorite': isFavorite,
       'isTamaraAvailable': isTamaraAvailable,
       'video_id': videoId,
@@ -284,6 +287,7 @@ class GetBrandCarsDataModel extends Equatable {
       installments: installments ?? other.installments,
       cashPrice: cashPrice ?? other.cashPrice,
       interestRate: interestRate ?? other.interestRate,
+      monthlyInstallment: monthlyInstallment ?? other.monthlyInstallment,
       isFavorite: isFavorite || other.isFavorite,
       isTamaraAvailable: isTamaraAvailable,
       videoId: videoId,
@@ -299,6 +303,7 @@ class GetBrandCarsDataModel extends Equatable {
     String? price,
     String? carSpecification,
     double? interestRate,
+    double? monthlyInstallment,
     String? groupName,
     String? grName,
   }) {
@@ -352,6 +357,7 @@ class GetBrandCarsDataModel extends Equatable {
       installments: installments,
       cashPrice: cashPrice,
       interestRate: interestRate ?? this.interestRate,
+      monthlyInstallment: monthlyInstallment ?? this.monthlyInstallment,
       isFavorite: isFavorite ?? this.isFavorite,
       isTamaraAvailable: isTamaraAvailable,
       videoId: videoId,
@@ -548,6 +554,7 @@ class GetBrandCarsDataModel extends Equatable {
     installments,
     cashPrice,
     interestRate,
+    monthlyInstallment,
     isFavorite,
     isTamaraAvailable,
     videoId,

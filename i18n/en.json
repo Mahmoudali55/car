@@ -1306,6 +1306,7 @@
   "adDealerName": "Hajid Bin Wazir & Sons",
   "adDealerSubtitle": "Car Trading",
   "adUntil": "Until {date}",
+  "monthlyInstallment": "Monthly installment",
   "fromCityHint": "City (e.g. Riyadh)",
   "toCityHint": "City (e.g. Jeddah)",
   "carHint": "Mercedes, Camry...",

@@ -11,12 +11,15 @@ import 'package:gap/gap.dart';
 
 class BankInstallmentsBannerWidget extends StatelessWidget {
   final GetBrandCarsDataModel car;
+  final bool isOffer;
 
-  const BankInstallmentsBannerWidget({super.key, required this.car});
+  const BankInstallmentsBannerWidget({super.key, required this.car, this.isOffer = false});
 
   String _getInstallmentPrice() {
-    final price = car.installments ?? "1,999";
-    return price;
+    if (isOffer && car.monthlyInstallment != null) {
+      return NumberFormat('#,##0').format(car.monthlyInstallment);
+    }
+    return car.installments ?? '1,999';
   }
 
   @override
