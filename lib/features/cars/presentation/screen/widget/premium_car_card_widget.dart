@@ -41,12 +41,7 @@ class PremiumCarCardWidget extends StatelessWidget {
         NavigatorMethods.pushNamed(
           context,
           RoutesName.carDetailsScreen,
-          arguments: {
-            'car': car,
-            'heroTag': heroTag,
-            'offer': offer,
-            'offers': financingOffers,
-          },
+          arguments: {'car': car, 'heroTag': heroTag, 'offer': offer, 'offers': financingOffers},
         );
       },
       child: Card(
