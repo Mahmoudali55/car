@@ -201,10 +201,7 @@ class AppRouters {
           programId = args;
         }
         return MaterialPageRoute(
-          builder: (_) => OffersScreen(
-            programId: programId,
-            programName: programName,
-          ),
+          builder: (_) => OffersScreen(programId: programId, programName: programName),
         );
       default:
         return null;
