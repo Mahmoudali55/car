@@ -50,13 +50,13 @@ class _FinancingPersonalInfoTabState extends State<FinancingPersonalInfoTab> {
   bool _whatsappConsent = true;
   String? _selectedGender;
   String? _selectedCity;
-  final username = HiveMethods.getUserName();
+  final name = HiveMethods.getname();
   final phone = HiveMethods.getphone();
   @override
   void initState() {
     super.initState();
     _selectedCity = AppLocaleKey.cityRiyadh.tr();
-    _fullNameCtrl.text = username.toString();
+    _fullNameCtrl.text = name.toString();
     _phoneCtrl.text = phone ?? '';
     // Notify parent of initial phone value
     WidgetsBinding.instance.addPostFrameCallback((_) {

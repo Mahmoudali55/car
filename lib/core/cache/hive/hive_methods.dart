@@ -251,4 +251,12 @@ class HiveMethods {
   static String? getphone() {
     return _box.get('phone', defaultValue: '');
   }
+
+  static void updateName(String name) {
+    _box.put('name', name);
+  }
+
+  static String? getname() {
+    return _box.get('name', defaultValue: '');
+  }
 }
