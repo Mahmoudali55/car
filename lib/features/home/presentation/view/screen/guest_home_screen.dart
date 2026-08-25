@@ -9,14 +9,12 @@ import 'package:car/features/home/presentation/view/widgets/budget_search_widget
 import 'package:car/features/home/presentation/view/widgets/categories_widget.dart';
 import 'package:car/features/home/presentation/view/widgets/offers_grid_widget.dart';
 import 'package:car/features/home/presentation/view/widgets/popular_cars_slider_widget.dart';
-import 'package:car/features/home/presentation/view/widgets/recently_viewed_widget.dart';
 import 'package:car/features/home/presentation/view/widgets/section_title_widget.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 
 class HomeGuestScreen extends StatefulWidget {
   const HomeGuestScreen({super.key});
@@ -70,28 +68,28 @@ class _HomeGuestScreenState extends State<HomeGuestScreen> {
                 Gap(15.h),
                 const PopularCarsSlider(),
                 Gap(20.h),
-                ValueListenableBuilder(
-                  valueListenable: Hive.box('app').listenable(keys: ['recentlyViewed']),
-                  builder: (context, box, _) {
-                    final list = box.get('recentlyViewed', defaultValue: []) as List<dynamic>;
-                    if (list.isEmpty) return const SizedBox.shrink();
-                    final displayList = list.take(3).toList();
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SectionTitleWidget(
-                          title: AppLocaleKey.recentlyViewed.tr(),
-                          onSeeAll: () {
-                            NavigatorMethods.pushNamed(context, RoutesName.recentlyViewedScreen);
-                          },
-                        ),
-                        Gap(15.h),
-                        RecentlyViewedWidget(cars: displayList),
-                        Gap(20.h),
-                      ],
-                    );
-                  },
-                ),
+                // ValueListenableBuilder(
+                //   valueListenable: Hive.box('app').listenable(keys: ['recentlyViewed']),
+                //   builder: (context, box, _) {
+                //     final list = box.get('recentlyViewed', defaultValue: []) as List<dynamic>;
+                //     if (list.isEmpty) return const SizedBox.shrink();
+                //     final displayList = list.take(3).toList();
+                //     return Column(
+                //       crossAxisAlignment: CrossAxisAlignment.start,
+                //       children: [
+                //         SectionTitleWidget(
+                //           title: AppLocaleKey.recentlyViewed.tr(),
+                //           onSeeAll: () {
+                //             NavigatorMethods.pushNamed(context, RoutesName.recentlyViewedScreen);
+                //           },
+                //         ),
+                //         Gap(15.h),
+                //         RecentlyViewedWidget(cars: displayList),
+                //         Gap(20.h),
+                //       ],
+                //     );
+                //   },
+                // ),
                 SectionTitleWidget(title: AppLocaleKey.searchByBudget.tr(), onSeeAll: null),
                 Gap(15.h),
                 const BanksSliderWidget(),

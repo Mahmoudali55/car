@@ -1477,5 +1477,6 @@
   "agent_spec_color": "اللون",
   "agent_spec_store": "المستودع",
   "ADVANCED_AMOUNT":"قيمة الدفعة المقدمة",
-  "CAR_OFFERS":"عروض السيارات"
+  "CAR_OFFERS":"عروض السيارات",
+  "bank":"البنك"
 }

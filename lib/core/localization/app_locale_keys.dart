@@ -1529,4 +1529,5 @@ class AppLocaleKey {
   static const String agentSpecStore = 'agent_spec_store';
   static const String ADVANCED_AMOUNT = 'ADVANCED_AMOUNT';
   static const String CAR_OFFERS = 'CAR_OFFERS';
+  static const String bank = 'bank';
 }

@@ -23,6 +23,9 @@ class BankInstallmentsBannerWidget extends StatelessWidget {
   });
 
   String _getInstallmentPrice() {
+    if (offer != null) {
+      return NumberFormat('#,##0').format(offer!.monthlyInstallmentWithVat);
+    }
     if (isOffer && car.monthlyInstallment != null) {
       return NumberFormat('#,##0').format(car.monthlyInstallment);
     }

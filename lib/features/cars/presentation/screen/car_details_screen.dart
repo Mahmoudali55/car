@@ -12,6 +12,7 @@ import 'package:car/features/cars/presentation/widget/section_title_widget.dart'
 import 'package:car/features/cars/presentation/widget/sliver_app_bar_widget.dart';
 import 'package:car/features/cars/presentation/widget/sticky_action_bar_widget.dart';
 import 'package:car/features/home/data/model/brand_cars_data_model.dart';
+import 'package:car/features/home/data/model/financing_ad_model.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -22,8 +23,15 @@ class CarDetailsScreen extends StatefulWidget {
   final GetBrandCarsDataModel car;
   final String? heroTag;
   final bool isFromAdmin;
+  final FinancingAdModel? offer;
 
-  const CarDetailsScreen({super.key, required this.car, this.heroTag, this.isFromAdmin = false});
+  const CarDetailsScreen({
+    super.key,
+    required this.car,
+    this.heroTag,
+    this.isFromAdmin = false,
+    this.offer,
+  });
 
   @override
   State<CarDetailsScreen> createState() => _CarDetailsScreenState();
@@ -111,7 +119,7 @@ class _CarDetailsScreenState extends State<CarDetailsScreen> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              CarHeaderWidget(car: widget.car),
+                              CarHeaderWidget(car: widget.car, offer: widget.offer),
                               if (widget.car.isTamaraAvailable) ...[
                                 Gap(16.h),
                                 BnplWidget(car: widget.car),

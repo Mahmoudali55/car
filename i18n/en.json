@@ -1474,5 +1474,6 @@
   "agent_spec_color": "Color",
   "agent_spec_store": "Store",
   "ADVANCED_AMOUNT": "Advanced Amount",
-  "CAR_OFFERS": "Car Offers"
+  "CAR_OFFERS": "Car Offers",
+  "bank": "Bank"
 }

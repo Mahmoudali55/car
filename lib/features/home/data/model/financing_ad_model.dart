@@ -165,6 +165,17 @@ class FinancingAdModel extends Equatable {
             : null);
   }
 
+  double get monthlyInstallmentWithVat {
+    final months = totalMonths ?? 60;
+    if (months <= 0) return 0;
+    final firstAmount = priceWithVat * ((firstInstallmentPct ?? 0) / 100);
+    final lastAmount = priceWithVat * ((lastInstallmentPct ?? 0) / 100);
+    final financedAmount = priceWithVat - firstAmount - lastAmount;
+    final years = months / 12;
+    final totalInterest = financedAmount * ((interestRate ?? 0) / 100) * years;
+    return (financedAmount + totalInterest) / months;
+  }
+
   List<String> get allCarImages {
     if (carImage == null || carImage!.isEmpty) return [];
     return carImage!.split(',').map((img) {

@@ -165,7 +165,7 @@ class _FinancingCalculatorBottomSheetState extends State<FinancingCalculatorBott
                     Align(
                       alignment: Alignment.centerRight,
                       child: Text(
-                        'البنك: ${widget.bankName}',
+                        '${AppLocaleKey.bank.tr()}: ${widget.bankName}',
                         style: AppTextStyle.bodyMedium(context).copyWith(
                           color: AppColor.primaryColor(context),
                           fontWeight: FontWeight.w900,
