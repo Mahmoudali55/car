@@ -14,6 +14,7 @@ class CarSummaryCard extends StatelessWidget {
   final double downPayment;
   final double lastPayment;
   final VoidCallback onEdit;
+  final String? bankName;
 
   const CarSummaryCard({
     super.key,
@@ -23,6 +24,7 @@ class CarSummaryCard extends StatelessWidget {
     required this.downPayment,
     required this.lastPayment,
     required this.onEdit,
+    this.bankName,
   });
 
   @override
@@ -42,6 +44,16 @@ class CarSummaryCard extends StatelessWidget {
       child: Column(
         children: [
           _buildTopRow(context, fmt, carName, carYear),
+          if (bankName?.isNotEmpty == true) ...[
+            Gap(10.h),
+            Align(
+              alignment: Alignment.centerRight,
+              child: Text(
+                'البنك: $bankName',
+                style: AppTextStyle.bodyMedium(context).copyWith(fontWeight: FontWeight.w800),
+              ),
+            ),
+          ],
           Gap(14.h),
           Divider(height: 1, color: AppColor.dividerColor(context)),
           Gap(14.h),

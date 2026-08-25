@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:car/core/network/contants.dart';
+import 'package:car/core/cache/hive/hive_methods.dart';
 import 'package:car/features/home/data/model/brand_cars_data_model.dart';
 import 'package:equatable/equatable.dart';
 
@@ -9,6 +10,8 @@ class FinancingAdModel extends Equatable {
   final String? programName;
   final bool? isActive;
   final String? bankOrProvider;
+  final String? bankName;
+  final String? bankNameEng;
   final String? startDate;
   final String? endDate;
   final double? firstInstallmentPct;
@@ -49,6 +52,8 @@ class FinancingAdModel extends Equatable {
     this.programName,
     this.isActive,
     this.bankOrProvider,
+    this.bankName,
+    this.bankNameEng,
     this.startDate,
     this.endDate,
     this.firstInstallmentPct,
@@ -91,6 +96,9 @@ class FinancingAdModel extends Equatable {
       programName: json['ProgramName']?.toString(),
       isActive: json['IsActive'] as bool?,
       bankOrProvider: json['BankOrProvider']?.toString(),
+      bankName: (json['BankName'] ?? json['BANK_NAME'] ?? json['BankOrProviderName'])?.toString(),
+      bankNameEng: (json['BankNameEng'] ?? json['BANK_NAME_ENG'] ?? json['BankOrProviderNameEng'])
+          ?.toString(),
       startDate: json['StartDate']?.toString(),
       endDate: json['EndDate']?.toString(),
       firstInstallmentPct: (json['FirstInstallmentPct'] as num?)?.toDouble(),
@@ -98,7 +106,8 @@ class FinancingAdModel extends Equatable {
       adminFeesPct: (json['AdminFeesPct'] as num?)?.toDouble(),
       programPic: json['programpic']?.toString(),
       interestRate: (json['InterestRate'] as num?)?.toDouble(),
-      totalMonths: ((json['TotalMonths'] ?? json['Months'] ?? json['DurationMonths']) as num?)?.toInt(),
+      totalMonths: ((json['TotalMonths'] ?? json['Months'] ?? json['DurationMonths']) as num?)
+          ?.toInt(),
       modelName: json['modelName']?.toString(),
       modelYear: (json['ModelYear'] as num?)?.toInt(),
       price: (json['Price'] as num?)?.toDouble(),
@@ -131,9 +140,7 @@ class FinancingAdModel extends Equatable {
   static List<FinancingAdModel> listFromResponse(dynamic data) {
     if (data == null) return [];
     final List<dynamic> jsonList = data is String ? jsonDecode(data) : data;
-    return jsonList
-        .map((e) => FinancingAdModel.fromJson(e as Map<String, dynamic>))
-        .toList();
+    return jsonList.map((e) => FinancingAdModel.fromJson(e as Map<String, dynamic>)).toList();
   }
 
   String get displayPicUrl {
@@ -144,6 +151,18 @@ class FinancingAdModel extends Equatable {
     if (rawPic.startsWith('http://') || rawPic.startsWith('https://')) return rawPic;
     final cleaned = rawPic.replaceAll('../../Img/Emp/', '').replaceAll('../..', '');
     return '${Constants.baseImage}$cleaned';
+  }
+
+  String? get displayBankName {
+    final apiName = bankName?.trim();
+    if (apiName != null && apiName.isNotEmpty) return apiName;
+
+    final provider = bankOrProvider?.trim();
+    const bankNames = {'1': 'بنك الإنماء', '2': 'مصرف الراجحي'};
+    return bankNames[provider] ??
+        (provider != null && provider.isNotEmpty && double.tryParse(provider) == null
+            ? provider
+            : null);
   }
 
   List<String> get allCarImages {
@@ -157,16 +176,14 @@ class FinancingAdModel extends Equatable {
 
   GetBrandCarsDataModel toCarDataModel() {
     final images = allCarImages;
-    final carPrice = price ?? 0;
+    final carPrice = priceWithVat;
     final months = totalMonths ?? 60;
     final firstAmount = carPrice * ((firstInstallmentPct ?? 0) / 100);
     final lastAmount = carPrice * ((lastInstallmentPct ?? 0) / 100);
     final financedAmount = carPrice - firstAmount - lastAmount;
     final years = months / 12;
     final totalInterest = financedAmount * ((interestRate ?? 0) / 100) * years;
-    final monthlyInstallment = months > 0
-        ? (financedAmount + totalInterest) / months
-        : null;
+    final monthlyInstallment = months > 0 ? (financedAmount + totalInterest) / months : null;
 
     return GetBrandCarsDataModel(
       groupCode: 0,
@@ -188,7 +205,9 @@ class FinancingAdModel extends Equatable {
       motorNo: motorNo,
       bodyColor: bodyColor ?? color ?? '',
       kilometerReading: kilometerReading,
-      transmission: (transmission is int) ? transmission : (int.tryParse(transmission?.toString() ?? '1') ?? 1),
+      transmission: (transmission is int)
+          ? transmission
+          : (int.tryParse(transmission?.toString() ?? '1') ?? 1),
       cylinder: cylinder?.toString() ?? '4',
       powerHourse: powerHourse?.toString() ?? '',
       fuelCapacity: fuelCapacity?.toString() ?? '',
@@ -212,6 +231,11 @@ class FinancingAdModel extends Equatable {
       extraImages: images,
       carImage: images.isNotEmpty ? images.first : null,
     );
+  }
+
+  double get priceWithVat {
+    final vatPercentage = double.tryParse(HiveMethods.getVatNumber()?.toString() ?? '') ?? 0;
+    return (price ?? 0) * (1 + vatPercentage / 100);
   }
 
   Map<String, dynamic> toMap() {
@@ -256,23 +280,25 @@ class FinancingAdModel extends Equatable {
 
   @override
   List<Object?> get props => [
-        programId,
-        programName,
-        isActive,
-        bankOrProvider,
-        startDate,
-        endDate,
-        firstInstallmentPct,
-        lastInstallmentPct,
-        adminFeesPct,
-        programPic,
-        interestRate,
-        totalMonths,
-        modelName,
-        modelYear,
-        price,
-        itemCode,
-        itemName,
-        carImage,
-      ];
+    programId,
+    programName,
+    isActive,
+    bankOrProvider,
+    bankName,
+    bankNameEng,
+    startDate,
+    endDate,
+    firstInstallmentPct,
+    lastInstallmentPct,
+    adminFeesPct,
+    programPic,
+    interestRate,
+    totalMonths,
+    modelName,
+    modelYear,
+    price,
+    itemCode,
+    itemName,
+    carImage,
+  ];
 }

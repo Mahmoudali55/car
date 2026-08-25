@@ -1,8 +1,10 @@
+import 'package:car/core/cache/hive/hive_methods.dart';
 import 'package:car/core/custom_widgets/custom_app_bar/custom_app_bar.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/features/home/data/model/brand_cars_data_model.dart';
+import 'package:car/features/home/data/model/financing_ad_model.dart';
 import 'package:car/features/services/presentation/widgets/financing_bottom_bar.dart';
 import 'package:car/features/services/presentation/widgets/financing_calculator_bottom_sheet.dart';
 import 'package:car/features/services/presentation/widgets/financing_cancel_dialog.dart';
@@ -22,6 +24,7 @@ class FinancingScreen extends StatefulWidget {
   final double? initialDownPayment;
   final int? initialDuration;
   final String? bankNameKey;
+  final FinancingAdModel? offer;
 
   const FinancingScreen({
     super.key,
@@ -30,6 +33,7 @@ class FinancingScreen extends StatefulWidget {
     this.initialDownPayment,
     this.initialDuration,
     this.bankNameKey,
+    this.offer,
   });
 
   @override
@@ -44,23 +48,30 @@ class _FinancingScreenState extends State<FinancingScreen> with SingleTickerProv
 
   bool _isCalculatorCompleted = false;
 
-  static const double _apr = 4.5;
+  static const double _defaultApr = 4.5;
 
   late double _carPrice;
   int _durationYears = 5;
   double _downPayment = 0;
   double _lastPayment = 0;
 
-  double get _totalFinancing {
-    final financed = _carPrice - _downPayment;
-    if (financed <= 0) return 0;
-    return financed + financed * (_apr / 100) * _durationYears;
+  bool get _isOffer => widget.offer != null;
+  double get _apr => widget.offer?.interestRate ?? _defaultApr;
+
+  double get _financedAmount {
+    final lastAmount = _carPrice * ((widget.offer?.lastInstallmentPct ?? 0) / 100);
+    final financed = _carPrice - _downPayment - (_isOffer ? lastAmount : 0);
+    return financed > 0 ? financed : 0;
+  }
+
+  double get _totalFinancedWithInterest {
+    return _financedAmount + _financedAmount * (_apr / 100) * _durationYears;
   }
 
   double get _monthlyInstallment {
-    final total = _totalFinancing;
+    final total = _totalFinancedWithInterest;
     if (total <= 0) return 0;
-    return (total - _lastPayment) / (_durationYears * 12);
+    return (total - (_isOffer ? 0 : _lastPayment)) / (_durationYears * 12);
   }
 
   @override
@@ -72,12 +83,17 @@ class _FinancingScreenState extends State<FinancingScreen> with SingleTickerProv
       });
 
     final raw = widget.car?.price?.toString() ?? '150000';
-    _carPrice =
+    final cashPrice =
         widget.initialCarPrice ??
         (double.tryParse(raw.replaceAll(RegExp(r'[^0-9.]'), '')) ?? 150000);
+    final vatPercentage = double.tryParse(HiveMethods.getVatNumber()?.toString() ?? '') ?? 0;
+    _carPrice = cashPrice * (1 + vatPercentage / 100);
 
-    _downPayment = widget.initialDownPayment ?? 0;
-    _durationYears = widget.initialDuration ?? 5;
+    _downPayment =
+        widget.initialDownPayment ?? (_carPrice * ((widget.offer?.firstInstallmentPct ?? 0) / 100));
+    _durationYears = (widget.initialDuration ?? ((widget.offer?.totalMonths ?? 60) / 12).round())
+        .clamp(1, 5);
+    _lastPayment = _carPrice * ((widget.offer?.lastInstallmentPct ?? 0) / 100);
 
     WidgetsBinding.instance.addPostFrameCallback((_) => _showCalculatorSheet(isInitial: true));
   }
@@ -122,6 +138,12 @@ class _FinancingScreenState extends State<FinancingScreen> with SingleTickerProv
             initialDownPayment: _downPayment,
             initialLastPayment: _lastPayment,
             initialDuration: _durationYears,
+            interestRate: _isOffer ? _apr : null,
+            isOffer: _isOffer,
+            bankName: widget.offer?.displayBankName,
+            firstInstallmentPct: widget.offer?.firstInstallmentPct,
+            lastInstallmentPct: widget.offer?.lastInstallmentPct,
+            adminFeesPct: widget.offer?.adminFeesPct,
           ),
         ),
       ),
@@ -223,6 +245,7 @@ class _FinancingScreenState extends State<FinancingScreen> with SingleTickerProv
                 durationYears: _durationYears,
                 downPayment: _downPayment,
                 lastPayment: _lastPayment,
+                bankName: widget.offer?.displayBankName,
                 onEditCalculator: _showCalculatorSheet,
                 onShowRequirements: _showRequirementsSheet,
               ),

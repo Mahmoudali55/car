@@ -3,17 +3,25 @@ import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/features/cars/presentation/screen/widget/premium_car_card_widget.dart';
 import 'package:car/features/home/data/model/brand_cars_data_model.dart';
+import 'package:car/features/home/data/model/financing_ad_model.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
 class CarsList extends StatelessWidget {
-  const CarsList({super.key, required this.cars, this.localizeCarData, this.isOffer = false});
+  const CarsList({
+    super.key,
+    required this.cars,
+    this.localizeCarData,
+    this.isOffer = false,
+    this.offersByItemCode = const {},
+  });
 
   final List<GetBrandCarsDataModel> cars;
   final GetBrandCarsDataModel Function(GetBrandCarsDataModel)? localizeCarData;
   final bool isOffer;
+  final Map<String, FinancingAdModel> offersByItemCode;
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +59,12 @@ class CarsList extends StatelessWidget {
       separatorBuilder: (_, __) => Gap(16.h),
       itemBuilder: (context, index) {
         final car = localizeCarData != null ? localizeCarData!(cars[index]) : cars[index];
-        return PremiumCarCardWidget(car: car, heroTag: 'premium_car_image_${car.itemCode}', isOffer: isOffer);
+        return PremiumCarCardWidget(
+          car: car,
+          heroTag: 'premium_car_image_${car.itemCode}',
+          isOffer: isOffer,
+          offer: offersByItemCode[car.itemCode],
+        );
       },
     );
   }

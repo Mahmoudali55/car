@@ -1,9 +1,10 @@
 import 'package:car/core/custom_widgets/custom_sar_text.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
-import 'package:car/core/routes/routes_name.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/features/home/data/model/brand_cars_data_model.dart';
+import 'package:car/features/home/data/model/financing_ad_model.dart';
+import 'package:car/features/services/presentation/screen/financing_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -12,8 +13,14 @@ import 'package:gap/gap.dart';
 class BankInstallmentsBannerWidget extends StatelessWidget {
   final GetBrandCarsDataModel car;
   final bool isOffer;
+  final FinancingAdModel? offer;
 
-  const BankInstallmentsBannerWidget({super.key, required this.car, this.isOffer = false});
+  const BankInstallmentsBannerWidget({
+    super.key,
+    required this.car,
+    this.isOffer = false,
+    this.offer,
+  });
 
   String _getInstallmentPrice() {
     if (isOffer && car.monthlyInstallment != null) {
@@ -26,7 +33,12 @@ class BankInstallmentsBannerWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, RoutesName.financingScreen, arguments: car.toMap());
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) => FinancingScreen(car: car, offer: offer),
+          ),
+        );
       },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

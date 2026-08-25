@@ -21,6 +21,7 @@ class FinancingPersonalInfoTab extends StatefulWidget {
   final double lastPayment;
   final VoidCallback onEditCalculator;
   final VoidCallback onShowRequirements;
+  final String? bankName;
 
   const FinancingPersonalInfoTab({
     super.key,
@@ -32,6 +33,7 @@ class FinancingPersonalInfoTab extends StatefulWidget {
     required this.lastPayment,
     required this.onEditCalculator,
     required this.onShowRequirements,
+    this.bankName,
   });
 
   @override
@@ -73,6 +75,7 @@ class _FinancingPersonalInfoTabState extends State<FinancingPersonalInfoTab> {
           children: [
             CarSummaryCard(
               car: widget.car,
+              bankName: widget.bankName,
               monthlyInstallment: widget.monthlyInstallment,
               durationYears: widget.durationYears,
               downPayment: widget.downPayment,

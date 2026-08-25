@@ -6,6 +6,7 @@ import 'package:car/features/cars/presentation/screen/widget/car_search_header_w
 import 'package:car/features/cars/presentation/screen/widget/cars_list_widget.dart';
 import 'package:car/features/cars/presentation/screen/widget/section_header_widget.dart';
 import 'package:car/features/home/data/model/brand_cars_data_model.dart';
+import 'package:car/features/home/data/model/financing_ad_model.dart';
 import 'package:car/features/home/presentation/cubit/home_cubit.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -63,6 +64,10 @@ class _CarsScreenState extends State<CarsScreen> {
                   state.programCarsStatus.data!.isNotEmpty;
 
               final activeOffer = isFilteredByOffer ? state.programCarsStatus.data!.first : null;
+              final offersByItemCode = <String, FinancingAdModel>{
+                for (final offer in state.programCarsStatus.data ?? [])
+                  if (offer.itemCode != null) offer.itemCode!: offer,
+              };
 
               if (state.allCarsStatus.isLoading || state.programCarsStatus.isLoading) {
                 return const Center(child: CustomLoading());
@@ -176,6 +181,7 @@ class _CarsScreenState extends State<CarsScreen> {
                       cars: availableCars,
                       localizeCarData: _localizeCarData,
                       isOffer: isFilteredByOffer,
+                      offersByItemCode: offersByItemCode,
                     ),
                   ],
                 ),

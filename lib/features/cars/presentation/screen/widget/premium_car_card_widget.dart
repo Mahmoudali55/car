@@ -11,6 +11,7 @@ import 'package:car/core/utils/navigator_methods.dart';
 import 'package:car/features/cars/presentation/widget/bank_installments_banner_widget.dart';
 import 'package:car/features/favorites/presentation/view/cubit/favorites_cubit.dart';
 import 'package:car/features/home/data/model/brand_cars_data_model.dart';
+import 'package:car/features/home/data/model/financing_ad_model.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -22,7 +23,14 @@ class PremiumCarCardWidget extends StatelessWidget {
   final GetBrandCarsDataModel car;
   final String? heroTag;
   final bool isOffer;
-  const PremiumCarCardWidget({super.key, required this.car, this.heroTag, this.isOffer = false});
+  final FinancingAdModel? offer;
+  const PremiumCarCardWidget({
+    super.key,
+    required this.car,
+    this.heroTag,
+    this.isOffer = false,
+    this.offer,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -243,6 +251,7 @@ class PremiumCarCardWidget extends StatelessWidget {
                                           builder: (_) => BankInstallmentsBannerWidget(
                                             car: car,
                                             isOffer: isOffer,
+                                            offer: offer,
                                           ),
                                         ),
                                       );
@@ -250,6 +259,7 @@ class PremiumCarCardWidget extends StatelessWidget {
                                     child: BankInstallmentsBannerWidget(
                                       car: car,
                                       isOffer: isOffer,
+                                      offer: offer,
                                     ),
                                   ),
                                 )

@@ -16,6 +16,12 @@ class FinancingCalculatorBottomSheet extends StatefulWidget {
   final double initialDownPayment;
   final double initialLastPayment;
   final int initialDuration;
+  final double? interestRate;
+  final bool isOffer;
+  final String? bankName;
+  final double? firstInstallmentPct;
+  final double? lastInstallmentPct;
+  final double? adminFeesPct;
 
   const FinancingCalculatorBottomSheet({
     super.key,
@@ -23,6 +29,12 @@ class FinancingCalculatorBottomSheet extends StatefulWidget {
     this.initialDownPayment = 0,
     this.initialLastPayment = 0,
     this.initialDuration = 5,
+    this.interestRate,
+    this.isOffer = false,
+    this.bankName,
+    this.firstInstallmentPct,
+    this.lastInstallmentPct,
+    this.adminFeesPct,
   });
 
   @override
@@ -36,7 +48,8 @@ class _FinancingCalculatorBottomSheetState extends State<FinancingCalculatorBott
   late TextEditingController _downPaymentCtrl;
   late TextEditingController _lastPaymentCtrl;
 
-  static const double _apr = 4.5;
+  static const double _defaultApr = 4.5;
+  double get _apr => widget.interestRate ?? _defaultApr;
 
   @override
   void initState() {
@@ -55,21 +68,34 @@ class _FinancingCalculatorBottomSheetState extends State<FinancingCalculatorBott
     super.dispose();
   }
 
+  double get _financedAmount {
+    final financed = widget.carPrice - _downPayment - (widget.isOffer ? _lastPayment : 0);
+    return financed > 0 ? financed : 0;
+  }
+
+  double get _totalFinancedWithInterest {
+    return _financedAmount + _financedAmount * (_apr / 100) * _durationYears;
+  }
+
   double get _totalFinancing {
-    final financed = widget.carPrice - _downPayment;
-    if (financed <= 0) return 0;
-    final profit = financed * (_apr / 100) * _durationYears;
-    return financed + profit;
+    final adminFees = widget.isOffer ? widget.carPrice * ((widget.adminFeesPct ?? 0) / 100) : 0;
+    return _totalFinancedWithInterest + _downPayment + _lastPayment + adminFees;
   }
 
   double get _monthlyInstallment {
-    final total = _totalFinancing;
-    if (total <= 0) return 0;
-    return (total - _lastPayment) / (_durationYears * 12);
+    if (_totalFinancedWithInterest <= 0 || _durationYears <= 0) return 0;
+    final amountToInstall = widget.isOffer
+        ? _totalFinancedWithInterest
+        : _totalFinancedWithInterest - _lastPayment;
+    return amountToInstall / (_durationYears * 12);
   }
 
-  double get _maxDownPayment => widget.carPrice * 0.35;
-  double get _maxLastPayment => widget.carPrice * 0.45;
+  double get _maxDownPayment => widget.isOffer
+      ? widget.carPrice * ((widget.firstInstallmentPct ?? 0) / 100)
+      : widget.carPrice * 0.35;
+  double get _maxLastPayment => widget.isOffer
+      ? widget.carPrice * ((widget.lastInstallmentPct ?? 0) / 100)
+      : widget.carPrice * 0.45;
 
   @override
   Widget build(BuildContext context) {
@@ -135,6 +161,18 @@ class _FinancingCalculatorBottomSheetState extends State<FinancingCalculatorBott
                   // Monthly installment card (blue background)
                   CustomMonthlyInstallmentCardWidget(fmt: fmt, monthly: monthly, total: total),
                   Gap(24.h),
+                  if (widget.bankName?.isNotEmpty == true)
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: Text(
+                        'البنك: ${widget.bankName}',
+                        style: AppTextStyle.bodyMedium(context).copyWith(
+                          color: AppColor.primaryColor(context),
+                          fontWeight: FontWeight.w900,
+                        ),
+                      ),
+                    ),
+                  if (widget.bankName?.isNotEmpty == true) Gap(12.h),
                   // Duration selector
                   Align(
                     alignment: Alignment.centerRight,
@@ -207,6 +245,7 @@ class _FinancingCalculatorBottomSheetState extends State<FinancingCalculatorBott
                       CustomFormField(
                         title: AppLocaleKey.agentFirstPayment.tr(),
                         controller: _downPaymentCtrl,
+                        readOnly: widget.isOffer,
                         keyboardType: const TextInputType.numberWithOptions(decimal: true),
                         inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d*'))],
                         hintText: '0.0',
@@ -244,6 +283,7 @@ class _FinancingCalculatorBottomSheetState extends State<FinancingCalculatorBott
                   CustomFormField(
                     title: AppLocaleKey.agentLastPayment.tr(),
                     controller: _lastPaymentCtrl,
+                    readOnly: widget.isOffer,
                     keyboardType: const TextInputType.numberWithOptions(decimal: true),
                     inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d*'))],
                     hintText: '0.0',
