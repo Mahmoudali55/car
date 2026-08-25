@@ -35,6 +35,7 @@ abstract interface class HomeRepo {
   Future<Either<Failure, SendOtpResponseModel>> sendOtp(SendOtpModel model);
   Future<Either<Failure, List<BANKSDATAModel>>> getBanks(String? Searchval);
   Future<Either<Failure, List<FinancingAdModel>>> getFinancingAds({String? code});
+  Future<Either<Failure, List<FinancingAdModel>>> getNormalFinancing({String? code});
 }
 
 class HomeRepoImpl implements HomeRepo {
@@ -162,6 +163,19 @@ class HomeRepoImpl implements HomeRepo {
         final response = await apiConsumer.get(
           EndPoints.getFinancingAds,
           queryParameters: {'code': code},
+        );
+        return FinancingAdModel.listFromResponse(response['Data']);
+      },
+    );
+  }
+
+  @override
+  Future<Either<Failure, List<FinancingAdModel>>> getNormalFinancing({String? code}) async {
+    return handleDioRequest(
+      request: () async {
+        final response = await apiConsumer.get(
+          EndPoints.getFinancingNormal,
+          queryParameters: {'Code': code ?? ''},
         );
         return FinancingAdModel.listFromResponse(response['Data']);
       },

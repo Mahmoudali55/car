@@ -22,6 +22,7 @@ class HomeState extends Equatable {
   final StatusState<SendOtpResponseModel> sendOtpStatus;
   final StatusState<List<FinancingAdModel>> financingAdsStatus;
   final StatusState<List<FinancingAdModel>> programCarsStatus;
+  final StatusState<List<FinancingAdModel>> normalFinancingStatus;
   const HomeState({
     this.carsModelsStatus = const StatusState.initial(),
     this.brandCarsStatus = const StatusState.initial(),
@@ -44,6 +45,7 @@ class HomeState extends Equatable {
     this.sendOtpStatus = const StatusState.initial(),
     this.financingAdsStatus = const StatusState.initial(),
     this.programCarsStatus = const StatusState.initial(),
+    this.normalFinancingStatus = const StatusState.initial(),
   });
   HomeState copyWith({
     StatusState? carsModelsStatus,
@@ -67,6 +69,7 @@ class HomeState extends Equatable {
     StatusState<SendOtpResponseModel>? sendOtpStatus,
     StatusState<List<FinancingAdModel>>? financingAdsStatus,
     StatusState<List<FinancingAdModel>>? programCarsStatus,
+    StatusState<List<FinancingAdModel>>? normalFinancingStatus,
   }) {
     return HomeState(
       carsModelsStatus: carsModelsStatus ?? this.carsModelsStatus,
@@ -92,6 +95,7 @@ class HomeState extends Equatable {
       sendOtpStatus: sendOtpStatus ?? this.sendOtpStatus,
       financingAdsStatus: financingAdsStatus ?? this.financingAdsStatus,
       programCarsStatus: programCarsStatus ?? this.programCarsStatus,
+      normalFinancingStatus: normalFinancingStatus ?? this.normalFinancingStatus,
     );
   }
 
@@ -118,5 +122,6 @@ class HomeState extends Equatable {
     sendOtpStatus,
     financingAdsStatus,
     programCarsStatus,
+    normalFinancingStatus,
   ];
 }

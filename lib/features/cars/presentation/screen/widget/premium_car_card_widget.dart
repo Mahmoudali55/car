@@ -24,12 +24,14 @@ class PremiumCarCardWidget extends StatelessWidget {
   final String? heroTag;
   final bool isOffer;
   final FinancingAdModel? offer;
+  final List<FinancingAdModel> financingOffers;
   const PremiumCarCardWidget({
     super.key,
     required this.car,
     this.heroTag,
     this.isOffer = false,
     this.offer,
+    this.financingOffers = const [],
   });
 
   @override
@@ -39,7 +41,12 @@ class PremiumCarCardWidget extends StatelessWidget {
         NavigatorMethods.pushNamed(
           context,
           RoutesName.carDetailsScreen,
-          arguments: {'car': car, 'heroTag': heroTag, 'offer': offer},
+          arguments: {
+            'car': car,
+            'heroTag': heroTag,
+            'offer': offer,
+            'offers': financingOffers,
+          },
         );
       },
       child: Card(
@@ -252,6 +259,7 @@ class PremiumCarCardWidget extends StatelessWidget {
                                             car: car,
                                             isOffer: isOffer,
                                             offer: offer,
+                                            offers: financingOffers,
                                           ),
                                         ),
                                       );
@@ -260,6 +268,7 @@ class PremiumCarCardWidget extends StatelessWidget {
                                       car: car,
                                       isOffer: isOffer,
                                       offer: offer,
+                                      offers: financingOffers,
                                     ),
                                   ),
                                 )

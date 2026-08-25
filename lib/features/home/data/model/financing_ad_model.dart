@@ -12,6 +12,7 @@ class FinancingAdModel extends Equatable {
   final String? bankOrProvider;
   final String? bankName;
   final String? bankNameEng;
+  final String? bankPicturePath;
   final String? startDate;
   final String? endDate;
   final double? firstInstallmentPct;
@@ -54,6 +55,7 @@ class FinancingAdModel extends Equatable {
     this.bankOrProvider,
     this.bankName,
     this.bankNameEng,
+    this.bankPicturePath,
     this.startDate,
     this.endDate,
     this.firstInstallmentPct,
@@ -98,6 +100,8 @@ class FinancingAdModel extends Equatable {
       bankOrProvider: json['BankOrProvider']?.toString(),
       bankName: (json['BankName'] ?? json['BANK_NAME'] ?? json['BankOrProviderName'])?.toString(),
       bankNameEng: (json['BankNameEng'] ?? json['BANK_NAME_ENG'] ?? json['BankOrProviderNameEng'])
+          ?.toString(),
+      bankPicturePath: (json['PICTUREPATH'] ?? json['PicturePath'] ?? json['BankPicturePath'])
           ?.toString(),
       startDate: json['StartDate']?.toString(),
       endDate: json['EndDate']?.toString(),
@@ -165,9 +169,23 @@ class FinancingAdModel extends Equatable {
             : null);
   }
 
+  String? get displayBankImageUrl {
+    final rawPath = bankPicturePath?.trim();
+    if (rawPath == null || rawPath.isEmpty) return null;
+    if (rawPath.startsWith('http://') || rawPath.startsWith('https://')) return rawPath;
+    final cleaned = rawPath.replaceAll('../../Img/Emp/', '').replaceAll('../..', '');
+    return '${Constants.baseImage}$cleaned';
+  }
+
   double get monthlyInstallmentWithVat {
+    return monthlyInstallmentForPrice(price ?? 0);
+  }
+
+  double monthlyInstallmentForPrice(double basePrice) {
     final months = totalMonths ?? 60;
     if (months <= 0) return 0;
+    final vatPercentage = double.tryParse(HiveMethods.getVatNumber()?.toString() ?? '') ?? 0;
+    final priceWithVat = basePrice * (1 + vatPercentage / 100);
     final firstAmount = priceWithVat * ((firstInstallmentPct ?? 0) / 100);
     final lastAmount = priceWithVat * ((lastInstallmentPct ?? 0) / 100);
     final financedAmount = priceWithVat - firstAmount - lastAmount;
@@ -297,6 +315,7 @@ class FinancingAdModel extends Equatable {
     bankOrProvider,
     bankName,
     bankNameEng,
+    bankPicturePath,
     startDate,
     endDate,
     firstInstallmentPct,

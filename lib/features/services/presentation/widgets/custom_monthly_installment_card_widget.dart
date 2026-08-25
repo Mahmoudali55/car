@@ -12,12 +12,12 @@ class CustomMonthlyInstallmentCardWidget extends StatelessWidget {
     super.key,
     required this.fmt,
     required this.monthly,
-    required this.total,
+    required this.totalPrice,
   });
 
   final NumberFormat fmt;
   final double monthly;
-  final double total;
+  final double totalPrice;
 
   @override
   Widget build(BuildContext context) {
@@ -78,14 +78,14 @@ class CustomMonthlyInstallmentCardWidget extends StatelessWidget {
           Row(
             children: [
               Text(
-                AppLocaleKey.agentTotalPriceDesc.tr(),
+                'إجمالي سعر التمويل',
                 style: AppTextStyle.bodyMedium(
                   context,
                 ).copyWith(color: AppColor.blackTextColor(context), fontWeight: FontWeight.w700),
               ),
-              Spacer(),
+              const Spacer(),
               Text(
-                fmt.format(total.round()),
+                fmt.format(totalPrice.round()),
                 style: AppTextStyle.bodyLarge(
                   context,
                 ).copyWith(color: AppColor.primaryColor(context), fontWeight: FontWeight.w900),

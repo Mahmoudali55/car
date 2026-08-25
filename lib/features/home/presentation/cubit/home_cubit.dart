@@ -256,6 +256,16 @@ class HomeCubit extends Cubit<HomeState> {
     );
   }
 
+  Future<void> getNormalFinancing() async {
+    emit(state.copyWith(normalFinancingStatus: const StatusState.loading()));
+    final result = await homeRepo.getNormalFinancing();
+    result.fold(
+      (failure) =>
+          emit(state.copyWith(normalFinancingStatus: StatusState.failure(failure.errMessage))),
+      (response) => emit(state.copyWith(normalFinancingStatus: StatusState.success(response))),
+    );
+  }
+
   void clearProgramCarsFilter() {
     emit(state.copyWith(programCarsStatus: const StatusState.initial()));
   }

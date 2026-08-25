@@ -16,8 +16,9 @@ import 'package:gap/gap.dart';
 class CarHeaderWidget extends StatefulWidget {
   final GetBrandCarsDataModel car;
   final FinancingAdModel? offer;
+  final List<FinancingAdModel> offers;
 
-  const CarHeaderWidget({super.key, required this.car, this.offer});
+  const CarHeaderWidget({super.key, required this.car, this.offer, this.offers = const []});
 
   @override
   State<CarHeaderWidget> createState() => _CarHeaderWidgetState();
@@ -235,7 +236,11 @@ class _CarHeaderWidgetState extends State<CarHeaderWidget> {
                               right: BorderSide(color: AppColor.primaryColor(context), width: 2.w),
                             ),
                           ),
-                          child: BankInstallmentsBannerWidget(car: widget.car, offer: widget.offer),
+                          child: BankInstallmentsBannerWidget(
+                            car: widget.car,
+                            offer: widget.offer,
+                            offers: widget.offers,
+                          ),
                         ),
                       ),
                     )

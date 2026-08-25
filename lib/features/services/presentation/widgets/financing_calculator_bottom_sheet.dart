@@ -4,6 +4,7 @@ import 'package:car/core/custom_widgets/custom_sar_text.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
+import 'package:car/features/home/data/model/financing_ad_model.dart';
 import 'package:car/features/services/presentation/widgets/custom_monthly_installment_card_widget.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +23,8 @@ class FinancingCalculatorBottomSheet extends StatefulWidget {
   final double? firstInstallmentPct;
   final double? lastInstallmentPct;
   final double? adminFeesPct;
+  final List<FinancingAdModel> offers;
+  final FinancingAdModel? initialOffer;
 
   const FinancingCalculatorBottomSheet({
     super.key,
@@ -35,6 +38,8 @@ class FinancingCalculatorBottomSheet extends StatefulWidget {
     this.firstInstallmentPct,
     this.lastInstallmentPct,
     this.adminFeesPct,
+    this.offers = const [],
+    this.initialOffer,
   });
 
   @override
@@ -47,13 +52,16 @@ class _FinancingCalculatorBottomSheetState extends State<FinancingCalculatorBott
   late double _lastPayment;
   late TextEditingController _downPaymentCtrl;
   late TextEditingController _lastPaymentCtrl;
+  FinancingAdModel? _selectedOffer;
 
   static const double _defaultApr = 4.5;
-  double get _apr => widget.interestRate ?? _defaultApr;
+  FinancingAdModel? get _activeOffer => _selectedOffer ?? widget.initialOffer;
+  double get _apr => _activeOffer?.interestRate ?? widget.interestRate ?? _defaultApr;
 
   @override
   void initState() {
     super.initState();
+    _selectedOffer = widget.initialOffer;
     _durationYears = widget.initialDuration;
     _downPayment = widget.initialDownPayment;
     _lastPayment = widget.initialLastPayment;
@@ -77,9 +85,22 @@ class _FinancingCalculatorBottomSheetState extends State<FinancingCalculatorBott
     return _financedAmount + _financedAmount * (_apr / 100) * _durationYears;
   }
 
-  double get _totalFinancing {
-    final adminFees = widget.isOffer ? widget.carPrice * ((widget.adminFeesPct ?? 0) / 100) : 0;
-    return _totalFinancedWithInterest + _downPayment + _lastPayment + adminFees;
+  double get _totalInterest => _totalFinancedWithInterest - _financedAmount;
+
+  double get _totalPrice => widget.carPrice + _totalInterest + _adminFees;
+
+  double get _adminFees => widget.isOffer
+      ? widget.carPrice * ((_activeOffer?.adminFeesPct ?? widget.adminFeesPct ?? 0) / 100)
+      : 0;
+
+  void _selectOffer(FinancingAdModel offer) {
+    setState(() {
+      _selectedOffer = offer;
+      _downPayment = widget.carPrice * (offer.firstInstallmentPct ?? 0) / 100;
+      _lastPayment = widget.carPrice * (offer.lastInstallmentPct ?? 0) / 100;
+      _downPaymentCtrl.text = _downPayment.toStringAsFixed(1);
+      _lastPaymentCtrl.text = _lastPayment.toStringAsFixed(1);
+    });
   }
 
   double get _monthlyInstallment {
@@ -91,17 +112,18 @@ class _FinancingCalculatorBottomSheetState extends State<FinancingCalculatorBott
   }
 
   double get _maxDownPayment => widget.isOffer
-      ? widget.carPrice * ((widget.firstInstallmentPct ?? 0) / 100)
+      ? widget.carPrice *
+            ((_activeOffer?.firstInstallmentPct ?? widget.firstInstallmentPct ?? 0) / 100)
       : widget.carPrice * 0.35;
   double get _maxLastPayment => widget.isOffer
-      ? widget.carPrice * ((widget.lastInstallmentPct ?? 0) / 100)
+      ? widget.carPrice *
+            ((_activeOffer?.lastInstallmentPct ?? widget.lastInstallmentPct ?? 0) / 100)
       : widget.carPrice * 0.45;
 
   @override
   Widget build(BuildContext context) {
     final fmt = NumberFormat('#,##0', 'en_US');
     final monthly = _monthlyInstallment;
-    final total = _totalFinancing;
 
     return Container(
       decoration: BoxDecoration(
@@ -159,9 +181,71 @@ class _FinancingCalculatorBottomSheetState extends State<FinancingCalculatorBott
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   // Monthly installment card (blue background)
-                  CustomMonthlyInstallmentCardWidget(fmt: fmt, monthly: monthly, total: total),
+                  CustomMonthlyInstallmentCardWidget(
+                    fmt: fmt,
+                    monthly: monthly,
+                    totalPrice: _totalPrice,
+                  ),
                   Gap(24.h),
-                  if (widget.bankName?.isNotEmpty == true)
+                  if (widget.offers.isNotEmpty)
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Text(
+                          AppLocaleKey.bank.tr(),
+                          textAlign: TextAlign.right,
+                          style: AppTextStyle.bodyMedium(
+                            context,
+                          ).copyWith(fontWeight: FontWeight.w800),
+                        ),
+                        Gap(8.h),
+                        ...widget.offers.map(
+                          (offer) => Padding(
+                            padding: EdgeInsets.only(bottom: 6.h),
+                            child: InkWell(
+                              onTap: () => _selectOffer(offer),
+                              child: Container(
+                                padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
+                                decoration: BoxDecoration(
+                                  color: identical(_activeOffer, offer)
+                                      ? AppColor.primaryColor(context).withValues(alpha: 0.12)
+                                      : AppColor.cardColor(context),
+                                  borderRadius: BorderRadius.circular(8.r),
+                                  border: Border.all(
+                                    color: identical(_activeOffer, offer)
+                                        ? AppColor.primaryColor(context)
+                                        : AppColor.borderColor(context),
+                                  ),
+                                ),
+                                child: Row(
+                                  //  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    if (offer.displayBankImageUrl?.isNotEmpty == true)
+                                      Padding(
+                                        padding: EdgeInsets.only(left: 8.w),
+                                        child: CircleAvatar(
+                                          radius: 16.r,
+                                          backgroundImage: NetworkImage(offer.displayBankImageUrl!),
+                                        ),
+                                      ),
+                                    Spacer(),
+                                    Text(
+                                      offer.displayBankName ?? offer.bankOrProvider ?? 'البنك',
+                                      textAlign: TextAlign.right,
+                                      style: AppTextStyle.bodyMedium(
+                                        context,
+                                      ).copyWith(fontWeight: FontWeight.w800),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Gap(12.h),
+                      ],
+                    )
+                  else if (widget.bankName?.isNotEmpty == true)
                     Align(
                       alignment: Alignment.centerRight,
                       child: Text(
@@ -324,6 +408,7 @@ class _FinancingCalculatorBottomSheetState extends State<FinancingCalculatorBott
                       'duration': _durationYears,
                       'down': _downPayment,
                       'last': _lastPayment,
+                      'offer': _activeOffer,
                     }),
 
                     child: Text(

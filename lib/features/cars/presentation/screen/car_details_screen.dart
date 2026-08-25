@@ -24,6 +24,7 @@ class CarDetailsScreen extends StatefulWidget {
   final String? heroTag;
   final bool isFromAdmin;
   final FinancingAdModel? offer;
+  final List<FinancingAdModel> offers;
 
   const CarDetailsScreen({
     super.key,
@@ -31,6 +32,7 @@ class CarDetailsScreen extends StatefulWidget {
     this.heroTag,
     this.isFromAdmin = false,
     this.offer,
+    this.offers = const [],
   });
 
   @override
@@ -119,7 +121,11 @@ class _CarDetailsScreenState extends State<CarDetailsScreen> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              CarHeaderWidget(car: widget.car, offer: widget.offer),
+                              CarHeaderWidget(
+                                car: widget.car,
+                                offer: widget.offer,
+                                offers: widget.offers,
+                              ),
                               if (widget.car.isTamaraAvailable) ...[
                                 Gap(16.h),
                                 BnplWidget(car: widget.car),

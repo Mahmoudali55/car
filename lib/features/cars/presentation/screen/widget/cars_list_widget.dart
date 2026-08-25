@@ -16,12 +16,16 @@ class CarsList extends StatelessWidget {
     this.localizeCarData,
     this.isOffer = false,
     this.offersByItemCode = const {},
+    this.normalOffer,
+    this.normalOffers = const [],
   });
 
   final List<GetBrandCarsDataModel> cars;
   final GetBrandCarsDataModel Function(GetBrandCarsDataModel)? localizeCarData;
   final bool isOffer;
   final Map<String, FinancingAdModel> offersByItemCode;
+  final FinancingAdModel? normalOffer;
+  final List<FinancingAdModel> normalOffers;
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +67,8 @@ class CarsList extends StatelessWidget {
           car: car,
           heroTag: 'premium_car_image_${car.itemCode}',
           isOffer: isOffer,
-          offer: offersByItemCode[car.itemCode],
+          offer: offersByItemCode[car.itemCode] ?? normalOffer,
+          financingOffers: isOffer ? const [] : normalOffers,
         );
       },
     );

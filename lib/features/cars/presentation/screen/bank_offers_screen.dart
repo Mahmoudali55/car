@@ -1,3 +1,4 @@
+import 'package:car/core/cache/hive/hive_methods.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/features/cars/presentation/widget/bank_offer_card_widget.dart';
@@ -5,9 +6,12 @@ import 'package:car/features/cars/presentation/widget/bank_offer_fliter_section_
 import 'package:car/features/cars/presentation/widget/bank_offers_list_widget.dart';
 import 'package:car/features/cars/presentation/widget/bank_offers_widgets.dart';
 import 'package:car/features/home/data/model/brand_cars_data_model.dart';
+import 'package:car/features/home/data/model/financing_ad_model.dart';
+import 'package:car/features/home/presentation/cubit/home_cubit.dart';
 import 'package:car/features/services/presentation/screen/financing_screen.dart' as car_services;
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class BankOffersScreen extends StatefulWidget {
   final GetBrandCarsDataModel car;
@@ -26,7 +30,7 @@ class _BankOffersScreenState extends State<BankOffersScreen> {
 
   final TextEditingController _downPaymentController = TextEditingController();
 
-  final List<BankOffer> _allBanks = [
+  final List<BankOffer> _fallbackBanks = [
     BankOffer(
       nameKey: AppLocaleKey.bankAlrajhi,
       logoText: 'AR',
@@ -62,8 +66,13 @@ class _BankOffersScreenState extends State<BankOffersScreen> {
   @override
   void initState() {
     super.initState();
-    _carPrice =
+    final cashPrice =
         num.tryParse(widget.car.price?.toString().replaceAll(',', '') ?? '150000') ?? 150000;
+    final vatPercentage = double.tryParse(HiveMethods.getVatNumber()?.toString() ?? '') ?? 0;
+    _carPrice = cashPrice * (1 + vatPercentage / 100);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<HomeCubit>().getNormalFinancing();
+    });
   }
 
   @override
@@ -73,7 +82,10 @@ class _BankOffersScreenState extends State<BankOffersScreen> {
   }
 
   List<BankOffer> get _sortedOffers {
-    final offers = List<BankOffer>.from(_allBanks);
+    final apiOffers = context.read<HomeCubit>().state.normalFinancingStatus.data;
+    final offers = apiOffers == null || apiOffers.isEmpty
+        ? List<BankOffer>.from(_fallbackBanks)
+        : apiOffers.map(_toBankOffer).toList();
 
     offers.sort((a, b) {
       if (_currentSort == SortOption.lowestMargin) {
@@ -89,6 +101,19 @@ class _BankOffersScreenState extends State<BankOffersScreen> {
     });
 
     return offers;
+  }
+
+  BankOffer _toBankOffer(FinancingAdModel ad) {
+    return BankOffer(
+      nameKey: ad.bankName ?? ad.programName ?? ad.bankOrProvider ?? 'Bank',
+      logoText: (ad.bankName ?? ad.programName ?? 'BK').substring(0, 1),
+      apr: ad.interestRate ?? 0,
+      brandColor: AppColor.primaryColor(context),
+      firstInstallmentPct: ad.firstInstallmentPct ?? 0,
+      lastInstallmentPct: ad.lastInstallmentPct ?? 0,
+      adminFeesPct: ad.adminFeesPct ?? 0,
+      imageUrl: ad.displayBankImageUrl,
+    );
   }
 
   @override
@@ -108,58 +133,72 @@ class _BankOffersScreenState extends State<BankOffersScreen> {
           onPressed: () => Navigator.pop(context),
         ),
       ),
-      body: CustomScrollView(
-        physics: const BouncingScrollPhysics(),
-        slivers: [
-          SliverToBoxAdapter(
-            child: BankOfferCalculatorCard(
+      body: BlocBuilder<HomeCubit, HomeState>(
+        buildWhen: (previous, current) =>
+            previous.normalFinancingStatus != current.normalFinancingStatus,
+        builder: (context, state) => CustomScrollView(
+          physics: const BouncingScrollPhysics(),
+          slivers: [
+            SliverToBoxAdapter(
+              child: BankOfferCalculatorCard(
+                carPrice: _carPrice,
+                downPayment: _downPayment,
+                durationYears: _durationYears,
+                downPaymentController: _downPaymentController,
+                onDownPaymentChanged: (value) {
+                  setState(() {
+                    _downPayment = double.tryParse(value) ?? 0;
+                  });
+                },
+                onDurationChanged: (value) {
+                  setState(() {
+                    _durationYears = value.toInt();
+                  });
+                },
+              ),
+            ),
+            SliverToBoxAdapter(
+              child: BankOfferFilterSection(
+                currentSort: _currentSort,
+                onSortChanged: (option) {
+                  setState(() {
+                    _currentSort = option;
+                  });
+                },
+              ),
+            ),
+            BankOffersList(
+              sortedOffers: _sortedOffers,
               carPrice: _carPrice,
               downPayment: _downPayment,
               durationYears: _durationYears,
-              downPaymentController: _downPaymentController,
-              onDownPaymentChanged: (value) {
-                setState(() {
-                  _downPayment = double.tryParse(value) ?? 0;
-                });
-              },
-              onDurationChanged: (value) {
-                setState(() {
-                  _durationYears = value.toInt();
-                });
-              },
-            ),
-          ),
-          SliverToBoxAdapter(
-            child: BankOfferFilterSection(
-              currentSort: _currentSort,
-              onSortChanged: (option) {
-                setState(() {
-                  _currentSort = option;
-                });
-              },
-            ),
-          ),
-          BankOffersList(
-            sortedOffers: _sortedOffers,
-            carPrice: _carPrice,
-            downPayment: _downPayment,
-            durationYears: _durationYears,
-            onOfferTap: (offer) {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => car_services.FinancingScreen(
-                    car: widget.car,
-                    initialCarPrice: _carPrice.toDouble(),
-                    initialDownPayment: _downPayment.toDouble(),
-                    initialDuration: _durationYears,
-                    bankNameKey: offer.nameKey,
+              onOfferTap: (offer) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => car_services.FinancingScreen(
+                      car: widget.car,
+                      initialCarPrice: _carPrice.toDouble(),
+                      initialPriceIncludesVat: true,
+                      initialDuration: _durationYears,
+                      bankNameKey: offer.nameKey,
+                      initialDownPayment: _carPrice.toDouble() * offer.firstInstallmentPct / 100,
+                      initialLastPayment: _carPrice.toDouble() * offer.lastInstallmentPct / 100,
+                      offer: FinancingAdModel(
+                        bankOrProvider: offer.nameKey,
+                        bankName: offer.nameKey,
+                        firstInstallmentPct: offer.firstInstallmentPct,
+                        lastInstallmentPct: offer.lastInstallmentPct,
+                        adminFeesPct: offer.adminFeesPct,
+                        interestRate: offer.apr,
+                      ),
+                    ),
                   ),
-                ),
-              );
-            },
-          ),
-        ],
+                );
+              },
+            ),
+          ],
+        ),
       ),
     );
   }

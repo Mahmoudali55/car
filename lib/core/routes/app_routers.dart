@@ -24,6 +24,7 @@ class AppRouters {
         GetBrandCarsDataModel? car;
         String? heroTag;
         FinancingAdModel? offer;
+        List<FinancingAdModel> offers = const [];
         bool isFromAdmin = false;
 
         if (args is GetBrandCarsDataModel) {
@@ -36,6 +37,7 @@ class AppRouters {
           }
           heroTag = args['heroTag'];
           offer = args['offer'] is FinancingAdModel ? args['offer'] : null;
+          offers = (args['offers'] as List?)?.whereType<FinancingAdModel>().toList() ?? const [];
           isFromAdmin = args['isFromAdmin'] ?? false;
         }
 
@@ -44,6 +46,7 @@ class AppRouters {
             car: car ?? GetBrandCarsDataModel.fromJson(args),
             heroTag: heroTag,
             offer: offer,
+            offers: offers,
             isFromAdmin: isFromAdmin,
           ),
         );

@@ -30,6 +30,7 @@ class _CarsScreenState extends State<CarsScreen> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.read<HomeCubit>().fetchAllCars();
+      context.read<HomeCubit>().getNormalFinancing();
     });
   }
 
@@ -68,6 +69,13 @@ class _CarsScreenState extends State<CarsScreen> {
                 for (final offer in state.programCarsStatus.data ?? [])
                   if (offer.itemCode != null) offer.itemCode!: offer,
               };
+              final normalOffers = state.normalFinancingStatus.data ?? const <FinancingAdModel>[];
+              final sortedNormalOffers = List<FinancingAdModel>.from(normalOffers)
+                ..sort(
+                  (a, b) => (a.interestRate ?? double.infinity).compareTo(
+                    b.interestRate ?? double.infinity,
+                  ),
+                );
 
               if (state.allCarsStatus.isLoading || state.programCarsStatus.isLoading) {
                 return const Center(child: CustomLoading());
@@ -182,6 +190,8 @@ class _CarsScreenState extends State<CarsScreen> {
                       localizeCarData: _localizeCarData,
                       isOffer: isFilteredByOffer,
                       offersByItemCode: offersByItemCode,
+                      normalOffer: sortedNormalOffers.isEmpty ? null : sortedNormalOffers.first,
+                      normalOffers: normalOffers,
                     ),
                   ],
                 ),

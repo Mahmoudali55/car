@@ -21,19 +21,25 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class FinancingScreen extends StatefulWidget {
   final GetBrandCarsDataModel? car;
   final double? initialCarPrice;
+  final bool initialPriceIncludesVat;
   final double? initialDownPayment;
+  final double? initialLastPayment;
   final int? initialDuration;
   final String? bankNameKey;
   final FinancingAdModel? offer;
+  final List<FinancingAdModel> offers;
 
   const FinancingScreen({
     super.key,
     this.car,
     this.initialCarPrice,
+    this.initialPriceIncludesVat = false,
     this.initialDownPayment,
+    this.initialLastPayment,
     this.initialDuration,
     this.bankNameKey,
     this.offer,
+    this.offers = const [],
   });
 
   @override
@@ -54,12 +60,14 @@ class _FinancingScreenState extends State<FinancingScreen> with SingleTickerProv
   int _durationYears = 5;
   double _downPayment = 0;
   double _lastPayment = 0;
+  FinancingAdModel? _selectedOffer;
 
-  bool get _isOffer => widget.offer != null;
-  double get _apr => widget.offer?.interestRate ?? _defaultApr;
+  FinancingAdModel? get _activeOffer => _selectedOffer ?? widget.offer;
+  bool get _isOffer => _activeOffer != null;
+  double get _apr => _activeOffer?.interestRate ?? _defaultApr;
 
   double get _financedAmount {
-    final lastAmount = _carPrice * ((widget.offer?.lastInstallmentPct ?? 0) / 100);
+    final lastAmount = _carPrice * ((_activeOffer?.lastInstallmentPct ?? 0) / 100);
     final financed = _carPrice - _downPayment - (_isOffer ? lastAmount : 0);
     return financed > 0 ? financed : 0;
   }
@@ -77,6 +85,7 @@ class _FinancingScreenState extends State<FinancingScreen> with SingleTickerProv
   @override
   void initState() {
     super.initState();
+    _selectedOffer = widget.offer ?? (widget.offers.isNotEmpty ? widget.offers.first : null);
     _tabController = TabController(length: 3, vsync: this)
       ..addListener(() {
         if (mounted) setState(() {});
@@ -87,13 +96,14 @@ class _FinancingScreenState extends State<FinancingScreen> with SingleTickerProv
         widget.initialCarPrice ??
         (double.tryParse(raw.replaceAll(RegExp(r'[^0-9.]'), '')) ?? 150000);
     final vatPercentage = double.tryParse(HiveMethods.getVatNumber()?.toString() ?? '') ?? 0;
-    _carPrice = cashPrice * (1 + vatPercentage / 100);
+    _carPrice = widget.initialPriceIncludesVat ? cashPrice : cashPrice * (1 + vatPercentage / 100);
 
     _downPayment =
-        widget.initialDownPayment ?? (_carPrice * ((widget.offer?.firstInstallmentPct ?? 0) / 100));
-    _durationYears = (widget.initialDuration ?? ((widget.offer?.totalMonths ?? 60) / 12).round())
+        widget.initialDownPayment ?? (_carPrice * ((_activeOffer?.firstInstallmentPct ?? 0) / 100));
+    _durationYears = (widget.initialDuration ?? ((_activeOffer?.totalMonths ?? 60) / 12).round())
         .clamp(1, 5);
-    _lastPayment = _carPrice * ((widget.offer?.lastInstallmentPct ?? 0) / 100);
+    _lastPayment =
+        widget.initialLastPayment ?? (_carPrice * ((_activeOffer?.lastInstallmentPct ?? 0) / 100));
 
     WidgetsBinding.instance.addPostFrameCallback((_) => _showCalculatorSheet(isInitial: true));
   }
@@ -140,10 +150,12 @@ class _FinancingScreenState extends State<FinancingScreen> with SingleTickerProv
             initialDuration: _durationYears,
             interestRate: _isOffer ? _apr : null,
             isOffer: _isOffer,
-            bankName: widget.offer?.displayBankName,
-            firstInstallmentPct: widget.offer?.firstInstallmentPct,
-            lastInstallmentPct: widget.offer?.lastInstallmentPct,
-            adminFeesPct: widget.offer?.adminFeesPct,
+            bankName: _activeOffer?.displayBankName,
+            firstInstallmentPct: _activeOffer?.firstInstallmentPct,
+            lastInstallmentPct: _activeOffer?.lastInstallmentPct,
+            adminFeesPct: _activeOffer?.adminFeesPct,
+            offers: widget.offers,
+            initialOffer: _activeOffer,
           ),
         ),
       ),
@@ -157,6 +169,9 @@ class _FinancingScreenState extends State<FinancingScreen> with SingleTickerProv
         _durationYears = result['duration'] ?? _durationYears;
         _downPayment = result['down'] ?? _downPayment;
         _lastPayment = result['last'] ?? _lastPayment;
+        if (result['offer'] is FinancingAdModel) {
+          _selectedOffer = result['offer'];
+        }
       });
     } else if (isInitial) {
       Navigator.pop(context);
@@ -245,7 +260,7 @@ class _FinancingScreenState extends State<FinancingScreen> with SingleTickerProv
                 durationYears: _durationYears,
                 downPayment: _downPayment,
                 lastPayment: _lastPayment,
-                bankName: widget.offer?.displayBankName,
+                bankName: _activeOffer?.displayBankName,
                 onEditCalculator: _showCalculatorSheet,
                 onShowRequirements: _showRequirementsSheet,
               ),

@@ -10,17 +10,27 @@ class BankOffer {
   final String logoText; // Placeholder for logo representation
   final double apr;
   final Color brandColor;
+  final double firstInstallmentPct;
+  final double lastInstallmentPct;
+  final double adminFeesPct;
+  final String? imageUrl;
 
   BankOffer({
     required this.nameKey,
     required this.logoText,
     required this.apr,
     required this.brandColor,
+    this.firstInstallmentPct = 0,
+    this.lastInstallmentPct = 0,
+    this.adminFeesPct = 0,
+    this.imageUrl,
   });
 
   // Calculate monthly installment and total amount based on user inputs
   Map<String, double> calculate(num carPrice, num downPayment, int durationYears) {
-    final principal = (carPrice - downPayment).toDouble();
+    final firstAmount = carPrice.toDouble() * (firstInstallmentPct / 100);
+    final lastAmount = carPrice.toDouble() * (lastInstallmentPct / 100);
+    final principal = (carPrice - (downPayment > 0 ? downPayment : firstAmount) - lastAmount);
     if (principal <= 0) {
       return {'totalAmount': 0, 'monthlyInstallment': 0};
     }
@@ -28,7 +38,11 @@ class BankOffer {
     final totalAmount = principal + totalProfit;
     final monthlyInstallment = totalAmount / (durationYears * 12);
 
-    return {'totalAmount': totalAmount, 'monthlyInstallment': monthlyInstallment};
+    return {
+      'totalAmount': totalAmount,
+      'monthlyInstallment': monthlyInstallment,
+      'lastPaymentAmount': lastAmount,
+    };
   }
 }
 
@@ -91,18 +105,23 @@ class BankOfferCardWidget extends StatelessWidget {
                   Expanded(
                     child: Row(
                       children: [
-                        CircleAvatar(
-                          backgroundColor: offer.brandColor,
-                          radius: 20.r,
-                          child: Text(
-                            offer.logoText,
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14.sp,
-                            ),
-                          ),
-                        ),
+                        offer.imageUrl?.isNotEmpty == true
+                            ? CircleAvatar(
+                                radius: 20.r,
+                                backgroundImage: NetworkImage(offer.imageUrl!),
+                              )
+                            : CircleAvatar(
+                                backgroundColor: offer.brandColor,
+                                radius: 20.r,
+                                child: Text(
+                                  offer.logoText,
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 14.sp,
+                                  ),
+                                ),
+                              ),
                         SizedBox(width: 12.w),
                         Expanded(
                           child: Text(
@@ -114,34 +133,6 @@ class BankOfferCardWidget extends StatelessWidget {
                             ),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(width: 8.w),
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 6.h),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(20.r),
-                      boxShadow: [
-                        BoxShadow(
-                          color: AppColor.blackColor(context).withOpacity(0.05),
-                          blurRadius: 4,
-                        ),
-                      ],
-                    ),
-                    child: Row(
-                      children: [
-                        Icon(Icons.percent_rounded, size: 14.sp, color: offer.brandColor),
-                        SizedBox(width: 4.w),
-                        Text(
-                          '${offer.apr}% ${AppLocaleKey.profitMargin.tr()}',
-                          style: TextStyle(
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.bold,
-                            color: offer.brandColor,
                           ),
                         ),
                       ],
