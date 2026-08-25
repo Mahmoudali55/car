@@ -33,6 +33,7 @@ class _PopularCarsScreenState extends State<PopularCarsScreen> {
       } else if (state.brands.isEmpty) {
         context.read<HomeCubit>().getCarsModels();
       }
+      context.read<HomeCubit>().getNormalFinancing();
     });
   }
 

@@ -149,10 +149,11 @@ class GetBrandCarsDataModel extends Equatable {
   String get formattedPriceWithVat {
     if (price == null || price!.isEmpty) return '---';
     final vatNumber = HiveMethods.getVatNumber();
-    final cleanPrice = double.tryParse(price.toString());
-    final double originalPrice = double.tryParse(cleanPrice.toString()) ?? 0;
+    final cleanPriceStr = price.toString().replaceAll(RegExp(r'[^0-9.]'), '');
+    final double originalPrice = double.tryParse(cleanPriceStr) ?? 0;
+    if (originalPrice <= 0) return '---';
     final double vatPercentage = double.tryParse(vatNumber.toString()) ?? 0;
-    final double priceWithVat = originalPrice * ((vatPercentage / 100)) + originalPrice;
+    final double priceWithVat = originalPrice * (1 + (vatPercentage / 100));
 
     final formatter = NumberFormat('#,###.00', 'ar_SA');
     return formatter.format(priceWithVat);
