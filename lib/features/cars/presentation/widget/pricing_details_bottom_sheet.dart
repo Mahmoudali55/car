@@ -112,7 +112,7 @@ class PricingDetailsBottomSheet extends StatelessWidget {
               Text(
                 AppLocaleKey.free.tr(),
                 style: AppTextStyle.bodyLarge(context).copyWith(
-                  color: const Color(0xff00c853),
+                  color: AppColor.greenColor(context),
                   fontWeight: FontWeight.w900,
                   fontSize: 16.sp,
                 ),

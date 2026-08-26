@@ -1,6 +1,9 @@
 // ignore_for_file: implementation_imports
 
 import 'dart:math';
+
+import 'package:car/core/theme/app_colors.dart';
+import 'package:car/core/theme/app_text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -10,8 +13,6 @@ import 'package:moyasar/src/utils/card_network_utils.dart';
 import 'package:moyasar/src/utils/card_utils.dart';
 import 'package:moyasar/src/utils/input_formatters.dart';
 import 'package:moyasar/src/widgets/three_d_s_webview.dart';
-import 'package:car/core/theme/app_colors.dart';
-import 'package:car/core/theme/app_text_style.dart';
 
 class PremiumCreditCardForm extends StatefulWidget {
   final PaymentConfig config;
@@ -34,18 +35,12 @@ class _PremiumCreditCardFormState extends State<PremiumCreditCardForm> {
   final CardFormModel _cardData = CardFormModel();
   AutovalidateMode _autoValidateMode = AutovalidateMode.disabled;
   bool _isSubmitting = false;
-
-  // Controllers for real-time mirroring
   final TextEditingController _cardNumberController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _expiryController = TextEditingController();
   final TextEditingController _cvcController = TextEditingController();
-
-  // Focus Nodes for Flip Animation
   final FocusNode _cvcFocusNode = FocusNode();
   bool _showBack = false;
-
-  // State for network detection
   CardNetwork _detectedNetwork = CardNetwork.unknown;
   bool _unsupportedNetwork = false;
 
@@ -124,17 +119,18 @@ class _PremiumCreditCardFormState extends State<PremiumCreditCardForm> {
 
     late final dynamic result;
     try {
-      result = await Moyasar.pay(
-        apiKey: widget.config.publishableApiKey,
-        paymentRequest: paymentRequest,
-      ).timeout(
-        const Duration(seconds: 60),
-        onTimeout: () => throw Exception(
-          widget.isArabic
-              ? 'انتهت مهلة الاتصال. تحقق من الإنترنت وأعد المحاولة.'
-              : 'Connection timed out. Please check your internet and try again.',
-        ),
-      );
+      result =
+          await Moyasar.pay(
+            apiKey: widget.config.publishableApiKey,
+            paymentRequest: paymentRequest,
+          ).timeout(
+            const Duration(seconds: 60),
+            onTimeout: () => throw Exception(
+              widget.isArabic
+                  ? 'انتهت مهلة الاتصال. تحقق من الإنترنت وأعد المحاولة.'
+                  : 'Connection timed out. Please check your internet and try again.',
+            ),
+          );
     } catch (e) {
       if (mounted) {
         setState(() => _isSubmitting = false);
@@ -189,7 +185,6 @@ class _PremiumCreditCardFormState extends State<PremiumCreditCardForm> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          // Visual Premium Credit Card Mockup with 3D flip animation
           Center(
             child: TweenAnimationBuilder<double>(
               tween: Tween<double>(begin: 0, end: _showBack ? 180 : 0),
@@ -198,7 +193,7 @@ class _PremiumCreditCardFormState extends State<PremiumCreditCardForm> {
                 final isBack = angle >= 90;
                 return Transform(
                   transform: Matrix4.identity()
-                    ..setEntry(3, 2, 0.0015) // perspective
+                    ..setEntry(3, 2, 0.0015)
                     ..rotateY(angle * pi / 180),
                   alignment: Alignment.center,
                   child: isBack
@@ -213,14 +208,11 @@ class _PremiumCreditCardFormState extends State<PremiumCreditCardForm> {
             ),
           ),
           Gap(32.h),
-
-          // Inputs Header
           Text(
             _locale.cardInformation,
-            style: AppTextStyle.titleMedium(context).copyWith(
-              fontWeight: FontWeight.w900,
-              fontSize: 16.sp,
-            ),
+            style: AppTextStyle.titleMedium(
+              context,
+            ).copyWith(fontWeight: FontWeight.w900, fontSize: 16.sp),
             textAlign: widget.isArabic ? TextAlign.right : TextAlign.left,
           ),
           Gap(12.h),
@@ -246,14 +238,11 @@ class _PremiumCreditCardFormState extends State<PremiumCreditCardForm> {
           ),
           Gap(16.h),
 
-          // Cardholder Name Field
           _buildInputField(
             controller: _nameController,
             hintText: _locale.nameOnCard,
             keyboardType: TextInputType.text,
-            inputFormatters: [
-              FilteringTextInputFormatter.allow(RegExp('[a-zA-Z. ]')),
-            ],
+            inputFormatters: [FilteringTextInputFormatter.allow(RegExp('[a-zA-Z. ]'))],
             validator: (v) {
               if (v == null || v.trim().isEmpty) return _locale.nameRequired;
               return CardUtils.validateName(v, _locale);
@@ -317,9 +306,7 @@ class _PremiumCreditCardFormState extends State<PremiumCreditCardForm> {
               backgroundColor: AppColor.primaryColor(context),
               disabledBackgroundColor: AppColor.primaryColor(context).withValues(alpha: 0.5),
               padding: EdgeInsets.symmetric(vertical: 16.h),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(14.r),
-              ),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14.r)),
               elevation: 4,
               shadowColor: AppColor.primaryColor(context).withValues(alpha: 0.3),
             ),
@@ -327,32 +314,32 @@ class _PremiumCreditCardFormState extends State<PremiumCreditCardForm> {
                 ? SizedBox(
                     height: 24.h,
                     width: 24.h,
-                    child: const CircularProgressIndicator(color: Colors.white, strokeWidth: 2),
+                    child: CircularProgressIndicator(
+                      color: AppColor.whiteColor(context),
+                      strokeWidth: 2,
+                    ),
                   )
                 : Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
                         '${_locale.pay} ',
-                        style: AppTextStyle.buttonStyle(context).copyWith(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16.sp,
-                        ),
+                        style: AppTextStyle.buttonStyle(
+                          context,
+                        ).copyWith(fontWeight: FontWeight.bold, fontSize: 16.sp),
                       ),
                       Text(
                         (widget.config.amount / 100).toStringAsFixed(2),
-                        style: AppTextStyle.buttonStyle(context).copyWith(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16.sp,
-                        ),
+                        style: AppTextStyle.buttonStyle(
+                          context,
+                        ).copyWith(fontWeight: FontWeight.bold, fontSize: 16.sp),
                       ),
                       Gap(4.w),
                       Text(
                         widget.isArabic ? 'ر.س' : 'SAR',
-                        style: AppTextStyle.buttonStyle(context).copyWith(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14.sp,
-                        ),
+                        style: AppTextStyle.buttonStyle(
+                          context,
+                        ).copyWith(fontWeight: FontWeight.bold, fontSize: 14.sp),
                       ),
                     ],
                   ),
@@ -363,14 +350,14 @@ class _PremiumCreditCardFormState extends State<PremiumCreditCardForm> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(Icons.lock_outline_rounded, color: Colors.green, size: 14.sp),
+              Icon(Icons.lock_outline_rounded, color: AppColor.greenColor(context), size: 14.sp),
               Gap(6.w),
               Text(
                 widget.isArabic
                     ? 'دفع إلكتروني آمن ومشفّر 100%'
                     : '100% Secure & Encrypted Payment',
                 style: AppTextStyle.bodySmall(context).copyWith(
-                  color: Colors.green,
+                  color: AppColor.greenColor(context),
                   fontWeight: FontWeight.bold,
                   fontSize: 11.sp,
                 ),
@@ -412,7 +399,7 @@ class _PremiumCreditCardFormState extends State<PremiumCreditCardForm> {
         borderRadius: BorderRadius.circular(14.r),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.02),
+            color: AppColor.blackColor(context).withValues(alpha: 0.02),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),
@@ -434,10 +421,7 @@ class _PremiumCreditCardFormState extends State<PremiumCreditCardForm> {
         ),
         decoration: InputDecoration(
           labelText: hintText,
-          labelStyle: TextStyle(
-            fontSize: 12.sp,
-            color: AppColor.greyColor(context),
-          ),
+          labelStyle: TextStyle(fontSize: 12.sp, color: AppColor.greyColor(context)),
           alignLabelWithHint: true,
           contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
           border: OutlineInputBorder(
@@ -583,12 +567,12 @@ class _PremiumCreditCardFormState extends State<PremiumCreditCardForm> {
                   _detectedNetwork == CardNetwork.visa
                       ? 'assets/images/visa.png'
                       : _detectedNetwork == CardNetwork.masterCard
-                          ? 'assets/images/mastercard.png'
-                          : _detectedNetwork == CardNetwork.mada
-                              ? 'assets/images/mada.png'
-                              : _detectedNetwork == CardNetwork.amex
-                                  ? 'assets/images/amex.png'
-                                  : 'assets/images/unionpay.png',
+                      ? 'assets/images/mastercard.png'
+                      : _detectedNetwork == CardNetwork.mada
+                      ? 'assets/images/mada.png'
+                      : _detectedNetwork == CardNetwork.amex
+                      ? 'assets/images/amex.png'
+                      : 'assets/images/unionpay.png',
                   package: 'moyasar',
                   height: 28.h,
                   errorBuilder: (c, e, s) => const SizedBox.shrink(),
@@ -698,10 +682,7 @@ class _PremiumCreditCardFormState extends State<PremiumCreditCardForm> {
         children: [
           Gap(24.h),
           // Magnetic strip
-          Container(
-            height: 40.h,
-            color: Colors.black87,
-          ),
+          Container(height: 40.h, color: Colors.black87),
           Gap(20.h),
           // Signature strip and CVC
           Padding(
@@ -752,10 +733,7 @@ class _PremiumCreditCardFormState extends State<PremiumCreditCardForm> {
               widget.isArabic
                   ? 'تم إصدار هذه البطاقة للعمليات الإلكترونية الآمنة.'
                   : 'This card is issued for secure electronic transactions.',
-              style: TextStyle(
-                color: Colors.white24,
-                fontSize: 8.sp,
-              ),
+              style: TextStyle(color: Colors.white24, fontSize: 8.sp),
               textAlign: TextAlign.center,
             ),
           ),

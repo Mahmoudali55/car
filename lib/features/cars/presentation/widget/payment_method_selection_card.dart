@@ -62,7 +62,6 @@ class PaymentMethodSelectionCard extends StatelessWidget {
                           title,
                           style: AppTextStyle.bodyMedium(context).copyWith(
                             fontWeight: FontWeight.w900,
-                            fontSize: 14.sp,
                             color: AppColor.blackTextColor(context),
                           ),
                         ),

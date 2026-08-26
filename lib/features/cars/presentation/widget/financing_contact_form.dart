@@ -13,7 +13,6 @@ class FinancingContactForm extends StatefulWidget {
   final TextEditingController phoneController;
   final ValueNotifier<bool> whatsappNotifier;
   final ValueNotifier<String?> selectedCityNotifier;
-
   const FinancingContactForm({
     super.key,
     required this.firstNameController,
@@ -85,7 +84,7 @@ class _FinancingContactFormState extends State<FinancingContactForm> {
                   Expanded(
                     child: Row(
                       children: [
-                        Icon(Icons.phone, color: const Color(0xff25D366), size: 20.sp),
+                        Icon(Icons.phone, color: AppColor.greenColor(context), size: 20.sp),
                         Gap(8.w),
                         Text(
                           AppLocaleKey.whatsappUpdates.tr(),
@@ -125,9 +124,7 @@ class _FinancingContactFormState extends State<FinancingContactForm> {
         Gap(24.h),
         Text(
           AppLocaleKey.city.tr(),
-          style: AppTextStyle.bodyMedium(
-            context,
-          ).copyWith(fontWeight: FontWeight.w900, fontSize: 16.sp),
+          style: AppTextStyle.bodyLarge(context).copyWith(fontWeight: FontWeight.w900),
         ),
         Gap(12.h),
         ValueListenableBuilder<String?>(

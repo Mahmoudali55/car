@@ -45,7 +45,6 @@ class _CarHeaderWidgetState extends State<CarHeaderWidget> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // Title and Comparison Button
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -153,8 +152,6 @@ class _CarHeaderWidgetState extends State<CarHeaderWidget> {
           ],
         ),
         Gap(15.h),
-
-        // Pricing Section Card
         IntrinsicHeight(
           child: Row(
             children: [

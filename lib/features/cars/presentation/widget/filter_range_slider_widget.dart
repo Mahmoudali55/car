@@ -10,7 +10,6 @@ class FilterRangeSlider extends StatelessWidget {
   final double max;
   final ValueChanged<RangeValues> onChanged;
   final bool isPrice;
-
   const FilterRangeSlider({
     super.key,
     required this.values,
@@ -19,7 +18,6 @@ class FilterRangeSlider extends StatelessWidget {
     required this.onChanged,
     this.isPrice = false,
   });
-
   @override
   Widget build(BuildContext context) {
     return Column(

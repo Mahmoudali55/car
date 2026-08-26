@@ -14,7 +14,6 @@ class VideoReviewWidget extends StatefulWidget {
   final GetBrandCarsDataModel car;
   final YoutubePlayerController controller;
   final Widget player;
-
   const VideoReviewWidget({
     super.key,
     required this.car,

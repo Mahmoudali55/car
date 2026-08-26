@@ -131,7 +131,7 @@ class _CarInfoTabsWidgetState extends State<CarInfoTabsWidget> with SingleTicker
                         CarDetailRow(
                           label: AppLocaleKey.info_tab_model.tr(),
                           value: '${c.makeYear}',
-                          icon: Icons.calendar_today_rounded, // Alternative to mirror
+                          icon: Icons.calendar_today_rounded,
                         ),
                         CarDetailRow(
                           label: AppLocaleKey.info_tab_category.tr(),
