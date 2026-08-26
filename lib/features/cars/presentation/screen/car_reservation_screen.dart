@@ -289,13 +289,18 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
       taamedNo: '',
       payCond: '',
       guarFinal: 0,
-      notes: (paymentId != null
-          ? 'Moyasar ID: $paymentId'
-          : 'حجز سيارة كاش - ${_cashNameController.text} (${_cashPhoneController.text})')
-          .substring(0, (paymentId != null
-              ? 'Moyasar ID: $paymentId'
-              : 'حجز سيارة كاش - ${_cashNameController.text} (${_cashPhoneController.text})')
-              .length.clamp(0, 100)),
+      notes:
+          (paymentId != null
+                  ? 'Moyasar ID: $paymentId'
+                  : 'حجز سيارة كاش - ${_cashNameController.text} (${_cashPhoneController.text})')
+              .substring(
+                0,
+                (paymentId != null
+                        ? 'Moyasar ID: $paymentId'
+                        : 'حجز سيارة كاش - ${_cashNameController.text} (${_cashPhoneController.text})')
+                    .length
+                    .clamp(0, 100),
+              ),
       userName: HiveMethods.getUserName() ?? '',
       subLpo: [
         SubLpoModel(
@@ -470,8 +475,7 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
                   selectedCityNotifier: _selectedCityNotifier,
                   onShowPricingDetails: _showPricingDetails,
                   isTermsAccepted: _isTermsAccepted,
-                  onTermsAcceptedChanged: (val) =>
-                      setState(() => _isTermsAccepted = val ?? false),
+                  onTermsAcceptedChanged: (val) => setState(() => _isTermsAccepted = val ?? false),
                 ),
               ],
               Gap(100.h),

@@ -49,9 +49,7 @@ class _BankInstallmentsBannerWidgetState extends State<BankInstallmentsBannerWid
   FinancingAdModel? _getLowestOffer(List<FinancingAdModel> cubitOffers) {
     final List<FinancingAdModel> candidates = widget.offers.isNotEmpty
         ? widget.offers
-        : (widget.offer != null
-            ? <FinancingAdModel>[widget.offer!]
-            : cubitOffers);
+        : (widget.offer != null ? <FinancingAdModel>[widget.offer!] : cubitOffers);
 
     if (candidates.isEmpty) return null;
     return candidates.reduce(
@@ -105,11 +103,8 @@ class _BankInstallmentsBannerWidgetState extends State<BankInstallmentsBannerWid
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (_) => FinancingScreen(
-                  car: widget.car,
-                  offer: selectedOffer,
-                  offers: selectedOffers,
-                ),
+                builder: (_) =>
+                    FinancingScreen(car: widget.car, offer: selectedOffer, offers: selectedOffers),
               ),
             );
           },

@@ -42,12 +42,9 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
     context.read<AdminCubit>().getCarsStatus(_filterToStatus['available']!, null);
     context.read<AdminCubit>().getCarsCountStatus();
     final homeCubit = context.read<HomeCubit>();
-    if (homeCubit.state.brands.isEmpty) {
-      homeCubit.getCarsModels();
-    }
-    if (homeCubit.state.allCarsStatus.data == null || homeCubit.state.allCarsStatus.data!.isEmpty) {
-      homeCubit.fetchAllCars();
-    }
+    // Always refresh brands and all cars to reflect latest price changes from DB
+    homeCubit.getCarsModels();
+    homeCubit.fetchAllCars();
   }
 
   @override

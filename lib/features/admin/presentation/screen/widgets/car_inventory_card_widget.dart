@@ -153,7 +153,7 @@ class CarInventoryCardWidget extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           Text(
-                            car.price ?? '',
+                            car.formattedPriceWithVat,
                             style: AppTextStyle.bodyMedium(context).copyWith(
                               color: AppColor.primaryColor(context),
                               fontWeight: FontWeight.w900,
