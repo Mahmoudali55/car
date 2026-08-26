@@ -1,5 +1,6 @@
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
+import 'package:car/core/theme/app_text_style.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -33,7 +34,7 @@ class BankOfferCalculatorCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(16.r),
         boxShadow: [
           BoxShadow(
-            color: AppColor.blackColor(context).withOpacity(0.05),
+            color: AppColor.blackColor(context).withValues(alpha: (0.05)),
             blurRadius: 10,
             offset: const Offset(0, 5),
           ),
@@ -47,11 +48,11 @@ class BankOfferCalculatorCard extends StatelessWidget {
             children: [
               Text(
                 '${AppLocaleKey.totalAmount.tr()}:',
-                style: TextStyle(color: Colors.grey[600], fontSize: 14.sp),
+                style: AppTextStyle.bodyMedium(context).copyWith(color: Colors.grey[600]),
               ),
               Text(
                 '${NumberFormat('#,##0', 'en_US').format(carPrice)} ${AppLocaleKey.sar.tr()}',
-                style: TextStyle(
+                style: AppTextStyle.bodyLarge(context).copyWith(
                   color: AppColor.blackTextColor(context),
                   fontWeight: FontWeight.bold,
                   fontSize: 16.sp,
@@ -62,11 +63,9 @@ class BankOfferCalculatorCard extends StatelessWidget {
           Gap(20.h),
           Text(
             AppLocaleKey.downPayment.tr(),
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 14.sp,
-              color: AppColor.blackTextColor(context),
-            ),
+            style: AppTextStyle.bodyMedium(
+              context,
+            ).copyWith(fontWeight: FontWeight.bold, color: AppColor.blackTextColor(context)),
           ),
           Gap(8.h),
           TextField(
@@ -92,11 +91,9 @@ class BankOfferCalculatorCard extends StatelessWidget {
             children: [
               Text(
                 AppLocaleKey.durationInYears.tr(),
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 14.sp,
-                  color: AppColor.blackTextColor(context),
-                ),
+                style: AppTextStyle.bodyMedium(
+                  context,
+                ).copyWith(fontWeight: FontWeight.bold, color: AppColor.blackTextColor(context)),
               ),
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 4.h),
@@ -106,11 +103,9 @@ class BankOfferCalculatorCard extends StatelessWidget {
                 ),
                 child: Text(
                   '$durationYears',
-                  style: TextStyle(
-                    color: AppColor.primaryColor(context),
-                    fontWeight: FontWeight.bold,
-                    fontSize: 14.sp,
-                  ),
+                  style: AppTextStyle.bodyMedium(
+                    context,
+                  ).copyWith(color: AppColor.primaryColor(context), fontWeight: FontWeight.bold),
                 ),
               ),
             ],

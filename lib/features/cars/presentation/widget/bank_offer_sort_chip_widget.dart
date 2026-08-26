@@ -1,4 +1,5 @@
 import 'package:car/core/theme/app_colors.dart';
+import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/features/cars/presentation/widget/bank_offers_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -40,7 +41,7 @@ class BankOfferSortChip extends StatelessWidget {
         ),
         child: Text(
           label,
-          style: TextStyle(
+          style: AppTextStyle.bodySmall(context).copyWith(
             color: isSelected ? AppColor.whiteColor(context) : Colors.grey[600],
             fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
             fontSize: 13.sp,

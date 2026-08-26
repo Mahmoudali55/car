@@ -90,7 +90,6 @@ class FeaturesGridWidget extends StatelessWidget {
           ),
           itemBuilder: (context, index) {
             final item = features[index];
-
             return FeatureCard(icon: item['icon'], title: item['title'], value: item['value']);
           },
         ),

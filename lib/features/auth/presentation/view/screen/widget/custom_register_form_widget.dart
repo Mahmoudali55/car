@@ -8,6 +8,7 @@ import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/core/utils/common_methods.dart';
 import 'package:car/features/auth/presentation/view/cubit/auth_cubit.dart';
+import 'package:car/features/auth/presentation/view/screen/widget/password_hint_chip_widget.dart';
 import 'package:car/features/cars/presentation/widget/otp_bottom_sheet.dart';
 import 'package:car/features/cars/presentation/widget/reservation_terms_widget.dart';
 import 'package:car/features/home/data/model/send_otp_model.dart';
@@ -37,7 +38,6 @@ class _CustomRegisterFormWidgetState extends State<CustomRegisterFormWidget> {
   bool _isSendingOtp = false;
   bool _isTermsAccepted = false;
   String? _expectedOtp;
-  // Password requirements tracking
   bool _hasUppercase = false;
   bool _hasLowercase = false;
   bool _hasDigit = false;
@@ -145,7 +145,7 @@ class _CustomRegisterFormWidgetState extends State<CustomRegisterFormWidget> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Gap(40.h),
-            // Step Indicator Header
+
             FadeInLeft(
               duration: const Duration(milliseconds: 600),
               child: Row(
@@ -204,7 +204,6 @@ class _CustomRegisterFormWidgetState extends State<CustomRegisterFormWidget> {
             Gap(60.h),
 
             if (!_isPhoneVerified) ...[
-              // STEP 1: Phone Number Entry & OTP Verification
               FadeInUp(
                 duration: const Duration(milliseconds: 800),
                 child: CustomFormField(
@@ -283,7 +282,11 @@ class _CustomRegisterFormWidgetState extends State<CustomRegisterFormWidget> {
                           color: Colors.green,
                           shape: BoxShape.circle,
                         ),
-                        child: Icon(Icons.check_rounded, color: Colors.white, size: 16.sp),
+                        child: Icon(
+                          Icons.check_rounded,
+                          color: AppColor.whiteColor(context),
+                          size: 16.sp,
+                        ),
                       ),
                       Gap(12.w),
                       Expanded(
@@ -440,23 +443,23 @@ class _CustomRegisterFormWidgetState extends State<CustomRegisterFormWidget> {
                         spacing: 8.w,
                         runSpacing: 6.h,
                         children: [
-                          _PasswordHintChip(
+                          PasswordHintChip(
                             label: isArabic ? 'حرف كبير (A-Z)' : 'Uppercase (A-Z)',
                             met: _hasUppercase,
                           ),
-                          _PasswordHintChip(
+                          PasswordHintChip(
                             label: isArabic ? 'حرف صغير (a-z)' : 'Lowercase (a-z)',
                             met: _hasLowercase,
                           ),
-                          _PasswordHintChip(
+                          PasswordHintChip(
                             label: isArabic ? 'رقم (0-9)' : 'Number (0-9)',
                             met: _hasDigit,
                           ),
-                          _PasswordHintChip(
+                          PasswordHintChip(
                             label: isArabic ? 'رمز خاص (!@#...)' : 'Special char (!@#...)',
                             met: _hasSpecial,
                           ),
-                          _PasswordHintChip(
+                          PasswordHintChip(
                             label: isArabic ? '٨ أحرف على الأقل' : 'Min 8 characters',
                             met: _hasMinLength,
                           ),
@@ -534,47 +537,6 @@ class _CustomRegisterFormWidgetState extends State<CustomRegisterFormWidget> {
             Gap(20.h),
           ],
         ),
-      ),
-    );
-  }
-}
-
-// ─── Password Hint Chip ────────────────────────────────────────────────────────
-class _PasswordHintChip extends StatelessWidget {
-  const _PasswordHintChip({required this.label, required this.met});
-
-  final String label;
-  final bool met;
-
-  @override
-  Widget build(BuildContext context) {
-    final color = met ? Colors.green : Colors.redAccent;
-    return AnimatedContainer(
-      duration: const Duration(milliseconds: 300),
-      padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
-      decoration: BoxDecoration(
-        color: color.withValues(alpha: 0.1),
-        borderRadius: BorderRadius.circular(20.r),
-        border: Border.all(color: color.withValues(alpha: 0.4), width: 1),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          AnimatedSwitcher(
-            duration: const Duration(milliseconds: 250),
-            child: Icon(
-              met ? Icons.check_circle_rounded : Icons.cancel_rounded,
-              key: ValueKey(met),
-              color: color,
-              size: 14.sp,
-            ),
-          ),
-          Gap(5.w),
-          Text(
-            label,
-            style: TextStyle(color: color, fontSize: 11.5.sp, fontWeight: FontWeight.w600),
-          ),
-        ],
       ),
     );
   }

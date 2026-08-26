@@ -54,7 +54,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 message: AppLocaleKey.registerSuccess.tr(),
                 type: ToastType.success,
               );
-              Navigator.pop(context); // Go back to login screen
+              Navigator.pop(context);
             }
             if (state.registerStatus.isFailure) {
               log(state.registerStatus.error?.toString() ?? 'Registration failed');

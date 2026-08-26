@@ -43,10 +43,12 @@ class CategoriesWidget extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
             physics: const BouncingScrollPhysics(),
             itemCount: brands.length,
-            separatorBuilder: (_, __) => Gap(20.w),
+            separatorBuilder: (context, index) => Gap(20.w),
             itemBuilder: (context, index) {
               final item = brands[index];
-              final isSelected = state.selectedIndex == index;
+              final isSelected = state.selectedBrandId != null
+                  ? state.selectedBrandId == item.groupCode
+                  : state.selectedIndex == index;
 
               return FadeInRight(
                 delay: Duration(milliseconds: index * 50),

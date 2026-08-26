@@ -86,17 +86,12 @@ class AuthCubit extends Cubit<AuthState> {
         HiveMethods.updateVatNumber(response.vatSerial);
         HiveMethods.updatecode(response.code);
         HiveMethods.phone(response.tel1 ?? '');
-        HiveMethods.updateName(response.name); // Save phone number
-        HiveMethods.updateRepresentativeNo(response.represNo); // Save representative number
-
-        // Update FCM Token for push notifications
+        HiveMethods.updateName(response.name);
+        HiveMethods.updateRepresentativeNo(response.represNo);
         String fcmToken = await NotificationService.getFCMToken() ?? '';
-
-        // If empty (e.g. on iOS simulator), send a placeholder so the API still runs for testing
         if (fcmToken.isEmpty) {
           fcmToken = 'dummy_token_for_simulator';
         }
-
         if (response.userId.isNotEmpty) {
           try {
             await authRepo.editFCM(userId: response.userId, fcmToken: fcmToken);
@@ -108,7 +103,6 @@ class AuthCubit extends Cubit<AuthState> {
           debugPrint('EditFCM skipped: userId is empty');
         }
 
-        // Save credentials if rememberMe is enabled
         HiveMethods.updateRememberMe(rememberMe);
         if (rememberMe) {
           HiveMethods.updateSavedMobile(mobileController.text.trim());
@@ -124,10 +118,7 @@ class AuthCubit extends Cubit<AuthState> {
 
   Future<void> register() async {
     emit(state.copyWith(registerStatus: const StatusState.loading()));
-
-    // Get FCM token, or default to an empty string if it fails
     String fcmToken = await NotificationService.getFCMToken() ?? '';
-
     final request = RegisterRequestModel(
       userName: userNameController.text.trim(),
       fullname: fullNameController.text.trim(),
@@ -158,7 +149,6 @@ class AuthCubit extends Cubit<AuthState> {
   Future<void> changePassword() async {
     emit(state.copyWith(changePasswordStatus: const StatusState.loading()));
 
-    // Check if new password matches confirm password
     if (newPasswordController.text != confirmPasswordController.text) {
       emit(
         state.copyWith(
@@ -186,7 +176,6 @@ class AuthCubit extends Cubit<AuthState> {
       },
       (success) {
         if (success) {
-          // Clear controllers
           currentPasswordController.clear();
           newPasswordController.clear();
           confirmPasswordController.clear();
@@ -212,21 +201,15 @@ class AuthCubit extends Cubit<AuthState> {
     HiveMethods.deleteToken();
     HiveMethods.updateRole('user');
     HiveMethods.updateUserName('');
-
-    // Clear registration and change password controllers
     clearRegisterFields();
     currentPasswordController.clear();
     newPasswordController.clear();
     confirmPasswordController.clear();
-
-    // If rememberMe is checked, keep the credentials in the controllers;
-    // otherwise, clear them completely!
     if (!rememberMe) {
       mobileController.clear();
       passwordController.clear();
       HiveMethods.clearSavedCredentials();
     }
-
-    emit(AuthState(rememberMe: rememberMe)); // reset state, keeping rememberMe value
+    emit(AuthState(rememberMe: rememberMe));
   }
 }

@@ -100,10 +100,21 @@ class HomeCubit extends Cubit<HomeState> {
       emit(state.copyWith(brandCarsStatus: const StatusState.success([]), selectedBrandId: null));
       return;
     }
+
+    final brandIdInt = int.tryParse(brandId);
+    int newSelectedIndex = state.selectedIndex;
+    if (state.brands.isNotEmpty && brandIdInt != null) {
+      final idx = state.brands.indexWhere((b) => b.groupCode == brandIdInt);
+      if (idx != -1) {
+        newSelectedIndex = idx;
+      }
+    }
+
     emit(
       state.copyWith(
         brandCarsStatus: const StatusState.loading(),
-        selectedBrandId: int.tryParse(brandId),
+        selectedBrandId: brandIdInt,
+        selectedIndex: newSelectedIndex,
       ),
     );
 

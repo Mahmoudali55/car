@@ -1,5 +1,6 @@
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
+import 'package:car/core/theme/app_text_style.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -80,12 +81,12 @@ class BankOfferCardWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(16.r),
           boxShadow: [
             BoxShadow(
-              color: AppColor.blackColor(context).withOpacity(0.05),
+              color: AppColor.blackColor(context).withValues(alpha: (0.05)),
               blurRadius: 10,
               offset: const Offset(0, 5),
             ),
           ],
-          border: Border.all(color: Colors.grey.withOpacity(0.1)),
+          border: Border.all(color: Colors.grey.withValues(alpha: (0.1))),
         ),
         child: Column(
           children: [
@@ -93,7 +94,7 @@ class BankOfferCardWidget extends StatelessWidget {
             Container(
               padding: EdgeInsets.all(16.w),
               decoration: BoxDecoration(
-                color: offer.brandColor.withOpacity(0.1),
+                color: offer.brandColor.withValues(alpha: (0.1)),
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(16.r),
                   topRight: Radius.circular(16.r),
@@ -115,10 +116,9 @@ class BankOfferCardWidget extends StatelessWidget {
                                 radius: 20.r,
                                 child: Text(
                                   offer.logoText,
-                                  style: TextStyle(
-                                    color: Colors.white,
+                                  style: AppTextStyle.bodyMedium(context).copyWith(
+                                    color: AppColor.whiteColor(context),
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 14.sp,
                                   ),
                                 ),
                               ),
@@ -126,8 +126,7 @@ class BankOfferCardWidget extends StatelessWidget {
                         Expanded(
                           child: Text(
                             offer.nameKey.tr(),
-                            style: TextStyle(
-                              fontSize: 16.sp,
+                            style: AppTextStyle.bodyLarge(context).copyWith(
                               fontWeight: FontWeight.bold,
                               color: AppColor.blackTextColor(context),
                             ),
@@ -153,12 +152,12 @@ class BankOfferCardWidget extends StatelessWidget {
                       children: [
                         Text(
                           AppLocaleKey.monthlyInstallment.tr(),
-                          style: TextStyle(color: Colors.grey[600], fontSize: 12.sp),
+                          style: AppTextStyle.bodySmall(context).copyWith(color: Colors.grey[600]),
                         ),
                         Gap(4.h),
                         Text(
                           '${formatter.format(monthlyInstallment)} SAR',
-                          style: TextStyle(
+                          style: AppTextStyle.bodyLarge(context).copyWith(
                             color: AppColor.primaryColor(context),
                             fontSize: 20.sp,
                             fontWeight: FontWeight.bold,
@@ -167,7 +166,7 @@ class BankOfferCardWidget extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Container(width: 1.w, height: 40.h, color: Colors.grey.withOpacity(0.2)),
+                  Container(width: 1.w, height: 40.h, color: Colors.grey.withValues(alpha: 0.2)),
                   Expanded(
                     child: Padding(
                       padding: EdgeInsets.symmetric(horizontal: 16.w),
@@ -176,14 +175,16 @@ class BankOfferCardWidget extends StatelessWidget {
                         children: [
                           Text(
                             AppLocaleKey.totalAmount.tr(),
-                            style: TextStyle(color: Colors.grey[600], fontSize: 12.sp),
+                            style: AppTextStyle.bodySmall(
+                              context,
+                            ).copyWith(color: Colors.grey[600]),
                           ),
                           Gap(4.h),
                           Text(
                             '${formatter.format(totalAmount)} SAR',
-                            style: TextStyle(
+                            style: AppTextStyle.bodyLarge(context).copyWith(
                               color: AppColor.blackTextColor(context),
-                              fontSize: 16.sp,
+
                               fontWeight: FontWeight.bold,
                             ),
                           ),
