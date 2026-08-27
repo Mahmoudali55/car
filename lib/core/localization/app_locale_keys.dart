@@ -1556,4 +1556,5 @@ class AppLocaleKey {
   static const String term15 = 'term_15';
   static const String term16 = 'term_16';
   static const String term17 = 'term_17';
+  static const String selectBank = 'select_bank';
 }

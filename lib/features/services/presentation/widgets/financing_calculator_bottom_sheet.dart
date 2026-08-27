@@ -5,10 +5,12 @@ import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/features/home/data/model/financing_ad_model.dart';
+import 'package:car/features/home/presentation/cubit/home_cubit.dart';
 import 'package:car/features/services/presentation/widgets/custom_monthly_installment_card_widget.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
@@ -53,6 +55,15 @@ class _FinancingCalculatorBottomSheetState extends State<FinancingCalculatorBott
   late TextEditingController _downPaymentCtrl;
   late TextEditingController _lastPaymentCtrl;
   FinancingAdModel? _selectedOffer;
+
+  List<FinancingAdModel> get _availableOffers {
+    if (widget.offers.isNotEmpty) return widget.offers;
+    try {
+      final cubitOffers = context.read<HomeCubit>().state.normalFinancingStatus.data;
+      if (cubitOffers != null && cubitOffers.isNotEmpty) return cubitOffers;
+    } catch (_) {}
+    return const [];
+  }
 
   static const double _defaultApr = 4.5;
   FinancingAdModel? get _activeOffer => _selectedOffer ?? widget.initialOffer;
@@ -124,6 +135,7 @@ class _FinancingCalculatorBottomSheetState extends State<FinancingCalculatorBott
   Widget build(BuildContext context) {
     final fmt = NumberFormat('#,##0', 'en_US');
     final monthly = _monthlyInstallment;
+    final offersList = _availableOffers;
 
     return Container(
       decoration: BoxDecoration(
@@ -187,65 +199,139 @@ class _FinancingCalculatorBottomSheetState extends State<FinancingCalculatorBott
                     totalPrice: _totalPrice,
                   ),
                   Gap(24.h),
-                  if (widget.offers.isNotEmpty)
+                  if (offersList.isNotEmpty)
                     Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          AppLocaleKey.bank.tr(),
-                          textAlign: TextAlign.right,
-                          style: AppTextStyle.bodyMedium(
-                            context,
-                          ).copyWith(fontWeight: FontWeight.w800),
-                        ),
-                        Gap(8.h),
-                        ...widget.offers.map(
-                          (offer) => Padding(
-                            padding: EdgeInsets.only(bottom: 6.h),
-                            child: InkWell(
-                              onTap: () => _selectOffer(offer),
-                              child: Container(
-                                padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
-                                decoration: BoxDecoration(
-                                  color: identical(_activeOffer, offer)
-                                      ? AppColor.primaryColor(context).withValues(alpha: 0.12)
-                                      : AppColor.cardColor(context),
-                                  borderRadius: BorderRadius.circular(8.r),
-                                  border: Border.all(
-                                    color: identical(_activeOffer, offer)
-                                        ? AppColor.primaryColor(context)
-                                        : AppColor.borderColor(context),
-                                  ),
-                                ),
-                                child: Row(
-                                  //  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    if (offer.displayBankImageUrl?.isNotEmpty == true)
-                                      Padding(
-                                        padding: EdgeInsets.only(left: 8.w),
-                                        child: CircleAvatar(
-                                          radius: 16.r,
-                                          backgroundImage: NetworkImage(offer.displayBankImageUrl!),
-                                        ),
-                                      ),
-                                    Spacer(),
-                                    Text(
-                                      offer.displayBankName ?? offer.bankOrProvider ?? 'البنك',
-                                      textAlign: TextAlign.right,
-                                      style: AppTextStyle.bodyMedium(
-                                        context,
-                                      ).copyWith(fontWeight: FontWeight.w800),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
+                        Align(
+                          alignment: Alignment.centerRight,
+                          child: Text(
+                            AppLocaleKey.bank.tr(),
+                            style: AppTextStyle.bodyMedium(
+                              context,
+                            ).copyWith(fontWeight: FontWeight.w800),
                           ),
                         ),
-                        Gap(12.h),
+                        Gap(10.h),
+                        SizedBox(
+                          height: 54.h,
+                          child: ListView.separated(
+                            scrollDirection: Axis.horizontal,
+                            physics: const BouncingScrollPhysics(),
+                            itemCount: offersList.length,
+                            separatorBuilder: (context, index) => Gap(10.w),
+                            itemBuilder: (context, index) {
+                              final offer = offersList[index];
+                              final isSelected =
+                                  identical(_activeOffer, offer) || _selectedOffer == offer;
+                              final bankTitle = offer.bankName ?? 'البنك';
+
+                              return GestureDetector(
+                                onTap: () => _selectOffer(offer),
+                                child: AnimatedContainer(
+                                  duration: const Duration(milliseconds: 250),
+                                  padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 8.h),
+                                  decoration: BoxDecoration(
+                                    color: isSelected
+                                        ? AppColor.primaryColor(context).withValues(alpha: 0.12)
+                                        : AppColor.cardColor(context),
+                                    borderRadius: BorderRadius.circular(14.r),
+                                    border: Border.all(
+                                      color: isSelected
+                                          ? AppColor.primaryColor(context)
+                                          : AppColor.borderColor(context).withValues(alpha: 0.6),
+                                      width: isSelected ? 1.8 : 1.0,
+                                    ),
+                                    boxShadow: isSelected
+                                        ? [
+                                            BoxShadow(
+                                              color: AppColor.primaryColor(
+                                                context,
+                                              ).withValues(alpha: 0.15),
+                                              blurRadius: 10,
+                                              offset: const Offset(0, 4),
+                                            ),
+                                          ]
+                                        : [
+                                            BoxShadow(
+                                              color: Colors.black.withValues(alpha: 0.02),
+                                              blurRadius: 4,
+                                              offset: const Offset(0, 2),
+                                            ),
+                                          ],
+                                  ),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      if (isSelected) ...[
+                                        Container(
+                                          padding: EdgeInsets.all(2.w),
+                                          decoration: BoxDecoration(
+                                            color: AppColor.primaryColor(context),
+                                            shape: BoxShape.circle,
+                                          ),
+                                          child: Icon(
+                                            Icons.check_rounded,
+                                            color: Colors.white,
+                                            size: 12.sp,
+                                          ),
+                                        ),
+                                        Gap(8.w),
+                                      ],
+                                      Text(
+                                        bankTitle,
+                                        style: AppTextStyle.bodyMedium(context).copyWith(
+                                          fontWeight: isSelected
+                                              ? FontWeight.w900
+                                              : FontWeight.w700,
+                                          color: isSelected
+                                              ? AppColor.primaryColor(context)
+                                              : AppColor.blackTextColor(context),
+                                          fontSize: 13.sp,
+                                        ),
+                                      ),
+                                      if (offer.displayBankImageUrl?.isNotEmpty == true) ...[
+                                        Gap(10.w),
+                                        Container(
+                                          width: 30.w,
+                                          height: 30.w,
+                                          decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            color: Colors.white,
+                                            border: Border.all(
+                                              color: isSelected
+                                                  ? AppColor.primaryColor(
+                                                      context,
+                                                    ).withValues(alpha: 0.4)
+                                                  : Colors.grey.shade200,
+                                            ),
+                                          ),
+                                          padding: EdgeInsets.all(2.w),
+                                          child: ClipRRect(
+                                            borderRadius: BorderRadius.circular(15.r),
+                                            child: Image.network(
+                                              offer.displayBankImageUrl!,
+                                              fit: BoxFit.cover,
+                                              errorBuilder: (_, __, ___) => Icon(
+                                                Icons.account_balance_rounded,
+                                                size: 14.sp,
+                                                color: AppColor.primaryColor(context),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ],
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                        Gap(16.h),
                       ],
                     )
-                  else if (widget.bankName?.isNotEmpty == true)
+                  else if (widget.bankName?.isNotEmpty == true) ...[
                     Align(
                       alignment: Alignment.centerRight,
                       child: Text(
@@ -256,7 +342,8 @@ class _FinancingCalculatorBottomSheetState extends State<FinancingCalculatorBott
                         ),
                       ),
                     ),
-                  if (widget.bankName?.isNotEmpty == true) Gap(12.h),
+                    Gap(12.h),
+                  ],
                   // Duration selector
                   Align(
                     alignment: Alignment.centerRight,

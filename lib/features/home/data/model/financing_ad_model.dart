@@ -47,6 +47,7 @@ class FinancingAdModel extends Equatable {
   final bool? mobileShow;
   final String? color;
   final String? carImage;
+  final String? displayBankName;
 
   const FinancingAdModel({
     this.programId,
@@ -90,6 +91,7 @@ class FinancingAdModel extends Equatable {
     this.mobileShow,
     this.color,
     this.carImage,
+    this.displayBankName,
   });
 
   factory FinancingAdModel.fromJson(Map<String, dynamic> json) {
@@ -138,6 +140,7 @@ class FinancingAdModel extends Equatable {
       mobileShow: json['MobileShow'] as bool?,
       color: json['Color']?.toString(),
       carImage: json['carimage']?.toString(),
+      displayBankName: json['BANK_NAME']?.toString(),
     );
   }
 
@@ -157,17 +160,17 @@ class FinancingAdModel extends Equatable {
     return '${Constants.baseImage}$cleaned';
   }
 
-  String? get displayBankName {
-    final apiName = bankName?.trim();
-    if (apiName != null && apiName.isNotEmpty) return apiName;
+  // String? get displayBankName {
+  //   final apiName = bankName?.trim();
+  //   if (apiName != null && apiName.isNotEmpty) return apiName;
 
-    final provider = bankOrProvider?.trim();
-    const bankNames = {'1': 'بنك الإنماء', '2': 'مصرف الراجحي'};
-    return bankNames[provider] ??
-        (provider != null && provider.isNotEmpty && double.tryParse(provider) == null
-            ? provider
-            : null);
-  }
+  //   final provider = bankOrProvider?.trim();
+  //   const bankNames = displayBankNames;
+  //   return bankNames[provider] ??
+  //       (provider != null && provider.isNotEmpty && double.tryParse(provider) == null
+  //           ? provider
+  //           : null);
+  // }
 
   String? get displayBankImageUrl {
     final rawPath = bankPicturePath?.trim();
