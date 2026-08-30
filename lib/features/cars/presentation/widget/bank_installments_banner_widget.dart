@@ -60,7 +60,8 @@ class _BankInstallmentsBannerWidgetState extends State<BankInstallmentsBannerWid
   String _getInstallmentPrice(List<FinancingAdModel> cubitOffers) {
     final lowestOffer = _getLowestOffer(cubitOffers);
     final priceString = widget.car.price?.replaceAll(RegExp(r'[^0-9.]'), '') ?? '';
-    final price = double.tryParse(priceString) ?? 0;
+    final rawPrice = double.tryParse(priceString) ?? 0.0;
+    final price = rawPrice > 0.0 ? rawPrice + 3000.0 : 0.0;
 
     if (lowestOffer != null && price > 0) {
       return NumberFormat('#,##0').format(lowestOffer.monthlyInstallmentForPrice(price));
@@ -77,7 +78,7 @@ class _BankInstallmentsBannerWidgetState extends State<BankInstallmentsBannerWid
       final monthly = (priceWithVat + totalInterest) / months;
       return NumberFormat('#,##0').format(monthly);
     }
-    return widget.car.installments ?? '1,999';
+    return widget.car.installments ?? '_';
   }
 
   @override

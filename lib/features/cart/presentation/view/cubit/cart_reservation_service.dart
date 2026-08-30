@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:car/core/cache/hive/hive_methods.dart';
-import 'package:car/core/services/notification_service.dart';
 import 'package:car/features/admin/data/model/cars_response_model.dart';
 import 'package:car/features/home/data/model/cancel_reserved_car_model.dart';
 import 'package:car/features/home/data/repository/home_repo.dart';
@@ -72,17 +71,6 @@ class CartReservationService {
     final Duration remaining = expiryTime.difference(DateTime.now());
 
     _expiryTimes[key] = expiryTime;
-
-    if (remaining > const Duration(hours: 1)) {
-      final Duration reminderDelay = remaining - const Duration(minutes: 5);
-      _reminderTimers[key] = Timer(reminderDelay, () {
-        if (_reminderSent.add(key)) {
-          NotificationService.showReservationReminder(carName: car.itemName ?? 'السيارة');
-        }
-      });
-    } else if (remaining > Duration.zero && _reminderSent.add(key)) {
-      NotificationService.showReservationReminder(carName: car.itemName ?? 'السيارة');
-    }
 
     if (remaining <= Duration.zero) {
       // Already expired – fire immediately (async so we don't block callers).
@@ -158,10 +146,6 @@ class CartReservationService {
     }
 
     await homeRepo.cancelreservedcar(model);
-
-    unawaited(
-      NotificationService.showReservationCancelledNotification(carName: car.itemName ?? 'السيارة'),
-    );
 
     // Notify the cubit regardless of API result.
     onExpired();

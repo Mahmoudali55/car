@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:car/core/cache/hive/hive_methods.dart';
 import 'package:car/core/custom_widgets/custom_toast/custom_toast.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
-import 'package:car/core/services/notification_service.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/core/utils/common_methods.dart';
@@ -109,13 +108,18 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
   void _handleContinue() {
     if (_selectedMethod == null) return;
     if (_isFinancingFlow) {
+      final double basePrice = _parsePrice(widget.car.price, withTax: false);
+      final double basePriceWithFinancingFee = basePrice + 3000;
+      final double vatSerial = double.tryParse(HiveMethods.getVatNumber().toString()) ?? 15.0;
+      final double financingTotalPriceWithTax = basePriceWithFinancingFee * ((100 + vatSerial) / 100);
+
       Navigator.push(
         context,
         MaterialPageRoute(
           builder: (_) => FinancingInfoScreen(
             car: widget.car,
             paymentMethod: _selectedMethod!,
-            totalPrice: _totalPrice,
+            totalPrice: financingTotalPriceWithTax,
           ),
         ),
       );
@@ -232,8 +236,8 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
 
         final translated = _translateRawMessage(rawMsg ?? '');
         final displayMsg = isArabic
-            ? ' $statusName ${rawMsg ?? "—"}'
-            : '$statusName | Msg: ${rawMsg ?? "—"}';
+            ? '$translated (الحالة: $statusName)'
+            : '$translated (Status: $statusName)';
         CommonMethods.showToast(message: displayMsg, type: ToastType.error);
       }
     }
@@ -274,13 +278,13 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
     ).format(DateTime.now().add(const Duration(days: 1)));
     final storeCodeVal = int.tryParse(widget.car.storeCode) ?? 1;
     final code = HiveMethods.getcode() ?? '';
-    final represCode = int.tryParse(HiveMethods.getRepresentativeNo() ?? '') ?? 1;
+    final represCode = int.tryParse(HiveMethods.getRepresentativeNo() ?? '') ?? 0;
     final model = AddBookingPermissionModel(
       lpoNos: '',
       lpono: '',
       listNo: 0,
       analytical: '',
-      customerNo: int.tryParse(code) ?? 1,
+      customerNo: int.tryParse(code) ?? 0,
       represCode: represCode,
       fDate: todayStr,
       lDate: futureStr,
@@ -330,21 +334,14 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
                 ),
                 reservedAt: DateTime.now(),
               );
-              NotificationService.showReservationCreatedNotification(carName: widget.car.itemName);
-              CommonMethods.showToast(
-                message: isArabic
-                    ? status.message ?? 'تم الحجز بنجاح، سيتم التواصل معك قريبا'
-                    : 'Reservation successful, you will be contacted soon',
-                type: ToastType.success,
-              );
+              // Notification is handled exclusively by FCM push endpoint
               _navigateToSuccess();
             } else if (status.isFailure) {
               setState(() => _isLoading = false);
               final serverMsg = status.message;
-              final errorCode = status.data?.msg;
               final displayMessage = isArabic
                   ? 'فشل الحجز: ${serverMsg ?? "يرجى المحاولة مرة أخرى"}'
-                  : 'Reservation failed: ${serverMsg ?? ""} ${errorCode ?? "please try again"}';
+                  : 'Reservation failed: ${serverMsg ?? "please try again"}';
               CommonMethods.showToast(message: displayMessage, type: ToastType.error);
             }
           },

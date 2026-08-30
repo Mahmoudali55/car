@@ -101,9 +101,10 @@ class _FinancingScreenState extends State<FinancingScreen> with SingleTickerProv
       });
 
     final raw = widget.car?.price?.toString() ?? '150000';
-    final cashPrice =
+    final basePrice =
         widget.initialCarPrice ??
         (double.tryParse(raw.replaceAll(RegExp(r'[^0-9.]'), '')) ?? 150000);
+    final cashPrice = basePrice + 3000;
     final vatPercentage = double.tryParse(HiveMethods.getVatNumber()?.toString() ?? '') ?? 0;
     _carPrice = widget.initialPriceIncludesVat ? cashPrice : cashPrice * (1 + vatPercentage / 100);
 

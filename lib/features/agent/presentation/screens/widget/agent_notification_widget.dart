@@ -22,40 +22,7 @@ class AgentNotification {
   });
 }
 
-// ─── Demo data (استبدلها بالبيانات الحقيقية من API) ─────────────────────────
-
-List<AgentNotification> agentNotifications = [
-  AgentNotification(
-    id: '1',
-    title: 'طلب حجز جديد',
-    body: 'العميل أحمد محمد يطلب حجز سيارة تويوتا كامري 2024 — يرجى المراجعة والرد.',
-    createdAt: DateTime.now().subtract(const Duration(minutes: 5)),
-  ),
-  AgentNotification(
-    id: '2',
-    title: 'عرض سعر معلّق',
-    body: 'تم إرسال عرض سعر للعميل سارة خالد وينتظر موافقتك لإتمام الإجراءات.',
-    createdAt: DateTime.now().subtract(const Duration(hours: 1)),
-  ),
-  AgentNotification(
-    id: '3',
-    title: 'موعد قادم',
-    body: 'لديك موعد مع العميل محمد علي غداً الساعة 10:00 صباحاً — تأكيد الموعد مطلوب.',
-    createdAt: DateTime.now().subtract(const Duration(hours: 3)),
-  ),
-  AgentNotification(
-    id: '4',
-    title: 'طلب تعديل عقد',
-    body: 'العميل فيصل العمري يطلب تعديل بنود العقد الخاص بسيارة نيسان باترول 2024.',
-    createdAt: DateTime.now().subtract(const Duration(hours: 5)),
-  ),
-  AgentNotification(
-    id: '5',
-    title: 'موافقة مالية مطلوبة',
-    body: 'طلب تمويل العميل نورة السالم بانتظار مراجعتك وإرساله للجهة المختصة.',
-    createdAt: DateTime.now().subtract(const Duration(days: 1)),
-  ),
-];
+List<AgentNotification> agentNotifications = [];
 
 // ─── Helper ──────────────────────────────────────────────────────────────────
 
