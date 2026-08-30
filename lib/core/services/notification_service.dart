@@ -1,4 +1,7 @@
 import 'package:car/features/notifications/presentation/view/cubit/notifications_cubit.dart';
+import 'package:car/core/cache/hive/hive_methods.dart';
+import 'package:car/core/routes/app_routers_import.dart';
+import 'package:car/core/routes/routes_name.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
@@ -78,13 +81,16 @@ class NotificationService {
       if (kDebugMode) {
         print('Opened notification: ${message.messageId}');
       }
+      handleNotificationClick(message.data);
     });
 
     FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
 
     final initialMessage = await _firebaseMessaging.getInitialMessage();
     if (initialMessage != null) {
-      await showLocalNotificationFromMessage(initialMessage);
+      Future.delayed(const Duration(milliseconds: 1200), () {
+        handleNotificationClick(initialMessage.data);
+      });
     }
 
     final String? token = await getFCMToken();
@@ -218,6 +224,27 @@ class NotificationService {
         print("Failed to get FCM token: $e");
       }
       return null;
+    }
+  }
+
+  static void handleNotificationClick(Map<String, dynamic> data) {
+    try {
+      final role = HiveMethods.getRole();
+      final bool isAgent = role == '2' || role == 'agent';
+      final bool isAdmin = !isAgent && role != '1' && role != 'user';
+
+      String routeName = RoutesName.cartScreen;
+      if (isAgent) {
+        routeName = RoutesName.agentMyBookingsScreen;
+      } else if (isAdmin) {
+        routeName = RoutesName.manageBookings;
+      }
+
+      AppRouters.navigatorKey.currentState?.pushNamed(routeName);
+    } catch (e) {
+      if (kDebugMode) {
+        print('Error navigating on notification click: $e');
+      }
     }
   }
 }
