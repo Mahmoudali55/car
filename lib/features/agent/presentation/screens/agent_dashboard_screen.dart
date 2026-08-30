@@ -5,13 +5,11 @@ import 'package:car/features/agent/data/model/agent_models.dart';
 import 'package:car/features/agent/presentation/cubit/agent_cubit.dart';
 import 'package:car/features/agent/presentation/screens/widget/custom_gridview_with_dashoard_widget.dart';
 import 'package:car/features/agent/presentation/screens/widget/custom_header_info_widget.dart';
-import 'package:car/features/agent/presentation/screens/widget/custom_quick_stat_widget.dart';
 import 'package:car/features/cart/presentation/view/cubit/cart_cubit.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:gap/gap.dart';
 
 class AgentDashboardScreen extends StatefulWidget {
   const AgentDashboardScreen({super.key});
@@ -58,7 +56,7 @@ class _AgentDashboardScreenState extends State<AgentDashboardScreen> {
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
-            expandedHeight: 200.h,
+            expandedHeight: 80.h,
             pinned: true,
             backgroundColor: AppColor.appBarColor(context),
             elevation: 0,
@@ -74,13 +72,9 @@ class _AgentDashboardScreenState extends State<AgentDashboardScreen> {
                 child: SafeArea(
                   child: Padding(
                     padding: EdgeInsets.fromLTRB(16.w, 14.h, 16.w, 16.h),
-                    child: Column(
+                    child: const Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const CustomHeaderInfoWidget(),
-                        Gap(70.h),
-                        CustomQuickStatWidget(todayAppts: todayAppts, pendingLeads: pendingLeads),
-                      ],
+                      children: [CustomHeaderInfoWidget()],
                     ),
                   ),
                 ),

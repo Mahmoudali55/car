@@ -1,6 +1,5 @@
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
-import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/features/agent/data/model/agent_models.dart';
 import 'package:car/features/agent/presentation/cubit/agent_cubit.dart';
 import 'package:car/features/agent/presentation/cubit/agent_state.dart';
@@ -9,8 +8,8 @@ import 'package:car/features/agent/presentation/screens/agent_add_lead_screen.da
 import 'package:car/features/agent/presentation/screens/agent_add_note_screen.dart';
 import 'package:car/features/agent/presentation/screens/agent_my_bookings_screen.dart';
 import 'package:car/features/agent/presentation/screens/agent_offers_screen.dart';
+import 'package:car/features/agent/presentation/screens/widget/agent_notification_widget.dart';
 import 'package:car/features/agent/presentation/screens/widget/premium_kpi_card_widget.dart';
-import 'package:car/features/agent/presentation/screens/widget/premium_lead_tile_widget.dart';
 import 'package:car/features/agent/presentation/screens/widget/premium_quick_action_widget.dart';
 import 'package:car/features/agent/presentation/screens/widget/premium_weekly_chart_widget.dart';
 import 'package:car/features/agent/presentation/screens/widget/section_header_widget.dart';
@@ -49,10 +48,11 @@ class CustomGridviewWithDashoardWidget extends StatelessWidget {
               sales: offersCount.toDouble(),
             );
             return SliverPadding(
-              padding: EdgeInsets.fromLTRB(16.w, 20.h, 16.w, 30.h),
+              padding: EdgeInsets.fromLTRB(0.w, 20.h, 16.w, 30.h),
               sliver: SliverList(
                 delegate: SliverChildListDelegate([
                   // const PremiumCommissionBanner(),
+                  const AgentNotificationSlider(),
                   Gap(24.h),
                   SectionHeader(title: AppLocaleKey.agentKeyMetrics.tr()),
                   Gap(12.h),
@@ -140,28 +140,6 @@ class CustomGridviewWithDashoardWidget extends StatelessWidget {
                       ),
                     ],
                   ),
-                  Gap(24.h),
-                  SectionHeader(
-                    title: AppLocaleKey.agentActiveCustomers.tr(),
-                    count: pendingLeads.length,
-                    color: AppColor.blueColor(context),
-                  ),
-                  Gap(12.h),
-                  if (pendingLeads.isEmpty)
-                    Center(
-                      child: Padding(
-                        padding: EdgeInsets.only(top: 40.h),
-                        child: Text(
-                          AppLocaleKey.agentNoCustomersFound.tr(),
-                          style: AppTextStyle.bodyMedium(context).copyWith(
-                            color: AppColor.greyColor(context),
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ),
-                    )
-                  else
-                    ...pendingLeads.map((l) => PremiumLeadTile(lead: l)),
                 ]),
               ),
             );
