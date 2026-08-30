@@ -15,7 +15,8 @@ class AddBookingPermissionModel extends Equatable {
   final String payCond;
   final int guarFinal;
   final String notes;
-  final String userName;
+  final String userAdd;
+  final String requiredDoc;
   final List<SubLpoModel> subLpo;
 
   const AddBookingPermissionModel({
@@ -33,29 +34,34 @@ class AddBookingPermissionModel extends Equatable {
     required this.payCond,
     required this.guarFinal,
     required this.notes,
+    required this.userAdd,
+    required this.requiredDoc,
     required this.subLpo,
-    required this.userName,
   });
 
   factory AddBookingPermissionModel.fromJson(Map<String, dynamic> json) {
     return AddBookingPermissionModel(
-      lpoNos: json['LPONOs'] ?? '',
-      lpono: json['LPONO'] ?? '',
-      listNo: json['LISTNO'] ?? 0,
-      analytical: json['ANALYTICAL'] ?? '',
-      customerNo: json['CUSTOMERNO'] ?? 0,
-      represCode: json['REPRESCODE'] ?? 0,
-      fDate: json['RESERVBEGIN'] ?? '',
-      lDate: json['RESERVEND'] ?? '',
-      lpoDate: json['LPODATE'] ?? '',
-      storeCode: json['STORECODE'] ?? 0,
-      taamedNo: json['TAAMEDNO'] ?? '',
-      payCond: json['PAYCOND'] ?? '',
-      guarFinal: json['GUARFINAL'] ?? 0,
-      notes: json['NOTES'] ?? '',
-      userName: json['username'] ?? '',
+      lpoNos: json['LPONOs']?.toString() ?? '',
+      lpono: json['LPONO']?.toString() ?? '',
+      listNo: int.tryParse(json['LISTNO']?.toString() ?? '') ?? 0,
+      analytical: json['ANALYTICAL']?.toString() ?? '',
+      customerNo: int.tryParse(json['CUSTOMERNO']?.toString() ?? '') ?? 0,
+      represCode: int.tryParse(json['REPRESCODE']?.toString() ?? '') ?? 0,
+      fDate: json['RESERVBEGIN']?.toString() ?? '',
+      lDate: json['RESERVEND']?.toString() ?? '',
+      lpoDate: json['LPODATE']?.toString() ?? '',
+      storeCode: int.tryParse(json['STORECODE']?.toString() ?? '') ?? 0,
+      taamedNo: json['TAAMEDNO']?.toString() ?? '',
+      payCond: json['PAYCOND']?.toString() ?? '',
+      guarFinal: int.tryParse(json['GUARFINAL']?.toString() ?? '') ?? 0,
+      notes: json['NOTES']?.toString() ?? '',
+      userAdd: json['USERADD']?.toString() ?? '',
+      requiredDoc: json['REQUIREDDOC']?.toString() ?? '',
       subLpo:
-          (json['sub_lpo'] as List<dynamic>?)?.map((e) => SubLpoModel.fromJson(e)).toList() ?? [],
+          (json['sub_lpo'] as List<dynamic>?)
+              ?.map((e) => SubLpoModel.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          [],
     );
   }
 
@@ -75,8 +81,9 @@ class AddBookingPermissionModel extends Equatable {
       "PAYCOND": payCond,
       "GUARFINAL": guarFinal,
       "NOTES": notes,
+      "USERADD": userAdd,
+      "REQUIREDDOC": requiredDoc,
       "sub_lpo": subLpo.map((e) => e.toJson()).toList(),
-      "username": userName,
     };
   }
 
@@ -95,8 +102,9 @@ class AddBookingPermissionModel extends Equatable {
     String? payCond,
     int? guarFinal,
     String? notes,
+    String? userAdd,
+    String? requiredDoc,
     List<SubLpoModel>? subLpo,
-    String? userName,
   }) {
     return AddBookingPermissionModel(
       lpoNos: lpoNos ?? this.lpoNos,
@@ -113,8 +121,9 @@ class AddBookingPermissionModel extends Equatable {
       payCond: payCond ?? this.payCond,
       guarFinal: guarFinal ?? this.guarFinal,
       notes: notes ?? this.notes,
+      userAdd: userAdd ?? this.userAdd,
+      requiredDoc: requiredDoc ?? this.requiredDoc,
       subLpo: subLpo ?? this.subLpo,
-      userName: userName ?? this.userName,
     );
   }
 
@@ -134,8 +143,9 @@ class AddBookingPermissionModel extends Equatable {
     payCond,
     guarFinal,
     notes,
+    userAdd,
+    requiredDoc,
     subLpo,
-    userName,
   ];
 }
 
@@ -145,36 +155,25 @@ class SubLpoModel extends Equatable {
   final String chassisNo;
   final double price;
   final double advancedAmount;
-
   final int storeCode;
-  final String transDate;
 
-  final String userName;
   const SubLpoModel({
     required this.itemCode,
     required this.itemName,
     required this.chassisNo,
     required this.price,
     required this.advancedAmount,
-
     required this.storeCode,
-    required this.transDate,
-
-    this.userName = '',
   });
 
   factory SubLpoModel.fromJson(Map<String, dynamic> json) {
     return SubLpoModel(
-      itemCode: json['ITEM_CODE'] ?? '',
-      itemName: json['ITEM_NAME'] ?? '',
-      chassisNo: json['CHASSIS_NO'] ?? '',
-      price: (json['PRICE'] ?? 0).toDouble(),
-      advancedAmount: (json['ADVANCED_AMOUNT'] ?? 0).toDouble(),
-
-      storeCode: json['STORE_CODE'] ?? 0,
-      transDate: json['TRANSDATE'] ?? '',
-
-      userName: json['username'] ?? '',
+      itemCode: json['ITEM_CODE']?.toString() ?? '',
+      itemName: json['ITEM_NAME']?.toString() ?? '',
+      chassisNo: json['CHASSIS_NO']?.toString() ?? '',
+      price: double.tryParse(json['PRICE']?.toString() ?? '') ?? 0.0,
+      advancedAmount: double.tryParse(json['ADVANCED_AMOUNT']?.toString() ?? '') ?? 0.0,
+      storeCode: int.tryParse(json['STORE_CODE']?.toString() ?? '') ?? 0,
     );
   }
 
@@ -186,8 +185,6 @@ class SubLpoModel extends Equatable {
       "PRICE": price,
       "ADVANCED_AMOUNT": advancedAmount,
       "STORE_CODE": storeCode,
-      "TRANSDATE": transDate,
-      "username": userName,
     };
   }
 
@@ -197,13 +194,7 @@ class SubLpoModel extends Equatable {
     String? chassisNo,
     double? price,
     double? advancedAmount,
-    String? lpoNo,
-    int? lpoType,
     int? storeCode,
-    String? transDate,
-    String? fDate,
-    String? lDate,
-    String? userName,
   }) {
     return SubLpoModel(
       itemCode: itemCode ?? this.itemCode,
@@ -211,24 +202,10 @@ class SubLpoModel extends Equatable {
       chassisNo: chassisNo ?? this.chassisNo,
       price: price ?? this.price,
       advancedAmount: advancedAmount ?? this.advancedAmount,
-
       storeCode: storeCode ?? this.storeCode,
-      transDate: transDate ?? this.transDate,
-
-      userName: userName ?? this.userName,
     );
   }
 
   @override
-  List<Object?> get props => [
-    itemCode,
-    itemName,
-    chassisNo,
-    price,
-    advancedAmount,
-
-    storeCode,
-    transDate,
-    userName,
-  ];
+  List<Object?> get props => [itemCode, itemName, chassisNo, price, advancedAmount, storeCode];
 }

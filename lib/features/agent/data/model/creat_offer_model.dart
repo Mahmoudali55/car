@@ -1,8 +1,8 @@
 import 'package:equatable/equatable.dart';
 
 class CreatOfferModel extends Equatable {
-  final String? listNos;
-  final String? listNo;
+  final int? listNos;
+  final int? listNo;
   final String listDate;
   final String? actListNo;
   final String? listDesc;
@@ -57,8 +57,8 @@ class CreatOfferModel extends Equatable {
 
   factory CreatOfferModel.fromJson(Map<String, dynamic> json) {
     return CreatOfferModel(
-      listNos: json['LISTNOs'],
-      listNo: json['LISTNO'],
+      listNos: json['LISTNOs'] is String ? int.tryParse(json['LISTNOs']) : json['LISTNOs'],
+      listNo: json['LISTNO'] is String ? int.tryParse(json['LISTNO']) : json['LISTNO'],
       listDate: json['LISTDATE'] ?? '',
       actListNo: json['ACTLISTNO'],
       listDesc: json['LISTDESC'],
@@ -89,8 +89,8 @@ class CreatOfferModel extends Equatable {
 
   Map<String, dynamic> toJson() {
     return {
-      'LISTNOs': listNos ?? '',
-      'LISTNO': listNo ?? '',
+      'LISTNOs': listNos,
+      'LISTNO': listNo,
       'LISTDATE': listDate,
       'ACTLISTNO': actListNo ?? '',
       'LISTDESC': listDesc ?? '',

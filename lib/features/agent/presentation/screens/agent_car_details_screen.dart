@@ -559,7 +559,8 @@ class _AgentCarDetailsScreenState extends State<AgentCarDetailsScreen> {
         0,
         'حجز سيارة كاش - $customerName ($customerPhone)'.length.clamp(0, 100),
       ),
-      userName: HiveMethods.getUserName() ?? '',
+      userAdd: HiveMethods.getUserName() ?? '',
+      requiredDoc: widget.car.price.toString(),
       subLpo: [
         SubLpoModel(
           itemCode: itemCode,
@@ -568,8 +569,6 @@ class _AgentCarDetailsScreenState extends State<AgentCarDetailsScreen> {
           price: widget.car.price,
           advancedAmount: depositAmount,
           storeCode: storeCodeVal,
-          transDate: todayStr,
-          userName: HiveMethods.getUserName() ?? '',
         ),
       ],
     );

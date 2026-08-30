@@ -289,19 +289,10 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
       taamedNo: '',
       payCond: '',
       guarFinal: 0,
-      notes:
-          (paymentId != null
-                  ? 'Moyasar ID: $paymentId'
-                  : 'حجز سيارة كاش - ${_cashNameController.text} (${_cashPhoneController.text})')
-              .substring(
-                0,
-                (paymentId != null
-                        ? 'Moyasar ID: $paymentId'
-                        : 'حجز سيارة كاش - ${_cashNameController.text} (${_cashPhoneController.text})')
-                    .length
-                    .clamp(0, 100),
-              ),
-      userName: HiveMethods.getUserName() ?? '',
+      notes: 'حجز سيارة كاش - ${_cashNameController.text} (${_cashPhoneController.text})',
+
+      userAdd: HiveMethods.getUserName() ?? '',
+      requiredDoc: paymentId.toString(),
       subLpo: [
         SubLpoModel(
           itemCode: widget.car.itemCode,
@@ -310,9 +301,6 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
           price: _totalPrice,
           advancedAmount: _depositAmount,
           storeCode: storeCodeVal,
-          transDate: todayStr,
-
-          userName: HiveMethods.getUserName() ?? '',
         ),
       ],
     );

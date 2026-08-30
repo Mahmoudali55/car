@@ -1,3 +1,4 @@
+import 'package:car/core/cache/hive/hive_methods.dart';
 import 'package:car/core/error/failures.dart';
 import 'package:car/core/network/api_consumer.dart';
 import 'package:car/core/network/end_points.dart';
@@ -59,6 +60,7 @@ class AgentImplRepo implements AgentRepo {
         final response = await apiConsumer.post(
           EndPoints.addbookingpermission,
           body: offer.toJson(),
+          headers: {'username': Uri.encodeComponent(HiveMethods.getUserName().toString())},
         );
         return CreatOfferResponseModel.fromJson(response);
       },

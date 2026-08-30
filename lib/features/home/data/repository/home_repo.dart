@@ -1,3 +1,4 @@
+import 'package:car/core/cache/hive/hive_methods.dart';
 import 'package:car/core/error/failures.dart';
 import 'package:car/core/network/api_consumer.dart';
 import 'package:car/core/network/end_points.dart';
@@ -58,7 +59,11 @@ class HomeRepoImpl implements HomeRepo {
   ) async {
     return handleDioRequest(
       request: () async {
-        final response = await apiConsumer.post(EndPoints.addbooking, body: model.toJson());
+        final response = await apiConsumer.post(
+          EndPoints.addbooking,
+          body: model.toJson(),
+          headers: {'username': Uri.encodeComponent(HiveMethods.getUserName().toString())},
+        );
         return AddBookingPermissionResponseModel.fromJson(response);
       },
     );
@@ -127,7 +132,11 @@ class HomeRepoImpl implements HomeRepo {
   ) {
     return handleDioRequest(
       request: () async {
-        final response = await apiConsumer.post(EndPoints.cancelreservedcar, body: model.toJson());
+        final response = await apiConsumer.post(
+          EndPoints.cancelreservedcar,
+          body: model.toJson(),
+          headers: {'username': Uri.encodeComponent(HiveMethods.getUserName().toString())},
+        );
         return CancelReservedCarResponseModel.fromJson(response);
       },
     );

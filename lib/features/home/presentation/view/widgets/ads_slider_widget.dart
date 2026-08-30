@@ -108,7 +108,10 @@ class _AdsSliderWidgetState extends State<AdsSliderWidget> {
         initialChildSize: 0.85,
         maxChildSize: 0.95,
         minChildSize: 0.5,
+
         builder: (_, controller) => Container(
+          padding: EdgeInsets.only(top: 12.h, bottom: 16.h),
+          height: 200,
           decoration: BoxDecoration(
             color: AppColor.scaffoldColor(ctx),
             borderRadius: BorderRadius.vertical(top: Radius.circular(24.r)),
@@ -131,10 +134,9 @@ class _AdsSliderWidgetState extends State<AdsSliderWidget> {
                   children: [
                     Text(
                       AppLocaleKey.bankOffers.tr(),
-                      style: AppTextStyle.titleMedium(ctx).copyWith(
-                        fontWeight: FontWeight.w900,
-                        color: AppColor.blackTextColor(ctx),
-                      ),
+                      style: AppTextStyle.titleMedium(
+                        ctx,
+                      ).copyWith(fontWeight: FontWeight.w900, color: AppColor.blackTextColor(ctx)),
                     ),
                     GestureDetector(
                       onTap: () => Navigator.pop(ctx),
