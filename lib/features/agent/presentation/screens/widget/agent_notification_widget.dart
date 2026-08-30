@@ -1,5 +1,7 @@
+import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -44,8 +46,7 @@ class AgentNotificationSlider extends StatefulWidget {
 }
 
 class _AgentNotificationSliderState extends State<AgentNotificationSlider> {
-  List<AgentNotification> get _pending =>
-      agentNotifications.where((n) => !n.isRead).toList();
+  List<AgentNotification> get _pending => agentNotifications.where((n) => !n.isRead).toList();
 
   void _approve(AgentNotification notif) {
     setState(() {
@@ -64,8 +65,10 @@ class _AgentNotificationSliderState extends State<AgentNotificationSlider> {
     if (!mounted) return;
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(msg,
-            style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w600)),
+        content: Text(
+          msg,
+          style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
+        ),
         backgroundColor: color,
         behavior: SnackBarBehavior.floating,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.r)),
@@ -89,8 +92,6 @@ class _AgentNotificationSliderState extends State<AgentNotificationSlider> {
     final pending = _pending;
     final blue = AppColor.blueColor(context);
     final orange = AppColor.orangeColor(context);
-
-    if (pending.isEmpty) return const SizedBox.shrink();
 
     final preview = pending.take(3).toList();
 
@@ -117,7 +118,7 @@ class _AgentNotificationSliderState extends State<AgentNotificationSlider> {
               child: Row(
                 children: [
                   Text(
-                    'طلبات الإشعارات',
+                    AppLocaleKey.agentNewOrders.tr(),
                     style: AppTextStyle.bodyLarge(context).copyWith(
                       color: AppColor.blackTextColor(context),
                       fontWeight: FontWeight.w900,
@@ -125,72 +126,95 @@ class _AgentNotificationSliderState extends State<AgentNotificationSlider> {
                     ),
                   ),
                   Gap(10.w),
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
-                    decoration: BoxDecoration(
-                      color: orange.withValues(alpha: 0.1),
-                      borderRadius: BorderRadius.circular(12.r),
-                      border: Border.all(color: orange.withValues(alpha: 0.2)),
-                    ),
-                    child: Text(
-                      '${pending.length}',
-                      style: AppTextStyle.bodySmall(context)
-                          .copyWith(color: orange, fontWeight: FontWeight.w900),
-                    ),
-                  ),
+                  pending.isNotEmpty
+                      ? Container(
+                          padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
+                          decoration: BoxDecoration(
+                            color: orange.withValues(alpha: 0.1),
+                            borderRadius: BorderRadius.circular(12.r),
+                            border: Border.all(color: orange.withValues(alpha: 0.2)),
+                          ),
+                          child: Text(
+                            '${pending.length}',
+                            style: AppTextStyle.bodySmall(
+                              context,
+                            ).copyWith(color: orange, fontWeight: FontWeight.w900),
+                          ),
+                        )
+                      : const SizedBox(),
                 ],
               ),
             ),
             // مشاهدة الكل
-            GestureDetector(
-              onTap: _openSheet,
-              child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
-                decoration: BoxDecoration(
-                  color: blue.withValues(alpha: 0.08),
-                  borderRadius: BorderRadius.circular(10.r),
-                  border: Border.all(color: blue.withValues(alpha: 0.15)),
-                ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      'مشاهدة الكل',
-                      style: AppTextStyle.bodySmall(context).copyWith(
-                        color: blue,
-                        fontWeight: FontWeight.w700,
-                        fontSize: 12.sp,
+            preview.length < pending.length
+                ? GestureDetector(
+                    onTap: _openSheet,
+                    child: Container(
+                      padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
+                      decoration: BoxDecoration(
+                        color: blue.withValues(alpha: 0.08),
+                        borderRadius: BorderRadius.circular(10.r),
+                        border: Border.all(color: blue.withValues(alpha: 0.15)),
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            AppLocaleKey.seeAll.tr(),
+                            style: AppTextStyle.bodySmall(
+                              context,
+                            ).copyWith(color: blue, fontWeight: FontWeight.w700, fontSize: 12.sp),
+                          ),
+                          Gap(4.w),
+                          Icon(Icons.arrow_forward_ios_rounded, color: blue, size: 11.sp),
+                        ],
                       ),
                     ),
-                    Gap(4.w),
-                    Icon(Icons.arrow_forward_ios_rounded, color: blue, size: 11.sp),
-                  ],
-                ),
-              ),
-            ),
+                  )
+                : const SizedBox(),
           ],
         ),
 
         Gap(12.h),
 
+        pending.isNotEmpty
+            ? SizedBox(
+                height: 190.h,
+                child: ListView.separated(
+                  scrollDirection: Axis.horizontal,
+                  padding: EdgeInsets.zero,
+                  itemCount: preview.length,
+                  separatorBuilder: (context, index) => Gap(12.w),
+                  itemBuilder: (_, i) {
+                    final notif = preview[i];
+                    return _SliderNotifCard(
+                      notification: notif,
+                      onApprove: () => _approve(notif),
+                      onReject: () => _reject(notif),
+                    );
+                  },
+                ),
+              )
+            : Center(
+                child: Column(
+                  children: [
+                    Icon(
+                      Icons.notifications_none_rounded,
+                      color: AppColor.hintColor(context),
+                      size: 48.sp,
+                    ),
+                    Gap(16.h),
+                    Text(
+                      AppLocaleKey.agentNoNotifications.tr(),
+                      style: AppTextStyle.bodyMedium(
+                        context,
+                      ).copyWith(color: AppColor.hintColor(context), fontWeight: FontWeight.w700),
+                    ),
+                  ],
+                ),
+              ),
+
         // ── Horizontal Slider ──
-        SizedBox(
-          height: 190.h,
-          child: ListView.separated(
-            scrollDirection: Axis.horizontal,
-            padding: EdgeInsets.zero,
-            itemCount: preview.length,
-            separatorBuilder: (context, index) => Gap(12.w),
-            itemBuilder: (_, i) {
-              final notif = preview[i];
-              return _SliderNotifCard(
-                notification: notif,
-                onApprove: () => _approve(notif),
-                onReject: () => _reject(notif),
-              );
-            },
-          ),
-        ),
       ],
     );
   }
@@ -269,10 +293,9 @@ class _SliderNotifCard extends StatelessWidget {
                       Gap(2.h),
                       Text(
                         _timeAgo(notification.createdAt),
-                        style: AppTextStyle.bodySmall(context).copyWith(
-                          color: AppColor.greyColor(context),
-                          fontSize: 11.sp,
-                        ),
+                        style: AppTextStyle.bodySmall(
+                          context,
+                        ).copyWith(color: AppColor.greyColor(context), fontSize: 11.sp),
                       ),
                     ],
                   ),
@@ -288,11 +311,9 @@ class _SliderNotifCard extends StatelessWidget {
                 notification.body,
                 maxLines: 3,
                 overflow: TextOverflow.ellipsis,
-                style: AppTextStyle.bodySmall(context).copyWith(
-                  color: AppColor.darkTextColor(context),
-                  height: 1.5,
-                  fontSize: 12.sp,
-                ),
+                style: AppTextStyle.bodySmall(
+                  context,
+                ).copyWith(color: AppColor.darkTextColor(context), height: 1.5, fontSize: 12.sp),
               ),
             ),
 
@@ -391,8 +412,7 @@ class _AgentNotificationsSheet extends StatefulWidget {
 }
 
 class _AgentNotificationsSheetState extends State<_AgentNotificationsSheet> {
-  List<AgentNotification> get _notifications =>
-      agentNotifications.where((n) => !n.isRead).toList();
+  List<AgentNotification> get _notifications => agentNotifications.where((n) => !n.isRead).toList();
 
   void _approve(AgentNotification notif) {
     setState(() {
@@ -413,8 +433,10 @@ class _AgentNotificationsSheetState extends State<_AgentNotificationsSheet> {
     if (!mounted) return;
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(msg,
-            style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w600)),
+        content: Text(
+          msg,
+          style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
+        ),
         backgroundColor: color,
         behavior: SnackBarBehavior.floating,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.r)),
@@ -497,8 +519,9 @@ class _AgentNotificationsSheetState extends State<_AgentNotificationsSheet> {
                             pending.isEmpty
                                 ? 'لا توجد إشعارات'
                                 : '${pending.length} إشعار يحتاج ردّك',
-                            style: AppTextStyle.bodySmall(context)
-                                .copyWith(color: AppColor.greyColor(context)),
+                            style: AppTextStyle.bodySmall(
+                              context,
+                            ).copyWith(color: AppColor.greyColor(context)),
                           ),
                         ],
                       ),
@@ -616,10 +639,9 @@ class _FullNotificationCard extends StatelessWidget {
                       Gap(2.h),
                       Text(
                         _timeAgo(notification.createdAt),
-                        style: AppTextStyle.bodySmall(context).copyWith(
-                          color: AppColor.greyColor(context),
-                          fontSize: 11.sp,
-                        ),
+                        style: AppTextStyle.bodySmall(
+                          context,
+                        ).copyWith(color: AppColor.greyColor(context), fontSize: 11.sp),
                       ),
                     ],
                   ),
@@ -629,11 +651,9 @@ class _FullNotificationCard extends StatelessWidget {
             Gap(12.h),
             Text(
               notification.body,
-              style: AppTextStyle.bodyMedium(context).copyWith(
-                color: AppColor.darkTextColor(context),
-                height: 1.5,
-                fontSize: 13.sp,
-              ),
+              style: AppTextStyle.bodyMedium(
+                context,
+              ).copyWith(color: AppColor.darkTextColor(context), height: 1.5, fontSize: 13.sp),
             ),
             Gap(16.h),
             Row(
@@ -682,17 +702,16 @@ class _EmptyState extends StatelessWidget {
           Gap(16.h),
           Text(
             'لا توجد إشعارات جديدة',
-            style: AppTextStyle.bodyMedium(context).copyWith(
-              color: AppColor.greyColor(context),
-              fontWeight: FontWeight.w600,
-            ),
+            style: AppTextStyle.bodyMedium(
+              context,
+            ).copyWith(color: AppColor.greyColor(context), fontWeight: FontWeight.w600),
           ),
           Gap(8.h),
           Text(
             'ستظهر هنا جميع الإشعارات التي تحتاج ردّك',
-            style: AppTextStyle.bodySmall(context).copyWith(
-              color: AppColor.greyColor(context).withValues(alpha: 0.7),
-            ),
+            style: AppTextStyle.bodySmall(
+              context,
+            ).copyWith(color: AppColor.greyColor(context).withValues(alpha: 0.7)),
             textAlign: TextAlign.center,
           ),
         ],

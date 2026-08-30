@@ -1502,5 +1502,7 @@
   "term_15": "Vehicle chassis number(s), when available, shall be determined by Haged Bin Wazir & Sons Automotive based on the specifications requested by the guest.",
   "term_16": "VAT Number: 311073142900003",
   "term_17": "The price includes Value Added Tax (VAT) and fuel efficiency fees, if applicable.",
-  "select_bank":"Select Bank"
+  "select_bank":"Select Bank",
+  "agentNoNotifications":"No orders",
+  "agentNewOrders":"New Orders"
 }

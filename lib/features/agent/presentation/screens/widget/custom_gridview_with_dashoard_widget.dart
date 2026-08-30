@@ -48,7 +48,7 @@ class CustomGridviewWithDashoardWidget extends StatelessWidget {
               sales: offersCount.toDouble(),
             );
             return SliverPadding(
-              padding: EdgeInsets.fromLTRB(0.w, 20.h, 16.w, 30.h),
+              padding: EdgeInsets.fromLTRB(16.w, 20.h, 16.w, 30.h),
               sliver: SliverList(
                 delegate: SliverChildListDelegate([
                   // const PremiumCommissionBanner(),
