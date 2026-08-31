@@ -211,7 +211,7 @@ class _AdsSliderWidgetState extends State<AdsSliderWidget> {
           children: [
             SectionTitleWidget(
               title: AppLocaleKey.bankOffers.tr(),
-              onSeeAll: adsList.length > 3 ? () => _showAllAdsSheet(context, adsList) : null,
+              onSeeAll: adsList.length >= 3 ? () => _showAllAdsSheet(context, adsList) : null,
             ),
             Gap(10.h),
             SizedBox(

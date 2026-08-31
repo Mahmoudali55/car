@@ -1,3 +1,4 @@
+import 'package:car/core/custom_widgets/custom_sar_text.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +30,7 @@ class InfoCardWidget extends StatelessWidget {
           return Column(
             children: [
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 16.h),
+                padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 16.h),
                 child: Row(
                   children: [
                     Container(
@@ -49,14 +50,13 @@ class InfoCardWidget extends StatelessWidget {
                         fontSize: 13.sp,
                       ),
                     ),
-                    Gap(14.w),
+                    const Spacer(),
                     Expanded(
-                      child: Text(
-                        row.value,
-                        style: AppTextStyle.bodyMedium(
+                      child: ValueWithCurrencyIcon(
+                        text: row.value,
+                        textStyle: AppTextStyle.bodyMedium(
                           context,
                         ).copyWith(fontWeight: FontWeight.w900, fontSize: 14.sp),
-                        textAlign: TextAlign.end,
                       ),
                     ),
                   ],

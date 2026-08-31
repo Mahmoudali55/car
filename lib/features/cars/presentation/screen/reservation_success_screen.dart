@@ -38,7 +38,6 @@ class ReservationSuccessScreen extends StatelessWidget {
         actions: [
           TextButton(
             onPressed: () {
-              // Pop all the way back to root
               Navigator.of(context).popUntil((r) => r.isFirst);
             },
             child: Text(
@@ -53,7 +52,6 @@ class ReservationSuccessScreen extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 16.h),
         child: Column(
           children: [
-            // Success icon
             Gap(40.h),
             Container(
               width: 100.w,
@@ -115,7 +113,7 @@ class ReservationSuccessScreen extends StatelessWidget {
 
             Gap(32.h),
             Container(
-              padding: EdgeInsets.all(16.w),
+              padding: EdgeInsets.all(10.w),
               decoration: BoxDecoration(
                 color: const Color(0xFFE8F5E9),
                 borderRadius: BorderRadius.circular(16.r),
@@ -129,7 +127,7 @@ class ReservationSuccessScreen extends StatelessWidget {
                     child: Text(
                       AppLocaleKey.whatsapp_confirmation.tr(),
                       style: AppTextStyle.bodySmall(context).copyWith(
-                        color: const Color(0xFF2E7D32),
+                        color: AppColor.greenColor(context),
                         fontWeight: FontWeight.bold,
                         fontSize: 13.sp,
                         height: 1.5,
@@ -158,11 +156,9 @@ class ReservationSuccessScreen extends StatelessWidget {
               onPressed: () => Navigator.of(context).popUntil((r) => r.isFirst),
               child: Text(
                 AppLocaleKey.browse_other_cars.tr(),
-                style: TextStyle(
-                  color: AppColor.primaryColor(context),
-                  fontWeight: FontWeight.bold,
-                  fontSize: 14.sp,
-                ),
+                style: AppTextStyle.bodySmall(
+                  context,
+                ).copyWith(color: AppColor.primaryColor(context), fontWeight: FontWeight.bold),
               ),
             ),
             Gap(40.h),

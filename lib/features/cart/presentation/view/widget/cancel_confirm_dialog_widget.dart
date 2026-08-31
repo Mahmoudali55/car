@@ -36,17 +36,18 @@ class CancelConfirmDialog extends StatelessWidget {
             Gap(16.h),
             Text(
               AppLocaleKey.cancelReservationTitle.tr(),
-              style: AppTextStyle.titleMedium(
-                context,
-              ).copyWith(fontWeight: FontWeight.w700, fontSize: 18.sp),
+              style: AppTextStyle.titleMedium(context).copyWith(
+                fontWeight: FontWeight.w700,
+                fontSize: 18.sp,
+                color: AppColor.blackColor(context),
+              ),
             ),
             Gap(8.h),
             Text(
               AppLocaleKey.cancelReservationBody.tr(),
-              style: AppTextStyle.bodyMedium(context).copyWith(
-                color: AppColor.blackTextColor(context).withValues(alpha: 0.6),
-                height: 1.4,
-              ),
+              style: AppTextStyle.bodyMedium(
+                context,
+              ).copyWith(color: AppColor.blackColor(context).withValues(alpha: 0.6), height: 1.4),
               textAlign: TextAlign.center,
             ),
             Gap(24.h),
@@ -66,7 +67,7 @@ class CancelConfirmDialog extends StatelessWidget {
                       AppLocaleKey.cancelReservationNo.tr(),
                       style: AppTextStyle.bodyMedium(context).copyWith(
                         fontWeight: FontWeight.w600,
-                        color: AppColor.blackTextColor(context).withValues(alpha: 0.6),
+                        color: AppColor.blackColor(context).withValues(alpha: 0.6),
                       ),
                     ),
                   ),

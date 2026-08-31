@@ -1,11 +1,10 @@
-import 'package:car/features/notifications/presentation/view/cubit/notifications_cubit.dart';
 import 'package:car/core/cache/hive/hive_methods.dart';
 import 'package:car/core/routes/app_routers_import.dart';
 import 'package:car/core/routes/routes_name.dart';
+import 'package:car/features/notifications/presentation/view/cubit/notifications_cubit.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -24,7 +23,8 @@ class NotificationService {
 
   static const String _channelId = 'high_importance_channel';
   static const String _channelName = 'High importance notifications';
-  static const String _channelDescription = 'Notifications for reservation reminders and app alerts';
+  static const String _channelDescription =
+      'Notifications for reservation reminders and app alerts';
 
   static Future<void> initialize() async {
     await Firebase.initializeApp();
@@ -41,9 +41,8 @@ class NotificationService {
     await _localNotificationsPlugin.initialize(initSettings);
     _notificationsInitialized = true;
 
-    final AndroidFlutterLocalNotificationsPlugin? androidImplementation =
-        _localNotificationsPlugin.resolvePlatformSpecificImplementation<
-            AndroidFlutterLocalNotificationsPlugin>();
+    final AndroidFlutterLocalNotificationsPlugin? androidImplementation = _localNotificationsPlugin
+        .resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>();
     await androidImplementation?.createNotificationChannel(
       const AndroidNotificationChannel(
         _channelId,
@@ -67,6 +66,8 @@ class NotificationService {
       sound: true,
     );
 
+    // Disable automatic foreground presentation to prevent duplicate notifications.
+    // We manually show notifications via onMessage.listen → showLocalNotificationFromMessage.
     await _firebaseMessaging.setForegroundNotificationPresentationOptions(
       alert: true,
       badge: true,
@@ -128,10 +129,7 @@ class NotificationService {
   }
 
   static Future<void> showReservationCancelledNotification({required String carName}) async {
-    await showLocalNotification(
-      title: 'تم إلغاء الحجز',
-      body: 'تم إلغاء حجز سيارة $carName.',
-    );
+    await showLocalNotification(title: 'تم إلغاء الحجز', body: 'تم إلغاء حجز سيارة $carName.');
 
     try {
       _notificationsCubit?.addReservationNotification(
@@ -210,7 +208,7 @@ class NotificationService {
           await Future.delayed(const Duration(seconds: 3));
           apnsToken = await _firebaseMessaging.getAPNSToken();
         }
-        
+
         if (apnsToken != null) {
           return await _firebaseMessaging.getToken();
         } else {

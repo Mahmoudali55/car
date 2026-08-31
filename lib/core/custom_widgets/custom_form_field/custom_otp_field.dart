@@ -39,7 +39,9 @@ class _CustomOtpFieldState extends State<CustomOtpField> {
           defaultPinTheme: PinTheme(
             height: 56,
             width: 56,
-            textStyle: AppTextStyle.text16MSecond(context),
+            textStyle: AppTextStyle.text16MSecond(context).copyWith(
+              color: AppColor.blackTextColor(context),
+            ),
             decoration: BoxDecoration(
               color: AppColor.textFormFillColor(context),
               borderRadius: BorderRadius.circular(10),
@@ -49,7 +51,9 @@ class _CustomOtpFieldState extends State<CustomOtpField> {
           focusedPinTheme: PinTheme(
             height: 56,
             width: 56,
-            textStyle: AppTextStyle.text16MSecond(context),
+            textStyle: AppTextStyle.text16MSecond(context).copyWith(
+              color: AppColor.blackTextColor(context),
+            ),
             decoration: BoxDecoration(
               border: Border.all(color: AppColor.primaryColor(context)),
               color: AppColor.textFormFillColor(context),
@@ -59,7 +63,9 @@ class _CustomOtpFieldState extends State<CustomOtpField> {
           submittedPinTheme: PinTheme(
             height: 56,
             width: 56,
-            textStyle: AppTextStyle.text16MSecond(context),
+            textStyle: AppTextStyle.text16MSecond(context).copyWith(
+              color: AppColor.textFormFillColor(context),
+            ),
             decoration: BoxDecoration(
               border: Border.all(color: AppColor.primaryColor(context)),
               color: AppColor.blackTextColor(context),
@@ -69,7 +75,9 @@ class _CustomOtpFieldState extends State<CustomOtpField> {
           errorPinTheme: PinTheme(
             height: 56,
             width: 56,
-            textStyle: AppTextStyle.text16MSecond(context),
+            textStyle: AppTextStyle.text16MSecond(context).copyWith(
+              color: AppColor.textFormFillColor(context),
+            ),
             decoration: BoxDecoration(
               color: AppColor.blackTextColor(context),
               border: Border.all(color: Colors.red.shade700),

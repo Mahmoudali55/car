@@ -1504,5 +1504,7 @@
   "term_17": "The price includes Value Added Tax (VAT) and fuel efficiency fees, if applicable.",
   "select_bank":"Select Bank",
   "agentNoNotifications":"No orders",
-  "agentNewOrders":"New Orders"
+  "agentNewOrders":"New Orders",
+  "agentNoNewNotifications":"No new notifications",
+  "agentNotifications":"All notifications requiring your response will appear here."
 }

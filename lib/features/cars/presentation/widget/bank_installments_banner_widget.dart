@@ -57,28 +57,29 @@ class _BankInstallmentsBannerWidgetState extends State<BankInstallmentsBannerWid
     );
   }
 
-  String _getInstallmentPrice(List<FinancingAdModel> cubitOffers) {
-    final lowestOffer = _getLowestOffer(cubitOffers);
+  /// Returns null when price is unavailable/zero — caller should hide the widget.
+  String? _getInstallmentPrice(List<FinancingAdModel> cubitOffers) {
     final priceString = widget.car.price?.replaceAll(RegExp(r'[^0-9.]'), '') ?? '';
     final rawPrice = double.tryParse(priceString) ?? 0.0;
     final price = rawPrice > 0.0 ? rawPrice + 3000.0 : 0.0;
 
-    if (lowestOffer != null && price > 0) {
+    // No valid price → hide financing entirely
+    if (price <= 0) return null;
+
+    final lowestOffer = _getLowestOffer(cubitOffers);
+    if (lowestOffer != null) {
       return NumberFormat('#,##0').format(lowestOffer.monthlyInstallmentForPrice(price));
     }
     if (widget.isOffer && widget.car.monthlyInstallment != null) {
       return NumberFormat('#,##0').format(widget.car.monthlyInstallment);
     }
-    if (price > 0) {
-      final vatPercentage = double.tryParse(HiveMethods.getVatNumber()?.toString() ?? '') ?? 0;
-      final priceWithVat = price * (1 + vatPercentage / 100);
-      const years = 5;
-      const months = 60;
-      final totalInterest = priceWithVat * 0.035 * years;
-      final monthly = (priceWithVat + totalInterest) / months;
-      return NumberFormat('#,##0').format(monthly);
-    }
-    return widget.car.installments ?? '_';
+    final vatPercentage = double.tryParse(HiveMethods.getVatNumber()?.toString() ?? '') ?? 0;
+    final priceWithVat = price * (1 + vatPercentage / 100);
+    const years = 5;
+    const months = 60;
+    final totalInterest = priceWithVat * 0.035 * years;
+    final monthly = (priceWithVat + totalInterest) / months;
+    return NumberFormat('#,##0').format(monthly);
   }
 
   @override
@@ -86,6 +87,10 @@ class _BankInstallmentsBannerWidgetState extends State<BankInstallmentsBannerWid
     return BlocBuilder<HomeCubit, HomeState>(
       builder: (context, state) {
         final cubitOffers = state.normalFinancingStatus.data ?? const <FinancingAdModel>[];
+        final installmentPrice = _getInstallmentPrice(cubitOffers);
+
+        // Hide financing widget entirely when price is zero or unavailable
+        if (installmentPrice == null) return const SizedBox.shrink();
 
         return GestureDetector(
           onTap: () async {
@@ -124,7 +129,7 @@ class _BankInstallmentsBannerWidgetState extends State<BankInstallmentsBannerWid
                 children: [
                   Flexible(
                     child: Text(
-                      _getInstallmentPrice(cubitOffers),
+                      installmentPrice,
                       style: AppTextStyle.titleMedium(context).copyWith(
                         color: AppColor.blueColor(context),
                         fontWeight: FontWeight.w900,

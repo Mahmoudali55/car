@@ -38,6 +38,16 @@ class _CarHeaderWidgetState extends State<CarHeaderWidget> {
     }
   }
 
+  /// Show financing panel only when:
+  /// 1. No pre-set installments value from API, AND
+  /// 2. Car has a valid price (non-empty, non-zero)
+  bool _shouldShowFinancing() {
+    if (widget.car.installments != null) return false;
+    final priceStr = widget.car.price?.replaceAll(RegExp(r'[^0-9.]'), '') ?? '';
+    final price = double.tryParse(priceStr) ?? 0.0;
+    return price > 0;
+  }
+
   @override
   Widget build(BuildContext context) {
     final bool isInCompare = HiveMethods.isInComparison(widget.car.itemName);
@@ -213,7 +223,7 @@ class _CarHeaderWidgetState extends State<CarHeaderWidget> {
                 ),
               ),
 
-              widget.car.installments == null
+              _shouldShowFinancing()
                   ? Expanded(
                       child: GestureDetector(
                         // onTap: () {

@@ -16,9 +16,7 @@ class SectionTitleWidget extends StatelessWidget {
         Expanded(
           child: Text(
             title,
-            style: AppTextStyle.titleMedium(
-              context,
-            ).copyWith(fontWeight: FontWeight.bold),
+            style: AppTextStyle.titleMedium(context).copyWith(fontWeight: FontWeight.bold),
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
           ),
@@ -28,10 +26,7 @@ class SectionTitleWidget extends StatelessWidget {
             onPressed: onSeeAll,
             child: Text(
               AppLocaleKey.seeAll.tr(),
-              style: AppTextStyle.bodySmall(
-                context,
-                color: AppColor.blackTextColor(context),
-              ),
+              style: AppTextStyle.bodySmall(context, color: AppColor.blackColor(context)),
             ),
           ),
       ],

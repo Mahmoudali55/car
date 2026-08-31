@@ -1,3 +1,4 @@
+import 'package:car/core/custom_widgets/custom_loading/custom_loading.dart';
 import 'package:car/core/custom_widgets/custom_toast/custom_toast.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
@@ -52,7 +53,7 @@ class _CartScreenState extends State<CartScreen> {
           backgroundColor: AppColor.scaffoldColor(context),
           appBar: CartAppBarWidget(itemsCount: state.itemCount),
           body: state.isLoading
-              ? const Center(child: CircularProgressIndicator())
+              ? Center(child: CustomLoading())
               : state.reservedCars.isEmpty
               ? const CartEmptyStateWidget()
               : Column(

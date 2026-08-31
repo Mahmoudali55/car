@@ -1559,4 +1559,6 @@ class AppLocaleKey {
   static const String selectBank = 'select_bank';
   static const String agentNoNotifications = 'agentNoNotifications';
   static const String agentNewOrders = 'agentNewOrders';
+  static const String agentNoNewNotifications = 'agentNoNewNotifications';
+  static const String agentNotifications = 'agentNotifications';
 }
