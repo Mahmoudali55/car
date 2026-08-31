@@ -21,7 +21,6 @@ class RecentlyViewedWidget extends StatelessWidget {
     NavigatorMethods.pushNamed(context, RoutesName.carDetailsScreen, arguments: car);
   }
 
-  // دالة لحساب السعر مع الضريبة
   double _getPriceWithVat(Map<String, dynamic> car) {
     final priceRaw = car['price']?.toString() ?? '0';
     if (priceRaw.isEmpty || priceRaw == '0') return 0.0;
@@ -31,7 +30,6 @@ class RecentlyViewedWidget extends StatelessWidget {
 
     if (originalPrice <= 0) return 0.0;
 
-    // استخدام HiveMethods للحصول على نسبة الضريبة
     final vatSerial = HiveMethods.getVatNumber();
     final double vatPercentage = double.tryParse(vatSerial.toString()) ?? 15.0;
 
@@ -40,7 +38,6 @@ class RecentlyViewedWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // تنسيق الأرقام
     final formatter = NumberFormat('#,##0', 'en_US');
 
     return SizedBox(

@@ -68,10 +68,10 @@ class _BankInstallmentsBannerWidgetState extends State<BankInstallmentsBannerWid
 
     final lowestOffer = _getLowestOffer(cubitOffers);
     if (lowestOffer != null) {
-      return NumberFormat('#,##0').format(lowestOffer.monthlyInstallmentForPrice(price));
+      return NumberFormat('#,##0', 'en_US').format(lowestOffer.monthlyInstallmentForPrice(price));
     }
     if (widget.isOffer && widget.car.monthlyInstallment != null) {
-      return NumberFormat('#,##0').format(widget.car.monthlyInstallment);
+      return NumberFormat('#,##0', 'en_US').format(widget.car.monthlyInstallment);
     }
     final vatPercentage = double.tryParse(HiveMethods.getVatNumber()?.toString() ?? '') ?? 0;
     final priceWithVat = price * (1 + vatPercentage / 100);
@@ -79,7 +79,7 @@ class _BankInstallmentsBannerWidgetState extends State<BankInstallmentsBannerWid
     const months = 60;
     final totalInterest = priceWithVat * 0.035 * years;
     final monthly = (priceWithVat + totalInterest) / months;
-    return NumberFormat('#,##0').format(monthly);
+    return NumberFormat('#,##0', 'en_US').format(monthly);
   }
 
   @override

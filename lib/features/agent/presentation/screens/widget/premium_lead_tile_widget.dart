@@ -104,7 +104,8 @@ class PremiumLeadTile extends StatelessWidget {
               ),
               Gap(8.h),
               ValueWithCurrencyIcon(
-                text: '${NumberFormat('#,##0').format(lead.budget)} ${AppLocaleKey.sar.tr()}',
+                text:
+                    '${NumberFormat('#,##0', 'en_US').format(lead.budget)} ${AppLocaleKey.sar.tr()}',
                 textStyle: AppTextStyle.bodySmall(context).copyWith(
                   color: AppColor.blackTextColor(context),
                   fontWeight: FontWeight.w900,

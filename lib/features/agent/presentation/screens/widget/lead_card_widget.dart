@@ -96,7 +96,7 @@ class LeadCard extends StatelessWidget {
                       Gap(6.h),
                       Text(
                         AppLocaleKey.agentBudgetDisplay.tr(
-                          namedArgs: {'amount': NumberFormat('#,##0').format(lead.budget)},
+                          namedArgs: {'amount': NumberFormat('#,##0', 'en_US').format(lead.budget)},
                         ),
                         style: AppTextStyle.bodySmall(context).copyWith(
                           color: AppColor.blueColor(context),

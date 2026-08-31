@@ -210,7 +210,7 @@ class _AgentCarDetailsScreenState extends State<AgentCarDetailsScreen> {
 
                             ValueWithCurrencyIcon(
                               text:
-                                  '${NumberFormat('#,##0').format(widget.car.price)} ${AppLocaleKey.sar.tr()}',
+                                  '${NumberFormat('#,##0', 'en_US').format(widget.car.price)} ${AppLocaleKey.sar.tr()}',
                               textStyle: AppTextStyle.titleLarge(context).copyWith(
                                 color: AppColor.whiteColor(context),
                                 fontWeight: FontWeight.w900,
