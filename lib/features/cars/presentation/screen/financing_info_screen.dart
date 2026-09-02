@@ -39,6 +39,19 @@ class _FinancingInfoScreenState extends State<FinancingInfoScreen> {
   final ValueNotifier<bool> _whatsappNotifier = ValueNotifier(true);
   final ValueNotifier<String?> _selectedCityNotifier = ValueNotifier('الرياض');
 
+  @override
+  void initState() {
+    super.initState();
+    final fullName = HiveMethods.getUserName() ?? '';
+    final phone = HiveMethods.getphone() ?? '';
+    final names = fullName.trim().split(' ');
+    if (names.isNotEmpty && fullName.isNotEmpty) {
+      _firstNameController.text = names.first;
+      _lastNameController.text = names.length > 1 ? names.sublist(1).join(' ') : '';
+    }
+    _phoneController.text = phone;
+  }
+
   String get _methodLabel =>
       widget.paymentMethod == 'tamara' ? 'متابعة مع تمارا' : 'متابعة مع البنك';
 

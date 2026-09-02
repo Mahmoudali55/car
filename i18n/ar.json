@@ -1527,6 +1527,7 @@
   "customer_id": "رقم العميل:",
   "financial_summary": "الملخص المالي",
   "current_balance": "الرصيد الحالي",
-  "credit_limit": "الحد الائتماني"
+  "credit_limit": "الحد الائتماني",
+  "form":"من"
 }
 

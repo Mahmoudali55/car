@@ -1524,6 +1524,7 @@
   "customer_id": "Customer ID:",
   "financial_summary": "Financial Summary",
   "current_balance": "Current Balance",
-  "credit_limit": "Credit Limit"
+  "credit_limit": "Credit Limit",
+  "form": "From"
 }
 

@@ -1,6 +1,7 @@
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
+import 'package:car/core/utils/common_methods.dart';
 import 'package:car/features/agent/presentation/screens/widget/agent_notifications_sheet_widget.dart';
 import 'package:car/features/agent/presentation/screens/widget/slider_notif_card_widget.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -24,7 +25,26 @@ class AgentNotification {
   });
 }
 
-List<AgentNotification> agentNotifications = [];
+List<AgentNotification> agentNotifications = [
+  AgentNotification(
+    id: '1',
+    title: 'طلب جديد',
+    body: 'تم استلام طلب جديد لشراء سيارة تويوتا كامري',
+    createdAt: DateTime.now().subtract(const Duration(minutes: 5)),
+  ),
+  AgentNotification(
+    id: '2',
+    title: 'تحديث حالة',
+    body: 'العميل قام برفع المستندات المطلوبة للتمويل',
+    createdAt: DateTime.now().subtract(const Duration(hours: 1)),
+  ),
+  AgentNotification(
+    id: '3',
+    title: 'رسالة من الإدارة',
+    body: 'يرجى مراجعة طلبات اليوم المتبقية',
+    createdAt: DateTime.now().subtract(const Duration(days: 1)),
+  ),
+];
 
 class AgentNotificationSlider extends StatefulWidget {
   const AgentNotificationSlider({super.key});
@@ -51,19 +71,7 @@ class _AgentNotificationSliderState extends State<AgentNotificationSlider> {
 
   void _showSnack(String msg, Color color) {
     if (!mounted) return;
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(
-          msg,
-          style: TextStyle(color: AppColor.whiteColor(context), fontWeight: FontWeight.w600),
-        ),
-        backgroundColor: color,
-        behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.r)),
-        margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
-        duration: const Duration(seconds: 2),
-      ),
-    );
+    CommonMethods.showToast(message: msg, backgroundColor: color);
   }
 
   void _openSheet() {

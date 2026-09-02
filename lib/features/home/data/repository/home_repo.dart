@@ -5,7 +5,6 @@ import 'package:car/core/cache/hive/hive_methods.dart';
 import 'package:car/core/error/failures.dart';
 import 'package:car/core/network/api_consumer.dart';
 import 'package:car/core/network/end_points.dart';
-import 'package:car/core/services/notification_service.dart';
 import 'package:car/features/home/data/model/add_booking_permission_model.dart';
 import 'package:car/features/home/data/model/add_booking_permission_response_model.dart';
 import 'package:car/features/home/data/model/add_loan_application_model.dart';
@@ -79,87 +78,87 @@ class HomeRepoImpl implements HomeRepo {
         final result = AddBookingPermissionResponseModel.fromJson(response);
 
         // Fetch FCM tokens and send push notifications
-        try {
-          final carDetails = model.subLpo.isNotEmpty
-              ? model.subLpo.first.itemName
-              : 'حجز سيارة جديدة';
-          await _sendFcmNotifications(
-            customerNo: model.customerNo,
-            represCode: model.represCode,
-            carDetails: carDetails,
-            bookingNo: result.lpoNo,
-          );
-        } catch (e) {
-          if (kDebugMode) {
-            print('[addBookingPermission FCM Error] $e');
-          }
-        }
+        // try {
+        //   final carDetails = model.subLpo.isNotEmpty
+        //       ? model.subLpo.first.itemName
+        //       : 'حجز سيارة جديدة';
+        //   await _sendFcmNotifications(
+        //     customerNo: model.customerNo,
+        //     represCode: model.represCode,
+        //     carDetails: carDetails,
+        //     bookingNo: result.lpoNo,
+        //   );
+        // } catch (e) {
+        //   if (kDebugMode) {
+        //     print('[addBookingPermission FCM Error] $e');
+        //   }
+        // }
 
         return result;
       },
     );
   }
 
-  Future<void> _sendFcmNotifications({
-    required int customerNo,
-    required int represCode,
-    required String carDetails,
-    required String bookingNo,
-  }) async {
-    final fcmResponse = await apiConsumer.get(
-      EndPoints.getFCM,
-      queryParameters: {'CUSTOMER_NO': customerNo, 'REPRESCODE': represCode},
-    );
+  // Future<void> _sendFcmNotifications({
+  //   required int customerNo,
+  //   required int represCode,
+  //   required String carDetails,
+  //   required String bookingNo,
+  // }) async {
+  //   final fcmResponse = await apiConsumer.get(
+  //     EndPoints.getFCM,
+  //     queryParameters: {'CUSTOMER_NO': customerNo, 'REPRESCODE': represCode},
+  //   );
 
-    List<String> tokens = [];
-    dynamic rawData = fcmResponse['Data'];
-    if (rawData is String && rawData.isNotEmpty && rawData != 'null') {
-      try {
-        rawData = jsonDecode(rawData);
-      } catch (_) {}
-    }
+  //   List<String> tokens = [];
+  //   dynamic rawData = fcmResponse['Data'];
+  //   if (rawData is String && rawData.isNotEmpty && rawData != 'null') {
+  //     try {
+  //       rawData = jsonDecode(rawData);
+  //     } catch (_) {}
+  //   }
 
-    if (rawData is List) {
-      for (var item in rawData) {
-        if (item is Map && item.containsKey('FCM') && item['FCM'] != null) {
-          final t = item['FCM'].toString().trim();
-          if (t.isNotEmpty) tokens.add(t);
-        }
-      }
-    }
+  //   if (rawData is List) {
+  //     for (var item in rawData) {
+  //       if (item is Map && item.containsKey('FCM') && item['FCM'] != null) {
+  //         final t = item['FCM'].toString().trim();
+  //         if (t.isNotEmpty) tokens.add(t);
+  //       }
+  //     }
+  //   }
 
-    if (tokens.isEmpty) return;
+  //   if (tokens.isEmpty) return;
 
-    final String userName = (HiveMethods.getname() ?? HiveMethods.getname()) ?? '';
-    final String userPhone = (HiveMethods.getphone() ?? HiveMethods.getSavedMobile()) ?? '';
-    final String userInfo = [
-      if (userName.isNotEmpty) 'اسم العميل: $userName',
-      if (userPhone.isNotEmpty) 'الجوال: $userPhone',
-    ].join(' | ');
+  //   final String userName = (HiveMethods.getname() ?? HiveMethods.getname()) ?? '';
+  //   final String userPhone = (HiveMethods.getphone() ?? HiveMethods.getSavedMobile()) ?? '';
+  //   final String userInfo = [
+  //     if (userName.isNotEmpty) 'اسم العميل: $userName',
+  //     if (userPhone.isNotEmpty) 'الجوال: $userPhone',
+  //   ].join(' | ');
 
-    final String bookingText = bookingNo.isNotEmpty ? ' | رقم الحجز: $bookingNo' : '';
-    final String bodyForOthers = userInfo.isNotEmpty
-        ? '$userInfo$bookingText'
-        : 'تم حجز السيارة بنجاح$bookingText';
+  //   final String bookingText = bookingNo.isNotEmpty ? ' | رقم الحجز: $bookingNo' : '';
+  //   final String bodyForOthers = userInfo.isNotEmpty
+  //       ? '$userInfo$bookingText'
+  //       : 'تم حجز السيارة بنجاح$bookingText';
 
-    // 1st SendNotification: يرسل للعميل الذي قام بالحجز فقط (tokens[0])
-    await apiConsumer.post(
-      EndPoints.sendNotification,
-      body: {
-        'deviceToken': [tokens[0]],
-        'title': 'تجربة إشعار حجز',
-        'body': 'تم حجز السيارة ($carDetails) بنجاح وسيتم التواصل معكم قريباً.',
-      },
-    );
+  //   // 1st SendNotification: يرسل للعميل الذي قام بالحجز فقط (tokens[0])
+  //   await apiConsumer.post(
+  //     EndPoints.sendNotification,
+  //     body: {
+  //       'deviceToken': [tokens[0]],
+  //       'title': 'تجربة إشعار حجز',
+  //       'body': 'تم حجز السيارة ($carDetails) بنجاح وسيتم التواصل معكم قريباً.',
+  //     },
+  //   );
 
-    // 2nd SendNotification: يرسل لباقي التوكينات فقط (tokens.sublist(1)) مع رقم الحجز
-    if (tokens.length > 1) {
-      await apiConsumer.post(
-        EndPoints.sendNotification,
-        body: {'deviceToken': tokens.sublist(1), 'title': carDetails, 'body': bodyForOthers},
-      );
-    }
-  }
+  //   // 2nd SendNotification: يرسل لباقي التوكينات فقط (tokens.sublist(1)) مع رقم الحجز
+  //   if (tokens.length > 1) {
+  //     await apiConsumer.post(
+  //       EndPoints.sendNotification,
+  //       body: {'deviceToken': tokens.sublist(1), 'title': carDetails, 'body': bodyForOthers},
+  //     );
+  //   }
+  // }
 
   @override
   Future<Either<Failure, List<GetBrandCarsDataModel>>> getBrandCars(String brandId) async {
@@ -231,38 +230,38 @@ class HomeRepoImpl implements HomeRepo {
         );
         final result = CancelReservedCarResponseModel.fromJson(response);
 
-        if (result.success) {
-          try {
-            await _sendCancelFcmNotification(model);
-          } catch (e) {
-            if (kDebugMode) {
-              print('[cancelreservedcar FCM Error] $e');
-            }
-          }
-        }
+        // if (result.success) {
+        //   try {
+        //     await _sendCancelFcmNotification(model);
+        //   } catch (e) {
+        //     if (kDebugMode) {
+        //       print('[cancelreservedcar FCM Error] $e');
+        //     }
+        //   }
+        // }
 
         return result;
       },
     );
   }
 
-  Future<void> _sendCancelFcmNotification(CancelReservedCarModel model) async {
-    final fcmToken = await NotificationService.getFCMToken();
-    if (fcmToken == null || fcmToken.isEmpty) return;
+  // Future<void> _sendCancelFcmNotification(CancelReservedCarModel model) async {
+  //   final fcmToken = await NotificationService.getFCMToken();
+  //   if (fcmToken == null || fcmToken.isEmpty) return;
 
-    final String carInfo = model.notes.isNotEmpty ? model.notes : model.itemCode;
-    final String lpoText = model.lpoNo.isNotEmpty ? ' | رقم الحجز: ${model.lpoNo}' : '';
-    final String bodyText = 'تم إلغاء حجز السيارة بنجاح ($carInfo)$lpoText';
+  //   final String carInfo = model.notes.isNotEmpty ? model.notes : model.itemCode;
+  //   final String lpoText = model.lpoNo.isNotEmpty ? ' | رقم الحجز: ${model.lpoNo}' : '';
+  //   final String bodyText = 'تم إلغاء حجز السيارة بنجاح ($carInfo)$lpoText';
 
-    await apiConsumer.post(
-      EndPoints.sendNotification,
-      body: {
-        'deviceToken': [fcmToken],
-        'title': 'تجربة إشعار حجز',
-        'body': bodyText,
-      },
-    );
-  }
+  //   await apiConsumer.post(
+  //     EndPoints.sendNotification,
+  //     body: {
+  //       'deviceToken': [fcmToken],
+  //       'title': 'تجربة إشعار حجز',
+  //       'body': bodyText,
+  //     },
+  //   );
+  // }
 
   @override
   Future<Either<Failure, SendOtpResponseModel>> sendOtp(SendOtpModel model) async {
@@ -436,7 +435,9 @@ class HomeRepoImpl implements HomeRepo {
   }
 
   @override
-  Future<Either<Failure, List<CustomerLoanApplicationModel>>> getCustLoanApplications(String code) async {
+  Future<Either<Failure, List<CustomerLoanApplicationModel>>> getCustLoanApplications(
+    String code,
+  ) async {
     return handleDioRequest(
       request: () async {
         final response = await apiConsumer.get(

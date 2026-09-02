@@ -136,6 +136,12 @@ class CartReservationService {
       itemCode: car.itemCode ?? '',
       storeCode: int.tryParse(car.storeCode?.toString() ?? '') ?? 0,
       notes: 'Auto-cancelled after reservation window expired',
+      customerNo: HiveMethods.getUserCode() != null
+          ? int.tryParse(HiveMethods.getUserCode()!) ?? 0
+          : 0,
+      represCode: HiveMethods.getRepresentativeNo() != null
+          ? int.tryParse(HiveMethods.getRepresentativeNo()!) ?? 0
+          : 0,
     );
 
     if (kDebugMode) {

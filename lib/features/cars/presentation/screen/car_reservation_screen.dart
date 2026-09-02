@@ -63,6 +63,19 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
     super.initState();
     _totalPrice = _parsePrice(widget.car.price, withTax: true);
     _loadErrorCodes();
+
+    final fullName = HiveMethods.getname() ?? '';
+    final phone = HiveMethods.getphone() ?? '';
+
+    _cashNameController.text = fullName;
+    _cashPhoneController.text = phone;
+
+    final names = fullName.trim().split(' ');
+    if (names.isNotEmpty && fullName.isNotEmpty) {
+      _firstNameController.text = names.first;
+      _lastNameController.text = names.length > 1 ? names.sublist(1).join(' ') : '';
+    }
+    _financePhoneController.text = phone;
   }
 
   Future<void> _loadErrorCodes() async {
@@ -87,7 +100,12 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
     }
     if (!value.isFinite) value = 0.0;
     final double vatSerial = double.tryParse(HiveMethods.getVatNumber().toString()) ?? 15.0;
-    return withTax ? value * ((100 + vatSerial) / 100) : value;
+    final result = withTax ? value * ((100 + vatSerial) / 100) : value;
+    return _round2(result);
+  }
+
+  double _round2(double value) {
+    return double.parse(value.toStringAsFixed(2));
   }
 
   bool get _isFinancingFlow => _selectedMethod == 'tamara' || _selectedMethod == 'bank';
@@ -303,9 +321,13 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
           itemCode: widget.car.itemCode,
           itemName: widget.car.itemName,
           chassisNo: widget.car.chassisNo,
-          price: _totalPrice,
+          price: _parsePrice(widget.car.price, withTax: false),
           advancedAmount: _depositAmount,
           storeCode: storeCodeVal,
+          TAX_VAL: _round2(
+            _parsePrice(widget.car.price, withTax: true) -
+                _parsePrice(widget.car.price, withTax: false),
+          ),
         ),
       ],
     );

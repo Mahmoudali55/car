@@ -64,12 +64,19 @@ class CartCubit extends Cubit<CartState> {
   Future<void> cancelReservation(admin.CarModel car) async {
     final String lpoNo = car.lpoNo ?? '';
     final int storeCode = int.tryParse(car.storeCode?.toString() ?? '') ?? 0;
-
+    final int customerNo = HiveMethods.getUserCode() != null
+        ? int.tryParse(HiveMethods.getUserCode()!) ?? 0
+        : 0;
+    final int represCode = HiveMethods.getRepresentativeNo() != null
+        ? int.tryParse(HiveMethods.getRepresentativeNo()!) ?? 0
+        : 0;
     final model = CancelReservedCarModel(
       lpoNo: lpoNo,
       itemCode: car.itemCode ?? '',
       storeCode: storeCode,
       notes: 'Cancelled by user',
+      customerNo: customerNo,
+      represCode: represCode,
     );
 
     if (kDebugMode) {

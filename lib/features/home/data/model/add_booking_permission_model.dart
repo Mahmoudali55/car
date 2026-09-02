@@ -156,6 +156,7 @@ class SubLpoModel extends Equatable {
   final double price;
   final double advancedAmount;
   final int storeCode;
+  final num TAX_VAL;
 
   const SubLpoModel({
     required this.itemCode,
@@ -164,6 +165,7 @@ class SubLpoModel extends Equatable {
     required this.price,
     required this.advancedAmount,
     required this.storeCode,
+    required this.TAX_VAL,
   });
 
   factory SubLpoModel.fromJson(Map<String, dynamic> json) {
@@ -174,6 +176,7 @@ class SubLpoModel extends Equatable {
       price: double.tryParse(json['PRICE']?.toString() ?? '') ?? 0.0,
       advancedAmount: double.tryParse(json['ADVANCED_AMOUNT']?.toString() ?? '') ?? 0.0,
       storeCode: int.tryParse(json['STORE_CODE']?.toString() ?? '') ?? 0,
+      TAX_VAL: num.tryParse(json['TAX_VAL']?.toString() ?? '') ?? 0,
     );
   }
 
@@ -185,6 +188,7 @@ class SubLpoModel extends Equatable {
       "PRICE": price,
       "ADVANCED_AMOUNT": advancedAmount,
       "STORE_CODE": storeCode,
+      "TAX_VAL": TAX_VAL,
     };
   }
 
@@ -195,6 +199,7 @@ class SubLpoModel extends Equatable {
     double? price,
     double? advancedAmount,
     int? storeCode,
+    num? TAX_VAL,
   }) {
     return SubLpoModel(
       itemCode: itemCode ?? this.itemCode,
@@ -203,9 +208,18 @@ class SubLpoModel extends Equatable {
       price: price ?? this.price,
       advancedAmount: advancedAmount ?? this.advancedAmount,
       storeCode: storeCode ?? this.storeCode,
+      TAX_VAL: TAX_VAL ?? this.TAX_VAL,
     );
   }
 
   @override
-  List<Object?> get props => [itemCode, itemName, chassisNo, price, advancedAmount, storeCode];
+  List<Object?> get props => [
+    itemCode,
+    itemName,
+    chassisNo,
+    price,
+    advancedAmount,
+    storeCode,
+    TAX_VAL,
+  ];
 }
