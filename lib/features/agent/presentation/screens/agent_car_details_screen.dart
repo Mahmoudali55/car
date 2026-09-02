@@ -562,6 +562,10 @@ class _AgentCarDetailsScreenState extends State<AgentCarDetailsScreen> {
     final chassisNo = widget.car.chassisNo;
     final storeCodeVal = int.tryParse(widget.car.storeCode) ?? 1;
     final code = HiveMethods.getcode() ?? '';
+    final double vatSerial = double.tryParse(HiveMethods.getVatNumber().toString()) ?? 15.0;
+    final double basePrice = widget.car.price;
+    final double totalWithTax = basePrice * ((100 + vatSerial) / 100);
+    final double taxValue = double.parse((totalWithTax - basePrice).toStringAsFixed(2));
     final model = AddBookingPermissionModel(
       lpoNos: '',
       lpono: '',
@@ -576,24 +580,24 @@ class _AgentCarDetailsScreenState extends State<AgentCarDetailsScreen> {
       taamedNo: '',
       payCond: '',
       guarFinal: 0,
-      notes: 'حجز سيارة كاش - $customerName ($customerPhone)'.substring(
+      notes: 'حجز سيارة كاش -  ($customerPhone)',
+      userAdd: (HiveMethods.getUserName() ?? '').substring(
         0,
-        'حجز سيارة كاش - $customerName ($customerPhone)'.length.clamp(0, 100),
+        (HiveMethods.getUserName() ?? '').length.clamp(0, 50),
       ),
-      userAdd: HiveMethods.getUserName() ?? '',
-      requiredDoc: widget.car.price.toString(),
+      requiredDoc: widget.car.price.toString().substring(
+        0,
+        widget.car.price.toString().length.clamp(0, 50),
+      ),
       subLpo: [
         SubLpoModel(
           itemCode: itemCode,
-          itemName: itemName,
-          chassisNo: chassisNo,
-          price: _parsePrice(widget.car.price, withTax: false),
+          itemName: itemName.substring(0, itemName.length.clamp(0, 100)),
+          chassisNo: chassisNo.substring(0, chassisNo.length.clamp(0, 50)),
+          price: basePrice,
           advancedAmount: depositAmount,
           storeCode: storeCodeVal,
-          TAX_VAL: _round2(
-            _parsePrice(widget.car.price, withTax: true) -
-                _parsePrice(widget.car.price, withTax: false),
-          ),
+          TAX_VAL: taxValue,
         ),
       ],
     );

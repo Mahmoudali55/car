@@ -312,15 +312,19 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
       taamedNo: '',
       payCond: '',
       guarFinal: 0,
-      notes: 'حجز سيارة كاش - ${_cashNameController.text} (${_cashPhoneController.text})',
-
-      userAdd: HiveMethods.getUserName() ?? '',
-      requiredDoc: paymentId.toString(),
+      notes: 'حجز سيارة كاش -  (${_cashPhoneController.text})',
+      userAdd: (HiveMethods.getUserName() ?? '').substring(
+        0,
+        (HiveMethods.getUserName() ?? '').length.clamp(0, 50),
+      ),
+      requiredDoc: paymentId != null
+          ? paymentId.toString().substring(0, paymentId.toString().length.clamp(0, 50))
+          : '',
       subLpo: [
         SubLpoModel(
           itemCode: widget.car.itemCode,
-          itemName: widget.car.itemName,
-          chassisNo: widget.car.chassisNo,
+          itemName: widget.car.itemName.substring(0, widget.car.itemName.length.clamp(0, 100)),
+          chassisNo: widget.car.chassisNo.substring(0, widget.car.chassisNo.length.clamp(0, 50)),
           price: _parsePrice(widget.car.price, withTax: false),
           advancedAmount: _depositAmount,
           storeCode: storeCodeVal,
