@@ -83,10 +83,6 @@ class AdCardWidget extends StatelessWidget {
     return CustomNetworkImage(imageUrl: imageUrl, fit: BoxFit.cover);
   }
 
-  /// Darkens the left side (where the text sits) and the very bottom
-  /// (where the footer sits), while leaving the right side of the photo
-  /// clearer so the car itself stays visible — same logic a dealership
-  /// banner uses, just done with gradients instead of cutting the photo.
   Widget _buildScrim() {
     return Stack(
       children: [

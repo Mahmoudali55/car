@@ -25,6 +25,14 @@ class FinancingPersonalInfoTab extends StatefulWidget {
   final VoidCallback onShowRequirements;
   final String? bankName;
   final ValueChanged<String>? onPhoneChanged;
+  final TextEditingController? fullNameCtrl;
+  final TextEditingController? idCtrl;
+  final TextEditingController? phoneCtrl;
+  final String? selectedGender;
+  final ValueChanged<String?>? onGenderChanged;
+  final String? selectedCity;
+  final ValueChanged<String?>? onCityChanged;
+
   const FinancingPersonalInfoTab({
     super.key,
     required this.formKey,
@@ -37,6 +45,13 @@ class FinancingPersonalInfoTab extends StatefulWidget {
     required this.onShowRequirements,
     this.bankName,
     this.onPhoneChanged,
+    this.fullNameCtrl,
+    this.idCtrl,
+    this.phoneCtrl,
+    this.selectedGender,
+    this.onGenderChanged,
+    this.selectedCity,
+    this.onCityChanged,
   });
 
   @override
@@ -44,21 +59,24 @@ class FinancingPersonalInfoTab extends StatefulWidget {
 }
 
 class _FinancingPersonalInfoTabState extends State<FinancingPersonalInfoTab> {
-  final _fullNameCtrl = TextEditingController();
-  final _idCtrl = TextEditingController();
-  final _phoneCtrl = TextEditingController();
+  late TextEditingController _fullNameCtrl;
+  late TextEditingController _idCtrl;
+  late TextEditingController _phoneCtrl;
 
   bool _whatsappConsent = true;
   String? _selectedGender;
   String? _selectedCity;
   final name = HiveMethods.getname();
   final phone = HiveMethods.getphone();
+
   @override
   void initState() {
     super.initState();
-    _selectedCity = AppLocaleKey.cityRiyadh.tr();
-    _fullNameCtrl.text = name.toString();
-    _phoneCtrl.text = phone ?? '';
+    _fullNameCtrl = widget.fullNameCtrl ?? TextEditingController(text: name.toString());
+    _idCtrl = widget.idCtrl ?? TextEditingController();
+    _phoneCtrl = widget.phoneCtrl ?? TextEditingController(text: phone ?? '');
+    _selectedGender = widget.selectedGender;
+    _selectedCity = widget.selectedCity ?? AppLocaleKey.cityRiyadh.tr();
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       widget.onPhoneChanged?.call(_phoneCtrl.text);
@@ -70,9 +88,9 @@ class _FinancingPersonalInfoTabState extends State<FinancingPersonalInfoTab> {
 
   @override
   void dispose() {
-    _fullNameCtrl.dispose();
-    _idCtrl.dispose();
-    _phoneCtrl.dispose();
+    if (widget.fullNameCtrl == null) _fullNameCtrl.dispose();
+    if (widget.idCtrl == null) _idCtrl.dispose();
+    if (widget.phoneCtrl == null) _phoneCtrl.dispose();
     super.dispose();
   }
 
@@ -125,7 +143,10 @@ class _FinancingPersonalInfoTabState extends State<FinancingPersonalInfoTab> {
                     value: 'female',
                     label: AppLocaleKey.agentFemale.tr(),
                     selectedGender: _selectedGender,
-                    onTap: (v) => setState(() => _selectedGender = v),
+                    onTap: (v) {
+                      setState(() => _selectedGender = v);
+                      widget.onGenderChanged?.call(v);
+                    },
                   ),
                 ),
                 Gap(12.w),
@@ -134,7 +155,10 @@ class _FinancingPersonalInfoTabState extends State<FinancingPersonalInfoTab> {
                     value: 'male',
                     label: AppLocaleKey.agentMale.tr(),
                     selectedGender: _selectedGender,
-                    onTap: (v) => setState(() => _selectedGender = v),
+                    onTap: (v) {
+                      setState(() => _selectedGender = v);
+                      widget.onGenderChanged?.call(v);
+                    },
                   ),
                 ),
               ],
@@ -184,11 +208,14 @@ class _FinancingPersonalInfoTabState extends State<FinancingPersonalInfoTab> {
             Gap(16.h),
             const WhatsAppConsentWidget(),
             Gap(20.h),
-            CityDropdown(
-              selectedCity: _selectedCity,
-              onChanged: (city) => setState(() => _selectedCity = city),
-            ),
-            Gap(20.h),
+            // CityDropdown(
+            //   selectedCity: _selectedCity,
+            //   onChanged: (city) {
+            //     setState(() => _selectedCity = city);
+            //     widget.onCityChanged?.call(city);
+            //   },
+            // ),
+            // Gap(20.h),
             InfoBanner(onTap: widget.onShowRequirements),
             Gap(16.h),
           ],

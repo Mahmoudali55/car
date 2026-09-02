@@ -111,7 +111,8 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
       final double basePrice = _parsePrice(widget.car.price, withTax: false);
       final double basePriceWithFinancingFee = basePrice + 3000;
       final double vatSerial = double.tryParse(HiveMethods.getVatNumber().toString()) ?? 15.0;
-      final double financingTotalPriceWithTax = basePriceWithFinancingFee * ((100 + vatSerial) / 100);
+      final double financingTotalPriceWithTax =
+          basePriceWithFinancingFee * ((100 + vatSerial) / 100);
 
       Navigator.push(
         context,

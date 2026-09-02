@@ -12,7 +12,6 @@ import 'package:gap/gap.dart';
 
 class BespokeSelectionScreen extends StatefulWidget {
   const BespokeSelectionScreen({super.key});
-
   @override
   State<BespokeSelectionScreen> createState() => _BespokeSelectionScreenState();
 }
@@ -155,7 +154,6 @@ class _BespokeSelectionScreenState extends State<BespokeSelectionScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Header Card
               FadeInDown(
                 duration: const Duration(milliseconds: 500),
                 child: Container(
@@ -199,10 +197,7 @@ class _BespokeSelectionScreenState extends State<BespokeSelectionScreen> {
                   ),
                 ),
               ),
-
               Gap(24.h),
-
-              // Priority Sliders Section
               FadeInUp(
                 duration: const Duration(milliseconds: 600),
                 child: Column(
@@ -260,10 +255,7 @@ class _BespokeSelectionScreenState extends State<BespokeSelectionScreen> {
                   ],
                 ),
               ),
-
               Gap(24.h),
-
-              // Specs Form Fields
               FadeInUp(
                 duration: const Duration(milliseconds: 600),
                 child: Column(
@@ -274,8 +266,6 @@ class _BespokeSelectionScreenState extends State<BespokeSelectionScreen> {
                       style: AppTextStyle.titleSmall(context).copyWith(fontWeight: FontWeight.bold),
                     ),
                     Gap(12.h),
-
-                    // Brand Preferences
                     CustomFormField(
                       controller: _brandController,
                       title: AppLocaleKey.preferredBrandsTitle.tr(),
@@ -284,8 +274,6 @@ class _BespokeSelectionScreenState extends State<BespokeSelectionScreen> {
                           value == null || value.isEmpty ? AppLocaleKey.validateEmpty.tr() : null,
                     ),
                     Gap(16.h),
-
-                    // Years range
                     Row(
                       children: [
                         Expanded(
@@ -314,8 +302,6 @@ class _BespokeSelectionScreenState extends State<BespokeSelectionScreen> {
                       ],
                     ),
                     Gap(16.h),
-
-                    // Budget range
                     Row(
                       children: [
                         Expanded(
@@ -344,18 +330,13 @@ class _BespokeSelectionScreenState extends State<BespokeSelectionScreen> {
                       ],
                     ),
                     Gap(16.h),
-
-                    // Text Description
                     CustomFormField(
                       controller: _descriptionController,
                       title: AppLocaleKey.additionalSpecs.tr(),
                       hintText: AppLocaleKey.carDescriptionHint.tr(),
                       maxLines: 4,
                     ),
-
                     Gap(32.h),
-
-                    // Submit
                     CustomButton(
                       onPressed: _submitSearch,
                       text: AppLocaleKey.startBespokeSearch.tr(),

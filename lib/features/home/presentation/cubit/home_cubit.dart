@@ -1,15 +1,19 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:car/core/network/status.state.dart';
 import 'package:car/features/home/data/model/add_booking_permission_model.dart';
 import 'package:car/features/home/data/model/add_booking_permission_response_model.dart';
+import 'package:car/features/home/data/model/add_loan_application_model.dart';
+import 'package:car/features/home/data/model/add_loan_application_response_model.dart';
 import 'package:car/features/home/data/model/banks_data_model.dart';
 import 'package:car/features/home/data/model/brand_cars_data_model.dart';
 import 'package:car/features/home/data/model/cancel_reserved_car_model.dart';
 import 'package:car/features/home/data/model/cancel_reserved_car_response_model.dart';
 import 'package:car/features/home/data/model/cars_models_response.dart';
+import 'package:car/features/home/data/model/customer_loan_application_model.dart';
 import 'package:car/features/home/data/model/financing_ad_model.dart';
 import 'package:car/features/home/data/model/send_otp_model.dart';
 import 'package:car/features/home/data/model/send_otp_response_model.dart';
@@ -279,5 +283,34 @@ class HomeCubit extends Cubit<HomeState> {
 
   void clearProgramCarsFilter() {
     emit(state.copyWith(programCarsStatus: const StatusState.initial()));
+  }
+
+  Future<void> addLoanApplicationWithFiles({
+    required AddLoanApplicationModel model,
+    required List<File> files,
+  }) async {
+    emit(state.copyWith(addLoanApplicationStatus: const StatusState.loading()));
+    final result = await homeRepo.addLoanApplicationWithFiles(
+      model: model,
+      files: files,
+    );
+    result.fold(
+      (failure) =>
+          emit(state.copyWith(addLoanApplicationStatus: StatusState.failure(failure.errMessage))),
+      (response) => emit(state.copyWith(addLoanApplicationStatus: StatusState.success(response))),
+    );
+  }
+
+  Future<void> getCustLoanApplications(String code) async {
+    emit(state.copyWith(custLoanApplicationsStatus: const StatusState.loading()));
+    final result = await homeRepo.getCustLoanApplications(code);
+    result.fold(
+      (failure) => emit(
+        state.copyWith(custLoanApplicationsStatus: StatusState.failure(failure.errMessage)),
+      ),
+      (response) => emit(
+        state.copyWith(custLoanApplicationsStatus: StatusState.success(response)),
+      ),
+    );
   }
 }

@@ -1,28 +1,18 @@
-import 'package:car/core/custom_widgets/custom_app_bar/custom_app_bar.dart';
+import 'package:car/core/cache/hive/hive_methods.dart';
+import 'package:car/core/services/services_locator.dart';
+import 'package:car/features/home/presentation/cubit/home_cubit.dart';
+import 'package:car/features/profile/presentation/screen/widget/track_order_view_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class TrackOrderScreen extends StatelessWidget {
   const TrackOrderScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CustomAppBar(context, title: const Text('Track Order')),
-      body: Center(
-        child: Padding(
-          padding: EdgeInsets.all(24),
-          child: Column(
-            children: [
-              Image.asset('assets/images/picture.png'),
-              const SizedBox(height: 16),
-              const Text(
-                'Your order tracking details will be available soon.',
-                textAlign: TextAlign.center,
-              ),
-            ],
-          ),
-        ),
-      ),
+    return BlocProvider.value(
+      value: sl<HomeCubit>()..getCustLoanApplications(HiveMethods.getUserCode() ?? ''),
+      child: const TrackOrderView(),
     );
   }
 }

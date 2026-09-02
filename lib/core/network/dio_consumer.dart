@@ -34,11 +34,22 @@ class DioConsumer implements ApiConsumer {
     }
   }
 
+  dynamic _processBody(dynamic body, bool? isFormData) {
+    if (isFormData == true && body != null) {
+      if (body is FormData) {
+        return body;
+      } else if (body is Map<String, dynamic>) {
+        return FormData.fromMap(body);
+      }
+    }
+    return body;
+  }
+
   @override
   Future get(
     String path, {
     Map<String, dynamic>? queryParameters,
-    Map<String, dynamic>? body,
+    dynamic body,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
   }) async {
@@ -54,7 +65,7 @@ class DioConsumer implements ApiConsumer {
   @override
   Future post(
     String path, {
-    Map<String, dynamic>? body,
+    dynamic body,
     Map<String, dynamic>? queryParameters,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -62,7 +73,7 @@ class DioConsumer implements ApiConsumer {
   }) async {
     var response = await client.post(
       path,
-      data: isFormData == true ? FormData.fromMap(body!) : body,
+      data: _processBody(body, isFormData),
       queryParameters: queryParameters,
       options: Options(headers: headers, extra: extra),
     );
@@ -72,7 +83,7 @@ class DioConsumer implements ApiConsumer {
   @override
   Future put(
     String path, {
-    Map<String, dynamic>? body,
+    dynamic body,
     Map<String, dynamic>? queryParameters,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -80,7 +91,7 @@ class DioConsumer implements ApiConsumer {
   }) async {
     final response = await client.put(
       path,
-      data: isFormData == true ? FormData.fromMap(body!) : body,
+      data: _processBody(body, isFormData),
       queryParameters: queryParameters,
       options: Options(headers: headers, extra: extra),
     );
@@ -90,7 +101,7 @@ class DioConsumer implements ApiConsumer {
   @override
   Future delete(
     String path, {
-    Map<String, dynamic>? body,
+    dynamic body,
     Map<String, dynamic>? queryParameters,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -98,7 +109,7 @@ class DioConsumer implements ApiConsumer {
   }) async {
     final response = await client.request(
       path,
-      data: isFormData == true ? FormData.fromMap(body!) : body,
+      data: _processBody(body, isFormData),
       queryParameters: queryParameters,
       options: Options(method: 'DELETE', headers: headers, extra: extra),
     );

@@ -23,6 +23,9 @@ class HomeState extends Equatable {
   final StatusState<List<FinancingAdModel>> financingAdsStatus;
   final StatusState<List<FinancingAdModel>> programCarsStatus;
   final StatusState<List<FinancingAdModel>> normalFinancingStatus;
+  final StatusState<AddLoanApplicationResponseModel> addLoanApplicationStatus;
+  final StatusState<List<CustomerLoanApplicationModel>> custLoanApplicationsStatus;
+
   const HomeState({
     this.carsModelsStatus = const StatusState.initial(),
     this.brandCarsStatus = const StatusState.initial(),
@@ -46,7 +49,10 @@ class HomeState extends Equatable {
     this.financingAdsStatus = const StatusState.initial(),
     this.programCarsStatus = const StatusState.initial(),
     this.normalFinancingStatus = const StatusState.initial(),
+    this.addLoanApplicationStatus = const StatusState.initial(),
+    this.custLoanApplicationsStatus = const StatusState.initial(),
   });
+
   HomeState copyWith({
     StatusState? carsModelsStatus,
     StatusState? brandCarsStatus,
@@ -70,6 +76,8 @@ class HomeState extends Equatable {
     StatusState<List<FinancingAdModel>>? financingAdsStatus,
     StatusState<List<FinancingAdModel>>? programCarsStatus,
     StatusState<List<FinancingAdModel>>? normalFinancingStatus,
+    StatusState<AddLoanApplicationResponseModel>? addLoanApplicationStatus,
+    StatusState<List<CustomerLoanApplicationModel>>? custLoanApplicationsStatus,
   }) {
     return HomeState(
       carsModelsStatus: carsModelsStatus ?? this.carsModelsStatus,
@@ -96,6 +104,9 @@ class HomeState extends Equatable {
       financingAdsStatus: financingAdsStatus ?? this.financingAdsStatus,
       programCarsStatus: programCarsStatus ?? this.programCarsStatus,
       normalFinancingStatus: normalFinancingStatus ?? this.normalFinancingStatus,
+      addLoanApplicationStatus: addLoanApplicationStatus ?? this.addLoanApplicationStatus,
+      custLoanApplicationsStatus:
+          custLoanApplicationsStatus ?? this.custLoanApplicationsStatus,
     );
   }
 
@@ -123,5 +134,7 @@ class HomeState extends Equatable {
     financingAdsStatus,
     programCarsStatus,
     normalFinancingStatus,
+    addLoanApplicationStatus,
+    custLoanApplicationsStatus,
   ];
 }

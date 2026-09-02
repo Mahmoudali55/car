@@ -105,10 +105,7 @@ class AppRouters {
         final orderId = args is String
             ? args
             : (args is Map<String, dynamic> ? args['orderId']?.toString() : null);
-        return MaterialPageRoute(
-          settings: settings,
-          builder: (_) => TrackOrderScreen(orderId: orderId ?? 'ORD-1001'),
-        );
+
       case RoutesName.recentlyViewedScreen:
         return MaterialPageRoute(builder: (_) => const RecentlyViewedScreen());
       case RoutesName.tradeInScreen:
@@ -195,17 +192,6 @@ class AppRouters {
         );
       case RoutesName.financingProgramOffersScreen:
       case RoutesName.offersScreen:
-        int? programId;
-        String? programName;
-        if (args is Map<String, dynamic>) {
-          programId = args['programId'] as int?;
-          programName = args['programName'] as String?;
-        } else if (args is int) {
-          programId = args;
-        }
-        return MaterialPageRoute(
-          builder: (_) => OffersScreen(programId: programId, programName: programName),
-        );
       default:
         return null;
     }

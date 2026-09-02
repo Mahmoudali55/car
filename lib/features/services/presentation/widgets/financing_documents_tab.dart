@@ -13,14 +13,31 @@ import 'package:gap/gap.dart';
 import 'package:image_picker/image_picker.dart';
 
 class FinancingDocumentsTab extends StatefulWidget {
-  const FinancingDocumentsTab({super.key});
+  final Map<String, File?>? uploadedFiles;
+  final ValueChanged<Map<String, File?>>? onFilesChanged;
+
+  const FinancingDocumentsTab({
+    super.key,
+    this.uploadedFiles,
+    this.onFilesChanged,
+  });
 
   @override
   State<FinancingDocumentsTab> createState() => _FinancingDocumentsTabState();
 }
 
 class _FinancingDocumentsTabState extends State<FinancingDocumentsTab> {
-  final Map<String, File?> uploadedFiles = {};
+  late Map<String, File?> uploadedFiles;
+
+  @override
+  void initState() {
+    super.initState();
+    uploadedFiles = widget.uploadedFiles ?? {};
+  }
+
+  void _notifyFilesChanged() {
+    widget.onFilesChanged?.call(uploadedFiles);
+  }
 
   // ─── Pickers ───────────────────────────────────────────────────────────────
 
@@ -28,14 +45,20 @@ class _FinancingDocumentsTabState extends State<FinancingDocumentsTab> {
     final hasPermission = await PermissionService.requestPhotoPermission(context);
     if (!hasPermission) return;
     final image = await ImagePicker().pickImage(source: ImageSource.gallery, imageQuality: 70);
-    if (image != null) setState(() => uploadedFiles[key] = File(image.path));
+    if (image != null) {
+      setState(() => uploadedFiles[key] = File(image.path));
+      _notifyFilesChanged();
+    }
   }
 
   Future<void> _pickImageFromCamera(String key) async {
     final hasPermission = await PermissionService.requestPhotoPermission(context);
     if (!hasPermission) return;
     final image = await ImagePicker().pickImage(source: ImageSource.camera, imageQuality: 70);
-    if (image != null) setState(() => uploadedFiles[key] = File(image.path));
+    if (image != null) {
+      setState(() => uploadedFiles[key] = File(image.path));
+      _notifyFilesChanged();
+    }
   }
 
   Future<void> _pickPdfFile(String key) async {
@@ -45,6 +68,7 @@ class _FinancingDocumentsTabState extends State<FinancingDocumentsTab> {
     );
     if (result != null && result.files.single.path != null) {
       setState(() => uploadedFiles[key] = File(result.files.single.path!));
+      _notifyFilesChanged();
     }
   }
 
@@ -340,7 +364,10 @@ class _FinancingDocumentsTabState extends State<FinancingDocumentsTab> {
                 ),
                 Gap(6.w),
                 GestureDetector(
-                  onTap: () => setState(() => uploadedFiles[label] = null),
+                  onTap: () {
+                    setState(() => uploadedFiles[label] = null);
+                    _notifyFilesChanged();
+                  },
                   child: Icon(
                     Icons.close_rounded,
                     size: 16.sp,

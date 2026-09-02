@@ -1,13 +1,16 @@
+import 'dart:io';
+
 import 'package:car/core/cache/hive/hive_methods.dart';
 import 'package:car/core/custom_widgets/custom_app_bar/custom_app_bar.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
+import 'package:car/features/cars/presentation/widget/otp_bottom_sheet.dart';
+import 'package:car/features/home/data/model/add_loan_application_model.dart';
 import 'package:car/features/home/data/model/brand_cars_data_model.dart';
 import 'package:car/features/home/data/model/financing_ad_model.dart';
 import 'package:car/features/home/data/model/send_otp_model.dart';
 import 'package:car/features/home/presentation/cubit/home_cubit.dart';
-import 'package:car/features/cars/presentation/widget/otp_bottom_sheet.dart';
 import 'package:car/features/services/presentation/widgets/financing_bottom_bar.dart';
 import 'package:car/features/services/presentation/widgets/financing_calculator_bottom_sheet.dart';
 import 'package:car/features/services/presentation/widgets/financing_cancel_dialog.dart';
@@ -55,6 +58,22 @@ class _FinancingScreenState extends State<FinancingScreen> with SingleTickerProv
   final _formKey1 = GlobalKey<FormState>();
   final _formKey2 = GlobalKey<FormState>();
 
+  // Personal Info Form
+  final _fullNameCtrl = TextEditingController();
+  final _idCtrl = TextEditingController();
+  final _phoneCtrl = TextEditingController();
+  String _selectedGender = 'male';
+  String _selectedCity = 'الرياض';
+
+  // Work Info Form
+  final _employerCtrl = TextEditingController();
+  final _jobTitleCtrl = TextEditingController();
+  final _salaryCtrl = TextEditingController();
+  String _employmentType = 'private';
+
+  // Documents
+  Map<String, File?> _uploadedFiles = {};
+
   bool _isCalculatorCompleted = false;
 
   // OTP state
@@ -62,6 +81,7 @@ class _FinancingScreenState extends State<FinancingScreen> with SingleTickerProv
   String? _expectedOtp;
   bool _isOtpSheetOpen = false;
   bool _isSendingOtp = false;
+  bool _isSubmittingLoan = false;
 
   static const double _defaultApr = 4.5;
 
@@ -94,6 +114,10 @@ class _FinancingScreenState extends State<FinancingScreen> with SingleTickerProv
   @override
   void initState() {
     super.initState();
+    _fullNameCtrl.text = HiveMethods.getname() ?? '';
+    _phoneCtrl.text = HiveMethods.getphone() ?? '';
+    _selectedCity = AppLocaleKey.cityRiyadh.tr();
+
     _selectedOffer = widget.offer ?? (widget.offers.isNotEmpty ? widget.offers.first : null);
     _tabController = TabController(length: 3, vsync: this)
       ..addListener(() {
@@ -121,6 +145,12 @@ class _FinancingScreenState extends State<FinancingScreen> with SingleTickerProv
   @override
   void dispose() {
     _tabController.dispose();
+    _fullNameCtrl.dispose();
+    _idCtrl.dispose();
+    _phoneCtrl.dispose();
+    _employerCtrl.dispose();
+    _jobTitleCtrl.dispose();
+    _salaryCtrl.dispose();
     super.dispose();
   }
 
@@ -193,23 +223,64 @@ class _FinancingScreenState extends State<FinancingScreen> with SingleTickerProv
 
     if (current == 0) {
       if (!(_formKey1.currentState?.validate() ?? false)) return;
-      // Send OTP to the phone number entered in the form
+      _phoneNumber = _phoneCtrl.text;
       context.read<HomeCubit>().sendOtp(SendOtpModel(mobileNumber: _phoneNumber));
     } else if (current == 1) {
       if (!(_formKey2.currentState?.validate() ?? false)) return;
       if (current < 2) _tabController.animateTo(current + 1);
     } else if (current == 2) {
-      _showSnack(AppLocaleKey.requestSubmittedSuccess.tr());
-      Future.delayed(const Duration(seconds: 1), () {
-        if (mounted) Navigator.of(context).pop();
-      });
+      _submitLoanApplication();
     }
+  }
+
+  void _submitLoanApplication() {
+    final double workTypeValue = _employmentType == 'government'
+        ? 2.0
+        : (_employmentType == 'self' ? 3.0 : 1.0);
+
+    final int genderValue = _selectedGender == 'female' ? 2 : 1;
+
+    final String makeYearStr =
+        widget.car?.makeYear.toString() ?? DateTime.now().year.toString();
+
+    final int customerNoVal = int.tryParse(HiveMethods.getcode() ?? '') ?? 0;
+
+    final model = AddLoanApplicationModel(
+      applicationId: 0,
+      programId: _activeOffer?.programId ?? 2,
+      programName:
+          _activeOffer?.programName ?? _activeOffer?.displayBankName ?? 'Auto Finance Premium',
+      customerNo: customerNoVal,
+      idNo: _idCtrl.text.trim(),
+      // areaNo: _selectedCity,
+      itemCode: widget.car?.itemCode ?? '',
+      itemName: widget.car?.itemName ?? '',
+      makeYear: makeYearStr,
+      salePrice: _carPrice,
+      workType: workTypeValue,
+      employer: _employerCtrl.text.trim(),
+      jobTitle: _jobTitleCtrl.text.trim(),
+      monthlySalary: double.tryParse(_salaryCtrl.text.trim()) ?? 0.0,
+      termMonths: _durationYears * 12,
+      downPayment: _downPayment,
+      lastPayment: _lastPayment,
+      loanAmount: _financedAmount,
+      monthlyInstallment: _monthlyInstallment,
+      applicationStatus: 0,
+      gender: genderValue,
+    );
+
+    final filesList = _uploadedFiles.values.whereType<File>().toList();
+
+    context.read<HomeCubit>().addLoanApplicationWithFiles(
+      model: model,
+      files: filesList,
+    );
   }
 
   void _showOtpSheet() {
     if (_isOtpSheetOpen) return;
     _isOtpSheetOpen = true;
-    // Read cubit BEFORE entering the builder to avoid Provider.of outside widget tree
     final homeCubit = context.read<HomeCubit>();
     showModalBottomSheet(
       context: context,
@@ -258,22 +329,48 @@ class _FinancingScreenState extends State<FinancingScreen> with SingleTickerProv
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<HomeCubit, HomeState>(
-      listenWhen: (prev, curr) => prev.sendOtpStatus != curr.sendOtpStatus,
-      listener: (context, state) {
-        final status = state.sendOtpStatus;
-        if (status.isLoading) {
-          setState(() => _isSendingOtp = true);
-        } else {
-          setState(() => _isSendingOtp = false);
-          if (status.isSuccess && status.data != null) {
-            _expectedOtp = status.data!.message;
-            if (status.data!.success) {
-              _showOtpSheet();
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<HomeCubit, HomeState>(
+          listenWhen: (prev, curr) => prev.sendOtpStatus != curr.sendOtpStatus,
+          listener: (context, state) {
+            final status = state.sendOtpStatus;
+            if (status.isLoading) {
+              setState(() => _isSendingOtp = true);
+            } else {
+              setState(() => _isSendingOtp = false);
+              if (status.isSuccess && status.data != null) {
+                _expectedOtp = status.data!.message;
+                if (status.data!.success) {
+                  _showOtpSheet();
+                }
+              }
             }
-          }
-        }
-      },
+          },
+        ),
+        BlocListener<HomeCubit, HomeState>(
+          listenWhen: (prev, curr) =>
+              prev.addLoanApplicationStatus != curr.addLoanApplicationStatus,
+          listener: (context, state) {
+            final status = state.addLoanApplicationStatus;
+            if (status.isLoading) {
+              setState(() => _isSubmittingLoan = true);
+            } else if (status.isFailure) {
+              setState(() => _isSubmittingLoan = false);
+              _showSnack(status.error ?? 'حدث خطأ أثناء تقديم طلب التمويل');
+            } else if (status.isSuccess && status.data != null) {
+              setState(() => _isSubmittingLoan = false);
+              final msg = status.data!.msg.isNotEmpty
+                  ? status.data!.msg
+                  : AppLocaleKey.requestSubmittedSuccess.tr();
+              _showSnack(msg);
+              Future.delayed(const Duration(seconds: 1), () {
+                if (mounted) Navigator.of(context).pop();
+              });
+            }
+          },
+        ),
+      ],
       child: _buildScaffold(context),
     );
   }
@@ -316,9 +413,27 @@ class _FinancingScreenState extends State<FinancingScreen> with SingleTickerProv
                 onEditCalculator: _showCalculatorSheet,
                 onShowRequirements: _showRequirementsSheet,
                 onPhoneChanged: (phone) => _phoneNumber = phone,
+                fullNameCtrl: _fullNameCtrl,
+                idCtrl: _idCtrl,
+                phoneCtrl: _phoneCtrl,
+                selectedGender: _selectedGender,
+                onGenderChanged: (g) => setState(() => _selectedGender = g ?? 'male'),
+                // selectedCity: _selectedCity,
+                // onCityChanged: (c) => setState(() => _selectedCity = c ?? 'الرياض'),
               ),
-              FinancingWorkInfoTab(formKey: _formKey2, onShowCalculator: _showCalculatorSheet),
-              const FinancingDocumentsTab(),
+              FinancingWorkInfoTab(
+                formKey: _formKey2,
+                onShowCalculator: _showCalculatorSheet,
+                employerCtrl: _employerCtrl,
+                jobTitleCtrl: _jobTitleCtrl,
+                salaryCtrl: _salaryCtrl,
+                employmentType: _employmentType,
+                onEmploymentTypeChanged: (t) => setState(() => _employmentType = t ?? 'private'),
+              ),
+              FinancingDocumentsTab(
+                uploadedFiles: _uploadedFiles,
+                onFilesChanged: (files) => setState(() => _uploadedFiles = files),
+              ),
             ],
           ),
         ),
@@ -326,7 +441,7 @@ class _FinancingScreenState extends State<FinancingScreen> with SingleTickerProv
           padding: EdgeInsets.only(bottom: 20.r),
           child: FinancingBottomBar(
             currentIndex: _tabController.index,
-            isLoading: _isSendingOtp,
+            isLoading: _isSendingOtp || _isSubmittingLoan,
             onNext: _onNextStep,
             onBack: () => _tabController.animateTo(_tabController.index - 1),
           ),

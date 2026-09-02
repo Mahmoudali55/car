@@ -706,7 +706,7 @@
   "faq_a3": "نعم، نوفر حلول تمويلية عبر العديد من البنوك المحلية وخدمات تابي وتمارا.",
   "faq_q4": "كيف يمكنني متابعة حالة طلبي؟",
   "faq_a4": "يمكنك عرض حالة طلبك وسجل الخدمات في قسم \"حسابي\" تحت \"سجل الخدمات\".",
-  "track_order": "متابعة الطلب",
+  "track_order": "متابعة طلبات التمويل",
   "no_active_orders": "لا توجد طلبات نشطة حالياً",
   "order_id_label": "رقم الطلب",
   "estimated_delivery": "التسليم المتوقع",
@@ -1509,6 +1509,24 @@
   "agentNoNotifications":"لا يوجد طلبات",
   "agentNewOrders":"الطلبات الجديدة",
   "agentNoNewNotifications":"لا توجد إشعارات جديدة",
-  "agentNotifications":"ستظهر هنا جميع الإشعارات التي تحتاج ردّك"
-
+  "agentNotifications":"ستظهر هنا جميع الإشعارات التي تحتاج ردّك",
+  "loan_applications": "طلبات التمويل",
+  "something_went_wrong": "حدث خطأ ما",
+  "loan_pending": "قيد المعالجة",
+  "loan_approved": "مقبول",
+  "loan_rejected": "مرفوض",
+  "application_number": "رقم الطلب: #",
+  "car_price": "سعر السيارة",
+  "loan_amount": "مبلغ التمويل",
+  "finance_duration": "مدة التمويل",
+  "months_count": "شهر",
+  "no_last_payment": "لا يوجد",
+  "application_date": "تاريخ التقديم: ",
+  "no_applications": "لا توجد طلبات تمويل",
+  "no_applications_desc": "لم تقم بتقديم أي طلبات تمويل حتى الآن",
+  "customer_id": "رقم العميل:",
+  "financial_summary": "الملخص المالي",
+  "current_balance": "الرصيد الحالي",
+  "credit_limit": "الحد الائتماني"
 }
+

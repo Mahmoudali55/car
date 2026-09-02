@@ -1,20 +1,24 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:car/core/cache/hive/hive_methods.dart';
 import 'package:car/core/error/failures.dart';
 import 'package:car/core/network/api_consumer.dart';
 import 'package:car/core/network/end_points.dart';
+import 'package:car/core/services/notification_service.dart';
 import 'package:car/features/home/data/model/add_booking_permission_model.dart';
 import 'package:car/features/home/data/model/add_booking_permission_response_model.dart';
+import 'package:car/features/home/data/model/add_loan_application_model.dart';
+import 'package:car/features/home/data/model/add_loan_application_response_model.dart';
 import 'package:car/features/home/data/model/banks_data_model.dart';
 import 'package:car/features/home/data/model/brand_cars_data_model.dart';
 import 'package:car/features/home/data/model/cancel_reserved_car_model.dart';
 import 'package:car/features/home/data/model/cancel_reserved_car_response_model.dart';
 import 'package:car/features/home/data/model/cars_models_response.dart';
+import 'package:car/features/home/data/model/customer_loan_application_model.dart';
 import 'package:car/features/home/data/model/financing_ad_model.dart';
 import 'package:car/features/home/data/model/send_otp_model.dart';
 import 'package:car/features/home/data/model/send_otp_response_model.dart';
-import 'package:car/core/services/notification_service.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
@@ -40,6 +44,11 @@ abstract interface class HomeRepo {
   Future<Either<Failure, List<BANKSDATAModel>>> getBanks(String? Searchval);
   Future<Either<Failure, List<FinancingAdModel>>> getFinancingAds({String? code});
   Future<Either<Failure, List<FinancingAdModel>>> getNormalFinancing({String? code});
+  Future<Either<Failure, AddLoanApplicationResponseModel>> addLoanApplicationWithFiles({
+    required AddLoanApplicationModel model,
+    required List<File> files,
+  });
+  Future<Either<Failure, List<CustomerLoanApplicationModel>>> getCustLoanApplications(String code);
 }
 
 class HomeRepoImpl implements HomeRepo {
@@ -300,6 +309,155 @@ class HomeRepoImpl implements HomeRepo {
           queryParameters: {'Code': code ?? ''},
         );
         return FinancingAdModel.listFromResponse(response['Data']);
+      },
+    );
+  }
+
+  @override
+  Future<Either<Failure, AddLoanApplicationResponseModel>> addLoanApplicationWithFiles({
+    required AddLoanApplicationModel model,
+    required List<File> files,
+  }) async {
+    return handleDioRequest(
+      request: () async {
+        final formData = FormData();
+        formData.fields.add(MapEntry('modelData', jsonEncode(model.toJson())));
+
+        for (final file in files) {
+          if (await file.exists()) {
+            final fileName = file.path.split('/').last;
+            final ext = fileName.split('.').last.toLowerCase();
+            final contentType = ext == 'pdf'
+                ? DioMediaType('application', 'pdf')
+                : (ext == 'png' ? DioMediaType('image', 'png') : DioMediaType('image', 'jpeg'));
+
+            formData.files.add(
+              MapEntry(
+                '1',
+                await MultipartFile.fromFile(
+                  file.path,
+                  filename: fileName,
+                  contentType: contentType,
+                ),
+              ),
+            );
+          }
+        }
+
+        final response = await apiConsumer.post(
+          EndPoints.addLoanApplicationsWithFiles,
+          body: formData,
+          isFormData: true,
+          headers: {'username': Uri.encodeComponent(HiveMethods.getUserName().toString())},
+        );
+
+        final result = AddLoanApplicationResponseModel.fromJson(response);
+
+        // Fetch FCM tokens and send push notifications
+        try {
+          await _sendLoanFcmNotifications(
+            customerNo: model.customerNo,
+            carDetails: model.itemName,
+            applicationId: result.applicationId,
+          );
+        } catch (e) {
+          if (kDebugMode) {
+            print('[addLoanApplication FCM Error] $e');
+          }
+        }
+
+        return result;
+      },
+    );
+  }
+
+  Future<void> _sendLoanFcmNotifications({
+    required int customerNo,
+    required String carDetails,
+    required String applicationId,
+  }) async {
+    final fcmResponse = await apiConsumer.get(
+      EndPoints.getFCM,
+      queryParameters: {'CUSTOMER_NO': customerNo, 'REPRESCODE': 0},
+    );
+
+    List<String> tokens = [];
+    dynamic rawData = fcmResponse['Data'];
+    if (rawData is String && rawData.isNotEmpty && rawData != 'null') {
+      try {
+        rawData = jsonDecode(rawData);
+      } catch (_) {}
+    }
+
+    if (rawData is List) {
+      for (var item in rawData) {
+        if (item is Map && item.containsKey('FCM') && item['FCM'] != null) {
+          final t = item['FCM'].toString().trim();
+          if (t.isNotEmpty) tokens.add(t);
+        }
+      }
+    }
+
+    if (tokens.isEmpty) return;
+
+    final String userName = HiveMethods.getname() ?? '';
+    final String userPhone = HiveMethods.getphone() ?? HiveMethods.getSavedMobile() ?? '';
+    final String userInfo = [
+      if (userName.isNotEmpty) 'اسم العميل: $userName',
+      if (userPhone.isNotEmpty) 'الجوال: $userPhone',
+    ].join(' | ');
+
+    final String appText = applicationId.isNotEmpty ? ' | رقم الطلب: $applicationId' : '';
+    final String bodyForOthers = userInfo.isNotEmpty
+        ? '$userInfo$appText'
+        : 'تم تقديم طلب تمويل جديد لسيارة ($carDetails)$appText';
+
+    // 1st SendNotification: يرسل للعميل فقط (tokens[0])
+    await apiConsumer.post(
+      EndPoints.sendNotification,
+      body: {
+        'deviceToken': [tokens[0]],
+        'title': 'طلب تمويل سيارة',
+        'body': 'تم تقديم طلب التمويل لسيارة ($carDetails) بنجاح وسيتم التواصل معكم قريباً.',
+      },
+    );
+
+    // 2nd SendNotification: يرسل لباقي التوكينات للادارة والمندوبين (tokens.sublist(1))
+    if (tokens.length > 1) {
+      await apiConsumer.post(
+        EndPoints.sendNotification,
+        body: {
+          'deviceToken': tokens.sublist(1),
+          'title': 'طلب تمويل جديد - $carDetails',
+          'body': bodyForOthers,
+        },
+      );
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<CustomerLoanApplicationModel>>> getCustLoanApplications(String code) async {
+    return handleDioRequest(
+      request: () async {
+        final response = await apiConsumer.get(
+          EndPoints.getCustLoanApplications,
+          queryParameters: {'Code': code},
+        );
+
+        dynamic rawData = response['Data'];
+        if (rawData is String && rawData.isNotEmpty && rawData != 'null') {
+          try {
+            rawData = jsonDecode(rawData);
+          } catch (_) {}
+        }
+
+        if (rawData is List) {
+          return rawData
+              .map((e) => CustomerLoanApplicationModel.fromJson(Map<String, dynamic>.from(e)))
+              .toList();
+        }
+
+        return [];
       },
     );
   }

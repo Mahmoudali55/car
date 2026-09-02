@@ -21,4 +21,8 @@ class EndPoints {
   static const String getFinancingNormal = 'DeltagroupService/Cars/GetFinancingnormal';
   static const String getFCM = 'DeltagroupService/Cars/GetFCM';
   static const String sendNotification = 'DeltagroupService/Cars/SendNotification';
+  static const String addLoanApplicationsWithFiles =
+      'DeltagroupService/Cars/AddLoanApplicationswithfiles';
+  static const String getCustLoanApplications =
+      'DeltagroupService/Cars/GetcustLoanApplications';
 }

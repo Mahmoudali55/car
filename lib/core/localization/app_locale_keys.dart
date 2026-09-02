@@ -1560,5 +1560,23 @@ class AppLocaleKey {
   static const String agentNoNotifications = 'agentNoNotifications';
   static const String agentNewOrders = 'agentNewOrders';
   static const String agentNoNewNotifications = 'agentNoNewNotifications';
-  static const String agentNotifications = 'agentNotifications';
+  static const String agentNotifications = 'agent_notifications';
+  static const String loanApplications = 'loan_applications';
+  static const String somethingWentWrong = 'something_went_wrong';
+  static const String loanPending = 'loan_pending';
+  static const String loanApproved = 'loan_approved';
+  static const String loanRejected = 'loan_rejected';
+  static const String applicationNumber = 'application_number';
+  static const String carPrice = 'car_price';
+  static const String loanAmount = 'loan_amount';
+  static const String financeDuration = 'finance_duration';
+  static const String monthsCount = 'months_count';
+  static const String noLastPayment = 'no_last_payment';
+  static const String applicationDate = 'application_date';
+  static const String noApplications = 'no_applications';
+  static const String noApplicationsDesc = 'no_applications_desc';
+  static const String customerId = 'customer_id';
+  static const String financialSummary = 'financial_summary';
+  static const String currentBalance = 'current_balance';
+  static const String creditLimit = 'credit_limit';
 }

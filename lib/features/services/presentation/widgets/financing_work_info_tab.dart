@@ -13,25 +13,48 @@ import 'package:gap/gap.dart';
 class FinancingWorkInfoTab extends StatefulWidget {
   final GlobalKey<FormState> formKey;
   final VoidCallback onShowCalculator;
+  final TextEditingController? employerCtrl;
+  final TextEditingController? jobTitleCtrl;
+  final TextEditingController? salaryCtrl;
+  final String? employmentType;
+  final ValueChanged<String?>? onEmploymentTypeChanged;
 
-  const FinancingWorkInfoTab({super.key, required this.formKey, required this.onShowCalculator});
+  const FinancingWorkInfoTab({
+    super.key,
+    required this.formKey,
+    required this.onShowCalculator,
+    this.employerCtrl,
+    this.jobTitleCtrl,
+    this.salaryCtrl,
+    this.employmentType,
+    this.onEmploymentTypeChanged,
+  });
 
   @override
   State<FinancingWorkInfoTab> createState() => _FinancingWorkInfoTabState();
 }
 
 class _FinancingWorkInfoTabState extends State<FinancingWorkInfoTab> {
-  final _employerCtrl = TextEditingController();
-  final _jobTitleCtrl = TextEditingController();
-  final _salaryCtrl = TextEditingController();
+  late TextEditingController _employerCtrl;
+  late TextEditingController _jobTitleCtrl;
+  late TextEditingController _salaryCtrl;
 
   String? _employmentType;
 
   @override
+  void initState() {
+    super.initState();
+    _employerCtrl = widget.employerCtrl ?? TextEditingController();
+    _jobTitleCtrl = widget.jobTitleCtrl ?? TextEditingController();
+    _salaryCtrl = widget.salaryCtrl ?? TextEditingController();
+    _employmentType = widget.employmentType ?? 'private';
+  }
+
+  @override
   void dispose() {
-    _employerCtrl.dispose();
-    _jobTitleCtrl.dispose();
-    _salaryCtrl.dispose();
+    if (widget.employerCtrl == null) _employerCtrl.dispose();
+    if (widget.jobTitleCtrl == null) _jobTitleCtrl.dispose();
+    if (widget.salaryCtrl == null) _salaryCtrl.dispose();
     super.dispose();
   }
 
@@ -62,7 +85,10 @@ class _FinancingWorkInfoTabState extends State<FinancingWorkInfoTab> {
                     value: 'private',
                     label: AppLocaleKey.agentPrivateSector.tr(),
                     selectedType: _employmentType,
-                    onTap: (v) => setState(() => _employmentType = v),
+                    onTap: (v) {
+                      setState(() => _employmentType = v);
+                      widget.onEmploymentTypeChanged?.call(v);
+                    },
                   ),
                 ),
                 Gap(10.w),
@@ -71,7 +97,10 @@ class _FinancingWorkInfoTabState extends State<FinancingWorkInfoTab> {
                     value: 'government',
                     label: AppLocaleKey.agentGovSector.tr(),
                     selectedType: _employmentType,
-                    onTap: (v) => setState(() => _employmentType = v),
+                    onTap: (v) {
+                      setState(() => _employmentType = v);
+                      widget.onEmploymentTypeChanged?.call(v);
+                    },
                   ),
                 ),
                 Gap(10.w),
@@ -80,7 +109,10 @@ class _FinancingWorkInfoTabState extends State<FinancingWorkInfoTab> {
                     value: 'self',
                     label: AppLocaleKey.agentFreelance.tr(),
                     selectedType: _employmentType,
-                    onTap: (v) => setState(() => _employmentType = v),
+                    onTap: (v) {
+                      setState(() => _employmentType = v);
+                      widget.onEmploymentTypeChanged?.call(v);
+                    },
                   ),
                 ),
               ],
