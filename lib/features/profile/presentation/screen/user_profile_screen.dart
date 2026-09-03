@@ -145,11 +145,11 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                     ),
                                   ),
                                 ),
-                                ActionTileWidget(
-                                  icon: Icons.history_rounded,
-                                  label: AppLocaleKey.myHistory.tr(),
-                                  onTap: () {},
-                                ),
+                                // ActionTileWidget(
+                                //   icon: Icons.history_rounded,
+                                //   label: AppLocaleKey.myHistory.tr(),
+                                //   onTap: () {},
+                                // ),
                               ],
                             ),
                           ),

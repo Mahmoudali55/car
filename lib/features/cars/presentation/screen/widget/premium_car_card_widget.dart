@@ -243,7 +243,7 @@ class PremiumCarCardWidget extends StatelessWidget {
                             ),
                           ),
                           VerticalDivider(color: AppColor.greyColor(context), width: 32.w),
-                          car.installments == null
+                          car.installments?.trim().isNotEmpty != true
                               ? Expanded(
                                   child: GestureDetector(
                                     onTap: () {

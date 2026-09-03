@@ -6,7 +6,6 @@ import 'package:car/features/home/presentation/cubit/home_cubit.dart';
 import 'package:car/features/home/presentation/view/widgets/cart_icon_widget.dart';
 import 'package:car/features/home/presentation/view/widgets/notification_icon_widget.dart';
 import 'package:car/features/home/presentation/view/widgets/profile_icon_widget.dart';
-import 'package:car/features/home/presentation/view/widgets/search_icon_widget.dart';
 import 'package:car/features/home/presentation/view/widgets/support_icon_widget.dart';
 import 'package:car/features/home/presentation/view/widgets/translate_icon_widget.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -91,8 +90,6 @@ class _MainLayoutState extends State<MainLayout> {
                 },
               ),
               actions: [
-                const SearchIconWidget(),
-                Gap(10.w),
                 const NotificationIconWidget(),
                 Gap(10.w),
                 const CartIconWidget(),

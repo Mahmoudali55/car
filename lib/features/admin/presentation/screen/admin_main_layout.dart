@@ -7,9 +7,7 @@ import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/features/admin/presentation/cubit/admin_cubit.dart';
 import 'package:car/features/admin/presentation/screen/admin_dashboard_screen.dart';
 import 'package:car/features/admin/presentation/screen/admin_settings_screen.dart';
-import 'package:car/features/admin/presentation/screen/manage_bookings_screen.dart';
 import 'package:car/features/admin/presentation/screen/manage_cars_screen.dart';
-import 'package:car/features/admin/presentation/screen/revenue_report_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -30,8 +28,6 @@ class _AdminMainLayoutState extends State<AdminMainLayout> {
     final screens = [
       BlocProvider.value(value: sl<AdminCubit>(), child: const AdminDashboardScreen()),
       BlocProvider.value(value: sl<AdminCubit>(), child: const ManageCarsScreen()),
-      const ManageBookingsScreen(),
-      const RevenueReportScreen(),
       const AdminSettingsScreen(),
     ];
     return Scaffold(
@@ -62,13 +58,7 @@ class _AdminMainLayoutState extends State<AdminMainLayout> {
                 children: [
                   _buildNavItem(0, Icons.dashboard_rounded, AppLocaleKey.home.tr()),
                   _buildNavItem(1, Icons.directions_car_rounded, AppLocaleKey.cars.tr()),
-                  _buildNavItem(
-                    2,
-                    Icons.calendar_month_rounded,
-                    AppLocaleKey.bookingsAndTrips.tr(),
-                  ),
-                  _buildNavItem(3, Icons.payments_rounded, AppLocaleKey.financialReports.tr()),
-                  _buildNavItem(4, Icons.settings_rounded, AppLocaleKey.settings.tr()),
+                  _buildNavItem(2, Icons.settings_rounded, AppLocaleKey.settings.tr()),
                 ],
               ),
             ),

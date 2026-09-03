@@ -15,6 +15,7 @@ class CartCubit extends Cubit<CartState> {
   final AdminRepo adminRepo;
   final HomeRepo homeRepo;
   late final CartReservationService _reservationService;
+  bool _isAgentBookings = false;
 
   CartCubit({required this.adminRepo, required this.homeRepo}) : super(CartState.initial()) {
     _reservationService = CartReservationService(homeRepo: homeRepo);
@@ -23,27 +24,27 @@ class CartCubit extends Cubit<CartState> {
 
   // ─── Load reserved cars from API (carstatus=2, CUSTOMER_NO=userCode) ────
 
-  Future<void> loadReservedCars() async {
+  Future<void> loadReservedCars({bool isAgent = false}) async {
+    _isAgentBookings = isAgent;
     if (HiveMethods.isGuest()) {
       emit(state.copyWith(isLoading: false, reservedCars: []));
       return;
     }
 
     final String? userCode = HiveMethods.getcode();
-    if (userCode == null || userCode.trim().isEmpty) {
-      emit(state.copyWith(isLoading: false, reservedCars: []));
-      return;
-    }
+    final int? customerNo = isAgent ? null : int.tryParse(userCode ?? '');
+    final int? represCode = isAgent
+        ? int.tryParse(HiveMethods.getRepresentativeNo() ?? '')
+        : null;
 
-    final int? customerNo = int.tryParse(userCode);
-    if (customerNo == null) {
+    if (!isAgent && customerNo == null) {
       emit(state.copyWith(isLoading: false, reservedCars: []));
       return;
     }
 
     emit(state.copyWith(isLoading: true, errorMessage: null));
 
-    final result = await adminRepo.getCars(2, customerNo);
+    final result = await adminRepo.getCars(2, customerNo, represCode: represCode);
 
     result.fold(
       (failure) {
@@ -108,7 +109,7 @@ class CartCubit extends Cubit<CartState> {
     _reservationService.cancelTimer({'itemCode': car.itemCode});
 
     // Refresh from API (clear the cancellationMessage so it fires only once).
-    if (!isClosed) unawaited(loadReservedCars());
+    if (!isClosed) unawaited(loadReservedCars(isAgent: _isAgentBookings));
   }
 
   // ─── Remove locally only (no endpoint – e.g., after auto-cancel) ─────────
@@ -117,7 +118,7 @@ class CartCubit extends Cubit<CartState> {
     _reservationService.cancelTimer({'itemCode': car.itemCode, 'name': car.itemName});
 
     // Refresh the reserved-cars list from API.
-    unawaited(loadReservedCars());
+    unawaited(loadReservedCars(isAgent: _isAgentBookings));
   }
 
   // ─── Clear all ───────────────────────────────────────────────────────────
@@ -147,7 +148,7 @@ class CartCubit extends Cubit<CartState> {
 
     // Refresh the reserved-cars list from API.
     if (!isClosed) {
-      unawaited(loadReservedCars());
+      unawaited(loadReservedCars(isAgent: _isAgentBookings));
     }
   }
 

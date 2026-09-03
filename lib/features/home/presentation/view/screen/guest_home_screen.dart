@@ -3,11 +3,7 @@ import 'package:car/core/routes/routes_name.dart';
 import 'package:car/core/utils/navigator_methods.dart';
 import 'package:car/features/home/presentation/cubit/home_cubit.dart';
 import 'package:car/features/home/presentation/view/widgets/ads_slider_widget.dart';
-import 'package:car/features/home/presentation/view/widgets/banks_slider_widget.dart';
-import 'package:car/features/home/presentation/view/widgets/budget_cars_list_widget.dart';
-import 'package:car/features/home/presentation/view/widgets/budget_search_widget.dart';
 import 'package:car/features/home/presentation/view/widgets/categories_widget.dart';
-import 'package:car/features/home/presentation/view/widgets/offers_grid_widget.dart';
 import 'package:car/features/home/presentation/view/widgets/popular_cars_slider_widget.dart';
 import 'package:car/features/home/presentation/view/widgets/section_title_widget.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -30,7 +26,8 @@ class _HomeGuestScreenState extends State<HomeGuestScreen> {
   void initState() {
     context.read<HomeCubit>().getCarsModels();
     context.read<HomeCubit>().getBanks();
-    context.read<HomeCubit>().getFinancingAds();
+    context.read<HomeCubit>().fetchAllCars();
+    context.read<HomeCubit>().getNormalFinancing();
     super.initState();
   }
 
@@ -89,25 +86,25 @@ class _HomeGuestScreenState extends State<HomeGuestScreen> {
                 //     );
                 //   },
                 // ),
-                SectionTitleWidget(title: AppLocaleKey.searchByBudget.tr(), onSeeAll: null),
-                Gap(15.h),
-                const BanksSliderWidget(),
-                Gap(15.h),
-                BudgetSearchWidget(
-                  initialIndex: _selectedBudgetIndex,
-                  onChanged: (index) {
-                    setState(() {
-                      _selectedBudgetIndex = index;
-                    });
-                  },
-                ),
-                Gap(20.h),
-                BudgetCarsListWidget(selectedBudgetIndex: _selectedBudgetIndex),
-                Gap(30.h),
-                SectionTitleWidget(title: AppLocaleKey.trendingNow.tr()),
-                Gap(15.h),
-                const OffersGridWidget(),
-                Gap(40.h),
+                // SectionTitleWidget(title: AppLocaleKey.searchByBudget.tr(), onSeeAll: null),
+                // Gap(15.h),
+                // const BanksSliderWidget(),
+                // Gap(15.h),
+                // BudgetSearchWidget(
+                //   initialIndex: _selectedBudgetIndex,
+                //   onChanged: (index) {
+                //     setState(() {
+                //       _selectedBudgetIndex = index;
+                //     });
+                //   },
+                // ),
+                // Gap(20.h),
+                // BudgetCarsListWidget(selectedBudgetIndex: _selectedBudgetIndex),
+                // Gap(30.h),
+                // SectionTitleWidget(title: AppLocaleKey.trendingNow.tr()),
+                // Gap(15.h),
+                // const OffersGridWidget(),
+                // Gap(40.h),
               ],
             ),
           ),

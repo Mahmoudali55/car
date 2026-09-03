@@ -1,8 +1,6 @@
 import 'package:car/core/custom_widgets/custom_sar_text.dart';
-import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -25,10 +23,10 @@ class _BudgetSearchWidgetState extends State<BudgetSearchWidget> {
   }
 
   final budgets = [
-    AppLocaleKey.under50k.tr(),
-    AppLocaleKey.k50k100k.tr(),
-    AppLocaleKey.k100k200k.tr(),
-    AppLocaleKey.over200k.tr(),
+    'أقل من 1000',
+    'حتى 1500',
+    'حتى 2000',
+    'أكثر من 2000',
   ];
 
   @override

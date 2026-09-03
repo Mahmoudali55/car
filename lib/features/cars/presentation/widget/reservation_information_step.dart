@@ -7,8 +7,12 @@ import 'package:car/features/cars/presentation/widget/reservation_pricing_card.d
 import 'package:car/features/cars/presentation/widget/reservation_step_indicator.dart';
 import 'package:car/features/cars/presentation/widget/reservation_terms_checkbox_widget.dart';
 import 'package:car/features/home/data/model/brand_cars_data_model.dart';
+import 'package:car/features/admin/data/model/representative_model.dart';
+import 'package:car/features/admin/presentation/cubit/admin_cubit.dart';
+import 'package:car/features/admin/presentation/cubit/admin_state.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
@@ -28,6 +32,8 @@ class ReservationInformationStep extends StatelessWidget {
   final VoidCallback onShowPricingDetails;
   final bool isTermsAccepted;
   final ValueChanged<bool?> onTermsAcceptedChanged;
+  final RepresentativeModel? selectedRepresentative;
+  final ValueChanged<RepresentativeModel?> onRepresentativeChanged;
 
   const ReservationInformationStep({
     super.key,
@@ -46,6 +52,8 @@ class ReservationInformationStep extends StatelessWidget {
     required this.onShowPricingDetails,
     required this.isTermsAccepted,
     required this.onTermsAcceptedChanged,
+    required this.selectedRepresentative,
+    required this.onRepresentativeChanged,
   });
 
   @override
@@ -113,6 +121,40 @@ class ReservationInformationStep extends StatelessWidget {
                           : 'Phone number must be 10 digits';
                     }
                     return null;
+                  },
+                ),
+                const SizedBox(height: 16),
+                BlocBuilder<AdminCubit, AdminState>(
+                  buildWhen: (previous, current) =>
+                      previous.searchRepresentativesStatus != current.searchRepresentativesStatus,
+                  builder: (context, state) {
+                    final status = state.searchRepresentativesStatus;
+                    final representatives = status.data ?? const <RepresentativeModel>[];
+                    return DropdownButtonFormField<RepresentativeModel>(
+                      initialValue: selectedRepresentative,
+                      isExpanded: true,
+                      decoration: InputDecoration(
+                        labelText: 'المندوب (اختياري)',
+                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                      ),
+                      hint: Text(status.isLoading ? 'جاري تحميل المناديب...' : 'اختر مندوبًا'),
+                      items: representatives
+                          .where((representative) => representative.represNo != null)
+                          .map(
+                            (representative) => DropdownMenuItem<RepresentativeModel>(
+                              value: representative,
+                              child: Text(
+                                representative.represName ??
+                                    representative.represNameEng ??
+                                    'مندوب ${representative.represNo}',
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                          )
+                          .toList(),
+                      onChanged: status.isLoading ? null : onRepresentativeChanged,
+                      validator: (value) => null,
+                    );
                   },
                 ),
               ],

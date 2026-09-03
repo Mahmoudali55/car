@@ -45,7 +45,7 @@ class _AgentMyBookingsScreenState extends State<AgentMyBookingsScreen> {
   }
 
   void _refreshBookings() {
-    context.read<CartCubit>().loadReservedCars();
+    context.read<CartCubit>().loadReservedCars(isAgent: true);
   }
 
   @override
@@ -223,7 +223,7 @@ class _AgentMyBookingsScreenState extends State<AgentMyBookingsScreen> {
       name: car.itemName ?? '',
       brand: '—',
       price: car.costPrice ?? 0.0,
-      imageUrl: '',
+      imageUrl: car.imageUrls.isNotEmpty ? car.imageUrls.first : '',
       availability: CarAvailability.reserved,
       year: (car.makeYear ?? 0).toString(),
       mileage: '0',

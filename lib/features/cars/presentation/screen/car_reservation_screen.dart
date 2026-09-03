@@ -7,6 +7,8 @@ import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/core/utils/common_methods.dart';
 import 'package:car/features/admin/data/model/cars_response_model.dart' as admin;
+import 'package:car/features/admin/data/model/representative_model.dart';
+import 'package:car/features/admin/presentation/cubit/admin_cubit.dart';
 import 'package:car/features/cars/presentation/screen/financing_info_screen.dart';
 import 'package:car/features/cars/presentation/screen/reservation_success_screen.dart';
 import 'package:car/features/cars/presentation/widget/buying_faq_section_widget.dart';
@@ -58,6 +60,7 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
   late Map<String, dynamic> _moraErrorCodes;
   String? _expectedOtp;
   bool _isOtpSheetOpen = false;
+  RepresentativeModel? _selectedRepresentative;
   @override
   void initState() {
     super.initState();
@@ -76,6 +79,9 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
       _lastNameController.text = names.length > 1 ? names.sublist(1).join(' ') : '';
     }
     _financePhoneController.text = phone;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) context.read<AdminCubit>().searchRepresentatives(null);
+    });
   }
 
   Future<void> _loadErrorCodes() async {
@@ -297,7 +303,10 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
     ).format(DateTime.now().add(const Duration(days: 1)));
     final storeCodeVal = int.tryParse(widget.car.storeCode) ?? 1;
     final code = HiveMethods.getcode() ?? '';
-    final represCode = int.tryParse(HiveMethods.getRepresentativeNo() ?? '') ?? 0;
+    final represCode =
+      _selectedRepresentative?.represNo ??
+      int.tryParse(HiveMethods.getRepresentativeNo() ?? '') ??
+      0;
     final model = AddBookingPermissionModel(
       lpoNos: '',
       lpono: '',
@@ -485,6 +494,10 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
                   financePhoneController: _financePhoneController,
                   whatsappNotifier: _whatsappNotifier,
                   selectedCityNotifier: _selectedCityNotifier,
+                  selectedRepresentative: _selectedRepresentative,
+                  onRepresentativeChanged: (representative) {
+                    setState(() => _selectedRepresentative = representative);
+                  },
                   onShowPricingDetails: _showPricingDetails,
                   isTermsAccepted: _isTermsAccepted,
                   onTermsAcceptedChanged: (val) => setState(() => _isTermsAccepted = val ?? false),

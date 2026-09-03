@@ -373,9 +373,13 @@ class GetBrandCarsDataModel extends Equatable {
 
       dynamic findInJson(String k) {
         if (json.containsKey(k)) return json[k];
-        final lowerK = k.toLowerCase().trim();
+        final normalizedK = k.toLowerCase().replaceAll(RegExp(r'[^a-z0-9]'), '');
         for (var entry in json.entries) {
-          if (entry.key.toLowerCase().trim() == lowerK) return entry.value;
+          final normalizedEntryKey = entry.key.toLowerCase().replaceAll(
+            RegExp(r'[^a-z0-9]'),
+            '',
+          );
+          if (normalizedEntryKey == normalizedK) return entry.value;
         }
         return null;
       }
@@ -397,6 +401,11 @@ class GetBrandCarsDataModel extends Equatable {
 
     final Set<String> allUniqueImages = {...extraFromMap, ...splitImages};
     final List<String> finalImagesList = allUniqueImages.toList();
+
+    double? getDouble(String key1, [String? key2, String? key3]) {
+      final value = getString(key1, key2, key3).replaceAll(',', '');
+      return double.tryParse(value.replaceAll(RegExp(r'[^0-9.]'), ''));
+    }
 
     return GetBrandCarsDataModel(
       groupCode: int.tryParse(getString('GROUP_CODE', 'groupCode')) ?? 0,
@@ -452,7 +461,18 @@ class GetBrandCarsDataModel extends Equatable {
       extraImages: finalImagesList,
       discount: json['discount']?.toString(),
       oldPrice: json['oldPrice']?.toString(),
-      installments: json['installments']?.toString() ?? json['installmentPrice']?.toString(),
+      installments: getString(
+        'installments',
+        'installmentPrice',
+        'MonthlyInstallment',
+      ),
+      cashPrice: getString('cashPrice'),
+      monthlyInstallment: getDouble(
+        'monthlyInstallment',
+        'MonthlyInstallment',
+        'installmentPrice',
+      ),
+      interestRate: getDouble('interestRate', 'InterestRate'),
       customerName:
           json['CUSTOMER_NAME']?.toString() ??
           json['customerName']?.toString() ??

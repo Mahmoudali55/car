@@ -66,10 +66,11 @@ class AdminSettingsScreen extends StatelessWidget {
                       items: [
                         ThemeToggleItem(isDark: isDark),
                         SettingItemWidget(
-                          icon: Icons.security_rounded,
-                          title: AppLocaleKey.securityAndPrivacy.tr(),
-                          subtitle: AppLocaleKey.managePasswordsPermissions.tr(),
-                          onTap: () => Navigator.pushNamed(context, RoutesName.securitySettings),
+                          icon: Icons.lock_reset_rounded,
+                          title: AppLocaleKey.changePassword.tr(),
+                          subtitle: AppLocaleKey.changeYourPassword.tr(),
+                          onTap: () =>
+                              Navigator.pushNamed(context, RoutesName.changePasswordScreen),
                         ),
                         SettingItemWidget(
                           icon: Icons.language_rounded,
@@ -90,18 +91,6 @@ class AdminSettingsScreen extends StatelessWidget {
                       title: AppLocaleKey.contentManagement.tr(),
                       items: [
                         SettingItemWidget(
-                          icon: Icons.category_rounded,
-                          title: AppLocaleKey.categories.tr(),
-                          subtitle: AppLocaleKey.manageCategoriesDesc.tr(),
-                          onTap: () => Navigator.pushNamed(context, RoutesName.manageCategories),
-                        ),
-                        SettingItemWidget(
-                          icon: Icons.discount_rounded,
-                          title: AppLocaleKey.discountCoupons.tr(),
-                          subtitle: AppLocaleKey.manageOffersDiscounts.tr(),
-                          onTap: () => Navigator.pushNamed(context, RoutesName.discountCoupons),
-                        ),
-                        SettingItemWidget(
                           icon: Icons.policy_rounded,
                           title: AppLocaleKey.termsAndConditions.tr(),
                           subtitle: AppLocaleKey.updateUsagePolicies.tr(),
@@ -110,23 +99,23 @@ class AdminSettingsScreen extends StatelessWidget {
                       ],
                     ),
                     Gap(32.h),
-                    SecuritySectionWidget(
-                      title: AppLocaleKey.technicalSupport.tr(),
-                      items: [
-                        SettingItemWidget(
-                          icon: Icons.help_outline_rounded,
-                          title: AppLocaleKey.supportCenter.tr(),
-                          subtitle: AppLocaleKey.helpCenterDesc.tr(),
-                          onTap: () => Navigator.pushNamed(context, RoutesName.adminSupport),
-                        ),
-                        // SettingItemWidget(
-                        //   icon: Icons.contact_support_outlined,
-                        //   title: AppLocaleKey.contactDeveloper.tr(),
-                        //   subtitle: AppLocaleKey.raiseSupportTicket.tr(),
-                        //   onTap: () => Navigator.pushNamed(context, RoutesName.contactDeveloper),
-                        // ),
-                      ],
-                    ),
+                    // SecuritySectionWidget(
+                    //   title: AppLocaleKey.technicalSupport.tr(),
+                    //   items: [
+                    //     // SettingItemWidget(
+                    //     //   icon: Icons.help_outline_rounded,
+                    //     //   title: AppLocaleKey.supportCenter.tr(),
+                    //     //   subtitle: AppLocaleKey.helpCenterDesc.tr(),
+                    //     //   onTap: () => Navigator.pushNamed(context, RoutesName.adminSupport),
+                    //     // ),
+                    //     // SettingItemWidget(
+                    //     //   icon: Icons.contact_support_outlined,
+                    //     //   title: AppLocaleKey.contactDeveloper.tr(),
+                    //     //   subtitle: AppLocaleKey.raiseSupportTicket.tr(),
+                    //     //   onTap: () => Navigator.pushNamed(context, RoutesName.contactDeveloper),
+                    //     // ),
+                    //   ],
+                    // ),
                     Gap(40.h),
                     const LogoutButtonWidget(),
                   ],

@@ -13,9 +13,9 @@ class AddBookingPermissionResponseModel extends Equatable {
 
   factory AddBookingPermissionResponseModel.fromJson(Map<String, dynamic> json) {
     return AddBookingPermissionResponseModel(
-      success: json['success'] ?? false,
-      lpoNo: json['lpono'] ?? '',
-      msg: json['msg'] ?? '',
+      success: json['success'] == true || json['success']?.toString() == '1',
+      lpoNo: json['lpono']?.toString() ?? '',
+      msg: json['msg']?.toString() ?? '',
     );
   }
 

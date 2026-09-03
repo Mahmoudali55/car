@@ -22,6 +22,7 @@ class AddLoanApplicationModel extends Equatable {
   final double monthlyInstallment;
   final int applicationStatus;
   final int gender;
+  final int REPRESCODE;
 
   const AddLoanApplicationModel({
     this.applicationId = 0,
@@ -45,6 +46,7 @@ class AddLoanApplicationModel extends Equatable {
     required this.monthlyInstallment,
     this.applicationStatus = 0,
     required this.gender,
+    required this.REPRESCODE,
   });
 
   static double _round2(double val) {
@@ -60,7 +62,10 @@ class AddLoanApplicationModel extends Equatable {
     if (cityName.contains('دمام') || cityName.toLowerCase().contains('dammam')) return '5';
     if (cityName.contains('خبر') || cityName.toLowerCase().contains('khobar')) return '6';
     if (cityName.contains('ظهران') || cityName.toLowerCase().contains('dhahran')) return '7';
-    if (cityName.contains('أبها') || cityName.contains('ابها') || cityName.toLowerCase().contains('abha')) return '8';
+    if (cityName.contains('أبها') ||
+        cityName.contains('ابها') ||
+        cityName.toLowerCase().contains('abha'))
+      return '8';
     if (cityName.contains('تبوك') || cityName.toLowerCase().contains('tabuk')) return '9';
     if (cityName.contains('بريد') || cityName.toLowerCase().contains('buraidah')) return '10';
     if (cityName.contains('حائل') || cityName.toLowerCase().contains('hail')) return '11';
@@ -95,6 +100,7 @@ class AddLoanApplicationModel extends Equatable {
       'MonthlyInstallment': _round2(monthlyInstallment),
       'ApplicationStatus': applicationStatus,
       'Gender': gender,
+      'REPRESCODE': REPRESCODE,
     };
   }
 
@@ -121,31 +127,33 @@ class AddLoanApplicationModel extends Equatable {
       monthlyInstallment: (json['MonthlyInstallment'] as num?)?.toDouble() ?? 0.0,
       applicationStatus: json['ApplicationStatus'] ?? 0,
       gender: json['Gender'] ?? 1,
+      REPRESCODE: json['REPRESCODE'] ?? 0,
     );
   }
 
   @override
   List<Object?> get props => [
-        applicationId,
-        programId,
-        programName,
-        customerNo,
-        idNo,
-        areaNo,
-        itemCode,
-        itemName,
-        makeYear,
-        salePrice,
-        workType,
-        employer,
-        jobTitle,
-        monthlySalary,
-        termMonths,
-        downPayment,
-        lastPayment,
-        loanAmount,
-        monthlyInstallment,
-        applicationStatus,
-        gender,
-      ];
+    applicationId,
+    programId,
+    programName,
+    customerNo,
+    idNo,
+    areaNo,
+    itemCode,
+    itemName,
+    makeYear,
+    salePrice,
+    workType,
+    employer,
+    jobTitle,
+    monthlySalary,
+    termMonths,
+    downPayment,
+    lastPayment,
+    loanAmount,
+    monthlyInstallment,
+    applicationStatus,
+    gender,
+    REPRESCODE,
+  ];
 }

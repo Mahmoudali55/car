@@ -214,28 +214,10 @@ class AgentCar {
 
 // ── Mock Data ─────────────────────────────────────────────────────────────────
 List<AgentKpi> getAgentKpis({
-  required int inquiries,
-  required int appointments,
   required int closedDeals,
   required double sales,
 }) {
   return [
-    AgentKpi(
-      label: AppLocaleKey.adminCustomerInquiries.tr(),
-      value: inquiries.toString(),
-      subtitle: AppLocaleKey.agentTargetOutOfTotal.tr(namedArgs: {'total': '20'}),
-      icon: Icons.phone_in_talk_rounded,
-      color: const Color(0xFF3B82F6),
-      change: 12.0,
-    ),
-    AgentKpi(
-      label: AppLocaleKey.agentUpcomingAppointments.tr(),
-      value: appointments.toString(),
-      subtitle: AppLocaleKey.agentForThisWeek.tr(),
-      icon: Icons.calendar_today_rounded,
-      color: const Color(0xFFF59E0B),
-      change: -5.0,
-    ),
     AgentKpi(
       label: AppLocaleKey.agentClosedDeals.tr(),
       value: closedDeals.toString(),

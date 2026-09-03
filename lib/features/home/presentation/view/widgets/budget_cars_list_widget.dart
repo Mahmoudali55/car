@@ -1,5 +1,9 @@
+import 'package:car/features/home/data/model/brand_cars_data_model.dart';
+import 'package:car/features/home/data/model/financing_ad_model.dart';
+import 'package:car/features/home/presentation/cubit/home_cubit.dart';
 import 'package:car/features/home/presentation/view/widgets/horizontal_car_card_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class BudgetCarsListWidget extends StatelessWidget {
@@ -7,111 +11,122 @@ class BudgetCarsListWidget extends StatelessWidget {
 
   const BudgetCarsListWidget({super.key, required this.selectedBudgetIndex});
 
-  // Real car data categorized by budget index
-  static final List<List<Map<String, dynamic>>> budgetData = [
-    // index 0: Under 1000 SAR installment
-    [
-      {
-        'name': 'Toyota Yaris 2024',
-        'image':
-            'https://images.unsplash.com/photo-1555215695-3004980ad54e?q=80&w=1000&auto=format&fit=crop',
-        'cashPrice': '65,000 SAR',
-        'installmentPrice': '950 SAR/mo',
-        'installments': '950 ر.س / شهر',
-        'isTamaraAvailable': true,
-      },
-      {
-        'name': 'Hyundai Accent 2024',
-        'image':
-            'https://images.unsplash.com/photo-1555215695-3004980ad54e?q=80&w=1000&auto=format&fit=crop',
-        'cashPrice': '68,500 SAR',
-        'installmentPrice': '990 SAR/mo',
-        'installments': '990 ر.س / شهر',
-        'isTamaraAvailable': false,
-      },
-    ],
-    // index 1: 1000-1500 SAR installment
-    [
-      {
-        'name': 'Toyota Camry 2024',
-        'image':
-            'https://images.unsplash.com/photo-1555215695-3004980ad54e?q=80&w=1000&auto=format&fit=crop',
-        'cashPrice': '115,000 SAR',
-        'installmentPrice': '1,450 SAR/mo',
-        'installments': '1,450 ر.س / شهر',
-        'isTamaraAvailable': true,
-      },
-      {
-        'name': 'Nissan Altima 2024',
-        'image':
-            'https://images.unsplash.com/photo-1555215695-3004980ad54e?q=80&w=1000&auto=format&fit=crop',
-        'cashPrice': '110,000 SAR',
-        'installmentPrice': '1,380 SAR/mo',
-        'installments': '1,380 ر.س / شهر',
-        'isTamaraAvailable': true,
-      },
-    ],
-    // index 2: 1500-2000 SAR installment
-    [
-      {
-        'name': 'Mazda CX-5 2024',
-        'image':
-            'https://images.unsplash.com/photo-1555215695-3004980ad54e?q=80&w=1000&auto=format&fit=crop',
-        'cashPrice': '145,000 SAR',
-        'installmentPrice': '1,850 SAR/mo',
-        'installments': '1,850 ر.س / شهر',
-        'isTamaraAvailable': false,
-      },
-      {
-        'name': 'Honda CR-V 2024',
-        'image':
-            'https://images.unsplash.com/photo-1555215695-3004980ad54e?q=80&w=1000&auto=format&fit=crop',
-        'cashPrice': '155,000 SAR',
-        'installmentPrice': '1,950 SAR/mo',
-        'installments': '1,950 ر.س / شهر',
-        'isTamaraAvailable': true,
-      },
-    ],
-    // index 3: Over 2000 SAR installment
-    [
-      {
-        'name': 'Mercedes G-Class 2024',
-        'image':
-            'https://images.unsplash.com/photo-1555215695-3004980ad54e?q=80&w=1000&auto=format&fit=crop',
-        'cashPrice': '850,000 SAR',
-        'installmentPrice': '12,500 SAR/mo',
-        'installments': '12,500 ر.س / شهر',
-        'isTamaraAvailable': false,
-      },
-      {
-        'name': 'Ferrari SF90 Stradale',
-        'image':
-            'https://images.unsplash.com/photo-1555215695-3004980ad54e?q=80&w=1000&auto=format&fit=crop',
-        'cashPrice': '1,800,000 SAR',
-        'installmentPrice': '24,500 SAR/mo',
-        'installments': '24,500 ر.س / شهر',
-        'isTamaraAvailable': false,
-      },
-    ],
-  ];
+  double get _maximumInstallment {
+    switch (selectedBudgetIndex) {
+      case 0:
+        return 1000;
+      case 1:
+        return 1500;
+      case 2:
+        return 2000;
+      case 3:
+        return double.infinity;
+      default:
+        return 0;
+    }
+  }
+
+  double? _monthlyInstallment(String? value) {
+    if (value == null || value.trim().isEmpty) return null;
+    final normalized = value.replaceAll(',', '').replaceAll(RegExp(r'[^0-9.]'), '');
+    return double.tryParse(normalized);
+  }
+
+  double? _cashPrice(GetBrandCarsDataModel car) {
+    final value = car.price?.replaceAll(',', '').replaceAll(RegExp(r'[^0-9.]'), '');
+    final price = double.tryParse(value ?? '');
+    return price != null && price > 0 ? price : null;
+  }
+
+  double? _lowestInstallment(
+    GetBrandCarsDataModel car,
+    List<FinancingAdModel> financingOffers,
+  ) {
+    final cashPrice = _cashPrice(car);
+    if (cashPrice == null) return car.monthlyInstallment ?? _monthlyInstallment(car.installments);
+
+    final matchingOffers = financingOffers
+        .where((offer) => offer.itemCode == null || offer.itemCode == car.itemCode)
+        .toList();
+    if (matchingOffers.isNotEmpty) {
+      return matchingOffers
+          .map((offer) => offer.monthlyInstallmentForPrice(cashPrice))
+          .reduce((a, b) => a < b ? a : b);
+    }
+
+    return car.monthlyInstallment ?? _monthlyInstallment(car.installments);
+  }
+
+  Map<String, dynamic> _toCarMap(
+    GetBrandCarsDataModel car,
+    double monthlyInstallment,
+  ) {
+    final formattedMonthlyInstallment = '${monthlyInstallment.toStringAsFixed(0)} ر.س / شهر';
+
+    return {
+      ...car.toMap(),
+      'cashPrice': '${car.price ?? '0'} ر.س',
+      'installmentPrice': formattedMonthlyInstallment,
+      'installments': formattedMonthlyInstallment,
+      'monthlyInstallment': monthlyInstallment,
+      'isTamaraAvailable': false,
+    };
+  }
 
   @override
   Widget build(BuildContext context) {
-    final cars = budgetData[selectedBudgetIndex % budgetData.length];
+    return BlocBuilder<HomeCubit, HomeState>(
+      buildWhen: (previous, current) =>
+          previous.allCarsStatus != current.allCarsStatus ||
+          previous.normalFinancingStatus != current.normalFinancingStatus,
+      builder: (context, state) {
+        final financingOffers = state.normalFinancingStatus.data ?? const <FinancingAdModel>[];
+        final cars = (state.allCarsStatus.data ?? [])
+            .map((car) => (car: car, installment: _lowestInstallment(car, financingOffers)))
+            .where((entry) {
+              final installment = entry.installment;
+              return installment != null && installment > 0 && installment <= _maximumInstallment;
+            })
+            .map((entry) => _toCarMap(entry.car, entry.installment!))
+            .toList();
 
-    return SizedBox(
-      height: 250.h,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        padding: EdgeInsets.symmetric(horizontal: 16.w),
-        itemCount: cars.length,
-        itemBuilder: (context, index) {
-          return HorizontalCarCardWidget(
-            car: cars[index],
-            heroTag: 'budget_car_image_${cars[index]['itemCode'] ?? cars[index]['name']}',
+        if (state.allCarsStatus.isLoading) {
+          return SizedBox(
+            height: 150.h,
+            child: const Center(child: CircularProgressIndicator()),
           );
-        },
-      ),
+        }
+
+        if (cars.isEmpty) {
+          return SizedBox(
+            height: 150.h,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(Icons.directions_car_outlined, size: 42.sp, color: Colors.grey),
+                SizedBox(height: 8.h),
+                const Text('لا توجد سيارات متاحة'),
+              ],
+            ),
+          );
+        }
+
+        return SizedBox(
+          height: 250.h,
+          child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            padding: EdgeInsets.symmetric(horizontal: 16.w),
+            itemCount: cars.length,
+            itemBuilder: (context, index) {
+              final car = cars[index];
+              return HorizontalCarCardWidget(
+                car: car,
+                heroTag: 'budget_car_image_${car['itemCode'] ?? car['name']}',
+              );
+            },
+          ),
+        );
+      },
     );
   }
 }

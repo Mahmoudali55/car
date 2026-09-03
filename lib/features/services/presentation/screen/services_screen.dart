@@ -85,42 +85,42 @@ class ServicesScreen extends StatelessWidget {
             ),
           ),
 
-          // Quick Actions Label
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: EdgeInsets.fromLTRB(20.w, 32.h, 20.w, 16.h),
-              child: FadeInLeft(
-                child: Text(
-                  AppLocaleKey.quickActions.tr(),
-                  style: AppTextStyle.titleMedium(context).copyWith(
-                    color: AppColor.blackTextColor(context),
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18.sp,
-                  ),
-                ),
-              ),
-            ),
-          ),
+          // // Quick Actions Label
+          // SliverToBoxAdapter(
+          //   child: Padding(
+          //     padding: EdgeInsets.fromLTRB(20.w, 32.h, 20.w, 16.h),
+          //     child: FadeInLeft(
+          //       child: Text(
+          //         AppLocaleKey.quickActions.tr(),
+          //         style: AppTextStyle.titleMedium(context).copyWith(
+          //           color: AppColor.blackTextColor(context),
+          //           fontWeight: FontWeight.bold,
+          //           fontSize: 18.sp,
+          //         ),
+          //       ),
+          //     ),
+          //   ),
+          // ),
 
-          // Horizontal Quick Actions
-          SliverToBoxAdapter(
-            child: SizedBox(
-              height: 100.h,
-              child: ListView.builder(
-                padding: EdgeInsets.symmetric(horizontal: 24.w),
-                scrollDirection: Axis.horizontal,
-                physics: const BouncingScrollPhysics(),
-                itemCount: _getQuickActions().length,
-                itemBuilder: (context, index) {
-                  final action = _getQuickActions()[index];
-                  return FadeInRight(
-                    delay: Duration(milliseconds: 100 * index),
-                    child: _buildQuickActionItem(context, action),
-                  );
-                },
-              ),
-            ),
-          ),
+          // // Horizontal Quick Actions
+          // SliverToBoxAdapter(
+          //   child: SizedBox(
+          //     height: 100.h,
+          //     child: ListView.builder(
+          //       padding: EdgeInsets.symmetric(horizontal: 24.w),
+          //       scrollDirection: Axis.horizontal,
+          //       physics: const BouncingScrollPhysics(),
+          //       itemCount: _getQuickActions().length,
+          //       itemBuilder: (context, index) {
+          //         final action = _getQuickActions()[index];
+          //         return FadeInRight(
+          //           delay: Duration(milliseconds: 100 * index),
+          //           child: _buildQuickActionItem(context, action),
+          //         );
+          //       },
+          //     ),
+          //   ),
+          // ),
 
           // Main Services Section Title
           SliverToBoxAdapter(
@@ -312,47 +312,11 @@ class ServicesScreen extends StatelessWidget {
         'label': AppLocaleKey.myHistory.tr(),
         'color': Colors.greenAccent,
       },
-      {
-        'icon': Icons.support_agent_rounded,
-        'label': AppLocaleKey.support.tr(),
-        'color': Colors.purpleAccent,
-      },
     ];
   }
 
   List<Map<String, dynamic>> _getServicesData() {
     return [
-      {
-        'icon': Icons.directions_car_filled_rounded,
-        'label': AppLocaleKey.requestCar.tr(),
-        'color': const Color(0xFF6366F1),
-      },
-      {
-        'icon': Icons.public_rounded,
-        'label': AppLocaleKey.importOnDemand.tr(),
-        'color': const Color(0xFF10B981),
-      },
-
-      {
-        'icon': Icons.auto_awesome_rounded,
-        'label': AppLocaleKey.showroomShine.tr(),
-        'color': const Color(0xFFEC4899),
-      },
-      {
-        'icon': Icons.local_shipping_rounded,
-        'label': AppLocaleKey.vipShipping.tr(),
-        'color': const Color(0xFF8B5CF6),
-      },
-      {
-        'icon': Icons.person_search_rounded,
-        'label': AppLocaleKey.bespokeSelection.tr(),
-        'color': const Color(0xFF0EA5E9),
-      },
-      {
-        'icon': Icons.analytics_rounded,
-        'label': AppLocaleKey.carValuation.tr(),
-        'color': Colors.amber,
-      },
       {
         'icon': Icons.compare_arrows_rounded,
         'label': AppLocaleKey.compareCars.tr(),
@@ -362,6 +326,11 @@ class ServicesScreen extends StatelessWidget {
         'icon': Icons.info_outline_rounded,
         'label': AppLocaleKey.aboutCompany.tr(),
         'color': Colors.blueGrey,
+      },
+      {
+        'icon': Icons.support_agent_rounded,
+        'label': AppLocaleKey.support.tr(),
+        'color': Colors.purpleAccent,
       },
     ];
   }
@@ -403,6 +372,8 @@ class ServicesScreen extends StatelessWidget {
       Navigator.pushNamed(context, RoutesName.carComparisonScreen);
     } else if (label == AppLocaleKey.aboutCompany.tr()) {
       Navigator.pushNamed(context, RoutesName.aboutScreen);
+    } else if (label == AppLocaleKey.support.tr()) {
+      Navigator.pushNamed(context, RoutesName.supportScreen);
     }
   }
 

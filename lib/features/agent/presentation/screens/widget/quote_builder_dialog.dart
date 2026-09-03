@@ -244,8 +244,13 @@ class _QuoteBuilderDialogState extends State<QuoteBuilderDialog> {
                           title: AppLocaleKey.date.tr(),
                           icon: Icons.calendar_today_rounded,
                         ),
-
-                        Gap(20.h),
+                        Gap(10.h),
+                        InfoChip(
+                          icon: Icons.event_rounded,
+                          label: _today,
+                          color: AppColor.primaryColor(context),
+                          context: context,
+                        ),
                         Gap(20.h),
                         SectionTitle(
                           title: AppLocaleKey.period.tr(),
@@ -277,13 +282,7 @@ class _QuoteBuilderDialogState extends State<QuoteBuilderDialog> {
                             ),
                           ],
                         ),
-                        Gap(10.h),
-                        InfoChip(
-                          icon: Icons.event_rounded,
-                          label: _today,
-                          color: AppColor.primaryColor(context),
-                          context: context,
-                        ),
+
                         Gap(20.h),
                         SectionTitle(
                           title: AppLocaleKey.customer.tr(),

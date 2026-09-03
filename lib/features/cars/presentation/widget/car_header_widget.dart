@@ -42,7 +42,7 @@ class _CarHeaderWidgetState extends State<CarHeaderWidget> {
   /// 1. No pre-set installments value from API, AND
   /// 2. Car has a valid price (non-empty, non-zero)
   bool _shouldShowFinancing() {
-    if (widget.car.installments != null) return false;
+    if (widget.car.installments?.trim().isNotEmpty == true) return false;
     final priceStr = widget.car.price?.replaceAll(RegExp(r'[^0-9.]'), '') ?? '';
     final price = double.tryParse(priceStr) ?? 0.0;
     return price > 0;

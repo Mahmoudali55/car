@@ -103,7 +103,8 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
       trNo: 0,
       reasonId: 0,
       mobileShow: car.mobileShow ?? false,
-      carImage: '',
+      carImage: car.imageUrls.isNotEmpty ? car.imageUrls.first : null,
+      extraImages: car.imageUrls,
       color: car.bodyColor ?? '',
       customerName: car.customerName,
       reservedName: car.reservedName,
@@ -132,19 +133,19 @@ class _ManageCarsScreenState extends State<ManageCarsScreen> {
           ).copyWith(fontWeight: FontWeight.w900, fontSize: 20.sp),
         ),
         actions: [
-          IconButton(
-            onPressed: () => Navigator.pushNamed(context, RoutesName.addCar),
-            icon: Container(
-              padding: EdgeInsets.all(6.w),
-              decoration: BoxDecoration(
-                color: AppColor.primaryColor(context).withValues(alpha: 0.1),
-                borderRadius: BorderRadius.circular(10.r),
-              ),
-              child: Center(
-                child: Icon(Icons.add_rounded, color: AppColor.primaryColor(context), size: 20.sp),
-              ),
-            ),
-          ),
+          // IconButton(
+          //   onPressed: () => Navigator.pushNamed(context, RoutesName.addCar),
+          //   icon: Container(
+          //     padding: EdgeInsets.all(6.w),
+          //     decoration: BoxDecoration(
+          //       color: AppColor.primaryColor(context).withValues(alpha: 0.1),
+          //       borderRadius: BorderRadius.circular(10.r),
+          //     ),
+          //     child: Center(
+          //       child: Icon(Icons.add_rounded, color: AppColor.primaryColor(context), size: 20.sp),
+          //     ),
+          //   ),
+          // ),
           Gap(10.w),
         ],
       ),

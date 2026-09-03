@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:car/core/network/contants.dart';
 import 'package:equatable/equatable.dart';
 
 class CarsModel extends Equatable {
@@ -34,6 +35,7 @@ class CarModel extends Equatable {
   final bool? mobileShow;
   final String? customerName;
   final String? ADVANCED_AMOUNT;
+  final String? carimage;
 
   /// LPO number returned by the reserved-cars endpoint (LPONO field).
   final String? lpoNo;
@@ -58,6 +60,7 @@ class CarModel extends Equatable {
     this.lpoNo,
     this.reservedName,
     this.customerName,
+    this.carimage,
   });
 
   factory CarModel.fromJson(Map<String, dynamic> json) {
@@ -80,7 +83,26 @@ class CarModel extends Equatable {
       lpoNo: json['LPONO']?.toString() ?? json['LPO_NO']?.toString(),
       customerName: json['CUSTOMER_NAME']?.toString(),
       ADVANCED_AMOUNT: json['ADVANCED_AMOUNT']?.toString(),
+      carimage:
+          json['carimage']?.toString() ??
+          json['CAR_IMAGE']?.toString() ??
+          json['carImage']?.toString(),
     );
+  }
+
+  List<String> get imageUrls {
+    if (carimage == null || carimage!.trim().isEmpty || carimage!.trim().toLowerCase() == 'null') {
+      return const [];
+    }
+
+    return carimage!.split(',').map((image) {
+      final path = image.trim();
+      if (path.isEmpty) return '';
+      final url = path.startsWith('http://') || path.startsWith('https://')
+          ? path
+          : '${Constants.baseImage}${path.replaceFirst(RegExp(r'^[/\\]+'), '')}';
+      return Uri.encodeFull(url);
+    }).where((image) => image.isNotEmpty).toList();
   }
 
   @override
@@ -103,5 +125,6 @@ class CarModel extends Equatable {
     reservedName,
     customerName,
     ADVANCED_AMOUNT,
+    carimage,
   ];
 }

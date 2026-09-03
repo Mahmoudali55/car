@@ -52,6 +52,17 @@ class _BankInstallmentsBannerWidgetState extends State<BankInstallmentsBannerWid
         : (widget.offer != null ? <FinancingAdModel>[widget.offer!] : cubitOffers);
 
     if (candidates.isEmpty) return null;
+
+    final priceString = widget.car.price?.replaceAll(RegExp(r'[^0-9.]'), '') ?? '';
+    final rawPrice = double.tryParse(priceString) ?? 0;
+    if (rawPrice > 0) {
+      return candidates.reduce(
+        (a, b) => a.monthlyInstallmentForPrice(rawPrice) <= b.monthlyInstallmentForPrice(rawPrice)
+            ? a
+            : b,
+      );
+    }
+
     return candidates.reduce(
       (a, b) => (a.interestRate ?? double.infinity) <= (b.interestRate ?? double.infinity) ? a : b,
     );

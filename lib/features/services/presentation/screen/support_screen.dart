@@ -2,9 +2,6 @@ import 'package:animate_do/animate_do.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
-import 'package:car/features/services/presentation/screen/complaints_screen.dart';
-import 'package:car/features/services/presentation/screen/evaluation_screen.dart';
-import 'package:car/features/services/presentation/widgets/action_card_widget.dart';
 import 'package:car/features/services/presentation/widgets/contact_item_widget.dart';
 import 'package:car/features/services/presentation/widgets/fqa_Item_widget.dart';
 import 'package:car/features/services/presentation/widgets/section_header_widget.dart';
@@ -90,41 +87,41 @@ class SupportScreen extends StatelessWidget {
                   ),
                   Gap(24.h),
                   // COMPLAINTS & EVALUATION CARDS
-                  Row(
-                    children: [
-                      Expanded(
-                        child: FadeInLeft(
-                          delay: const Duration(milliseconds: 200),
-                          child: ActionCardWidget(
-                            title: AppLocaleKey.complaints.tr(),
-                            icon: Icons.report_problem_rounded,
-                            bgColor: const Color(0xFFFEE2E2),
-                            iconColor: AppColor.redColor(context),
-                            onTap: () => Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => const ComplaintsScreen()),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Gap(12.w),
-                      Expanded(
-                        child: FadeInRight(
-                          delay: const Duration(milliseconds: 200),
-                          child: ActionCardWidget(
-                            title: AppLocaleKey.serviceEvaluation.tr(),
-                            icon: Icons.star_rate_rounded,
-                            bgColor: const Color(0xFFFEF3C7),
-                            iconColor: const Color(0xFFD97706),
-                            onTap: () => Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => const EvaluationScreen()),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                  // Row(
+                  //   children: [
+                  //     Expanded(
+                  //       child: FadeInLeft(
+                  //         delay: const Duration(milliseconds: 200),
+                  //         child: ActionCardWidget(
+                  //           title: AppLocaleKey.complaints.tr(),
+                  //           icon: Icons.report_problem_rounded,
+                  //           bgColor: const Color(0xFFFEE2E2),
+                  //           iconColor: AppColor.redColor(context),
+                  //           onTap: () => Navigator.push(
+                  //             context,
+                  //             MaterialPageRoute(builder: (context) => const ComplaintsScreen()),
+                  //           ),
+                  //         ),
+                  //       ),
+                  //     ),
+                  //     Gap(12.w),
+                  //     Expanded(
+                  //       child: FadeInRight(
+                  //         delay: const Duration(milliseconds: 200),
+                  //         child: ActionCardWidget(
+                  //           title: AppLocaleKey.serviceEvaluation.tr(),
+                  //           icon: Icons.star_rate_rounded,
+                  //           bgColor: const Color(0xFFFEF3C7),
+                  //           iconColor: const Color(0xFFD97706),
+                  //           onTap: () => Navigator.push(
+                  //             context,
+                  //             MaterialPageRoute(builder: (context) => const EvaluationScreen()),
+                  //           ),
+                  //         ),
+                  //       ),
+                  //     ),
+                  //   ],
+                  // ),
                   Gap(24.h),
                   // GENERAL CONTACT
                   SectionHeaderWidget(

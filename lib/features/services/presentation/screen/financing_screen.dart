@@ -240,8 +240,7 @@ class _FinancingScreenState extends State<FinancingScreen> with SingleTickerProv
 
     final int genderValue = _selectedGender == 'female' ? 2 : 1;
 
-    final String makeYearStr =
-        widget.car?.makeYear.toString() ?? DateTime.now().year.toString();
+    final String makeYearStr = widget.car?.makeYear.toString() ?? DateTime.now().year.toString();
 
     final int customerNoVal = int.tryParse(HiveMethods.getcode() ?? '') ?? 0;
 
@@ -268,14 +267,12 @@ class _FinancingScreenState extends State<FinancingScreen> with SingleTickerProv
       monthlyInstallment: _monthlyInstallment,
       applicationStatus: 0,
       gender: genderValue,
+      REPRESCODE: int.tryParse(HiveMethods.getRepresentativeNo() ?? '') ?? 0,
     );
 
     final filesList = _uploadedFiles.values.whereType<File>().toList();
 
-    context.read<HomeCubit>().addLoanApplicationWithFiles(
-      model: model,
-      files: filesList,
-    );
+    context.read<HomeCubit>().addLoanApplicationWithFiles(model: model, files: filesList);
   }
 
   void _showOtpSheet() {

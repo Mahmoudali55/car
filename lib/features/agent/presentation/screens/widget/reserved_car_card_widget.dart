@@ -1,3 +1,4 @@
+import 'package:car/core/custom_widgets/custom_image/custom_network_image.dart';
 import 'package:car/core/custom_widgets/custom_sar_text.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
@@ -103,13 +104,21 @@ class ReservedCarCard extends StatelessWidget {
                     color: AppColor.primaryColor(context).withValues(alpha: 0.08),
                     borderRadius: BorderRadius.circular(14.r),
                   ),
-                  child: Center(
-                    child: Icon(
-                      Icons.directions_car_rounded,
-                      size: 34.sp,
-                      color: AppColor.primaryColor(context),
-                    ),
-                  ),
+                  clipBehavior: Clip.antiAlias,
+                  child: car.imageUrls.isNotEmpty
+                      ? CustomNetworkImage(
+                          imageUrl: car.imageUrls.first,
+                          width: 64.w,
+                          height: 64.w,
+                          fit: BoxFit.cover,
+                        )
+                      : Center(
+                          child: Icon(
+                            Icons.directions_car_rounded,
+                            size: 34.sp,
+                            color: AppColor.primaryColor(context),
+                          ),
+                        ),
                 ),
                 Gap(14.w),
                 Expanded(

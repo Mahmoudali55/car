@@ -20,9 +20,9 @@ class AdminCubit extends Cubit<AdminState> {
     );
   }
 
-  Future<void> getCarsStatus(int carstatus, int? CUSTOMER_NO) async {
+  Future<void> getCarsStatus(int carstatus, int? CUSTOMER_NO, {int? represCode}) async {
     emit(state.copyWith(getCarsStatus: const StatusState.loading()));
-    final result = await adminRepo.getCars(carstatus, CUSTOMER_NO);
+    final result = await adminRepo.getCars(carstatus, CUSTOMER_NO, represCode: represCode);
     result.fold(
       (failure) {
         emit(state.copyWith(getCarsStatus: StatusState.failure(failure.errMessage)));
