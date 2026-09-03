@@ -163,7 +163,9 @@ class _CartItemWidgetState extends State<CartItemWidget> with SingleTickerProvid
                                     Text(
                                       carName,
                                       style: AppTextStyle.bodySmall(context).copyWith(
-                                        color: AppColor.blackTextColor(context).withValues(alpha: 0.4),
+                                        color: AppColor.blackTextColor(
+                                          context,
+                                        ).withValues(alpha: 0.4),
                                       ),
                                     ),
                                   ],
@@ -347,7 +349,9 @@ class _CartItemWidgetState extends State<CartItemWidget> with SingleTickerProvid
                                   Text(
                                     '${AppLocaleKey.reservationNumber.tr()} $lpoNo',
                                     style: AppTextStyle.bodySmall(context).copyWith(
-                                      color: AppColor.blackTextColor(context).withValues(alpha: 0.7),
+                                      color: AppColor.blackTextColor(
+                                        context,
+                                      ).withValues(alpha: 0.7),
                                       fontWeight: FontWeight.w600,
                                       fontSize: 11.sp,
                                     ),
@@ -375,7 +379,9 @@ class _CartItemWidgetState extends State<CartItemWidget> with SingleTickerProvid
                                   Text(
                                     widget.car.fuelType!,
                                     style: AppTextStyle.bodySmall(context).copyWith(
-                                      color: AppColor.blackTextColor(context).withValues(alpha: 0.7),
+                                      color: AppColor.blackTextColor(
+                                        context,
+                                      ).withValues(alpha: 0.7),
                                       fontWeight: FontWeight.w600,
                                       fontSize: 11.sp,
                                     ),
@@ -522,8 +528,7 @@ class _CartItemWidgetState extends State<CartItemWidget> with SingleTickerProvid
                                   height: 16.sp,
                                   child: CircularProgressIndicator(
                                     strokeWidth: 2,
-                                    valueColor:
-                                        AlwaysStoppedAnimation(AppColor.redColor(context)),
+                                    valueColor: AlwaysStoppedAnimation(AppColor.redColor(context)),
                                   ),
                                 )
                               : Row(
