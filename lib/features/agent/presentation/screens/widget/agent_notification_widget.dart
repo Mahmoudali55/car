@@ -6,37 +6,14 @@ import 'package:car/core/utils/common_methods.dart';
 import 'package:car/features/agent/presentation/screens/widget/agent_notifications_sheet_widget.dart';
 import 'package:car/features/agent/presentation/screens/widget/slider_notif_card_widget.dart';
 import 'package:car/features/home/presentation/cubit/home_cubit.dart';
+import 'package:car/features/notifications/data/model/notification_model.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
-class AgentNotification {
-  final String id;
-  final String title;
-  final String body;
-  final DateTime createdAt;
-  bool isRead;
-
-  /// lpoNo = RelatedEntityId from API → used in EditBooking LPONO field
-  final int lpoNo;
-
-  /// customerNo = TargetUserId parsed as int → used in EditBooking CUSTOMERNO field
-  final int customerNo;
-
-  AgentNotification({
-    required this.id,
-    required this.title,
-    required this.body,
-    required this.createdAt,
-    this.isRead = false,
-    this.lpoNo = 0,
-    this.customerNo = 0,
-  });
-}
-
-List<AgentNotification> agentNotifications = [];
+List<NotificationModel> agentNotifications = [];
 
 class AgentNotificationSlider extends StatefulWidget {
   const AgentNotificationSlider({super.key});
@@ -48,7 +25,7 @@ class AgentNotificationSlider extends StatefulWidget {
 class _AgentNotificationSliderState extends State<AgentNotificationSlider> {
   bool _hasFetched = false;
 
-  List<AgentNotification> get _pending => agentNotifications.where((n) => !n.isRead).toList();
+  List<NotificationModel> get _pending => agentNotifications.where((n) => !n.isRead).toList();
 
   @override
   void initState() {
@@ -64,25 +41,33 @@ class _AgentNotificationSliderState extends State<AgentNotificationSlider> {
     );
   }
 
-  Future<void> _approve(AgentNotification notif) async {
+  Future<void> _approve(NotificationModel notif) async {
     // Capture before async gap — context cannot be used after await
     final represCode = int.tryParse(HiveMethods.getRepresentativeNo() ?? '') ?? 0;
     final homeCubit = context.read<HomeCubit>();
     final green = AppColor.greenColor(context, listen: false);
     final red = AppColor.redColor(context, listen: false);
 
-    final success = await homeCubit.editBooking(
-      represCode: represCode,
-      lpoNo: notif.lpoNo,
-      customerNo: notif.customerNo,
-      notifyId: int.tryParse(notif.id) ?? 0,
-    );
+    final success = notif.isLoan
+        ? await homeCubit.editLoan(
+            represCode: represCode,
+            relatedEntityId: notif.relatedEntityId,
+            notifyId: notif.notificationId,
+            isApproved: 1,
+            customerNo: notif.customerNo ?? 0,
+          )
+        : await homeCubit.editBooking(
+            represCode: represCode,
+            lpoNo: notif.relatedEntityId,
+            customerNo: notif.customerNo ?? 0,
+            notifyId: notif.notificationId,
+          );
 
     if (!mounted) return;
 
     if (success != null) {
       setState(() {
-        final idx = agentNotifications.indexWhere((n) => n.id == notif.id);
+        final idx = agentNotifications.indexWhere((n) => n.notificationId == notif.notificationId);
         if (idx != -1) agentNotifications[idx].isRead = true;
       });
       CommonMethods.showToast(message: success, backgroundColor: green);
@@ -94,10 +79,30 @@ class _AgentNotificationSliderState extends State<AgentNotificationSlider> {
     }
   }
 
-  void _reject(AgentNotification notif) {
+  Future<void> _reject(NotificationModel notif) async {
     final red = AppColor.redColor(context, listen: false); // capture before setState
-    setState(() => agentNotifications.removeWhere((n) => n.id == notif.id));
-    CommonMethods.showToast(message: 'تم رفض الإشعار', backgroundColor: red);
+    if (notif.isLoan) {
+      final success = await context.read<HomeCubit>().editLoan(
+        represCode: int.tryParse(HiveMethods.getRepresentativeNo() ?? '') ?? 0,
+        relatedEntityId: notif.relatedEntityId,
+        notifyId: notif.notificationId,
+        isApproved: 0,
+        customerNo: int.tryParse(notif.targetUserId) ?? 0,
+      );
+      if (!mounted) return;
+      if (success == null) {
+        CommonMethods.showToast(
+          message: context.read<HomeCubit>().lastEditLoanMessage ?? 'فشل رفض طلب التمويل',
+          backgroundColor: red,
+        );
+        return;
+      }
+      CommonMethods.showToast(message: success, backgroundColor: red);
+    }
+    setState(() => agentNotifications.removeWhere((n) => n.notificationId == notif.notificationId));
+    if (!notif.isLoan) {
+      CommonMethods.showToast(message: 'تم رفض الإشعار', backgroundColor: red);
+    }
   }
 
   void _openSheet() {
@@ -121,23 +126,7 @@ class _AgentNotificationSliderState extends State<AgentNotificationSlider> {
           _hasFetched = true;
           final list = state.notificationsStatus.data ?? [];
           setState(() {
-            agentNotifications = list.map((n) {
-              DateTime parsedDate;
-              try {
-                parsedDate = DateFormat('dd/MM/yyyy').parse(n.createdAt);
-              } catch (_) {
-                parsedDate = DateTime.now();
-              }
-              return AgentNotification(
-                id: n.notificationId.toString(),
-                title: n.title,
-                body: n.body,
-                createdAt: parsedDate,
-                isRead: n.isRead,
-                lpoNo: n.relatedEntityId,
-                customerNo: int.tryParse(n.targetUserId) ?? 0,
-              );
-            }).toList();
+            agentNotifications = list;
           });
         }
       },

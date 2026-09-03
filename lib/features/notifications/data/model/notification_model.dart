@@ -6,10 +6,14 @@ class NotificationModel {
   final String body;
   final int relatedEntityId;
   final int relatedEntityType;
-  final bool isRead;
+  bool isRead;
   final String createdAt;
+  final int? isApproved;
+  final String? customerName;
+  final int? customerNo;
+  final bool isLoan;
 
-  const NotificationModel({
+  NotificationModel({
     required this.notificationId,
     required this.targetUserId,
     required this.userType,
@@ -19,9 +23,17 @@ class NotificationModel {
     required this.relatedEntityType,
     required this.isRead,
     required this.createdAt,
+    this.isApproved,
+    this.customerName,
+    this.customerNo,
+    this.isLoan = false,
   });
 
   factory NotificationModel.fromJson(Map<String, dynamic> json) {
+    final title = _value(json, 'Title')?.toString() ?? '';
+    final body = _value(json, 'Body')?.toString() ?? '';
+    final relatedEntityType = _toInt(_value(json, 'RelatedEntitytype'));
+    final isLoan = relatedEntityType == 77 || _isLoanText('$title $body');
     return NotificationModel(
       notificationId: _toInt(_value(json, 'NotificationId')),
       targetUserId: _value(json, 'TargetUserId')?.toString() ?? '',
@@ -29,9 +41,13 @@ class NotificationModel {
       title: _value(json, 'Title')?.toString() ?? '',
       body: _value(json, 'Body')?.toString() ?? '',
       relatedEntityId: _toInt(_value(json, 'RelatedEntityId')),
-      relatedEntityType: _toInt(_value(json, 'RelatedEntitytype')),
+      relatedEntityType: relatedEntityType,
       isRead: _toBool(_value(json, 'IsRead')),
       createdAt: _value(json, 'CreatedAt')?.toString() ?? '',
+      isApproved: _toNullableInt(_value(json, 'IsApproved')),
+      customerName: _value(json, 'CustomerName')?.toString(),
+      customerNo: _toNullableInt(_value(json, 'CUSTOMERNO')),
+      isLoan: isLoan,
     );
   }
 
@@ -42,9 +58,29 @@ class NotificationModel {
     return null;
   }
 
+  static bool _isLoanText(String value) {
+    final text = value.toLowerCase();
+    return text.contains('تمويل') || text.contains('finance') || text.contains('loan');
+  }
+
+  bool get isCancellation {
+    final text = '$title $body'.toLowerCase();
+    return relatedEntityType == 40 ||
+        text.contains('إلغاء') ||
+        text.contains('الغاء') ||
+        text.contains('cancel') ||
+        text.contains('canceled') ||
+        text.contains('cancelled');
+  }
+
   static int _toInt(dynamic value, {int fallback = 0}) {
     if (value is int) return value;
     return int.tryParse(value?.toString() ?? '') ?? fallback;
+  }
+
+  static int? _toNullableInt(dynamic value) {
+    if (value == null || value.toString().toLowerCase() == 'null') return null;
+    return int.tryParse(value.toString());
   }
 
   static bool _toBool(dynamic value) {
@@ -63,6 +99,10 @@ class NotificationModel {
       'type': _resolveType(relatedEntityType),
       'relatedEntityId': relatedEntityId,
       'relatedEntityType': relatedEntityType,
+      'isApproved': isApproved,
+      'customerName': customerName,
+      'customerNo': customerNo,
+      'isLoan': isLoan,
     };
   }
 

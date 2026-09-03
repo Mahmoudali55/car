@@ -25,6 +25,7 @@ part 'home_state.dart';
 
 class HomeCubit extends Cubit<HomeState> {
   final HomeRepo homeRepo;
+  String? lastEditLoanMessage;
 
   HomeCubit(this.homeRepo) : super(const HomeState());
 
@@ -309,10 +310,7 @@ class HomeCubit extends Cubit<HomeState> {
     );
   }
 
-  Future<void> getNotificationsData({
-    required String currentUserId,
-    required int userType,
-  }) async {
+  Future<void> getNotificationsData({required String currentUserId, required int userType}) async {
     emit(state.copyWith(notificationsStatus: const StatusState.loading()));
     final result = await homeRepo.getNotificationsData(
       currentUserId: currentUserId,
@@ -338,5 +336,32 @@ class HomeCubit extends Cubit<HomeState> {
       notifyId: notifyId,
     );
     return result.fold((failure) => null, (message) => message);
+  }
+
+  Future<String?> editLoan({
+    required int represCode,
+    required int relatedEntityId,
+    required int notifyId,
+    required int isApproved,
+    required int customerNo,
+  }) async {
+    lastEditLoanMessage = null;
+    final result = await homeRepo.editLoan(
+      represCode: represCode,
+      relatedEntityId: relatedEntityId,
+      notifyId: notifyId,
+      isApproved: isApproved,
+      customerNo: customerNo,
+    );
+    return result.fold(
+      (failure) {
+        lastEditLoanMessage = failure.errMessage;
+        return null;
+      },
+      (message) {
+        lastEditLoanMessage = message;
+        return message;
+      },
+    );
   }
 }

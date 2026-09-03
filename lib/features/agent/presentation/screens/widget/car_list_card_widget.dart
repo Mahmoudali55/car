@@ -1,5 +1,5 @@
-import 'package:car/core/custom_widgets/custom_sar_text.dart';
 import 'package:car/core/custom_widgets/custom_image/custom_network_image.dart';
+import 'package:car/core/custom_widgets/custom_sar_text.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
@@ -166,8 +166,7 @@ class CarListCard extends StatelessWidget {
                                 ),
                               ],
                             ),
-                          if (car.customerName.isNotEmpty && car.reservedName.isNotEmpty)
-                            Gap(6.h),
+                          if (car.customerName.isNotEmpty && car.reservedName.isNotEmpty) Gap(6.h),
                           if (car.reservedName.isNotEmpty)
                             Row(
                               children: [

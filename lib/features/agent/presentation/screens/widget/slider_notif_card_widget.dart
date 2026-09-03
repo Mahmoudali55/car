@@ -1,15 +1,15 @@
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
-import 'package:car/features/agent/presentation/screens/widget/agent_notification_widget.dart';
 import 'package:car/features/agent/presentation/screens/widget/small_action_btn_widget.dart';
+import 'package:car/features/notifications/data/model/notification_model.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
 class SliderNotifCard extends StatelessWidget {
-  final AgentNotification notification;
+  final NotificationModel notification;
   final VoidCallback onApprove;
   final VoidCallback onReject;
 
@@ -29,7 +29,8 @@ class SliderNotifCard extends StatelessWidget {
 
     // card width = ~75% screen width so 3 cards are partially visible
     final cardWidth = (MediaQuery.of(context).size.width - 32.w) * 0.78;
-    String _timeAgo(DateTime dt) {
+    String _timeAgo(String value) {
+      final dt = DateTime.tryParse(value) ?? DateTime.now();
       final diff = DateTime.now().difference(dt);
       if (diff.inMinutes < 1) return 'الآن';
       if (diff.inMinutes < 60) return 'منذ ${diff.inMinutes} دقيقة';
@@ -111,31 +112,31 @@ class SliderNotifCard extends StatelessWidget {
               ),
             ),
 
-            Gap(12.h),
-
-            // ── Buttons ──
-            Row(
-              children: [
-                Expanded(
-                  child: SmallActionBtn(
-                    label: AppLocaleKey.approve.tr(),
-                    icon: Icons.check_rounded,
-                    color: green,
-                    onTap: onApprove,
+            if (!notification.isCancellation) ...[
+              Gap(12.h),
+              Row(
+                children: [
+                  Expanded(
+                    child: SmallActionBtn(
+                      label: AppLocaleKey.approve.tr(),
+                      icon: Icons.check_rounded,
+                      color: green,
+                      onTap: onApprove,
+                    ),
                   ),
-                ),
-                Gap(8.w),
-                Expanded(
-                  child: SmallActionBtn(
-                    label: AppLocaleKey.reject.tr(),
-                    icon: Icons.close_rounded,
-                    color: red,
-                    isOutlined: true,
-                    onTap: onReject,
+                  Gap(8.w),
+                  Expanded(
+                    child: SmallActionBtn(
+                      label: AppLocaleKey.reject.tr(),
+                      icon: Icons.close_rounded,
+                      color: red,
+                      isOutlined: true,
+                      onTap: onReject,
+                    ),
                   ),
-                ),
-              ],
-            ),
+                ],
+              ),
+            ],
           ],
         ),
       ),

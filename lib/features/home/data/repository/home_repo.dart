@@ -59,6 +59,13 @@ abstract interface class HomeRepo {
     required int customerNo,
     required int notifyId,
   });
+  Future<Either<Failure, String>> editLoan({
+    required int represCode,
+    required int relatedEntityId,
+    required int notifyId,
+    required int isApproved,
+    required int? customerNo,
+  });
 }
 
 class HomeRepoImpl implements HomeRepo {
@@ -536,12 +543,48 @@ class HomeRepoImpl implements HomeRepo {
         );
         if (response is Map) {
           final message = response.entries
-              .where((entry) => entry.key.toString().toLowerCase() == 'message')
+              .where(
+                (entry) =>
+                    entry.key.toString().toLowerCase() == 'message' ||
+                    entry.key.toString().toLowerCase() == 'msg',
+              )
               .map((entry) => entry.value?.toString() ?? '')
               .firstWhere((value) => value.isNotEmpty, orElse: () => '');
           if (message.isNotEmpty) return message;
         }
         return 'تمت الموافقة بنجاح';
+      },
+    );
+  }
+
+  @override
+  Future<Either<Failure, String>> editLoan({
+    required int represCode,
+    required int relatedEntityId,
+    required int notifyId,
+    required int isApproved,
+    required int? customerNo,
+  }) async {
+    return handleDioRequest(
+      request: () async {
+        final response = await apiConsumer.put(
+          EndPoints.editLoan,
+          body: {
+            'REPRESCODE': represCode,
+            'ApplicationID': relatedEntityId,
+            'notifyid': notifyId,
+            'IsApproved': isApproved,
+            'CUSTOMERNO': customerNo ?? 0,
+          },
+        );
+        if (response is Map) {
+          final message = response.entries
+              .where((entry) => entry.key.toString().toLowerCase() == 'message')
+              .map((entry) => entry.value?.toString() ?? '')
+              .firstWhere((value) => value.isNotEmpty, orElse: () => '');
+          if (message.isNotEmpty) return message;
+        }
+        return isApproved == 1 ? 'تمت الموافقة بنجاح' : 'تم رفض الطلب بنجاح';
       },
     );
   }

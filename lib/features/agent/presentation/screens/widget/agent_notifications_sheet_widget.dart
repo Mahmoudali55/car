@@ -5,6 +5,7 @@ import 'package:car/features/agent/presentation/screens/widget/agent_notificatio
 import 'package:car/features/agent/presentation/screens/widget/empty_state_notification_widget.dart';
 import 'package:car/features/agent/presentation/screens/widget/full_notification_card_widget.dart';
 import 'package:car/features/home/presentation/cubit/home_cubit.dart';
+import 'package:car/features/notifications/data/model/notification_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -19,26 +20,35 @@ class AgentNotificationsSheet extends StatefulWidget {
 }
 
 class AgentNotificationsSheetState extends State<AgentNotificationsSheet> {
-  List<AgentNotification> get _notifications => agentNotifications.where((n) => !n.isRead).toList();
+  List<NotificationModel> get _notifications =>
+      agentNotifications.where((n) => !n.isRead).toList();
 
-  Future<void> _approve(AgentNotification notif) async {
+  Future<void> _approve(NotificationModel notif) async {
     // Capture colors and cubit before async gap
     final green = AppColor.greenColor(context, listen: false);
     final red = AppColor.redColor(context, listen: false);
     final homeCubit = context.read<HomeCubit>();
     final represCode = int.tryParse(HiveMethods.getRepresentativeNo() ?? '') ?? 0;
 
-    final success = await homeCubit.editBooking(
-      represCode: represCode,
-      lpoNo: notif.lpoNo,
-      customerNo: notif.customerNo,
-      notifyId: int.tryParse(notif.id) ?? 0,
-    );
+    final success = notif.isLoan
+        ? await homeCubit.editLoan(
+            represCode: represCode,
+            relatedEntityId: notif.relatedEntityId,
+            notifyId: notif.notificationId,
+            isApproved: 1,
+            customerNo: notif.customerNo ?? 0,
+          )
+        : await homeCubit.editBooking(
+            represCode: represCode,
+            lpoNo: notif.relatedEntityId,
+            customerNo: notif.customerNo ?? 0,
+            notifyId: notif.notificationId,
+          );
 
     if (!mounted) return;
     if (success != null) {
       setState(() {
-        final idx = agentNotifications.indexWhere((n) => n.id == notif.id);
+        final idx = agentNotifications.indexWhere((n) => n.notificationId == notif.notificationId);
         if (idx != -1) agentNotifications[idx].isRead = true;
       });
       widget.onChanged();
@@ -48,12 +58,30 @@ class AgentNotificationsSheetState extends State<AgentNotificationsSheet> {
     }
   }
 
-  void _reject(AgentNotification notif) {
+  Future<void> _reject(NotificationModel notif) async {
     // Capture color before any potential async gap
     final red = AppColor.redColor(context, listen: false);
-    setState(() => agentNotifications.removeWhere((n) => n.id == notif.id));
+    if (notif.isLoan) {
+      final success = await context.read<HomeCubit>().editLoan(
+        represCode: int.tryParse(HiveMethods.getRepresentativeNo() ?? '') ?? 0,
+        relatedEntityId: notif.relatedEntityId,
+        notifyId: notif.notificationId,
+        isApproved: 0,
+        customerNo: notif.customerNo ?? 0,
+      );
+      if (!mounted) return;
+      if (success == null) {
+        _showSnack(
+          context.read<HomeCubit>().lastEditLoanMessage ?? 'فشل رفض طلب التمويل',
+          red,
+        );
+        return;
+      }
+      _showSnack(success, red);
+    }
+    setState(() => agentNotifications.removeWhere((n) => n.notificationId == notif.notificationId));
     widget.onChanged();
-    _showSnack('تم رفض الإشعار', red);
+    if (!notif.isLoan) _showSnack('تم رفض الإشعار', red);
   }
 
   void _showSnack(String msg, Color color) {
