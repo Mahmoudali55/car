@@ -12,6 +12,8 @@ import 'package:car/features/cart/presentation/view/widget/cart_summary_widget.d
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gap/gap.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen({super.key, this.selectedCarId});
@@ -55,34 +57,43 @@ class _CartScreenState extends State<CartScreen> {
           backgroundColor: AppColor.scaffoldColor(context),
           appBar: CartAppBarWidget(itemsCount: state.itemCount),
           body: state.isLoading
-              ? Center(child: CustomLoading())
+              ? const Center(child: CustomLoading())
               : state.reservedCars.isEmpty
               ? const CartEmptyStateWidget()
               : Column(
                   children: [
                     Container(
                       width: double.infinity,
-                      margin: const EdgeInsets.fromLTRB(16, 12, 16, 8),
-                      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+                      margin: EdgeInsets.fromLTRB(16.w, 10.h, 16.w, 4.h),
+                      padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 10.h),
                       decoration: BoxDecoration(
-                        color: Colors.orange.withValues(alpha: 0.12),
-                        borderRadius: BorderRadius.circular(12),
-                        border: Border.all(color: Colors.orange.withValues(alpha: 0.35)),
+                        color: Colors.orange.withValues(alpha: 0.08),
+                        borderRadius: BorderRadius.circular(14.r),
+                        border: Border.all(color: Colors.orange.withValues(alpha: 0.25)),
                       ),
                       child: Row(
                         children: [
-                          Icon(
-                            Icons.warning_amber_rounded,
-                            size: 18,
-                            color: Colors.orange.shade700,
+                          Container(
+                            padding: EdgeInsets.all(4.w),
+                            decoration: BoxDecoration(
+                              color: Colors.orange.withValues(alpha: 0.15),
+                              shape: BoxShape.circle,
+                            ),
+                            child: Icon(
+                              Icons.info_outline_rounded,
+                              size: 16.sp,
+                              color: Colors.orange.shade800,
+                            ),
                           ),
-                          const SizedBox(width: 8),
+                          Gap(10.w),
                           Expanded(
                             child: Text(
                               AppLocaleKey.cancelReservationMsg.tr(),
-                              style: AppTextStyle.bodyMedium(context).copyWith(
-                                color: Colors.orange.shade800,
+                              style: AppTextStyle.bodySmall(context).copyWith(
+                                color: Colors.orange.shade900,
                                 fontWeight: FontWeight.w600,
+                                fontSize: 12.sp,
+                                height: 1.3,
                               ),
                             ),
                           ),

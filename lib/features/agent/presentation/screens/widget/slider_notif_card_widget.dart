@@ -20,6 +20,17 @@ class SliderNotifCard extends StatelessWidget {
     required this.onReject,
   });
 
+  String _formatDate(String value) {
+    if (value.trim().isEmpty) return '';
+    final dt = DateTime.tryParse(value);
+    if (dt != null) {
+      return DateFormat('yyyy-MM-dd').format(dt);
+    }
+    if (value.contains('T')) return value.split('T').first;
+    if (value.contains(' ')) return value.split(' ').first;
+    return value;
+  }
+
   @override
   Widget build(BuildContext context) {
     final cardBg = AppColor.cardColor(context);
@@ -29,14 +40,6 @@ class SliderNotifCard extends StatelessWidget {
 
     // card width = ~75% screen width so 3 cards are partially visible
     final cardWidth = (MediaQuery.of(context).size.width - 32.w) * 0.78;
-    String _timeAgo(String value) {
-      final dt = DateTime.tryParse(value) ?? DateTime.now();
-      final diff = DateTime.now().difference(dt);
-      if (diff.inMinutes < 1) return 'الآن';
-      if (diff.inMinutes < 60) return 'منذ ${diff.inMinutes} دقيقة';
-      if (diff.inHours < 24) return 'منذ ${diff.inHours} ساعة';
-      return 'منذ ${diff.inDays} يوم';
-    }
 
     return Container(
       width: cardWidth,
@@ -57,7 +60,7 @@ class SliderNotifCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // ── Icon + title + time ──
+            // ── Icon + title + date ──
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -87,7 +90,7 @@ class SliderNotifCard extends StatelessWidget {
                       ),
                       Gap(2.h),
                       Text(
-                        _timeAgo(notification.createdAt),
+                        _formatDate(notification.createdAt),
                         style: AppTextStyle.bodySmall(
                           context,
                         ).copyWith(color: AppColor.greyColor(context), fontSize: 11.sp),
@@ -124,16 +127,18 @@ class SliderNotifCard extends StatelessWidget {
                       onTap: onApprove,
                     ),
                   ),
-                  Gap(8.w),
-                  Expanded(
-                    child: SmallActionBtn(
-                      label: AppLocaleKey.reject.tr(),
-                      icon: Icons.close_rounded,
-                      color: red,
-                      isOutlined: true,
-                      onTap: onReject,
+                  if (notification.isLoan) ...[
+                    Gap(8.w),
+                    Expanded(
+                      child: SmallActionBtn(
+                        label: AppLocaleKey.reject.tr(),
+                        icon: Icons.close_rounded,
+                        color: red,
+                        isOutlined: true,
+                        onTap: onReject,
+                      ),
                     ),
-                  ),
+                  ],
                 ],
               ),
             ],

@@ -20,8 +20,7 @@ class AgentNotificationsSheet extends StatefulWidget {
 }
 
 class AgentNotificationsSheetState extends State<AgentNotificationsSheet> {
-  List<NotificationModel> get _notifications =>
-      agentNotifications.where((n) => !n.isRead).toList();
+  List<NotificationModel> get _notifications => agentNotifications.where((n) => !n.isRead).toList();
 
   Future<void> _approve(NotificationModel notif) async {
     // Capture colors and cubit before async gap
@@ -71,10 +70,7 @@ class AgentNotificationsSheetState extends State<AgentNotificationsSheet> {
       );
       if (!mounted) return;
       if (success == null) {
-        _showSnack(
-          context.read<HomeCubit>().lastEditLoanMessage ?? 'فشل رفض طلب التمويل',
-          red,
-        );
+        _showSnack(context.read<HomeCubit>().lastEditLoanMessage ?? 'فشل رفض طلب التمويل', red);
         return;
       }
       _showSnack(success, red);

@@ -21,13 +21,16 @@ class FullNotificationCard extends StatelessWidget {
     required this.onApprove,
     required this.onReject,
   });
-  String _timeAgo(String value) {
-    final dt = DateTime.tryParse(value) ?? DateTime.now();
-    final diff = DateTime.now().difference(dt);
-    if (diff.inMinutes < 1) return 'الآن';
-    if (diff.inMinutes < 60) return 'منذ ${diff.inMinutes} دقيقة';
-    if (diff.inHours < 24) return 'منذ ${diff.inHours} ساعة';
-    return 'منذ ${diff.inDays} يوم';
+
+  String _formatDate(String value) {
+    if (value.trim().isEmpty) return '';
+    final dt = DateTime.tryParse(value);
+    if (dt != null) {
+      return DateFormat('yyyy-MM-dd', 'en').format(dt);
+    }
+    if (value.contains('T')) return value.split('T').first;
+    if (value.contains(' ')) return value.split(' ').first;
+    return value;
   }
 
   @override
@@ -80,7 +83,7 @@ class FullNotificationCard extends StatelessWidget {
                       ),
                       Gap(2.h),
                       Text(
-                        _timeAgo(notification.createdAt),
+                        _formatDate(notification.createdAt),
                         style: AppTextStyle.bodySmall(
                           context,
                         ).copyWith(color: AppColor.greyColor(context), fontSize: 11.sp),
@@ -109,16 +112,18 @@ class FullNotificationCard extends StatelessWidget {
                       onTap: onApprove,
                     ),
                   ),
-                  Gap(10.w),
-                  Expanded(
-                    child: SmallActionBtn(
-                      label: AppLocaleKey.reject.tr(),
-                      icon: Icons.cancel_rounded,
-                      color: red,
-                      isOutlined: true,
-                      onTap: onReject,
+                  if (notification.isLoan) ...[
+                    Gap(10.w),
+                    Expanded(
+                      child: SmallActionBtn(
+                        label: AppLocaleKey.reject.tr(),
+                        icon: Icons.cancel_rounded,
+                        color: red,
+                        isOutlined: true,
+                        onTap: onReject,
+                      ),
                     ),
-                  ),
+                  ],
                 ],
               ),
             ],

@@ -1,3 +1,4 @@
+import 'package:car/core/custom_widgets/custom_sar_text.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/routes/routes_name.dart';
 import 'package:car/core/theme/app_colors.dart';
@@ -12,81 +13,132 @@ class CartSummaryWidget extends StatelessWidget {
 
   const CartSummaryWidget({super.key, required this.totalPrice});
 
-  String _formatTotalPrice(BuildContext context) {
-    // Matches the existing formatting approach from the original screen.
-    final formatted = totalPrice
+  String _formatTotalPrice() {
+    return totalPrice
         .toStringAsFixed(0)
         .replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (m) => '${m[1]},');
-    return '$formatted ${AppLocaleKey.sar.tr()}';
   }
 
   @override
   Widget build(BuildContext context) {
+    final formattedPrice = _formatTotalPrice();
+
     return Container(
-      padding: EdgeInsets.fromLTRB(20.w, 16.h, 20.w, 32.h),
+      padding: EdgeInsets.fromLTRB(20.w, 18.h, 20.w, 28.h),
       decoration: BoxDecoration(
-        color: AppColor.scaffoldColor(context),
+        color: AppColor.secondAppColor(context),
+        borderRadius: BorderRadius.vertical(top: Radius.circular(28.r)),
         border: Border(
-          top: BorderSide(color: AppColor.blackTextColor(context).withValues(alpha: 0.06)),
+          top: BorderSide(
+            color: AppColor.borderColor(context).withValues(alpha: 0.35),
+            width: 1,
+          ),
         ),
         boxShadow: [
           BoxShadow(
-            color: AppColor.blackColor(context).withValues(alpha: 0.3),
+            color: AppColor.blackColor(context).withValues(alpha: 0.08),
             blurRadius: 20,
-            offset: const Offset(0, -5),
+            offset: const Offset(0, -6),
           ),
         ],
       ),
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                AppLocaleKey.total.tr(),
-                style: AppTextStyle.titleMedium(
-                  context,
-                ).copyWith(color: AppColor.blackTextColor(context).withValues(alpha: 0.7)),
-              ),
-              Text(
-                _formatTotalPrice(context),
-                style: AppTextStyle.titleLarge(context).copyWith(
-                  color: AppColor.primaryColor(context),
-                  fontWeight: FontWeight.w900,
-                  fontSize: 22.sp,
+      child: SafeArea(
+        top: false,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      AppLocaleKey.total.tr(),
+                      style: AppTextStyle.bodySmall(context).copyWith(
+                        color: AppColor.blackTextColor(context).withValues(alpha: 0.5),
+                        fontWeight: FontWeight.w600,
+                        fontSize: 13.sp,
+                      ),
+                    ),
+                    Gap(2.h),
+                    ValueWithCurrencyIcon(
+                      text: '$formattedPrice ${AppLocaleKey.sar.tr()}',
+                      textStyle: AppTextStyle.titleLarge(context).copyWith(
+                        color: AppColor.primaryColor(context),
+                        fontWeight: FontWeight.w900,
+                        fontSize: 22.sp,
+                      ),
+                    ),
+                  ],
+                ),
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
+                  decoration: BoxDecoration(
+                    color: AppColor.primaryColor(context).withValues(alpha: 0.08),
+                    borderRadius: BorderRadius.circular(10.r),
+                  ),
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.shield_outlined,
+                        size: 14.sp,
+                        color: AppColor.primaryColor(context),
+                      ),
+                      Gap(4.w),
+                      Text(
+                        'دفع آمن',
+                        style: AppTextStyle.bodySmall(context).copyWith(
+                          color: AppColor.primaryColor(context),
+                          fontWeight: FontWeight.w600,
+                          fontSize: 11.sp,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            Gap(16.h),
+            SizedBox(
+              width: double.infinity,
+              height: 54.h,
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, RoutesName.paymentScreen, arguments: totalPrice);
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColor.primaryColor(context),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16.r),
+                  ),
+                  elevation: 0,
+                  shadowColor: AppColor.primaryColor(context).withValues(alpha: 0.3),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.payment_rounded,
+                      color: AppColor.whiteColor(context),
+                      size: 20.sp,
+                    ),
+                    Gap(10.w),
+                    Text(
+                      AppLocaleKey.payNow.tr(),
+                      style: AppTextStyle.titleMedium(context).copyWith(
+                        color: AppColor.whiteColor(context),
+                        fontWeight: FontWeight.w800,
+                        fontSize: 16.sp,
+                      ),
+                    ),
+                  ],
                 ),
               ),
-            ],
-          ),
-          Gap(16.h),
-          SizedBox(
-            width: double.infinity,
-            child: ElevatedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, RoutesName.paymentScreen, arguments: totalPrice);
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: AppColor.primaryColor(context),
-                padding: EdgeInsets.symmetric(vertical: 18.h),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.r)),
-                elevation: 0,
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(Icons.payment_rounded, color: AppColor.whiteColor(context), size: 22.sp),
-                  Gap(10.w),
-                  Text(
-                    AppLocaleKey.payNow.tr(),
-                    style: AppTextStyle.titleMedium(
-                      context,
-                    ).copyWith(color: AppColor.whiteColor(context), fontWeight: FontWeight.bold),
-                  ),
-                ],
-              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

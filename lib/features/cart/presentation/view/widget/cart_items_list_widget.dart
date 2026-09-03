@@ -18,35 +18,50 @@ class CartItemsListWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: ListView(
-        padding: EdgeInsets.fromLTRB(20.w, 16.h, 20.w, 0),
+        padding: EdgeInsets.fromLTRB(16.w, 12.h, 16.w, 16.h),
         physics: const BouncingScrollPhysics(),
         children: [
-          Card(
-            margin: EdgeInsets.only(bottom: 20.h),
-            color: AppColor.secondAppColor(context),
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                children: [
-                  Icon(
-                    Icons.shopping_cart_rounded,
-                    color: AppColor.primaryColor(context),
-                    size: 18.sp,
-                  ),
-                  Gap(10.w),
-                  Text(
-                    '${cars.length} ${cars.length == 1 ? AppLocaleKey.cartCarSingular.tr() : AppLocaleKey.cartCarPlural.tr()} ${AppLocaleKey.inYourCart.tr()}',
-                    style: AppTextStyle.bodyMedium(
-                      context,
-                    ).copyWith(color: AppColor.primaryColor(context), fontWeight: FontWeight.w600),
-                  ),
-                ],
+          Container(
+            margin: EdgeInsets.only(bottom: 16.h),
+            padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 10.h),
+            decoration: BoxDecoration(
+              color: AppColor.primaryColor(context).withValues(alpha: 0.08),
+              borderRadius: BorderRadius.circular(14.r),
+              border: Border.all(
+                color: AppColor.primaryColor(context).withValues(alpha: 0.15),
               ),
+            ),
+            child: Row(
+              children: [
+                Container(
+                  padding: EdgeInsets.all(6.w),
+                  decoration: BoxDecoration(
+                    color: AppColor.primaryColor(context),
+                    shape: BoxShape.circle,
+                  ),
+                  child: Icon(
+                    Icons.directions_car_filled_rounded,
+                    color: Colors.white,
+                    size: 14.sp,
+                  ),
+                ),
+                Gap(10.w),
+                Expanded(
+                  child: Text(
+                    '${cars.length} ${cars.length == 1 ? AppLocaleKey.cartCarSingular.tr() : AppLocaleKey.cartCarPlural.tr()} ${AppLocaleKey.inYourCart.tr()}',
+                    style: AppTextStyle.bodyMedium(context).copyWith(
+                      color: AppColor.primaryColor(context),
+                      fontWeight: FontWeight.w700,
+                      fontSize: 13.sp,
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
 
           ..._orderedCars.map((car) => CartItemWidget(car: car)),
-          Gap(16.h),
+          Gap(12.h),
         ],
       ),
     );

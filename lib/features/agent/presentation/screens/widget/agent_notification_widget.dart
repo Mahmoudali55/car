@@ -87,7 +87,7 @@ class _AgentNotificationSliderState extends State<AgentNotificationSlider> {
         relatedEntityId: notif.relatedEntityId,
         notifyId: notif.notificationId,
         isApproved: 0,
-        customerNo: int.tryParse(notif.targetUserId) ?? 0,
+        customerNo: notif.customerNo ?? 0,
       );
       if (!mounted) return;
       if (success == null) {

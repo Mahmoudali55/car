@@ -8,7 +8,7 @@ import 'package:gap/gap.dart';
 
 class CancelConfirmDialog extends StatelessWidget {
   final String carName;
-  const CancelConfirmDialog({required this.carName});
+  const CancelConfirmDialog({super.key, required this.carName});
 
   @override
   Widget build(BuildContext context) {
