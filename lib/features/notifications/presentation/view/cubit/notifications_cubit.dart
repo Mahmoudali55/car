@@ -1,6 +1,7 @@
 import 'package:car/core/cache/hive/hive_methods.dart';
 import 'package:car/features/home/presentation/cubit/home_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'notifications_state.dart';
 
 class NotificationsCubit extends Cubit<NotificationsState> {
@@ -53,8 +54,7 @@ class NotificationsCubit extends Cubit<NotificationsState> {
   void markAllAsRead() {
     if (state is NotificationsLoaded) {
       final currentState = state as NotificationsLoaded;
-      final updatedList =
-          currentState.notifications.map((n) => {...n, 'isRead': true}).toList();
+      final updatedList = currentState.notifications.map((n) => {...n, 'isRead': true}).toList();
       _emitLoaded(updatedList);
     }
   }
@@ -72,9 +72,6 @@ class NotificationsCubit extends Cubit<NotificationsState> {
   static void fetchAndLoad(HomeCubit homeCubit) {
     final code = HiveMethods.getcode() ?? '';
     final isAgent = HiveMethods.isAgentRole();
-    homeCubit.getNotificationsData(
-      currentUserId: code,
-      userType: isAgent ? 2 : 1,
-    );
+    homeCubit.getNotificationsData(currentUserId: code, userType: isAgent ? 2 : 1);
   }
 }

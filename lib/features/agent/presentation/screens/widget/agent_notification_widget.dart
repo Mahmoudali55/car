@@ -85,10 +85,7 @@ class _AgentNotificationSliderState extends State<AgentNotificationSlider> {
         final idx = agentNotifications.indexWhere((n) => n.id == notif.id);
         if (idx != -1) agentNotifications[idx].isRead = true;
       });
-      CommonMethods.showToast(
-        message: success,
-        backgroundColor: green,
-      );
+      CommonMethods.showToast(message: success, backgroundColor: green);
     } else {
       CommonMethods.showToast(
         message: 'فشلت عملية الموافقة، يرجى المحاولة مجدداً',
@@ -100,10 +97,7 @@ class _AgentNotificationSliderState extends State<AgentNotificationSlider> {
   void _reject(AgentNotification notif) {
     final red = AppColor.redColor(context, listen: false); // capture before setState
     setState(() => agentNotifications.removeWhere((n) => n.id == notif.id));
-    CommonMethods.showToast(
-      message: 'تم رفض الإشعار',
-      backgroundColor: red,
-    );
+    CommonMethods.showToast(message: 'تم رفض الإشعار', backgroundColor: red);
   }
 
   void _openSheet() {
@@ -121,8 +115,7 @@ class _AgentNotificationSliderState extends State<AgentNotificationSlider> {
     final orange = AppColor.orangeColor(context);
 
     return BlocListener<HomeCubit, HomeState>(
-      listenWhen: (prev, curr) =>
-          prev.notificationsStatus != curr.notificationsStatus,
+      listenWhen: (prev, curr) => prev.notificationsStatus != curr.notificationsStatus,
       listener: (context, state) {
         if (state.notificationsStatus.isSuccess && !_hasFetched) {
           _hasFetched = true;

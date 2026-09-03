@@ -489,10 +489,7 @@ class HomeRepoImpl implements HomeRepo {
       request: () async {
         final response = await apiConsumer.get(
           EndPoints.getNotificationsData,
-          queryParameters: {
-            'CurrentUserId': currentUserId,
-            'UserType': userType,
-          },
+          queryParameters: {'CurrentUserId': currentUserId, 'UserType': userType},
         );
 
         dynamic rawData = response;
