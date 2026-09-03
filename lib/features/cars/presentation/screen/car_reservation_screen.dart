@@ -304,9 +304,9 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
     final storeCodeVal = int.tryParse(widget.car.storeCode) ?? 1;
     final code = HiveMethods.getcode() ?? '';
     final represCode =
-      _selectedRepresentative?.represNo ??
-      int.tryParse(HiveMethods.getRepresentativeNo() ?? '') ??
-      0;
+        _selectedRepresentative?.represNo ??
+        int.tryParse(HiveMethods.getRepresentativeNo() ?? '') ??
+        0;
     final model = AddBookingPermissionModel(
       lpoNos: '',
       lpono: '',

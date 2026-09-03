@@ -375,10 +375,7 @@ class GetBrandCarsDataModel extends Equatable {
         if (json.containsKey(k)) return json[k];
         final normalizedK = k.toLowerCase().replaceAll(RegExp(r'[^a-z0-9]'), '');
         for (var entry in json.entries) {
-          final normalizedEntryKey = entry.key.toLowerCase().replaceAll(
-            RegExp(r'[^a-z0-9]'),
-            '',
-          );
+          final normalizedEntryKey = entry.key.toLowerCase().replaceAll(RegExp(r'[^a-z0-9]'), '');
           if (normalizedEntryKey == normalizedK) return entry.value;
         }
         return null;
@@ -461,17 +458,9 @@ class GetBrandCarsDataModel extends Equatable {
       extraImages: finalImagesList,
       discount: json['discount']?.toString(),
       oldPrice: json['oldPrice']?.toString(),
-      installments: getString(
-        'installments',
-        'installmentPrice',
-        'MonthlyInstallment',
-      ),
+      installments: getString('installments', 'installmentPrice', 'MonthlyInstallment'),
       cashPrice: getString('cashPrice'),
-      monthlyInstallment: getDouble(
-        'monthlyInstallment',
-        'MonthlyInstallment',
-        'installmentPrice',
-      ),
+      monthlyInstallment: getDouble('monthlyInstallment', 'MonthlyInstallment', 'installmentPrice'),
       interestRate: getDouble('interestRate', 'InterestRate'),
       customerName:
           json['CUSTOMER_NAME']?.toString() ??

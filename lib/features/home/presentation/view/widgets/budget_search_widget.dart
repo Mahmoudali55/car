@@ -22,12 +22,7 @@ class _BudgetSearchWidgetState extends State<BudgetSearchWidget> {
     _selectedIndex = widget.initialIndex;
   }
 
-  final budgets = [
-    'أقل من 1000',
-    'حتى 1500',
-    'حتى 2000',
-    'أكثر من 2000',
-  ];
+  final budgets = ['أقل من 1000', 'حتى 1500', 'حتى 2000', 'أكثر من 2000'];
 
   @override
   Widget build(BuildContext context) {

@@ -33,9 +33,7 @@ class CartCubit extends Cubit<CartState> {
 
     final String? userCode = HiveMethods.getcode();
     final int? customerNo = isAgent ? null : int.tryParse(userCode ?? '');
-    final int? represCode = isAgent
-        ? int.tryParse(HiveMethods.getRepresentativeNo() ?? '')
-        : null;
+    final int? represCode = isAgent ? int.tryParse(HiveMethods.getRepresentativeNo() ?? '') : null;
 
     if (!isAgent && customerNo == null) {
       emit(state.copyWith(isLoading: false, reservedCars: []));

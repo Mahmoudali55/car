@@ -213,10 +213,7 @@ class AgentCar {
 }
 
 // ── Mock Data ─────────────────────────────────────────────────────────────────
-List<AgentKpi> getAgentKpis({
-  required int closedDeals,
-  required double sales,
-}) {
+List<AgentKpi> getAgentKpis({required int closedDeals, required double sales}) {
   return [
     AgentKpi(
       label: AppLocaleKey.agentClosedDeals.tr(),

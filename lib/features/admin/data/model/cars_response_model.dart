@@ -95,14 +95,18 @@ class CarModel extends Equatable {
       return const [];
     }
 
-    return carimage!.split(',').map((image) {
-      final path = image.trim();
-      if (path.isEmpty) return '';
-      final url = path.startsWith('http://') || path.startsWith('https://')
-          ? path
-          : '${Constants.baseImage}${path.replaceFirst(RegExp(r'^[/\\]+'), '')}';
-      return Uri.encodeFull(url);
-    }).where((image) => image.isNotEmpty).toList();
+    return carimage!
+        .split(',')
+        .map((image) {
+          final path = image.trim();
+          if (path.isEmpty) return '';
+          final url = path.startsWith('http://') || path.startsWith('https://')
+              ? path
+              : '${Constants.baseImage}${path.replaceFirst(RegExp(r'^[/\\]+'), '')}';
+          return Uri.encodeFull(url);
+        })
+        .where((image) => image.isNotEmpty)
+        .toList();
   }
 
   @override

@@ -38,10 +38,7 @@ class BudgetCarsListWidget extends StatelessWidget {
     return price != null && price > 0 ? price : null;
   }
 
-  double? _lowestInstallment(
-    GetBrandCarsDataModel car,
-    List<FinancingAdModel> financingOffers,
-  ) {
+  double? _lowestInstallment(GetBrandCarsDataModel car, List<FinancingAdModel> financingOffers) {
     final cashPrice = _cashPrice(car);
     if (cashPrice == null) return car.monthlyInstallment ?? _monthlyInstallment(car.installments);
 
@@ -57,10 +54,7 @@ class BudgetCarsListWidget extends StatelessWidget {
     return car.monthlyInstallment ?? _monthlyInstallment(car.installments);
   }
 
-  Map<String, dynamic> _toCarMap(
-    GetBrandCarsDataModel car,
-    double monthlyInstallment,
-  ) {
+  Map<String, dynamic> _toCarMap(GetBrandCarsDataModel car, double monthlyInstallment) {
     final formattedMonthlyInstallment = '${monthlyInstallment.toStringAsFixed(0)} ر.س / شهر';
 
     return {

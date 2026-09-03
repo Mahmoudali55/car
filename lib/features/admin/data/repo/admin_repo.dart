@@ -9,11 +9,7 @@ import 'package:dartz/dartz.dart';
 
 abstract interface class AdminRepo {
   Future<Either<Failure, List<StockStatisticsModel>>> getcarscount();
-  Future<Either<Failure, CarsModel>> getCars(
-    int carstatus,
-    int? CUSTOMER_NO, {
-    int? represCode,
-  });
+  Future<Either<Failure, CarsModel>> getCars(int carstatus, int? CUSTOMER_NO, {int? represCode});
   Future<Either<Failure, List<RepresentativeModel>>> searchRepresentatives(String? searchVal);
   Future<Either<Failure, List<CustomerModel>>> searchCustomers(String? searchVal);
   Future<Either<Failure, List<CustomerModel>>> searchSuppliers(String? searchVal);
