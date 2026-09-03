@@ -1,4 +1,5 @@
 import 'package:car/core/custom_widgets/custom_sar_text.dart';
+import 'package:car/core/custom_widgets/custom_image/custom_network_image.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
@@ -42,17 +43,18 @@ class CarListCard extends StatelessWidget {
                     width: double.infinity,
                     color: AppColor.blueColor(context).withValues(alpha: 0.05),
 
-                    /// استبدلها بصورة السيارة
-                    child: Icon(
-                      Icons.directions_car_filled_rounded,
-                      size: 90.sp,
-                      color: AppColor.blueColor(context).withValues(alpha: .35),
-                    ),
-
-                    // child: CachedNetworkImage(
-                    //   imageUrl: car.image,
-                    //   fit: BoxFit.cover,
-                    // ),
+                    child: car.imageUrl.trim().isNotEmpty
+                        ? CustomNetworkImage(
+                            imageUrl: car.imageUrl,
+                            width: double.infinity,
+                            height: 200.h,
+                            fit: BoxFit.cover,
+                          )
+                        : Icon(
+                            Icons.directions_car_filled_rounded,
+                            size: 90.sp,
+                            color: AppColor.blueColor(context).withValues(alpha: .35),
+                          ),
                   ),
                 ),
 

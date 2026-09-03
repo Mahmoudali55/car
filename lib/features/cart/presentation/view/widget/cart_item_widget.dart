@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:car/core/custom_widgets/custom_image/custom_network_image.dart';
 import 'package:car/core/custom_widgets/custom_sar_text.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
@@ -116,13 +117,20 @@ class _CartItemWidgetState extends State<CartItemWidget> with SingleTickerProvid
                         width: 72.w,
                         height: 72.w,
                         color: AppColor.primaryColor(context).withValues(alpha: 0.06),
-                        child: Center(
-                          child: Icon(
-                            Icons.directions_car_rounded,
-                            size: 36.sp,
-                            color: AppColor.primaryColor(context).withValues(alpha: 0.25),
-                          ),
-                        ),
+                        child: widget.car.imageUrls.isNotEmpty
+                            ? CustomNetworkImage(
+                                imageUrl: widget.car.imageUrls.first,
+                                width: 72.w,
+                                height: 72.w,
+                                fit: BoxFit.cover,
+                              )
+                            : Center(
+                                child: Icon(
+                                  Icons.directions_car_rounded,
+                                  size: 36.sp,
+                                  color: AppColor.primaryColor(context).withValues(alpha: 0.25),
+                                ),
+                              ),
                       ),
                     ),
                     Gap(14.w),

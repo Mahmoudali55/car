@@ -2,6 +2,7 @@ import 'package:car/core/cache/hive/hive_methods.dart';
 import 'package:car/core/custom_widgets/buttons/custom_button.dart';
 import 'package:car/core/custom_widgets/custom_form_field/custom_form_field.dart';
 import 'package:car/core/custom_widgets/custom_loading/custom_loading.dart';
+import 'package:car/core/custom_widgets/custom_image/custom_network_image.dart';
 import 'package:car/core/custom_widgets/custom_sar_text.dart';
 import 'package:car/core/custom_widgets/custom_toast/custom_toast.dart';
 import 'package:car/core/images/app_images.dart';
@@ -145,14 +146,21 @@ class _AgentCarDetailsScreenState extends State<AgentCarDetailsScreen> {
                   background: Stack(
                     fit: StackFit.expand,
                     children: [
-                      Container(
-                        color: AppColor.blueColor(context).withValues(alpha: .08),
-                        child: Icon(
-                          Icons.directions_car_filled_rounded,
-                          size: 150.sp,
-                          color: AppColor.blueColor(context).withValues(alpha: .25),
-                        ),
-                      ),
+                      widget.car.imageUrl.trim().isNotEmpty
+                          ? CustomNetworkImage(
+                              imageUrl: widget.car.imageUrl,
+                              width: double.infinity,
+                              height: double.infinity,
+                              fit: BoxFit.cover,
+                            )
+                          : Container(
+                              color: AppColor.blueColor(context).withValues(alpha: .08),
+                              child: Icon(
+                                Icons.directions_car_filled_rounded,
+                                size: 150.sp,
+                                color: AppColor.blueColor(context).withValues(alpha: .25),
+                              ),
+                            ),
                       Container(
                         decoration: BoxDecoration(
                           gradient: LinearGradient(
