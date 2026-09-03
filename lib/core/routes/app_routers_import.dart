@@ -43,6 +43,7 @@ import 'package:car/features/home/presentation/view/screen/recently_viewed_scree
 import 'package:car/features/notifications/presentation/view/screen/notifications_screen.dart';
 import 'package:car/features/onboarding/presentation/view/screen/onboarding_screen.dart';
 import 'package:car/features/profile/presentation/screen/user_profile_screen.dart';
+import 'package:car/features/profile/presentation/screen/track_order_screen.dart';
 import 'package:car/features/services/presentation/screen/bespoke_selection_screen.dart';
 import 'package:car/features/services/presentation/screen/booking_appointment_screen.dart';
 import 'package:car/features/services/presentation/screen/car_detailing_screen.dart';

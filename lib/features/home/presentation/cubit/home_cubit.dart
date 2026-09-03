@@ -18,6 +18,7 @@ import 'package:car/features/home/data/model/financing_ad_model.dart';
 import 'package:car/features/home/data/model/send_otp_model.dart';
 import 'package:car/features/home/data/model/send_otp_response_model.dart';
 import 'package:car/features/home/data/repository/home_repo.dart';
+import 'package:car/features/notifications/data/model/notification_model.dart';
 import 'package:equatable/equatable.dart';
 
 part 'home_state.dart';
@@ -290,10 +291,7 @@ class HomeCubit extends Cubit<HomeState> {
     required List<File> files,
   }) async {
     emit(state.copyWith(addLoanApplicationStatus: const StatusState.loading()));
-    final result = await homeRepo.addLoanApplicationWithFiles(
-      model: model,
-      files: files,
-    );
+    final result = await homeRepo.addLoanApplicationWithFiles(model: model, files: files);
     result.fold(
       (failure) =>
           emit(state.copyWith(addLoanApplicationStatus: StatusState.failure(failure.errMessage))),
@@ -305,12 +303,40 @@ class HomeCubit extends Cubit<HomeState> {
     emit(state.copyWith(custLoanApplicationsStatus: const StatusState.loading()));
     final result = await homeRepo.getCustLoanApplications(code);
     result.fold(
-      (failure) => emit(
-        state.copyWith(custLoanApplicationsStatus: StatusState.failure(failure.errMessage)),
-      ),
-      (response) => emit(
-        state.copyWith(custLoanApplicationsStatus: StatusState.success(response)),
-      ),
+      (failure) =>
+          emit(state.copyWith(custLoanApplicationsStatus: StatusState.failure(failure.errMessage))),
+      (response) => emit(state.copyWith(custLoanApplicationsStatus: StatusState.success(response))),
     );
+  }
+
+  Future<void> getNotificationsData({
+    required String currentUserId,
+    required int userType,
+  }) async {
+    emit(state.copyWith(notificationsStatus: const StatusState.loading()));
+    final result = await homeRepo.getNotificationsData(
+      currentUserId: currentUserId,
+      userType: userType,
+    );
+    result.fold(
+      (failure) =>
+          emit(state.copyWith(notificationsStatus: StatusState.failure(failure.errMessage))),
+      (response) => emit(state.copyWith(notificationsStatus: StatusState.success(response))),
+    );
+  }
+
+  Future<String?> editBooking({
+    required int represCode,
+    required int lpoNo,
+    required int customerNo,
+    required int notifyId,
+  }) async {
+    final result = await homeRepo.editBooking(
+      represCode: represCode,
+      lpoNo: lpoNo,
+      customerNo: customerNo,
+      notifyId: notifyId,
+    );
+    return result.fold((failure) => null, (message) => message);
   }
 }

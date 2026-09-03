@@ -1,9 +1,12 @@
+import 'package:car/core/cache/hive/hive_methods.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/features/agent/presentation/screens/widget/agent_notification_widget.dart';
 import 'package:car/features/agent/presentation/screens/widget/empty_state_notification_widget.dart';
 import 'package:car/features/agent/presentation/screens/widget/full_notification_card_widget.dart';
+import 'package:car/features/home/presentation/cubit/home_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
@@ -18,19 +21,39 @@ class AgentNotificationsSheet extends StatefulWidget {
 class AgentNotificationsSheetState extends State<AgentNotificationsSheet> {
   List<AgentNotification> get _notifications => agentNotifications.where((n) => !n.isRead).toList();
 
-  void _approve(AgentNotification notif) {
-    setState(() {
-      final idx = agentNotifications.indexWhere((n) => n.id == notif.id);
-      if (idx != -1) agentNotifications[idx].isRead = true;
-    });
-    widget.onChanged();
-    _showSnack('تمت الموافقة على الإشعار بنجاح ✓', AppColor.greenColor(context));
+  Future<void> _approve(AgentNotification notif) async {
+    // Capture colors and cubit before async gap
+    final green = AppColor.greenColor(context, listen: false);
+    final red = AppColor.redColor(context, listen: false);
+    final homeCubit = context.read<HomeCubit>();
+    final represCode = int.tryParse(HiveMethods.getRepresentativeNo() ?? '') ?? 0;
+
+    final success = await homeCubit.editBooking(
+      represCode: represCode,
+      lpoNo: notif.lpoNo,
+      customerNo: notif.customerNo,
+      notifyId: int.tryParse(notif.id) ?? 0,
+    );
+
+    if (!mounted) return;
+    if (success != null) {
+      setState(() {
+        final idx = agentNotifications.indexWhere((n) => n.id == notif.id);
+        if (idx != -1) agentNotifications[idx].isRead = true;
+      });
+      widget.onChanged();
+      _showSnack(success, green);
+    } else {
+      _showSnack('فشلت عملية الموافقة، يرجى المحاولة مجدداً', red);
+    }
   }
 
   void _reject(AgentNotification notif) {
+    // Capture color before any potential async gap
+    final red = AppColor.redColor(context, listen: false);
     setState(() => agentNotifications.removeWhere((n) => n.id == notif.id));
     widget.onChanged();
-    _showSnack('تم رفض الإشعار', AppColor.redColor(context));
+    _showSnack('تم رفض الإشعار', red);
   }
 
   void _showSnack(String msg, Color color) {

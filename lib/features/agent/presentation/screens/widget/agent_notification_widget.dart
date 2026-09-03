@@ -1,11 +1,14 @@
+import 'package:car/core/cache/hive/hive_methods.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/core/utils/common_methods.dart';
 import 'package:car/features/agent/presentation/screens/widget/agent_notifications_sheet_widget.dart';
 import 'package:car/features/agent/presentation/screens/widget/slider_notif_card_widget.dart';
+import 'package:car/features/home/presentation/cubit/home_cubit.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
@@ -16,35 +19,24 @@ class AgentNotification {
   final DateTime createdAt;
   bool isRead;
 
+  /// lpoNo = RelatedEntityId from API → used in EditBooking LPONO field
+  final int lpoNo;
+
+  /// customerNo = TargetUserId parsed as int → used in EditBooking CUSTOMERNO field
+  final int customerNo;
+
   AgentNotification({
     required this.id,
     required this.title,
     required this.body,
     required this.createdAt,
     this.isRead = false,
+    this.lpoNo = 0,
+    this.customerNo = 0,
   });
 }
 
-List<AgentNotification> agentNotifications = [
-  AgentNotification(
-    id: '1',
-    title: 'طلب جديد',
-    body: 'تم استلام طلب جديد لشراء سيارة تويوتا كامري',
-    createdAt: DateTime.now().subtract(const Duration(minutes: 5)),
-  ),
-  AgentNotification(
-    id: '2',
-    title: 'تحديث حالة',
-    body: 'العميل قام برفع المستندات المطلوبة للتمويل',
-    createdAt: DateTime.now().subtract(const Duration(hours: 1)),
-  ),
-  AgentNotification(
-    id: '3',
-    title: 'رسالة من الإدارة',
-    body: 'يرجى مراجعة طلبات اليوم المتبقية',
-    createdAt: DateTime.now().subtract(const Duration(days: 1)),
-  ),
-];
+List<AgentNotification> agentNotifications = [];
 
 class AgentNotificationSlider extends StatefulWidget {
   const AgentNotificationSlider({super.key});
@@ -54,24 +46,64 @@ class AgentNotificationSlider extends StatefulWidget {
 }
 
 class _AgentNotificationSliderState extends State<AgentNotificationSlider> {
+  bool _hasFetched = false;
+
   List<AgentNotification> get _pending => agentNotifications.where((n) => !n.isRead).toList();
 
-  void _approve(AgentNotification notif) {
-    setState(() {
-      final idx = agentNotifications.indexWhere((n) => n.id == notif.id);
-      if (idx != -1) agentNotifications[idx].isRead = true;
-    });
-    _showSnack('تمت الموافقة بنجاح ✓', AppColor.greenColor(context));
+  @override
+  void initState() {
+    super.initState();
+    _fetchNotifications();
+  }
+
+  void _fetchNotifications() {
+    final code = HiveMethods.getcode() ?? '';
+    context.read<HomeCubit>().getNotificationsData(
+      currentUserId: code,
+      userType: 2, // agent
+    );
+  }
+
+  Future<void> _approve(AgentNotification notif) async {
+    // Capture before async gap — context cannot be used after await
+    final represCode = int.tryParse(HiveMethods.getRepresentativeNo() ?? '') ?? 0;
+    final homeCubit = context.read<HomeCubit>();
+    final green = AppColor.greenColor(context, listen: false);
+    final red = AppColor.redColor(context, listen: false);
+
+    final success = await homeCubit.editBooking(
+      represCode: represCode,
+      lpoNo: notif.lpoNo,
+      customerNo: notif.customerNo,
+      notifyId: int.tryParse(notif.id) ?? 0,
+    );
+
+    if (!mounted) return;
+
+    if (success != null) {
+      setState(() {
+        final idx = agentNotifications.indexWhere((n) => n.id == notif.id);
+        if (idx != -1) agentNotifications[idx].isRead = true;
+      });
+      CommonMethods.showToast(
+        message: success,
+        backgroundColor: green,
+      );
+    } else {
+      CommonMethods.showToast(
+        message: 'فشلت عملية الموافقة، يرجى المحاولة مجدداً',
+        backgroundColor: red,
+      );
+    }
   }
 
   void _reject(AgentNotification notif) {
+    final red = AppColor.redColor(context, listen: false); // capture before setState
     setState(() => agentNotifications.removeWhere((n) => n.id == notif.id));
-    _showSnack('تم رفض الإشعار', AppColor.redColor(context));
-  }
-
-  void _showSnack(String msg, Color color) {
-    if (!mounted) return;
-    CommonMethods.showToast(message: msg, backgroundColor: color);
+    CommonMethods.showToast(
+      message: 'تم رفض الإشعار',
+      backgroundColor: red,
+    );
   }
 
   void _openSheet() {
@@ -85,10 +117,43 @@ class _AgentNotificationSliderState extends State<AgentNotificationSlider> {
 
   @override
   Widget build(BuildContext context) {
-    final pending = _pending;
     final blue = AppColor.blueColor(context);
     final orange = AppColor.orangeColor(context);
 
+    return BlocListener<HomeCubit, HomeState>(
+      listenWhen: (prev, curr) =>
+          prev.notificationsStatus != curr.notificationsStatus,
+      listener: (context, state) {
+        if (state.notificationsStatus.isSuccess && !_hasFetched) {
+          _hasFetched = true;
+          final list = state.notificationsStatus.data ?? [];
+          setState(() {
+            agentNotifications = list.map((n) {
+              DateTime parsedDate;
+              try {
+                parsedDate = DateFormat('dd/MM/yyyy').parse(n.createdAt);
+              } catch (_) {
+                parsedDate = DateTime.now();
+              }
+              return AgentNotification(
+                id: n.notificationId.toString(),
+                title: n.title,
+                body: n.body,
+                createdAt: parsedDate,
+                isRead: n.isRead,
+                lpoNo: n.relatedEntityId,
+                customerNo: int.tryParse(n.targetUserId) ?? 0,
+              );
+            }).toList();
+          });
+        }
+      },
+      child: _buildContent(blue, orange),
+    );
+  }
+
+  Widget _buildContent(Color blue, Color orange) {
+    final pending = _pending;
     final preview = pending.take(3).toList();
 
     return Column(

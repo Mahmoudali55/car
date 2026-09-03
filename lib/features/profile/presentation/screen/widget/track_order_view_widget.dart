@@ -16,7 +16,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
 class TrackOrderView extends StatelessWidget {
-  const TrackOrderView({super.key});
+  const TrackOrderView({super.key, this.selectedOrderId});
+
+  final String? selectedOrderId;
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +50,16 @@ class TrackOrderView extends StatelessWidget {
             );
           }
 
-          final applications = status.data ?? <CustomerLoanApplicationModel>[];
+          final applications = [...status.data ?? <CustomerLoanApplicationModel>[]];
+          if (selectedOrderId != null) {
+            applications.sort((a, b) {
+              final aSelected = a.applicationID.toString() == selectedOrderId ||
+                  a.carID == selectedOrderId;
+              final bSelected = b.applicationID.toString() == selectedOrderId ||
+                  b.carID == selectedOrderId;
+              return bSelected.toString().compareTo(aSelected.toString());
+            });
+          }
 
           if (applications.isEmpty) {
             return EmptyView(

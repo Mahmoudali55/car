@@ -10,6 +10,39 @@ class NotificationItemWidget extends StatelessWidget {
 
   const NotificationItemWidget({super.key, required this.notification, required this.onTap});
 
+  String _relativeTime(BuildContext context, String value) {
+    final aspNetDate = RegExp(r'^/Date\((\d+)(?:[+-]\d+)?\)/$').firstMatch(value);
+    final createdAt = aspNetDate != null
+        ? DateTime.fromMillisecondsSinceEpoch(int.parse(aspNetDate.group(1)!)).toLocal()
+        : DateTime.tryParse(value.replaceFirst(' ', 'T'))?.toLocal();
+    if (createdAt == null) return value;
+
+    final difference = DateTime.now().difference(createdAt);
+    final elapsed = difference.isNegative ? Duration.zero : difference;
+    final languageCode = Localizations.localeOf(context).languageCode;
+    if (languageCode == 'ar') {
+      if (elapsed.inMinutes < 1) return 'منذ لحظات';
+      if (elapsed.inHours < 1) {
+        final minutes = elapsed.inMinutes;
+        return minutes == 1 ? 'منذ دقيقة' : minutes == 2 ? 'منذ دقيقتين' : 'منذ $minutes دقائق';
+      }
+      if (elapsed.inDays < 1) {
+        final hours = elapsed.inHours;
+        return hours == 1 ? 'منذ ساعة' : hours == 2 ? 'منذ ساعتين' : 'منذ $hours ساعات';
+      }
+      final days = elapsed.inDays;
+      if (days < 7) return days == 1 ? 'منذ يوم' : days == 2 ? 'منذ يومين' : 'منذ $days أيام';
+      final weeks = days ~/ 7;
+      return weeks == 1 ? 'منذ أسبوع' : weeks == 2 ? 'منذ أسبوعين' : 'منذ $weeks أسابيع';
+    }
+
+    if (elapsed.inMinutes < 1) return 'Just now';
+    if (elapsed.inHours < 1) return '${elapsed.inMinutes}m ago';
+    if (elapsed.inDays < 1) return '${elapsed.inHours}h ago';
+    if (elapsed.inDays < 7) return '${elapsed.inDays}d ago';
+    return '${elapsed.inDays ~/ 7}w ago';
+  }
+
   @override
   Widget build(BuildContext context) {
     final bool isRead = notification['isRead'] as bool;
@@ -117,7 +150,7 @@ class NotificationItemWidget extends StatelessWidget {
                   ),
                   Gap(8.h),
                   Text(
-                    notification['time'] as String,
+                    _relativeTime(context, notification['time'] as String),
                     style: AppTextStyle.bodySmall(context).copyWith(
                       color: AppColor.blackTextColor(context).withValues(alpha: 0.3),
                       fontSize: 10.sp,

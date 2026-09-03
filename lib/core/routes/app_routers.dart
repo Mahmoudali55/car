@@ -83,9 +83,13 @@ class AppRouters {
       case RoutesName.filterScreen:
         return MaterialPageRoute(builder: (_) => const FilterScreen());
       case RoutesName.cartScreen:
+        final selectedCarId = args is Map<String, dynamic> ? args['id']?.toString() : null;
         return MaterialPageRoute(
           builder: (ctx) =>
-              BlocProvider.value(value: ctx.read<CartCubit>(), child: const CartScreen()),
+              BlocProvider.value(
+                value: ctx.read<CartCubit>(),
+                child: CartScreen(selectedCarId: selectedCarId),
+              ),
         );
       case RoutesName.paymentScreen:
         return MaterialPageRoute(builder: (_) => PaymentScreen(totalPrice: args as double));
@@ -105,6 +109,7 @@ class AppRouters {
         final orderId = args is String
             ? args
             : (args is Map<String, dynamic> ? args['orderId']?.toString() : null);
+        return MaterialPageRoute(builder: (_) => TrackOrderScreen(selectedOrderId: orderId));
 
       case RoutesName.recentlyViewedScreen:
         return MaterialPageRoute(builder: (_) => const RecentlyViewedScreen());

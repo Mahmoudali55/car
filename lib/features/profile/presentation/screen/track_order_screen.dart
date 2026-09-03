@@ -6,13 +6,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class TrackOrderScreen extends StatelessWidget {
-  const TrackOrderScreen({super.key});
+  const TrackOrderScreen({super.key, this.selectedOrderId});
+
+  final String? selectedOrderId;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider.value(
       value: sl<HomeCubit>()..getCustLoanApplications(HiveMethods.getUserCode() ?? ''),
-      child: const TrackOrderView(),
+      child: TrackOrderView(selectedOrderId: selectedOrderId),
     );
   }
 }

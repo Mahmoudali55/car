@@ -10,8 +10,9 @@ import 'package:gap/gap.dart';
 
 class CartItemsListWidget extends StatelessWidget {
   final List<CarModel> cars;
+  final String? selectedCarId;
 
-  const CartItemsListWidget({super.key, required this.cars});
+  const CartItemsListWidget({super.key, required this.cars, this.selectedCarId});
 
   @override
   Widget build(BuildContext context) {
@@ -44,10 +45,21 @@ class CartItemsListWidget extends StatelessWidget {
             ),
           ),
 
-          ...cars.map((car) => CartItemWidget(car: car)),
+          ..._orderedCars.map((car) => CartItemWidget(car: car)),
           Gap(16.h),
         ],
       ),
     );
+  }
+
+  List<CarModel> get _orderedCars {
+    if (selectedCarId == null) return cars;
+    final ordered = [...cars];
+    ordered.sort((a, b) {
+      final aSelected = a.itemCode == selectedCarId || a.lpoNo == selectedCarId;
+      final bSelected = b.itemCode == selectedCarId || b.lpoNo == selectedCarId;
+      return bSelected.toString().compareTo(aSelected.toString());
+    });
+    return ordered;
   }
 }

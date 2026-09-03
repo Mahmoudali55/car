@@ -1,5 +1,6 @@
 part of 'home_cubit.dart';
 
+
 class HomeState extends Equatable {
   final StatusState carsModelsStatus;
   final StatusState brandCarsStatus;
@@ -25,6 +26,7 @@ class HomeState extends Equatable {
   final StatusState<List<FinancingAdModel>> normalFinancingStatus;
   final StatusState<AddLoanApplicationResponseModel> addLoanApplicationStatus;
   final StatusState<List<CustomerLoanApplicationModel>> custLoanApplicationsStatus;
+  final StatusState<List<NotificationModel>> notificationsStatus;
 
   const HomeState({
     this.carsModelsStatus = const StatusState.initial(),
@@ -51,6 +53,7 @@ class HomeState extends Equatable {
     this.normalFinancingStatus = const StatusState.initial(),
     this.addLoanApplicationStatus = const StatusState.initial(),
     this.custLoanApplicationsStatus = const StatusState.initial(),
+    this.notificationsStatus = const StatusState.initial(),
   });
 
   HomeState copyWith({
@@ -78,6 +81,7 @@ class HomeState extends Equatable {
     StatusState<List<FinancingAdModel>>? normalFinancingStatus,
     StatusState<AddLoanApplicationResponseModel>? addLoanApplicationStatus,
     StatusState<List<CustomerLoanApplicationModel>>? custLoanApplicationsStatus,
+    StatusState<List<NotificationModel>>? notificationsStatus,
   }) {
     return HomeState(
       carsModelsStatus: carsModelsStatus ?? this.carsModelsStatus,
@@ -107,6 +111,7 @@ class HomeState extends Equatable {
       addLoanApplicationStatus: addLoanApplicationStatus ?? this.addLoanApplicationStatus,
       custLoanApplicationsStatus:
           custLoanApplicationsStatus ?? this.custLoanApplicationsStatus,
+      notificationsStatus: notificationsStatus ?? this.notificationsStatus,
     );
   }
 
@@ -136,5 +141,6 @@ class HomeState extends Equatable {
     normalFinancingStatus,
     addLoanApplicationStatus,
     custLoanApplicationsStatus,
+    notificationsStatus,
   ];
 }

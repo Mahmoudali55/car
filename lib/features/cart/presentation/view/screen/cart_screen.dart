@@ -14,7 +14,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CartScreen extends StatefulWidget {
-  const CartScreen({super.key});
+  const CartScreen({super.key, this.selectedCarId});
+
+  final String? selectedCarId;
   @override
   State<CartScreen> createState() => _CartScreenState();
 }
@@ -87,7 +89,10 @@ class _CartScreenState extends State<CartScreen> {
                         ],
                       ),
                     ),
-                    CartItemsListWidget(cars: state.reservedCars),
+                    CartItemsListWidget(
+                      cars: state.reservedCars,
+                      selectedCarId: widget.selectedCarId,
+                    ),
                     CartSummaryWidget(totalPrice: state.totalPrice),
                   ],
                 ),

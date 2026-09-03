@@ -18,6 +18,7 @@ import 'package:car/features/home/data/model/customer_loan_application_model.dar
 import 'package:car/features/home/data/model/financing_ad_model.dart';
 import 'package:car/features/home/data/model/send_otp_model.dart';
 import 'package:car/features/home/data/model/send_otp_response_model.dart';
+import 'package:car/features/notifications/data/model/notification_model.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
@@ -48,6 +49,16 @@ abstract interface class HomeRepo {
     required List<File> files,
   });
   Future<Either<Failure, List<CustomerLoanApplicationModel>>> getCustLoanApplications(String code);
+  Future<Either<Failure, List<NotificationModel>>> getNotificationsData({
+    required String currentUserId,
+    required int userType,
+  });
+  Future<Either<Failure, String>> editBooking({
+    required int represCode,
+    required int lpoNo,
+    required int customerNo,
+    required int notifyId,
+  });
 }
 
 class HomeRepoImpl implements HomeRepo {
@@ -445,7 +456,13 @@ class HomeRepoImpl implements HomeRepo {
           queryParameters: {'Code': code},
         );
 
-        dynamic rawData = response['Data'];
+        dynamic rawData = response;
+        if (response is Map) {
+          final dataEntry = response.entries.where(
+            (entry) => entry.key.toString().toLowerCase() == 'data',
+          );
+          rawData = dataEntry.isEmpty ? response : dataEntry.first.value;
+        }
         if (rawData is String && rawData.isNotEmpty && rawData != 'null') {
           try {
             rawData = jsonDecode(rawData);
@@ -459,6 +476,75 @@ class HomeRepoImpl implements HomeRepo {
         }
 
         return [];
+      },
+    );
+  }
+
+  @override
+  Future<Either<Failure, List<NotificationModel>>> getNotificationsData({
+    required String currentUserId,
+    required int userType,
+  }) async {
+    return handleDioRequest(
+      request: () async {
+        final response = await apiConsumer.get(
+          EndPoints.getNotificationsData,
+          queryParameters: {
+            'CurrentUserId': currentUserId,
+            'UserType': userType,
+          },
+        );
+
+        dynamic rawData = response;
+        if (response is Map) {
+          final dataEntry = response.entries.where(
+            (entry) => entry.key.toString().toLowerCase() == 'data',
+          );
+          rawData = dataEntry.isEmpty ? response : dataEntry.first.value;
+        }
+        if (rawData is String && rawData.isNotEmpty && rawData != 'null') {
+          try {
+            rawData = jsonDecode(rawData);
+          } catch (_) {}
+        }
+
+        if (rawData is List) {
+          return rawData
+              .map((e) => NotificationModel.fromJson(Map<String, dynamic>.from(e)))
+              .toList();
+        }
+
+        return [];
+      },
+    );
+  }
+
+  @override
+  Future<Either<Failure, String>> editBooking({
+    required int represCode,
+    required int lpoNo,
+    required int customerNo,
+    required int notifyId,
+  }) async {
+    return handleDioRequest(
+      request: () async {
+        final response = await apiConsumer.put(
+          EndPoints.editBooking,
+          body: {
+            'REPRESCODE': represCode,
+            'LPONO': lpoNo,
+            'CUSTOMERNO': customerNo,
+            'notifyid': notifyId,
+          },
+        );
+        if (response is Map) {
+          final message = response.entries
+              .where((entry) => entry.key.toString().toLowerCase() == 'message')
+              .map((entry) => entry.value?.toString() ?? '')
+              .firstWhere((value) => value.isNotEmpty, orElse: () => '');
+          if (message.isNotEmpty) return message;
+        }
+        return 'تمت الموافقة بنجاح';
       },
     );
   }

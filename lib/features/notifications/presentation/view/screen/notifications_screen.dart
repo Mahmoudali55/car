@@ -1,8 +1,11 @@
+import 'package:car/core/cache/hive/hive_methods.dart';
 import 'package:car/core/custom_widgets/custom_app_bar/custom_app_bar.dart';
 import 'package:car/core/custom_widgets/custom_loading/custom_loading.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
+import 'package:car/core/routes/routes_name.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
+import 'package:car/features/home/presentation/cubit/home_cubit.dart';
 import 'package:car/features/notifications/presentation/view/cubit/notifications_cubit.dart';
 import 'package:car/features/notifications/presentation/view/cubit/notifications_state.dart';
 import 'package:car/features/notifications/presentation/view/widget/notification_item_widget.dart';
@@ -12,8 +15,27 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
-class NotificationsScreen extends StatelessWidget {
+class NotificationsScreen extends StatefulWidget {
   const NotificationsScreen({super.key});
+
+  @override
+  State<NotificationsScreen> createState() => _NotificationsScreenState();
+}
+
+class _NotificationsScreenState extends State<NotificationsScreen> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      final code = HiveMethods.getcode() ?? '';
+      final isAgent = HiveMethods.isAgentRole();
+      context.read<HomeCubit>().getNotificationsData(
+        currentUserId: code,
+        userType: isAgent ? 2 : 1,
+      );
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,29 +68,65 @@ class NotificationsScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: BlocBuilder<NotificationsCubit, NotificationsState>(
-        builder: (context, state) {
-          if (state is NotificationsLoaded) {
-            if (state.notifications.isEmpty) {
-              return _buildEmptyState(context);
-            }
-            return ListView.builder(
-              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 16.h),
-              physics: const BouncingScrollPhysics(),
-              itemCount: state.notifications.length,
-              itemBuilder: (context, index) {
-                final notification = state.notifications[index];
-                return NotificationItemWidget(
-                  notification: notification,
-                  onTap: () => context.read<NotificationsCubit>().markAsRead(notification['id']),
+      body: MultiBlocListener(
+        listeners: [
+          // Listen to HomeCubit notificationsStatus and feed into NotificationsCubit
+          BlocListener<HomeCubit, HomeState>(
+            listenWhen: (prev, curr) =>
+                prev.notificationsStatus != curr.notificationsStatus,
+            listener: (context, state) {
+              if (state.notificationsStatus.isSuccess) {
+                final list = state.notificationsStatus.data ?? [];
+                context.read<NotificationsCubit>().loadFromApi(
+                  list.map((n) => n.toMap()).toList(),
                 );
-              },
-            );
-          }
-          return const Center(child: CustomLoading());
-        },
+              } else if (state.notificationsStatus.isFailure) {
+                // If API fails, show empty
+                context.read<NotificationsCubit>().loadFromApi([]);
+              }
+            },
+          ),
+        ],
+        child: BlocBuilder<NotificationsCubit, NotificationsState>(
+          builder: (context, state) {
+            if (state is NotificationsLoaded) {
+              if (state.notifications.isEmpty) {
+                return _buildEmptyState(context);
+              }
+              return ListView.builder(
+                padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 16.h),
+                physics: const BouncingScrollPhysics(),
+                itemCount: state.notifications.length,
+                itemBuilder: (context, index) {
+                  final notification = state.notifications[index];
+                  return NotificationItemWidget(
+                    notification: notification,
+                    onTap: () => _openNotification(context, notification),
+                  );
+                },
+              );
+            }
+            return const Center(child: CustomLoading());
+          },
+        ),
       ),
     );
+  }
+
+  void _openNotification(BuildContext context, Map<String, dynamic> notification) {
+    context.read<NotificationsCubit>().markAsRead(notification['id'] as String);
+    final type = notification['relatedEntityType'] as int?;
+    final id = notification['relatedEntityId'];
+
+    switch (type) {
+      case 20:
+      case 34:
+        Navigator.pushNamed(context, RoutesName.cartScreen, arguments: {'id': id});
+        break;
+      case 77:
+        Navigator.pushNamed(context, RoutesName.trackOrderScreen, arguments: {'orderId': id});
+        break;
+    }
   }
 
   Widget _buildEmptyState(BuildContext context) {
@@ -100,7 +158,10 @@ class NotificationsScreen extends StatelessWidget {
             AppLocaleKey.no_alert_desc.tr(),
             style: AppTextStyle.bodyMedium(
               context,
-            ).copyWith(color: AppColor.blackTextColor(context).withValues(alpha: 0.4), height: 1.5),
+            ).copyWith(
+              color: AppColor.blackTextColor(context).withValues(alpha: 0.4),
+              height: 1.5,
+            ),
             textAlign: TextAlign.center,
           ),
         ],

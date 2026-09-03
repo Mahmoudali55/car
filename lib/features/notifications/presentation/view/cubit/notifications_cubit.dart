@@ -1,3 +1,5 @@
+import 'package:car/core/cache/hive/hive_methods.dart';
+import 'package:car/features/home/presentation/cubit/home_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'notifications_state.dart';
 
@@ -7,43 +9,16 @@ class NotificationsCubit extends Cubit<NotificationsState> {
   }
 
   void loadNotifications() {
-    // Dummy Data for notifications
-    final List<Map<String, dynamic>> dummyNotifications = [
-      {
-        'id': '1',
-        'title': 'عرض جديد! 🏎️',
-        'body': 'احصل على خصم 10% على صيانة سيارتك البي إم دبليو هذا الأسبوع.',
-        'time': 'منذ دقيقتين',
-        'isRead': false,
-        'type': 'offer',
-      },
-      {
-        'id': '2',
-        'title': 'تم تأكيد طلبك ✅',
-        'body': 'طلبك رقم #CAR-1234 تم تأكيده وسيتصل بك المندوب قريباً.',
-        'time': 'منذ ساعة',
-        'isRead': false,
-        'type': 'order',
-      },
-      {
-        'id': '3',
-        'title': 'تحديث النظام ⚙️',
-        'body': 'قمت بإضافة ميزة السلة والدفع بنجاح. استمتع بالتجربة الجديدة!',
-        'time': 'منذ 3 ساعات',
-        'isRead': true,
-        'type': 'system',
-      },
-      {
-        'id': '4',
-        'title': 'سيارة جديدة مضافة حديثاً 🌟',
-        'body': 'مرسيدس G-Class 2024 متوفرة الآن في المعرض.',
-        'time': 'أمس',
-        'isRead': true,
-        'type': 'offer',
-      },
-    ];
+    emit(NotificationsLoading());
+    // Real data is loaded via HomeCubit.getNotificationsData
+    // and then fed in via loadFromApi(). This initial call is a
+    // placeholder that shows a loading state until data arrives.
+  }
 
-    _emitLoaded(dummyNotifications);
+  /// Called externally (e.g., from a BlocListener) once HomeCubit
+  /// returns the real notifications from the server.
+  void loadFromApi(List<Map<String, dynamic>> notifications) {
+    _emitLoaded(notifications.where((notification) => notification['isRead'] != true).toList());
   }
 
   void addReservationNotification({required String title, required String body}) {
@@ -58,8 +33,7 @@ class NotificationsCubit extends Cubit<NotificationsState> {
 
     if (state is NotificationsLoaded) {
       final currentState = state as NotificationsLoaded;
-      final updatedList = [notification, ...currentState.notifications];
-      _emitLoaded(updatedList);
+      _emitLoaded([notification, ...currentState.notifications]);
     } else {
       _emitLoaded([notification]);
     }
@@ -69,9 +43,7 @@ class NotificationsCubit extends Cubit<NotificationsState> {
     if (state is NotificationsLoaded) {
       final currentState = state as NotificationsLoaded;
       final updatedList = currentState.notifications.map((n) {
-        if (n['id'] == id) {
-          return {...n, 'isRead': true};
-        }
+        if (n['id'] == id) return {...n, 'isRead': true};
         return n;
       }).toList();
       _emitLoaded(updatedList);
@@ -81,9 +53,8 @@ class NotificationsCubit extends Cubit<NotificationsState> {
   void markAllAsRead() {
     if (state is NotificationsLoaded) {
       final currentState = state as NotificationsLoaded;
-      final updatedList = currentState.notifications.map((n) {
-        return {...n, 'isRead': true};
-      }).toList();
+      final updatedList =
+          currentState.notifications.map((n) => {...n, 'isRead': true}).toList();
       _emitLoaded(updatedList);
     }
   }
@@ -95,5 +66,15 @@ class NotificationsCubit extends Cubit<NotificationsState> {
   void _emitLoaded(List<Map<String, dynamic>> list) {
     final unreadCount = list.where((n) => n['isRead'] == false).length;
     emit(NotificationsLoaded(notifications: list, unreadCount: unreadCount));
+  }
+
+  /// Convenience: triggers HomeCubit to fetch and then feeds data here.
+  static void fetchAndLoad(HomeCubit homeCubit) {
+    final code = HiveMethods.getcode() ?? '';
+    final isAgent = HiveMethods.isAgentRole();
+    homeCubit.getNotificationsData(
+      currentUserId: code,
+      userType: isAgent ? 2 : 1,
+    );
   }
 }
