@@ -14,8 +14,8 @@ class WhatsAppConsentWidget extends StatefulWidget {
 }
 
 class _WhatsAppConsentWidgetState extends State<WhatsAppConsentWidget> {
-  @override
   bool _whatsappConsent = true;
+  @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => setState(() => _whatsappConsent = !_whatsappConsent),

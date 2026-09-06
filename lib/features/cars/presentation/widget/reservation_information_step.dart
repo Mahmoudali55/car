@@ -6,6 +6,7 @@ import 'package:car/features/cars/presentation/widget/financing_pricing_card_wid
 import 'package:car/features/cars/presentation/widget/reservation_pricing_card.dart';
 import 'package:car/features/cars/presentation/widget/reservation_step_indicator.dart';
 import 'package:car/features/cars/presentation/widget/reservation_terms_checkbox_widget.dart';
+import 'package:car/features/cars/presentation/widget/reservation_whatsapp_checkbox_widget.dart';
 import 'package:car/features/home/data/model/brand_cars_data_model.dart';
 import 'package:car/features/admin/data/model/representative_model.dart';
 import 'package:car/features/admin/presentation/cubit/admin_cubit.dart';
@@ -161,6 +162,16 @@ class ReservationInformationStep extends StatelessWidget {
             ),
           ),
           Gap(16.h),
+          ValueListenableBuilder<bool>(
+            valueListenable: whatsappNotifier,
+            builder: (context, isWhatsappEnabled, _) {
+              return ReservationWhatsAppCheckboxWidget(
+                value: isWhatsappEnabled,
+                onChanged: (val) => whatsappNotifier.value = val ?? false,
+              );
+            },
+          ),
+          Gap(12.h),
           ReservationTermsCheckboxWidget(value: isTermsAccepted, onChanged: onTermsAcceptedChanged),
         ],
       ],

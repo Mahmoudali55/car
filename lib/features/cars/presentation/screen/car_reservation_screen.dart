@@ -321,7 +321,7 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
       taamedNo: '',
       payCond: '',
       guarFinal: 0,
-      notes: 'حجز سيارة كاش -  (${_cashPhoneController.text})',
+      notes: 'حجز سيارة كاش - (${_cashPhoneController.text})',
       userAdd: (HiveMethods.getUserName() ?? '').substring(
         0,
         (HiveMethods.getUserName() ?? '').length.clamp(0, 50),
