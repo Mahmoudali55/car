@@ -65,6 +65,7 @@ class _CarAppState extends State<CarApp> {
               child: BlocBuilder<AppThemeCubit, AppThemeState>(
                 builder: (context, themeState) {
                   return MaterialApp(
+                    onGenerateTitle: (context) => 'car_app'.tr(),
                     localizationsDelegates: [
                       ...context.localizationDelegates,
                       CountryLocalizations.delegate,

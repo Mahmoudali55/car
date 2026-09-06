@@ -449,7 +449,7 @@ pw.Widget _buildFooter({required pw.Font bold}) {
               ),
               pw.SizedBox(width: 20),
               _H.txt(
-                'السجل التجاري: ${_H.arabicDigits("1010179293")}',
+                'السجل التجارئ: ${_H.arabicDigits("1010179293")}',
                 bold,
                 size: 8.5,
                 color: PdfColors.black,
@@ -464,12 +464,7 @@ pw.Widget _buildFooter({required pw.Font bold}) {
       pw.Row(
         mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
         children: [
-          _H.txt(
-            'الرياض - حي القادسية - شارع وادي الرمة',
-            bold,
-            size: 8.5,
-            color: PdfColors.black,
-          ),
+          _H.txt('الرياض - حي القادسية - شارع وادي الرمة', bold, size: 8.5, color: PdfColors.black),
         ],
       ),
     ],

@@ -61,13 +61,13 @@ class FeaturesGridWidget extends StatelessWidget {
       });
     }
 
-    if (car.customsCardNo != null && car.customsCardNo!.isNotEmpty) {
-      features.add({
-        'icon': Icons.card_membership_rounded,
-        'title': AppLocaleKey.customsCard.tr(),
-        'value': car.customsCardNo!,
-      });
-    }
+    // if (car.customsCardNo != null && car.customsCardNo!.isNotEmpty) {
+    //   features.add({
+    //     'icon': Icons.card_membership_rounded,
+    //     'title': AppLocaleKey.customsCard.tr(),
+    //     'value': car.customsCardNo!,
+    //   });
+    // }
 
     if (features.isEmpty) {
       return const SizedBox.shrink();

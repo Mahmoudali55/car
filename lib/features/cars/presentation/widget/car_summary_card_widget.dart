@@ -7,8 +7,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CarSummaryCard extends StatelessWidget {
   final GetBrandCarsDataModel car;
+  final double? totalPrice;
 
-  const CarSummaryCard({super.key, required this.car});
+  const CarSummaryCard({super.key, required this.car, this.totalPrice});
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +40,7 @@ class CarSummaryCard extends StatelessWidget {
             ),
           ),
           ValueWithCurrencyIcon(
-            text: '${car.price ?? '0'} SAR',
+            text: '${totalPrice ?? car.price ?? '0'} SAR',
             textStyle: AppTextStyle.bodyMedium(
               context,
             ).copyWith(fontWeight: FontWeight.w900, fontSize: 14.sp),

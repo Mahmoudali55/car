@@ -41,15 +41,13 @@ android {
         create("dev") {
             dimension = "default"
             applicationIdSuffix = ".dev"
-            resValue("string", "app_name", "هاجد بن وزير (Dev)")
         }
         create("staging") {
             dimension = "default"
-            resValue("string", "app_name", "هاجد بن وزير (Test)")
+            applicationIdSuffix = ".testing"
         }
         create("prod") {
             dimension = "default"
-            resValue("string", "app_name", "هاجد بن وزير")
         }
     }
 

@@ -464,7 +464,7 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               if (isMethodSelection) ...[
-                CarSummaryCard(car: widget.car),
+                CarSummaryCard(car: widget.car, totalPrice: _totalPrice),
                 Gap(24.h),
                 ReservationMethodSelection(
                   selectedMethod: _selectedMethod,

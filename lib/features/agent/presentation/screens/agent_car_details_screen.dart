@@ -122,23 +122,33 @@ class _AgentCarDetailsScreenState extends State<AgentCarDetailsScreen> {
 
                 actions: [
                   if (widget.car.availability == CarAvailability.available)
-                    Padding(
-                      padding: EdgeInsets.all(8.w),
-                      child: IconBtn(
-                        icon: Icons.description_outlined,
-                        onTap: () {
-                          QuoteBuilderDialog.show(
-                            context,
-                            car: widget.car.toCarModel(),
-                            existingSpecs: {
-                              AppLocaleKey.agentYearMade.tr(): widget.car.year,
-                              AppLocaleKey.agentSimNumber.tr(): widget.car.chassisNo,
-                              AppLocaleKey.agentColor.tr(): widget.car.color,
-                              AppLocaleKey.agentTransmission.tr(): AppLocaleKey.agentAutomatic.tr(),
-                            },
-                          );
-                        },
+                    TextButton(
+                      child: Container(
+                        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+                        decoration: BoxDecoration(
+                          color: AppColor.primaryColor(context).withValues(alpha: .1),
+                          borderRadius: BorderRadius.circular(12.r),
+                        ),
+                        child: Text(
+                          AppLocaleKey.create_quotation.tr(),
+                          style: AppTextStyle.bodyMedium(context).copyWith(
+                            color: AppColor.primaryColor(context),
+                            fontWeight: FontWeight.w800,
+                          ),
+                        ),
                       ),
+                      onPressed: () {
+                        QuoteBuilderDialog.show(
+                          context,
+                          car: widget.car.toCarModel(),
+                          existingSpecs: {
+                            AppLocaleKey.agentYearMade.tr(): widget.car.year,
+                            AppLocaleKey.agentSimNumber.tr(): widget.car.chassisNo,
+                            AppLocaleKey.agentColor.tr(): widget.car.color,
+                            AppLocaleKey.agentTransmission.tr(): AppLocaleKey.agentAutomatic.tr(),
+                          },
+                        );
+                      },
                     ),
                 ],
 
