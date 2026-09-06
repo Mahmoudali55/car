@@ -8,7 +8,6 @@ import 'package:car/features/cart/presentation/view/cubit/cart_cubit.dart';
 import 'package:car/features/cart/presentation/view/widget/cart_app_bar_widget.dart';
 import 'package:car/features/cart/presentation/view/widget/cart_empty_state_widget.dart';
 import 'package:car/features/cart/presentation/view/widget/cart_items_list_widget.dart';
-import 'package:car/features/cart/presentation/view/widget/cart_summary_widget.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -104,7 +103,7 @@ class _CartScreenState extends State<CartScreen> {
                       cars: state.reservedCars,
                       selectedCarId: widget.selectedCarId,
                     ),
-                    CartSummaryWidget(totalPrice: state.totalPrice),
+                    //  CartSummaryWidget(totalPrice: state.totalPrice),
                   ],
                 ),
         );

@@ -229,6 +229,12 @@ class _FinancingScreenState extends State<FinancingScreen> with SingleTickerProv
       if (!(_formKey2.currentState?.validate() ?? false)) return;
       if (current < 2) _tabController.animateTo(current + 1);
     } else if (current == 2) {
+      final requiredDocs = FinancingDocumentsTab.requiredDocuments;
+      final missingDocs = requiredDocs.where((doc) => _uploadedFiles[doc] == null).toList();
+      if (missingDocs.isNotEmpty) {
+        _showSnack('يرجى رفع المستندات المطلوبة للمتابعة (${missingDocs.first})');
+        return;
+      }
       _submitLoanApplication();
     }
   }

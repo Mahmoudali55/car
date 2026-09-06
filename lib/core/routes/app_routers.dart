@@ -85,14 +85,13 @@ class AppRouters {
       case RoutesName.cartScreen:
         final selectedCarId = args is Map<String, dynamic> ? args['id']?.toString() : null;
         return MaterialPageRoute(
-          builder: (ctx) =>
-              BlocProvider.value(
-                value: ctx.read<CartCubit>(),
-                child: CartScreen(selectedCarId: selectedCarId),
-              ),
+          builder: (ctx) => BlocProvider.value(
+            value: ctx.read<CartCubit>(),
+            child: CartScreen(selectedCarId: selectedCarId),
+          ),
         );
-      case RoutesName.paymentScreen:
-        return MaterialPageRoute(builder: (_) => PaymentScreen(totalPrice: args as double));
+      // case RoutesName.paymentScreen:
+      //   return MaterialPageRoute(builder: (_) => PaymentScreen(totalPrice: args as double));
       case RoutesName.paymentSuccessScreen:
         return MaterialPageRoute(builder: (_) => const PaymentSuccessScreen());
       case RoutesName.notificationsScreen:

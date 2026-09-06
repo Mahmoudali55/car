@@ -6,7 +6,6 @@ import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/core/services/permission_service.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -15,6 +14,13 @@ import 'package:image_picker/image_picker.dart';
 class FinancingDocumentsTab extends StatefulWidget {
   final Map<String, File?>? uploadedFiles;
   final ValueChanged<Map<String, File?>>? onFilesChanged;
+
+  static List<String> get requiredDocuments => [
+    AppLocaleKey.agentNationalIdCopy.tr(),
+    AppLocaleKey.agentDrivingLicenseCopy.tr(),
+    AppLocaleKey.agentSalaryStatement.tr(),
+    AppLocaleKey.customsCard.tr(),
+  ];
 
   const FinancingDocumentsTab({
     super.key,
@@ -39,7 +45,7 @@ class _FinancingDocumentsTabState extends State<FinancingDocumentsTab> {
     widget.onFilesChanged?.call(uploadedFiles);
   }
 
-  // ─── Pickers ───────────────────────────────────────────────────────────────
+  // ─── Pickers (Camera & Gallery Only) ───────────────────────────────────────
 
   Future<void> _pickImageFromGallery(String key) async {
     final hasPermission = await PermissionService.requestPhotoPermission(context);
@@ -57,17 +63,6 @@ class _FinancingDocumentsTabState extends State<FinancingDocumentsTab> {
     final image = await ImagePicker().pickImage(source: ImageSource.camera, imageQuality: 70);
     if (image != null) {
       setState(() => uploadedFiles[key] = File(image.path));
-      _notifyFilesChanged();
-    }
-  }
-
-  Future<void> _pickPdfFile(String key) async {
-    final result = await FilePicker.pickFiles(
-      type: FileType.custom,
-      allowedExtensions: ['pdf'],
-    );
-    if (result != null && result.files.single.path != null) {
-      setState(() => uploadedFiles[key] = File(result.files.single.path!));
       _notifyFilesChanged();
     }
   }
@@ -240,12 +235,7 @@ class _FinancingDocumentsTabState extends State<FinancingDocumentsTab> {
   // ─── Upload section ────────────────────────────────────────────────────────
 
   Widget _buildUploadSection(BuildContext context) {
-    final uploadItems = [
-      AppLocaleKey.agentNationalIdCopy.tr(),
-      AppLocaleKey.agentDrivingLicenseCopy.tr(),
-      AppLocaleKey.agentSalaryStatement.tr(),
-      AppLocaleKey.customsCard.tr(),
-    ];
+    final uploadItems = FinancingDocumentsTab.requiredDocuments;
 
     return Container(
       padding: EdgeInsets.all(16.w),
@@ -257,10 +247,30 @@ class _FinancingDocumentsTabState extends State<FinancingDocumentsTab> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          Text(
-            AppLocaleKey.agentUploadDocuments.tr(),
-            style: AppTextStyle.bodyMedium(context)
-                .copyWith(fontWeight: FontWeight.w900, color: AppColor.blackTextColor(context)),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
+                decoration: BoxDecoration(
+                  color: AppColor.redColor(context).withValues(alpha: 0.1),
+                  borderRadius: BorderRadius.circular(6.r),
+                ),
+                child: Text(
+                  'مطلوب',
+                  style: AppTextStyle.bodySmall(context).copyWith(
+                    color: AppColor.redColor(context),
+                    fontWeight: FontWeight.w700,
+                    fontSize: 11.sp,
+                  ),
+                ),
+              ),
+              Text(
+                AppLocaleKey.agentUploadDocuments.tr(),
+                style: AppTextStyle.bodyMedium(context)
+                    .copyWith(fontWeight: FontWeight.w900, color: AppColor.blackTextColor(context)),
+              ),
+            ],
           ),
           Gap(12.h),
           ...uploadItems.map(
@@ -289,6 +299,14 @@ class _FinancingDocumentsTabState extends State<FinancingDocumentsTab> {
               Icon(Icons.check_circle_rounded, color: AppColor.greenColor(context), size: 16.sp),
               Gap(6.w),
             ],
+            Text(
+              '* ',
+              style: TextStyle(
+                color: AppColor.redColor(context),
+                fontWeight: FontWeight.bold,
+                fontSize: 14.sp,
+              ),
+            ),
             Flexible(
               child: Text(
                 label,
@@ -304,7 +322,7 @@ class _FinancingDocumentsTabState extends State<FinancingDocumentsTab> {
 
         Gap(10.h),
 
-        // Three inline choice buttons
+        // Two inline choice buttons: Camera and Gallery only
         Row(
           children: [
             _UploadChoiceButton(
@@ -313,19 +331,12 @@ class _FinancingDocumentsTabState extends State<FinancingDocumentsTab> {
               accentColor: AppColor.blueColor(context),
               onTap: () => _pickImageFromCamera(label),
             ),
-            Gap(8.w),
+            Gap(12.w),
             _UploadChoiceButton(
               icon: Icons.photo_library_rounded,
               label: AppLocaleKey.selectImage.tr(),
               accentColor: AppColor.primaryColor(context),
               onTap: () => _pickImageFromGallery(label),
-            ),
-            Gap(8.w),
-            _UploadChoiceButton(
-              icon: Icons.picture_as_pdf_rounded,
-              label: AppLocaleKey.selectPDF.tr(),
-              accentColor: AppColor.redColor(context),
-              onTap: () => _pickPdfFile(label),
             ),
           ],
         ),
@@ -344,9 +355,7 @@ class _FinancingDocumentsTabState extends State<FinancingDocumentsTab> {
             child: Row(
               children: [
                 Icon(
-                  file.path.toLowerCase().endsWith('.pdf')
-                      ? Icons.picture_as_pdf_rounded
-                      : Icons.image_rounded,
+                  Icons.image_rounded,
                   color: AppColor.greenColor(context),
                   size: 16.sp,
                 ),
