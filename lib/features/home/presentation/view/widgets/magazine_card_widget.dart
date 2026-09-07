@@ -1,4 +1,5 @@
 import 'package:car/core/routes/routes_name.dart';
+import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/utils/navigator_methods.dart';
 import 'package:car/features/home/presentation/cubit/home_cubit.dart';
 import 'package:car/features/home/presentation/view/widgets/card_footer_widget.dart';
@@ -27,9 +28,21 @@ class MagazineCardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => _navigateToDetails(context),
-      child: Card(
+      child: Container(
+        width: double.infinity,
+        decoration: BoxDecoration(
+          color: AppColor.secondAppColor(context),
+          borderRadius: BorderRadius.circular(20.r),
+          border: Border.all(color: AppColor.borderColor(context).withValues(alpha: 0.5)),
+          boxShadow: [
+            BoxShadow(
+              color: AppColor.blackColor(context).withValues(alpha: 0.05),
+              blurRadius: 10,
+              offset: const Offset(0, 4),
+            ),
+          ],
+        ),
         clipBehavior: Clip.antiAlias,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24.r)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

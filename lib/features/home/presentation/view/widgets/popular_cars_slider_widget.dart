@@ -149,7 +149,6 @@ class _PopularCarsSliderState extends State<PopularCarsSlider> {
         final displayCount = cars.length.clamp(0, _maxDisplayedCars);
         return SizedBox(
           height: MediaQuery.of(context).size.height / 2.1,
-          width: double.infinity,
           child: PageView.builder(
             controller: _pageController,
             itemCount: displayCount,

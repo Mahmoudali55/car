@@ -1528,6 +1528,8 @@
   "financial_summary": "الملخص المالي",
   "current_balance": "الرصيد الحالي",
   "credit_limit": "الحد الائتماني",
-  "form":"من"
+  "form":"من",
+  "total_loan_price":"إجمالي سعر التمويل",
+  "required":"مطلوب"
 }
 

@@ -152,7 +152,7 @@ class _BankInstallmentsBannerWidgetState extends State<BankInstallmentsBannerWid
                   Flexible(
                     child: ValueWithCurrencyIcon(
                       text:
-                          '${AppLocaleKey.aed.tr()} / ${AppLocaleKey.agentAppointment.tr() == "English" ? "Mo" : "شهرياً"}',
+                          '${AppLocaleKey.aed.tr()} / ${AppLocaleKey.agentAppointment.tr() == context.locale.languageCode || context.locale.languageCode == "en" ? "Month" : "شهرياً"}',
                       textStyle: AppTextStyle.bodySmall(
                         context,
                       ).copyWith(color: AppColor.blueColor(context), fontSize: 10.sp),
@@ -161,35 +161,25 @@ class _BankInstallmentsBannerWidgetState extends State<BankInstallmentsBannerWid
                 ],
               ),
 
-              Gap(10.h),
+              Gap(20.h),
               Container(
-                height: 20.h,
-                // padding: EdgeInsets.symmetric(horizontal: 4.w),
+                padding: EdgeInsets.symmetric(horizontal: 2.w),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(16.r),
-                  border: Border.all(color: AppColor.greyColor(context), width: 0.09.w),
+                  border: Border.all(color: AppColor.blueColor(context).withValues(alpha: 0.2)),
+                  borderRadius: BorderRadius.circular(12.r),
                 ),
                 child: Row(
-                  mainAxisSize: MainAxisSize.min,
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Icon(Icons.calculate_outlined, color: AppColor.blueColor(context), size: 14.sp),
-                    Gap(4.w),
-                    Expanded(
-                      child: Text(
-                        AppLocaleKey.agentCalculateFinancing.tr(),
-                        style: AppTextStyle.bodySmall(context).copyWith(
-                          color: AppColor.blueColor(context),
-                          decoration: TextDecoration.underline,
-                          fontWeight: FontWeight.bold,
-                        ),
+                    Text(
+                      AppLocaleKey.agentCalculateFinancing.tr(),
+                      style: AppTextStyle.bodySmall(context).copyWith(
+                        color: AppColor.blueColor(context),
+                        decoration: TextDecoration.underline,
+                        fontWeight: FontWeight.bold,
                       ),
-                    ),
-                    Gap(4.w),
-                    Icon(
-                      Icons.arrow_forward_ios_rounded,
-                      color: AppColor.primaryColor(context),
-                      size: 12.sp,
                     ),
                   ],
                 ),

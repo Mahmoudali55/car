@@ -1525,6 +1525,8 @@
   "financial_summary": "Financial Summary",
   "current_balance": "Current Balance",
   "credit_limit": "Credit Limit",
-  "form": "From"
+  "form": "From",
+  "total_loan_price": "Total Loan Price",
+  "required":"Required"
 }
 

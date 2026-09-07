@@ -49,7 +49,7 @@ class CarSummaryCard extends StatelessWidget {
             Align(
               alignment: Alignment.centerRight,
               child: Text(
-                'البنك: $bankName',
+                '${AppLocaleKey.bank.tr()}: $bankName',
                 style: AppTextStyle.bodyMedium(context).copyWith(fontWeight: FontWeight.w800),
               ),
             ),
@@ -158,7 +158,7 @@ class CarSummaryCard extends StatelessWidget {
               color: AppColor.primaryColor(context),
               borderRadius: BorderRadius.circular(8.r),
             ),
-            child: Icon(Icons.edit_rounded, color: Colors.white, size: 16.sp),
+            child: Icon(Icons.edit_rounded, color: AppColor.whiteColor(context), size: 16.sp),
           ),
         ),
         const Spacer(),

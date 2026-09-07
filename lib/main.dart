@@ -11,7 +11,6 @@ import 'service_initialize.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // If running main.dart directly without a flavor entrypoint, default to Prod
   try {
     AppConfig.baseUrl;
   } catch (_) {

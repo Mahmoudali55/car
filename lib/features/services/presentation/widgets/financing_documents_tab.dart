@@ -2,9 +2,10 @@ import 'dart:io';
 
 import 'package:car/core/custom_widgets/custom_sar_text.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
+import 'package:car/core/services/permission_service.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
-import 'package:car/core/services/permission_service.dart';
+import 'package:car/features/services/presentation/widgets/upload_choice_button_widget.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -22,11 +23,7 @@ class FinancingDocumentsTab extends StatefulWidget {
     AppLocaleKey.customsCard.tr(),
   ];
 
-  const FinancingDocumentsTab({
-    super.key,
-    this.uploadedFiles,
-    this.onFilesChanged,
-  });
+  const FinancingDocumentsTab({super.key, this.uploadedFiles, this.onFilesChanged});
 
   @override
   State<FinancingDocumentsTab> createState() => _FinancingDocumentsTabState();
@@ -67,8 +64,6 @@ class _FinancingDocumentsTabState extends State<FinancingDocumentsTab> {
     }
   }
 
-  // ─── Build ─────────────────────────────────────────────────────────────────
-
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -88,16 +83,15 @@ class _FinancingDocumentsTabState extends State<FinancingDocumentsTab> {
     );
   }
 
-  // ─── Requirements ──────────────────────────────────────────────────────────
-
   Widget _buildRequirementsSection(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
         Text(
           AppLocaleKey.agentFinancingRequirements.tr(),
-          style: AppTextStyle.titleSmall(context)
-              .copyWith(fontWeight: FontWeight.w900, color: AppColor.blackTextColor(context)),
+          style: AppTextStyle.titleSmall(
+            context,
+          ).copyWith(fontWeight: FontWeight.w900, color: AppColor.blackTextColor(context)),
         ),
         Gap(14.h),
         Container(
@@ -167,25 +161,19 @@ class _FinancingDocumentsTabState extends State<FinancingDocumentsTab> {
               ),
               Text(
                 value,
-                style: AppTextStyle.bodySmall(context)
-                    .copyWith(color: AppColor.greyColor(context), fontSize: 12.sp),
+                style: AppTextStyle.bodySmall(
+                  context,
+                ).copyWith(color: AppColor.greyColor(context), fontSize: 12.sp),
                 textAlign: TextAlign.end,
               ),
             ],
           ),
         ),
         if (!isLast)
-          Divider(
-            height: 1,
-            color: AppColor.dividerColor(context),
-            indent: 16.w,
-            endIndent: 16.w,
-          ),
+          Divider(height: 1, color: AppColor.dividerColor(context), indent: 16.w, endIndent: 16.w),
       ],
     );
   }
-
-  // ─── Documents checklist ───────────────────────────────────────────────────
 
   Widget _buildDocumentsSection(BuildContext context) {
     final docs = [
@@ -201,8 +189,9 @@ class _FinancingDocumentsTabState extends State<FinancingDocumentsTab> {
       children: [
         Text(
           AppLocaleKey.agentRequiredDocumentsList.tr(),
-          style: AppTextStyle.titleSmall(context)
-              .copyWith(fontWeight: FontWeight.w900, color: AppColor.blackTextColor(context)),
+          style: AppTextStyle.titleSmall(
+            context,
+          ).copyWith(fontWeight: FontWeight.w900, color: AppColor.blackTextColor(context)),
         ),
         Gap(14.h),
         ...docs.map(
@@ -224,15 +213,14 @@ class _FinancingDocumentsTabState extends State<FinancingDocumentsTab> {
         Expanded(
           child: ValueWithCurrencyIcon(
             text: text,
-            textStyle: AppTextStyle.bodyMedium(context)
-                .copyWith(color: AppColor.blackTextColor(context), height: 1.4),
+            textStyle: AppTextStyle.bodyMedium(
+              context,
+            ).copyWith(color: AppColor.blackTextColor(context), height: 1.4),
           ),
         ),
       ],
     );
   }
-
-  // ─── Upload section ────────────────────────────────────────────────────────
 
   Widget _buildUploadSection(BuildContext context) {
     final uploadItems = FinancingDocumentsTab.requiredDocuments;
@@ -257,7 +245,7 @@ class _FinancingDocumentsTabState extends State<FinancingDocumentsTab> {
                   borderRadius: BorderRadius.circular(6.r),
                 ),
                 child: Text(
-                  'مطلوب',
+                  AppLocaleKey.required.tr(),
                   style: AppTextStyle.bodySmall(context).copyWith(
                     color: AppColor.redColor(context),
                     fontWeight: FontWeight.w700,
@@ -267,8 +255,9 @@ class _FinancingDocumentsTabState extends State<FinancingDocumentsTab> {
               ),
               Text(
                 AppLocaleKey.agentUploadDocuments.tr(),
-                style: AppTextStyle.bodyMedium(context)
-                    .copyWith(fontWeight: FontWeight.w900, color: AppColor.blackTextColor(context)),
+                style: AppTextStyle.bodyMedium(
+                  context,
+                ).copyWith(fontWeight: FontWeight.w900, color: AppColor.blackTextColor(context)),
               ),
             ],
           ),
@@ -310,10 +299,9 @@ class _FinancingDocumentsTabState extends State<FinancingDocumentsTab> {
             Flexible(
               child: Text(
                 label,
-                style: AppTextStyle.bodyMedium(context).copyWith(
-                  fontWeight: FontWeight.w700,
-                  color: AppColor.blackTextColor(context),
-                ),
+                style: AppTextStyle.bodyMedium(
+                  context,
+                ).copyWith(fontWeight: FontWeight.w700, color: AppColor.blackTextColor(context)),
                 textAlign: TextAlign.end,
               ),
             ),
@@ -322,17 +310,16 @@ class _FinancingDocumentsTabState extends State<FinancingDocumentsTab> {
 
         Gap(10.h),
 
-        // Two inline choice buttons: Camera and Gallery only
         Row(
           children: [
-            _UploadChoiceButton(
+            UploadChoiceButton(
               icon: Icons.camera_alt_rounded,
               label: AppLocaleKey.camera.tr(),
               accentColor: AppColor.blueColor(context),
               onTap: () => _pickImageFromCamera(label),
             ),
             Gap(12.w),
-            _UploadChoiceButton(
+            UploadChoiceButton(
               icon: Icons.photo_library_rounded,
               label: AppLocaleKey.selectImage.tr(),
               accentColor: AppColor.primaryColor(context),
@@ -341,7 +328,6 @@ class _FinancingDocumentsTabState extends State<FinancingDocumentsTab> {
           ],
         ),
 
-        // Uploaded file indicator
         if (uploaded) ...[
           Gap(8.h),
           Container(
@@ -354,19 +340,14 @@ class _FinancingDocumentsTabState extends State<FinancingDocumentsTab> {
             ),
             child: Row(
               children: [
-                Icon(
-                  Icons.image_rounded,
-                  color: AppColor.greenColor(context),
-                  size: 16.sp,
-                ),
+                Icon(Icons.image_rounded, color: AppColor.greenColor(context), size: 16.sp),
                 Gap(8.w),
                 Expanded(
                   child: Text(
                     file.path.split('/').last,
-                    style: AppTextStyle.bodySmall(context).copyWith(
-                      color: AppColor.greenColor(context),
-                      fontWeight: FontWeight.w600,
-                    ),
+                    style: AppTextStyle.bodySmall(
+                      context,
+                    ).copyWith(color: AppColor.greenColor(context), fontWeight: FontWeight.w600),
                     overflow: TextOverflow.ellipsis,
                     textAlign: TextAlign.end,
                   ),
@@ -377,11 +358,7 @@ class _FinancingDocumentsTabState extends State<FinancingDocumentsTab> {
                     setState(() => uploadedFiles[label] = null);
                     _notifyFilesChanged();
                   },
-                  child: Icon(
-                    Icons.close_rounded,
-                    size: 16.sp,
-                    color: AppColor.greyColor(context),
-                  ),
+                  child: Icon(Icons.close_rounded, size: 16.sp, color: AppColor.greyColor(context)),
                 ),
               ],
             ),
@@ -391,57 +368,6 @@ class _FinancingDocumentsTabState extends State<FinancingDocumentsTab> {
         Gap(12.h),
         Divider(height: 1, color: AppColor.dividerColor(context)),
       ],
-    );
-  }
-}
-
-// ─── Inline choice button ───────────────────────────────────────────────────
-
-class _UploadChoiceButton extends StatelessWidget {
-  final IconData icon;
-  final String label;
-  final Color accentColor;
-  final VoidCallback onTap;
-
-  const _UploadChoiceButton({
-    required this.icon,
-    required this.label,
-    required this.accentColor,
-    required this.onTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      child: GestureDetector(
-        onTap: onTap,
-        child: Container(
-          padding: EdgeInsets.symmetric(vertical: 12.h),
-          decoration: BoxDecoration(
-            color: accentColor.withValues(alpha: 0.08),
-            borderRadius: BorderRadius.circular(10.r),
-            border: Border.all(color: accentColor.withValues(alpha: 0.3)),
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Icon(icon, color: accentColor, size: 22.sp),
-              Gap(4.h),
-              Text(
-                label,
-                style: AppTextStyle.bodySmall(context).copyWith(
-                  color: accentColor,
-                  fontWeight: FontWeight.w700,
-                  fontSize: 10.sp,
-                ),
-                textAlign: TextAlign.center,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
-            ],
-          ),
-        ),
-      ),
     );
   }
 }

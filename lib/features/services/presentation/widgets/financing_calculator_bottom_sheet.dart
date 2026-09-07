@@ -192,7 +192,6 @@ class _FinancingCalculatorBottomSheetState extends State<FinancingCalculatorBott
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Monthly installment card (blue background)
                   CustomMonthlyInstallmentCardWidget(
                     fmt: fmt,
                     monthly: monthly,
@@ -272,7 +271,7 @@ class _FinancingCalculatorBottomSheetState extends State<FinancingCalculatorBott
                                           ),
                                           child: Icon(
                                             Icons.check_rounded,
-                                            color: Colors.white,
+                                            color: AppColor.whiteColor(context),
                                             size: 12.sp,
                                           ),
                                         ),
@@ -297,7 +296,7 @@ class _FinancingCalculatorBottomSheetState extends State<FinancingCalculatorBott
                                           height: 30.w,
                                           decoration: BoxDecoration(
                                             shape: BoxShape.circle,
-                                            color: Colors.white,
+                                            color: AppColor.whiteColor(context),
                                             border: Border.all(
                                               color: isSelected
                                                   ? AppColor.primaryColor(
@@ -344,7 +343,7 @@ class _FinancingCalculatorBottomSheetState extends State<FinancingCalculatorBott
                     ),
                     Gap(12.h),
                   ],
-                  // Duration selector
+
                   Align(
                     alignment: Alignment.centerRight,
                     child: Text(

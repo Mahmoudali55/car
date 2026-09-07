@@ -1,4 +1,5 @@
 import 'package:car/core/theme/app_colors.dart';
+import 'package:car/core/theme/app_text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -37,9 +38,8 @@ class EmploymentTypeButton extends StatelessWidget {
         child: Center(
           child: Text(
             label,
-            style: TextStyle(
+            style: AppTextStyle.bodySmall(context).copyWith(
               fontWeight: FontWeight.w700,
-              fontSize: 12.sp,
               color: isSelected ? AppColor.primaryColor(context) : AppColor.blackTextColor(context),
             ),
           ),

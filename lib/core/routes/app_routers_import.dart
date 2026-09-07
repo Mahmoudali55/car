@@ -24,14 +24,12 @@ import 'package:car/features/agent/presentation/screens/agent_customer_details_s
 import 'package:car/features/agent/presentation/screens/agent_my_bookings_screen.dart';
 import 'package:car/features/auth/presentation/view/screen/login_screen.dart';
 import 'package:car/features/auth/presentation/view/screen/register_screen.dart';
-import 'package:car/features/cars/presentation/screen/bank_offers_screen.dart';
 import 'package:car/features/cars/presentation/screen/car_comparison_screen.dart';
 import 'package:car/features/cars/presentation/screen/car_details_screen.dart';
 import 'package:car/features/cars/presentation/screen/car_reservation_screen.dart';
 import 'package:car/features/cars/presentation/screen/filter_screen.dart';
 import 'package:car/features/cart/presentation/view/cubit/cart_cubit.dart';
 import 'package:car/features/cart/presentation/view/screen/cart_screen.dart';
-import 'package:car/features/cart/presentation/view/screen/payment_screen.dart';
 import 'package:car/features/cart/presentation/view/screen/payment_success_screen.dart';
 import 'package:car/features/home/data/model/brand_cars_data_model.dart';
 import 'package:car/features/home/data/model/financing_ad_model.dart';
@@ -42,8 +40,8 @@ import 'package:car/features/home/presentation/view/screen/popular_cars_screen.d
 import 'package:car/features/home/presentation/view/screen/recently_viewed_screen.dart';
 import 'package:car/features/notifications/presentation/view/screen/notifications_screen.dart';
 import 'package:car/features/onboarding/presentation/view/screen/onboarding_screen.dart';
-import 'package:car/features/profile/presentation/screen/user_profile_screen.dart';
 import 'package:car/features/profile/presentation/screen/track_order_screen.dart';
+import 'package:car/features/profile/presentation/screen/user_profile_screen.dart';
 import 'package:car/features/services/presentation/screen/bespoke_selection_screen.dart';
 import 'package:car/features/services/presentation/screen/booking_appointment_screen.dart';
 import 'package:car/features/services/presentation/screen/car_detailing_screen.dart';

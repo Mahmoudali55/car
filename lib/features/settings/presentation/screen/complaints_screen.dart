@@ -39,12 +39,8 @@ class _ComplaintsScreenState extends State<ComplaintsScreen> {
       }
 
       BotToast.showLoading();
-
-      // Simulate API call
       Future.delayed(const Duration(seconds: 2), () {
         BotToast.closeAllLoading();
-
-        // Show success animation/dialog
         showDialog(
           context: context,
           builder: (context) => FadeInUp(
@@ -172,7 +168,6 @@ class _ComplaintsScreenState extends State<ComplaintsScreen> {
                   ),
                 ),
                 Gap(20.h),
-                // DESCRIPTION FIELD
                 FadeInLeft(
                   delay: const Duration(milliseconds: 200),
                   child: CustomFormField(
@@ -190,7 +185,6 @@ class _ComplaintsScreenState extends State<ComplaintsScreen> {
                   ),
                 ),
                 Gap(30.h),
-                // SUBMIT BUTTON
                 FadeInUp(
                   delay: const Duration(milliseconds: 300),
                   child: CustomButton(onPressed: _submit, text: AppLocaleKey.submitComplaint.tr()),

@@ -50,20 +50,7 @@ class AppRouters {
             isFromAdmin: isFromAdmin,
           ),
         );
-      case RoutesName.bankOffersScreen:
-        GetBrandCarsDataModel? car;
-        if (args is GetBrandCarsDataModel) {
-          car = args;
-        } else if (args is Map<String, dynamic>) {
-          if (args['car'] is GetBrandCarsDataModel) {
-            car = args['car'];
-          } else if (args['car'] is Map<String, dynamic>) {
-            car = GetBrandCarsDataModel.fromJson(args['car']);
-          } else {
-            car = GetBrandCarsDataModel.fromJson(args);
-          }
-        }
-        return MaterialPageRoute(builder: (_) => BankOffersScreen(car: car!));
+
       case RoutesName.carReservationScreen:
         GetBrandCarsDataModel? car;
         bool isFromLink = false;

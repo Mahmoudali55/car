@@ -129,31 +129,30 @@ class _PopularCarsScreenState extends State<PopularCarsScreen> {
 
         return Scaffold(
           backgroundColor: AppColor.scaffoldColor(context),
-          body: Center(
-            child: ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 1000),
-              child: RefreshIndicator(
-                onRefresh: () async {
-                  if (isBrandSelected) {
-                    await context.read<HomeCubit>().getBrandCars(state.selectedBrandId.toString());
-                  } else {
-                    await context.read<HomeCubit>().getCarsModels();
-                  }
-                },
-                color: AppColor.primaryColor(context),
-                child: CustomScrollView(
-                  physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
-                  slivers: [
-                    AppHeader(title: screenTitle),
-                    if (status.isLoading)
-                      const SliverFillRemaining(child: Center(child: CustomLoading()))
-                    else if (_isCarsMapEmpty(carsMap))
-                      EmptyState(isBrandSelected: isBrandSelected)
-                    else
-                      ..._buildCarsSlivers(carsMap, isBrandSelected, selectedBrand?.groupName),
-                    SliverToBoxAdapter(child: Gap(100.h)),
-                  ],
-                ),
+          body: SizedBox(
+            width: double.infinity,
+            height: double.infinity,
+            child: RefreshIndicator(
+              onRefresh: () async {
+                if (isBrandSelected) {
+                  await context.read<HomeCubit>().getBrandCars(state.selectedBrandId.toString());
+                } else {
+                  await context.read<HomeCubit>().getCarsModels();
+                }
+              },
+              color: AppColor.primaryColor(context),
+              child: CustomScrollView(
+                physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+                slivers: [
+                  AppHeader(title: screenTitle),
+                  if (status.isLoading)
+                    const SliverFillRemaining(child: Center(child: CustomLoading()))
+                  else if (_isCarsMapEmpty(carsMap))
+                    EmptyState(isBrandSelected: isBrandSelected)
+                  else
+                    ..._buildCarsSlivers(carsMap, isBrandSelected, selectedBrand?.groupName),
+                  SliverToBoxAdapter(child: Gap(100.h)),
+                ],
               ),
             ),
           ),
@@ -176,12 +175,15 @@ class _PopularCarsScreenState extends State<PopularCarsScreen> {
                 child: BrandHeader(brandName: entry.key, count: entry.value.length),
               ),
             SliverPadding(
-              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: isBrandSelected ? 20.h : 0),
+              padding: EdgeInsets.symmetric(
+                horizontal: 16.w,
+                vertical: isBrandSelected ? 16.h : 8.h,
+              ),
               sliver: SliverList(
                 delegate: SliverChildBuilderDelegate((context, index) {
                   final car = _carToMap(entry.value[index], selectedBrandName);
                   return Padding(
-                    padding: EdgeInsets.only(bottom: 24.h),
+                    padding: EdgeInsets.only(bottom: 16.h),
                     child: MagazineCardWidget(
                       car: car,
                       heroTag: "popular_screen_car_image_${car["itemCode"] ?? car["name"]}",
@@ -195,3 +197,4 @@ class _PopularCarsScreenState extends State<PopularCarsScreen> {
         .toList();
   }
 }
+

@@ -78,7 +78,7 @@ class CustomMonthlyInstallmentCardWidget extends StatelessWidget {
           Row(
             children: [
               Text(
-                'إجمالي سعر التمويل',
+                AppLocaleKey.totalLoanPrice.tr(),
                 style: AppTextStyle.bodyMedium(
                   context,
                 ).copyWith(color: AppColor.blackTextColor(context), fontWeight: FontWeight.w700),

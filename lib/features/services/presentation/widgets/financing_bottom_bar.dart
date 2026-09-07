@@ -14,6 +14,7 @@ class FinancingBottomBar extends StatelessWidget {
   final bool isLoading;
 
   const FinancingBottomBar({
+    super.key,
     required this.currentIndex,
     required this.onNext,
     required this.onBack,

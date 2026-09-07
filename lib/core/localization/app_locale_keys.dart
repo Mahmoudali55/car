@@ -1579,4 +1579,6 @@ class AppLocaleKey {
   static const String financialSummary = 'financial_summary';
   static const String currentBalance = 'current_balance';
   static const String creditLimit = 'credit_limit';
+  static const String totalLoanPrice = 'total_loan_price';
+  static const String required = 'required';
 }

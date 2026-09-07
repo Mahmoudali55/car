@@ -19,7 +19,6 @@ class FAQScreen extends StatelessWidget {
       {'q': AppLocaleKey.faqQ3, 'a': AppLocaleKey.faqA3},
       {'q': AppLocaleKey.faqQ4, 'a': AppLocaleKey.faqA4},
     ];
-
     return Scaffold(
       backgroundColor: AppColor.scaffoldColor(context),
       appBar: CustomAppBar(

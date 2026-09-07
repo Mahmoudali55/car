@@ -153,7 +153,6 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      // ─── 1. Avatar with Breathing Glow ───
                       AnimatedBuilder(
                         animation: _pulseController,
                         builder: (context, child) {
@@ -164,7 +163,6 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
                               child: Stack(
                                 alignment: Alignment.center,
                                 children: [
-                                  // Ambient Breathing Outer Aura
                                   Transform.scale(
                                     scale: _pulseGlow.value,
                                     child: Container(
@@ -182,7 +180,9 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
                                           ),
                                           BoxShadow(
                                             color: isDark
-                                                ? Colors.white.withValues(alpha: 0.1)
+                                                ? AppColor.whiteColor(
+                                                    context,
+                                                  ).withValues(alpha: 0.1)
                                                 : AppColor.secondAppColor(
                                                     context,
                                                   ).withValues(alpha: 0.4),
@@ -193,7 +193,7 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
                                       ),
                                     ),
                                   ),
-                                  // Main Circle Avatar Container
+
                                   Container(
                                     width: 145.w,
                                     height: 145.w,
@@ -201,13 +201,15 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
                                       shape: BoxShape.circle,
                                       border: Border.all(
                                         color: isDark
-                                            ? Colors.white.withValues(alpha: 0.3)
-                                            : Colors.white.withValues(alpha: 0.8),
+                                            ? AppColor.whiteColor(context).withValues(alpha: 0.3)
+                                            : AppColor.whiteColor(context).withValues(alpha: 0.8),
                                         width: 3.w,
                                       ),
                                       boxShadow: [
                                         BoxShadow(
-                                          color: Colors.black.withValues(alpha: 0.15),
+                                          color: AppColor.blackColor(
+                                            context,
+                                          ).withValues(alpha: 0.15),
                                           blurRadius: 20,
                                           offset: const Offset(0, 10),
                                         ),
@@ -226,7 +228,6 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
                       ),
                       Gap(28.h),
 
-                      // ─── 2. Company Name ───
                       SlideTransition(
                         position: _titleSlide,
                         child: FadeTransition(
@@ -245,7 +246,6 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
                       ),
                       Gap(8.h),
 
-                      // ─── 3. Subtitle / Motto ───
                       FadeTransition(
                         opacity: _subTitleFade,
                         child: Column(
@@ -272,7 +272,6 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
                       ),
                       Gap(24.h),
 
-                      // ─── 4. Authorized Distributor Badges ───
                       ScaleTransition(
                         scale: _badgeScale,
                         child: FadeTransition(
@@ -281,17 +280,19 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
                             padding: EdgeInsets.symmetric(horizontal: 18.w, vertical: 16.h),
                             decoration: BoxDecoration(
                               color: isDark
-                                  ? Colors.white.withValues(alpha: 0.05)
-                                  : Colors.white.withValues(alpha: 0.6),
+                                  ? AppColor.whiteColor(context).withValues(alpha: 0.05)
+                                  : AppColor.whiteColor(context).withValues(alpha: 0.6),
                               borderRadius: BorderRadius.circular(20.r),
                               border: Border.all(
                                 color: isDark
-                                    ? Colors.white.withValues(alpha: 0.1)
+                                    ? AppColor.whiteColor(context).withValues(alpha: 0.1)
                                     : AppColor.primaryColor(context).withValues(alpha: 0.15),
                               ),
                               boxShadow: [
                                 BoxShadow(
-                                  color: Colors.black.withValues(alpha: isDark ? 0.2 : 0.04),
+                                  color: AppColor.blackColor(
+                                    context,
+                                  ).withValues(alpha: isDark ? 0.2 : 0.04),
                                   blurRadius: 15,
                                   offset: const Offset(0, 5),
                                 ),
@@ -367,7 +368,6 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
                 ),
               ),
 
-              // ─── 5. Bottom Animated Loader ───
               Positioned(
                 bottom: 35.h,
                 left: 0,
