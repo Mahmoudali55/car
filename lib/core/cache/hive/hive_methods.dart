@@ -54,6 +54,23 @@ class HiveMethods {
     _box.put('favorites', favorites);
   }
 
+  static void removeFromFavorites(String carName, {String? itemCode, String? chassisNo}) {
+    final List<dynamic> list = List.from(getFavorites());
+    list.removeWhere((c) {
+      if (c is! Map) return false;
+      final nameMatch = c['name']?.toString().trim() == carName.trim();
+      final itemCodeMatch = itemCode != null &&
+          itemCode.isNotEmpty &&
+          c['itemCode']?.toString().trim() == itemCode.trim();
+      final chassisMatch = chassisNo != null &&
+          chassisNo.isNotEmpty &&
+          (c['chassisNo']?.toString().trim() == chassisNo.trim() ||
+              c['CHASSIS_NO']?.toString().trim() == chassisNo.trim());
+      return nameMatch || itemCodeMatch || chassisMatch;
+    });
+    _box.put('favorites', list);
+  }
+
   static bool isGuest() {
     return _box.get('isGuest', defaultValue: false);
   }

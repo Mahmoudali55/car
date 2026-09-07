@@ -8,6 +8,7 @@ import 'package:car/features/cars/presentation/screen/reservation_success_screen
 import 'package:car/features/cars/presentation/widget/financing_contact_form.dart';
 import 'package:car/features/cars/presentation/widget/pricing_details_bottom_sheet.dart';
 import 'package:car/features/cart/presentation/view/cubit/cart_cubit.dart';
+import 'package:car/features/favorites/presentation/view/cubit/favorites_cubit.dart';
 import 'package:car/features/home/data/model/brand_cars_data_model.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -86,6 +87,11 @@ class _FinancingInfoScreenState extends State<FinancingInfoScreen> {
   void _handleSubmit() {
     if (_formKey.currentState!.validate()) {
       context.read<CartCubit>().loadReservedCars();
+      context.read<FavoritesCubit>().removeFromFavorites(
+            widget.car.itemName,
+            itemCode: widget.car.itemCode.toString(),
+            chassisNo: widget.car.chassisNo,
+          );
       HiveMethods.removeFromRecentlyViewed(widget.car.itemName);
       Navigator.push(
         context,

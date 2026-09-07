@@ -41,6 +41,11 @@ class FavoritesCubit extends Cubit<FavoritesState> {
     }
   }
 
+  void removeFromFavorites(String carName, {String? itemCode, String? chassisNo}) {
+    HiveMethods.removeFromFavorites(carName, itemCode: itemCode, chassisNo: chassisNo);
+    loadFavorites();
+  }
+
   bool isFavorite(String carName) {
     final currentState = state;
     if (currentState is FavoritesLoaded) {
@@ -49,3 +54,4 @@ class FavoritesCubit extends Cubit<FavoritesState> {
     return false;
   }
 }
+

@@ -20,6 +20,7 @@ import 'package:car/features/cars/presentation/widget/reservation_method_selecti
 import 'package:car/features/cars/presentation/widget/reservation_payment_body.dart';
 import 'package:car/features/cars/presentation/widget/reservation_sticky_footer.dart';
 import 'package:car/features/cart/presentation/view/cubit/cart_cubit.dart';
+import 'package:car/features/favorites/presentation/view/cubit/favorites_cubit.dart';
 import 'package:car/features/home/data/model/add_booking_permission_model.dart';
 import 'package:car/features/home/data/model/brand_cars_data_model.dart';
 import 'package:car/features/home/data/model/send_otp_model.dart';
@@ -169,6 +170,11 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
 
   void _navigateToSuccess() {
     context.read<CartCubit>().loadReservedCars();
+    context.read<FavoritesCubit>().removeFromFavorites(
+          widget.car.itemName,
+          itemCode: widget.car.itemCode.toString(),
+          chassisNo: widget.car.chassisNo,
+        );
     HiveMethods.removeFromRecentlyViewed(widget.car.itemName);
     Navigator.push(
       context,
