@@ -123,12 +123,15 @@ class SupportScreen extends StatelessWidget {
                   //   ],
                   // ),
                   Gap(24.h),
+
+                  const ContactItemWidget(value: '920024446', icon: Icons.headset_mic_rounded),
+                  Gap(20.h),
                   // GENERAL CONTACT
                   SectionHeaderWidget(
                     title: AppLocaleKey.landlineAndWhatsapp.tr(),
                     icon: Icons.phone_android_rounded,
                   ),
-                  const ContactItemWidget(value: '0112311114', icon: Icons.headset_mic_rounded),
+                  const ContactItemWidget(value: '920024446', icon: Icons.phone_rounded),
                   Gap(20.h),
                   SectionHeaderWidget(title: AppLocaleKey.emails.tr(), icon: Icons.email_rounded),
                   const ContactItemWidget(

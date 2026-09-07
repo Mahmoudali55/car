@@ -59,9 +59,9 @@ class ContactBottomSheetWidget extends StatelessWidget {
           ContactButtonWidget(
             icon: Icons.phone_in_talk_rounded,
             title: AppLocaleKey.callUs.tr(),
-            subtitle: '+1 234 567 890',
+            subtitle: '+966 920024446',
             color: AppColor.primaryColor(context),
-            onTap: () => _launchUrl('tel:+1234567890'),
+            onTap: () => _launchUrl('tel:+966920024446'),
           ),
           Gap(15.h),
           ContactButtonWidget(
@@ -69,7 +69,7 @@ class ContactBottomSheetWidget extends StatelessWidget {
             title: AppLocaleKey.whatsapp.tr(),
             subtitle: 'Chat with our team',
             color: const Color(0xFF25D366),
-            onTap: () => _launchUrl('https://wa.me/+1234567890'),
+            onTap: () => _launchUrl('https://wa.me/+966920024446'),
           ),
           Gap(20.h),
         ],
