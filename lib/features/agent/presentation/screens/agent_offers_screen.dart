@@ -74,7 +74,6 @@ class _AgentOffersScreenState extends State<AgentOffersScreen> {
       ),
       body: Column(
         children: [
-          // ── Search Bar ──────────────────────────────────────────
           Padding(
             padding: EdgeInsets.fromLTRB(16.w, 16.h, 16.w, 0),
             child: Container(

@@ -28,6 +28,7 @@ class _HomeGuestScreenState extends State<HomeGuestScreen> {
     context.read<HomeCubit>().getBanks();
     context.read<HomeCubit>().fetchAllCars();
     context.read<HomeCubit>().getNormalFinancing();
+
     super.initState();
   }
 

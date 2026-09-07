@@ -196,7 +196,12 @@ class NotificationService {
     final String body =
         message.notification?.body ?? message.data['body'] ?? 'لديك إشعار جديد من التطبيق';
     await showLocalNotification(title: title, body: body);
+
+    try {
+      _notificationsCubit?.addReservationNotification(title: title, body: body);
+    } catch (_) {}
   }
+
 
   static Future<String?> getFCMToken() async {
     try {
