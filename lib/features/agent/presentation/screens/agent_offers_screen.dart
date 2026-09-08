@@ -129,20 +129,15 @@ class _AgentOffersScreenState extends State<AgentOffersScreen> {
           ),
 
           Gap(12.h),
-
-          // ── Content ─────────────────────────────────────────────
           Expanded(
             child: RefreshIndicator(
               onRefresh: () async => _refreshOffers(),
               color: AppColor.primaryColor(context),
               child: BlocBuilder<AgentCubit, AgentState>(
                 builder: (context, state) {
-                  // Loading
                   if (state.offersStatus.isLoading) {
                     return LoadingState(context: context);
                   }
-
-                  // Error
                   if (state.offersStatus.isFailure) {
                     return ErrorState(
                       message: state.offersStatus.error ?? AppLocaleKey.noData.tr(),
@@ -152,7 +147,6 @@ class _AgentOffersScreenState extends State<AgentOffersScreen> {
 
                   final offers = state.offersStatus.data ?? [];
 
-                  // Empty
                   if (offers.isEmpty) {
                     return EmptyState();
                   }

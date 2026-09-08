@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
 class MetaChip extends StatelessWidget {
-  const MetaChip({
+  const MetaChip({super.key, 
     required this.icon,
     required this.iconColor,
     required this.label,

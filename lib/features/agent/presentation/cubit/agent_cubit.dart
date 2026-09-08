@@ -35,6 +35,20 @@ class AgentCubit extends Cubit<AgentState> {
     );
   }
 
+  Future<void> getSingleOffer(int REPRESNO, int LISTNO) async {
+    emit(state.copyWith(singleOfferStatus: const StatusState.loading()));
+    final result = await agentRepo.getOffers(null, REPRESNO, LISTNO);
+    result.fold(
+      (failure) {
+        emit(state.copyWith(singleOfferStatus: StatusState.failure(failure.errMessage)));
+      },
+      (response) {
+        final offer = response.isNotEmpty ? response.first : null;
+        emit(state.copyWith(singleOfferStatus: StatusState.success(offer)));
+      },
+    );
+  }
+
   Future<void> addbookingpermission(CreatOfferModel offer) async {
     emit(state.copyWith(createOfferStatus: const StatusState.loading()));
     final result = await agentRepo.addbookingpermission(offer);

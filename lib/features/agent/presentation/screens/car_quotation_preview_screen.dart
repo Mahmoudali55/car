@@ -34,7 +34,7 @@ class _CarQuotationOffersPreviewScreenState extends State<CarQuotationOffersPrev
       _selectedOffer = null;
     }
     final represNo = int.tryParse(HiveMethods.getUserCode() ?? '1') ?? 1;
-    context.read<AgentCubit>().getOffers(null, represNo, widget.offerId);
+    context.read<AgentCubit>().getSingleOffer(represNo, widget.offerId);
   }
 
   @override
@@ -50,15 +50,9 @@ class _CarQuotationOffersPreviewScreenState extends State<CarQuotationOffersPrev
       ),
       body: BlocListener<AgentCubit, AgentState>(
         listener: (context, state) {
-          if (state.offersStatus.isSuccess) {
-            final offers = state.offersStatus.data ?? [];
-            final updatedOffer = offers.firstWhere(
-              (offer) => offer.listNo == widget.offerId,
-              orElse: () => _selectedOffer!,
-            );
-
+          if (state.singleOfferStatus.isSuccess && state.singleOfferStatus.data != null) {
             setState(() {
-              _selectedOffer = updatedOffer;
+              _selectedOffer = state.singleOfferStatus.data;
             });
           }
         },

@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
 class LoadingState extends StatelessWidget {
-  const LoadingState({required this.context});
+  const LoadingState({super.key, required this.context});
   final BuildContext context;
 
   @override

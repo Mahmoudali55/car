@@ -10,7 +10,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AgentDashboardScreen extends StatefulWidget {
   const AgentDashboardScreen({super.key});
-
   @override
   State<AgentDashboardScreen> createState() => _AgentDashboardScreenState();
 }
