@@ -70,18 +70,13 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
       ),
       body: MultiBlocListener(
         listeners: [
-          // Listen to HomeCubit notificationsStatus and feed into NotificationsCubit
           BlocListener<HomeCubit, HomeState>(
-            listenWhen: (prev, curr) =>
-                prev.notificationsStatus != curr.notificationsStatus,
+            listenWhen: (prev, curr) => prev.notificationsStatus != curr.notificationsStatus,
             listener: (context, state) {
               if (state.notificationsStatus.isSuccess) {
                 final list = state.notificationsStatus.data ?? [];
-                context.read<NotificationsCubit>().loadFromApi(
-                  list.map((n) => n.toMap()).toList(),
-                );
+                context.read<NotificationsCubit>().loadFromApi(list.map((n) => n.toMap()).toList());
               } else if (state.notificationsStatus.isFailure) {
-                // If API fails, show empty
                 context.read<NotificationsCubit>().loadFromApi([]);
               }
             },
@@ -117,14 +112,21 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
     context.read<NotificationsCubit>().markAsRead(notification['id'] as String);
     final type = notification['relatedEntityType'] as int?;
     final id = notification['relatedEntityId'];
+    final bool isLoan = notification['isLoan'] as bool? ?? false;
+
+    if (isLoan || type == 77) {
+      Navigator.pushNamed(
+        context,
+        RoutesName.trackOrderScreen,
+        arguments: {'orderId': id?.toString()},
+      );
+      return;
+    }
 
     switch (type) {
       case 20:
       case 34:
         Navigator.pushNamed(context, RoutesName.cartScreen, arguments: {'id': id});
-        break;
-      case 77:
-        Navigator.pushNamed(context, RoutesName.trackOrderScreen, arguments: {'orderId': id});
         break;
     }
   }
@@ -158,10 +160,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
             AppLocaleKey.no_alert_desc.tr(),
             style: AppTextStyle.bodyMedium(
               context,
-            ).copyWith(
-              color: AppColor.blackTextColor(context).withValues(alpha: 0.4),
-              height: 1.5,
-            ),
+            ).copyWith(color: AppColor.blackTextColor(context).withValues(alpha: 0.4), height: 1.5),
             textAlign: TextAlign.center,
           ),
         ],

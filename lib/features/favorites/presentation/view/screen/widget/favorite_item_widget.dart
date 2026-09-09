@@ -1,36 +1,31 @@
 import 'package:car/core/custom_widgets/custom_image/custom_network_image.dart';
 import 'package:car/core/custom_widgets/custom_sar_text.dart';
+import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/routes/routes_name.dart';
 import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/core/utils/navigator_methods.dart';
 import 'package:car/features/favorites/presentation/view/cubit/favorites_cubit.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
-import 'package:intl/intl.dart';
 
 class FavoriteItemWidget extends StatelessWidget {
   const FavoriteItemWidget({super.key, required this.car});
   final Map<String, dynamic> car;
 
-  // دالة لحساب السعر مع الضريبة
   String _getFormattedPriceWithVat(Map<String, dynamic> carData) {
-    // جلب السعر من الـ map
     final priceRaw = carData['price']?.toString() ?? '0';
     if (priceRaw.isEmpty || priceRaw == '0') return '0';
-
-    // تنظيف السعر من الرموز غير الرقمية
 
     final double originalPrice = double.tryParse(priceRaw) ?? 0.0;
 
     if (originalPrice <= 0) return '0';
 
-    // جلب نسبة الضريبة (من الـ map أو استخدام القيمة الافتراضية)
-    double vatPercentage = 15.0; // القيمة الافتراضية
+    double vatPercentage = 15.0;
 
-    // محاولة جلب نسبة الضريبة من الـ map
     if (carData.containsKey('VAT_SERIAL')) {
       final vatSerial = carData['VAT_SERIAL']?.toString();
       if (vatSerial != null && vatSerial.isNotEmpty) {
@@ -38,15 +33,12 @@ class FavoriteItemWidget extends StatelessWidget {
       }
     }
 
-    // حساب السعر شامل الضريبة
     final double priceWithVat = originalPrice * ((vatPercentage / 100)) + originalPrice;
 
-    // تنسيق السعر
     final formatter = NumberFormat('#,##0', 'en_US');
     return formatter.format(priceWithVat);
   }
 
-  // دالة للحصول على نسبة الضريبة للعرض
   String _getVatPercentageText(Map<String, dynamic> carData) {
     double vatPercentage = 15.0;
     if (carData.containsKey('VAT_SERIAL')) {
@@ -156,7 +148,7 @@ class FavoriteItemWidget extends StatelessWidget {
                         overflow: TextOverflow.ellipsis,
                       ),
                       Gap(8.h),
-                      // السعر شامل الضريبة
+
                       Container(
                         padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
                         decoration: BoxDecoration(
@@ -171,7 +163,7 @@ class FavoriteItemWidget extends StatelessWidget {
                           ),
                         ),
                       ),
-                      // إضافة نص شامل الضريبة
+
                       Gap(4.h),
                       Container(
                         padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 2.h),
@@ -180,7 +172,7 @@ class FavoriteItemWidget extends StatelessWidget {
                           borderRadius: BorderRadius.circular(8.r),
                         ),
                         child: Text(
-                          'شامل الضريبة $vatPercentage%',
+                          ' ${AppLocaleKey.inclusiveVat.tr()} $vatPercentage%',
                           style: AppTextStyle.bodySmall(context).copyWith(
                             fontSize: 9.sp,
                             color: AppColor.primaryColor(context),

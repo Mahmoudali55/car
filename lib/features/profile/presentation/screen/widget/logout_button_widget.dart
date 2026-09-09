@@ -34,7 +34,7 @@ class LogoutButtonWidget extends StatelessWidget {
                 ),
                 Gap(16.h),
                 Text(
-                  isArabic ? 'تسجيل الخروج' : 'Logout',
+                  AppLocaleKey.logout.tr(),
                   style: TextStyle(
                     fontSize: 20.sp,
                     fontWeight: FontWeight.w900,
@@ -44,8 +44,8 @@ class LogoutButtonWidget extends StatelessWidget {
                 Gap(10.h),
                 Text(
                   isArabic
-                      ? 'هل أنت متأكد من رغبتك في تسجيل الخروج من حسابك؟'
-                      : 'Are you sure you want to log out of your account?',
+                      ? AppLocaleKey.logoutConfirmation.tr()
+                      : AppLocaleKey.logoutConfirmation.tr(),
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 14.sp,
@@ -64,7 +64,7 @@ class LogoutButtonWidget extends StatelessWidget {
                         ),
                         onPressed: () => Navigator.pop(context),
                         child: Text(
-                          isArabic ? 'إلغاء' : 'Cancel',
+                          AppLocaleKey.cancel.tr(),
                           style: TextStyle(
                             fontSize: 14.sp,
                             fontWeight: FontWeight.bold,
@@ -93,7 +93,7 @@ class LogoutButtonWidget extends StatelessWidget {
                           );
                         },
                         child: Text(
-                          isArabic ? 'خروج' : 'Logout',
+                          AppLocaleKey.exit.tr(),
                           style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold),
                         ),
                       ),

@@ -328,8 +328,6 @@ class _FinancingScreenState extends State<FinancingScreen> with SingleTickerProv
     if (shouldCancel == true && mounted) Navigator.of(context).pop();
   }
 
-  // ─── Build ───────────────────────────────────────────────────────
-
   @override
   Widget build(BuildContext context) {
     return MultiBlocListener(

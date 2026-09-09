@@ -51,8 +51,7 @@ class _MainLayoutState extends State<MainLayout> {
       if (!mounted) return;
       final code = HiveMethods.getcode() ?? '';
       final isAgent = HiveMethods.isAgentRole();
-      
-      // If notifications were already fetched, load them into NotificationsCubit immediately
+
       final currentStatus = context.read<HomeCubit>().state.notificationsStatus;
       if (currentStatus.isSuccess && currentStatus.data != null) {
         context.read<NotificationsCubit>().loadFromApi(
@@ -123,9 +122,7 @@ class _MainLayoutState extends State<MainLayout> {
         listener: (context, state) {
           if (state.notificationsStatus.isSuccess) {
             final list = state.notificationsStatus.data ?? [];
-            context.read<NotificationsCubit>().loadFromApi(
-              list.map((n) => n.toMap()).toList(),
-            );
+            context.read<NotificationsCubit>().loadFromApi(list.map((n) => n.toMap()).toList());
           } else if (state.notificationsStatus.isFailure) {
             context.read<NotificationsCubit>().loadFromApi([]);
           }

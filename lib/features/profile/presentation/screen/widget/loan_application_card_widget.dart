@@ -206,13 +206,13 @@ class LoanApplicationCard extends StatelessWidget {
   Color _statusColor(int status) {
     switch (status) {
       case 0:
-        return const Color(0xFFF59E0B); // قيد المعالجة - amber
+        return const Color(0xFFF59E0B);
       case 1:
-        return const Color(0xFF10B981); // مقبول - green
+        return const Color(0xFF10B981);
       case 2:
-        return const Color(0xFFEF4444); // مرفوض - red
+        return const Color(0xFFEF4444);
       default:
-        return const Color(0xFF6B7280); // grey
+        return const Color(0xFF6B7280);
     }
   }
 }

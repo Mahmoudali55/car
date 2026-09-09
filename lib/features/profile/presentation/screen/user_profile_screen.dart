@@ -108,21 +108,18 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                               child: const Center(child: CustomLoading()),
                             ),
 
-                          // Profile Header Banner
                           if (profile != null)
                             ProfileHeaderBannerWidget(
                               profile: profile,
                               nameController: _nameController,
                             ),
 
-                          // Personal Details Section
                           PersonalDetailsSectionWidget(
                             profile: profile,
                             nameController: _nameController,
                             phoneController: _phoneController,
                           ),
 
-                          // Financial Summary (if balance or credit limit present)
                           if (profile != null &&
                               (profile.balance != null || profile.creditLimit != null)) ...[
                             Gap(24.h),
@@ -145,11 +142,6 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                     ),
                                   ),
                                 ),
-                                // ActionTileWidget(
-                                //   icon: Icons.history_rounded,
-                                //   label: AppLocaleKey.myHistory.tr(),
-                                //   onTap: () {},
-                                // ),
                               ],
                             ),
                           ),

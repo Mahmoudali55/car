@@ -16,7 +16,7 @@ class FavoritesScreen extends StatelessWidget {
       builder: (context, state) {
         if (state is FavoritesLoaded) {
           if (state.favorites.isEmpty) {
-            return FadeInUp(duration: Duration(milliseconds: 500), child: EmptyStateWidget());
+            return FadeInUp(duration: const Duration(milliseconds: 500), child: EmptyStateWidget());
           }
           return ListView.separated(
             padding: EdgeInsets.fromLTRB(20.w, 20.h, 20.w, 100.h),

@@ -38,7 +38,6 @@ class _EvaluationScreenState extends State<EvaluationScreen> {
 
     BotToast.showLoading();
 
-    // Simulate API call
     Future.delayed(const Duration(seconds: 2), () {
       BotToast.closeAllLoading();
 

@@ -24,16 +24,33 @@ class NotificationItemWidget extends StatelessWidget {
       if (elapsed.inMinutes < 1) return 'منذ لحظات';
       if (elapsed.inHours < 1) {
         final minutes = elapsed.inMinutes;
-        return minutes == 1 ? 'منذ دقيقة' : minutes == 2 ? 'منذ دقيقتين' : 'منذ $minutes دقائق';
+        return minutes == 1
+            ? 'منذ دقيقة'
+            : minutes == 2
+            ? 'منذ دقيقتين'
+            : 'منذ $minutes دقائق';
       }
       if (elapsed.inDays < 1) {
         final hours = elapsed.inHours;
-        return hours == 1 ? 'منذ ساعة' : hours == 2 ? 'منذ ساعتين' : 'منذ $hours ساعات';
+        return hours == 1
+            ? 'منذ ساعة'
+            : hours == 2
+            ? 'منذ ساعتين'
+            : 'منذ $hours ساعات';
       }
       final days = elapsed.inDays;
-      if (days < 7) return days == 1 ? 'منذ يوم' : days == 2 ? 'منذ يومين' : 'منذ $days أيام';
+      if (days < 7)
+        return days == 1
+            ? 'منذ يوم'
+            : days == 2
+            ? 'منذ يومين'
+            : 'منذ $days أيام';
       final weeks = days ~/ 7;
-      return weeks == 1 ? 'منذ أسبوع' : weeks == 2 ? 'منذ أسبوعين' : 'منذ $weeks أسابيع';
+      return weeks == 1
+          ? 'منذ أسبوع'
+          : weeks == 2
+          ? 'منذ أسبوعين'
+          : 'منذ $weeks أسابيع';
     }
 
     if (elapsed.inMinutes < 1) return 'Just now';
@@ -101,7 +118,6 @@ class NotificationItemWidget extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Icon
             Container(
               padding: EdgeInsets.all(10.w),
               decoration: BoxDecoration(
@@ -111,8 +127,6 @@ class NotificationItemWidget extends StatelessWidget {
               child: Icon(icon, color: iconColor, size: 24.sp),
             ),
             Gap(16.w),
-
-            // Content
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

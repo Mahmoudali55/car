@@ -1527,6 +1527,9 @@
   "credit_limit": "Credit Limit",
   "form": "From",
   "total_loan_price": "Total Loan Price",
-  "required":"Required"
+  "required":"Required",
+  "exit":"Exit",
+  "logout_confirmation":"Are you sure you want to log out of your account?",
+  "inclusive_vat":"Inclusive of VAT"
 }
 

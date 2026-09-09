@@ -136,7 +136,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       ),
                     ),
                   ),
-                  // Next / Get Started Button
+
                   Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(16),

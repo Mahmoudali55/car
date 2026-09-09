@@ -88,10 +88,10 @@ class _FinancingInfoScreenState extends State<FinancingInfoScreen> {
     if (_formKey.currentState!.validate()) {
       context.read<CartCubit>().loadReservedCars();
       context.read<FavoritesCubit>().removeFromFavorites(
-            widget.car.itemName,
-            itemCode: widget.car.itemCode.toString(),
-            chassisNo: widget.car.chassisNo,
-          );
+        widget.car.itemName,
+        itemCode: widget.car.itemCode.toString(),
+        chassisNo: widget.car.chassisNo,
+      );
       HiveMethods.removeFromRecentlyViewed(widget.car.itemName);
       Navigator.push(
         context,

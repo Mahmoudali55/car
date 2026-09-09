@@ -101,8 +101,8 @@ class AppRouters {
         return MaterialPageRoute(builder: (_) => const RecentlyViewedScreen());
       case RoutesName.tradeInScreen:
         return MaterialPageRoute(builder: (_) => const TradeInScreen());
-      case RoutesName.requestCarScreen:
-        return MaterialPageRoute(builder: (_) => const RequestCarScreen());
+      // case RoutesName.requestCarScreen:
+      //   return MaterialPageRoute(builder: (_) => const RequestCarScreen());
       case RoutesName.financingScreen:
         GetBrandCarsDataModel? car;
         if (args is GetBrandCarsDataModel) {
@@ -115,8 +115,8 @@ class AppRouters {
           }
         }
         return MaterialPageRoute(builder: (_) => FinancingScreen(car: car));
-      case RoutesName.bookingAppointmentScreen:
-        return MaterialPageRoute(builder: (_) => const BookingAppointmentScreen());
+      // case RoutesName.bookingAppointmentScreen:
+      //   return MaterialPageRoute(builder: (_) => const BookingAppointmentScreen());
       case RoutesName.serviceHistoryScreen:
         return MaterialPageRoute(builder: (_) => const ServiceHistoryScreen());
       case RoutesName.supportScreen:
@@ -129,8 +129,8 @@ class AppRouters {
         return MaterialPageRoute(builder: (_) => const CarComparisonScreen());
       case RoutesName.carDetailingScreen:
         return MaterialPageRoute(builder: (_) => const CarDetailingScreen());
-      case RoutesName.shippingScreen:
-        return MaterialPageRoute(builder: (_) => const ShippingScreen());
+      // case RoutesName.shippingScreen:
+      //   return MaterialPageRoute(builder: (_) => const ShippingScreen());
       case RoutesName.bespokeSelectionScreen:
         return MaterialPageRoute(builder: (_) => const BespokeSelectionScreen());
       case RoutesName.carValuationScreen:

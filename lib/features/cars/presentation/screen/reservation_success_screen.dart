@@ -23,10 +23,10 @@ class ReservationSuccessScreen extends StatelessWidget {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       try {
         context.read<FavoritesCubit>().removeFromFavorites(
-              car.itemName,
-              itemCode: car.itemCode.toString(),
-              chassisNo: car.chassisNo,
-            );
+          car.itemName,
+          itemCode: car.itemCode.toString(),
+          chassisNo: car.chassisNo,
+        );
       } catch (_) {
         HiveMethods.removeFromFavorites(
           car.itemName,
@@ -119,7 +119,7 @@ class ReservationSuccessScreen extends StatelessWidget {
                     icon: Icons.lock_clock_rounded,
                     iconColor: AppColor.iconColor(context),
                     label: AppLocaleKey.deposit_amount.tr(),
-                    value: '500 ر.س (مسترد)',
+                    value: '500 ر.س (غير قابل للاسترداد)',
                   ),
                 InfoRow(
                   icon: Icons.info_outline_rounded,

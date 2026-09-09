@@ -168,7 +168,7 @@ class _CarComparisonScreenState extends State<CarComparisonScreen> {
             ),
           ),
           Gap(16.h),
-          // Car Headers Row
+
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: list
@@ -183,10 +183,8 @@ class _CarComparisonScreenState extends State<CarComparisonScreen> {
                 .toList(),
           ),
           Gap(32.h),
-          // Specs Table
           _buildSpecsTable(list),
           Gap(40.h),
-          // Download/Share Button
           FadeInUp(
             delay: const Duration(milliseconds: 400),
             child: Container(

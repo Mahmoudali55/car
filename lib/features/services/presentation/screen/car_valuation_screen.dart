@@ -36,12 +36,9 @@ class _CarValuationScreenState extends State<CarValuationScreen> {
     super.dispose();
   }
 
-  // Dynamic Valuation Estimator based on inputs
   Map<String, double> _estimateValuation() {
     final year = int.tryParse(_yearController.text.trim()) ?? 2023;
     final mileage = double.tryParse(_mileageController.text.trim()) ?? 40000;
-
-    // Base price estimation by year
     double basePrice = 120000;
     if (year >= 2026) {
       basePrice = 240000;

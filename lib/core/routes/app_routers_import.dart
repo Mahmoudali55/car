@@ -43,14 +43,11 @@ import 'package:car/features/onboarding/presentation/view/screen/onboarding_scre
 import 'package:car/features/profile/presentation/screen/track_order_screen.dart';
 import 'package:car/features/profile/presentation/screen/user_profile_screen.dart';
 import 'package:car/features/services/presentation/screen/bespoke_selection_screen.dart';
-import 'package:car/features/services/presentation/screen/booking_appointment_screen.dart';
 import 'package:car/features/services/presentation/screen/car_detailing_screen.dart';
 import 'package:car/features/services/presentation/screen/car_valuation_screen.dart';
 import 'package:car/features/services/presentation/screen/financing_screen.dart';
 import 'package:car/features/services/presentation/screen/import_on_demand_screen.dart';
-import 'package:car/features/services/presentation/screen/request_car_screen.dart';
 import 'package:car/features/services/presentation/screen/service_history_screen.dart';
-import 'package:car/features/services/presentation/screen/shipping_screen.dart';
 import 'package:car/features/services/presentation/screen/support_screen.dart';
 import 'package:car/features/services/presentation/screen/trade_in_screen.dart';
 import 'package:car/features/settings/presentation/screen/change_password_screen.dart';

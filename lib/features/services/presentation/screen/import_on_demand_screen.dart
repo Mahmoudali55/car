@@ -113,7 +113,6 @@ class _ImportOnDemandScreenState extends State<ImportOnDemandScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Header Card
               FadeInDown(
                 duration: const Duration(milliseconds: 500),
                 child: Container(
@@ -169,8 +168,6 @@ class _ImportOnDemandScreenState extends State<ImportOnDemandScreen> {
               ),
 
               Gap(24.h),
-
-              // Interactive Stepper Tracker
               FadeInUp(
                 duration: const Duration(milliseconds: 600),
                 child: Column(
@@ -196,7 +193,6 @@ class _ImportOnDemandScreenState extends State<ImportOnDemandScreen> {
                           final step = steps[index];
                           final isActive = index == _currentStep;
                           final isPassed = index < _currentStep;
-
                           return Expanded(
                             child: InkWell(
                               onTap: () {

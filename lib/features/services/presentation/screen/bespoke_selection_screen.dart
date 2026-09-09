@@ -75,8 +75,8 @@ class _BespokeSelectionScreenState extends State<BespokeSelectionScreen> {
                 Gap(20.h),
                 CustomButton(
                   onPressed: () {
-                    Navigator.pop(context); // Close dialog
-                    Navigator.pop(context); // Go back
+                    Navigator.pop(context);
+                    Navigator.pop(context);
                   },
                   text: AppLocaleKey.ok.tr(),
                 ),

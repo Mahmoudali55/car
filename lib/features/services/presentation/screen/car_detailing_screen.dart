@@ -196,7 +196,6 @@ class _CarDetailingScreenState extends State<CarDetailingScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Intro
               FadeInDown(
                 duration: const Duration(milliseconds: 500),
                 child: Text(
@@ -206,7 +205,6 @@ class _CarDetailingScreenState extends State<CarDetailingScreen> {
               ),
               Gap(12.h),
 
-              // Horizontal Packages Carousel
               SizedBox(
                 height: 180.h,
                 child: ListView.builder(
@@ -299,7 +297,7 @@ class _CarDetailingScreenState extends State<CarDetailingScreen> {
                                   Gap(4.w),
                                   Text(
                                     AppLocaleKey.sar.tr(),
-                                    style: TextStyle(
+                                    style: AppTextStyle.bodySmall(context).copyWith(
                                       fontSize: 10.sp,
                                       color: isSelected
                                           ? AppColor.whiteColor(context).withValues(alpha: 0.7)
@@ -482,8 +480,6 @@ class _CarDetailingScreenState extends State<CarDetailingScreen> {
               ),
 
               Gap(24.h),
-
-              // Form Details
               FadeInUp(
                 duration: const Duration(milliseconds: 600),
                 child: Column(
@@ -494,8 +490,6 @@ class _CarDetailingScreenState extends State<CarDetailingScreen> {
                       style: AppTextStyle.titleSmall(context).copyWith(fontWeight: FontWeight.bold),
                     ),
                     Gap(12.h),
-
-                    // Car Type/Model
                     CustomFormField(
                       controller: _carModelController,
                       title: AppLocaleKey.carTypeModel.tr(),
@@ -504,18 +498,13 @@ class _CarDetailingScreenState extends State<CarDetailingScreen> {
                           value == null || value.isEmpty ? AppLocaleKey.validateEmpty.tr() : null,
                     ),
                     Gap(16.h),
-
-                    // Special Notes
                     CustomFormField(
                       controller: _notesController,
                       title: AppLocaleKey.additionalNotes.tr(),
                       hintText: AppLocaleKey.rearSeatCleanRequest.tr(),
                       maxLines: 3,
                     ),
-
                     Gap(32.h),
-
-                    // Book Button
                     CustomButton(
                       onPressed: _bookAppointment,
                       text: AppLocaleKey.bookAppointment.tr(),

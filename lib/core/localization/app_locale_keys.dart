@@ -1581,4 +1581,7 @@ class AppLocaleKey {
   static const String creditLimit = 'credit_limit';
   static const String totalLoanPrice = 'total_loan_price';
   static const String required = 'required';
+  static const String exit = 'exit';
+  static const String logoutConfirmation = 'logout_confirmation';
+  static const String inclusiveVat = 'inclusive_vat';
 }
