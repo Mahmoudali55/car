@@ -70,23 +70,43 @@ class _QuoteBuilderDialogState extends State<QuoteBuilderDialog> {
   DateTime? _begDate;
   DateTime? _endDate;
   Future<void> _pickDate(BuildContext context, bool isBeg) async {
-    final picked = await showDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(2020),
-      lastDate: DateTime(2030),
-    );
-    if (picked != null) {
-      final formatted = DateFormat('yyyy-MM-dd', 'en').format(picked);
-      setState(() {
-        if (isBeg) {
+    if (isBeg) {
+      final now = DateTime.now();
+      final picked = await showDatePicker(
+        context: context,
+        initialDate: _begDate ?? now,
+        firstDate: now.subtract(const Duration(days: 30)),
+        lastDate: now.add(const Duration(days: 365)),
+      );
+      if (picked != null) {
+        final formatted = DateFormat('yyyy-MM-dd', 'en').format(picked);
+        setState(() {
           _begDate = picked;
           _begDateController.text = formatted;
-        } else {
+          // Capped strictly at 3 days
+          _endDate = picked.add(const Duration(days: 2));
+          _endDateController.text = DateFormat('yyyy-MM-dd', 'en').format(_endDate!);
+        });
+      }
+    } else {
+      final baseBegDate = _begDate ?? DateTime.now();
+      final maxEndDate = baseBegDate.add(const Duration(days: 2));
+      final picked = await showDatePicker(
+        context: context,
+        initialDate:
+            _endDate != null && !_endDate!.isAfter(maxEndDate) && !_endDate!.isBefore(baseBegDate)
+            ? _endDate!
+            : maxEndDate,
+        firstDate: baseBegDate,
+        lastDate: maxEndDate,
+      );
+      if (picked != null) {
+        final formatted = DateFormat('yyyy-MM-dd', 'en').format(picked);
+        setState(() {
           _endDate = picked;
           _endDateController.text = formatted;
-        }
-      });
+        });
+      }
     }
   }
 
@@ -96,8 +116,10 @@ class _QuoteBuilderDialogState extends State<QuoteBuilderDialog> {
   num get _taxAmount => _price * _taxRate;
   num get _total => (_price + _taxAmount + _platePrice) * 1;
   String get _today => DateFormat('yyyy-MM-dd', 'en').format(DateTime.now());
-  String get _lastDate =>
-      DateFormat('yyyy-MM-dd', 'en').format(DateTime.now().add(const Duration(days: 8)));
+  String get _lastDate => DateFormat(
+    'yyyy-MM-dd',
+    'en',
+  ).format((_begDate ?? DateTime.now()).add(const Duration(days: 3)));
   String get _terms => _instantSpecs.join(' | ');
   String get _carNote {
     final List<String> parts = _existingSpecsController.text
@@ -113,6 +135,10 @@ class _QuoteBuilderDialogState extends State<QuoteBuilderDialog> {
   void initState() {
     super.initState();
     _priceController = TextEditingController(text: widget.car.costPrice?.toStringAsFixed(0) ?? '0');
+    _begDate = DateTime.now();
+    _begDateController.text = _today;
+    _endDate = DateTime.now().add(const Duration(days: 2));
+    _endDateController.text = DateFormat('yyyy-MM-dd', 'en').format(_endDate!);
     context.read<AgentCubit>().getCustomer(null);
     final initialText = widget.existingSpecs.entries
         .where((e) => e.value.trim().isNotEmpty && e.value.trim() != '—' && e.value.trim() != '-')
@@ -157,6 +183,18 @@ class _QuoteBuilderDialogState extends State<QuoteBuilderDialog> {
       return;
     }
 
+    final beg = _begDate ?? DateTime.now();
+    final end = _endDate ?? beg.add(const Duration(days: 2));
+    if (end.difference(beg).inDays > 3) {
+      CommonMethods.showToast(
+        message: context.locale.languageCode == 'ar'
+            ? 'صلاحية عرض السعر ٣ أيام فقط لا يمكن أن تزيد عن ذلك'
+            : 'Quotation validity is 3 days only and cannot exceed that',
+        type: ToastType.error,
+      );
+      return;
+    }
+
     final subList = [
       OfferItemModel(
         itemCode: widget.car.itemCode ?? '',
@@ -183,7 +221,7 @@ class _QuoteBuilderDialogState extends State<QuoteBuilderDialog> {
       guarPrimary: 0,
       guarFinal: 0,
       deliveryPeriod: 0,
-      listPeriod: 1,
+      listPeriod: 3,
       notes: null,
       terms: _terms.isEmpty ? null : _terms,
       total: _total,
@@ -252,9 +290,31 @@ class _QuoteBuilderDialogState extends State<QuoteBuilderDialog> {
                           context: context,
                         ),
                         Gap(20.h),
-                        SectionTitle(
-                          title: AppLocaleKey.period.tr(),
-                          icon: Icons.date_range_rounded,
+                        Row(
+                          children: [
+                            SectionTitle(
+                              title: AppLocaleKey.period.tr(),
+                              icon: Icons.date_range_rounded,
+                            ),
+                            Gap(8.w),
+                            Container(
+                              padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 3.h),
+                              decoration: BoxDecoration(
+                                color: AppColor.primaryColor(context).withValues(alpha: 0.1),
+                                borderRadius: BorderRadius.circular(6.r),
+                              ),
+                              child: Text(
+                                context.locale.languageCode == 'ar'
+                                    ? 'صلاحية ٣ أيام فقط'
+                                    : '3 Days Validity',
+                                style: AppTextStyle.bodySmall(context).copyWith(
+                                  color: AppColor.primaryColor(context),
+                                  fontSize: 10.sp,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                         Gap(10.h),
                         Row(

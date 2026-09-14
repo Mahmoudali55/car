@@ -264,6 +264,7 @@ class _AgentCarDetailsScreenState extends State<AgentCarDetailsScreen> {
     CustomerModel? selectedCustomer;
     bool isCustomerDropdownOpen = false;
     bool isTermsAccepted = false;
+    bool isBankReservation = false;
     context.read<AgentCubit>().getCustomer(null);
     showModalBottomSheet(
       context: context,
@@ -334,6 +335,17 @@ class _AgentCarDetailsScreenState extends State<AgentCarDetailsScreen> {
                                     isCustomerDropdownOpen = false;
                                     nameController.text = c.customerName ?? '';
                                     phoneController.text = c.tel1 ?? '';
+                                    final custNameLower = (c.customerName ?? '').toLowerCase();
+                                    final typeLower = (c.customerTypeName ?? '').toLowerCase();
+                                    if (custNameLower.contains('بنك') ||
+                                        custNameLower.contains('bank') ||
+                                        custNameLower.contains('تمويل') ||
+                                        typeLower.contains('بنك') ||
+                                        typeLower.contains('bank')) {
+                                      isBankReservation = true;
+                                    } else {
+                                      isBankReservation = false;
+                                    }
                                     searchController.clear();
                                     context.read<AgentCubit>().getCustomer(null);
                                   });
@@ -341,6 +353,139 @@ class _AgentCarDetailsScreenState extends State<AgentCarDetailsScreen> {
                                 onSearch: (v) =>
                                     context.read<AgentCubit>().getCustomer(v.isEmpty ? null : v),
                                 context: dialogContext,
+                              ),
+                              Gap(16.h),
+                              Container(
+                                padding: EdgeInsets.all(4.w),
+                                decoration: BoxDecoration(
+                                  color: AppColor.scaffoldColor(dialogContext),
+                                  borderRadius: BorderRadius.circular(14.r),
+                                  border: Border.all(
+                                    color: AppColor.borderColor(dialogContext).withValues(alpha: 0.3),
+                                  ),
+                                ),
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      child: GestureDetector(
+                                        onTap: () => setModalState(() => isBankReservation = false),
+                                        child: AnimatedContainer(
+                                          duration: const Duration(milliseconds: 200),
+                                          padding: EdgeInsets.symmetric(vertical: 10.h),
+                                          decoration: BoxDecoration(
+                                            color: !isBankReservation
+                                                ? AppColor.primaryColor(dialogContext)
+                                                : Colors.transparent,
+                                            borderRadius: BorderRadius.circular(10.r),
+                                            boxShadow: !isBankReservation
+                                                ? [
+                                                    BoxShadow(
+                                                      color: AppColor.primaryColor(dialogContext).withValues(alpha: 0.25),
+                                                      blurRadius: 6,
+                                                      offset: const Offset(0, 2),
+                                                    ),
+                                                  ]
+                                                : [],
+                                          ),
+                                          child: Center(
+                                            child: Text(
+                                              isArabic ? 'فرد / معرض (١٢ ساعة)' : 'Individual / Showroom (12h)',
+                                              style: AppTextStyle.bodySmall(dialogContext).copyWith(
+                                                color: !isBankReservation
+                                                    ? AppColor.whiteColor(dialogContext)
+                                                    : AppColor.blackTextColor(dialogContext).withValues(alpha: 0.7),
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 11.5.sp,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Gap(4.w),
+                                    Expanded(
+                                      child: GestureDetector(
+                                        onTap: () => setModalState(() => isBankReservation = true),
+                                        child: AnimatedContainer(
+                                          duration: const Duration(milliseconds: 200),
+                                          padding: EdgeInsets.symmetric(vertical: 10.h),
+                                          decoration: BoxDecoration(
+                                            color: isBankReservation
+                                                ? AppColor.primaryColor(dialogContext)
+                                                : Colors.transparent,
+                                            borderRadius: BorderRadius.circular(10.r),
+                                            boxShadow: isBankReservation
+                                                ? [
+                                                    BoxShadow(
+                                                      color: AppColor.primaryColor(dialogContext).withValues(alpha: 0.25),
+                                                      blurRadius: 6,
+                                                      offset: const Offset(0, 2),
+                                                    ),
+                                                  ]
+                                                : [],
+                                          ),
+                                          child: Center(
+                                            child: Text(
+                                              isArabic ? 'بنك (٣ أيام)' : 'Bank (3 Days)',
+                                              style: AppTextStyle.bodySmall(dialogContext).copyWith(
+                                                color: isBankReservation
+                                                    ? AppColor.whiteColor(dialogContext)
+                                                    : AppColor.blackTextColor(dialogContext).withValues(alpha: 0.7),
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 11.5.sp,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Gap(12.h),
+                              Container(
+                                padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 10.h),
+                                decoration: BoxDecoration(
+                                  color: isBankReservation
+                                      ? const Color(0xFF3B82F6).withValues(alpha: 0.08)
+                                      : const Color(0xFFF59E0B).withValues(alpha: 0.08),
+                                  borderRadius: BorderRadius.circular(12.r),
+                                  border: Border.all(
+                                    color: isBankReservation
+                                        ? const Color(0xFF3B82F6).withValues(alpha: 0.25)
+                                        : const Color(0xFFF59E0B).withValues(alpha: 0.25),
+                                  ),
+                                ),
+                                child: Row(
+                                  children: [
+                                    Icon(
+                                      Icons.timer_outlined,
+                                      size: 18.sp,
+                                      color: isBankReservation
+                                          ? const Color(0xFF2563EB)
+                                          : const Color(0xFFD97706),
+                                    ),
+                                    Gap(8.w),
+                                    Expanded(
+                                      child: Text(
+                                        isBankReservation
+                                            ? (isArabic
+                                                ? 'مدة حجز عملاء البنوك: ٣ أيام'
+                                                : 'Bank Reservation Duration: 3 Days')
+                                            : (isArabic
+                                                ? 'مدة حجز الأفراد والمعارض: ١٢ ساعة'
+                                                : 'Individual / Showroom Duration: 12 Hours'),
+                                        style: AppTextStyle.bodySmall(dialogContext).copyWith(
+                                          fontWeight: FontWeight.w700,
+                                          fontSize: 11.5.sp,
+                                          color: isBankReservation
+                                              ? const Color(0xFF1E40AF)
+                                              : const Color(0xFF92400E),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                               Gap(16.h),
                               AnimatedSize(
@@ -509,6 +654,7 @@ class _AgentCarDetailsScreenState extends State<AgentCarDetailsScreen> {
                                             customerPhone: phone,
                                             depositAmount: deposit,
                                             customerNo: selectedCustomer?.customerNo,
+                                            isBankReservation: isBankReservation,
                                           );
                                         }
                                       },
@@ -566,14 +712,16 @@ class _AgentCarDetailsScreenState extends State<AgentCarDetailsScreen> {
     required String customerPhone,
     required double depositAmount,
     int? customerNo,
+    required bool isBankReservation,
   }) {
     setState(() => _isLoading = true);
 
-    final todayStr = DateFormat('yyyy-MM-dd', 'en').format(DateTime.now());
-    final futureDateStr = DateFormat(
-      'yyyy-MM-dd',
-      'en',
-    ).format(DateTime.now().add(const Duration(days: 1)));
+    final now = DateTime.now();
+    final todayStr = DateFormat('yyyy-MM-dd', 'en').format(now);
+    final DateTime expiryDateTime = isBankReservation
+        ? now.add(const Duration(days: 3))
+        : now.add(const Duration(hours: 12));
+    final futureDateStr = DateFormat('yyyy-MM-dd', 'en').format(expiryDateTime);
 
     final itemCode = widget.car.itemCode;
     final itemName = widget.car.itemName;
@@ -584,6 +732,7 @@ class _AgentCarDetailsScreenState extends State<AgentCarDetailsScreen> {
     final double basePrice = widget.car.price;
     final double totalWithTax = basePrice * ((100 + vatSerial) / 100);
     final double taxValue = double.parse((totalWithTax - basePrice).toStringAsFixed(2));
+    final noteType = isBankReservation ? 'حجز بنك (3 أيام)' : 'حجز فرد/معرض (12 ساعة)';
     final model = AddBookingPermissionModel(
       lpoNos: '',
       lpono: '',
@@ -598,7 +747,7 @@ class _AgentCarDetailsScreenState extends State<AgentCarDetailsScreen> {
       taamedNo: '',
       payCond: '',
       guarFinal: 0,
-      notes: 'حجز سيارة كاش -  ($customerPhone)',
+      notes: '$noteType - ($customerPhone)',
       userAdd: (HiveMethods.getUserName() ?? '').substring(
         0,
         (HiveMethods.getUserName() ?? '').length.clamp(0, 50),
