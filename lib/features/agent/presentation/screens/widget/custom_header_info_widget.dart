@@ -1,3 +1,4 @@
+import 'package:car/core/cache/hive/hive_methods.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/routes/routes_name.dart';
 import 'package:car/core/theme/app_colors.dart';
@@ -25,7 +26,7 @@ class CustomHeaderInfoWidget extends StatelessWidget {
             children: [
               Text(
                 AppLocaleKey.agentWelcomeName.tr(
-                  namedArgs: {'name': AppLocaleKey.agentUserName.tr()},
+                  namedArgs: {'name': HiveMethods.getUserName() ?? ''},
                 ),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,

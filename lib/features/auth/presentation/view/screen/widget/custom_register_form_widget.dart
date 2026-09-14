@@ -209,6 +209,7 @@ class _CustomRegisterFormWidgetState extends State<CustomRegisterFormWidget> {
                 child: CustomFormField(
                   controller: widget.cubit.idNoController,
                   hintText: AppLocaleKey.phoneNumber.tr(),
+                  title: AppLocaleKey.phoneNumber.tr(),
                   prefixIcon: Icon(
                     Icons.phone_android_rounded,
                     color: AppColor.primaryColor(context),
@@ -335,6 +336,7 @@ class _CustomRegisterFormWidgetState extends State<CustomRegisterFormWidget> {
                 child: CustomFormField(
                   controller: widget.cubit.fullNameController,
                   hintText: AppLocaleKey.fullName.tr(),
+                  title: AppLocaleKey.fullName.tr(),
                   prefixIcon: Icon(
                     Icons.person_outline_rounded,
                     color: AppColor.primaryColor(context),
@@ -360,6 +362,7 @@ class _CustomRegisterFormWidgetState extends State<CustomRegisterFormWidget> {
                 duration: const Duration(milliseconds: 800),
                 child: CustomFormField(
                   controller: widget.cubit.userNameController,
+                  title: AppLocaleKey.userName.tr(),
                   hintText: AppLocaleKey.userName.tr(),
                   prefixIcon: Icon(
                     Icons.person_outline_rounded,
@@ -387,6 +390,7 @@ class _CustomRegisterFormWidgetState extends State<CustomRegisterFormWidget> {
                 child: CustomFormField(
                   controller: widget.cubit.emailController,
                   hintText: AppLocaleKey.email.tr(),
+                  title: AppLocaleKey.email.tr(),
                   prefixIcon: Icon(Icons.email_outlined, color: AppColor.primaryColor(context)),
                   fillColor: AppColor.blackTextColor(context).withValues(alpha: 0.05),
                   textStyle: TextStyle(color: AppColor.blackTextColor(context)),
@@ -413,6 +417,7 @@ class _CustomRegisterFormWidgetState extends State<CustomRegisterFormWidget> {
                     CustomFormField(
                       controller: widget.cubit.registerPasswordController,
                       hintText: AppLocaleKey.password.tr(),
+                      title: AppLocaleKey.password.tr(),
                       isPassword: true,
                       prefixIcon: Icon(
                         Icons.lock_outline_rounded,

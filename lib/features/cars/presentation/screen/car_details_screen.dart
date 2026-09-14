@@ -3,7 +3,6 @@ import 'package:car/core/custom_widgets/custom_image/custom_network_image.dart';
 import 'package:car/core/images/app_images.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/theme/app_colors.dart';
-import 'package:car/features/cars/presentation/widget/bnpl_widget.dart';
 import 'package:car/features/cars/presentation/widget/car_header_widget.dart';
 import 'package:car/features/cars/presentation/widget/car_info_tabs_widget.dart';
 import 'package:car/features/cars/presentation/widget/features_grid_widget.dart';
@@ -125,10 +124,10 @@ class _CarDetailsScreenState extends State<CarDetailsScreen> {
                                 offer: widget.offer,
                                 offers: widget.offers,
                               ),
-                              if (widget.car.isTamaraAvailable) ...[
-                                Gap(16.h),
-                                BnplWidget(car: widget.car),
-                              ],
+                              // if (widget.car.isTamaraAvailable) ...[
+                              //   Gap(16.h),
+                              //   BnplWidget(car: widget.car),
+                              // ],
                               Gap(16.h),
                               CarInfoTabsWidget(car: widget.car),
                               _buildOverview(context),

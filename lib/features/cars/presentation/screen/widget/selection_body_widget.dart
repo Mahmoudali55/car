@@ -40,6 +40,8 @@ class _SelectionBodyWidgetState extends State<SelectionBodyWidget> {
         PaymentMethodSelectionCard(
           title: AppLocaleKey.agentTamara.tr(),
           description: AppLocaleKey.agentNoFees.tr(),
+          isEnabled: false,
+          disabledBadgeText: AppLocaleKey.unavailable.tr(),
           logo: Image.asset(
             AppImages.assetsImagesTamaraLogo,
             height: 24.h,
@@ -64,6 +66,8 @@ class _SelectionBodyWidgetState extends State<SelectionBodyWidget> {
         PaymentMethodSelectionCard(
           title: AppLocaleKey.agentCreditCard.tr(),
           description: AppLocaleKey.agent24Months.tr(),
+          isEnabled: false,
+          disabledBadgeText: AppLocaleKey.unavailable.tr(),
           logo: Row(
             children: [
               Container(

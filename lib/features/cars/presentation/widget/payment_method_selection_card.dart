@@ -12,6 +12,8 @@ class PaymentMethodSelectionCard extends StatelessWidget {
   final Widget? logo;
   final bool isSelected;
   final VoidCallback onTap;
+  final bool isEnabled;
+  final String? disabledBadgeText;
 
   const PaymentMethodSelectionCard({
     super.key,
@@ -21,23 +23,30 @@ class PaymentMethodSelectionCard extends StatelessWidget {
     this.logo,
     required this.isSelected,
     required this.onTap,
+    this.isEnabled = true,
+    this.disabledBadgeText,
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap,
+      onTap: isEnabled ? onTap : null,
+      behavior: HitTestBehavior.opaque,
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 300),
         padding: EdgeInsets.all(20.w),
         decoration: BoxDecoration(
-          color: AppColor.cardColor(context),
+          color: isEnabled
+              ? AppColor.cardColor(context)
+              : AppColor.cardColor(context).withValues(alpha: 0.6),
           borderRadius: BorderRadius.circular(16.r),
           border: Border.all(
-            color: isSelected ? AppColor.primaryColor(context) : AppColor.borderColor(context),
-            width: isSelected ? 1.5 : 1,
+            color: isSelected && isEnabled
+                ? AppColor.primaryColor(context)
+                : AppColor.borderColor(context),
+            width: isSelected && isEnabled ? 1.5 : 1,
           ),
-          boxShadow: isSelected
+          boxShadow: isSelected && isEnabled
               ? [
                   BoxShadow(
                     color: AppColor.primaryColor(context).withValues(alpha: 0.1),
@@ -66,7 +75,24 @@ class PaymentMethodSelectionCard extends StatelessWidget {
                           ),
                         ),
                       ),
-                      if (badgeText != null) ...[
+                      if (!isEnabled && disabledBadgeText != null) ...[
+                        Gap(8.w),
+                        Container(
+                          padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
+                          decoration: BoxDecoration(
+                            color: Colors.grey.withValues(alpha: 0.15),
+                            borderRadius: BorderRadius.circular(6.r),
+                          ),
+                          child: Text(
+                            disabledBadgeText!,
+                            style: AppTextStyle.bodySmall(context).copyWith(
+                              color: Colors.grey[700],
+                              fontSize: 10.sp,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ] else if (badgeText != null) ...[
                         Gap(12.w),
                         Container(
                           padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
@@ -105,13 +131,15 @@ class PaymentMethodSelectionCard extends StatelessWidget {
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 border: Border.all(
-                  color: isSelected
-                      ? AppColor.primaryColor(context)
-                      : AppColor.borderColor(context),
+                  color: !isEnabled
+                      ? AppColor.borderColor(context).withValues(alpha: 0.5)
+                      : (isSelected
+                            ? AppColor.primaryColor(context)
+                            : AppColor.borderColor(context)),
                   width: 2,
                 ),
               ),
-              child: isSelected
+              child: isSelected && isEnabled
                   ? Center(
                       child: Container(
                         width: 12.w,

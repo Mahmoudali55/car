@@ -1,6 +1,5 @@
 import 'package:car/core/cache/hive/hive_methods.dart';
 import 'package:car/core/custom_widgets/custom_loading/custom_loading.dart';
-import 'package:car/core/images/app_images.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/routes/routes_name.dart';
 import 'package:car/core/theme/app_colors.dart';
@@ -215,7 +214,7 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
                                         ),
                                       ],
                                       image: const DecorationImage(
-                                        image: AssetImage(AppImages.assetsImagesProfile),
+                                        image: AssetImage('assets/images/loge.png'),
                                         fit: BoxFit.cover,
                                       ),
                                     ),

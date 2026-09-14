@@ -62,6 +62,7 @@ class CustomFormLoginWidget extends StatelessWidget {
             duration: const Duration(milliseconds: 1000),
             child: CustomFormField(
               controller: cubit.mobileController,
+              title: AppLocaleKey.userName.tr(),
               hintText: AppLocaleKey.userName.tr(),
               prefixIcon: Icon(Icons.person, color: AppColor.primaryColor(context)),
               fillColor: AppColor.textFormFillColor(context),
@@ -84,6 +85,7 @@ class CustomFormLoginWidget extends StatelessWidget {
             duration: const Duration(milliseconds: 1000),
             child: CustomFormField(
               controller: cubit.passwordController,
+              title: AppLocaleKey.password.tr(),
               hintText: AppLocaleKey.password.tr(),
               isPassword: true,
               prefixIcon: Icon(Icons.lock_outline_rounded, color: AppColor.primaryColor(context)),

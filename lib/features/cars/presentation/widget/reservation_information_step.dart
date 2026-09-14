@@ -1,5 +1,6 @@
 import 'package:car/core/custom_widgets/custom_form_field/custom_form_field.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
+import 'package:car/core/theme/app_colors.dart';
 import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/features/cars/presentation/widget/financing_contact_form.dart';
 import 'package:car/features/cars/presentation/widget/financing_pricing_card_widget.dart';
@@ -78,15 +79,17 @@ class ReservationInformationStep extends StatelessWidget {
           ).copyWith(fontWeight: FontWeight.w900, fontSize: 20.sp),
         ),
         Gap(16.h),
-        if (isFinancingFlow)
+        if (isFinancingFlow) ...[
           FinancingContactForm(
             firstNameController: firstNameController,
             lastNameController: lastNameController,
             phoneController: financePhoneController,
             whatsappNotifier: whatsappNotifier,
             selectedCityNotifier: selectedCityNotifier,
-          )
-        else ...[
+          ),
+          Gap(16.h),
+          const _PurchaseRequirementsNoticeWidget(),
+        ] else ...[
           Form(
             key: formKey,
             child: Column(
@@ -162,6 +165,8 @@ class ReservationInformationStep extends StatelessWidget {
             ),
           ),
           Gap(16.h),
+          const _PurchaseRequirementsNoticeWidget(),
+          Gap(16.h),
           ValueListenableBuilder<bool>(
             valueListenable: whatsappNotifier,
             builder: (context, isWhatsappEnabled, _) {
@@ -175,6 +180,72 @@ class ReservationInformationStep extends StatelessWidget {
           ReservationTermsCheckboxWidget(value: isTermsAccepted, onChanged: onTermsAcceptedChanged),
         ],
       ],
+    );
+  }
+}
+
+class _PurchaseRequirementsNoticeWidget extends StatelessWidget {
+  const _PurchaseRequirementsNoticeWidget();
+
+  @override
+  Widget build(BuildContext context) {
+    final isArabic = context.locale.languageCode == 'ar';
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
+    return Container(
+      padding: EdgeInsets.all(14.w),
+      decoration: BoxDecoration(
+        color: isDark ? const Color(0xFF262015) : const Color(0xFFFFFBEB),
+        borderRadius: BorderRadius.circular(14.r),
+        border: Border.all(
+          color: const Color(0xFFF59E0B).withValues(alpha: 0.35),
+          width: 1,
+        ),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            padding: EdgeInsets.all(8.w),
+            decoration: BoxDecoration(
+              color: const Color(0xFFF59E0B).withValues(alpha: 0.15),
+              borderRadius: BorderRadius.circular(10.r),
+            ),
+            child: Icon(
+              Icons.badge_outlined,
+              color: const Color(0xFFD97706),
+              size: 22.sp,
+            ),
+          ),
+          Gap(12.w),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  isArabic ? 'تنبيه لإتمام عملية الشراء' : 'Purchase Requirement Notice',
+                  style: AppTextStyle.bodyMedium(context).copyWith(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 13.sp,
+                    color: isDark ? const Color(0xFFFCD34D) : const Color(0xFFB45309),
+                  ),
+                ),
+                Gap(4.h),
+                Text(
+                  isArabic
+                      ? 'ملاحظة مهمة: يلزم توفر بطاقة الهوية الوطنية (أو الإقامة) ورخصة قيادة سارية المفعول لإتمام مبايعة السيارة ونقل الملكية.'
+                      : 'Important Note: A valid National ID (or Iqama) and a valid driving license are required to complete the vehicle purchase and transfer ownership.',
+                  style: AppTextStyle.bodySmall(context).copyWith(
+                    fontSize: 11.5.sp,
+                    height: 1.55,
+                    color: AppColor.blackTextColor(context).withValues(alpha: 0.8),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
