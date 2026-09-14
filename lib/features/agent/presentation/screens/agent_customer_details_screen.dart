@@ -37,15 +37,17 @@ class _AgentCustomerDetailsScreenState extends State<AgentCustomerDetailsScreen>
     }
   }
 
-  Future<void> _makeCall(String phoneNumber) async {
-    final Uri launchUri = Uri(scheme: 'tel', path: phoneNumber);
+  static const String _companyUnifiedNumber = '920024446';
+
+  Future<void> _makeCall() async {
+    final Uri launchUri = Uri(scheme: 'tel', path: _companyUnifiedNumber);
     if (await canLaunchUrl(launchUri)) {
       await launchUrl(launchUri);
     }
   }
 
   Future<void> _launchWhatsApp(String phoneNumber) async {
-    final Uri whatsappUri = Uri.parse("https://wa.me/$phoneNumber");
+    final Uri whatsappUri = Uri.parse('https://wa.me/$phoneNumber');
     if (await canLaunchUrl(whatsappUri)) {
       await launchUrl(whatsappUri, mode: LaunchMode.externalApplication);
     }
@@ -109,7 +111,7 @@ class _AgentCustomerDetailsScreenState extends State<AgentCustomerDetailsScreen>
                       child: ActionCard(
                         icon: Icons.call_rounded,
                         title: AppLocaleKey.call.tr(),
-                        onTap: () => _makeCall(tel1),
+                        onTap: () => _makeCall(),
                       ),
                     ),
                     Gap(12.w),

@@ -124,7 +124,7 @@ class LeadCard extends StatelessWidget {
                     icon: Icons.phone_rounded,
                     label: AppLocaleKey.agentCall.tr(),
                     color: AppColor.greenColor(context),
-                    onTap: () => launchUrl(Uri.parse('tel:${lead.phoneNumber}')),
+                    onTap: () => launchUrl(Uri.parse('tel:920024446')),
                   ),
                 ),
 

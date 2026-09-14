@@ -21,15 +21,17 @@ class CustomCustomerItemWidget extends StatelessWidget {
   final String customerName;
   final String phone;
   final CustomerModel customer;
-  Future<void> _makeCall(String phoneNumber) async {
-    final Uri launchUri = Uri(scheme: 'tel', path: phoneNumber);
+  static const String _companyUnifiedNumber = '920024446';
+
+  Future<void> _makeCall() async {
+    final Uri launchUri = Uri(scheme: 'tel', path: _companyUnifiedNumber);
     if (await canLaunchUrl(launchUri)) {
       await launchUrl(launchUri);
     }
   }
 
   Future<void> _launchWhatsApp(String phoneNumber) async {
-    final Uri whatsappUri = Uri.parse("https://wa.me/$phoneNumber");
+    final Uri whatsappUri = Uri.parse('https://wa.me/$phoneNumber');
     if (await canLaunchUrl(whatsappUri)) {
       await launchUrl(whatsappUri, mode: LaunchMode.externalApplication);
     }
@@ -94,7 +96,7 @@ class CustomCustomerItemWidget extends StatelessWidget {
                   child: CustomActionButtonWidget(
                     icon: Icons.call_rounded,
                     title: AppLocaleKey.agentCall.tr(),
-                    onTap: () => _makeCall(phone),
+                    onTap: () => _makeCall(),
                   ),
                 ),
                 Gap(10.w),
