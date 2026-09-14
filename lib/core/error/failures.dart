@@ -14,6 +14,11 @@ abstract class Failure {
   const Failure(this.errMessage);
 }
 
+String? _extractMsgFromMap(Map<String, dynamic> map) {
+  final val = map['Message'] ?? map['message'] ?? map['msg'] ?? map['MessageAr'] ?? map['MessageEn'];
+  return val is String && val.isNotEmpty ? val : null;
+}
+
 /// Represents a failure coming from Dio / the server.
 class ServerFailure extends Failure {
   ServerFailure(super.errMessage);
@@ -36,9 +41,12 @@ class ServerFailure extends Failure {
         }
       }
 
-      // If we got a JSON map with a "message" field, return it immediately
-      if (map != null && map['message'] is String) {
-        return ServerFailure(map['message'] as String);
+      // If we got a JSON map with a message field, return it immediately
+      if (map != null) {
+        final serverMsg = _extractMsgFromMap(map);
+        if (serverMsg != null) {
+          return ServerFailure(serverMsg);
+        }
       }
 
       // Otherwise fall back based on DioException type
@@ -72,8 +80,11 @@ class ServerFailure extends Failure {
   /// Handle different status codes, but always prefer the server‑sent "message" if available.
   factory ServerFailure.fromResponse(int? statusCode, dynamic response) {
     try {
-      if (response is Map<String, dynamic> && response['message'] is String) {
-        return ServerFailure(response['message'] as String);
+      if (response is Map<String, dynamic>) {
+        final serverMsg = _extractMsgFromMap(response);
+        if (serverMsg != null) {
+          return ServerFailure(serverMsg);
+        }
       }
 
       switch (statusCode) {
@@ -119,15 +130,16 @@ Future<Either<Failure, T>> handleDioRequest<T>({
 /// Helper to grab "message" from raw response data for logging.
 String? _extractServerMessage(dynamic rawData) {
   try {
-    if (rawData is Map<String, dynamic> && rawData['message'] is String) {
-      return rawData['message'] as String;
+    if (rawData is Map<String, dynamic>) {
+      return _extractMsgFromMap(rawData);
     }
     if (rawData is String) {
       final decoded = jsonDecode(rawData);
-      if (decoded is Map<String, dynamic> && decoded['message'] is String) {
-        return decoded['message'] as String;
+      if (decoded is Map<String, dynamic>) {
+        return _extractMsgFromMap(decoded);
       }
     }
   } catch (_) {}
   return null;
 }
+

@@ -10,6 +10,7 @@ import 'package:car/features/home/data/model/add_loan_application_model.dart';
 import 'package:car/features/home/data/model/brand_cars_data_model.dart';
 import 'package:car/features/home/data/model/financing_ad_model.dart';
 import 'package:car/features/home/data/model/send_otp_model.dart';
+import 'package:car/features/home/data/model/send_whatsapp_model.dart';
 import 'package:car/features/home/presentation/cubit/home_cubit.dart';
 import 'package:car/features/services/presentation/widgets/financing_bottom_bar.dart';
 import 'package:car/features/services/presentation/widgets/financing_calculator_bottom_sheet.dart';
@@ -361,6 +362,27 @@ class _FinancingScreenState extends State<FinancingScreen> with SingleTickerProv
               _showSnack(status.error ?? 'حدث خطأ أثناء تقديم طلب التمويل');
             } else if (status.isSuccess && status.data != null) {
               setState(() => _isSubmittingLoan = false);
+              final phone = _phoneCtrl.text.trim();
+              final textMsg =
+                  'طلب تمويل جديد: ${_activeOffer?.programName ?? _activeOffer?.displayBankName ?? "برنامج التمويل"}\n'
+                  'السيارة: ${widget.car?.itemName ?? "غير محدد"}\n'
+                  'سعر السيارة الكاش :  ${_carPrice.toStringAsFixed(2)} ر.س\n'
+                  'مبلغ التمويل: ${_financedAmount.toStringAsFixed(2)} ر.س\n'
+                  'القسط الشهري: ${_monthlyInstallment.toStringAsFixed(2)} ر.س\n'
+                  'الدفعة الأولى: ${_downPayment.toStringAsFixed(2)} ر.س\n'
+                  'الدفعة الأخيرة: ${_lastPayment.toStringAsFixed(2)} ر.س\n'
+                  'عدد السنوات: $_durationYears\n'
+                  'اسم العميل: ${_fullNameCtrl.text.trim()}\n'
+                  'رقم الهوية: ${_idCtrl.text.trim()}\n'
+                  'رقم التواصل: $phone\n'
+                  'جهة العمل: ${_employerCtrl.text.trim()}\n'
+                  'المسمى الوظيفي: ${_jobTitleCtrl.text.trim()}\n'
+                  'الراتب الشهري: ${_salaryCtrl.text.trim()} ر.س';
+
+              context.read<HomeCubit>().sendWhatsApp(
+                SendWhatsAppModel(toNumber: phone, text: textMsg),
+              );
+
               final msg = status.data!.msg.isNotEmpty
                   ? status.data!.msg
                   : AppLocaleKey.requestSubmittedSuccess.tr();

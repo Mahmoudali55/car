@@ -10,6 +10,8 @@ import 'package:car/features/cars/presentation/widget/pricing_details_bottom_she
 import 'package:car/features/cart/presentation/view/cubit/cart_cubit.dart';
 import 'package:car/features/favorites/presentation/view/cubit/favorites_cubit.dart';
 import 'package:car/features/home/data/model/brand_cars_data_model.dart';
+import 'package:car/features/home/data/model/send_whatsapp_model.dart';
+import 'package:car/features/home/presentation/cubit/home_cubit.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -86,6 +88,16 @@ class _FinancingInfoScreenState extends State<FinancingInfoScreen> {
 
   void _handleSubmit() {
     if (_formKey.currentState!.validate()) {
+      if (_whatsappNotifier.value) {
+        final phone = _phoneController.text.trim();
+
+        final textMsg =
+            'طلب تمويل سيارة: ${widget.car.itemName}\n'
+            'رقم الهيكل: ${widget.car.chassisNo}\n'
+            'المبلغ الإجمالي شامل التمويل: ${widget.totalPrice.toStringAsFixed(2)} ريال سعودي\n';
+
+        context.read<HomeCubit>().sendWhatsApp(SendWhatsAppModel(toNumber: phone, text: textMsg));
+      }
       context.read<CartCubit>().loadReservedCars();
       context.read<FavoritesCubit>().removeFromFavorites(
         widget.car.itemName,

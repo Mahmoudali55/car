@@ -27,4 +27,5 @@ class EndPoints {
   static const String getNotificationsData = 'DeltagroupService/Cars/GetNotificationsData';
   static const String editBooking = 'DeltagroupService/Cars/EditBooking';
   static const String editLoan = 'DeltagroupService/Cars/EditLoan';
+  static const String sendWhatsApp = 'DeltagroupService/Cars/send';
 }

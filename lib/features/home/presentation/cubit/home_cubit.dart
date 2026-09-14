@@ -17,6 +17,7 @@ import 'package:car/features/home/data/model/customer_loan_application_model.dar
 import 'package:car/features/home/data/model/financing_ad_model.dart';
 import 'package:car/features/home/data/model/send_otp_model.dart';
 import 'package:car/features/home/data/model/send_otp_response_model.dart';
+import 'package:car/features/home/data/model/send_whatsapp_model.dart';
 import 'package:car/features/home/data/repository/home_repo.dart';
 import 'package:car/features/notifications/data/model/notification_model.dart';
 import 'package:equatable/equatable.dart';
@@ -364,4 +365,20 @@ class HomeCubit extends Cubit<HomeState> {
       },
     );
   }
+
+  Future<void> sendWhatsApp(SendWhatsAppModel model) async {
+    try {
+      emit(state.copyWith(sendWhatsAppStatus: const StatusState.loading()));
+      final result = await homeRepo.sendWhatsApp(model);
+      result.fold(
+        (failure) {
+          emit(state.copyWith(sendWhatsAppStatus: StatusState.failure(failure.errMessage)));
+        },
+        (response) => emit(state.copyWith(sendWhatsAppStatus: StatusState.success(response))),
+      );
+    } catch (e) {
+      emit(state.copyWith(sendWhatsAppStatus: StatusState.failure(e.toString())));
+    }
+  }
 }
+

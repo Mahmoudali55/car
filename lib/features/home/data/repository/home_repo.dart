@@ -18,6 +18,7 @@ import 'package:car/features/home/data/model/customer_loan_application_model.dar
 import 'package:car/features/home/data/model/financing_ad_model.dart';
 import 'package:car/features/home/data/model/send_otp_model.dart';
 import 'package:car/features/home/data/model/send_otp_response_model.dart';
+import 'package:car/features/home/data/model/send_whatsapp_model.dart';
 import 'package:car/features/notifications/data/model/notification_model.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
@@ -66,6 +67,7 @@ abstract interface class HomeRepo {
     required int isApproved,
     required int? customerNo,
   });
+  Future<Either<Failure, SendWhatsAppResponseModel>> sendWhatsApp(SendWhatsAppModel model);
 }
 
 class HomeRepoImpl implements HomeRepo {
@@ -585,6 +587,19 @@ class HomeRepoImpl implements HomeRepo {
           if (message.isNotEmpty) return message;
         }
         return isApproved == 1 ? 'تمت الموافقة بنجاح' : 'تم رفض الطلب بنجاح';
+      },
+    );
+  }
+
+  @override
+  Future<Either<Failure, SendWhatsAppResponseModel>> sendWhatsApp(SendWhatsAppModel model) async {
+    return handleDioRequest(
+      request: () async {
+        final response = await apiConsumer.post(
+          EndPoints.sendWhatsApp,
+          body: model.toJson(),
+        );
+        return SendWhatsAppResponseModel.fromJson(response);
       },
     );
   }

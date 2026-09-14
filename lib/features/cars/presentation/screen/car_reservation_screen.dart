@@ -24,6 +24,7 @@ import 'package:car/features/favorites/presentation/view/cubit/favorites_cubit.d
 import 'package:car/features/home/data/model/add_booking_permission_model.dart';
 import 'package:car/features/home/data/model/brand_cars_data_model.dart';
 import 'package:car/features/home/data/model/send_otp_model.dart';
+import 'package:car/features/home/data/model/send_whatsapp_model.dart';
 import 'package:car/features/home/presentation/cubit/home_cubit.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -171,10 +172,10 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
   void _navigateToSuccess() {
     context.read<CartCubit>().loadReservedCars();
     context.read<FavoritesCubit>().removeFromFavorites(
-          widget.car.itemName,
-          itemCode: widget.car.itemCode.toString(),
-          chassisNo: widget.car.chassisNo,
-        );
+      widget.car.itemName,
+      itemCode: widget.car.itemCode.toString(),
+      chassisNo: widget.car.chassisNo,
+    );
     HiveMethods.removeFromRecentlyViewed(widget.car.itemName);
     Navigator.push(
       context,
@@ -376,6 +377,19 @@ class _CarReservationScreenState extends State<CarReservationScreen> {
                 ),
                 reservedAt: DateTime.now(),
               );
+              if (_whatsappNotifier.value) {
+                final phone = _cashPhoneController.text.trim();
+                final bookingNo = status.data?.lpoNo ?? '';
+                final textMsg =
+                    'حجز سيارة: ${widget.car.itemName}\n'
+                    'رقم الحجز: ${bookingNo.isNotEmpty ? bookingNo : ''}\n'
+                    'رقم السيارة: ${widget.car.itemCode}\n'
+                    'المبلغ الإجمالي: $_totalPrice ر.س\n'
+                    'العربون: $_depositAmount ر.س\n';
+                context.read<HomeCubit>().sendWhatsApp(
+                  SendWhatsAppModel(toNumber: phone, text: textMsg),
+                );
+              }
               // Notification is handled exclusively by FCM push endpoint
               _navigateToSuccess();
             } else if (status.isFailure) {
