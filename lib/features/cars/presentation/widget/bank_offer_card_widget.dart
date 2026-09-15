@@ -24,25 +24,30 @@ class BankOffer {
     this.firstInstallmentPct = 0,
     this.lastInstallmentPct = 0,
     this.adminFeesPct = 0,
+    this.insurancePct = 0,
     this.imageUrl,
   });
 
+  final double insurancePct;
+
   // Calculate monthly installment and total amount based on user inputs
   Map<String, double> calculate(num carPrice, num downPayment, int durationYears) {
-    final firstAmount = carPrice.toDouble() * (firstInstallmentPct / 100);
-    final lastAmount = carPrice.toDouble() * (lastInstallmentPct / 100);
-    final principal = (carPrice - (downPayment > 0 ? downPayment : firstAmount) - lastAmount);
-    if (principal <= 0) {
+    final downPaymentAmount = downPayment > 0 ? downPayment.toDouble() : carPrice.toDouble() * (firstInstallmentPct / 100);
+    final finalPaymentAmount = carPrice.toDouble() * (lastInstallmentPct / 100);
+    final netFinanceAmount = carPrice.toDouble() - downPaymentAmount;
+    if (netFinanceAmount <= 0) {
       return {'totalAmount': 0, 'monthlyInstallment': 0};
     }
-    final totalProfit = principal * (apr / 100) * durationYears;
-    final totalAmount = principal + totalProfit;
-    final monthlyInstallment = totalAmount / (durationYears * 12);
+    final totalInterest = netFinanceAmount * (apr / 100) * durationYears;
+    final totalInsurance = carPrice.toDouble() * (insurancePct / 100) * durationYears;
+    final totalFinancedWithInterest = netFinanceAmount + totalInterest + totalInsurance;
+    final totalMonths = durationYears * 12;
+    final monthlyInstallment = (totalFinancedWithInterest - finalPaymentAmount) / totalMonths;
 
     return {
-      'totalAmount': totalAmount,
+      'totalAmount': totalFinancedWithInterest,
       'monthlyInstallment': monthlyInstallment,
-      'lastPaymentAmount': lastAmount,
+      'lastPaymentAmount': finalPaymentAmount,
     };
   }
 }

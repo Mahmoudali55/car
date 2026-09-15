@@ -95,21 +95,29 @@ class _FinancingScreenState extends State<FinancingScreen> with SingleTickerProv
   FinancingAdModel? get _activeOffer => _selectedOffer ?? widget.offer;
   bool get _isOffer => _activeOffer != null;
   double get _apr => _activeOffer?.interestRate ?? _defaultApr;
+  double get _insurancePercent => double.tryParse(_activeOffer?.InsurancePct ?? '0') ?? 0;
 
   double get _financedAmount {
-    final lastAmount = _carPrice * ((_activeOffer?.lastInstallmentPct ?? 0) / 100);
-    final financed = _carPrice - _downPayment - (_isOffer ? lastAmount : 0);
+    final financed = _carPrice - _downPayment;
     return financed > 0 ? financed : 0;
   }
 
+  double get _totalInterest {
+    return _financedAmount * (_apr / 100) * _durationYears;
+  }
+
+  double get _totalInsurance {
+    return _carPrice * (_insurancePercent / 100) * _durationYears;
+  }
+
   double get _totalFinancedWithInterest {
-    return _financedAmount + _financedAmount * (_apr / 100) * _durationYears;
+    return _financedAmount + _totalInterest + _totalInsurance;
   }
 
   double get _monthlyInstallment {
     final total = _totalFinancedWithInterest;
-    if (total <= 0) return 0;
-    return (total - (_isOffer ? 0 : _lastPayment)) / (_durationYears * 12);
+    if (total <= 0 || _durationYears <= 0) return 0;
+    return (total - _lastPayment) / (_durationYears * 12);
   }
 
   @override

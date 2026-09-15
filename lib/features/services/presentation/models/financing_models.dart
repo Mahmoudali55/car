@@ -75,20 +75,23 @@ class BankOffer {
     required int year,
     required String brand,
     required String model,
+    num insurancePct = 0,
   }) {
     final apr = getAdjustedApr(year, brand, model);
     final principal = carPrice.toDouble();
     final down = downPaymentAmount.toDouble();
     final residual = lastPaymentAmount.toDouble();
-    final financed = principal - down;
-    if (financed <= 0) {
+    final netFinance = principal - down;
+    if (netFinance <= 0) {
       return {'totalAmount': 0, 'monthlyInstallment': 0, 'apr': apr, 'lastPaymentAmount': 0};
     }
-    final profit = financed * (apr / 100) * durationYears;
-    final total = financed + profit;
-    final monthly = (total - residual) / (durationYears * 12);
+    final totalInterest = netFinance * (apr / 100) * durationYears;
+    final totalInsurance = principal * (insurancePct / 100) * durationYears;
+    final totalFinancedWithInterest = netFinance + totalInterest + totalInsurance;
+    final totalMonths = durationYears * 12;
+    final monthly = (totalFinancedWithInterest - residual) / totalMonths;
     return {
-      'totalAmount': total,
+      'totalAmount': totalFinancedWithInterest,
       'monthlyInstallment': monthly,
       'apr': apr,
       'lastPaymentAmount': residual,

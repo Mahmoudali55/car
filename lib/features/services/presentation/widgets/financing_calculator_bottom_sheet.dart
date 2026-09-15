@@ -87,18 +87,26 @@ class _FinancingCalculatorBottomSheetState extends State<FinancingCalculatorBott
     super.dispose();
   }
 
+  double get _insurancePercent => double.tryParse(_activeOffer?.InsurancePct ?? '0') ?? 0;
+
   double get _financedAmount {
-    final financed = widget.carPrice - _downPayment - (widget.isOffer ? _lastPayment : 0);
+    final financed = widget.carPrice - _downPayment;
     return financed > 0 ? financed : 0;
   }
 
-  double get _totalFinancedWithInterest {
-    return _financedAmount + _financedAmount * (_apr / 100) * _durationYears;
+  double get _totalInterest {
+    return _financedAmount * (_apr / 100) * _durationYears;
   }
 
-  double get _totalInterest => _totalFinancedWithInterest - _financedAmount;
+  double get _totalInsurance {
+    return widget.carPrice * (_insurancePercent / 100) * _durationYears;
+  }
 
-  double get _totalPrice => widget.carPrice + _totalInterest + _adminFees;
+  double get _totalFinancedWithInterest {
+    return _financedAmount + _totalInterest + _totalInsurance;
+  }
+
+  double get _totalPrice => widget.carPrice + _totalInterest + _totalInsurance + _adminFees;
 
   double get _adminFees => widget.isOffer
       ? widget.carPrice * ((_activeOffer?.adminFeesPct ?? widget.adminFeesPct ?? 0) / 100)
@@ -116,10 +124,7 @@ class _FinancingCalculatorBottomSheetState extends State<FinancingCalculatorBott
 
   double get _monthlyInstallment {
     if (_totalFinancedWithInterest <= 0 || _durationYears <= 0) return 0;
-    final amountToInstall = widget.isOffer
-        ? _totalFinancedWithInterest
-        : _totalFinancedWithInterest - _lastPayment;
-    return amountToInstall / (_durationYears * 12);
+    return (_totalFinancedWithInterest - _lastPayment) / (_durationYears * 12);
   }
 
   double get _maxDownPayment => widget.isOffer

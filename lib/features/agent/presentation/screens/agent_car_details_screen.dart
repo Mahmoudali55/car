@@ -337,11 +337,16 @@ class _AgentCarDetailsScreenState extends State<AgentCarDetailsScreen> {
                                     phoneController.text = c.tel1 ?? '';
                                     final custNameLower = (c.customerName ?? '').toLowerCase();
                                     final typeLower = (c.customerTypeName ?? '').toLowerCase();
-                                    if (custNameLower.contains('بنك') ||
+                                    if (typeLower.contains('عملاء نقدي') ||
+                                        typeLower.contains('نقدي') ||
+                                        typeLower.contains('cash')||typeLower.contains('شركة ')) {
+                                      isBankReservation = false;
+                                    } else if (custNameLower.contains('بنك') ||
                                         custNameLower.contains('bank') ||
                                         custNameLower.contains('تمويل') ||
                                         typeLower.contains('بنك') ||
-                                        typeLower.contains('bank')) {
+                                        typeLower.contains('bank') ||
+                                        typeLower.contains('تمويل')) {
                                       isBankReservation = true;
                                     } else {
                                       isBankReservation = false;

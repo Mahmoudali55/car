@@ -48,6 +48,7 @@ class FinancingAdModel extends Equatable {
   final String? color;
   final String? carImage;
   final String? displayBankName;
+  final String? InsurancePct;
 
   const FinancingAdModel({
     this.programId,
@@ -92,6 +93,7 @@ class FinancingAdModel extends Equatable {
     this.color,
     this.carImage,
     this.displayBankName,
+    this.InsurancePct,
   });
 
   factory FinancingAdModel.fromJson(Map<String, dynamic> json) {
@@ -141,6 +143,7 @@ class FinancingAdModel extends Equatable {
       color: json['Color']?.toString(),
       carImage: json['carimage']?.toString(),
       displayBankName: json['BANK_NAME']?.toString(),
+      InsurancePct: (json['InsurancePct'] as num?)?.toString(),
     );
   }
 
@@ -188,13 +191,22 @@ class FinancingAdModel extends Equatable {
     final months = totalMonths ?? 60;
     if (months <= 0) return 0;
     final vatPercentage = double.tryParse(HiveMethods.getVatNumber()?.toString() ?? '') ?? 0;
-    final priceWithVat = basePrice * (1 + vatPercentage / 100);
-    final firstAmount = priceWithVat * ((firstInstallmentPct ?? 0) / 100);
-    final lastAmount = priceWithVat * ((lastInstallmentPct ?? 0) / 100);
-    final financedAmount = priceWithVat - firstAmount - lastAmount;
-    final years = months / 12;
-    final totalInterest = financedAmount * ((interestRate ?? 0) / 100) * years;
-    return (financedAmount + totalInterest) / months;
+    final carPrice = basePrice * (1 + vatPercentage / 100);
+    final downPaymentPercent = firstInstallmentPct ?? 0;
+    final finalPaymentPercent = lastInstallmentPct ?? 0;
+    final flatRatePercent = interestRate ?? 0;
+    final insurancePercent = double.tryParse(InsurancePct ?? '0') ?? 0;
+    final financeYears = months / 12;
+
+    final downPaymentAmount = (carPrice * downPaymentPercent) / 100;
+    final finalPaymentAmount = (carPrice * finalPaymentPercent) / 100;
+    final netFinanceAmount = carPrice - downPaymentAmount;
+
+    final totalInterest = netFinanceAmount * (flatRatePercent / 100) * financeYears;
+    final totalInsurance = carPrice * (insurancePercent / 100) * financeYears;
+
+    final totalFinancedWithInterest = netFinanceAmount + totalInterest + totalInsurance;
+    return (totalFinancedWithInterest - finalPaymentAmount) / months;
   }
 
   List<String> get allCarImages {
@@ -210,12 +222,23 @@ class FinancingAdModel extends Equatable {
     final images = allCarImages;
     final carPrice = priceWithVat;
     final months = totalMonths ?? 60;
-    final firstAmount = carPrice * ((firstInstallmentPct ?? 0) / 100);
-    final lastAmount = carPrice * ((lastInstallmentPct ?? 0) / 100);
-    final financedAmount = carPrice - firstAmount - lastAmount;
-    final years = months / 12;
-    final totalInterest = financedAmount * ((interestRate ?? 0) / 100) * years;
-    final monthlyInstallment = months > 0 ? (financedAmount + totalInterest) / months : null;
+    final downPaymentPercent = firstInstallmentPct ?? 0;
+    final finalPaymentPercent = lastInstallmentPct ?? 0;
+    final flatRatePercent = interestRate ?? 0;
+    final insurancePercent = double.tryParse(InsurancePct ?? '0') ?? 0;
+    final financeYears = months / 12;
+
+    final downPaymentAmount = (carPrice * downPaymentPercent) / 100;
+    final finalPaymentAmount = (carPrice * finalPaymentPercent) / 100;
+    final netFinanceAmount = carPrice - downPaymentAmount;
+
+    final totalInterest = netFinanceAmount * (flatRatePercent / 100) * financeYears;
+    final totalInsurance = carPrice * (insurancePercent / 100) * financeYears;
+
+    final totalFinancedWithInterest = netFinanceAmount + totalInterest + totalInsurance;
+    final monthlyInstallment = months > 0
+        ? (totalFinancedWithInterest - finalPaymentAmount) / months
+        : null;
 
     return GetBrandCarsDataModel(
       groupCode: 0,
