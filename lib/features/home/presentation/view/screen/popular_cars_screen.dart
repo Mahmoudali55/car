@@ -197,4 +197,3 @@ class _PopularCarsScreenState extends State<PopularCarsScreen> {
         .toList();
   }
 }
-

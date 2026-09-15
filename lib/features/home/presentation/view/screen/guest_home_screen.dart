@@ -14,7 +14,6 @@ import 'package:gap/gap.dart';
 
 class HomeGuestScreen extends StatefulWidget {
   const HomeGuestScreen({super.key});
-
   @override
   State<HomeGuestScreen> createState() => _HomeGuestScreenState();
 }
