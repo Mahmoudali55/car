@@ -26,7 +26,6 @@ void main() async {
   ]);
   await ServiceInitialize.initialize();
   final String lang = HiveMethods.getLang();
-  //
   runApp(
     EasyLocalization(
       supportedLocales: const [Locale('ar'), Locale('en')],

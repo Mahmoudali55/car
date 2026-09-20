@@ -10,9 +10,7 @@ import 'package:gap/gap.dart';
 
 class TermsSettingsScreen extends StatelessWidget {
   const TermsSettingsScreen({super.key});
-
   List<String> get _terms => List.generate(17, (index) => 'term_${index + 1}'.tr());
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,10 +52,6 @@ class TermsSettingsScreen extends StatelessWidget {
       ),
     );
   }
-
-  // ============================================================
-  // HEADER
-  // ============================================================
 
   Widget _buildHeader(BuildContext context) {
     final primary = AppColor.primaryColor(context);
@@ -125,10 +119,6 @@ class TermsSettingsScreen extends StatelessWidget {
     );
   }
 
-  // ============================================================
-  // IMPORTANT NOTICE
-  // ============================================================
-
   Widget _buildImportantNotice(BuildContext context) {
     final baseColor = AppColor.blackTextColor(context);
 
@@ -184,10 +174,6 @@ class TermsSettingsScreen extends StatelessWidget {
     );
   }
 
-  // ============================================================
-  // SECTION TITLE
-  // ============================================================
-
   Widget _buildSectionTitle(BuildContext context) {
     return Row(
       children: [
@@ -229,10 +215,6 @@ class TermsSettingsScreen extends StatelessWidget {
       ],
     );
   }
-
-  // ============================================================
-  // TERM CARD
-  // ============================================================
 
   Widget _buildTermCard(
     BuildContext context, {
@@ -332,10 +314,6 @@ class TermsSettingsScreen extends StatelessWidget {
     );
   }
 
-  // ============================================================
-  // SHORT TEXT
-  // ============================================================
-
   String _shortText(String text) {
     if (text.length <= 65) {
       return text;
@@ -343,10 +321,6 @@ class TermsSettingsScreen extends StatelessWidget {
 
     return '${text.substring(0, 65)}...';
   }
-
-  // ============================================================
-  // TAX INFO
-  // ============================================================
 
   Widget _buildTaxInfo(BuildContext context) {
     final baseColor = AppColor.blackTextColor(context);

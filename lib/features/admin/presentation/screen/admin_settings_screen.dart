@@ -1,3 +1,5 @@
+import 'package:car/core/custom_widgets/copyright_widget.dart';
+import 'package:car/core/custom_widgets/developer_contact_bottom_sheet.dart';
 import 'package:car/core/custom_widgets/custom_app_bar/custom_app_bar.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/routes/routes_name.dart';
@@ -99,25 +101,21 @@ class AdminSettingsScreen extends StatelessWidget {
                       ],
                     ),
                     Gap(32.h),
-                    // SecuritySectionWidget(
-                    //   title: AppLocaleKey.technicalSupport.tr(),
-                    //   items: [
-                    //     // SettingItemWidget(
-                    //     //   icon: Icons.help_outline_rounded,
-                    //     //   title: AppLocaleKey.supportCenter.tr(),
-                    //     //   subtitle: AppLocaleKey.helpCenterDesc.tr(),
-                    //     //   onTap: () => Navigator.pushNamed(context, RoutesName.adminSupport),
-                    //     // ),
-                    //     // SettingItemWidget(
-                    //     //   icon: Icons.contact_support_outlined,
-                    //     //   title: AppLocaleKey.contactDeveloper.tr(),
-                    //     //   subtitle: AppLocaleKey.raiseSupportTicket.tr(),
-                    //     //   onTap: () => Navigator.pushNamed(context, RoutesName.contactDeveloper),
-                    //     // ),
-                    //   ],
-                    // ),
+                    SecuritySectionWidget(
+                      title: AppLocaleKey.technicalSupport.tr(),
+                      items: [
+                        SettingItemWidget(
+                          icon: Icons.code_rounded,
+                          title: AppLocaleKey.contactDeveloper.tr(),
+                          subtitle: AppLocaleKey.raiseSupportTicket.tr(),
+                          onTap: () => showDeveloperContactBottomSheet(context),
+                        ),
+                      ],
+                    ),
                     Gap(40.h),
                     const LogoutButtonWidget(),
+                    Gap(28.h),
+                    const Center(child: CopyrightWidget()),
                   ],
                 );
               },

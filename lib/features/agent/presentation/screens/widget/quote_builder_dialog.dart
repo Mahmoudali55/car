@@ -305,8 +305,8 @@ class _QuoteBuilderDialogState extends State<QuoteBuilderDialog> {
                               ),
                               child: Text(
                                 context.locale.languageCode == 'ar'
-                                    ? 'صلاحية ٣ أيام فقط'
-                                    : '3 Days Validity',
+                                    ? 'صلاحية ٣ أيام فقط بحد اقصي'
+                                    : '3 Days Validity Only Max',
                                 style: AppTextStyle.bodySmall(context).copyWith(
                                   color: AppColor.primaryColor(context),
                                   fontSize: 10.sp,

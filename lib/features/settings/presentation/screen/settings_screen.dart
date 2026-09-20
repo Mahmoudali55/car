@@ -1,4 +1,6 @@
 import 'package:animate_do/animate_do.dart';
+import 'package:car/core/custom_widgets/copyright_widget.dart';
+import 'package:car/core/custom_widgets/developer_contact_bottom_sheet.dart';
 import 'package:car/core/custom_widgets/custom_app_bar/custom_app_bar.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/routes/routes_name.dart';
@@ -78,6 +80,15 @@ class SettingsScreen extends StatelessWidget {
                   onTap: () => Navigator.pushNamed(context, RoutesName.faqScreen),
                 ),
               ),
+              Gap(12.h),
+              FadeInLeft(
+                duration: const Duration(milliseconds: 500),
+                child: SettingItemsWidget(
+                  icon: Icons.code_rounded,
+                  title: AppLocaleKey.contactDeveloper.tr(),
+                  onTap: () => showDeveloperContactBottomSheet(context),
+                ),
+              ),
               Gap(24.h),
               SectionHeaderWidget(title: AppLocaleKey.accountSecurity.tr()),
               Gap(12.h),
@@ -92,6 +103,11 @@ class SettingsScreen extends StatelessWidget {
               ),
               Gap(32.h),
               FadeInUp(delay: const Duration(milliseconds: 200), child: const LogoutButtonWidget()),
+              Gap(28.h),
+              FadeInUp(
+                delay: const Duration(milliseconds: 250),
+                child: const CopyrightWidget(),
+              ),
             ],
           );
         },

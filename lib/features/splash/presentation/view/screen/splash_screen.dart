@@ -1,4 +1,5 @@
 import 'package:car/core/cache/hive/hive_methods.dart';
+import 'package:car/core/custom_widgets/copyright_widget.dart';
 import 'package:car/core/custom_widgets/custom_loading/custom_loading.dart';
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/routes/routes_name.dart';
@@ -368,17 +369,29 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
               ),
 
               Positioned(
-                bottom: 35.h,
+                bottom: 50.h,
                 left: 0,
                 right: 0,
                 child: FadeTransition(
                   opacity: _subTitleFade,
                   child: Center(
                     child: SizedBox(
-                      width: 80.w,
-                      height: 80.w,
-                      child: CustomLoading(size: 80.r, color: AppColor.primaryColor(context)),
+                      width: 70.w,
+                      height: 70.w,
+                      child: CustomLoading(size: 70.r, color: AppColor.primaryColor(context)),
                     ),
+                  ),
+                ),
+              ),
+
+              Positioned(
+                bottom: 12.h,
+                left: 16.w,
+                right: 16.w,
+                child: FadeTransition(
+                  opacity: _subTitleFade,
+                  child: const Center(
+                    child: CopyrightWidget(),
                   ),
                 ),
               ),

@@ -1530,6 +1530,21 @@
   "required":"Required",
   "exit":"Exit",
   "logout_confirmation":"Are you sure you want to log out of your account?",
-  "inclusive_vat":"Inclusive of VAT"
+  "inclusive_vat":"Inclusive of VAT",
+    "company_name": "Delta ASG Systems",
+    "company_description": "Software Development and Business Solutions",
+    "contact_support_title": "Developer and Technical Support Contact:",
+    "phone_title": "Phone / Call",
+    "whatsapp_title": "WhatsApp Chat",
+    "email_title": "Email",
+    "website_title": "Website",
+    "copy_success": "Copied successfully",
+    "phone_label": "Phone number",
+    "whatsapp_label": "WhatsApp",
+    "email_label": "Email",
+    "website_label": "Website",
+    "website": "delta-asg.com",
+    "copy":"Copy"
+
 }
 

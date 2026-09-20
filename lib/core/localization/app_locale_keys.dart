@@ -1584,4 +1584,18 @@ class AppLocaleKey {
   static const String exit = 'exit';
   static const String logoutConfirmation = 'logout_confirmation';
   static const String inclusiveVat = 'inclusive_vat';
+  static const String company_name = 'company_name';
+  static const String company_description = 'company_description';
+  static const String contact_support_title = 'contact_support_title';
+  static const String phone_title = 'phone_title';
+  static const String whatsapp_title = 'whatsapp_title';
+  static const String email_title = 'email_title';
+  static const String website_title = 'website_title';
+  static const String copy_success = 'copy_success';
+  static const String phone_label = 'phone_label';
+  static const String whatsapp_label = 'whatsapp_label';
+  static const String email_label = 'email_label';
+  static const String website_label = 'website_label';
+  static const String website = 'website';
+  static const String copy = 'copy';
 }

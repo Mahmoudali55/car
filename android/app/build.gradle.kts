@@ -1,10 +1,7 @@
 plugins {
     id("com.android.application")
-    // START: FlutterFire Configuration
     id("com.google.gms.google-services")
-    // END: FlutterFire Configuration
     id("kotlin-android")
-    // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
     id("dev.flutter.flutter-gradle-plugin")
     id("com.google.firebase.appdistribution")
 }
@@ -25,17 +22,36 @@ android {
     }
 
     defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId = "com.asg.car"
-        // You can update the following values to match your application needs.
-        // For more information, see: https://flutter.dev/to/review-gradle-config.
-        minSdk = flutter.minSdkVersion // Desugaring is supported from minSdk 21
+        minSdk = flutter.minSdkVersion
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
     }
 
     flavorDimensions += "default"
+    // ✅ SIGNING CONFIG
+    signingConfigs {
+        release {
+            keyAlias 'upload'
+            keyPassword '111111'
+            storeFile file('/Users/asgsystems/key.jks')
+            storePassword '111111'
+        }
+    }
+    // ✅ BUILD TYPES
+    buildTypes {
+        release {
+            signingConfig = signingConfigs.getByName("release")
+            minifyEnabled true
+            shrinkResources true
+
+            firebaseAppDistribution {
+                artifactType = "APK"
+                releaseNotes = "New Release"
+            }
+        }
+    }
 
     productFlavors {
         create("dev") {
@@ -48,20 +64,6 @@ android {
         }
         create("prod") {
             dimension = "default"
-        }
-    }
-
-    buildTypes {
-        release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
-            signingConfig = signingConfigs.getByName("debug")
-
-            firebaseAppDistribution {
-                artifactType = "APK"
-                releaseNotes = "New Release"
-                // groups = "testers" // Add your tester groups here
-            }
         }
     }
 }

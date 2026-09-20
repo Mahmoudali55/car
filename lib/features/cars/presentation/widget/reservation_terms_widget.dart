@@ -18,7 +18,7 @@ const List<ReservationTermItem> kCarReservationTermsBilingual = [
     en: '1- The paid amount is non-refundable to the guest under any circumstances in case of cancellation.',
   ),
   ReservationTermItem(
-    ar: '2- عند الحجز، تكون شركة هاجد بن وزير وأولاده ملزمة بتثبيت سعر السيارة طوال فترة الحجز، وهي (24) ساعة، أو حتى وقت التسليم.',
+    ar: '2- عند الحجز، تكون شركة هاجد بن وزير المطيري واولادة للتجارة ملزمة بتثبيت سعر السيارة طوال فترة الحجز، وهي (24) ساعة، أو حتى وقت التسليم.',
     en: '2- Upon reservation, Majid Bin Wazir & Sons is obligated to lock in the car price throughout the reservation period, which is (24) hours, or until the delivery time.',
   ),
   ReservationTermItem(
@@ -26,11 +26,11 @@ const List<ReservationTermItem> kCarReservationTermsBilingual = [
     en: '3- Delivery duration is three official working days, starting the day after the guest pays the full car amount in cash; two extra days are added for payment by check or bank transfer.',
   ),
   ReservationTermItem(
-    ar: '4- يُستثنى من مدة التسليم: عدم توافر اللوحات والاستمارة لدى إدارة المرور، إيقاف خدمات الضيف، وجود مخالفات مرورية على الضيف، رفض إدارة المرور استخراج اللوحات والاستمارة لسبب يعود للضيف، وجود الضيف تحت طائلة قانونية للدولة، أو عدم توقيع الضيف على نموذج شركة هاجد بن وزير وأولاده لاستخراج اللوحات والاستمارة.',
+    ar: '4- يُستثنى من مدة التسليم: عدم توافر اللوحات والاستمارة لدى إدارة المرور، إيقاف خدمات الضيف، وجود مخالفات مرورية على الضيف، رفض إدارة المرور استخراج اللوحات والاستمارة لسبب يعود للضيف، وجود الضيف تحت طائلة قانونية للدولة، أو عدم توقيع الضيف على نموذج شركة هاجد بن وزير المطيري واولادة للتجارة لاستخراج اللوحات والاستمارة.',
     en: '4- Exceptions to the delivery period include: unavailability of plates/registration at the Traffic Department, suspension of the guest\'s services, traffic violations against the guest, the Traffic Department refusing to issue plates/registration for a reason attributable to the guest, the guest being under legal restriction by the state, or the guest failing to sign Majid Bin Wazir & Sons\' form for issuing plates and registration.',
   ),
   ReservationTermItem(
-    ar: '5- تلتزم شركة هاجد بن وزير وأولاده بدفع مبلغ (150) مائة وخمسين ريالاً للضيف عن كل يوم تأخير في حال عدم الالتزام بموعد التسليم، ويُستثنى من ذلك ما ورد في البند رقم (4) أعلاه.',
+    ar: '5- تلتزم شركة هاجد بن وزير المطيري واولادة للتجارة بدفع مبلغ (150) مائة وخمسين ريالاً للضيف عن كل يوم تأخير في حال عدم الالتزام بموعد التسليم، ويُستثنى من ذلك ما ورد في البند رقم (4) أعلاه.',
     en: '5- Majid Bin Wazir & Sons is committed to paying the guest SAR 150 (one hundred fifty riyals) for each day of delay in failing to meet the delivery deadline, excluding the cases mentioned in Item (4) above.',
   ),
   ReservationTermItem(
@@ -42,7 +42,7 @@ const List<ReservationTermItem> kCarReservationTermsBilingual = [
     en: '7- Face matching against the National ID photo is required for a niqab-wearing woman purchasing a new vehicle under her name, verified by the cashier staff.',
   ),
   ReservationTermItem(
-    ar: '8- في حال تفويض استلام المركبة/المركبات أو البطاقة الجمركية/البطاقات الجمركية، يُعد هذا التفويض نهائياً لا رجعة فيه، ولا تتحمل شركة هاجد بن وزير وأولاده أي مسؤولية عما يترتب عليه.',
+    ar: '8- في حال تفويض استلام المركبة/المركبات أو البطاقة الجمركية/البطاقات الجمركية، يُعد هذا التفويض نهائياً لا رجعة فيه، ولا تتحمل شركة هاجد بن وزير المطيري واولادة للتجارة أي مسؤولية عما يترتب عليه.',
     en: '8- Authorization to receive the vehicle(s) or customs card(s) is considered final and irrevocable, and Majid Bin Wazir & Sons bears no liability for any resulting consequences.',
   ),
   ReservationTermItem(
@@ -66,11 +66,11 @@ const List<ReservationTermItem> kCarReservationTermsBilingual = [
     en: '13- For bank-client car sales only, the agreement is considered void if a copy of the bank approval letter (ta\'meed) is not received within three days from the date the contract deposit is paid.',
   ),
   ReservationTermItem(
-    ar: '14- يحق لشركة هاجد بن وزير وأولاده احتساب رسوم وقوف على مركبة الضيف المتأخر في استلامها بواقع (50) ريالاً عن كل يوم، بعد مرور ثلاثة أيام عمل من تاريخ استخراج اللوحات والاستمارة، وذلك بعد إخطار الضيف هاتفياً من قبل موظف خدمة الضيوف أو عبر إشعارات التطبيق الإلكتروني للشركة، دون الإخلال بحق الشركة في اللجوء إلى الجهات الرسمية والقضائية للحصول على تعويض عادل.',
+    ar: '14- يحق لشركة هاجد بن وزير المطيري واولادة للتجارة احتساب رسوم وقوف على مركبة الضيف المتأخر في استلامها بواقع (50) ريالاً عن كل يوم، بعد مرور ثلاثة أيام عمل من تاريخ استخراج اللوحات والاستمارة، وذلك بعد إخطار الضيف هاتفياً من قبل موظف خدمة الضيوف أو عبر إشعارات التطبيق الإلكتروني للشركة، دون الإخلال بحق الشركة في اللجوء إلى الجهات الرسمية والقضائية للحصول على تعويض عادل.',
     en: '14- Majid Bin Wazir & Sons reserves the right to charge a parking fee of SAR 50 per day on a guest\'s vehicle delayed in pickup, starting three working days after the plates and registration are issued, following phone notification from a guest services employee or via the company\'s app notifications, without prejudice to the company\'s right to resort to official and judicial authorities for fair compensation.',
   ),
   ReservationTermItem(
-    ar: '15- يتم تحديد رقم/أرقام الهيكل، في حال توفرها، من قبل شركة هاجد بن وزير وأولاده بناءً على المواصفات التي يطلبها الضيف.',
+    ar: '15- يتم تحديد رقم/أرقام الهيكل، في حال توفرها، من قبل شركة هاجد بن وزير المطيري واولادة للتجارة بناءً على المواصفات التي يطلبها الضيف.',
     en: '15- Chassis number(s), when available, are assigned by Majid Bin Wazir & Sons based on the specifications requested by the guest.',
   ),
   ReservationTermItem(

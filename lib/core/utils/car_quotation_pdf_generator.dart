@@ -196,7 +196,7 @@ pw.Widget _buildHeader({required pw.Font bold, pw.ImageProvider? logo}) {
             ? pw.Container(width: 65, height: 65, child: pw.Image(logo, fit: pw.BoxFit.contain))
             : pw.SizedBox(width: 65, height: 65),
         _H.txt(
-          'شركة هاجد بن وزير وأولاده للتجارة',
+          'شركة هاجد بن وزير المطيري واولادة للتجارة',
           bold,
           size: 16,
           color: PdfColors.black,
@@ -449,12 +449,7 @@ pw.Widget _buildFooter({required pw.Font bold}) {
       pw.Row(
         mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
         children: [
-          _H.txt(
-            'الرياض - حي القادسية - شارع وادي الرمة',
-            bold,
-            size: 8.5,
-            color: PdfColors.black,
-          ),
+          _H.txt('الرياض - حي القادسية - شارع وادي الرمة', bold, size: 8.5, color: PdfColors.black),
         ],
       ),
     ],

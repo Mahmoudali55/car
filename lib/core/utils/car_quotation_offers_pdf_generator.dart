@@ -199,7 +199,7 @@ pw.Widget _buildHeader({required pw.Font bold, pw.ImageProvider? logo}) {
             ? pw.Container(width: 65, height: 65, child: pw.Image(logo, fit: pw.BoxFit.contain))
             : pw.SizedBox(width: 65, height: 65),
         _H.txt(
-          'شركة هاجد بن وزير وأولاده للتجارة',
+          'شركة هاجد بن وزير المطيري واولادة للتجارة',
           bold,
           size: 16,
           color: PdfColors.black,
