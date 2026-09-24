@@ -177,6 +177,9 @@ class AppRouters {
         return MaterialPageRoute(builder: (_) => const AdminSupportScreen());
       case RoutesName.contactDeveloper:
         return MaterialPageRoute(builder: (_) => const ContactDeveloperScreen());
+      case RoutesName.adminLoanApplications:
+        return MaterialPageRoute(builder: (_) => const AdminLoanApplicationsScreen());
+
       case RoutesName.agentCustomerDetailsScreen:
         return MaterialPageRoute(
           builder: (_) => AgentCustomerDetailsScreen(customer: args as CustomerModel),

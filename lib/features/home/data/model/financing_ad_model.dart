@@ -190,7 +190,7 @@ class FinancingAdModel extends Equatable {
   double monthlyInstallmentForPrice(double basePrice) {
     final months = totalMonths ?? 60;
     if (months <= 0) return 0;
-    final vatPercentage = double.tryParse(HiveMethods.getVatNumber()?.toString() ?? '') ?? 0;
+    final vatPercentage = double.tryParse(HiveMethods.getVatNumber()?.toString() ?? '') ?? 15.0;
     final carPrice = basePrice * (1 + vatPercentage / 100);
     final downPaymentPercent = firstInstallmentPct ?? 0;
     final finalPaymentPercent = lastInstallmentPct ?? 0;
@@ -289,7 +289,7 @@ class FinancingAdModel extends Equatable {
   }
 
   double get priceWithVat {
-    final vatPercentage = double.tryParse(HiveMethods.getVatNumber()?.toString() ?? '') ?? 0;
+    final vatPercentage = double.tryParse(HiveMethods.getVatNumber()?.toString() ?? '') ?? 15.0;
     return (price ?? 0) * (1 + vatPercentage / 100);
   }
 

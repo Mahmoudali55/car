@@ -242,32 +242,32 @@ class PremiumCarCardWidget extends StatelessWidget {
                               ],
                             ),
                           ),
-                          VerticalDivider(color: AppColor.greyColor(context), width: 32.w),
-                          car.installments?.trim().isNotEmpty != true
-                              ? Expanded(
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (_) => BankInstallmentsBannerWidget(
-                                            car: car,
-                                            isOffer: isOffer,
-                                            offer: offer,
-                                            offers: financingOffers,
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                    child: BankInstallmentsBannerWidget(
-                                      car: car,
-                                      isOffer: isOffer,
-                                      offer: offer,
-                                      offers: financingOffers,
+                          if (isOffer || (offer != null) || financingOffers.isNotEmpty || car.hasFinancing) ...[
+                            VerticalDivider(color: AppColor.greyColor(context), width: 32.w),
+                            Expanded(
+                              child: GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (_) => BankInstallmentsBannerWidget(
+                                        car: car,
+                                        isOffer: isOffer,
+                                        offer: offer,
+                                        offers: financingOffers,
+                                      ),
                                     ),
-                                  ),
-                                )
-                              : const SizedBox.shrink(),
+                                  );
+                                },
+                                child: BankInstallmentsBannerWidget(
+                                  car: car,
+                                  isOffer: isOffer,
+                                  offer: offer,
+                                  offers: financingOffers,
+                                ),
+                              ),
+                            ),
+                          ],
                         ],
                       ),
                     ),

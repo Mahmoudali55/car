@@ -1544,7 +1544,8 @@
     "email_label": "Email",
     "website_label": "Website",
     "website": "delta-asg.com",
-    "copy":"Copy"
+    "copy":"Copy",
+    "agentNoBookingsFound": "No bookings found"
 
 }
 

@@ -5,14 +5,15 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
 class SpecsRow extends StatelessWidget {
-  const SpecsRow({required this.car});
+  const SpecsRow({super.key, required this.car});
 
   final Map<String, dynamic> car;
 
   @override
   Widget build(BuildContext context) {
     final mutedColor = AppColor.blackTextColor(context).withValues(alpha: 0.35);
-    final engine = (car['engine'] as String).split(' ').last;
+    final rawColor = (car['color'] ?? car['Color'] ?? car['bodyColor'] ?? car['BODY_COLOR'] ?? '').toString().trim();
+    final displayColor = rawColor.isNotEmpty && rawColor.toLowerCase() != 'null' ? rawColor : '—';
 
     return Row(
       children: [
@@ -25,10 +26,10 @@ class SpecsRow extends StatelessWidget {
             maxLines: 1,
           ),
         ),
-        Icon(Icons.bolt_rounded, color: mutedColor, size: 12.sp),
+        Icon(Icons.palette_outlined, color: mutedColor, size: 12.sp),
         Gap(2.w),
         Text(
-          engine,
+          displayColor,
           style: AppTextStyle.bodySmall(context).copyWith(color: mutedColor, fontSize: 9.sp),
         ),
       ],

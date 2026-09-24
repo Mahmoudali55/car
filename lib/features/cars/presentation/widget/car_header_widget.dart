@@ -38,14 +38,9 @@ class _CarHeaderWidgetState extends State<CarHeaderWidget> {
     }
   }
 
-  /// Show financing panel only when:
-  /// 1. No pre-set installments value from API, AND
-  /// 2. Car has a valid price (non-empty, non-zero)
+  /// Show financing panel only when explicit financing data exists from API or offers
   bool _shouldShowFinancing() {
-    if (widget.car.installments?.trim().isNotEmpty == true) return false;
-    final priceStr = widget.car.price?.replaceAll(RegExp(r'[^0-9.]'), '') ?? '';
-    final price = double.tryParse(priceStr) ?? 0.0;
-    return price > 0;
+    return widget.offer != null || widget.offers.isNotEmpty || widget.car.hasFinancing;
   }
 
   @override

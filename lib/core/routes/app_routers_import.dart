@@ -17,6 +17,7 @@ import 'package:car/features/admin/presentation/screen/manage_cars_screen.dart';
 import 'package:car/features/admin/presentation/screen/manage_users_screen.dart';
 import 'package:car/features/admin/presentation/screen/revenue_report_screen.dart';
 import 'package:car/features/admin/presentation/screen/system_alerts_screen.dart';
+import 'package:car/features/admin/presentation/screen/admin_loan_applications_screen.dart';
 import 'package:car/features/admin/presentation/screen/terms_settings_screen.dart';
 import 'package:car/features/agent/data/model/customer_model.dart';
 import 'package:car/features/agent/presentation/agent_shell.dart';

@@ -55,7 +55,7 @@ class _FinancingDocumentsTabState extends State<FinancingDocumentsTab> {
   }
 
   Future<void> _pickImageFromCamera(String key) async {
-    final hasPermission = await PermissionService.requestPhotoPermission(context);
+    final hasPermission = await PermissionService.requestCameraPermission(context);
     if (!hasPermission) return;
     final image = await ImagePicker().pickImage(source: ImageSource.camera, imageQuality: 70);
     if (image != null) {

@@ -72,17 +72,23 @@ class _AgentNotificationSliderState extends State<AgentNotificationSlider> {
       });
       CommonMethods.showToast(message: success, backgroundColor: green);
     } else {
+      final errMsg = homeCubit.lastEditLoanMessage ?? 'فشلت عملية الموافقة، يرجى المحاولة مجدداً';
+      setState(() {
+        agentNotifications.removeWhere((n) => n.notificationId == notif.notificationId);
+      });
       CommonMethods.showToast(
-        message: 'فشلت عملية الموافقة، يرجى المحاولة مجدداً',
+        message: errMsg,
         backgroundColor: red,
       );
     }
   }
 
   Future<void> _reject(NotificationModel notif) async {
-    final red = AppColor.redColor(context, listen: false); // capture before setState
+    final red = AppColor.redColor(context, listen: false);
+    final homeCubit = context.read<HomeCubit>();
+
     if (notif.isLoan) {
-      final success = await context.read<HomeCubit>().editLoan(
+      final success = await homeCubit.editLoan(
         represCode: int.tryParse(HiveMethods.getRepresentativeNo() ?? '') ?? 0,
         relatedEntityId: notif.relatedEntityId,
         notifyId: notif.notificationId,
@@ -90,19 +96,27 @@ class _AgentNotificationSliderState extends State<AgentNotificationSlider> {
         customerNo: notif.customerNo ?? 0,
       );
       if (!mounted) return;
-      if (success == null) {
-        CommonMethods.showToast(
-          message: context.read<HomeCubit>().lastEditLoanMessage ?? 'فشل رفض طلب التمويل',
-          backgroundColor: red,
-        );
-        return;
-      }
-      CommonMethods.showToast(message: success, backgroundColor: red);
+      final msg = homeCubit.lastEditLoanMessage ?? (success ?? 'فشل رفض طلب التمويل');
+      CommonMethods.showToast(
+        message: msg,
+        backgroundColor: success != null ? AppColor.greenColor(context, listen: false) : red,
+      );
+    } else {
+      final success = await homeCubit.editBooking(
+        represCode: int.tryParse(HiveMethods.getRepresentativeNo() ?? '') ?? 0,
+        lpoNo: notif.relatedEntityId,
+        customerNo: notif.customerNo ?? 0,
+        notifyId: notif.notificationId,
+      );
+      if (!mounted) return;
+      final msg = homeCubit.lastEditLoanMessage ?? (success ?? 'تم رفض الإشعار');
+      CommonMethods.showToast(
+        message: msg,
+        backgroundColor: success != null ? AppColor.greenColor(context, listen: false) : red,
+      );
     }
+
     setState(() => agentNotifications.removeWhere((n) => n.notificationId == notif.notificationId));
-    if (!notif.isLoan) {
-      CommonMethods.showToast(message: 'تم رفض الإشعار', backgroundColor: red);
-    }
   }
 
   void _openSheet() {

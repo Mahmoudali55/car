@@ -5,9 +5,17 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
 class SpecBadgeWidget extends StatelessWidget {
-  const SpecBadgeWidget({super.key, required this.text, required this.icon});
+  const SpecBadgeWidget({
+    super.key,
+    required this.text,
+    this.icon,
+    this.customIcon,
+  });
+
   final String text;
-  final IconData icon;
+  final IconData? icon;
+  final Widget? customIcon;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -19,7 +27,10 @@ class SpecBadgeWidget extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(icon, color: AppColor.blackTextColor(context).withValues(alpha: 0.54), size: 14.sp),
+          if (customIcon != null)
+            customIcon!
+          else if (icon != null)
+            Icon(icon, color: AppColor.blackTextColor(context).withValues(alpha: 0.54), size: 14.sp),
           Gap(6.w),
           Text(
             text,

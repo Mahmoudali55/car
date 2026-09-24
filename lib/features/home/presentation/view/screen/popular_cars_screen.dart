@@ -95,6 +95,7 @@ class _PopularCarsScreenState extends State<PopularCarsScreen> {
       'DOOR_NO': car.doorNo,
       'Color': car.color,
       'BODY_COLOR': car.bodyColor,
+      'color': car.color.isNotEmpty ? car.color : car.bodyColor,
       'FUEL_TYPE': car.fuelType,
       'TRANSMISSION': car.transmission,
       'MAKE_YEAR': car.makeYear,

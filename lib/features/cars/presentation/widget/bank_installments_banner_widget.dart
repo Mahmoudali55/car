@@ -68,7 +68,7 @@ class _BankInstallmentsBannerWidgetState extends State<BankInstallmentsBannerWid
     );
   }
 
-  /// Returns null when price is unavailable/zero — caller should hide the widget.
+  /// Returns null when no financing data exists from API — caller should hide the widget.
   String? _getInstallmentPrice(List<FinancingAdModel> cubitOffers) {
     final priceString = widget.car.price?.replaceAll(RegExp(r'[^0-9.]'), '') ?? '';
     final rawPrice = double.tryParse(priceString) ?? 0.0;
@@ -77,20 +77,40 @@ class _BankInstallmentsBannerWidgetState extends State<BankInstallmentsBannerWid
     // No valid price → hide financing entirely
     if (price <= 0) return null;
 
-    final lowestOffer = _getLowestOffer(cubitOffers);
-    if (lowestOffer != null) {
-      return NumberFormat('#,##0', 'en_US').format(lowestOffer.monthlyInstallmentForPrice(price));
+    // 1. Direct explicit offer passed to the car
+    if (widget.offers.isNotEmpty || widget.offer != null) {
+      final lowestOffer = _getLowestOffer(cubitOffers);
+      if (lowestOffer != null) {
+        return NumberFormat('#,##0', 'en_US').format(lowestOffer.monthlyInstallmentForPrice(price));
+      }
     }
-    if (widget.isOffer && widget.car.monthlyInstallment != null) {
+
+    // 2. Explicit monthly installment from API
+    if (widget.car.monthlyInstallment != null && widget.car.monthlyInstallment! > 0) {
       return NumberFormat('#,##0', 'en_US').format(widget.car.monthlyInstallment);
     }
-    final vatPercentage = double.tryParse(HiveMethods.getVatNumber()?.toString() ?? '') ?? 0;
-    final priceWithVat = price * (1 + vatPercentage / 100);
-    const years = 5;
-    const months = 60;
-    final totalInterest = priceWithVat * 0.035 * years;
-    final monthly = (priceWithVat + totalInterest) / months;
-    return NumberFormat('#,##0', 'en_US').format(monthly);
+
+    // 3. Explicit interest rate from API
+    if (widget.car.interestRate != null && widget.car.interestRate! > 0) {
+      final vatPercentage = double.tryParse(HiveMethods.getVatNumber()?.toString() ?? '') ?? 15.0;
+      final priceWithVat = price * (1 + vatPercentage / 100);
+      const years = 5;
+      const months = 60;
+      final totalInterest = priceWithVat * (widget.car.interestRate! / 100) * years;
+      final monthly = (priceWithVat + totalInterest) / months;
+      return NumberFormat('#,##0', 'en_US').format(monthly);
+    }
+
+    // 4. Pre-set installments string from API
+    if (widget.car.installments != null &&
+        widget.car.installments!.trim().isNotEmpty &&
+        widget.car.installments!.trim() != '0' &&
+        widget.car.installments!.trim().toLowerCase() != 'null') {
+      return widget.car.installments!.trim();
+    }
+
+    // No financing data from API -> Hide
+    return null;
   }
 
   @override

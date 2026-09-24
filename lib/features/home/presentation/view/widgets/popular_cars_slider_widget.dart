@@ -125,6 +125,7 @@ class _PopularCarsSliderState extends State<PopularCarsSlider> {
       'DOOR_NO': car.doorNo,
       'Color': car.color,
       'BODY_COLOR': car.bodyColor,
+      'color': car.color.isNotEmpty ? car.color : car.bodyColor,
       'FUEL_TYPE': car.fuelType,
       'CUSTOMS_CARD_NO': car.customsCardNo,
       'TRANSMISSION': car.transmission,

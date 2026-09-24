@@ -1,6 +1,7 @@
 import 'package:car/core/localization/app_locale_keys.dart';
 import 'package:car/core/routes/routes_name.dart';
 import 'package:car/core/theme/app_colors.dart';
+import 'package:car/core/theme/app_text_style.dart';
 import 'package:car/features/auth/presentation/view/cubit/auth_cubit.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +16,7 @@ class LogoutButtonWidget extends StatelessWidget {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        final isArabic = context.locale.languageCode == 'ar';
+        //final isArabic = context.locale.languageCode == 'ar';
         return Dialog(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24.r)),
           backgroundColor: AppColor.scaffoldColor(context),
@@ -35,7 +36,7 @@ class LogoutButtonWidget extends StatelessWidget {
                 Gap(16.h),
                 Text(
                   AppLocaleKey.logout.tr(),
-                  style: TextStyle(
+                  style: AppTextStyle.titleMedium(context).copyWith(
                     fontSize: 20.sp,
                     fontWeight: FontWeight.w900,
                     color: AppColor.blackTextColor(context),
@@ -45,10 +46,9 @@ class LogoutButtonWidget extends StatelessWidget {
                 Text(
                   AppLocaleKey.logoutConfirmation.tr(),
                   textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 14.sp,
-                    color: AppColor.blackTextColor(context).withValues(alpha: 0.6),
-                  ),
+                  style: AppTextStyle.bodyMedium(
+                    context,
+                  ).copyWith(color: AppColor.blackTextColor(context).withValues(alpha: 0.6)),
                 ),
                 Gap(24.h),
                 Row(
@@ -92,7 +92,9 @@ class LogoutButtonWidget extends StatelessWidget {
                         },
                         child: Text(
                           AppLocaleKey.exit.tr(),
-                          style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold),
+                          style: AppTextStyle.bodyMedium(
+                            context,
+                          ).copyWith(fontWeight: FontWeight.bold),
                         ),
                       ),
                     ),
@@ -129,7 +131,7 @@ class LogoutButtonWidget extends StatelessWidget {
             Gap(12.w),
             Text(
               AppLocaleKey.logout.tr(),
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp),
+              style: AppTextStyle.bodyLarge(context).copyWith(fontWeight: FontWeight.bold),
             ),
           ],
         ),

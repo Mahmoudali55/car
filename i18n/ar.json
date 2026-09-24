@@ -1546,7 +1546,8 @@
   "email_label": "البريد الإلكتروني",
   "website_label": "الموقع الإلكتروني",
   "website": "delta-asg.com",
-  "copy":"نسخ"
+  "copy":"نسخ",
+  "agentNoBookingsFound":"لا توجد حجوزات"
 
 
 }

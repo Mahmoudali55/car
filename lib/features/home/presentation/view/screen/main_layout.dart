@@ -49,6 +49,7 @@ class _MainLayoutState extends State<MainLayout> {
     MainLayout.tabIndex.addListener(_onTabChanged);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!mounted) return;
+
       final code = HiveMethods.getcode() ?? '';
       final isAgent = HiveMethods.isAgentRole();
 
@@ -92,7 +93,7 @@ class _MainLayoutState extends State<MainLayout> {
                 valueListenable: Hive.box('app').listenable(keys: ['userName', 'isGuest']),
                 builder: (context, box, _) {
                   final isGuest = box.get('isGuest', defaultValue: false);
-                  final userName = box.get('userName', defaultValue: '');
+                  final userName = HiveMethods.getUserName() ?? '';
                   final welcomeText = AppLocaleKey.welcomeToCarGroup.tr();
                   final separator = context.locale.languageCode == 'ar' ? '،' : ',';
 

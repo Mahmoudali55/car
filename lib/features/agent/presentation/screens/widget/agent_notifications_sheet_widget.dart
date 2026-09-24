@@ -53,31 +53,44 @@ class AgentNotificationsSheetState extends State<AgentNotificationsSheet> {
       widget.onChanged();
       _showSnack(success, green);
     } else {
-      _showSnack('فشلت عملية الموافقة، يرجى المحاولة مجدداً', red);
+      final errMsg = homeCubit.lastEditLoanMessage ?? 'فشلت عملية الموافقة، يرجى المحاولة مجدداً';
+      setState(() {
+        agentNotifications.removeWhere((n) => n.notificationId == notif.notificationId);
+      });
+      widget.onChanged();
+      _showSnack(errMsg, red);
     }
   }
 
   Future<void> _reject(NotificationModel notif) async {
-    // Capture color before any potential async gap
     final red = AppColor.redColor(context, listen: false);
+    final homeCubit = context.read<HomeCubit>();
+    final represCode = int.tryParse(HiveMethods.getRepresentativeNo() ?? '') ?? 0;
+
     if (notif.isLoan) {
-      final success = await context.read<HomeCubit>().editLoan(
-        represCode: int.tryParse(HiveMethods.getRepresentativeNo() ?? '') ?? 0,
+      final success = await homeCubit.editLoan(
+        represCode: represCode,
         relatedEntityId: notif.relatedEntityId,
         notifyId: notif.notificationId,
         isApproved: 0,
         customerNo: notif.customerNo ?? 0,
       );
       if (!mounted) return;
-      if (success == null) {
-        _showSnack(context.read<HomeCubit>().lastEditLoanMessage ?? 'فشل رفض طلب التمويل', red);
-        return;
-      }
-      _showSnack(success, red);
+      final msg = homeCubit.lastEditLoanMessage ?? (success ?? 'فشل رفض طلب التمويل');
+      _showSnack(msg, success != null ? AppColor.greenColor(context, listen: false) : red);
+    } else {
+      final success = await homeCubit.editBooking(
+        represCode: represCode,
+        lpoNo: notif.relatedEntityId,
+        customerNo: notif.customerNo ?? 0,
+        notifyId: notif.notificationId,
+      );
+      if (!mounted) return;
+      final msg = homeCubit.lastEditLoanMessage ?? (success ?? 'تم رفض الإشعار');
+      _showSnack(msg, success != null ? AppColor.greenColor(context, listen: false) : red);
     }
     setState(() => agentNotifications.removeWhere((n) => n.notificationId == notif.notificationId));
     widget.onChanged();
-    if (!notif.isLoan) _showSnack('تم رفض الإشعار', red);
   }
 
   void _showSnack(String msg, Color color) {

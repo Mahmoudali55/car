@@ -148,7 +148,10 @@ class _AgentOffersScreenState extends State<AgentOffersScreen> {
                   final offers = state.offersStatus.data ?? [];
 
                   if (offers.isEmpty) {
-                    return EmptyState();
+                    return EmptyState(
+                      title: AppLocaleKey.no_offers.tr(),
+                      subtitle: AppLocaleKey.no_offers_desc.tr(),
+                    );
                   }
 
                   return ListView.builder(

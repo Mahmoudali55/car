@@ -38,6 +38,13 @@ class ManagementHubWidget extends StatelessWidget {
               color: AppColor.blueColor(context),
               onTap: () => Navigator.pushNamed(context, RoutesName.manageUsers),
             ),
+            HubItemWidget(
+              label: AppLocaleKey.loanApplications.tr(),
+              icon: Icons.account_balance_rounded,
+              color: AppColor.greenColor(context),
+              onTap: () =>
+                  Navigator.pushNamed(context, RoutesName.adminLoanApplications),
+            ),
             // HubItemWidget(
             //   label: AppLocaleKey.adminCustomerInquiries.tr(),
             //   icon: Icons.question_answer_rounded,

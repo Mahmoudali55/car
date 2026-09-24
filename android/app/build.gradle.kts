@@ -32,19 +32,19 @@ android {
     flavorDimensions += "default"
     // ✅ SIGNING CONFIG
     signingConfigs {
-        release {
-            keyAlias 'upload'
-            keyPassword '111111'
-            storeFile file('/Users/asgsystems/key.jks')
-            storePassword '111111'
+        create("release") {
+            keyAlias = "upload"
+            keyPassword = "111111"
+            storeFile = file("/Users/asgsystems/key.jks")
+            storePassword = "111111"
         }
     }
     // ✅ BUILD TYPES
     buildTypes {
-        release {
+        getByName("release") {
             signingConfig = signingConfigs.getByName("release")
-            minifyEnabled true
-            shrinkResources true
+            isMinifyEnabled = false
+            isShrinkResources = false
 
             firebaseAppDistribution {
                 artifactType = "APK"

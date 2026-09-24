@@ -330,13 +330,23 @@ class HomeCubit extends Cubit<HomeState> {
     required int customerNo,
     required int notifyId,
   }) async {
+    lastEditLoanMessage = null;
     final result = await homeRepo.editBooking(
       represCode: represCode,
       lpoNo: lpoNo,
       customerNo: customerNo,
       notifyId: notifyId,
     );
-    return result.fold((failure) => null, (message) => message);
+    return result.fold(
+      (failure) {
+        lastEditLoanMessage = failure.errMessage;
+        return null;
+      },
+      (message) {
+        lastEditLoanMessage = message;
+        return message;
+      },
+    );
   }
 
   Future<String?> editLoan({

@@ -182,7 +182,10 @@ class _AgentMyBookingsScreenState extends State<AgentMyBookingsScreen> {
                 ),
                 Expanded(
                   child: filteredCars.isEmpty
-                      ? const EmptyState()
+                      ? EmptyState(
+                          title: AppLocaleKey.agentNoBookingsFound.tr(),
+                          subtitle: AppLocaleKey.agentNoBookingsFound.tr(),
+                        )
                       : ListView.builder(
                           padding: EdgeInsets.fromLTRB(16.w, 4.h, 16.w, 24.h),
                           itemCount: filteredCars.length,

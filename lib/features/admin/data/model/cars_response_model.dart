@@ -31,6 +31,7 @@ class CarModel extends Equatable {
   final String? fuelType;
   final int? makeYear;
   final double? costPrice;
+  final double? salePrice;
   final int? colorCode;
   final bool? mobileShow;
   final String? customerName;
@@ -55,6 +56,7 @@ class CarModel extends Equatable {
     this.fuelType,
     this.makeYear,
     this.costPrice,
+    this.salePrice,
     this.colorCode,
     this.mobileShow,
     this.lpoNo,
@@ -76,7 +78,14 @@ class CarModel extends Equatable {
       transmission: json['TRANSMISSION'],
       fuelType: json['FUEL_TYPE'],
       makeYear: json['MAKE_YEAR'],
-      costPrice: (json['COST_PRICE'] as num?)?.toDouble(),
+      costPrice: (json['COST_PRICE'] as num?)?.toDouble() ??
+          double.tryParse(json['COST_PRICE']?.toString() ?? ''),
+      salePrice: (json['SALE_PRICE'] as num?)?.toDouble() ??
+          double.tryParse(json['SALE_PRICE']?.toString() ?? '') ??
+          (json['Sale_Price'] as num?)?.toDouble() ??
+          (json['salePrice'] as num?)?.toDouble() ??
+          (json['PRICE'] as num?)?.toDouble() ??
+          double.tryParse(json['PRICE']?.toString() ?? ''),
       colorCode: json['COLOR_CODE'],
       mobileShow: json['MobileShow'],
       reservedName: json['REPRES_NAME']?.toString(),
@@ -123,6 +132,7 @@ class CarModel extends Equatable {
     fuelType,
     makeYear,
     costPrice,
+    salePrice,
     colorCode,
     mobileShow,
     lpoNo,

@@ -23,19 +23,130 @@ class CardContentSection extends StatelessWidget {
   final VoidCallback onTap;
   final VoidCallback onOrderNow;
   String get formattedPriceWithVat {
-    if ('${car['price']}' == null || '${car['price']}'!.isEmpty) return '---';
+    final rawPrice = car['price']?.toString();
+    if (rawPrice == null || rawPrice.isEmpty || rawPrice == 'null') return '---';
     final vatNumber = HiveMethods.getVatNumber();
     final cleanPrice = double.tryParse('${car['price']}'.toString());
     final double originalPrice = double.tryParse(cleanPrice.toString()) ?? 0;
-    final double vatPercentage = double.tryParse(vatNumber.toString()) ?? 0;
+    final double vatPercentage = double.tryParse(vatNumber?.toString() ?? '') ?? 15.0;
     final double priceWithVat = originalPrice * ((vatPercentage / 100)) + originalPrice;
 
     final formatter = NumberFormat('#,###.00', 'ar_SA');
     return formatter.format(priceWithVat);
   }
 
+  List<Color> _parseCarColors(BuildContext context, String colorName) {
+    final name = colorName.trim().toLowerCase();
+    final List<Color> foundColors = [];
+
+    final Map<List<String>, Color> colorKeywords = {
+      ['أبيض', 'ابيض', 'white']: Colors.white,
+      ['أسود', 'اسود', 'black']: Colors.black,
+      ['فضي', 'silver']: Colors.grey.shade400,
+      ['رمادي', 'رصاصي', 'grey', 'gray']: Colors.grey,
+      ['أحمر', 'احمر', 'red']: Colors.red,
+      ['أزرق', 'ازرق', 'كحلي', 'blue', 'navy']: Colors.blue,
+      ['بيج', 'beige']: const Color(0xFFF5F5DC),
+      ['بني', 'brown']: Colors.brown,
+      ['أخضر', 'اخضر', 'زيتي', 'green']: AppColor.greenColor(context),
+      ['أصفر', 'اصفر', 'yellow']: Colors.yellow,
+      ['برتقالي', 'orange']: Colors.orange,
+      ['ذهبي', 'gold']: const Color(0xFFFFD700),
+      ['عنابي', 'خمري', 'maroon']: const Color(0xFF800000),
+    };
+
+    for (final entry in colorKeywords.entries) {
+      for (final keyword in entry.key) {
+        if (name.contains(keyword)) {
+          if (!foundColors.contains(entry.value)) {
+            foundColors.add(entry.value);
+          }
+          break;
+        }
+      }
+    }
+
+    return foundColors;
+  }
+
+  bool _isMultipleColors(String colorName) {
+    final name = colorName.trim().toLowerCase();
+    return name.contains('/') ||
+        name.contains('\\') ||
+        name.contains('+') ||
+        name.contains('مع') ||
+        name.contains('و') ||
+        name.contains('two tone') ||
+        name.contains('توتون') ||
+        name.contains('لونين') ||
+        name.contains('متعدد');
+  }
+
+  Widget _buildColorIcon(BuildContext context, String colorName) {
+    final colors = _parseCarColors(context, colorName);
+    final isMulti = colors.length >= 2 || _isMultipleColors(colorName);
+
+    // إذا كان هناك لونين أو ألوان متعددة -> عرض أيقونة الألوان المتعددة (Multi-color Lens / Palette)
+    if (isMulti) {
+      final List<Color> gradientColors = colors.length >= 2
+          ? colors
+          : const [
+              Color(0xFFE53935),
+              Color(0xFFFB8C00),
+              Color(0xFF43A047),
+              Color(0xFF1E88E5),
+              Color(0xFF8E24AA),
+            ];
+
+      return ShaderMask(
+        shaderCallback: (bounds) => LinearGradient(
+          colors: gradientColors,
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ).createShader(bounds),
+        child: Icon(
+          Icons.color_lens_rounded,
+          size: 15.w,
+          color: Colors.white,
+        ),
+      );
+    }
+
+    // إذا كان لوناً واحداً معروفاً
+    if (colors.length == 1) {
+      final singleColor = colors.first;
+      return Container(
+        width: 12.w,
+        height: 12.w,
+        decoration: BoxDecoration(
+          color: singleColor,
+          shape: BoxShape.circle,
+          border: Border.all(
+            color: singleColor == Colors.white
+                ? AppColor.greyColor(context).withValues(alpha: 0.6)
+                : AppColor.blackTextColor(context).withValues(alpha: 0.2),
+            width: 1,
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: singleColor.withValues(alpha: 0.25),
+              blurRadius: 2,
+              offset: const Offset(0, 1),
+            ),
+          ],
+        ),
+      );
+    }
+
+    // الحالة الافتراضية
+    return Icon(Icons.palette_outlined, color: AppColor.greyColor(context), size: 14.w);
+  }
+
   @override
   Widget build(BuildContext context) {
+    final String rawColor = (car['color'] ?? car['Color'] ?? car['bodyColor'] ?? car['BODY_COLOR'] ?? '').toString().trim();
+    final String displayColor = rawColor.isNotEmpty && rawColor.toLowerCase() != 'null' ? rawColor : '—';
+
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
@@ -53,9 +164,12 @@ class CardContentSection extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              MiniDetailWidget(icon: Icons.calendar_today_outlined, label: car['year']!),
-              MiniDetailWidget(icon: Icons.speed_outlined, label: car['mileage']!),
-              MiniDetailWidget(icon: Icons.settings_outlined, label: car['engine']!),
+              MiniDetailWidget(icon: Icons.calendar_today_outlined, label: car['year'] ?? '—'),
+              MiniDetailWidget(icon: Icons.speed_outlined, label: car['mileage'] ?? '—'),
+              MiniDetailWidget(
+                customIcon: _buildColorIcon(context, displayColor),
+                label: displayColor,
+              ),
             ],
           ),
           Gap(10.h),

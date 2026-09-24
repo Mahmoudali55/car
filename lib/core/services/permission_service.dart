@@ -10,7 +10,7 @@ class PermissionService {
   /// Check and request Photo Library/Gallery permission
   static Future<bool> requestPhotoPermission(BuildContext context) async {
     final status = await Permission.photos.status;
-    if (status.isGranted) return true;
+    if (status.isGranted || status.isLimited) return true;
     if (status.isPermanentlyDenied) {
       _showSettingsDialog(context, _getTranslation(context, 'photos'));
       return false;
@@ -25,7 +25,7 @@ class PermissionService {
 
     if (proceed) {
       final result = await Permission.photos.request();
-      if (result.isGranted) return true;
+      if (result.isGranted || result.isLimited) return true;
       if (result.isPermanentlyDenied) {
         _showSettingsDialog(context, _getTranslation(context, 'photos'));
       }
@@ -36,7 +36,7 @@ class PermissionService {
   /// Check and request Camera permission
   static Future<bool> requestCameraPermission(BuildContext context) async {
     final status = await Permission.camera.status;
-    if (status.isGranted) return true;
+    if (status.isGranted || status.isLimited) return true;
     if (status.isPermanentlyDenied) {
       _showSettingsDialog(context, _getTranslation(context, 'camera'));
       return false;
@@ -51,7 +51,7 @@ class PermissionService {
 
     if (proceed) {
       final result = await Permission.camera.request();
-      if (result.isGranted) return true;
+      if (result.isGranted || result.isLimited) return true;
       if (result.isPermanentlyDenied) {
         _showSettingsDialog(context, _getTranslation(context, 'camera'));
       }

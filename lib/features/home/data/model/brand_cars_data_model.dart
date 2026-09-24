@@ -152,7 +152,7 @@ class GetBrandCarsDataModel extends Equatable {
     final cleanPriceStr = price.toString().replaceAll(RegExp(r'[^0-9.]'), '');
     final double originalPrice = double.tryParse(cleanPriceStr) ?? 0;
     if (originalPrice <= 0) return '---';
-    final double vatPercentage = double.tryParse(vatNumber.toString()) ?? 0;
+    final double vatPercentage = double.tryParse(vatNumber?.toString() ?? '') ?? 15.0;
     final double priceWithVat = originalPrice * (1 + (vatPercentage / 100));
 
     final formatter = NumberFormat('#,###.00', 'ar_SA');
@@ -235,6 +235,18 @@ class GetBrandCarsDataModel extends Equatable {
       default:
         return '';
     }
+  }
+
+  bool get hasFinancing {
+    if (monthlyInstallment != null && monthlyInstallment! > 0) return true;
+    if (interestRate != null && interestRate! > 0) return true;
+    if (installments != null &&
+        installments!.trim().isNotEmpty &&
+        installments!.trim() != '0' &&
+        installments!.trim().toLowerCase() != 'null') {
+      return true;
+    }
+    return false;
   }
 
   GetBrandCarsDataModel merge(GetBrandCarsDataModel other) {

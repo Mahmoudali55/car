@@ -5,9 +5,17 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
 class MiniDetailWidget extends StatelessWidget {
-  const MiniDetailWidget({super.key, required this.icon, required this.label});
-  final IconData icon;
+  const MiniDetailWidget({
+    super.key,
+    this.icon,
+    this.customIcon,
+    required this.label,
+  });
+
+  final IconData? icon;
+  final Widget? customIcon;
   final String label;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -20,7 +28,10 @@ class MiniDetailWidget extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(icon, color: AppColor.greyColor(context), size: 14.w),
+          if (customIcon != null)
+            customIcon!
+          else if (icon != null)
+            Icon(icon, color: AppColor.greyColor(context), size: 14.w),
           Gap(6.w),
           Text(
             label,

@@ -91,7 +91,7 @@ class _AgentInventoryScreenState extends State<AgentInventoryScreen>
       id: car.itemCode ?? '',
       name: car.itemName ?? '',
       brand: brandName.isNotEmpty ? brandName : '—',
-      price: car.costPrice ?? 0.0,
+      price: car.salePrice ?? car.costPrice ?? 0.0,
       imageUrl: car.imageUrls.isNotEmpty ? car.imageUrls.first : '',
       availability: availability,
       year: car.makeYear?.toString() ?? '—',

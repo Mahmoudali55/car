@@ -14,9 +14,47 @@ abstract class Failure {
   const Failure(this.errMessage);
 }
 
-String? _extractMsgFromMap(Map<String, dynamic> map) {
-  final val = map['Message'] ?? map['message'] ?? map['msg'] ?? map['MessageAr'] ?? map['MessageEn'];
-  return val is String && val.isNotEmpty ? val : null;
+String? _extractMsgFromMap(dynamic data) {
+  if (data == null) return null;
+  if (data is Map) {
+    for (final entry in data.entries) {
+      final key = entry.key.toString().toLowerCase().replaceAll('_', '').replaceAll('-', '');
+      if (key == 'message' ||
+          key == 'msg' ||
+          key == 'messagear' ||
+          key == 'messageen' ||
+          key == 'errormessage' ||
+          key == 'error' ||
+          key == 'detail' ||
+          key == 'details' ||
+          key == 'title') {
+        final val = entry.value;
+        if (val is String && val.trim().isNotEmpty) {
+          return val.trim();
+        } else if (val is List && val.isNotEmpty) {
+          return val.map((e) => e.toString()).join('\n');
+        } else if (val != null) {
+          return val.toString().trim();
+        }
+      }
+    }
+  } else if (data is List && data.isNotEmpty) {
+    for (final item in data) {
+      final msg = _extractMsgFromMap(item);
+      if (msg != null && msg.isNotEmpty) return msg;
+    }
+  } else if (data is String && data.trim().isNotEmpty) {
+    try {
+      final decoded = jsonDecode(data);
+      return _extractMsgFromMap(decoded);
+    } catch (_) {
+      final trimmed = data.trim();
+      if (!trimmed.startsWith('<') && !trimmed.startsWith('{')) {
+        return trimmed;
+      }
+    }
+  }
+  return null;
 }
 
 /// Represents a failure coming from Dio / the server.
@@ -26,27 +64,10 @@ class ServerFailure extends Failure {
   /// Map Dio exceptions to our ServerFailure, extracting server‑side messages when present.
   factory ServerFailure.fromDioError(DioException dioError) {
     try {
-      // Attempt to parse raw response data into a Map<String, dynamic>
       final raw = dioError.response?.data;
-      Map<String, dynamic>? map;
-      if (raw != null) {
-        if (raw is Map<String, dynamic>) {
-          map = raw;
-        } else if (raw is String) {
-          try {
-            map = jsonDecode(raw) as Map<String, dynamic>;
-          } catch (_) {
-            map = null;
-          }
-        }
-      }
-
-      // If we got a JSON map with a message field, return it immediately
-      if (map != null) {
-        final serverMsg = _extractMsgFromMap(map);
-        if (serverMsg != null) {
-          return ServerFailure(serverMsg);
-        }
+      final serverMsg = _extractMsgFromMap(raw);
+      if (serverMsg != null && serverMsg.isNotEmpty) {
+        return ServerFailure(serverMsg);
       }
 
       // Otherwise fall back based on DioException type
@@ -66,7 +87,7 @@ class ServerFailure extends Failure {
         case DioExceptionType.badResponse:
           return ServerFailure.fromResponse(
             dioError.response?.statusCode,
-            map ?? raw,
+            raw,
           );
         default:
           return ServerFailure('Oops! There was an error, please try again.');
@@ -80,11 +101,9 @@ class ServerFailure extends Failure {
   /// Handle different status codes, but always prefer the server‑sent "message" if available.
   factory ServerFailure.fromResponse(int? statusCode, dynamic response) {
     try {
-      if (response is Map<String, dynamic>) {
-        final serverMsg = _extractMsgFromMap(response);
-        if (serverMsg != null) {
-          return ServerFailure(serverMsg);
-        }
+      final serverMsg = _extractMsgFromMap(response);
+      if (serverMsg != null && serverMsg.isNotEmpty) {
+        return ServerFailure(serverMsg);
       }
 
       switch (statusCode) {

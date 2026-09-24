@@ -1598,4 +1598,5 @@ class AppLocaleKey {
   static const String website_label = 'website_label';
   static const String website = 'website';
   static const String copy = 'copy';
+  static const String agentNoBookingsFound = 'agentNoBookingsFound';
 }

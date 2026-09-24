@@ -14,8 +14,118 @@ class CardFooter extends StatelessWidget {
 
   final Map<String, dynamic> car;
 
+  List<Color> _parseCarColors(BuildContext context, String colorName) {
+    final name = colorName.trim().toLowerCase();
+    final List<Color> foundColors = [];
+
+    final Map<List<String>, Color> colorKeywords = {
+      ['أبيض', 'ابيض', 'white']: Colors.white,
+      ['أسود', 'اسود', 'black']: Colors.black,
+      ['فضي', 'silver']: Colors.grey.shade400,
+      ['رمادي', 'رصاصي', 'grey', 'gray']: Colors.grey,
+      ['أحمر', 'احمر', 'red']: Colors.red,
+      ['أزرق', 'ازرق', 'كحلي', 'blue', 'navy']: Colors.blue,
+      ['بيج', 'beige']: const Color(0xFFF5F5DC),
+      ['بني', 'brown']: Colors.brown,
+      ['أخضر', 'اخضر', 'زيتي', 'green']: AppColor.greenColor(context),
+      ['أصفر', 'اصفر', 'yellow']: Colors.yellow,
+      ['برتقالي', 'orange']: Colors.orange,
+      ['ذهبي', 'gold']: const Color(0xFFFFD700),
+      ['عنابي', 'خمري', 'maroon']: const Color(0xFF800000),
+    };
+
+    for (final entry in colorKeywords.entries) {
+      for (final keyword in entry.key) {
+        if (name.contains(keyword)) {
+          if (!foundColors.contains(entry.value)) {
+            foundColors.add(entry.value);
+          }
+          break;
+        }
+      }
+    }
+
+    return foundColors;
+  }
+
+  bool _isMultipleColors(String colorName) {
+    final name = colorName.trim().toLowerCase();
+    return name.contains('/') ||
+        name.contains('\\') ||
+        name.contains('+') ||
+        name.contains('مع') ||
+        name.contains('و') ||
+        name.contains('two tone') ||
+        name.contains('توتون') ||
+        name.contains('لونين') ||
+        name.contains('متعدد');
+  }
+
+  Widget _buildColorIcon(BuildContext context, String colorName) {
+    final colors = _parseCarColors(context, colorName);
+    final isMulti = colors.length >= 2 || _isMultipleColors(colorName);
+
+    if (isMulti) {
+      final List<Color> gradientColors = colors.length >= 2
+          ? colors
+          : const [
+              Color(0xFFE53935),
+              Color(0xFFFB8C00),
+              Color(0xFF43A047),
+              Color(0xFF1E88E5),
+              Color(0xFF8E24AA),
+            ];
+
+      return ShaderMask(
+        shaderCallback: (bounds) => LinearGradient(
+          colors: gradientColors,
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ).createShader(bounds),
+        child: Icon(
+          Icons.color_lens_rounded,
+          size: 15.sp,
+          color: Colors.white,
+        ),
+      );
+    }
+
+    if (colors.length == 1) {
+      final singleColor = colors.first;
+      return Container(
+        width: 12.w,
+        height: 12.w,
+        decoration: BoxDecoration(
+          color: singleColor,
+          shape: BoxShape.circle,
+          border: Border.all(
+            color: singleColor == Colors.white
+                ? AppColor.greyColor(context).withValues(alpha: 0.6)
+                : AppColor.blackTextColor(context).withValues(alpha: 0.2),
+            width: 1,
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: singleColor.withValues(alpha: 0.25),
+              blurRadius: 2,
+              offset: const Offset(0, 1),
+            ),
+          ],
+        ),
+      );
+    }
+
+    return Icon(
+      Icons.palette_outlined,
+      color: AppColor.blackTextColor(context).withValues(alpha: 0.54),
+      size: 14.sp,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    final String rawColor = (car['color'] ?? car['Color'] ?? car['bodyColor'] ?? car['BODY_COLOR'] ?? '').toString().trim();
+    final String displayColor = rawColor.isNotEmpty && rawColor.toLowerCase() != 'null' ? rawColor : '—';
     final String? priceRaw = car['price']?.toString();
     final bool hasPrice =
         priceRaw != null && priceRaw != '0' && priceRaw.isNotEmpty && priceRaw != 'null';
@@ -27,23 +137,18 @@ class CardFooter extends StatelessWidget {
     // حساب السعر شامل الضريبة
     String priceWithVatText = '0';
     if (hasPrice) {
-      final cleanPrice = priceRaw!.replaceAll(RegExp(r'[^0-9,]'), '');
+      final cleanPrice = priceRaw.replaceAll(RegExp(r'[^0-9,]'), '');
       final numericPrice = cleanPrice.replaceAll(',', '');
       final double originalPrice = double.tryParse(numericPrice) ?? 0;
       final double priceWithVat = originalPrice * (1 + (vatPercentage / 100));
 
       // تنسيق السعر مع الضريبة
-      priceWithVatText = priceWithVat.toStringAsFixed(0); // أو استخدم NumberFormat
+      priceWithVatText = priceWithVat.toStringAsFixed(0);
     }
 
     // نص السعر المعروض (السعر الأصلي + السعر مع الضريبة)
     final String displayPriceText = hasPrice
         ? '$priceRaw ${AppLocaleKey.sar.tr()}'
-        : '0 ${AppLocaleKey.sar.tr()}';
-
-    // نص السعر شامل الضريبة
-    final String vatPriceText = hasPrice
-        ? '${priceWithVatText} ${AppLocaleKey.sar.tr()} (شامل الضريبة)'
         : '0 ${AppLocaleKey.sar.tr()}';
 
     return Container(
@@ -107,7 +212,10 @@ class CardFooter extends StatelessWidget {
                 text: car['year']?.toString() ?? 'N/A',
               ),
               SpecBadgeWidget(icon: Icons.speed_rounded, text: car['mileage'] ?? '0 كم'),
-              SpecBadgeWidget(icon: Icons.electric_bolt_rounded, text: car['engine'] ?? 'N/A'),
+              SpecBadgeWidget(
+                customIcon: _buildColorIcon(context, displayColor),
+                text: displayColor,
+              ),
             ],
           ),
         ],
