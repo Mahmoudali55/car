@@ -109,8 +109,26 @@ class _BankInstallmentsBannerWidgetState extends State<BankInstallmentsBannerWid
       return widget.car.installments!.trim();
     }
 
-    // No financing data from API -> Hide
-    return null;
+    // 5. Available bank financing offers from cubit
+    if (cubitOffers.isNotEmpty) {
+      final lowestOffer = _getLowestOffer(cubitOffers);
+      if (lowestOffer != null) {
+        final monthly = lowestOffer.monthlyInstallmentForPrice(price);
+        if (monthly > 0) {
+          return NumberFormat('#,##0', 'en_US').format(monthly);
+        }
+      }
+    }
+
+    // 6. Default standard bank financing formula for available cars
+    final vatPercentage = double.tryParse(HiveMethods.getVatNumber()?.toString() ?? '') ?? 15.0;
+    final priceWithVat = price * (1 + vatPercentage / 100);
+    const defaultInterestRate = 3.5;
+    const years = 5;
+    const months = 60;
+    final totalInterest = priceWithVat * (defaultInterestRate / 100) * years;
+    final monthly = (priceWithVat + totalInterest) / months;
+    return NumberFormat('#,##0', 'en_US').format(monthly);
   }
 
   @override

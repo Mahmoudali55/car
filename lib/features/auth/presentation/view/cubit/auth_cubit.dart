@@ -195,6 +195,31 @@ class AuthCubit extends Cubit<AuthState> {
     );
   }
 
+  Future<void> deleteAccount() async {
+    emit(state.copyWith(deleteAccountStatus: const StatusState.loading()));
+    final result = await authRepo.deleteAccount();
+
+    result.fold(
+      (failure) {
+        emit(state.copyWith(deleteAccountStatus: StatusState.failure(failure.errMessage)));
+      },
+      (success) async {
+        HiveMethods.updateIsGuest(false);
+        HiveMethods.deleteToken();
+        HiveMethods.updateRole('user');
+        HiveMethods.updateUserName('');
+        clearRegisterFields();
+        currentPasswordController.clear();
+        newPasswordController.clear();
+        confirmPasswordController.clear();
+        mobileController.clear();
+        passwordController.clear();
+        HiveMethods.clearSavedCredentials();
+        emit(AuthState(rememberMe: false, deleteAccountStatus: const StatusState.success(true)));
+      },
+    );
+  }
+
   Future<void> logout() async {
     await authRepo.logout();
     HiveMethods.updateIsGuest(false);
@@ -213,3 +238,4 @@ class AuthCubit extends Cubit<AuthState> {
     emit(AuthState(rememberMe: rememberMe));
   }
 }
+

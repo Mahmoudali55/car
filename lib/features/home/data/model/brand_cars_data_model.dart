@@ -159,6 +159,15 @@ class GetBrandCarsDataModel extends Equatable {
     return formatter.format(priceWithVat);
   }
 
+  String get uniqueId {
+    if (itemCode.isNotEmpty && chassisNo.isNotEmpty) {
+      return '${itemCode}_$chassisNo';
+    }
+    if (itemCode.isNotEmpty) return itemCode;
+    if (chassisNo.isNotEmpty) return chassisNo;
+    return itemName;
+  }
+
   Map<String, dynamic> toMap() {
     return {
       'GROUP_CODE': groupCode,
@@ -206,6 +215,10 @@ class GetBrandCarsDataModel extends Equatable {
       'Color': color,
       'extraImages': extraImages,
       'name': itemName,
+      'itemName': itemName,
+      'itemCode': itemCode,
+      'chassisNo': chassisNo,
+      'uniqueId': uniqueId,
       'image': fullCarImage,
       'price': price,
       'brand': groupName,
@@ -223,6 +236,7 @@ class GetBrandCarsDataModel extends Equatable {
       'video_id': videoId,
     };
   }
+
 
   String get carStatusText {
     switch (carStatus) {

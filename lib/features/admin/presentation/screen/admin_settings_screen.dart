@@ -8,6 +8,7 @@ import 'package:car/features/admin/presentation/screen/widgets/logout_button_wid
 import 'package:car/features/admin/presentation/screen/widgets/security_section_widget.dart';
 import 'package:car/features/admin/presentation/screen/widgets/setting_Item_widget.dart';
 import 'package:car/features/admin/presentation/screen/widgets/show_language_dialog_widget.dart';
+import 'package:car/features/profile/presentation/screen/widget/delete_account_button_widget.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -104,8 +105,10 @@ class AdminSettingsScreen extends StatelessWidget {
                     ),
                   ],
                 ),
-                Gap(40.h),
+                Gap(30.h),
                 const LogoutButtonWidget(),
+                Gap(14.h),
+                const DeleteAccountButtonWidget(),
                 Gap(28.h),
                 const Center(child: CopyrightWidget()),
               ],

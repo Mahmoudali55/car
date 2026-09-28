@@ -12,6 +12,7 @@ import 'package:car/features/agent/presentation/cubit/agent_state.dart';
 import 'package:car/features/auth/presentation/view/cubit/auth_cubit.dart';
 import 'package:car/features/profile/presentation/screen/track_order_screen.dart';
 import 'package:car/features/profile/presentation/screen/widget/action_tile_widget.dart';
+import 'package:car/features/profile/presentation/screen/widget/delete_account_button_widget.dart';
 import 'package:car/features/profile/presentation/screen/widget/financial_summary_widget.dart';
 import 'package:car/features/profile/presentation/screen/widget/personal_details_section_widget.dart';
 import 'package:car/features/profile/presentation/screen/widget/profile_header_banner_widget.dart';
@@ -57,8 +58,6 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final isArabic = context.locale.languageCode == 'ar';
-
     return BlocBuilder<AuthCubit, AuthState>(
       builder: (context, authState) {
         return BlocBuilder<AgentCubit, AgentState>(
@@ -145,10 +144,15 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                               ],
                             ),
                           ),
-                          Gap(40.h),
+                          Gap(32.h),
                           FadeInUp(
                             delay: const Duration(milliseconds: 200),
                             child: const LogoutButtonWidget(),
+                          ),
+                          Gap(16.h),
+                          FadeInUp(
+                            delay: const Duration(milliseconds: 250),
+                            child: const DeleteAccountButtonWidget(),
                           ),
                           Gap(50.h),
                         ],

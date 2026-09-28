@@ -260,7 +260,16 @@ class _CarComparisonScreenState extends State<CarComparisonScreen> {
               right: 8,
               child: GestureDetector(
                 onTap: () {
-                  HiveMethods.removeFromComparison(car['name']);
+                  final String? uniqueId = car['uniqueId']?.toString();
+                  final String? itemCode = (car['itemCode'] ?? car['ITEM_CODE'])?.toString();
+                  final String? chassisNo = (car['chassisNo'] ?? car['CHASSIS_NO'])?.toString();
+                  final String carName = (car['name'] ?? car['itemName'] ?? '').toString();
+                  HiveMethods.removeFromComparison(
+                    uniqueId ?? itemCode ?? carName,
+                    itemCode: itemCode,
+                    chassisNo: chassisNo,
+                    carName: carName,
+                  );
                 },
                 child: Container(
                   padding: const EdgeInsets.all(4),

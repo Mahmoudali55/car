@@ -146,6 +146,18 @@ class CardFooter extends StatelessWidget {
       priceWithVatText = priceWithVat.toStringAsFixed(0);
     }
 
+    String? installmentPriceText;
+    if (hasPrice) {
+      final cleanPrice = priceRaw.replaceAll(RegExp(r'[^0-9.]'), '');
+      final double originalPrice = double.tryParse(cleanPrice) ?? 0;
+      if (originalPrice > 0) {
+        final double priceWithVat = (originalPrice + 3000.0) * (1 + (vatPercentage / 100));
+        final double monthly = (priceWithVat + (priceWithVat * 0.035 * 5)) / 60;
+        final formatter = NumberFormat('#,##0', 'en_US');
+        installmentPriceText = formatter.format(monthly);
+      }
+    }
+
     // نص السعر المعروض (السعر الأصلي + السعر مع الضريبة)
     final String displayPriceText = hasPrice
         ? '$priceRaw ${AppLocaleKey.sar.tr()}'
@@ -171,38 +183,81 @@ class CardFooter extends StatelessWidget {
             ).copyWith(color: AppColor.blackTextColor(context), fontWeight: FontWeight.w900),
           ),
           Gap(12.h),
-          // السعر الأصلي
+          // السعر الأصلي والتقسيط
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              ValueWithCurrencyIcon(
-                text: displayPriceText,
-                textStyle: AppTextStyle.titleMedium(context).copyWith(
-                  color: hasPrice ? AppColor.primaryColor(context) : AppColor.greyColor(context),
-                  fontWeight: FontWeight.bold,
-                ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ValueWithCurrencyIcon(
+                    text: displayPriceText,
+                    textStyle: AppTextStyle.titleMedium(context).copyWith(
+                      color: hasPrice ? AppColor.primaryColor(context) : AppColor.greyColor(context),
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  if (hasPrice) ...[
+                    Gap(4.h),
+                    Row(
+                      children: [
+                        ValueWithCurrencyIcon(
+                          text: '$priceWithVatText ${AppLocaleKey.sar.tr()}',
+                          textStyle: AppTextStyle.bodySmall(
+                            context,
+                          ).copyWith(color: AppColor.blackTextColor(context), fontWeight: FontWeight.w600),
+                        ),
+                        Gap(8.w),
+                        Text(
+                          AppLocaleKey.taxIncluded.tr(),
+                          style: AppTextStyle.bodySmall(
+                            context,
+                          ).copyWith(color: AppColor.greyColor(context)),
+                        ),
+                      ],
+                    ),
+                  ],
+                ],
               ),
+              if (installmentPriceText != null)
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Text(
+                      AppLocaleKey.agentInstallments.tr(),
+                      style: AppTextStyle.bodySmall(context).copyWith(
+                        color: AppColor.blueColor(context),
+                        fontSize: 10.sp,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Gap(2.h),
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          '$installmentPriceText ',
+                          style: AppTextStyle.titleSmall(context).copyWith(
+                            color: AppColor.blueColor(context),
+                            fontWeight: FontWeight.w900,
+                            fontSize: 14.sp,
+                          ),
+                        ),
+                        ValueWithCurrencyIcon(
+                          text: '${AppLocaleKey.sar.tr()} / ${context.locale.languageCode == 'ar' ? 'شهر' : 'mo'}',
+                          textStyle: AppTextStyle.bodySmall(context).copyWith(
+                            color: AppColor.blueColor(context),
+                            fontSize: 10.sp,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
             ],
           ),
-          if (hasPrice) ...[
-            Gap(4.h),
-            Row(
-              children: [
-                ValueWithCurrencyIcon(
-                  text: '$priceWithVatText ${AppLocaleKey.sar.tr()}',
-                  textStyle: AppTextStyle.bodySmall(
-                    context,
-                  ).copyWith(color: AppColor.blackTextColor(context), fontWeight: FontWeight.w600),
-                ),
-                Gap(8.w),
-                Text(
-                  AppLocaleKey.taxIncluded.tr(),
-                  style: AppTextStyle.bodySmall(
-                    context,
-                  ).copyWith(color: AppColor.greyColor(context)),
-                ),
-              ],
-            ),
-          ],
+
           Gap(16.h),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

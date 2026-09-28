@@ -257,7 +257,8 @@ class PremiumCarCardWidget extends StatelessWidget {
                         if (isOffer ||
                             (offer != null) ||
                             financingOffers.isNotEmpty ||
-                            car.hasFinancing) ...[
+                            car.hasFinancing ||
+                            ((double.tryParse(car.price?.replaceAll(RegExp(r'[^0-9.]'), '') ?? '') ?? 0) > 0)) ...[
                           VerticalDivider(color: AppColor.greyColor(context), width: 32.w),
                           Expanded(
                             child: GestureDetector(
@@ -286,6 +287,7 @@ class PremiumCarCardWidget extends StatelessWidget {
                       ],
                     ),
                   ),
+
 
                   Gap(12.h),
                   Row(
@@ -424,6 +426,14 @@ class PremiumCarCardWidget extends StatelessWidget {
   }
 
   Widget _buildCompareButton(BuildContext context) {
+    final String carKey = car.uniqueId;
+    final bool isInCompare = HiveMethods.isInComparison(
+      carKey,
+      itemCode: car.itemCode,
+      chassisNo: car.chassisNo,
+      carName: car.itemName,
+    );
+
     return Container(
       height: 30.h,
       decoration: BoxDecoration(
@@ -433,11 +443,15 @@ class PremiumCarCardWidget extends StatelessWidget {
       child: IconButton(
         padding: EdgeInsets.zero,
         onPressed: () {
-          final carName = car.itemName;
-          if (carName.isEmpty) return;
+          if (carKey.isEmpty && car.itemName.isEmpty) return;
 
-          if (HiveMethods.isInComparison(carName)) {
-            HiveMethods.removeFromComparison(carName);
+          if (isInCompare) {
+            HiveMethods.removeFromComparison(
+              carKey,
+              itemCode: car.itemCode,
+              chassisNo: car.chassisNo,
+              carName: car.itemName,
+            );
             (context as Element).markNeedsBuild();
           } else {
             bool added = HiveMethods.addToComparison(car.toMap());
@@ -452,10 +466,10 @@ class PremiumCarCardWidget extends StatelessWidget {
           }
         },
         icon: Icon(
-          HiveMethods.isInComparison(car.itemName)
+          isInCompare
               ? Icons.compare_arrows_rounded
               : Icons.add_chart_rounded,
-          color: HiveMethods.isInComparison(car.itemName)
+          color: isInCompare
               ? AppColor.primaryColor(context)
               : AppColor.blackTextColor(context),
           size: 18.sp,
@@ -464,3 +478,4 @@ class PremiumCarCardWidget extends StatelessWidget {
     );
   }
 }
+

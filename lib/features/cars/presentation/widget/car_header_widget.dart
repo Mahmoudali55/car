@@ -38,14 +38,22 @@ class _CarHeaderWidgetState extends State<CarHeaderWidget> {
     }
   }
 
-  /// Show financing panel only when explicit financing data exists from API or offers
+  /// Show financing panel when explicit financing data or valid price exists
   bool _shouldShowFinancing() {
-    return widget.offer != null || widget.offers.isNotEmpty || widget.car.hasFinancing;
+    final rawCleanPrice = widget.car.price?.replaceAll(RegExp(r'[^0-9.]'), '') ?? '';
+    final hasValidPrice = (double.tryParse(rawCleanPrice) ?? 0) > 0;
+    return hasValidPrice || widget.offer != null || widget.offers.isNotEmpty || widget.car.hasFinancing;
   }
 
   @override
   Widget build(BuildContext context) {
-    final bool isInCompare = HiveMethods.isInComparison(widget.car.itemName);
+    final String carKey = widget.car.uniqueId;
+    final bool isInCompare = HiveMethods.isInComparison(
+      carKey,
+      itemCode: widget.car.itemCode,
+      chassisNo: widget.car.chassisNo,
+      carName: widget.car.itemName,
+    );
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -141,7 +149,12 @@ class _CarHeaderWidgetState extends State<CarHeaderWidget> {
             IconButton(
               onPressed: () {
                 if (isInCompare) {
-                  HiveMethods.removeFromComparison(widget.car.itemName);
+                  HiveMethods.removeFromComparison(
+                    carKey,
+                    itemCode: widget.car.itemCode,
+                    chassisNo: widget.car.chassisNo,
+                    carName: widget.car.itemName,
+                  );
                   setState(() {});
                 } else {
                   HiveMethods.addToComparison(widget.car.toMap());

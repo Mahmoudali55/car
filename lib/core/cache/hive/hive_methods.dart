@@ -114,11 +114,77 @@ class HiveMethods {
     return _box.get('comparisonList', defaultValue: []);
   }
 
+  static bool _isSameComparisonCar(
+    dynamic c, {
+    String? uniqueId,
+    String? itemCode,
+    String? chassisNo,
+    String? carName,
+  }) {
+    if (c is! Map) return false;
+
+    final cItemCode = (c['itemCode'] ?? c['ITEM_CODE'])?.toString().trim();
+    final cChassisNo = (c['chassisNo'] ?? c['CHASSIS_NO'])?.toString().trim();
+    final cUniqueId = (c['uniqueId'] ??
+            (cItemCode != null && cItemCode.isNotEmpty && cChassisNo != null && cChassisNo.isNotEmpty
+                ? '${cItemCode}_$cChassisNo'
+                : cItemCode))
+        ?.toString()
+        .trim();
+    final cName = (c['name'] ?? c['itemName'] ?? c['ITEM_NAME'])?.toString().trim();
+
+    // 1. Check uniqueId match if available
+    if (uniqueId != null && uniqueId.isNotEmpty && cUniqueId != null && cUniqueId.isNotEmpty) {
+      if (cUniqueId == uniqueId.trim()) return true;
+    }
+
+    // 2. Check itemCode + chassisNo match
+    if (itemCode != null && itemCode.isNotEmpty && cItemCode != null && cItemCode.isNotEmpty) {
+      if (chassisNo != null && chassisNo.isNotEmpty && cChassisNo != null && cChassisNo.isNotEmpty) {
+        return cItemCode == itemCode.trim() && cChassisNo == chassisNo.trim();
+      }
+      return cItemCode == itemCode.trim();
+    }
+
+    // 3. Check chassisNo only match
+    if (chassisNo != null && chassisNo.isNotEmpty && cChassisNo != null && cChassisNo.isNotEmpty) {
+      return cChassisNo == chassisNo.trim();
+    }
+
+    // 4. Check carName only if neither car has itemCode/chassisNo
+    final hasNoId = (itemCode == null || itemCode.isEmpty) &&
+        (chassisNo == null || chassisNo.isEmpty) &&
+        (uniqueId == null || uniqueId.isEmpty) &&
+        (cItemCode == null || cItemCode.isEmpty) &&
+        (cChassisNo == null || cChassisNo.isEmpty);
+
+    if (hasNoId && carName != null && carName.isNotEmpty && cName != null && cName.isNotEmpty) {
+      return cName == carName.trim();
+    }
+
+    return false;
+  }
+
   static bool addToComparison(Map<String, dynamic> car) {
     final List<dynamic> list = List.from(getComparisonList());
+    final carItemCode = (car['itemCode'] ?? car['ITEM_CODE'])?.toString().trim();
+    final carChassisNo = (car['chassisNo'] ?? car['CHASSIS_NO'])?.toString().trim();
+    final carUniqueId = (car['uniqueId'] ??
+            (carItemCode != null && carItemCode.isNotEmpty && carChassisNo != null && carChassisNo.isNotEmpty
+                ? '${carItemCode}_$carChassisNo'
+                : carItemCode))
+        ?.toString()
+        .trim();
+    final carName = (car['name'] ?? car['itemName'] ?? car['ITEM_NAME'])?.toString().trim();
 
-    // If it's already in the list, remove it so it can be added to the top
-    list.removeWhere((c) => c['name'] == car['name']);
+    // If it's already in the list, remove it so it can be moved to the top
+    list.removeWhere((c) => _isSameComparisonCar(
+          c,
+          uniqueId: carUniqueId,
+          itemCode: carItemCode,
+          chassisNo: carChassisNo,
+          carName: carName,
+        ));
 
     if (list.length >= 2) {
       return false;
@@ -129,9 +195,31 @@ class HiveMethods {
     return true;
   }
 
-  static void removeFromComparison(String carName) {
+  static void removeFromComparison(
+    String idOrName, {
+    String? itemCode,
+    String? chassisNo,
+    String? carName,
+  }) {
     final List<dynamic> list = List.from(getComparisonList());
-    list.removeWhere((c) => c['name'] == carName);
+    list.removeWhere((c) {
+      if (_isSameComparisonCar(
+        c,
+        uniqueId: idOrName,
+        itemCode: itemCode ?? (idOrName.contains('_') ? idOrName.split('_').first : idOrName),
+        chassisNo: chassisNo ?? (idOrName.contains('_') ? idOrName.split('_').last : null),
+        carName: carName ?? idOrName,
+      )) {
+        return true;
+      }
+      if (c is Map) {
+        final cItemCode = (c['itemCode'] ?? c['ITEM_CODE'])?.toString().trim();
+        final cChassisNo = (c['chassisNo'] ?? c['CHASSIS_NO'])?.toString().trim();
+        final cUnique = (c['uniqueId'] ?? '${cItemCode}_$cChassisNo').toString().trim();
+        return cUnique == idOrName.trim() || cItemCode == idOrName.trim();
+      }
+      return false;
+    });
     _box.put('comparisonList', list);
   }
 
@@ -139,8 +227,31 @@ class HiveMethods {
     _box.put('comparisonList', []);
   }
 
-  static bool isInComparison(String carName) {
-    return getComparisonList().any((c) => c['name'] == carName);
+  static bool isInComparison(
+    String idOrName, {
+    String? itemCode,
+    String? chassisNo,
+    String? carName,
+  }) {
+    return getComparisonList().any((c) {
+      if (_isSameComparisonCar(
+        c,
+        uniqueId: idOrName,
+        itemCode: itemCode ?? (idOrName.contains('_') ? idOrName.split('_').first : idOrName),
+        chassisNo: chassisNo ?? (idOrName.contains('_') ? idOrName.split('_').last : null),
+        carName: carName ?? idOrName,
+      )) {
+        return true;
+      }
+      if (c is Map) {
+        final cItemCode = (c['itemCode'] ?? c['ITEM_CODE'])?.toString().trim();
+        final cChassisNo = (c['chassisNo'] ?? c['CHASSIS_NO'])?.toString().trim();
+        final cUnique = (c['uniqueId'] ?? '${cItemCode}_$cChassisNo').toString().trim();
+        if (cUnique.isNotEmpty && cUnique == idOrName.trim()) return true;
+        if (cItemCode != null && cItemCode.isNotEmpty && cItemCode == idOrName.trim()) return true;
+      }
+      return false;
+    });
   }
 
   // ─── Recently Viewed ────────────────────────────────────────
