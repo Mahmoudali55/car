@@ -5,6 +5,7 @@ import 'package:car/core/services/notification_service.dart';
 import 'package:car/features/auth/data/model/change_password_request_model.dart';
 import 'package:car/features/auth/data/model/login_request_model.dart';
 import 'package:car/features/auth/data/model/login_response_model.dart';
+import 'package:car/features/auth/data/model/refresh_token_request_model.dart';
 import 'package:car/features/auth/data/model/register_request_model.dart';
 import 'package:car/features/auth/data/model/register_response_model.dart';
 import 'package:car/features/auth/data/repository/auth_repo.dart';
@@ -69,6 +70,7 @@ class AuthCubit extends Cubit<AuthState> {
       username: mobileController.text.trim(),
       password: passwordController.text.trim(),
       grantType: 'password',
+      clientType: 'mobile',
     );
 
     final result = await authRepo.login(request: request);
@@ -80,6 +82,9 @@ class AuthCubit extends Cubit<AuthState> {
       (response) async {
         HiveMethods.updateIsGuest(false);
         HiveMethods.updateToken(response.accessToken);
+        if (response.refreshToken.isNotEmpty) {
+          HiveMethods.updateRefreshToken(response.refreshToken);
+        }
         HiveMethods.updateRole(response.type);
         HiveMethods.updateUserName(response.userName);
         HiveMethods.updateUserCode(response.code);
@@ -195,27 +200,23 @@ class AuthCubit extends Cubit<AuthState> {
     );
   }
 
-  Future<void> deleteAccount() async {
-    emit(state.copyWith(deleteAccountStatus: const StatusState.loading()));
-    final result = await authRepo.deleteAccount();
+  Future<void> refreshToken() async {
+    final storedRefreshToken = HiveMethods.getRefreshToken();
+    if (storedRefreshToken == null || storedRefreshToken.isEmpty) return;
+
+    final request = RefreshTokenRequest(refreshToken: storedRefreshToken);
+    final result = await authRepo.refreshToken(request: request);
 
     result.fold(
       (failure) {
-        emit(state.copyWith(deleteAccountStatus: StatusState.failure(failure.errMessage)));
+        debugPrint('Token refresh failed: ${failure.errMessage}');
       },
-      (success) async {
-        HiveMethods.updateIsGuest(false);
-        HiveMethods.deleteToken();
-        HiveMethods.updateRole('user');
-        HiveMethods.updateUserName('');
-        clearRegisterFields();
-        currentPasswordController.clear();
-        newPasswordController.clear();
-        confirmPasswordController.clear();
-        mobileController.clear();
-        passwordController.clear();
-        HiveMethods.clearSavedCredentials();
-        emit(AuthState(rememberMe: false, deleteAccountStatus: const StatusState.success(true)));
+      (response) {
+        HiveMethods.updateToken(response.accessToken);
+        if (response.refreshToken.isNotEmpty) {
+          HiveMethods.updateRefreshToken(response.refreshToken);
+        }
+        debugPrint('Token refreshed successfully');
       },
     );
   }
@@ -224,6 +225,7 @@ class AuthCubit extends Cubit<AuthState> {
     await authRepo.logout();
     HiveMethods.updateIsGuest(false);
     HiveMethods.deleteToken();
+    HiveMethods.deleteRefreshToken();
     HiveMethods.updateRole('user');
     HiveMethods.updateUserName('');
     clearRegisterFields();
@@ -237,5 +239,20 @@ class AuthCubit extends Cubit<AuthState> {
     }
     emit(AuthState(rememberMe: rememberMe));
   }
-}
 
+  Future<bool> deleteAccount() async {
+    emit(state.copyWith(deleteAccountStatus: const StatusState.loading()));
+    final result = await authRepo.deleteAccount();
+    return result.fold(
+      (failure) {
+        emit(state.copyWith(deleteAccountStatus: StatusState.failure(failure.errMessage)));
+        return false;
+      },
+      (success) async {
+        await logout();
+        emit(state.copyWith(deleteAccountStatus: const StatusState.success(true)));
+        return true;
+      },
+    );
+  }
+}

@@ -59,10 +59,12 @@ class HiveMethods {
     list.removeWhere((c) {
       if (c is! Map) return false;
       final nameMatch = c['name']?.toString().trim() == carName.trim();
-      final itemCodeMatch = itemCode != null &&
+      final itemCodeMatch =
+          itemCode != null &&
           itemCode.isNotEmpty &&
           c['itemCode']?.toString().trim() == itemCode.trim();
-      final chassisMatch = chassisNo != null &&
+      final chassisMatch =
+          chassisNo != null &&
           chassisNo.isNotEmpty &&
           (c['chassisNo']?.toString().trim() == chassisNo.trim() ||
               c['CHASSIS_NO']?.toString().trim() == chassisNo.trim());
@@ -125,12 +127,16 @@ class HiveMethods {
 
     final cItemCode = (c['itemCode'] ?? c['ITEM_CODE'])?.toString().trim();
     final cChassisNo = (c['chassisNo'] ?? c['CHASSIS_NO'])?.toString().trim();
-    final cUniqueId = (c['uniqueId'] ??
-            (cItemCode != null && cItemCode.isNotEmpty && cChassisNo != null && cChassisNo.isNotEmpty
-                ? '${cItemCode}_$cChassisNo'
-                : cItemCode))
-        ?.toString()
-        .trim();
+    final cUniqueId =
+        (c['uniqueId'] ??
+                (cItemCode != null &&
+                        cItemCode.isNotEmpty &&
+                        cChassisNo != null &&
+                        cChassisNo.isNotEmpty
+                    ? '${cItemCode}_$cChassisNo'
+                    : cItemCode))
+            ?.toString()
+            .trim();
     final cName = (c['name'] ?? c['itemName'] ?? c['ITEM_NAME'])?.toString().trim();
 
     // 1. Check uniqueId match if available
@@ -140,7 +146,10 @@ class HiveMethods {
 
     // 2. Check itemCode + chassisNo match
     if (itemCode != null && itemCode.isNotEmpty && cItemCode != null && cItemCode.isNotEmpty) {
-      if (chassisNo != null && chassisNo.isNotEmpty && cChassisNo != null && cChassisNo.isNotEmpty) {
+      if (chassisNo != null &&
+          chassisNo.isNotEmpty &&
+          cChassisNo != null &&
+          cChassisNo.isNotEmpty) {
         return cItemCode == itemCode.trim() && cChassisNo == chassisNo.trim();
       }
       return cItemCode == itemCode.trim();
@@ -152,7 +161,8 @@ class HiveMethods {
     }
 
     // 4. Check carName only if neither car has itemCode/chassisNo
-    final hasNoId = (itemCode == null || itemCode.isEmpty) &&
+    final hasNoId =
+        (itemCode == null || itemCode.isEmpty) &&
         (chassisNo == null || chassisNo.isEmpty) &&
         (uniqueId == null || uniqueId.isEmpty) &&
         (cItemCode == null || cItemCode.isEmpty) &&
@@ -169,22 +179,28 @@ class HiveMethods {
     final List<dynamic> list = List.from(getComparisonList());
     final carItemCode = (car['itemCode'] ?? car['ITEM_CODE'])?.toString().trim();
     final carChassisNo = (car['chassisNo'] ?? car['CHASSIS_NO'])?.toString().trim();
-    final carUniqueId = (car['uniqueId'] ??
-            (carItemCode != null && carItemCode.isNotEmpty && carChassisNo != null && carChassisNo.isNotEmpty
-                ? '${carItemCode}_$carChassisNo'
-                : carItemCode))
-        ?.toString()
-        .trim();
+    final carUniqueId =
+        (car['uniqueId'] ??
+                (carItemCode != null &&
+                        carItemCode.isNotEmpty &&
+                        carChassisNo != null &&
+                        carChassisNo.isNotEmpty
+                    ? '${carItemCode}_$carChassisNo'
+                    : carItemCode))
+            ?.toString()
+            .trim();
     final carName = (car['name'] ?? car['itemName'] ?? car['ITEM_NAME'])?.toString().trim();
 
     // If it's already in the list, remove it so it can be moved to the top
-    list.removeWhere((c) => _isSameComparisonCar(
-          c,
-          uniqueId: carUniqueId,
-          itemCode: carItemCode,
-          chassisNo: carChassisNo,
-          carName: carName,
-        ));
+    list.removeWhere(
+      (c) => _isSameComparisonCar(
+        c,
+        uniqueId: carUniqueId,
+        itemCode: carItemCode,
+        chassisNo: carChassisNo,
+        carName: carName,
+      ),
+    );
 
     if (list.length >= 2) {
       return false;
@@ -386,5 +402,20 @@ class HiveMethods {
 
   static String? getname() {
     return _box.get('name', defaultValue: '');
+  }
+
+  static String? getRefreshToken() {
+    final String? encrypted = _box.get('refreshToken');
+    if (encrypted == null) return null;
+    return SecurityHelper.decrypt(encrypted);
+  }
+
+  static void updateRefreshToken(String refreshToken) {
+    final String encrypted = SecurityHelper.encrypt(refreshToken);
+    _box.put('refreshToken', encrypted);
+  }
+
+  static void deleteRefreshToken() {
+    _box.delete('refreshToken');
   }
 }

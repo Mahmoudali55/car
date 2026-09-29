@@ -29,4 +29,5 @@ class EndPoints {
   static const String editLoan = 'DeltagroupService/Cars/EditLoan';
   static const String sendWhatsApp = 'DeltagroupService/Cars/send';
   static const String deleteAccount = 'api/Account/delete_account';
+  static const String refreshToken = 'token';
 }
